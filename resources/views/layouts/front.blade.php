@@ -11,7 +11,7 @@
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
         <link href="{{ asset('assets/front/css/bootstrap.min.css') }}" rel="stylesheet">
-        
+
         <link href="{{ asset('assets/front/css/font-awesome.min.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/front/css/owl.carousel.min.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/front/css/slicknav.min.css') }}" rel="stylesheet">
@@ -37,7 +37,7 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
 
-        
+
         @include('styles.design')
         @yield('styles')
     <style type="text/css">
@@ -50,7 +50,7 @@
     </style>
     @if(Auth::guard('user')->check())
 <style type="text/css">
-@media only screen and (min-width: 767px) { 
+@media only screen and (min-width: 767px) {
     .mid-break-9 {
         width: 85%;
     }
@@ -59,7 +59,7 @@
     }
 
     }
-@media only screen and (min-width: 991px) and (max-width: 1199px) { 
+@media only screen and (min-width: 991px) and (max-width: 1199px) {
     .mid-break-9 {
         width: 87%;
     }
@@ -75,14 +75,14 @@
     @endif
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158269432-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165295462-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-  gtag('config', 'UA-158269432-1');
-</script>
+            gtag('config', 'UA-165295462-1');
+        </script>
 
 @if($lang->lang == 'eng')
 
@@ -131,7 +131,7 @@
                                     <a href="{{$sl->gplus}}"><i class="fa fa-google"></i></a>
                                     @endif
                                 </li>
-                         @if(Auth::guard('user')->check())   
+                         @if(Auth::guard('user')->check())
                          @else
                                 <li><a href="{{route('user-login')}}">{{$lang->signin}}</a></li>
                                 <li><a href="{{route('user-register')}}">{{$lang->signup}}</a></li>
@@ -197,34 +197,34 @@
 
                                         <li><a href="{{route('user-logout')}}">{{$lang->logout}}</a></li>
 
-                               
+
                                     </ul>
                                 </li>
 
                                     @endif
                          @endif
 
-                         <li class="cart-logo border-line" style="height: 35px;padding-top: 0;width: 7%;bottom: 4px;"> 
-                         
+                         <li class="cart-logo border-line" style="height: 35px;padding-top: 0;width: 7%;bottom: 4px;">
+
                          <div class="pulse" id="ex4" style="height: 100%;">
-                         
+
 
                          <span class="p1 fa-stack fa-2x has-badge" data-count="{{App\Http\Controllers\FrontendController::getCartCount()}}" style="height: 100%;">
-                         
+
                          <!--<i class="p2 fa fa-circle fa-stack-2x"></i>-->
 
                          <a href="{{route('cart')}}">
-                         
+
                          <i class="p3 fa fa-shopping-cart fa-stack-1x xfa-inverse"  style="height: 100%;line-height: normal;font-size: 27px;"></i>
 
                          </a>
-                         
+
                          </span>
 
                          <a class="new_cart" href="{{route('cart')}}" tabindex="0" style="display: none;padding: 0;margin: 0;position: relative;right: 4px;"><span style="font-size: 14px;">{{$lang->sch}}</span></a>
-                         
+
                          </div>
-                         
+
                          </li>
 
 
@@ -281,9 +281,9 @@
                         </form>
 
                                 </li>
-                         
+
                             </ul>
- 
+
                         </div>
                     </div>
                 </div>
@@ -292,7 +292,7 @@
 
 
 <script type="text/javascript">
-    
+
     function formSubmit(e)
     {
         var value = $(e).data('value');
@@ -350,7 +350,7 @@
                     display: inline-block !important;
                 }
 
-                
+
 
                 .logo
                 {
@@ -397,7 +397,7 @@
                     width: 100%;
                 }
 
-                
+
 
                 .language-select
                 {
@@ -417,7 +417,7 @@
                     position: relative;
                 }
 
-                
+
             }
 
 
@@ -439,7 +439,7 @@
 
     .lang-form .bootstrap-select .selectpicker
     {
-        
+
         background-color: white !important;
     color: inherit !important;
     margin: 0;
@@ -452,7 +452,7 @@
     padding: 6px 12px;
     padding-right: 25px;
     border-radius: 4px;
-    
+
     }
 
             @media (min-width: 1200px){
@@ -490,9 +490,9 @@
 
 /***** Pulse *****/
 
-.pulse span:hover{ 
+.pulse span:hover{
   animation: pulse 1s;
-  animation-timing-function: linear;   
+  animation-timing-function: linear;
 }
 
 @keyframes pulse {
@@ -501,7 +501,7 @@
   100% { transform: scale(2); }
   }
 }
- 
+
         </style>
 
         <!-- Starting of Hero area -->
@@ -663,7 +663,7 @@
 
 
 <style type="text/css">
-    
+
     button
     {
         background-color: <?php if($gs->btn_bg == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->btn_bg. ' !important;'; } ?>
@@ -774,7 +774,7 @@
                         .checked {
   color: orange !important;
 }
-                        
+
                         .team_style2 .team_common:hover  .member_info .content
                         {
                             color: white;
@@ -801,7 +801,7 @@
 
     }
 
-    .team_style2 .team_common:hover .member_info .content1  
+    .team_style2 .team_common:hover .member_info .content1
     {
 
         color: white;
@@ -826,7 +826,7 @@
                         {
 
                             background-color: #f7f7f7;
-                            
+
 
                         }
 
@@ -834,11 +834,11 @@
                         {
 
                             color: black;
-                            
+
 
                         }
 
-                        .content1  
+                        .content1
                         {
                             color: black;
                         }
@@ -856,20 +856,20 @@
                         .mainmenu li a
                         {
                             color: <?php if($gs->menu_tx == null) { echo 'black;'; } else { echo $gs->menu_tx. ' !important;'; } ?>;
-                            
+
                         }
 
                         .slicknav_nav li a
                         {
                             color: <?php if($gs->menu_mobile_tx == null) { echo 'black;'; } else { echo $gs->menu_mobile_tx. ' !important;'; } ?>;
-                            
+
                         }
 
                         .cl-btn
                         {
                             background-color: transparent !important;
                         }
-    
+
 
 
 

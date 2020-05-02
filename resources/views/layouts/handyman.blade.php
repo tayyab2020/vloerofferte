@@ -32,23 +32,23 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/0.8.2/css/flag-icon.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css">
-    
 
 
-    @include('styles.admin-design') 
+
+    @include('styles.admin-design')
 
 
     @yield('styles')
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158269432-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165295462-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-  gtag('config', 'UA-158269432-1');
-</script>
+        gtag('config', 'UA-165295462-1');
+    </script>
 
 </head>
 <body>
@@ -141,7 +141,7 @@
                         <li  class="lang-list" style="text-align: center;margin-top: 20px;">
 
                             <form method="post" action="{{route('lang.handymanchange')}}" id="lang-form">
-{{csrf_field()}} 
+{{csrf_field()}}
 
 
 <input type="hidden" class="lang_select" value="{{$lang->lang}}" name="lang_select">
@@ -207,7 +207,7 @@
 
 
 <script type="text/javascript">
-    
+
     function formSubmit(e)
     {
         var value = $(e).data('value');
@@ -222,7 +222,7 @@
 
 
 <style type="text/css">
-   
+
       .bootstrap-select
     {
         margin-bottom: 0px !important;
@@ -230,7 +230,7 @@
 
     #lang-form .bootstrap-select .selectpicker
     {
-        
+
         background-color: white !important;
     color: inherit !important;
     margin: 0;
@@ -243,7 +243,7 @@
     padding: 6px 12px;
     padding-right: 25px;
     border-radius: 4px;
-    
+
     }
 
      .bootstrap-select .dropdown-menu
@@ -254,7 +254,7 @@
             .selected
             {
                 background-color: #ececec;
-                
+
             }
 
 .language-select
@@ -265,7 +265,7 @@
                     margin-top: 25px !important;
                 }
 
-                
+
 
                 @media only screen and (min-width: 1200px) and (min-width: 768px)
                 {
@@ -294,14 +294,14 @@
                 }
 
 
-                
+
 
                 iframe
                 {
                     width: 100%;
                 }
 
-               
+
 
                 .bootstrap-select .dropdown-menu
                 {
