@@ -77,21 +77,21 @@ class UserRegisterController extends Controller
 
  	public function showRegisterForm()
     {
-      
+
       return view('user.register');
     }
 
     public function showHandymanRegisterForm()
     {
         $terms = terms_conditions::where('role',1)->first();
-      
+
       return view('user.handyman_register',compact('terms'));
     }
 
     public function register(Request $request)
     {
 
-        $secret_key = "6LfqTNUUAAAAAA-KpTyg6TnzNoACJzpWNmG355gU";
+        $secret_key = config('app.captcha_secret');
         $response_key = $_POST['g-recaptcha-response'];
 
         $userIP = $_SERVER['REMOTE_ADDR'];
@@ -150,7 +150,7 @@ class UserRegisterController extends Controller
         $user_name = $input['name'] . ' ' . $input['family_name'];
 
         $user_email = $input['email'];
-                
+
         $input['password'] = bcrypt($request['password']);
 
         $user->fill($input)->save();
@@ -159,8 +159,8 @@ class UserRegisterController extends Controller
 
         $link = url('/').'/handyman/client-dashboard';
 
-        
-            $headers =  'MIME-Version: 1.0' . "\r\n"; 
+
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Account Created!";
@@ -169,7 +169,7 @@ class UserRegisterController extends Controller
 
 
 
-            $headers =  'MIME-Version: 1.0' . "\r\n"; 
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Welkom bij Topstoffeerders!";
@@ -191,15 +191,16 @@ class UserRegisterController extends Controller
         }
 
 
-     
-        
+
+
     }
 
     public function HandymanRegister(Request $request)
     {
       // Validate the form data
 
-        $secret_key = "6LfqTNUUAAAAAA-KpTyg6TnzNoACJzpWNmG355gU";
+
+        $secret_key = config('app.captcha_secret');
         $response_key = $_POST['g-recaptcha-response'];
 
         $userIP = $_SERVER['REMOTE_ADDR'];
@@ -251,7 +252,7 @@ class UserRegisterController extends Controller
     ]);
 
         $user = new User;
-        $input = $request->all();    
+        $input = $request->all();
 
         $user_name = $input['name'] . ' ' . $input['family_name'];
 
@@ -267,7 +268,7 @@ class UserRegisterController extends Controller
 
         $link = url('/').'/handyman/complete-profile';
 
-        $headers =  'MIME-Version: 1.0' . "\r\n"; 
+        $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Account Created!";
@@ -276,7 +277,7 @@ class UserRegisterController extends Controller
 
 
 
-            $headers =  'MIME-Version: 1.0' . "\r\n"; 
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Welkom bij Topstoffeerders";
@@ -286,7 +287,7 @@ class UserRegisterController extends Controller
           return redirect()->route('user-complete-profile');
 
         }
-           
+
         else
         {
 
@@ -295,11 +296,11 @@ class UserRegisterController extends Controller
 
         }
 
-           
 
-    
-        
-        
+
+
+
+
     }
-  
+
 }

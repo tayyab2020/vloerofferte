@@ -13,13 +13,13 @@
                     <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12">
                         <div class="login-form">
                             <div class="login-icon"><i class="fa fa-user"></i></div>
-                            
+
                             <div class="section-borders">
                                 <span></span>
                                 <span class="black-border"></span>
                                 <span></span>
                             </div>
-                            
+
                             <div class="login-title text-center">{{$lang->signup_handyman}}</div>
 
                             <form action="{{route('handyman-register-submit')}}" method="POST">
@@ -72,7 +72,7 @@
                                 </div>
                               </div>
 
-                              
+
 
                               <div class="form-group">
                                 <div class="input-group">
@@ -83,7 +83,7 @@
                                 </div>
                               </div>
 
-                            
+
 
                               <div class="form-group">
                                 <div class="input-group">
@@ -115,7 +115,7 @@
                               <input type="hidden" name="category_id" value="20">
                               <input type="hidden" name="role_id" value="2">
 
-                              
+
                               <div class="form-group">
                                 <div class="input-group">
                                   <div class="input-group-addon">
@@ -140,10 +140,10 @@
                                   <input class="form-control" name="password_confirmation" placeholder="{{$lang->sucp}}" type="password">
                                 </div>
                               </div>
-                             
 
-                              
-                                  <div class="g-recaptcha" data-sitekey="6LfqTNUUAAAAAFqASa_nsRiXyZMwG_BSyslBhT0M" style="display: table;margin: auto;margin-bottom: 40px;margin-top: 40px;"></div>
+
+
+                                  <div class="g-recaptcha" data-sitekey="{{config('app.captcha_key')}}" style="display: table;margin: auto;margin-bottom: 40px;margin-top: 40px;"></div>
                                   <!-- @if($errors->has('g-recaptcha-response'))
                                   <span class="invalid-feedback" style="display: block;text-align: center;margin-bottom: 40px;">
                                     <strong>{{$errors->first('g-recaptcha-response')}}</strong>
@@ -154,7 +154,7 @@
 
                               <input type="checkbox" name="terms" id="terms" required> <span style="position: relative;bottom: 2px;"> {{$lang->iagt}} <a href="{{  $terms ? url('assets/'.$terms->file) : url('assets/terms-and-conditions-template.pdf')  }}" style="color: blue;">{{$lang->tact}}</a></span>
                             </div>
-                                
+
                               <div class="form-group text-center">
                                     <button type="submit" class="btn login-btn" name="button">{{$lang->cnf_btn}}</button>
                               </div>
@@ -163,7 +163,7 @@
                               </div>
                             </form>
 
-                            
+
 
                         </div>
                     </div>

@@ -12,13 +12,13 @@
                     <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12">
                         <div class="login-form">
                             <div class="login-icon"><i class="fa fa-user"></i></div>
-                            
+
                             <div class="section-borders">
                                 <span></span>
                                 <span class="black-border"></span>
                                 <span></span>
                             </div>
-                            
+
                             <div class="login-title text-center">{{$lang->signup}}</div>
 
                             <form action="{{route('user-register-submit')}}" method="POST">
@@ -90,7 +90,7 @@
                               <input type="hidden" name="category_id" value="20">
                               <input type="hidden" name="role_id" value="3">
 
-                              
+
                               <div class="form-group">
                                 <div class="input-group">
                                   <div class="input-group-addon">
@@ -115,16 +115,15 @@
                                   <input class="form-control" name="password_confirmation" placeholder="{{$lang->sucp}}" type="password">
                                 </div>
                               </div>
-                            
 
-                              
-                                  <div class="g-recaptcha" data-sitekey="6LfqTNUUAAAAAFqASa_nsRiXyZMwG_BSyslBhT0M" style="display: table;margin: auto;margin-bottom: 40px;margin-top: 40px;"></div>
+
+                                  <div class="g-recaptcha" data-sitekey="{{config('app.captcha_key')}}" style="display: table;margin: auto;margin-bottom: 40px;margin-top: 40px;"></div>
                                   <!-- @if($errors->has('g-recaptcha-response'))
                                   <span class="invalid-feedback" style="display: block;text-align: center;margin-bottom: 40px;">
                                     <strong>{{$errors->first('g-recaptcha-response')}}</strong>
                                   </span>
                                   @endif -->
-                                
+
                               <div class="form-group text-center">
                                     <button type="submit" class="btn login-btn" name="button">{{$lang->cnf_btn}}</button>
                               </div>

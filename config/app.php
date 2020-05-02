@@ -12,6 +12,9 @@ return [
     | any other location as required by the application or its packages.
     */
 
+    'captcha_key' => '6LcIXvEUAAAAAPGWN1IC6kqhuzJR2yB0K5OUJSyT',
+    'captcha_secret' => '6LcIXvEUAAAAAPhfsz-sbQsjgzF5FQWi_9Jylxk7',
+
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
@@ -176,8 +179,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Cartalyst\Stripe\Laravel\StripeServiceProvider::class, 
-        Barryvdh\DomPDF\ServiceProvider::class,       
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
