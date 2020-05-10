@@ -593,7 +593,7 @@
                                 @if($gs->street != null)
                                   <p class="contact-info">
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                        {{$gs->street}}
+                                        {!! $gs->street !!}
                                     </p>
                                 @endif
                                 @if($gs->phone != null)
@@ -663,6 +663,9 @@
 
 
 <style type="text/css">
+
+    .contact-info div
+    { margin-left: 20px; }
 
     button
     {

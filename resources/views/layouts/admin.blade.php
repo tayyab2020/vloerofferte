@@ -17,7 +17,7 @@
         <link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet">
         <link href="{{asset('assets/admin/css/responsive.css')}}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{asset('assets/images/'.$gs->favicon)}}">
-        @include('styles.admin-design') 
+        @include('styles.admin-design')
         @yield('styles')
         <script src="{{asset('assets/admin/js/jquery.min.js')}}"></script>
 
@@ -43,7 +43,7 @@
                     <div class="sidebar-menu-body">
                         <nav id="sidebar-menu">
                             <div class="sidebar-header">
-                                <a href="{{route('front.index')}}" > <img src="{{asset('assets/images/'.$gs->logo)}}" alt="Sidebar header logo" class="sidebar-header-logo" style="height: 55px;"></a>
+                                <a href="{{route('front.index')}}" > <img src="{{asset('assets/images/'.$gs->logo)}}" alt="Sidebar header logo" class="sidebar-header-logo" style="height: 55px;width: 250px;"></a>
                             </div>
                             <ul class="list-unstyled profile">
                                 <li class="active">
@@ -66,7 +66,7 @@
                                 <li>
                                     <a href="{{route('admin-dashboard')}}"><i class="fa fa-home"></i> Dashboard</a>
                                 </li>
-                                
+
                                 <li>
                                     <a href="{{route('admin-user-index')}}"><i class="fa fa-fw fa-user-md"></i> Handymen</a>
                                 </li>
@@ -79,7 +79,7 @@
                                     <a href="{{route('admin-user-requests')}}"><i class="fa fa-fw fa-user-md"></i> Update Requests</a>
                                 </li>
 
-                                
+
 
                                 <li>
                                     <a href="{{route('admin-user-bookings')}}"><i class="fa fa-fw fa-user-md"></i> Bookings</a>
@@ -167,7 +167,7 @@
 
 
 <style type="text/css">
-   
+
 
 
     .add-back-btn, .add-newProduct-btn
@@ -199,7 +199,7 @@
 
 </style>
 
-        
+
             <script src="{{ asset('assets/front/select2/select2.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css" rel="stylesheet">
