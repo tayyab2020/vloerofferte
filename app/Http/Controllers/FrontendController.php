@@ -86,12 +86,12 @@ class FrontendController extends Controller
         }
 
 
-        if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
   {
     $ip_address = $_SERVER['HTTP_CLIENT_IP'];
   }
 //whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
   {
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
   }
@@ -107,14 +107,14 @@ else
 
         if($language == '')
             {
-                
+
                 $language = new user_languages;
                 $language->ip = $ip_address;
                 $language->lang = 'du';
                 $language->save();
             }
 
-  
+
 
         if($language->lang == 'eng')
         {
@@ -178,12 +178,12 @@ else
     public static function LanguageChange(Request $request)
     {
 
-        if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
   {
     $ip_address = $_SERVER['HTTP_CLIENT_IP'];
   }
 //whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
   {
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
   }
@@ -202,12 +202,12 @@ else
 public static function LanguageClientChange(Request $request)
     {
 
-        if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
   {
     $ip_address = $_SERVER['HTTP_CLIENT_IP'];
   }
 //whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
   {
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
   }
@@ -226,12 +226,12 @@ else
 public static function LanguageHandymanChange(Request $request)
     {
 
-        if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
   {
     $ip_address = $_SERVER['HTTP_CLIENT_IP'];
   }
 //whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
   {
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
   }
@@ -249,12 +249,12 @@ else
     public static function getCartCount()
     {
 
-        if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
   {
     $ip_address = $_SERVER['HTTP_CLIENT_IP'];
   }
 //whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
   {
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
   }
@@ -313,10 +313,10 @@ else
 
 }
 
-} 
+}
 
 
-        
+
 
     }
 
@@ -330,7 +330,7 @@ $inv_decrypt = Crypt::decrypt($id);
     return view('front.thankyou');
 
 
-        
+
 
     }
 
@@ -365,7 +365,7 @@ $inv_decrypt = Crypt::decrypt($id);
             $post = invoices::where('handyman_id','=',$key->id)->where('is_completed',1)->get();
 
             foreach ($post as $temp) {
-                
+
                 $no = $no + 1;
             }
 
@@ -376,7 +376,7 @@ $inv_decrypt = Crypt::decrypt($id);
 
         $language = $this->lang->lang;
 
-     
+
         return view('front.index',compact('ads','cats','rusers','cities','jobs','language'));
 
     }
@@ -384,12 +384,12 @@ $inv_decrypt = Crypt::decrypt($id);
     public function Cart()
     {
 
-        if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
   {
     $ip_address = $_SERVER['HTTP_CLIENT_IP'];
   }
 //whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
   {
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
   }
@@ -410,7 +410,7 @@ if(!$cart->isEmpty()){
 date_default_timezone_set('Europe/Amsterdam');
 
     $today = date("Y-m-d");
-$booking_date = strtotime($cart[0]->booking_date); 
+$booking_date = strtotime($cart[0]->booking_date);
 $booking_date = date("Y-m-d", $booking_date);
 
 
@@ -445,7 +445,7 @@ $terms = terms_conditions::where('role',2)->first();
 
     }
 
-   
+
 
     public function UpdateRate(Request $request)
     {
@@ -468,21 +468,21 @@ $terms = terms_conditions::where('role',2)->first();
 
         $post = carts::where('id','=',$request->cart_id)->delete();
 
-        $sub = carts::where('user_ip','=',$user_ip)->where('handyman_id','=',$handyman_id)->where('main_id','=',$main_id)->delete();    
+        $sub = carts::where('user_ip','=',$user_ip)->where('handyman_id','=',$handyman_id)->where('main_id','=',$main_id)->delete();
 
         $booking_images = booking_images::where('cart_id','=',$request->cart_id)->get();
 
         foreach ($booking_images as $key) {
-         
+
 
          $fileName = $key->image;
 
          if($fileName)
          {
-              unlink(public_path().'/assets/bookingImages/'.$fileName); 
+              unlink(public_path().'/assets/bookingImages/'.$fileName);
          }
 
-       
+
 
 
         }
@@ -490,12 +490,12 @@ $terms = terms_conditions::where('role',2)->first();
         $delete = booking_images::where('cart_id','=',$request->cart_id)->delete();
 
 
-                if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+                if (!empty($_SERVER['HTTP_CLIENT_IP']))
   {
     $ip_address = $_SERVER['HTTP_CLIENT_IP'];
   }
 //whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
   {
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
   }
@@ -525,7 +525,7 @@ else
     public function search(Request $request)
     {
 
-        
+
 
         $search = $request->zipcode;
         $type = $request->group;
@@ -562,8 +562,8 @@ $to_date = date('Y-m-d', strtotime($to_date));
         {
                     $catt = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->where('categories.id',$type)->first();
 
-  
-           
+
+
 
     $url = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&address=".urlencode($search).",+Netherlands&sensor=false";
 
@@ -580,7 +580,7 @@ $to_date = date('Y-m-d', strtotime($to_date));
 
         $array[] = "";
     $i = 0;
-    
+
 
 $post = handyman_terminals::all();
 
@@ -635,21 +635,22 @@ $check = bookings::whereDate('booking_date', '>=', $from_date)->whereDate('booki
 
 }
 
-
+$check_count = count($check);
 
 }
 
 else
 {
-  
+
 
     $check = null;
+    $check_count = 0;
 
 }
 
 
 
-if( (count($check) != $total_days) || (count($check) == 0) )
+if( ($check_count != $total_days) || ($check_count == 0) )
 {
 
     $post = handyman_unavailability::where('handyman_id','=', $key->handyman_id)->get();
@@ -665,20 +666,21 @@ $check1 = handyman_unavailability::whereDate('date', '>=', $from_date)->whereDat
 
 }
 
-
+    $check1_count = count($check1);
 
 }
 
 else
 {
-  
+
 
     $check1 = null;
+    $check1_count = 0;
 
 }
 
 
-  if( (count($check1) != $total_days-count($check)) || (count($check1) == 0) )
+  if( ($check1_count != $total_days-$check_count) || ($check1_count == 0) )
 {
 
 
@@ -713,7 +715,7 @@ $users= $usersss->whereIn('users.id', $ids)->paginate(8);
 
 
         }
-        
+
 
 
 
@@ -725,7 +727,7 @@ $users= $usersss->whereIn('users.id', $ids)->paginate(8);
 
 
         $userss = User::all();
-      
+
         $cats = Category::all();
 
 
@@ -736,7 +738,7 @@ $users= $usersss->whereIn('users.id', $ids)->paginate(8);
             $post = invoices::where('handyman_id','=',$key->id)->where('is_completed',1)->get();
 
             foreach ($post as $temp) {
-                
+
                 $no = $no + 1;
             }
 
@@ -766,7 +768,7 @@ $users= $usersss->whereIn('users.id', $ids)->paginate(8);
         }
 
      foreach ($request->handymans as $key ) {
-         
+
          $array[] = array($key);
      }
 
@@ -805,7 +807,7 @@ $users= $usersss->whereIn('users.id', $ids)->paginate(8);
 
      }
 
-     
+
 if($socialdata->rat == 1)
 {
 
@@ -823,15 +825,15 @@ else
     $rating = '';
 }
 
-     
+
 if($socialdata->pr == 1)
 {
 
     $s = floatval($request->range_start);
-$e = floatval($request->range_end);     
+$e = floatval($request->range_end);
 
-   
-     
+
+
 
         $users = $users->whereBetween('handyman_services.rate', [$s, $e]);
 
@@ -887,7 +889,7 @@ else
     $experience = '';
 
 }
-     
+
 
 
       $users = $users->get();
@@ -898,8 +900,8 @@ else
 
     $type = $request->service;
 
-    
- 
+
+
 
     $no = 0;
 
@@ -908,7 +910,7 @@ else
             $post = invoices::where('handyman_id','=',$key->id)->where('is_completed',1)->get();
 
             foreach ($post as $temp) {
-                
+
                 $no = $no + 1;
             }
 
@@ -945,7 +947,7 @@ else
             $post = invoices::where('handyman_id','=',$key->id)->where('is_completed',1)->get();
 
             foreach ($post as $temp) {
-                
+
                 $no = $no + 1;
             }
 
@@ -982,7 +984,7 @@ else
             $post = invoices::where('handyman_id','=',$key->id)->where('is_completed',1)->get();
 
             foreach ($post as $temp) {
-                
+
                 $no = $no + 1;
             }
 
@@ -1012,7 +1014,7 @@ else
 
         }
 
-        
+
         $services = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->where('handyman_services.handyman_id','=',$id)->where('categories.main_service',1)->leftjoin('service_types','service_types.id','=','categories.service_type')->Select('categories.id as id','categories.cat_name as cat_name','categories.cat_slug as cat_slug','categories.photo as cat_photo','service_types.type as service_type','service_types.text as service_text','handyman_services.rate','handyman_services.description','service_types.id as service_id')->get();
 
 
@@ -1050,7 +1052,7 @@ else
        foreach ($bookings_dates as $key ) {
 
         $dt = strtotime($key->booking_date); //make timestamp with datetime string
-        
+
         $date = date("m-d-Y", $dt);
 
 
@@ -1062,7 +1064,7 @@ else
        foreach ($unavailable_dates as $temp ) {
 
         $dt1 = strtotime($temp->date); //make timestamp with datetime string
-        
+
         $date1 = date("m-d-Y", $dt1);
 
 
@@ -1085,12 +1087,12 @@ foreach ($unavailable_hours as $temp ) {
        }
 
 
- if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+ if (!empty($_SERVER['HTTP_CLIENT_IP']))
   {
     $ip_address = $_SERVER['HTTP_CLIENT_IP'];
   }
 //whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
   {
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
   }
@@ -1108,8 +1110,8 @@ if(!$cart->isEmpty()){
 
     $cart_count = count($cart);
     $booking_date = $cart[0]->booking_date;
-    $booking_date = strtotime($booking_date); 
-        
+    $booking_date = strtotime($booking_date);
+
     $booking_date = date("d-m-Y h:i a", $booking_date);
 
 }
@@ -1184,7 +1186,7 @@ else
         $cat = Category::where('cat_slug', '=', $slug)->first();
         $users = User::leftjoin('handyman_services','handyman_services.handyman_id','=','users.id')->where('handyman_services.service_id','=',$cat->id)->where('users.active',1)->select('users.id','users.photo','users.name','users.family_name','users.rating','users.experience_years','users.f_url','users.t_url','users.l_url','users.g_url')->orderBy('created_at','desc')->paginate(8);
 
-  
+
         $userss = User::all();
         $city = null;
         if(count($users) > 0)
@@ -1205,7 +1207,7 @@ else
             $post = invoices::where('handyman_id','=',$key->id)->where('is_completed',1)->get();
 
             foreach ($post as $temp) {
-                
+
                 $no = $no + 1;
             }
 
@@ -1214,7 +1216,7 @@ else
             $no = 0;
         }
 
-    
+
         return view('front.typeuser',compact('users','cats','cat','cities','jobs'));
 
     }
@@ -1333,7 +1335,7 @@ else
 
         $font = $actual_path.'/assets/front/fonts/NotoSans-Bold.ttf';
 
-       
+
         $allowed_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         $length = strlen($allowed_letters);
         $letter = $allowed_letters[rand(0, $length-1)];
