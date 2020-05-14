@@ -340,8 +340,6 @@ $inv_decrypt = Crypt::decrypt($id);
     public function index()
     {
 
-
-
         $users = User::all();
         $city = null;
         if(count($users) > 0)
@@ -372,6 +370,11 @@ $inv_decrypt = Crypt::decrypt($id);
             $jobs[] =  array($no);
 
             $no = 0;
+        }
+
+        if(!isset($jobs))
+        {
+            $jobs = [];
         }
 
         $language = $this->lang->lang;
@@ -925,6 +928,11 @@ else
             $no = 0;
         }
 
+        if(!isset($jobs))
+        {
+            $jobs = [];
+        }
+
     return view('front.filter',compact('users','cats','catt','type','insurance','rating','range_start','range_end','experience','array','jobs'));
 
     }
@@ -962,6 +970,11 @@ else
             $no = 0;
         }
 
+        if(!isset($jobs))
+        {
+            $jobs = [];
+        }
+
         return view('front.users',compact('cats','users','cities','jobs'));
 
     }
@@ -997,6 +1010,11 @@ else
             $jobs[] =  array($no);
 
             $no = 0;
+        }
+
+        if(!isset($jobs))
+        {
+            $jobs = [];
         }
 
         return view('front.featured',compact('cats','users','cities','jobs'));
@@ -1220,6 +1238,11 @@ else
             $jobs[] =  array($no);
 
             $no = 0;
+        }
+
+        if(!isset($jobs))
+        {
+            $jobs = [];
         }
 
 

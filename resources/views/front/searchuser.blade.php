@@ -21,12 +21,12 @@ input::-webkit-calendar-picker-indicator {
 <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close" style="text-shadow: none;opacity: 1;"><span aria-hidden="true" style="font-size: 30px;">×</span></button>
 
 <ul class="text-left" style="text-align: center;font-size: 21px;list-style: none;padding-left: 0;font-weight: 600;font-family: monospace;">
-                                               
+
                                                     <li>{{ Session::get('unsuccess') }}</li>
-                                                
+
                                             </ul>
                                         </div>
-                                        
+
                                     @endif
             <div class="container">
                 <div class="row">
@@ -60,24 +60,24 @@ input::-webkit-calendar-picker-indicator {
                                               </div>
                                       <input type="search" name="zipcode" id="zipcode" class="form-control" placeholder="{{$lang->spzc}}" autocomplete="off" required value="{{$search}}" style="font-weight: 500;">
 
-                                       
+
                                             </div>
                                           </div>
 
-                                         
+
                                         </div>
 
                                         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
 
                                       <script type="text/javascript">
-                                          
-                                        
+
+
 
                                           function initMap() {
 
- 
+
   var input = document.getElementById('zipcode');
-  
+
 
    var options = {
   componentRestrictions: {country: "nl"}
@@ -92,10 +92,10 @@ input::-webkit-calendar-picker-indicator {
   autocomplete.setFields(
       ['address_components', 'geometry', 'icon', 'name']);
 
-  
+
   autocomplete.addListener('place_changed', function() {
 
-    
+
     var place = autocomplete.getPlace();
 
 
@@ -123,8 +123,8 @@ input::-webkit-calendar-picker-indicator {
            city = place.address_components[i].long_name;
 
         }
-        
-        
+
+
     }
 
 
@@ -141,17 +141,17 @@ input::-webkit-calendar-picker-indicator {
             var city = place.address_components[i].long_name;
 
         }
-        
-        
+
+
     }
 
     }
- 
+
 
 
     });
 
- 
+
 }
 
 </script>
@@ -210,8 +210,8 @@ input::-webkit-calendar-picker-indicator {
                                       </div>
 
                                          </div>
-                                        
-                                        
+
+
 
                                         <div class="col-md-6" style="margin-top: 10px;">
 
@@ -223,11 +223,11 @@ input::-webkit-calendar-picker-indicator {
 
                                          <input  type="text" name="from_date" id="from_date" class="form-control" placeholder="{{$lang->spdf}}" autocomplete="off" value="{{$from_date}}" required style="font-weight: 500;">
 
-                                   
+
                                         </div>
                                       </div>
 
-                                            
+
 
                                         </div>
 
@@ -242,7 +242,7 @@ input::-webkit-calendar-picker-indicator {
 
                                          <input  type="text" name="to_date" id="to_date" class="form-control" placeholder="{{$lang->spdt}}" autocomplete="off" value="{{$to_date}}" required style="font-weight: 500;">
 
-                                   
+
                                         </div>
                                       </div>
 
@@ -272,7 +272,7 @@ input::-webkit-calendar-picker-indicator {
 
             $(document).ready(function() {
 
-                
+
 $('#from_date').datepicker({
 
   format: 'dd-mm-yyyy',
@@ -288,9 +288,9 @@ $('#to_date').datepicker({
 });
 
 });
-                                          
 
-                                          
+
+
 
                                           $(".js-data-example-ajax").select2({
                width: '100%',
@@ -316,10 +316,10 @@ $('#to_date').datepicker({
 
                                       @endif
 
-                                      
-                                       
+
+
  <a href="#0" class="cd-filter-trigger filter-is-visible" style="margin-left: 15px;">{{$lang->ft}}</a>
-                                        
+
 
       <form action="{{route('filter-handymans')}}" method="post">
 
@@ -334,7 +334,7 @@ $('#to_date').datepicker({
         @endforeach
 
         @if($sl->ins == 1)
-        
+
         <div class="cd-filter-block">
           <h4>{{$lang->fit}}</h4>
 
@@ -349,7 +349,7 @@ $('#to_date').datepicker({
               <label class="radio-label" for="radio2">{{$lang->nt}}</label>
             </li>
 
-            
+
           </ul> <!-- cd-filter-content -->
         </div> <!-- cd-filter-block -->
 
@@ -386,18 +386,18 @@ $('#to_date').datepicker({
               <label class="radio-label" for="rating5">{{$lang->u5s}}</label>
             </li>
 
-            
+
           </ul> <!-- cd-filter-content -->
         </div> <!-- cd-filter-block -->
 
         @endif
-        
+
         <!-- <div class="cd-filter-block">
           <h4>Filter Results</h4>
-          
+
           <div class="cd-filter-content">
             <input type="search" placeholder="Search Amazon.com">
-          </div> 
+          </div>
         </div> -->
 
         <!-- <div class="cd-filter-block">
@@ -439,7 +439,7 @@ $('#to_date').datepicker({
 
 @if($sl->pr == 1)
 
-<link href="{{ asset('assets/front/css/nouislider.min.css') }}" rel="stylesheet"> 
+<link href="{{ asset('assets/front/css/nouislider.min.css') }}" rel="stylesheet">
  <script src="{{ asset('assets/front/js/nouislider.js') }}"></script>
 
 
@@ -476,11 +476,11 @@ $('#to_date').datepicker({
       max: [70]
     }
   });
-  
- 
+
+
 
   slider.noUiSlider.on('set', function(values, handle) {
-    
+
     document.getElementById('range-start').value = values[0];
     document.getElementById('range-end').value = values[1];
 
@@ -493,7 +493,7 @@ $('#to_date').datepicker({
 
         <div class="cd-filter-block" style="margin-top: 75px;">
           <h4>{{$lang->feyt}}</h4>
-          
+
           <div class="cd-filter-content">
             <div class="cd-select cd-filters">
               <select class="filter" name="experience" id="experience">
@@ -524,11 +524,11 @@ $('#to_date').datepicker({
               margin-left: 0px;
             }
 
-        
+
 
 
           }
-  
+
   .noUi-tooltip {
     display: none;
 }
@@ -552,26 +552,26 @@ $('#to_date').datepicker({
                                                         </div>
                                                     </div>
                                                 </div>
-        
+
       </form>
 
       <a href="#0" class="cd-close" style="background-color: #febb22;"><i class="icon ent-close" style="background-color: #febb22;"></i> {{$lang->fct}} </a>
 
-     
+
 
       <!-- <a href="#0" class="cd-close"><i class="icon ent-close"></i> close </a> -->
     </div> <!-- cd-filter -->
 
-  <a href="#0" class="cd-filter-trigger" style="color: white; position: relative; display: block; background-color: #003580; background-position-x: 33%; margin-left: 0px; left: 0px; padding-left: 0px; text-decoration: none; width: 35px; top: 0px; float: left;border-top-right-radius: 9px;border-bottom-right-radius: 10px;margin-top: 10px;" id="fltr-btn"></a>  
+  <a href="#0" class="cd-filter-trigger" style="color: white; position: relative; display: block; background-color: #003580; background-position-x: 33%; margin-left: 0px; left: 0px; padding-left: 0px; text-decoration: none; width: 35px; top: 0px; float: left;border-top-right-radius: 9px;border-bottom-right-radius: 10px;margin-top: 10px;" id="fltr-btn"></a>
 
 <div class="cd-main-content is-fixed" style="height: 795px;overflow-y: auto;min-height: 795px;margin-top: 70px;">
 
-           
+
 
     <div class="section-padding all-donors-wrap team_section team_style2 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;float: right;width: 100%;">
             <div class="container">
 
-          
+
 
                 <div class="row">
 
@@ -591,22 +591,22 @@ $('#to_date').datepicker({
                             <a href="{{route('front.user',$ruser->id)}}">
                                 <div style="width: 100%;background-color: white;">
                             <div class="member_img" style="width: 50%;border: 0;display: inline-block;height: 210px;">
-                                
+
                                     <img src="{{ $ruser->photo ? asset('assets/images/'.$ruser->photo):asset('assets/default.jpg')}}" alt="member image" style="width: 65%;height: 180px;padding: 0px;border-radius: 100%;border:1px solid lightgrey;margin: auto;display: block;margin-top: 20px;">
                             </div>
 
                             <div style="display: inline-block;max-width: 45%;position: absolute;top: 80px;">
                             <p style="font-size: 18px;font-weight: bold;color: black;">{{$ruser->name}}</p>
 
-                            
+
                         </div>
 
-                        
+
 
                         <div style="display: inline-block;float: right;margin-right: 10px;margin-top: 10px;max-width: 45%;">
                             <p style="font-size: 16px;color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};font-family: monospace;">€ {{$ruser->rate}},- {{$service_type}}</p>
 
-                            
+
                         </div>
 
                         <div style="margin-right: 10px;position: relative;right: 0;bottom: 0;text-align: right;">
@@ -621,7 +621,7 @@ $('#to_date').datepicker({
 
                                 @endif
 
-                            
+
                         </div>
 
 
@@ -630,7 +630,7 @@ $('#to_date').datepicker({
 
 
                             <div class="member_info text-center pos_relative" style="height: 190px;">
-                                
+
                                 <div class="overlay1" style="transform: rotate(0deg);top: 0px;"></div>
                                 <div class="overlay2" style="top: 0px;transform: rotate(0deg);"></div>
 
@@ -639,7 +639,7 @@ $('#to_date').datepicker({
 
                                     <div style="width: 33%;float: left;border-right: 1px solid #c7c0c0;margin-top: 20px;">
 
-                                    
+
                                     <div style="font-size: 15px;font-weight: bold;">{{$lang->ratt}}</div>
                                     <div class="change1" style="padding: 10px;font-size: 17px;">{{$ruser->rating}} <span class="fa fa-star checked" style="margin-left: 7px;"></span></div>
 
@@ -700,7 +700,7 @@ $('#to_date').datepicker({
                     @endforeach
 
                     <style type="text/css">
-                        
+
                         @media (max-width: 890px)
                         {
                             .next1
@@ -727,26 +727,26 @@ $('#to_date').datepicker({
 
                     </style>
 
-                  
+
 
                 </div>
-         
+
             </div>
                     <div class="text-center">
-                    {!! $users->appends(['zipcode' => $search, 'from_date' => $from_date, 'to_date' => $to_date , 'group' =>$catt->id, 'button' =>'Search'])->links() !!}                 
+                    {!! $users->appends(['zipcode' => $search, 'from_date' => $from_date, 'to_date' => $to_date , 'group' =>$catt->id, 'button' =>'Search'])->links() !!}
                     </div>
         </div>
 
     </div>
 
     <script type="text/javascript">
-      
+
       jQuery(document).ready(function($){
   //open/close lateral filter
 
 $('#fltr-btn').hide();
 
-  //close filter dropdown inside lateral .cd-filter 
+  //close filter dropdown inside lateral .cd-filter
   $('.cd-filter-block h4').on('click', function(){
     $(this).toggleClass('closed').siblings('.cd-filter-content').slideToggle(300);
   })
@@ -768,19 +768,19 @@ $('.cd-filter-trigger').on('click', function(){
 if($bool)
 {
 
-  setTimeout(function() { 
+  setTimeout(function() {
                     $('#cd-filter').show('slow');
-                    $('#fltr-btn').hide('slow'); 
-                }, 100); 
+                    $('#fltr-btn').hide('slow');
+                }, 100);
 
 }
 else
 {
 
-  setTimeout(function() { 
+  setTimeout(function() {
                     $('#cd-filter').hide('slow');
-                    $('#fltr-btn').show('slow'); 
-                }, 100); 
+                    $('#fltr-btn').show('slow');
+                }, 100);
 
 }
 
@@ -800,7 +800,7 @@ else
 
   /************************************
     MitItUp filter settings
-    More details: 
+    More details:
     https://mixitup.kunkalabs.com/
     or:
     https://codepen.io/patrickkunka/
@@ -812,7 +812,7 @@ else
 });
 
 /*****************************************************
-  MixItUp - Define a single object literal 
+  MixItUp - Define a single object literal
   to contain all filter custom functionality
 *****************************************************/
 
@@ -820,7 +820,7 @@ else
     </script>
 
     <style type="text/css">
-      
+
       @import url('https://entrusters.com/templates/yoo_moustache/css/theme.css');
 /* reset.css */
 
@@ -1538,7 +1538,7 @@ xcustom form elements
 
                display: none;
            }
-            
+
 
                 [type="radio"]:checked,
 [type="radio"]:not(:checked) {
@@ -1669,11 +1669,11 @@ xcustom form elements
   right: 7px;
 }
 .datepicker-dropdown.datepicker-orient-bottom:before {
-  display: none;  
+  display: none;
   top: -7px;
 }
 .datepicker-dropdown.datepicker-orient-bottom:after {
-  display: none;  
+  display: none;
   top: -6px;
 }
 .datepicker-dropdown.datepicker-orient-top:before {
