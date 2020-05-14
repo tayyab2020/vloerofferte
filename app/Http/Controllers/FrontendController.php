@@ -747,6 +747,12 @@ $users= $usersss->whereIn('users.id', $ids)->paginate(8);
             $no = 0;
         }
 
+        if(!isset($jobs))
+        {
+            $jobs = [];
+        }
+
+
         $from_date = $return_fromDate;
         $to_date = $return_toDate;
 
