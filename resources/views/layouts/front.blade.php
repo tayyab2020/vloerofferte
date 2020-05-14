@@ -150,7 +150,7 @@
                     <div class="col-sm-4 col-md-4 col-lg-4 mid-break-4" id="logo-div">
                         <div class="logo" style="margin-bottom: 20px;">
                             <a href="{{route('front.index')}}">
-                                <img src="{{asset('assets/images/'.$gs->logo)}}" alt="" style="height: 75px;">
+                                <img src="{{asset('assets/images/'.$gs->logo)}}" alt="" style="height: 75px;padding-top: 15px;">
                             </a>
                         </div>
                         <div id="mobile-menu-wrap"></div>
