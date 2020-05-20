@@ -13,7 +13,7 @@
                                   <div class="add-product-box">
                                       <div class="add-product-header products">
                                           <h2>Bookings</h2>
-                                          
+
                                       </div>
                                       <hr>
                   <div>
@@ -60,21 +60,21 @@
 
                                                 @foreach($data as $key)
 
-                                           
+
                                                 <?php for($i = 0; $i<sizeof($key['handymans']); $i++){  ?>
 
 
 
 
-                                              
+
                                               <tr role="row" class="odd">
 
                                                       <td tabindex="0" class="sorting_1" id="img"><img src="{{ $key['handymans'][$i]->photo ? asset('assets/images/'.$key['handymans'][$i]->photo):asset('assets/default.jpg')}}" alt="User's Photo" style="height: 180px; width: 80%;margin: auto;display: block;"></td>
-                                                      
+
                                                       <td>{{$key['users'][$i]->name}} {{$key['users'][$i]->family_name}}</td>
 
                                                       <td>{{$key['handymans'][$i]->name}} {{$key['handymans'][$i]->family_name}}</td>
-                                                 <td><a href="{{ asset('admin/invoice/' . $key['users'][$i]->id ) }}">
+                                                 <td><a href="{{ asset('logstof/invoice/' . $key['users'][$i]->id ) }}">
                                                     {{$key['users'][$i]->invoice_number}}</a>
                                                         </td>
 
@@ -86,12 +86,12 @@
 
                                                       <td>€ <?php echo str_replace('.', ',', $key['users'][$i]->total); ?></td>
 
-                                                      <td><a href="{{ asset('admin/view-images/' . $key['users'][$i]->id ) }}">View</a></td>
+                                                      <td><a href="{{ asset('logstof/view-images/' . $key['users'][$i]->id ) }}">View</a></td>
 
-                                                    
+
 
                                                       <td>
-                                                            
+
                                                                <?php $date = strtotime($key['users'][$i]->booking_date);
 
                                                           $date = date('Y-m-d',$date);  ?>
@@ -136,7 +136,7 @@
 
                                                 </select>
 
-                                                          
+
 
                                                           @endif
 
@@ -166,7 +166,7 @@
 
                                                           @endif
 
-                                                          
+
 
 
                                                           @else
@@ -211,7 +211,7 @@
 
                                                            @endif
 
-                                                      
+
 
                                                       @else
 
@@ -221,9 +221,9 @@
 
                                                            @endif
 
-                                                          
 
-                                                           
+
+
 
                                                            @else
 
@@ -264,7 +264,7 @@
                                               @endif
 
 
-                                                           
+
 
 
                                                            @endif
@@ -275,7 +275,7 @@
                               <!-- Modal -->
   <div class="modal fade" id="myModal<?php echo $i; ?>" role="dialog" style="background-color: #0000008c;">
     <div class="modal-dialog" style="margin-top: 130px;width: 75%;">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -283,8 +283,8 @@
           <h4 class="modal-title"></h4>
         </div>
         <div class="modal-body" style="display: inline-block;width: 100%;padding-bottom: 50px;">
-         
-            
+
+
 
          <div style="text-align: center;font-size: 18px;margin: 20px;">
 
@@ -301,27 +301,27 @@
               <h3 style="text-align: center;width: 95%;margin: auto;margin-bottom: 15px;">Enter your reply</h3>
 
             <textarea placeholder="Enter your message for email" name="reply" id="reply" style="width: 95%;display: block;margin: auto;height: 300px;border:1px solid rgb(214, 214, 214);border-radius: 10px;padding: 15px;resize: none;"></textarea>
-        
+
         </div></div>
 
-        
+
         </div>
 
 
-       
+
 
         <div class="modal-footer">
           <button type="button" id="send_reason<?php echo $i; ?>" class="btn btn-success" onclick="Send(<?php echo $i; ?>)">Approve</button>
         </div>
       </div>
-      
+
     </div>
   </div>
 
                                                          </form>
 
-                                                       
-                                                       
+
+
                                                       </td>
 
                                                       <td><a href="{{ route('admin-hi', ['id' =>  $key['users'][$i]->id ] ) }}">View HI</a>
@@ -366,10 +366,10 @@
 
 
                                                       </td>
-                                                      
+
                                                   </tr>
 
-                                                 
+
 
                                                 <?php } ?>
 
@@ -411,14 +411,14 @@
    $('.modal-backdrop').hide();
 });
 
-   
+
 
 $('#myModal'+input).on('hidden.bs.modal', function () {
-    
+
     $('#statusSelect'+input).val(status_old);
 
 });
-            
+
 
         }
 
@@ -468,7 +468,7 @@ $('#myModal'+input).on('hidden.bs.modal', function () {
 
         font-size: 18px !important;
         text-align: center !important;
-        
+
     }
 
     .swal2-popup{
@@ -549,13 +549,13 @@ $('#myModal'+input).on('hidden.bs.modal', function () {
   #amount{
     width: 160px !important;
   }
-  
+
   #status{
     width: 77px !important;
   }
 
   .table.products > tbody > tr > td
-  { 
+  {
 
     text-align: center;
 

@@ -13,7 +13,7 @@
                                   <div class="add-product-box">
                                       <div class="add-product-header products">
                                           <h2>Handyman Update Requests</h2>
-                                          
+
                                       </div>
                                       <hr>
                   <div>
@@ -52,11 +52,11 @@
                                                 @foreach($users_requests as $key)
 
 
-                                              
+
                                               <tr role="row" class="odd">
 
                                                       <td tabindex="0" class="sorting_1" id="img"><img src="{{ $key->photo ? asset('assets/images/'.$key->photo):asset('assets/default.jpg')}}" alt="User's Photo" style="height: 180px; width: 80%;margin: auto;display: block;"></td>
-                                                      
+
                                                       <td>{{$key->name}} {{$key->family_name}}</td>
 
                                                       <td>{{$key->Date}}</td>
@@ -64,11 +64,11 @@
                                                       <td>{{$key->UpdateDate}}</td>
 
 
-                                                      <td><a href="{{ asset('admin/request/' . $key->handyman_id ) }}">View</a></td>
-                                                      
+                                                      <td><a href="{{ asset('logstof/request/' . $key->handyman_id ) }}">View</a></td>
+
                                                   </tr>
 
-                                                 
+
 
 
                                                   @endforeach
@@ -93,7 +93,7 @@
 
         font-size: 18px !important;
         text-align: center !important;
-        
+
     }
 
     .swal2-popup{
@@ -174,13 +174,13 @@
   #amount{
     width: 160px !important;
   }
-  
+
   #status{
     width: 77px !important;
   }
 
   .table.products > tbody > tr > td
-  { 
+  {
 
     text-align: center;
 

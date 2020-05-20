@@ -566,8 +566,6 @@ $to_date = date('Y-m-d', strtotime($to_date));
                     $catt = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->where('categories.id',$type)->first();
 
 
-
-
     $url = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&address=".urlencode($search).",+Netherlands&sensor=false";
 
     $result_string = file_get_contents($url);
