@@ -32,9 +32,6 @@
         @endif
 
 
-
-
-
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-lg-push-6 col-md-6 col-md-push-6 col-sm-6 col-sm-push-6 col-xs-12 col-xs-push-0">
@@ -46,7 +43,6 @@
 
                         <form action="{{route('user.search')}}" method="GET">
 
-
                             <div class="hero-form-wrapper">
 
                                 <div class="form-group" id="zipbox">
@@ -57,7 +53,6 @@
 
                                         <input  type="search" name="zipcode" id="zipcode" class="form-control" placeholder="{{$lang->spzc}}" autocomplete="off" required >
 
-
                                     </div>
                                 </div>
 
@@ -65,21 +60,15 @@
 
                                 <script type="text/javascript">
 
-
-
                                     function initMap() {
 
-
                                         var input = document.getElementById('zipcode');
-
 
                                         var options = {
                                             componentRestrictions: {country: "nl"}
                                         };
 
                                         var autocomplete = new google.maps.places.Autocomplete(input,options);
-
-
 
 
                                         // Set the data fields to return when the user selects a place.
@@ -89,11 +78,7 @@
 
                                         autocomplete.addListener('place_changed', function() {
 
-
                                             var place = autocomplete.getPlace();
-
-
-
 
 
                                             if (!place.geometry) {
@@ -109,43 +94,26 @@
                                             for(var i=0; i < place.address_components.length; i++)
                                             {
 
-
-
                                                 if(place.address_components[i].types[0] == 'locality')
                                                 {
-
                                                     city = place.address_components[i].long_name;
-
                                                 }
-
 
                                             }
 
 
                                             if(city == '')
                                             {
-
                                                 for(var i=0; i < place.address_components.length; i++)
                                                 {
-
-
                                                     if(place.address_components[i].types[0] == 'administrative_area_level_2')
                                                     {
-
                                                         var city = place.address_components[i].long_name;
-
                                                     }
-
-
                                                 }
-
                                             }
 
-
-
                                         });
-
-
                                     }
 
                                 </script>
@@ -159,7 +127,6 @@
 
                                         <input  type="text" name="from_date" id="from_date" class="form-control" placeholder="{{$lang->spdf}}" autocomplete="off" required >
 
-
                                     </div>
                                 </div>
 
@@ -170,12 +137,10 @@
                                             <i class="fa fa-fw fa-calendar"></i>
                                         </div>
 
-                                        <input  type="text" name="to_date" id="to_date" class="form-control" placeholder="{{$lang->spdt}}" autocomplete="off" required >
-
+                                        <input  type="text" name="to_date" id="to_date" class="form-control" placeholder="{{$lang->spdt}}" autocomplete="off" required>
 
                                     </div>
                                 </div>
-
 
 
                                 <div class="form-group" style="height: 50px;">
@@ -215,8 +180,277 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-lg-pull-6 col-md-6 col-md-pull-6 col-sm-6 col-sm-pull-6 col-xs-12 col-xs-pull-0">
-                    <h1 style="color: black;">{{$gs->bg_title}}</h1>
-                    <p>{!!$gs->bg_text!!}</p>
+
+                    {{--<h1 style="color: black;">{{$gs->bg_title}}</h1>
+                    <p>{!!$gs->bg_text!!}</p>--}}
+
+                    <div style="background-color: #febb22;border-radius: 10px;box-shadow: 0px 0px 4px 0px #dbdbdb;">
+
+                        <h3 style="text-align: center;padding-top: 25px;color: white;text-shadow: 1px 2px 5px #4f4f4f;font-weight: 400;">Select Service For Quotation</h3>
+
+                        <div id="quote-box" style="display: inline-block;width: 100%;padding: 20px;">
+
+                            <select class="js-data-example-ajax1 form-control quote-service"  name="group" id="blood_grp" required>
+
+                                <option value="">{{$lang->sbg}}</option>
+
+                                @if($lang->lang == 'eng')
+
+                                    @foreach($cats as $cat)
+                                        <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
+                                    @endforeach
+
+                                @else
+
+                                    @foreach($cats as $cat)
+                                        <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
+                                    @endforeach
+
+                                @endif
+
+                            </select>
+
+                            <button href="#myModal" role="button" data-toggle="modal" style="height: 45px;width: 25%;float: right;border: 0;outline: none;font-size: 18px;" class="btn btn-primary">Get Started</button>
+
+                        </div>
+                    </div>
+
+                    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button style="background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h3 id="myModalLabel">Ask for Quotation</h3>
+                                </div>
+                                <div class="modal-body" id="myWizard">
+
+                                    <div class="progress" style="height: 25px;">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" style="width: 20%;line-height: 25px;font-size: 14px;font-weight: 100;">
+                                            Step 1 of 4
+                                        </div>
+                                    </div>
+
+                                    <div class="navbar" style="display: none;">
+                                        <div class="navbar-inner">
+                                            <ul class="nav nav-pills">
+                                                <li class="active"><a href="#step1" data-toggle="tab" data-step="1">Step 1</a></li>
+                                                <li><a href="#step2" data-toggle="tab" data-step="2">Step 2</a></li>
+                                                <li><a href="#step3" data-toggle="tab" data-step="3">Step 3</a></li>
+                                                <li><a href="#step4" data-toggle="tab" data-step="4">Step 4</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-content">
+
+                                        <div class="tab-pane fade in active" id="step1">
+
+                                            <div class="well">
+
+                                                <h3 style="text-align: center;color: #4b4b4b;">Select Service</h3>
+
+                                                <select class="js-data-example-ajax1 form-control quote-service" style="height: 40px;" name="group" id="blood_grp" required>
+
+                                                    <option value="">{{$lang->sbg}}</option>
+
+                                                    @if($lang->lang == 'eng')
+
+                                                        @foreach($cats as $cat)
+                                                            <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
+                                                        @endforeach
+
+                                                    @else
+
+                                                        @foreach($cats as $cat)
+                                                            <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
+                                                        @endforeach
+
+                                                    @endif
+
+                                                </select>
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tab-pane fade" id="step2">
+                                            <div class="well">
+
+                                                <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Where do you need the job done?</h3>
+
+                                                <input style="height: 40px;" type="search" name="quote-zipcode" id="quote-zipcode" class="form-control" placeholder="{{$lang->spzc}}" autocomplete="off">
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="step3">
+                                            <div class="well" style="height: 300px;">
+
+                                                <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Budget</h3>
+
+                                                <div>
+                                                    <hr>
+                                                    <label class="container-radio">Under € 1000
+                                                        <input type="radio" value="1000" name="radio">
+                                                        <span class="checkmark-radio"></span>
+                                                    </label>
+
+                                                    <hr>
+                                                    <label class="container-radio">€ 1000 - € 5000
+                                                        <input type="radio" value="5000" name="radio">
+                                                        <span class="checkmark-radio"></span>
+                                                    </label>
+
+                                                    <hr>
+                                                    <label class="container-radio">€ 5000 - € 10000
+                                                        <input type="radio" value="10000" name="radio">
+                                                        <span class="checkmark-radio"></span>
+                                                    </label>
+
+                                                    <hr>
+                                                    <label class="container-radio">More than € 10000
+                                                        <input type="radio" value="10000+" name="radio">
+                                                        <span class="checkmark-radio"></span>
+                                                    </label>
+
+                                                    <hr>
+                                                    <label class="container-radio">Not Sure
+                                                        <input type="radio" value="0" name="radio">
+                                                        <span class="checkmark-radio"></span>
+                                                    </label>
+
+
+                                                </div>
+
+                                            </div>
+
+                                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="step4">
+                                            <div class="well" style="height: 300px;">
+
+                                                <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Please provide some contact details.</h3>
+
+                                                <label>Name <span style="color: red;">*</span></label>
+                                                <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote-name" class="form-control" placeholder="Enter Name" autocomplete="off">
+
+                                                <label>Email <span style="color: red;">*</span></label>
+                                                <input style="height: 45px;margin-bottom: 20px" type="email" name="quote-email" class="form-control" placeholder="Enter Name" autocomplete="off">
+
+                                                <label>Contact Number <span style="color: red;">*</span></label>
+                                                <input style="height: 45px;margin-bottom: 20px" type="text" name="quote-contact" class="form-control" placeholder="Enter Name" autocomplete="off">
+
+                                                <small style="text-align: center;display: block;width: 95%;margin: auto;">Your details will be used to create a job post, so that you can monitor and manage the job you've posted.</small>
+
+                                                <br>
+
+                                                <small style="text-align: center;display: block;width: 80%;margin: auto;">By pressing Get Quotes you agree to the <a href="#">terms and conditions</a> of our website.</small>
+
+                                            </div>
+                                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button style="border: 0;display: none;outline: none;" class="btn back">Back</button>
+                                    <button style="border: 0;outline: none;" class="btn btn-primary next">Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <style>
+
+                        .container-radio {
+                            display: inline;
+                            position: relative;
+                            padding-left: 35px;
+                            margin-bottom: 12px;
+                            cursor: pointer;
+                            font-size: 18px;
+                            font-weight: 100;
+                            -webkit-user-select: none;
+                            -moz-user-select: none;
+                            -ms-user-select: none;
+                            user-select: none;
+                        }
+
+                        /* Hide the browser's default radio button */
+                        .container-radio input {
+                            position: absolute;
+                            opacity: 0;
+                            cursor: pointer;
+                        }
+
+                        /* Create a custom radio button */
+                        .checkmark-radio {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            height: 20px;
+                            width: 20px;
+                            background-color: #eee;
+                            border-radius: 50%;
+                        }
+
+                        /* On mouse-over, add a grey background color */
+                        .container-radio:hover input ~ .checkmark-radio {
+                            background-color: #ccc;
+                        }
+
+                        /* When the radio button is checked, add a blue background */
+                        .container-radio input:checked ~ .checkmark-radio {
+                            background-color: #2196F3;
+                        }
+
+                        /* Create the indicator (the dot/circle - hidden when not checked) */
+                        .checkmark-radio:after {
+                            content: "";
+                            position: absolute;
+                            display: none;
+                        }
+
+                        /* Show the indicator (dot/circle) when checked */
+                        .container-radio input:checked ~ .checkmark-radio:after {
+                            display: block;
+                        }
+
+                        /* Style the indicator (dot/circle) */
+                        .container-radio .checkmark-radio:after {
+                            top: 4px;
+                            left: 4px;
+                            width: 12px;
+                            height: 12px;
+                            border-radius: 50%;
+                            background: white;
+                        }
+
+                        .pac-container
+                        {
+                            z-index: 1000000;
+                        }
+
+                        #quote-box .select2
+                        {
+                            width: 70% !important;float: left;border: 1px solid lightgrey;
+                        }
+
+                        .well
+                        {
+                            box-shadow: none;
+                            margin-bottom: 0;
+                            background-color: #ffffff;
+                            border: 0;
+                            overflow-y: auto;
+                        }
+
+                        .well .select2
+                        {
+                            border: 1px solid #e1e1e1;
+                        }
+
+                    </style>
 
                 </div>
             </div>
@@ -573,8 +807,6 @@
     <!-- Starting of blog area -->
     <div class="section-padding blog-area-wrapper wow fadeInUp">
 
-
-
         <section id="usp" class="usp">
             <div class="row row1" style="max-width: 80%;margin-left: auto;margin-right: auto;display: flex;flex-flow: row wrap;margin-top: 35px;">
                 <div class="small-12 medium-12 large-12 columns">
@@ -620,6 +852,125 @@
 
 
         <script type="text/javascript">
+
+            $('.quote-service').change(function(){
+
+                $('.quote-service').val($(this).val());
+
+                $(".quote-service").trigger('change.select2');
+
+            });
+
+            $('.next').click(function(){
+
+                var nextId = $('.tab-content').find('.active').next().attr("id");
+                $('.nav-pills a[href="#' + nextId + '"]').tab('show');
+
+                $('.back').show();
+
+                if(nextId == 'step4')
+                {
+                    $('.next').text('Get Quotes');
+                }
+
+                return false;
+
+            });
+
+            $('.back').click(function(){
+
+                $('.next').text('Continue');
+
+                var backId = $('.tab-content').find('.active').prev().attr("id");
+                $('.nav-pills a[href="#' + backId + '"]').tab('show');
+
+                if(backId == 'step1')
+                {
+                    $('.back').hide();
+                }
+
+
+                return false;
+
+            });
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+                //update progress
+                var step = $(e.target).data('step');
+                var percent = (parseInt(step) / 4) * 100;
+
+                $('.progress-bar').css({width: percent + '%'});
+                $('.progress-bar').text("Step " + step + " of 4");
+
+                //e.relatedTarget // previous tab
+
+            })
+
+            $('.first').click(function(){
+
+                $('#myWizard a:first').tab('show')
+
+            });
+
+            function initMap() {
+
+
+                var input = document.getElementById('quote-zipcode');
+
+                var options = {
+                    componentRestrictions: {country: "nl"}
+                };
+
+                var autocomplete = new google.maps.places.Autocomplete(input,options);
+
+                // Set the data fields to return when the user selects a place.
+                autocomplete.setFields(
+                    ['address_components', 'geometry', 'icon', 'name']);
+
+
+                autocomplete.addListener('place_changed', function() {
+
+
+                    var place = autocomplete.getPlace();
+
+
+                    if (!place.geometry) {
+
+                        // User entered the name of a Place that was not suggested and
+                        // pressed the Enter key, or the Place Details request failed.
+                        window.alert("No details available for input: '" + place.name + "'");
+                        return;
+                    }
+
+                    var city = '';
+
+                    for(var i=0; i < place.address_components.length; i++)
+                    {
+
+                        if(place.address_components[i].types[0] == 'locality')
+                        {
+                            city = place.address_components[i].long_name;
+                        }
+
+                    }
+
+
+                    if(city == '')
+                    {
+                        for(var i=0; i < place.address_components.length; i++)
+                        {
+                            if(place.address_components[i].types[0] == 'administrative_area_level_2')
+                            {
+                                var city = place.address_components[i].long_name;
+
+                            }
+                        }
+                    }
+
+                });
+
+            }
 
             function changeLanguage(id)
             {
@@ -1674,6 +2025,16 @@
             placeholder: "<?php echo $lang->sbg; ?>",
             allowClear: true,
             dropdownParent: $('#service_box'),
+
+
+        });
+
+        $(".js-data-example-ajax1").select2({
+            width: '100%',
+            height: '200px',
+            // placeholder: "City Name",
+            placeholder: "<?php echo $lang->sbg; ?>",
+            allowClear: true,
 
 
         });
