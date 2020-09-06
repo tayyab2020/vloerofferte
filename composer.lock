@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f4a1f64503eb34fa27ac3cd9708e4fd",
+    "content-hash": "a27499da2d3eb33ee40a1bdfd938b50a",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -1114,6 +1114,49 @@
                 "validator"
             ],
             "time": "2020-02-13T22:36:52+00:00"
+        },
+        {
+            "name": "elic-dev/laravel-site-protection",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elic-dev/laravel-site-protection.git",
+                "reference": "8bdd816aed8c0250e06c162d0a867dd310b97bb6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elic-dev/laravel-site-protection/zipball/8bdd816aed8c0250e06c162d0a867dd310b97bb6",
+                "reference": "8bdd816aed8c0250e06c162d0a867dd310b97bb6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ElicDev\\SiteProtection\\SiteProtectionServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ElicDev\\SiteProtection\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matthias Lill",
+                    "email": "m.lill@gmx.de"
+                }
+            ],
+            "description": "Protect your site with a simple password form",
+            "time": "2019-10-18T09:05:15+00:00"
         },
         {
             "name": "erusev/parsedown",
