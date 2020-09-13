@@ -34,6 +34,7 @@
   Route::get('/handyman-profile/{id}','FrontendController@user')->name('front.user');
   Route::get('/category/{slug}','FrontendController@types')->name('front.types');
   Route::get('/handymans/search/','FrontendController@search')->name('user.search');
+  Route::post('/handymans/quote/','FrontendController@quote')->name('user.quote');
   Route::post('/handymans/filter/','FrontendController@FilterHandymans')->name('filter-handymans');
   Route::get('/faq','FrontendController@faq')->name('front.faq');
   Route::get('/ads/{id}','FrontendController@ads')->name('front.ads');
@@ -103,8 +104,8 @@
   Route::get('/payment/cancle', 'PaymentController@paycancle')->name('payment.cancle');
   Route::get('/payment/return', 'PaymentController@payreturn')->name('payment.return');
 
-  Route::get('/publish', 'UserController@publish')->name('user-publish'); 
-  Route::get('/feature', 'UserController@feature')->name('user-feature');   
+  Route::get('/publish', 'UserController@publish')->name('user-publish');
+  Route::get('/feature', 'UserController@feature')->name('user-feature');
   });
 
   Route::get('finalize', 'FrontendController@finalize');
@@ -126,8 +127,8 @@
   Route::get('/client-download-invoice/{id}', 'AdminController@ClientDownloadInvoice')->name('admin-download-ci');
   Route::get('/client-download-cancelled-invoice/{id}', 'AdminController@ClientDownloadCancelledInvoice')->name('admin-download-cci');
   Route::get('/add-terminals', 'AdminController@AddTerminals')->name('add-terminals');
-  Route::get('/profile', 'AdminController@profile')->name('admin-profile'); 
-  Route::post('/profile', 'AdminController@profileupdate')->name('admin-profile-update'); 
+  Route::get('/profile', 'AdminController@profile')->name('admin-profile');
+  Route::post('/profile', 'AdminController@profileupdate')->name('admin-profile-update');
   Route::get('/reset-password', 'AdminController@passwordreset')->name('admin-password-reset');
   Route::post('/reset-password', 'AdminController@changepass')->name('admin-password-change');
   Route::get('/', 'Auth\AdminLoginController@showLoginForm')->name('admin-login');
@@ -180,14 +181,14 @@
   Route::get('/blog/create', 'AdminBlogController@create')->name('admin-blog-create');
   Route::post('/blog/create', 'AdminBlogController@store')->name('admin-blog-store');
   Route::get('/blog/edit/{id}', 'AdminBlogController@edit')->name('admin-blog-edit');
-  Route::post('/blog/edit/{id}', 'AdminBlogController@update')->name('admin-blog-update');  
-  Route::get('/blog/delete/{id}', 'AdminBlogController@destroy')->name('admin-blog-delete'); 
-  
+  Route::post('/blog/edit/{id}', 'AdminBlogController@update')->name('admin-blog-update');
+  Route::get('/blog/delete/{id}', 'AdminBlogController@destroy')->name('admin-blog-delete');
+
   Route::get('/testimonial', 'PortfolioController@index')->name('admin-ad-index');
   Route::get('/testimonial/create', 'PortfolioController@create')->name('admin-ad-create');
   Route::post('/testimonial/create', 'PortfolioController@store')->name('admin-ad-store');
   Route::get('/testimonial/edit/{id}', 'PortfolioController@edit')->name('admin-ad-edit');
-  Route::post('/testimonial/edit/{id}', 'PortfolioController@update')->name('admin-ad-update');  
+  Route::post('/testimonial/edit/{id}', 'PortfolioController@update')->name('admin-ad-update');
   Route::get('/testimonial/delete/{id}', 'PortfolioController@destroy')->name('admin-ad-delete');
 
 
@@ -196,8 +197,8 @@
   Route::get('/advertise/create', 'AdvertiseController@create')->name('admin-adv-create');
   Route::post('/advertise/create', 'AdvertiseController@store')->name('admin-adv-store');
   Route::get('/advertise/edit/{id}', 'AdvertiseController@edit')->name('admin-adv-edit');
-  Route::post('/advertise/edit/{id}', 'AdvertiseController@update')->name('admin-adv-update');  
-  Route::get('/advertise/delete/{id}', 'AdvertiseController@destroy')->name('admin-adv-delete'); 
+  Route::post('/advertise/edit/{id}', 'AdvertiseController@update')->name('admin-adv-update');
+  Route::get('/advertise/delete/{id}', 'AdvertiseController@destroy')->name('admin-adv-delete');
 
   Route::get('/page-settings/about', 'PageSettingController@about')->name('admin-ps-about');
   Route::post('/page-settings/about', 'PageSettingController@aboutupdate')->name('admin-ps-about-submit');

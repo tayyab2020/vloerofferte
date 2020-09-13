@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\quotes;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Portfolio;
@@ -528,8 +529,6 @@ else
     public function search(Request $request)
     {
 
-
-
         $search = $request->zipcode;
         $type = $request->group;
         $from_date = $request->from_date;
@@ -539,19 +538,16 @@ else
         $return_toDate = $to_date;
 
         $now = strtotime($from_date); // or your date as well
-$your_date = strtotime($to_date);
+        $your_date = strtotime($to_date);
 
 
+        $datediff =  $your_date - $now;
 
-$datediff =  $your_date - $now;
-
-$total_days = round($datediff / (60 * 60 * 24)) + 1;
-
-
-$from_date = date('Y-m-d', strtotime($from_date));
-$to_date = date('Y-m-d', strtotime($to_date));
+        $total_days = round($datediff / (60 * 60 * 24)) + 1;
 
 
+        $from_date = date('Y-m-d', strtotime($from_date));
+        $to_date = date('Y-m-d', strtotime($to_date));
 
 
 
@@ -565,172 +561,119 @@ $to_date = date('Y-m-d', strtotime($to_date));
         {
                     $catt = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->where('categories.id',$type)->first();
 
+                    $url = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&address=".urlencode($search).",+Netherlands&sensor=false";
 
-    $url = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&address=".urlencode($search).",+Netherlands&sensor=false";
+                    $result_string = file_get_contents($url);
+                    $result = json_decode($result_string, true);
 
-    $result_string = file_get_contents($url);
-    $result = json_decode($result_string, true);
 
+                    if(($result['status']) != 'ZERO_RESULTS' )
+                    {
+                        $user_latitude = $result['results'][0]['geometry']['location']['lat'];
+                        $user_longitude = $result['results'][0]['geometry']['location']['lng'];
 
-    if(($result['status']) != 'ZERO_RESULTS' )
-    {
+                        $array[] = "";
+                        $i = 0;
 
-    $user_latitude = $result['results'][0]['geometry']['location']['lat'];
-    $user_longitude = $result['results'][0]['geometry']['location']['lng'];
+                        $post = handyman_terminals::all();
 
+                        foreach ($post as $key ) {
 
-        $array[] = "";
-    $i = 0;
+                            $lat = $key->latitude;
+                            $lng = $key->longitude;
+                            $radius = $key->radius;
 
+                            $theta = $lng - $user_longitude;
+                            $dist = sin(deg2rad($lat)) * sin(deg2rad($user_latitude)) +  cos(deg2rad($lat)) * cos(deg2rad($user_latitude)) * cos(deg2rad($theta));
+                            $dist = acos($dist);
+                            $dist = rad2deg($dist);
+                            $miles = $dist * 60 * 1.1515;
+                            $distance = $miles * 1.609344;
 
-$post = handyman_terminals::all();
 
-foreach ($post as $key ) {
+                            if($distance <= $radius)
+                            {
+                                $array[$i] = array('handyman_id'=>$key->handyman_id);
+                                $i = $i + 1;
+                            }
+                        }
 
-$lat = $key->latitude;
-$lng = $key->longitude;
-$radius = $key->radius;
+                        $usersss= handyman_services::leftjoin('users','users.id','=','handyman_services.handyman_id')->whereIn('users.id', $array)->where('users.active',1)->where('handyman_services.service_id','=', $type);
 
-  $theta = $lng - $user_longitude;
-  $dist = sin(deg2rad($lat)) * sin(deg2rad($user_latitude)) +  cos(deg2rad($lat)) * cos(deg2rad($user_latitude)) * cos(deg2rad($theta));
-  $dist = acos($dist);
-  $dist = rad2deg($dist);
-  $miles = $dist * 60 * 1.1515;
-  $distance = $miles * 1.609344;
+                        $ids = array();
 
+                        foreach ($usersss->get() as $key ) {
 
-  if($distance <= $radius)
-  {
+                            $post = bookings::where('handyman_id','=', $key->handyman_id)->get();
 
-    $array[$i] = array('handyman_id'=>$key->handyman_id);
+                            if(count($post) != 0)
+                            {
+                                foreach ($post as $temp ) {
 
-   $i = $i + 1;
+                                    $check = bookings::whereDate('booking_date', '>=', $from_date)->whereDate('booking_date', '<=', $to_date)->where('handyman_id','=', $key->handyman_id)->get();
 
+                                }
 
-  }
+                                $check_count = count($check);
+                            }
+                            else
+                                {
+                                    $check = null;
+                                    $check_count = 0;
+                                }
 
 
+                            if( ($check_count != $total_days) || ($check_count == 0) )
+                            {
+                                $post = handyman_unavailability::where('handyman_id','=', $key->handyman_id)->get();
 
-}
 
+                                if(count($post) != 0)
+                                {
 
- $usersss= handyman_services::leftjoin('users','users.id','=','handyman_services.handyman_id')->whereIn('users.id', $array)->where('users.active',1)->where('handyman_services.service_id','=', $type);
+                                    foreach ($post as $temp ) {
 
+                                        $check1 = handyman_unavailability::whereDate('date', '>=', $from_date)->whereDate('date', '<=', $to_date)->where('handyman_id','=', $key->handyman_id)->get();
 
+                                    }
 
-$ids = array();
+                                    $check1_count = count($check1);
 
- foreach ($usersss->get() as $key ) {
+                                }
 
+                                else
+                                    {
+                                        $check1 = null;
+                                        $check1_count = 0;
+                                    }
 
-$post = bookings::where('handyman_id','=', $key->handyman_id)->get();
+                                if( ($check1_count != $total_days-$check_count) || ($check1_count == 0) )
+                                {
+                                    $ids[] =  array('id' => $key->handyman_id);
+                                }
+                            }
+                        }
 
+                        $users= $usersss->whereIn('users.id', $ids)->paginate(8);
+                        $usersss = $usersss->whereIn('users.id', $ids)->get();
 
+                    }
 
-if(count($post) != 0)
-{
+                    else
+                        {
 
-foreach ($post as $temp ) {
-
-$check = bookings::whereDate('booking_date', '>=', $from_date)->whereDate('booking_date', '<=', $to_date)->where('handyman_id','=', $key->handyman_id)->get();
-
-}
-
-$check_count = count($check);
-
-}
-
-else
-{
-
-
-    $check = null;
-    $check_count = 0;
-
-}
-
-
-
-if( ($check_count != $total_days) || ($check_count == 0) )
-{
-
-    $post = handyman_unavailability::where('handyman_id','=', $key->handyman_id)->get();
-
-
-
-if(count($post) != 0)
-{
-
-foreach ($post as $temp ) {
-
-$check1 = handyman_unavailability::whereDate('date', '>=', $from_date)->whereDate('date', '<=', $to_date)->where('handyman_id','=', $key->handyman_id)->get();
-
-}
-
-    $check1_count = count($check1);
-
-}
-
-else
-{
-
-
-    $check1 = null;
-    $check1_count = 0;
-
-}
-
-
-  if( ($check1_count != $total_days-$check_count) || ($check1_count == 0) )
-{
-
-
-    $ids[] =  array('id' => $key->handyman_id);
-
-}
-
-}
-
- }
-
-
-
-
-$users= $usersss->whereIn('users.id', $ids)->paginate(8);
-
- $usersss = $usersss->whereIn('users.id', $ids)->get();
-
-
-
+                            Session::flash('unsuccess', $this->lang->ipcoc);
+                            return redirect()->route('front.index');
+                        }
 
         }
 
-        else
-    {
-
-       Session::flash('unsuccess', $this->lang->ipcoc);
-        return redirect()->route('front.index');
-
-    }
-
-
-
-        }
-
-
-
-
-
-
-
-//        $usersss= User::where('city','LIKE','%'.$search.'%')->where('category_id','LIKE','%'.$type.'%')->where('active','=',1)->get();
-//        $users = User::where('city','LIKE','%'.$search.'%')->where('category_id','LIKE','%'.$type.'%')->where('active','=',1)->paginate(8);
-
+        //        $usersss= User::where('city','LIKE','%'.$search.'%')->where('category_id','LIKE','%'.$type.'%')->where('active','=',1)->get();
+        //        $users = User::where('city','LIKE','%'.$search.'%')->where('category_id','LIKE','%'.$type.'%')->where('active','=',1)->paginate(8);
 
         $userss = User::all();
 
         $cats = Category::all();
-
 
         $no = 0;
 
@@ -757,10 +700,9 @@ $users= $usersss->whereIn('users.id', $ids)->paginate(8);
         $from_date = $return_fromDate;
         $to_date = $return_toDate;
 
-
-
         return view('front.searchuser',compact('usersss','users','cats','catt','search','type','from_date','to_date','jobs'));
     }
+
 
     public function FilterHandymans(Request $request)
     {
@@ -1254,6 +1196,28 @@ else
 		return view('front.blog',compact('blogs'));
 
 	}
+
+    public function quote(Request $request)
+    {
+
+        $quote = new quotes;
+        $quote->quote_service = $request->quote_service;
+        $quote->quote_zipcode = $request->quote_zipcode;
+        $quote->quote_work = $request->quote_work;
+        $quote->quote_when = $request->quote_when;
+        $quote->quote_budget = $request->quote_budget;
+        $quote->quote_job = $request->quote_job;
+        $quote->quote_status = $request->quote_status;
+        $quote->quote_description = $request->quote_description;
+        $quote->quote_name = $request->quote_name;
+        $quote->quote_email = $request->quote_email;
+        $quote->quote_contact = $request->quote_contact;
+
+        $quote->save();
+
+        Session::flash('success', 'Your Quotation request has been created successfully!');
+        return redirect()->back();
+    }
 
 	public function subscribe(Request $request)
 	{

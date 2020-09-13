@@ -16,6 +16,7 @@
 
 
     <div class="hero-area overlay" style="background-image: url({{asset('assets/images/'.$gs->bgimg)}});z-index: auto;color: black;">
+
         @if(Session::has('unsuccess'))
 
             <div class="alert alert-danger validation" style="position: absolute;top: 0px;z-index: 10000;width: 100%;background-color: #af0000;color: black;border: none;">
@@ -30,6 +31,21 @@
             </div>
 
         @endif
+
+            @if(Session::has('success'))
+
+                <div class="alert alert-success validation" style="position: absolute;top: 0px;z-index: 10000;width: 100%;border: none;">
+
+                    <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close" style="text-shadow: none;opacity: 1;"><span aria-hidden="true" style="font-size: 30px;">×</span></button>
+
+                    <ul class="text-left" style="text-align: center;font-size: 21px;list-style: none;padding-left: 0;font-weight: 600;font-family: monospace;">
+
+                        <li>{{ Session::get('success') }}</li>
+
+                    </ul>
+                </div>
+
+            @endif
 
 
         <div class="container">
@@ -217,6 +233,11 @@
 
                     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
+
+                            <form id="quote_form" method="post" action="{{route('user.quote')}}">
+
+                                <input type="hidden" name="_token" value="{{@csrf_token()}}">
+
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button style="background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -254,7 +275,7 @@
 
                                                 <h3 style="text-align: center;color: #4b4b4b;">Select Service</h3>
 
-                                                <select class="js-data-example-ajax1 form-control quote-service" style="height: 40px;" name="group" id="blood_grp" required>
+                                                <select class="js-data-example-ajax1 form-control quote-service" style="height: 40px;" name="quote_service" id="blood_grp" required>
 
                                                     <option value="">{{$lang->sbg}}</option>
 
@@ -284,7 +305,7 @@
 
                                                 <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Where do you need the job done?</h3>
 
-                                                <input style="height: 40px;" type="search" name="quote-zipcode" id="quote-zipcode" class="form-control" placeholder="{{$lang->spzc}}" autocomplete="off">
+                                                <input style="height: 40px;" type="search" name="quote_zipcode" id="quote-zipcode" class="form-control" placeholder="{{$lang->spzc}}" autocomplete="off">
 
                                             </div>
                                         </div>
@@ -298,31 +319,31 @@
                                                 <div>
                                                     <hr>
                                                     <label class="container-radio">Emergency
-                                                        <input type="radio" value="emergency" name="radio">
+                                                        <input type="radio" value="Emergency" name="quote_when">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">ASAP
-                                                        <input type="radio" value="asap" name="radio">
+                                                        <input type="radio" value="ASAP" name="quote_when">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">Next few days
-                                                        <input type="radio" value="next few days" name="radio">
+                                                        <input type="radio" value="Next few days" name="quote_when">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">I'm Flexible
-                                                        <input type="radio" value="flexible" name="radio">
+                                                        <input type="radio" value="I'm Flexible" name="quote_when">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">Few Months
-                                                        <input type="radio" value="few months" name="radio">
+                                                        <input type="radio" value="Few Months" name="quote_when">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
@@ -343,31 +364,31 @@
                                                 <div>
                                                     <hr>
                                                     <label class="container-radio">Under € 1000
-                                                        <input type="radio" value="1000" name="radio">
+                                                        <input type="radio" value="1000" name="quote_budget">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">€ 1000 - € 5000
-                                                        <input type="radio" value="5000" name="radio">
+                                                        <input type="radio" value="5000" name="quote_budget">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">€ 5000 - € 10000
-                                                        <input type="radio" value="10000" name="radio">
+                                                        <input type="radio" value="10000" name="quote_budget">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">More than € 10000
-                                                        <input type="radio" value="10000+" name="radio">
+                                                        <input type="radio" value="10000+" name="quote_budget">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">Not Sure
-                                                        <input type="radio" value="0" name="radio">
+                                                        <input type="radio" value="0" name="quote_budget">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
@@ -389,13 +410,13 @@
 
                                                     <hr>
                                                     <label class="container-radio">Residential
-                                                        <input type="radio" value="residential" name="radio">
+                                                        <input type="radio" value="Residential" name="quote_job">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">Commercial
-                                                        <input type="radio" value="commercial" name="radio">
+                                                        <input type="radio" value="Commercial" name="quote_job">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
@@ -416,37 +437,37 @@
 
                                                     <hr>
                                                     <label class="container-radio">New Build
-                                                        <input type="radio" value="new build" name="radio">
+                                                        <input type="radio" value="New Build" name="quote_work">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">Renovations
-                                                        <input type="radio" value="renovations" name="radio">
+                                                        <input type="radio" value="Renovations" name="quote_work">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">Repairs
-                                                        <input type="radio" value="repairs" name="radio">
+                                                        <input type="radio" value="Repairs" name="quote_work">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">Installation
-                                                        <input type="radio" value="installation" name="radio">
+                                                        <input type="radio" value="Installation" name="quote_work">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">Maintenance
-                                                        <input type="radio" value="maintenance" name="radio">
+                                                        <input type="radio" value="Maintenance" name="quote_work">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">Other
-                                                        <input type="radio" value="other" name="radio">
+                                                        <input type="radio" value="Other" name="quote_work">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
@@ -467,13 +488,13 @@
 
                                                     <hr>
                                                     <label class="container-radio">Ready to hire
-                                                        <input type="radio" value="ready to hire" name="radio">
+                                                        <input type="radio" value="Ready to hire" name="quote_status">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">Planning & Budgeting
-                                                        <input type="radio" value="planning" name="radio">
+                                                        <input type="radio" value="Planning & Budgeting" name="quote_status">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
@@ -490,7 +511,7 @@
 
                                                 <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Provide a description of your job</h3>
 
-                                                <textarea style="resize: vertical;" rows="7" name="description" class="form-control" placeholder="Providing more details increases interest from tradies"></textarea>
+                                                <textarea style="resize: vertical;" rows="7" name="quote_description" class="form-control" placeholder="Providing more details increases interest from tradies"></textarea>
 
                                             </div>
 
@@ -504,13 +525,13 @@
                                                 <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Please provide some contact details.</h3>
 
                                                 <label>Name <span style="color: red;">*</span></label>
-                                                <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote-name" class="form-control" placeholder="Enter Name" autocomplete="off">
+                                                <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_name" class="form-control" placeholder="Enter Name" autocomplete="off">
 
                                                 <label>Email <span style="color: red;">*</span></label>
-                                                <input style="height: 45px;margin-bottom: 20px" type="email" name="quote-email" class="form-control" placeholder="Enter Name" autocomplete="off">
+                                                <input style="height: 45px;margin-bottom: 20px" type="email" name="quote_email" class="form-control" placeholder="Enter Name" autocomplete="off">
 
                                                 <label>Contact Number <span style="color: red;">*</span></label>
-                                                <input style="height: 45px;margin-bottom: 20px" type="text" name="quote-contact" class="form-control" placeholder="Enter Name" autocomplete="off">
+                                                <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_contact" class="form-control" placeholder="Enter Name" autocomplete="off">
 
                                                 <small style="text-align: center;display: block;width: 95%;margin: auto;">Your details will be used to create a job post, so that you can monitor and manage the job you've posted.</small>
 
@@ -524,12 +545,18 @@
 
 
                                     </div>
+
                                 </div>
+
                                 <div class="modal-footer">
                                     <button style="border: 0;display: none;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">Back</button>
                                     <button style="border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary next">Continue</button>
+                                    <button style="display: none;border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary next-submit">Get Quotes</button>
                                 </div>
+
                             </div>
+
+                            </form>
                         </div>
                     </div>
 
@@ -1034,6 +1061,10 @@
 
             });
 
+            $('.next-submit').click(function(){
+                $('#quote_form').submit();
+            });
+
             $('.next').click(function(){
 
                 var nextId = $('.tab-content').find('.active').next().attr("id");
@@ -1043,7 +1074,9 @@
 
                 if(nextId == 'step9')
                 {
-                    $('.next').text('Get Quotes');
+                    $('.next').hide();
+                    $('.next-submit').show();
+
                 }
 
                 return false;
@@ -1052,7 +1085,8 @@
 
             $('.back').click(function(){
 
-                $('.next').text('Continue');
+                $('.next').show();
+                $('.next-submit').hide();
 
                 var backId = $('.tab-content').find('.active').prev().attr("id");
                 $('.nav-pills a[href="#' + backId + '"]').tab('show');
