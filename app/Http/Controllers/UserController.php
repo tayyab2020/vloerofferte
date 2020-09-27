@@ -2062,8 +2062,6 @@ $user_name  = $user->name;
 
         $mollie->setApiKey($api_key->mollie);
 
-        $user = users::where('id','=',$user_id)->update(['featured' => 1]);
-
         $customer = $mollie->customers->create([
       "name" => $consumerName,
       "email" => $input['email'],
@@ -2084,7 +2082,7 @@ $user_name  = $user->name;
     ],
     "method" => "ideal",
 
-    "description" => "Registraion Fee Payment",
+    "description" => "Registration Fee Payment",
     "sequenceType" => "first",
     "redirectUrl" => route('user-complete-profile'),
     "webhookUrl" => route('webhooks.first'),

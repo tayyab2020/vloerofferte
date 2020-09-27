@@ -25,12 +25,6 @@ $mollie = new \Mollie\Api\MollieApiClient();
 $mollie->setApiKey($api_key->mollie);
 $sl = Sociallink::findOrFail(1);
 
-        $payment = $mollie->payments->get($request->id);
-
-        $user_id = $payment->metadata->user_id;
-
-        $user = users::where('id','=',$user_id)->update(['featured' => 1]);
-
 
 $payment = $mollie->payments->get($request->id);
 
