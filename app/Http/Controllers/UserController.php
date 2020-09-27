@@ -1130,19 +1130,15 @@ $x = 0;
 
     public function BookHandyman(Request $request)
     {
-
-
-
-$user = Auth::guard('user')->user();
+        $user = Auth::guard('user')->user();
         $user_id = Auth::guard('user')->user()->id;
 
-if( $request->handyman_id == $user_id )
-{
+        if($request->handyman_id == $user_id)
+        {
 
-    Session::flash('unsuccess', $this->lang->pdc);
-                    return redirect()->back();
-
-}
+            Session::flash('unsuccess', $this->lang->pdc);
+            return redirect()->back();
+        }
 
 
         $language = $this->lang->lang;
@@ -1203,8 +1199,6 @@ if( $request->handyman_id == $user_id )
 
         $service_total = json_encode($service_total1);
 
-
-
         $service_fee = $request->service_fee;
         $vat_percentage = $request->vat_percentage;
 
@@ -1244,7 +1238,7 @@ if( $request->handyman_id == $user_id )
                 'value' => $total_mollie, // You must send the correct number of decimals, thus we enforce the use of strings
             ],
             'description' => $description,
-            'webhookUrl' => route('webhooks.mollie'),
+            'webhookUrl' => "https://klaarjeklus.nl/webhooks/mollie",
             'redirectUrl' => url('/thankyou-page/'. $msg_encrypt),
             "metadata" => [
             "user_id" => $user_id,
