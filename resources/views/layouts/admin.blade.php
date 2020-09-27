@@ -68,6 +68,10 @@
                                 </li>
 
                                 <li>
+                                    <a href="{{route('quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Requests</a>
+                                </li>
+
+                                <li>
                                     <a href="{{route('admin-user-index')}}"><i class="fa fa-fw fa-user-md"></i> Handymen</a>
                                 </li>
 
@@ -169,6 +173,10 @@
 <style type="text/css">
 
 
+    button
+    {
+        outline: none !important;
+    }
 
     .add-back-btn, .add-newProduct-btn
     {

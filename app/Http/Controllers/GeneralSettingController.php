@@ -24,18 +24,18 @@ class GeneralSettingController extends Controller
     public function logoup(StoreValidationRequest $request)
     {
 
-        $input = $request->all(); 
-        $logo = Generalsetting::findOrFail(1);        
-            if ($file = $request->file('logo')) 
-            {              
+        $input = $request->all();
+        $logo = Generalsetting::findOrFail(1);
+            if ($file = $request->file('logo'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name);
                 if($logo->logo != null)
                 {
                     unlink(public_path().'/assets/images/'.$logo->logo);
-                }            
+                }
             $input['logo'] = $name;
-            }         
+            }
         $logo->update($input);
 
         $logo = Generalsetting::where('backend',1)->first();
@@ -54,18 +54,18 @@ class GeneralSettingController extends Controller
     public function favup(StoreValidationRequest $request)
     {
 
-        $input = $request->all(); 
-        $fav = Generalsetting::findOrFail(1);        
-            if ($file = $request->file('favicon')) 
-            {              
+        $input = $request->all();
+        $fav = Generalsetting::findOrFail(1);
+            if ($file = $request->file('favicon'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name);
                 if($fav->fav != null)
                 {
                     unlink(public_path().'/assets/images/'.$fav->fav);
-                }            
+                }
             $input['favicon'] = $name;
-            }         
+            }
         $fav->update($input);
 
         $fav = Generalsetting::where('backend',1)->first();
@@ -86,22 +86,22 @@ class GeneralSettingController extends Controller
         $this->validate($request, [
                'loader' => 'mimes:gif'
            ]);
-        $input = $request->all(); 
-        $fav = Generalsetting::findOrFail(1);        
-            if ($file = $request->file('loader')) 
-            {              
+        $input = $request->all();
+        $fav = Generalsetting::findOrFail(1);
+            if ($file = $request->file('loader'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name);
                 if($fav->loader != null)
                 {
                     unlink(public_path().'/assets/images/'.$fav->loader);
-                }            
+                }
             $input['loader'] = $name;
-            }         
+            }
         $fav->update($input);
 
         $fav = Generalsetting::where('backend',1)->first();
-        $fav->update($input); 
+        $fav->update($input);
 
         Session::flash('success', 'Successfully updated the Loader');
         return redirect()->route('admin-gs-load');
@@ -116,18 +116,18 @@ class GeneralSettingController extends Controller
     public function bgimgup(StoreValidationRequest $request)
     {
 
-        $input = $request->all(); 
-        $bgimg = Generalsetting::findOrFail(1);        
-            if ($file = $request->file('bgimg')) 
-            {              
+        $input = $request->all();
+        $bgimg = Generalsetting::findOrFail(1);
+            if ($file = $request->file('bgimg'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name);
                 if($bgimg->bgimg != null)
                 {
                     unlink(public_path().'/assets/images/'.$bgimg->bgimg);
-                }            
+                }
             $input['bgimg'] = $name;
-            }         
+            }
         $bgimg->update($input);
         Session::flash('success', 'Successfully updated the background image');
         return redirect()->route('admin-gs-bgimg');
@@ -152,66 +152,66 @@ class GeneralSettingController extends Controller
 
 
         $content = Generalsetting::where('backend',$office)->first();
-        $input = $request->all(); 
-            if ($file = $request->file('bimg')) 
-            {              
+        $input = $request->all();
+            if ($file = $request->file('bimg'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name);
                 if($content->bimg != null)
                 {
                     unlink(public_path().'/assets/images/'.$content->bimg);
-                }            
+                }
             $input['bimg'] = $name;
-            }  
+            }
 
 
-            if ($file = $request->file('h_sidebg')) 
-            {              
+            if ($file = $request->file('h_sidebg'))
+            {
                 $name1 = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name1);
                 if($content->h_sidebg != null)
                 {
                     unlink(public_path().'/assets/images/'.$content->h_sidebg);
-                }            
+                }
             $input['h_sidebg'] = $name1;
-            }  
+            }
 
 
 
-            if ($file = $request->file('h_dashbg')) 
-            {              
+            if ($file = $request->file('h_dashbg'))
+            {
                 $name2 = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name2);
                 if($content->h_dashbg != null)
                 {
                     unlink(public_path().'/assets/images/'.$content->h_dashbg);
-                }            
+                }
             $input['h_dashbg'] = $name2;
-            }  
+            }
 
 
-            if ($file = $request->file('c_sidebg')) 
-            {              
+            if ($file = $request->file('c_sidebg'))
+            {
                 $name3 = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name3);
                 if($content->c_sidebg != null)
                 {
                     unlink(public_path().'/assets/images/'.$content->c_sidebg);
-                }            
+                }
             $input['c_sidebg'] = $name3;
-            }  
+            }
 
 
-            if ($file = $request->file('c_dashbg')) 
-            {              
+            if ($file = $request->file('c_dashbg'))
+            {
                 $name4 = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name4);
                 if($content->c_dashbg != null)
                 {
                     unlink(public_path().'/assets/images/'.$content->c_dashbg);
-                }            
+                }
             $input['c_dashbg'] = $name4;
-            }  
+            }
         $content->update($input);
         Session::flash('success', 'Successfully updated the data');
         return redirect()->route('admin-gs-contents');
@@ -232,7 +232,7 @@ class GeneralSettingController extends Controller
     {
 
         $request['registration_fee'] = str_replace(",",".",$request->registration_fee);
-        
+
 
         $data = Generalsetting::findOrFail(1);
         $data->update($request->all());

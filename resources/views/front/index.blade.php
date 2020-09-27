@@ -141,7 +141,7 @@
                                             <i class="fa fa-fw fa-calendar"></i>
                                         </div>
 
-                                        <input  type="text" name="from_date" id="from_date" class="form-control" placeholder="{{$lang->spdf}}" autocomplete="off" required >
+                                        <input type="text" name="from_date" id="from_date" class="form-control" placeholder="{{$lang->spdf}}" autocomplete="off" required >
 
                                     </div>
                                 </div>
@@ -364,31 +364,31 @@
                                                 <div>
                                                     <hr>
                                                     <label class="container-radio">Under € 1000
-                                                        <input type="radio" value="1000" name="quote_budget">
+                                                        <input type="radio" value="Under € 1000" name="quote_budget">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">€ 1000 - € 5000
-                                                        <input type="radio" value="5000" name="quote_budget">
+                                                        <input type="radio" value="€ 1000 - € 5000" name="quote_budget">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">€ 5000 - € 10000
-                                                        <input type="radio" value="10000" name="quote_budget">
+                                                        <input type="radio" value="€ 5000 - € 10000" name="quote_budget">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">More than € 10000
-                                                        <input type="radio" value="10000+" name="quote_budget">
+                                                        <input type="radio" value="More than € 10000" name="quote_budget">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
                                                     <hr>
                                                     <label class="container-radio">Not Sure
-                                                        <input type="radio" value="0" name="quote_budget">
+                                                        <input type="radio" value="Not Sure" name="quote_budget">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 

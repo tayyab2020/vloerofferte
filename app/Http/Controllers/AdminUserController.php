@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\quotes;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -32,13 +33,40 @@ class AdminUserController extends Controller
         foreach ($users as $key) {
 
              $categories[] = handyman_services::leftjoin('categories','categories.id','=','handyman_services.service_id')->where('handyman_services.handyman_id',$key->id)->select('categories.cat_name')->get();
-            
+
 
         }
 
-
-
         return view('admin.user.index',compact('users','categories'));
+    }
+
+
+    public function QuotationRequests()
+    {
+        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->orderBy('quotes.created_at','desc')->select('quotes.*','categories.cat_name')->get();
+
+        return view('admin.user.quote_requests',compact('requests'));
+    }
+
+    public function QuoteRequest($id)
+    {
+        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
+
+        $services = Category::all();
+
+        return view('admin.user.quote_request',compact('request','services'));
+    }
+
+    public function SendQuoteRequest($id)
+    {
+        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
+
+        $handymen = User::leftjoin('handyman_services','handyman_services.handyman_id','=','users.id')->where('handyman_services.service_id',$request->quote_service)->get();
+
+        var_dump($handymen);
+        exit();
+
+        return view('admin.user.quote_request',compact('request','services'));
     }
 
     public function Clients()
@@ -48,7 +76,7 @@ class AdminUserController extends Controller
         foreach ($users as $key) {
 
              $categories[] = handyman_services::leftjoin('categories','categories.id','=','handyman_services.service_id')->where('handyman_services.handyman_id',$key->id)->select('categories.cat_name')->get();
-            
+
 
         }
 
@@ -73,26 +101,22 @@ class AdminUserController extends Controller
     {
         $users_requests = handyman_temporary::leftjoin('users','users.id','=','handyman_temporary.handyman_id')->Select('users.name','users.family_name','users.email','handyman_temporary.created_at as Date','handyman_temporary.updated_at as UpdateDate','users.photo','handyman_temporary.handyman_id')->orderBy('handyman_temporary.id', 'desc')->get();
 
-
-
-       
-
         return view('admin.user.requets',compact('users_requests'));
     }
 
     public function UserRequest($id)
     {
-        
+
 
         $user = handyman_temporary::where('handyman_id','=',$id)->first();
 
-        
+
 
         return view('admin.user.request',compact('user'));
     }
 
      public function RequestProfileUpdate(Request $request)
-    { 
+    {
         $input = $request->all();
 
         $user_id = $input['handyman_id'];
@@ -135,7 +159,7 @@ $user_name = $user->name. ' ' .$user->family_name;
 $handyman_dash = url('/').'/handyman/dashboard';
 
 
-             $headers =  'MIME-Version: 1.0' . "\r\n"; 
+             $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Profile Information Updated Successfully!";
@@ -144,7 +168,7 @@ $handyman_dash = url('/').'/handyman/dashboard';
 
 
 
-            $headers =  'MIME-Version: 1.0' . "\r\n"; 
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Profiel informatie is geupdate";
@@ -180,13 +204,13 @@ Session::flash('success', 'Profile Updated Successfully');
     {
 
         $user = new User;
-        $input = $request->all();        
-            if ($file = $request->file('photo')) 
-            {              
+        $input = $request->all();
+            if ($file = $request->file('photo'))
+            {
                 $name = time().$file->getClientOriginalName();
-                $file->move('assets/images',$name);           
+                $file->move('assets/images',$name);
             $input['photo'] = $name;
-            } 
+            }
 
             if($request->featured == "")
             {
@@ -195,21 +219,21 @@ Session::flash('success', 'Profile Updated Successfully');
 
             if(in_array(null, $request->title) || in_array(null, $request->details))
             {
-                $input['title'] = null;  
+                $input['title'] = null;
                 $input['details'] = null;
             }
-            else 
-            {             
-                $input['title'] = implode(',', $request->title);  
-                $input['details'] = implode(',', $request->details);                 
+            else
+            {
+                $input['title'] = implode(',', $request->title);
+                $input['details'] = implode(',', $request->details);
             }
             if(strpos($request->address,'&')===true)
             {
                 $input['address'] = str_replace("&","and",$request->address);
             }
-        if (!empty($request->special)) 
+        if (!empty($request->special))
          {
-            $input['special'] = implode(',', $request->special);       
+            $input['special'] = implode(',', $request->special);
          }
         $input['password'] = bcrypt($request['password']);
         $user->fill($input)->save();
@@ -228,60 +252,60 @@ Session::flash('success', 'Profile Updated Successfully');
         }
         if($user->special != null)
         {
-            $specials = explode(',', $user->special);            
+            $specials = explode(',', $user->special);
         }
         return view('admin.user.edit',compact('user','cats','title','details','specials'));
     }
 
     public function update(UpdateValidationRequest $request,$id)
     {
-        $input = $request->all(); 
-        $user = User::findOrFail($id);  
+        $input = $request->all();
+        $user = User::findOrFail($id);
         if(!in_array(null, $request->title) && !in_array(null, $request->details))
-        {             
-            $input['title'] = implode(',', $request->title);  
-            $input['details'] = implode(',', $request->details);                 
+        {
+            $input['title'] = implode(',', $request->title);
+            $input['details'] = implode(',', $request->details);
         }
         else
         {
             if(in_array(null, $request->title) || in_array(null, $request->details))
             {
-                $input['title'] = null;  
+                $input['title'] = null;
                 $input['details'] = null;
             }
             else
             {
                 $title = explode(',', $user->title);
                 $details = explode(',', $user->details);
-                $input['title'] = implode(',', $title);  
+                $input['title'] = implode(',', $title);
                 $input['details'] = implode(',', $details);
             }
-        }      
-            if ($file = $request->file('photo')) 
-            {              
+        }
+            if ($file = $request->file('photo'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name);
                 if($user->photo != null)
                 {
                     unlink(public_path().'/assets/images/'.$user->photo);
-                }            
+                }
             $input['photo'] = $name;
-            } 
-        if (!empty($request->special)) 
+            }
+        if (!empty($request->special))
          {
-            $input['special'] = implode(',', $request->special);       
+            $input['special'] = implode(',', $request->special);
          }
-        if (empty($request->special)) 
+        if (empty($request->special))
          {
-            $input['special'] = null;       
+            $input['special'] = null;
          }
         if(!empty($input['password'])){
         $input['password'] = bcrypt($request['password']);
 
         }
         else{
-         $input['password'] = $user->password;    
-        } 
+         $input['password'] = $user->password;
+        }
         if($request->featured == "")
         {
             $input['featured'] = 0;
@@ -300,8 +324,8 @@ Session::flash('success', 'Profile Updated Successfully');
 
      public function InsuranceUpdate(Request $request)
     {
-        
- 
+
+
 
         $post = User::where('id','=',$request->handyman_id)->update(['insurance' => 1]);
 
@@ -315,7 +339,7 @@ $user_name = $user->name. ' ' .$user->family_name;
 $handyman_dash = url('/').'/handyman/dashboard';
 
 
-             $headers =  'MIME-Version: 1.0' . "\r\n"; 
+             $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Insurance POD Approved!";
@@ -324,7 +348,7 @@ $handyman_dash = url('/').'/handyman/dashboard';
 
 
 
-            $headers =  'MIME-Version: 1.0' . "\r\n"; 
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Verzekering!";
@@ -356,7 +380,7 @@ $handyman_dash = url('/').'/handyman/dashboard';
     {
         $user = User::findOrFail($id);
         $cats = Category::all();
-       
+
         return view('admin.user.insurance',compact('user','cats'));
     }
 
@@ -366,25 +390,25 @@ $handyman_dash = url('/').'/handyman/dashboard';
 
         $no = 0;
 
-        
+
 
             $post = invoices::where('handyman_id','=',$id)->where('is_completed',1)->get();
 
             foreach ($post as $temp) {
-                
+
                 $no = $no + 1;
             }
-        
-        
-       
+
+
+
         return view('admin.user.details',compact('user','no'));
     }
 
     public function ClientDetails($id)
     {
         $user = User::findOrFail($id);
-        
-       
+
+
         return view('admin.user.client_details',compact('user'));
     }
 }

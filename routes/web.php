@@ -141,6 +141,9 @@
   Route::post('/client-terms-post', 'AdminController@ClientTermsPost')->name('admin-client-terms-post');
 
 
+  Route::get('/quotation-requests', 'AdminUserController@QuotationRequests')->name('quotation-requests');
+  Route::get('/view-quote-request/{id}', 'AdminUserController@QuoteRequest');
+  Route::get('/send-quote-request/{id}', 'AdminUserController@SendQuoteRequest');
   Route::get('/handymans', 'AdminUserController@index')->name('admin-user-index');
   Route::get('/clients', 'AdminUserController@Clients')->name('admin-user-client');
   Route::get('/bookings', 'AdminUserController@UserBookings')->name('admin-user-bookings');

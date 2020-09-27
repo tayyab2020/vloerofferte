@@ -310,6 +310,11 @@
 
         <style type="text/css">
 
+            button
+            {
+                outline: none !important;
+            }
+
             .bootstrap-select .dropdown-menu
             {
                 padding: 0 !important;

@@ -41,12 +41,12 @@ class UserController extends Controller
     {
         $this->middleware('auth:user',['except' => ['UserServices' , 'AddCart' , 'Services' , 'DeleteSubServices', 'UserSubServices' , 'SubServices' ]]);
 
-        if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
   {
     $ip_address = $_SERVER['HTTP_CLIENT_IP'];
   }
 //whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
   {
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
   }
@@ -64,7 +64,7 @@ else
 
         if($language == '')
             {
-                
+
                 $language = new user_languages;
                 $language->ip = $ip_address;
                 $language->lang = 'eng';
@@ -104,12 +104,12 @@ else
 
           $no = 0;
 
-        
+
 
             $post = invoices::where('handyman_id','=',$user->id)->where('is_completed',1)->get();
 
             foreach ($post as $temp) {
-                
+
                 $no = $no + 1;
             }
 
@@ -144,7 +144,7 @@ else
     return view('user.client_invoice',compact('invoice','user','handyman'));
 
 }
-        
+
 
 
     }
@@ -182,7 +182,7 @@ else
     return view('user.client_cancelled_invoice',compact('invoice','user','handyman','invoice_number'));
 
 }
-        
+
 
 
     }
@@ -211,7 +211,7 @@ else
     return view('user.client_images',compact('data'));
 
 }
-        
+
 
 
     }
@@ -262,12 +262,12 @@ else
         //         # code...
         //     }
 
-           
+
 
 
         // }
 
-  
+
 
 
         return view('user.bookings',compact('users_bookings'));
@@ -333,7 +333,7 @@ else
         $client_dash = url('/').'/handyman/client-dashboard';
 
 
-    
+
 
 
         if($request->statusSelect == 1)
@@ -345,7 +345,7 @@ else
             if($this->lang->lang == 'eng') // English Email Template
             {
 
-                $headers =  'MIME-Version: 1.0' . "\r\n"; 
+                $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking status changed!";
@@ -356,7 +356,7 @@ else
             else // Dutch Email Template
             {
 
-                $headers =  'MIME-Version: 1.0' . "\r\n"; 
+                $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Klus status gewijzigd!";
@@ -365,9 +365,9 @@ else
 
             }
 
-        
 
-             $headers =  'MIME-Version: 1.0' . "\r\n"; 
+
+             $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking status changed!";
@@ -386,7 +386,7 @@ else
             if($this->lang->lang == 'eng') // English Email Template
             {
 
-                $headers =  'MIME-Version: 1.0' . "\r\n"; 
+                $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking status changed!";
@@ -397,7 +397,7 @@ else
             else // Dutch Email Template
             {
 
-                $headers =  'MIME-Version: 1.0' . "\r\n"; 
+                $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Klus status gewijzigd!";
@@ -406,11 +406,11 @@ else
 
             }
 
-        
 
 
 
-            $headers =  'MIME-Version: 1.0' . "\r\n"; 
+
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking status changed!";
@@ -467,7 +467,7 @@ $t_rating = 0;
 $i = 0;
 
 foreach ($rating as $key ) {
-  
+
 $t_rating = $t_rating + $key->rating;
 
 $i++;
@@ -482,7 +482,7 @@ $user = User::where('id',$request->handyman_id)->update(['rating' => $avg_rating
 if($this->lang->lang == 'eng') // English Email Template
 {
 
-    $headers =  'MIME-Version: 1.0' . "\r\n"; 
+    $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking status changed!";
@@ -493,7 +493,7 @@ if($this->lang->lang == 'eng') // English Email Template
 else // Dutch Email Template
 {
 
-    $headers =  'MIME-Version: 1.0' . "\r\n"; 
+    $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Klus status gewijzigd!";
@@ -502,11 +502,11 @@ else // Dutch Email Template
 
 }
 
-        
 
 
 
-            $headers =  'MIME-Version: 1.0' . "\r\n"; 
+
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking status changed!";
@@ -568,7 +568,7 @@ $api_key = Generalsetting::findOrFail(1);
         ]);
 
         $payment_url = $payment->getCheckoutUrl();
-        $invoice_update = invoices::where('id','=',$item_id)->update(['partial_paymentLink' => $payment_url]); 
+        $invoice_update = invoices::where('id','=',$item_id)->update(['partial_paymentLink' => $payment_url]);
 
             return Redirect::to($payment_url);
         }
@@ -583,7 +583,7 @@ $api_key = Generalsetting::findOrFail(1);
 
 
 
-            $headers =  'MIME-Version: 1.0' . "\r\n"; 
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking cancellation request!";
@@ -616,7 +616,7 @@ $api_key = Generalsetting::findOrFail(1);
     {
         $post = handyman_services::leftjoin('categories','categories.id','=','handyman_services.service_id')->leftjoin('service_types','service_types.id','=','categories.service_type')->where('handyman_services.handyman_id',$request->handyman_id)->where('handyman_services.service_id',$request->id)->where('handyman_services.main_id',$request->main)->select('handyman_services.rate','handyman_services.description','service_types.type','service_types.text','service_types.id as rate_id')->first();
 
- 
+
 
         return $post;
 
@@ -631,7 +631,7 @@ $api_key = Generalsetting::findOrFail(1);
 
 $data[] = array('service'=>$service,'service_rate'=>$service_rate);
 
-       
+
         return $data;
 
     }
@@ -643,7 +643,7 @@ $data[] = array('service'=>$service,'service_rate'=>$service_rate);
 
 
 
-       
+
         return $sub_services;
 
     }
@@ -671,12 +671,12 @@ $data[] = array('service'=>$service,'service_rate'=>$service_rate);
 
 
 
-        if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
   {
     $ip_address = $_SERVER['HTTP_CLIENT_IP'];
   }
 //whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
   {
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
   }
@@ -706,11 +706,11 @@ if($img_desc)
         $msg = $this->lang->tpe;
 
                         $type = 1;
-                        
+
                         $cart = carts::where('user_ip','=',$ip_address)->get();
 
          $cart_count = count($cart);
-                        
+
                         $data  = array('msg' => $msg , 'type' => $type , 'count' => $cart_count);
 
         return $data;
@@ -734,11 +734,11 @@ if( !in_array(strtolower($imageFileType),$valid_extensions) ) {
      $msg = $this->lang->fte;
 
                         $type = 1;
-                        
+
                         $cart = carts::where('user_ip','=',$ip_address)->get();
 
          $cart_count = count($cart);
-                        
+
                         $data  = array('msg' => $msg , 'type' => $type , 'count' => $cart_count);
 
         return $data;
@@ -754,11 +754,11 @@ if($no > 5)
     $msg = $this->lang->mie;
 
                         $type = 1;
-                        
+
                         $cart = carts::where('user_ip','=',$ip_address)->get();
 
          $cart_count = count($cart);
-                        
+
                         $data  = array('msg' => $msg , 'type' => $type , 'count' => $cart_count);
 
         return $data;
@@ -771,11 +771,11 @@ if($size > '2097152‬')
     $msg = $this->lang->tpe;
 
                         $type = 1;
-                        
+
                         $cart = carts::where('user_ip','=',$ip_address)->get();
 
          $cart_count = count($cart);
-                        
+
                         $data  = array('msg' => $msg , 'type' => $type , 'count' => $cart_count);
 
         return $data;
@@ -789,19 +789,19 @@ foreach( $img_desc as $img )
 
    /* Upload file */
    $img->move( public_path().'/assets/bookingImages/', $fileName );
-     
+
      array_push( $uploadedFiles, $fileName );
 
 }
 
- 
+
 
 }
 
 
 
 
- 
+
 $check = carts::where('user_ip','=',$ip_address)->first();
 
 
@@ -816,7 +816,7 @@ if($check)
 
     if($to_update)
     {
-        $qty = $to_update->rate + $request->rate; 
+        $qty = $to_update->rate + $request->rate;
 
         $update = carts::where('user_ip','=',$ip_address)->where('service_id','=',$request->service)->where('handyman_id','=',$request->handyman_id)->update(['rate'=>$qty]);
 
@@ -985,7 +985,7 @@ $x = 0;
 
     }
 
-      
+
 
          $type = 0;
 
@@ -1011,13 +1011,13 @@ else
 else
 {
 
-   
+
 
     $date = new DateTime($request->date);
 
         $date = $date->format('Y-m-d H:i');
 
-       
+
 
         $post = new carts();
 
@@ -1184,12 +1184,8 @@ if( $request->handyman_id == $user_id )
         $cart_id = $request->cart_id;
         $cart_id = json_encode($cart_id);
 
-
         $service_id = $request->service_id;
         $service_id = json_encode($service_id);
-
-
-        
 
         $rate = $request->rate;
         $rate1 = $request->rate;
@@ -1197,17 +1193,12 @@ if( $request->handyman_id == $user_id )
 
 
         $service_total = $request->service_total;
-         
 
         for($i=0; $i<count($service_rate1); $i++) {
-
-
             $service_rate1[$i] = $service_rate1[$i];
             $rate1[$i] = $rate1[$i];
-
-
             $service_total1[$i] =  $service_rate1[$i] * $rate1[$i];
-           
+
         }
 
         $service_total = json_encode($service_total1);
@@ -1219,45 +1210,29 @@ if( $request->handyman_id == $user_id )
 
         if($payment_option == 2)
         {
-
             $total1 = $request->total_payment1;
-
             $total = $request->sub_total;
-
-        $total_mollie = number_format((float)$total1, 2, '.', '');
-
+            $total_mollie = number_format((float)$total1, 2, '.', '');
         }
 
         else
         {
-
             $total = $request->sub_total;
-
-        $total_mollie = number_format((float)$total, 2, '.', '');
-
-
-
+            $total_mollie = number_format((float)$total, 2, '.', '');
 
         }
 
-$paid_amount = str_replace('.', ',', number_format($total_mollie,2));
-
-
+        $paid_amount = str_replace('.', ',', number_format($total_mollie,2));
 
         $date = $request->date;
         $date = json_encode($date);
 
         $commission_percentage = $this->gs->commission_percentage;
-
-
-
-
         // $date = new DateTime($request->date);
 
         // $date = $date->format('Y-m-d H:m');
 
-$msg_encrypt = Crypt::encrypt($handyman_id);
-
+        $msg_encrypt = Crypt::encrypt($handyman_id);
 
         $api_key = Generalsetting::findOrFail(1);
 
@@ -1300,7 +1275,7 @@ $msg_encrypt = Crypt::encrypt($handyman_id);
 
         // $date = new DateTime($request->date);
 
-       
+
 
 
 
@@ -1353,7 +1328,7 @@ $msg_encrypt = Crypt::encrypt($handyman_id);
 
         $post = handyman_unavailability::where('handyman_id','=',$user_id)->select('date')->get();
 
-        
+
         $unavailable_dates = $post->pluck('date')->implode(',');
 
 
@@ -1469,7 +1444,7 @@ $msg_encrypt = Crypt::encrypt($handyman_id);
 
             $sub_cats = Category::leftjoin('sub_services','sub_services.sub_id','=','categories.id')->where('sub_services.cat_id',$request->id)->select('categories.id','categories.cat_name','sub_services.cat_id','sub_services.sub_id')->get();
 
- 
+
 
         return $sub_cats;
 
@@ -1556,7 +1531,7 @@ $cats = Category::all();
 
     public function reset(Request $request)
     {
-        $input = $request->all();  
+        $input = $request->all();
         $user = Auth::guard('user')->user();
         if ($request->cpass){
             if (Hash::check($request->cpass, $user->password)){
@@ -1577,7 +1552,7 @@ $cats = Category::all();
     }
 
     public function TemporaryProfileUpdate(Request $request)
-    { 
+    {
         $input = $request->all();
 
         $user = Auth::guard('user')->user();
@@ -1585,31 +1560,31 @@ $cats = Category::all();
         $check = handyman_temporary::where('handyman_id',$user->id)->first();
 
 
-             
-            
+
+
 
             if(strpos($request->address,'&')===true)
             {
                 $input['address'] = str_replace("&","and",$request->address);
             }
 
-        if (!empty($request->special)) 
+        if (!empty($request->special))
          {
-            $input['special'] = implode(',', $request->special);       
+            $input['special'] = implode(',', $request->special);
          }
 
-        if (empty($request->special)) 
+        if (empty($request->special))
          {
-            $input['special'] = null;       
+            $input['special'] = null;
          }
 
-        
+
 
         if($check)
         {
 
-            if($file = $request->file('photo')) 
-            {              
+            if($file = $request->file('photo'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/temporary_images',$name);
 
@@ -1618,9 +1593,9 @@ $cats = Category::all();
                     unlink(public_path().'/assets/temporary_images/'.$check->photo);
 
                 }
-                
-                    
-                           
+
+
+
             $input['photo'] = $name;
             }
             else
@@ -1636,13 +1611,13 @@ $cats = Category::all();
         else
         {
 
-            if($file = $request->file('photo')) 
-            {              
+            if($file = $request->file('photo'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/temporary_images',$name);
-                
-                
-                           
+
+
+
             $input['photo'] = $name;
             }
             else
@@ -1677,68 +1652,68 @@ $cats = Category::all();
 
         }
 
-         $headers =  'MIME-Version: 1.0' . "\r\n"; 
+         $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Profile Update Requested!";
             $msg = "Dear Nordin Adoui, Recent activity: A handyman Mr/Mrs. ".$input['name']." ".$input['family_name']." requested for profile update, kindly visit your admin dashboard in order to take further actions.";
             mail($this->sl->admin_email,$subject,$msg,$headers);
 
-        
-        
 
-        
+
+
+
         Session::flash('success', $this->lang->pusm);
         return redirect()->route('user-profile');
     }
 
     public function profileupdate(Request $request)
-    { 
+    {
         $input = $request->all();
 
         $user = Auth::guard('user')->user();
 
 
 
-             
-            if($file = $request->file('photo')) 
-            {              
+
+            if($file = $request->file('photo'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name);
                 if($user->photo != null)
                 {
                     unlink(public_path().'/assets/images/'.$user->photo);
-                }            
+                }
             $input['photo'] = $name;
-            } 
+            }
             if(strpos($request->address,'&')===true)
             {
                 $input['address'] = str_replace("&","and",$request->address);
             }
 
-        if (!empty($request->special)) 
+        if (!empty($request->special))
          {
-            $input['special'] = implode(',', $request->special);       
+            $input['special'] = implode(',', $request->special);
          }
 
-        if (empty($request->special)) 
+        if (empty($request->special))
          {
-            $input['special'] = null;       
+            $input['special'] = null;
          }
 
         $user->update($input);
 
 
-     
 
 
-        
+
+
         Session::flash('success', $this->lang->success);
         return redirect()->route('user-profile');
     }
 
     public function AvailabilityUpdate(Request $request)
-    { 
+    {
         $input = $request->all();
 
 
@@ -1773,7 +1748,7 @@ $handyman_unavailability_hours = handyman_unavailability_hours::where('handyman_
 
 if($request->hours != '')
 {
-    
+
 
 foreach ($request->hours as $key ) {
 
@@ -1788,13 +1763,13 @@ $handyman_unavailability_hours->save();
 
 }
 
-        
+
         Session::flash('success', $this->lang->success);
         return redirect()->route('user-availability');
     }
 
     public function RadiusUpdate(Request $request)
-    { 
+    {
         $input = $request->all();
 
         $user = Auth::guard('user')->user();
@@ -1816,40 +1791,40 @@ $post = handyman_terminals::where('handyman_id','=',$user->id)->first();
         }
         else
         {
-           
+
            $post = handyman_terminals::where('handyman_id','=',$user->id)->update(['zipcode' => $input['postal_code'] , 'longitude' => $input['longitude'] , 'latitude' => $input['latitude'] , 'radius' => $input['radius'] , 'city' => $input['terminal_city']]);
 
         }
-     
 
 
-        
+
+
         Session::flash('success', $this->lang->success);
         return redirect()->route('radius-management');
     }
 
       public function InsuranceUpload(Request $request)
-    { 
+    {
         $input = $request->all();
 
         $user = Auth::guard('user')->user();
 
 
 
-             
-            if($file = $request->file('photo')) 
-            {              
+
+            if($file = $request->file('photo'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/InsurancePod',$name);
                 if($user->photo != null)
                 {
                     unlink(public_path().'/assets/InsurancePod/'.$user->photo);
-                }            
+                }
             $input['photo'] = $name;
-            } 
-            
+            }
+
 $post = User::where('id','=',$user->id)->update(['insurance_pod' => $input['photo']]);
-        
+
 
 $user_name  = $user->name;
         $user_familyname = $user->family_name;
@@ -1860,50 +1835,50 @@ $user_name  = $user->name;
 
 
 
-             $headers =  'MIME-Version: 1.0' . "\r\n"; 
+             $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Insurance POD Uploaded!";
             $msg = "Dear Nordin Adoui, Recent activity: A handyman Mr/Mrs. ".$name." uploaded a pod for his/her insurance, kindly visit your admin dashboard in order to take further actions.";
             mail($this->sl->admin_email,$subject,$msg,$headers);
-     
 
 
-        
+
+
         Session::flash('success', $this->lang->success);
         return redirect()->route('insurance');
     }
 
     public function ClientProfileUpdate(Request $request)
-    { 
+    {
         $input = $request->all();
 
         $user = Auth::guard('user')->user();
 
-     
-            if($file = $request->file('photo')) 
-            {              
+
+            if($file = $request->file('photo'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name);
                 if($user->photo != null)
                 {
                     unlink(public_path().'/assets/images/'.$user->photo);
-                }            
+                }
             $input['photo'] = $name;
-            } 
+            }
             if(strpos($request->address,'&')===true)
             {
                 $input['address'] = str_replace("&","and",$request->address);
             }
 
-        if (!empty($request->special)) 
+        if (!empty($request->special))
          {
-            $input['special'] = implode(',', $request->special);       
+            $input['special'] = implode(',', $request->special);
          }
 
-        if (empty($request->special)) 
+        if (empty($request->special))
          {
-            $input['special'] = null;       
+            $input['special'] = null;
          }
 
         $user->update($input);
@@ -1911,7 +1886,7 @@ $user_name  = $user->name;
 
 
 
-        
+
         Session::flash('success', $this->lang->success);
         return redirect()->route('client-profile');
     }
@@ -1972,7 +1947,7 @@ $user_name  = $user->name;
 
 
 
-        
+
         Session::flash('success', $this->lang->success);
         return redirect()->route('user-services');
     }
@@ -2005,11 +1980,11 @@ $user_name  = $user->name;
                     $post->description = $input['description'][$i];
 
                     $post->save();
-                     
+
                     }
 
 
-                    
+
                 }
                 else
                 {
@@ -2021,11 +1996,11 @@ $user_name  = $user->name;
 
             }
 
-       
 
 
 
-        
+
+
         Session::flash('success', $this->lang->success);
         return redirect()->route('user-subservices');
     }
@@ -2036,7 +2011,7 @@ $user_name  = $user->name;
 
         $user_id = Auth::guard('user')->user()->id;
 
-       
+
 
         $post = User::query()->where('id', '=', $user_id)->update(['experience_years' => $request->years]);
 
@@ -2044,7 +2019,7 @@ $user_name  = $user->name;
 
 
 
-        
+
         Session::flash('success', $this->lang->success);
         return redirect()->route('experience-years');
     }
@@ -2052,7 +2027,7 @@ $user_name  = $user->name;
 
      public function CompleteProfileUpdate(Request $request)
     {
-       
+
         $input = $request->all();
 
         $registration_fee = $this->gs->registration_fee;
@@ -2069,12 +2044,12 @@ $user_name  = $user->name;
 
         }
 
-        
+
 
 
         $consumerName = $input['full_name'];
 
-        
+
         $current_date = date("Y-m-d");
 
 
@@ -2134,7 +2109,7 @@ $user_name  = $user->name;
         $user->active = 1;
         $user->update();
         return redirect(route('user-dashboard'))->with('success','Successfully Published The Profile.');
-    } 
+    }
 
     public function feature()
     {
@@ -2143,7 +2118,7 @@ $user_name  = $user->name;
         $user->featured = 1;
         $user->update();
         return redirect(route('user-dashboard'))->with('success','Successfully Featured The Profile.');
-    } 
+    }
 
     public function Ratings()
     {

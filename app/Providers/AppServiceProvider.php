@@ -28,70 +28,52 @@ class AppServiceProvider extends ServiceProvider
 
         Schema::defaultStringLength(191);
 
-        
-
         view()->composer('*',function($settings){
 
-            if (!empty($_SERVER['HTTP_CLIENT_IP']))   
-  {
-    $ip_address = $_SERVER['HTTP_CLIENT_IP'];
-  }
-//whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
-  {
-    $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
-  }
-//whether ip is from remote address
-else
-  {
-    $ip_address = $_SERVER['REMOTE_ADDR'];
-  }
+            if (!empty($_SERVER['HTTP_CLIENT_IP']))
+            {
+                $ip_address = $_SERVER['HTTP_CLIENT_IP'];
+            }
+
+            //whether ip is from proxy
+            elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+            {
+                $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            }
+
+            //whether ip is from remote address
+            else
+                {
+                    $ip_address = $_SERVER['REMOTE_ADDR'];
+                }
 
             $language = user_languages::where('ip','=',$ip_address)->first();
 
-            
-
             if($language == '')
             {
-
-                
                 $language = new user_languages;
                 $language->ip = $ip_address;
                 $language->lang = 'du';
                 $language->save();
             }
 
-  $user = Auth::guard('user')->user();
+            $user = Auth::guard('user')->user();
 
+            if (Auth::check()) {
+                $settings->with('currentUser', Auth::user());
+            }else {
+                $settings->with('currentUser', null);
+            }
 
+            if($settings->currentUser == '')
+            {
+                $settings->with('gs', Generalsetting::where('backend',0)->first());
+            }
+            else
+                {
+                    $settings->with('gs', Generalsetting::where('backend',1)->first());
+                }
 
-         if (Auth::check()) {
-            $settings->with('currentUser', Auth::user());
-        }else {
-            $settings->with('currentUser', null);
-        }
-
-if($settings->currentUser == '')
-{
-
-  $settings->with('gs', Generalsetting::where('backend',0)->first());
-
-}
-else
-{
-
- 
-    $settings->with('gs', Generalsetting::where('backend',1)->first());
-
- 
-
-  
-
-}
-
-            
-
-            
             $settings->with('sl', Sociallink::find(1));
             $settings->with('seo', Seotool::find(1));
             $settings->with('ps', Pagesetting::find(1));
