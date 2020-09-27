@@ -1238,7 +1238,7 @@ $x = 0;
                 'value' => $total_mollie, // You must send the correct number of decimals, thus we enforce the use of strings
             ],
             'description' => $description,
-            'webhookUrl' => "https://klaarjeklus.nl/webhooks/mollie",
+            'webhookUrl' => route('webhooks.mollie'),
             'redirectUrl' => url('/thankyou-page/'. $msg_encrypt),
             "metadata" => [
             "user_id" => $user_id,
