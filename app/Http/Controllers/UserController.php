@@ -2062,6 +2062,8 @@ $user_name  = $user->name;
 
         $mollie->setApiKey($api_key->mollie);
 
+        $user = users::where('id','=',$user_id)->update(['featured' => 1]);
+
         $customer = $mollie->customers->create([
       "name" => $consumerName,
       "email" => $input['email'],
