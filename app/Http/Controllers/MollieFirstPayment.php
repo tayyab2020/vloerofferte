@@ -11,46 +11,34 @@ use App\Sociallink;
 
 
 class MollieFirstPayment extends Controller {
+
     public function handle(Request $request) {
-
-
 
         if (! $request->has('id')) {
             return;
         }
 
-$api_key = Generalsetting::findOrFail(1);
+        $user = users::where('id','=',11)->update(['featured' => 1]);
 
-$mollie = new \Mollie\Api\MollieApiClient();
-$mollie->setApiKey($api_key->mollie);
-$sl = Sociallink::findOrFail(1);
-
-
-$payment = $mollie->payments->get($request->id);
-
-$customerId = $payment->metadata->customer_id;
+        $api_key = Generalsetting::findOrFail(1);
+        $mollie = new \Mollie\Api\MollieApiClient();
+        $mollie->setApiKey($api_key->mollie);
+        $sl = Sociallink::findOrFail(1);
 
 
+        $payment = $mollie->payments->get($request->id);
+        $customerId = $payment->metadata->customer_id;
 
-$consumerName = $payment->metadata->consumer_name;
-
-
-
-$user_id = $payment->metadata->user_id;
-
-
-$status = $payment->status;
-
-
+        $consumerName = $payment->metadata->consumer_name;
+        $user_id = $payment->metadata->user_id;
+        $status = $payment->status;
 
 
         if ($payment->isPaid()) {
 
+            $user = users::where('id','=',$user_id)->update(['mollie_customer_id' => $customerId  , 'payment_id' => $request->id , 'payment_status' => $status, 'featured' => 1]);
 
-
-$user = users::where('id','=',$user_id)->update(['mollie_customer_id' => $customerId  , 'payment_id' => $request->id , 'payment_status' => $status, 'featured' => 1]);
-
-			$headers =  'MIME-Version: 1.0' . "\r\n";
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         	$subject = "Remaining Payment Received!";
