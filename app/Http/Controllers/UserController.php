@@ -2030,7 +2030,6 @@ $user_name  = $user->name;
 
         $registration_fee = $this->gs->registration_fee;
 
-
         if($registration_fee == '' || $registration_fee == 0)
         {
             $registration_fee = "0.01";
@@ -2043,23 +2042,14 @@ $user_name  = $user->name;
         }
 
 
-
-
         $consumerName = $input['full_name'];
-
-
         $current_date = date("Y-m-d");
 
 
-
         $user = Auth::guard('user')->user();
-
         $user_id = Auth::guard('user')->user()->id;
-
         $api_key = Generalsetting::findOrFail(1);
-
         $mollie = new \Mollie\Api\MollieApiClient();
-
         $mollie->setApiKey($api_key->mollie);
 
         $customer = $mollie->customers->create([
@@ -2095,8 +2085,6 @@ $user_name  = $user->name;
 ]);
 
         return redirect($payment->getCheckoutUrl(), 303);
-
-
 
     }
 

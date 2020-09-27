@@ -14,13 +14,9 @@ class MollieFirstPayment extends Controller {
 
     public function handle(Request $request) {
 
-        $user = users::where('id','=',11)->update(['featured' => 1]);
-
         if (! $request->has('id')) {
             return;
         }
-
-        $user = users::where('id','=',11)->update(['featured' => 1]);
 
         $api_key = Generalsetting::findOrFail(1);
         $mollie = new \Mollie\Api\MollieApiClient();
