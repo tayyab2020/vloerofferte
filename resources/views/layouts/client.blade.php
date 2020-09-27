@@ -161,9 +161,6 @@
                                 </li>
 
 
-
-
-
                     </ul>
                 </nav>
             </div>
@@ -192,6 +189,11 @@
 
 
 <style type="text/css">
+
+    button
+    {
+        outline: none !important;
+    }
 
     .bootstrap-select
     {

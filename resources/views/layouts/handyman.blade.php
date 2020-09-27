@@ -223,6 +223,11 @@
 
 <style type="text/css">
 
+    button
+    {
+        outline: none !important;
+    }
+
       .bootstrap-select
     {
         margin-bottom: 0px !important;

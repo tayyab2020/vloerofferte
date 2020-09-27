@@ -1277,8 +1277,6 @@ if( $request->handyman_id == $user_id )
 
 
 
-
-
         // $post = new bookings;
         // $post->user_id = $user_id;
         // $post->handyman_id = $request->handyman_id;
