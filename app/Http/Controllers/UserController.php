@@ -2067,9 +2067,8 @@ $user_name  = $user->name;
       "email" => $input['email'],
 ]);
 
-        var_dump($customer->id);
+        var_dump($registration_fee);
         exit();
-        
 
 //         $mandate = $mollie->customers->get($customer->id)->createMandate([
 //    "method" => \Mollie\Api\Types\MandateMethod::DIRECTDEBIT,
