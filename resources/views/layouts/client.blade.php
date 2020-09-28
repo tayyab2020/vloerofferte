@@ -99,11 +99,16 @@
                             <a href="{{route('client-dashboard')}}"  id="dashboard"><i class="fa fa-home"></i> {{$lang->dashboard}}</a>
                         </li>
 
-                        <li><a href="{{ route('client-profile') }}" id="edit"><i class="fa fa-fw fa-user"></i> {{$lang->edit}}</a></li>
-
+                        <li>
+                            <a href="{{ route('client-profile') }}" id="edit"><i class="fa fa-fw fa-user"></i> {{$lang->edit}}</a>
+                        </li>
 
                         <li>
-                                    <a href="{{route('client-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->mbt1}}</a>
+                            <a href="{{route('client-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->mbt1}}</a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('client-quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Requests</a>
                         </li>
 
                         <li  class="lang-list" style="text-align: center;margin-top: 20px;">

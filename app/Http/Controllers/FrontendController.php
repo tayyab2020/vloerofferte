@@ -1203,7 +1203,7 @@ else
     {
         if($request->quote_id)
         {
-            $quote = quotes::where('id',$request->quote_id)->update(['quote_service' => $request->quote_service, 'quote_zipcode' => $request->quote_zipcode, 'quote_work' => $request->quote_work, 'quote_when' => $request->quote_when, 'quote_budget' => $request->quote_budget, 'quote_job' => $request->quote_job, 'quote_status' => $request->quote_status, 'quote_description' => $request->quote_description, 'quote_name' => $request->quote_name, 'quote_email' => $request->quote_email, 'quote_contact' => $request->quote_contact]);
+            $quote = quotes::where('id',$request->quote_id)->update(['quote_service' => $request->quote_service, 'quote_zipcode' => $request->quote_zipcode, 'quote_work' => $request->quote_work, 'quote_when' => $request->quote_when, 'quote_budget' => $request->quote_budget, 'quote_job' => $request->quote_job, 'quote_status' => $request->quote_status, 'quote_description' => $request->quote_description, 'quote_name' => $request->quote_name, 'quote_familyname' => $request->quote_familyname, 'quote_email' => $request->quote_email, 'quote_contact' => $request->quote_contact]);
 
             Session::flash('success', 'Your Quotation request has been updated successfully!');
             return redirect()->back();
@@ -1284,6 +1284,7 @@ else
             $quote->quote_status = $request->quote_status;
             $quote->quote_description = $request->quote_description;
             $quote->quote_name = $request->quote_name;
+            $quote->quote_familyname = $request->quote_familyname;
             $quote->quote_email = $request->quote_email;
             $quote->quote_contact = $request->quote_contact;
 

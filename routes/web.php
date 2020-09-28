@@ -49,6 +49,9 @@
 
 
   Route::prefix('handyman')->group(function() {
+
+  Route::get('/quotation-requests', 'UserController@QuotationRequests')->name('client-quotation-requests');
+  Route::get('/view-quote-request/{id}', 'UserController@QuoteRequest');
   Route::get('/handyman-panel', 'UserController@HandymanPanel')->name('handyman-panel');
   Route::get('/dashboard', 'UserController@index')->name('user-dashboard');
   Route::get('/experience-years', 'UserController@ExperienceYears')->name('experience-years');

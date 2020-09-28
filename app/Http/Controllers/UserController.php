@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\quotes;
 use Illuminate\Http\Request;
 use App\User;
 use App\Category;
@@ -116,14 +117,32 @@ else
         return view('user.dashboard',compact('user','services','no'));
     }
 
+    public function QuotationRequests()
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.user_id',$user_id)->orderBy('quotes.created_at','desc')->select('quotes.*','categories.cat_name')->get();
+
+        return view('user.quote_requests',compact('requests'));
+    }
+
+    public function QuoteRequest($id)
+    {
+        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
+
+        $services = Category::all();
+
+        return view('user.quote_request',compact('request','services'));
+    }
+
     public function Invoice($id)
     {
 
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
         $user_role = $user->role_id;
-
-
 
         $invoice = invoices::leftjoin('bookings','bookings.invoice_id','=','invoices.id')->leftjoin('categories','categories.id','=','bookings.service_id')->leftjoin('service_types','service_types.id','=','bookings.rate_id')->where('invoices.id','=',$id)->Select('invoices.id','invoices.handyman_id','invoices.user_id','categories.cat_name','service_types.type','bookings.service_rate','bookings.rate','invoices.booking_date','bookings.total','invoices.is_booked','invoices.is_completed','invoices.pay_req','invoices.is_paid','invoices.is_partial','invoices.status','invoices.total as inv_total','invoices.created_at as inv_date','invoices.invoice_number','invoices.service_fee','invoices.vat_percentage','invoices.is_cancelled','invoices.cancel_req','invoices.amount_refund','invoices.commission_percentage')->get();
 
@@ -596,10 +615,6 @@ $api_key = Generalsetting::findOrFail(1);
 
 
  }
-
-
-
-
 
     }
 
