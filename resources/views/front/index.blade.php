@@ -19,7 +19,7 @@
 
         @if(Session::has('unsuccess'))
 
-            <div class="alert alert-danger validation" style="position: absolute;top: 0px;z-index: 10000;width: 100%;background-color: #af0000;color: black;border: none;">
+            <div class="alert alert-danger validation" style="position: absolute;top: 0px;width: 100%;background-color: #af0000;color: black;border: none;">
 
                 <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close" style="text-shadow: none;opacity: 1;"><span aria-hidden="true" style="font-size: 30px;">×</span></button>
 
@@ -34,7 +34,7 @@
 
             @if(Session::has('success'))
 
-                <div class="alert alert-success validation" style="position: absolute;top: 0px;z-index: 10000;width: 100%;border: none;">
+                <div class="alert alert-success validation" style="position: absolute;top: 0px;width: 100%;border: none;">
 
                     <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close" style="text-shadow: none;opacity: 1;"><span aria-hidden="true" style="font-size: 30px;">×</span></button>
 
@@ -46,6 +46,8 @@
                 </div>
 
             @endif
+
+            @include('includes.form-error')
 
 
         <div class="container">
@@ -275,7 +277,7 @@
 
                                                 <h3 style="text-align: center;color: #4b4b4b;">Select Service</h3>
 
-                                                <select class="js-data-example-ajax1 form-control quote-service" style="height: 40px;" name="quote_service" id="blood_grp" required>
+                                                <select class="js-data-example-ajax1 form-control quote-service quote_validation" style="height: 40px;" name="quote_service" id="blood_grp" required>
 
                                                     <option value="">{{$lang->sbg}}</option>
 
@@ -294,8 +296,6 @@
                                                     @endif
 
                                                 </select>
-
-
                                             </div>
 
                                         </div>
@@ -305,7 +305,7 @@
 
                                                 <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Where do you need the job done?</h3>
 
-                                                <input style="height: 40px;" type="search" name="quote_zipcode" id="quote-zipcode" class="form-control" placeholder="{{$lang->spzc}}" autocomplete="off">
+                                                <input style="height: 40px;" type="search" name="quote_zipcode" id="quote-zipcode" class="form-control quote_validation" placeholder="{{$lang->spzc}}" autocomplete="off">
 
                                             </div>
                                         </div>
@@ -319,7 +319,7 @@
                                                 <div>
                                                     <hr>
                                                     <label class="container-radio">Emergency
-                                                        <input type="radio" value="Emergency" name="quote_when">
+                                                        <input type="radio" checked value="Emergency" name="quote_when">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
@@ -364,7 +364,7 @@
                                                 <div>
                                                     <hr>
                                                     <label class="container-radio">Under € 1000
-                                                        <input type="radio" value="Under € 1000" name="quote_budget">
+                                                        <input checked type="radio" value="Under € 1000" name="quote_budget">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
@@ -410,7 +410,7 @@
 
                                                     <hr>
                                                     <label class="container-radio">Residential
-                                                        <input type="radio" value="Residential" name="quote_job">
+                                                        <input checked type="radio" value="Residential" name="quote_job">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
@@ -437,7 +437,7 @@
 
                                                     <hr>
                                                     <label class="container-radio">New Build
-                                                        <input type="radio" value="New Build" name="quote_work">
+                                                        <input checked type="radio" value="New Build" name="quote_work">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
@@ -488,7 +488,7 @@
 
                                                     <hr>
                                                     <label class="container-radio">Ready to hire
-                                                        <input type="radio" value="Ready to hire" name="quote_status">
+                                                        <input checked type="radio" value="Ready to hire" name="quote_status">
                                                         <span class="checkmark-radio"></span>
                                                     </label>
 
@@ -511,7 +511,7 @@
 
                                                 <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Provide a description of your job</h3>
 
-                                                <textarea style="resize: vertical;" rows="7" name="quote_description" class="form-control" placeholder="Providing more details increases interest from tradies"></textarea>
+                                                <textarea style="resize: vertical;" rows="7" name="quote_description" class="form-control quote_validation" placeholder="Providing more details increases interest from tradies"></textarea>
 
                                             </div>
 
@@ -525,16 +525,16 @@
                                                 <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Please provide some contact details.</h3>
 
                                                 <label>Name <span style="color: red;">*</span></label>
-                                                <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_name" class="form-control" placeholder="Enter Name" autocomplete="off">
+                                                <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_name" class="form-control quote_validation" placeholder="Enter Name" autocomplete="off">
 
                                                 <label>Family Name <span style="color: red;">*</span></label>
-                                                <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_familyname" class="form-control" placeholder="Enter Family Name" autocomplete="off">
+                                                <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_familyname" class="form-control quote_validation" placeholder="Enter Family Name" autocomplete="off">
 
                                                 <label>Email <span style="color: red;">*</span></label>
-                                                <input style="height: 45px;margin-bottom: 20px" type="email" name="quote_email" class="form-control" placeholder="Enter Email">
+                                                <input style="height: 45px;margin-bottom: 20px" type="email" name="quote_email" class="form-control quote_validation" placeholder="Enter Email">
 
                                                 <label>Contact Number <span style="color: red;">*</span></label>
-                                                <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_contact" class="form-control" placeholder="Enter Contact Number" autocomplete="off">
+                                                <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_contact" class="form-control quote_validation" placeholder="Enter Contact Number" autocomplete="off">
 
                                                 <small style="text-align: center;display: block;width: 95%;margin: auto;">Your details will be used to create a job post, so that you can monitor and manage the job you've posted.</small>
 
@@ -1065,21 +1065,77 @@
             });
 
             $('.next-submit').click(function(){
-                $('#quote_form').submit();
+
+                var validation = $('.tab-content').find('.active').find('.quote_validation');
+
+                var flag = 0;
+
+                $(validation).each(function(){
+
+                    if(!$(this).val())
+                    {
+                        $(this).css('border','1px solid red');
+                        flag = 1;
+                    }
+                    else
+                    {
+                        $(this).css('border','');
+                    }
+
+                });
+
+                if(!flag)
+                {
+                    $('#quote_form').submit();
+                }
+
+                return false;
             });
 
             $('.next').click(function(){
 
-                var nextId = $('.tab-content').find('.active').next().attr("id");
-                $('.nav-pills a[href="#' + nextId + '"]').tab('show');
+                var validation = $('.tab-content').find('.active').find('.quote_validation');
 
-                $('.back').show();
+                var flag = 0;
 
-                if(nextId == 'step9')
+                $(validation).each(function(){
+
+                    if(!$(this).val())
+                    {
+                        if($(this).hasClass('select2-hidden-accessible'))
+                        {
+                            $('.select2').css('border','1px solid red');
+                            $('.select2-selection').css('outline','none');
+                        }
+                        else
+                        {
+                            $(this).css('border','1px solid red');
+                        }
+
+                        flag = 1;
+                    }
+                    else
+                    {
+                        $('.select2').css('border','');
+                        $(this).css('border','');
+
+                    }
+
+                });
+
+                if(!flag)
                 {
-                    $('.next').hide();
-                    $('.next-submit').show();
+                    var nextId = $('.tab-content').find('.active').next().attr("id");
+                    $('.nav-pills a[href="#' + nextId + '"]').tab('show');
 
+                    $('.back').show();
+
+                    if(nextId == 'step9')
+                    {
+                        $('.next').hide();
+                        $('.next-submit').show();
+
+                    }
                 }
 
                 return false;
@@ -1215,6 +1271,11 @@
         </script>
 
         <style type="text/css">
+
+            .form-control:focus
+            {
+                border-color: #66afe9 !important;
+            }
 
             #team {
                 background: #eee !important;

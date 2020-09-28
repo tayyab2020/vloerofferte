@@ -106,12 +106,7 @@ class AdminUserController extends Controller
 
     public function UserRequest($id)
     {
-
-
         $user = handyman_temporary::where('handyman_id','=',$id)->first();
-
-
-
         return view('admin.user.request',compact('user'));
     }
 
@@ -144,39 +139,35 @@ class AdminUserController extends Controller
         }
 
 
-
-
         $update = users::where('id',$user_id)->update(['name' => $input['name'], 'family_name' => $input['family_name'], 'photo' => $input['photo'], 'description' => $input['description'], 'language' => $input['language'], 'education' => $input['education'], 'profession' => $input['profession'], 'city' => $input['city'], 'address' => $input['address'], 'phone' => $input['phone'],  'web' => $input['web'], 'special' => $input['special'], 'registration_number' => $input['registration_number'], 'company_name' => $input['company_name'], 'tax_number' => $input['tax_number'], 'bank_account' => $input['bank_account'], 'postcode' => $input['postcode'] ]);
 
         $delete = handyman_temporary::where('handyman_id',$user_id)->delete();
 
         $user = User::findOrFail($user_id);
 
-$email = $user->email;
+        $email = $user->email;
 
-$user_name = $user->name. ' ' .$user->family_name;
+        $user_name = $user->name. ' ' .$user->family_name;
 
-$handyman_dash = url('/').'/handyman/dashboard';
+        $handyman_dash = url('/').'/handyman/dashboard';
 
 
-             $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $headers =  'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Profile Information Updated Successfully!";
-            $msg = "Dear Mr/Mrs ". $user_name .",<br><br>Your profile information update request has been approved. For further details visit your handyman panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
-            mail($email,$subject,$msg,$headers);
+        $msg = "Dear Mr/Mrs ". $user_name .",<br><br>Your profile information update request has been approved. For further details visit your handyman panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+        mail($email,$subject,$msg,$headers);
 
 
-
-            $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $headers =  'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Profiel informatie is geupdate";
-            $msg = "Beste". $user_name .",<br><br>je wijziging in je profiel is goeggekeurd. Klik op account om de status van je klus te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Topstoffeerders";
-            mail($email,$subject,$msg,$headers);
+        $msg = "Beste". $user_name .",<br><br>je wijziging in je profiel is goeggekeurd. Klik op account om de status van je klus te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Topstoffeerders";
+        mail($email,$subject,$msg,$headers);
 
-
-Session::flash('success', 'Profile Updated Successfully');
+        Session::flash('success', 'Profile Updated Successfully');
 
         return redirect()->route('admin-user-requests');
     }

@@ -214,8 +214,6 @@ class UserRegisterController extends Controller
         if ($response->success)
         {
 
-
-
       $this->validate($request, [
         'email'   => 'required|string|email|unique:users',
         'name'   => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',

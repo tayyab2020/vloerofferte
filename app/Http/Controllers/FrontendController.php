@@ -1210,6 +1210,23 @@ else
         }
         else
         {
+
+            $this->validate($request, [
+                'quote_email'   => 'required|string|email',
+                'quote_name'   => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
+                'quote_familyname' => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
+            ],
+                [
+                    'quote_email.required' => 'Email is required.',
+                    'quote_email.email' => 'Email must be a valid email address.',
+                    'quote_name.required' => 'Name is required.',
+                    'quote_name.max' => 'Name must not be greater than 15 characters.',
+                    'quote_name.regex' => 'Name format is invalid.',
+                    'quote_familyname.required' => 'Family Name is required.',
+                    'quote_familyname.max' => 'Family Name must not be greater than 15 characters.',
+                    'quote_familyname.regex' => 'Family Name format is invalid.',
+                ]);
+
             $check = users::where('email',$request->quote_email)->first();
 
             $user_name = $request->quote_name . " " . $request->quote_familyname;
