@@ -32,9 +32,16 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_slug">Family Name* </label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" value="{{$request->quote_familyname}}" name="quote_familyname" id="quote_familyname" placeholder="Enter Family Name" required="" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_slug">Email* </label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" value="{{$request->quote_email}}" name="quote_email" id="quote_email" placeholder="Enter Email" required="" type="text">
+                                                <input class="form-control" value="{{$request->quote_email}}" name="quote_email" id="quote_email" placeholder="Enter Email" required="" type="email" readonly>
                                             </div>
                                         </div>
 

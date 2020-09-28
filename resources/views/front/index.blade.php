@@ -527,11 +527,14 @@
                                                 <label>Name <span style="color: red;">*</span></label>
                                                 <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_name" class="form-control" placeholder="Enter Name" autocomplete="off">
 
+                                                <label>Family Name <span style="color: red;">*</span></label>
+                                                <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_familyname" class="form-control" placeholder="Enter Family Name" autocomplete="off">
+
                                                 <label>Email <span style="color: red;">*</span></label>
-                                                <input style="height: 45px;margin-bottom: 20px" type="email" name="quote_email" class="form-control" placeholder="Enter Name" autocomplete="off">
+                                                <input style="height: 45px;margin-bottom: 20px" type="email" name="quote_email" class="form-control" placeholder="Enter Email">
 
                                                 <label>Contact Number <span style="color: red;">*</span></label>
-                                                <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_contact" class="form-control" placeholder="Enter Name" autocomplete="off">
+                                                <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_contact" class="form-control" placeholder="Enter Contact Number" autocomplete="off">
 
                                                 <small style="text-align: center;display: block;width: 95%;margin: auto;">Your details will be used to create a job post, so that you can monitor and manage the job you've posted.</small>
 

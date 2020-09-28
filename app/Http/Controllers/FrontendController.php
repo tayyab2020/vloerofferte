@@ -32,6 +32,8 @@ use App\booking_images;
 use App\Language;
 use App\handyman_unavailability_hours;
 use App\terms_conditions;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 
 class FrontendController extends Controller
@@ -1208,7 +1210,54 @@ else
         }
         else
         {
+            $check = users::where('email',$request->quote_email)->first();
+
+            $user_name = $request->quote_name . " " . $request->quote_familyname;
+            $user_email = $request->quote_email;
+
+            if($check)
+            {
+                $user_id = $check->id;
+
+                $link = url('/').'/handyman/client-dashboard';
+
+                $headers =  'MIME-Version: 1.0' . "\r\n";
+                $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                $subject = "Quotation Request Submitted!";
+                $msg = "Dear Mr/Mrs ".$user_name.",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='".$link."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+                mail($user_email,$subject,$msg,$headers);
+            }
+            else
+            {
+                $password = Str::random(8);
+                $hashed_random_password = Hash::make($password);
+                $user = new users;
+                $user->name = $request->quote_name;
+                $user->family_name = $request->quote_familyname;
+                $user->category_id = 20;
+                $user->role_id = 3;
+                $user->email = $request->quote_email;
+                $user->phone = $request->quote_contact;
+                $user->postcode = $request->quote_zipcode;
+                $user->password = $hashed_random_password;
+                $user->save();
+
+                $user_id = $user->id;
+
+                $link = url('/').'/handyman/client-dashboard';
+
+
+                $headers =  'MIME-Version: 1.0' . "\r\n";
+                $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                $subject = "Account Created!";
+                $msg = "Dear Mr/Mrs ".$user_name.",<br><br>Your account has been created and your quotation request has been submitted successfully. Kindly complete your profile and change your password. You can go to your dashboard through <a href='".$link."'>here.</a><br><br>Your Password: ".$password."<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+                mail($user_email,$subject,$msg,$headers);
+            }
+
             $quote = new quotes;
+            $quote->user_id = $user_id;
             $quote->quote_service = $request->quote_service;
             $quote->quote_zipcode = $request->quote_zipcode;
             $quote->quote_work = $request->quote_work;
