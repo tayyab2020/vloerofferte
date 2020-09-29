@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\handyman_terminals;
+use App\handyman_unavailability;
 use App\quotes;
 use App\User;
 use Illuminate\Http\Request;
@@ -52,7 +54,7 @@ class AdminUserController extends Controller
     {
         $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
 
-        $services = Category::all();
+        $services = Category::where('main_service',1)->get();
 
         return view('admin.user.quote_request',compact('request','services'));
     }
@@ -61,12 +63,54 @@ class AdminUserController extends Controller
     {
         $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
 
-        $handymen = User::leftjoin('handyman_services','handyman_services.handyman_id','=','users.id')->where('handyman_services.service_id',$request->quote_service)->get();
+        $search = $request->quote_zipcode;
 
-        var_dump($handymen);
-        exit();
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&address=".urlencode($search).",+Netherlands&sensor=false";
 
-        return view('admin.user.quote_request',compact('request','services'));
+        $result_string = file_get_contents($url);
+        $result = json_decode($result_string, true);
+
+
+        if(($result['status']) != 'ZERO_RESULTS' )
+        {
+            $user_latitude = $result['results'][0]['geometry']['location']['lat'];
+            $user_longitude = $result['results'][0]['geometry']['location']['lng'];
+
+            $array[] = "";
+            $array1[] = "";
+            $i = 0;
+
+            $post = handyman_terminals::all();
+
+            foreach ($post as $key ) {
+
+                $lat = $key->latitude;
+                $lng = $key->longitude;
+
+                $theta = $lng - $user_longitude;
+                $dist = sin(deg2rad($lat)) * sin(deg2rad($user_latitude)) +  cos(deg2rad($lat)) * cos(deg2rad($user_latitude)) * cos(deg2rad($theta));
+                $dist = acos($dist);
+                $dist = rad2deg($dist);
+                $miles = $dist * 60 * 1.1515;
+                $distance = $miles * 1.609344;
+
+                $array[$i] = array('handyman_id'=>$key->handyman_id);
+                $array1[$i] = array('handyman_distance'=>$distance);
+                $i = $i + 1;
+
+            }
+
+
+            $handymen = handyman_services::leftjoin('users','users.id','=','handyman_services.handyman_id')->whereIn('users.id', $array)->where('users.active',1)->where('handyman_services.service_id','=', $request->quote_service)->select('users.*')->get();
+
+        }
+
+        else
+        {
+            $handymen = '';
+        }
+
+        return view('admin.user.send_quote',compact('request','handymen','array1'));
     }
 
     public function Clients()
