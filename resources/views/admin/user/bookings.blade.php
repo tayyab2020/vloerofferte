@@ -64,7 +64,7 @@
                                                       <td>{{$key['users'][$i]->name}} {{$key['users'][$i]->family_name}}</td>
 
                                                       <td>{{$key['handymans'][$i]->name}} {{$key['handymans'][$i]->family_name}}</td>
-                                                 <td><a href="{{ asset('logstof/invoice/' . $key['users'][$i]->id ) }}">
+                                                 <td><a href="{{ asset('logstof/client-invoice/' . $key['users'][$i]->id ) }}">
                                                     {{$key['users'][$i]->invoice_number}}</a>
                                                         </td>
 

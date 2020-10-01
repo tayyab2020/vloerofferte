@@ -103,7 +103,7 @@
                                             <td>{{$key->rate}}</td>
                                             <td>€ {{$key->service_rate}}</td>
                                             <td>{{$date}}</td>
-                                            <td>€ <?php echo str_replace('.', ',', number_format($key->total,2)); ?></td>
+                                            <td>€ <?php echo number_format($key->total, 2, ',', '.'); ?></td>
 
                                         </tr>
 
@@ -133,10 +133,11 @@
 
                             $total = $total_handyman - $commission_fee;
 
-                            $vat = $total * ($invoice[0]->vat_percentage/100);
+                            $vat = $total/($invoice[0]->vat_percentage + 100) * 100;
+
+                            $vat = $total - $vat;
 
                             $ex_vat = $total - $vat;  ?>
-
 
 
                              <table class="table">
@@ -239,10 +240,10 @@
 
                                             @endif
                                         </td>
-                                        <td>€ <?php echo str_replace('.', ',', number_format($ex_vat,2)); ?></td>
-                                        <td>- € <?php echo str_replace('.', ',', number_format($commission_fee,2)); ?></td>
-                                        <td>€ <?php echo str_replace('.', ',', number_format($vat,2)); ?></td>
-                                        <td>€ <?php echo str_replace('.', ',', number_format($total,2)); ?></td>
+                                        <td>€ <?php echo number_format($ex_vat, 2, ',', '.'); ?></td>
+                                        <td>- € <?php echo number_format($commission_fee, 2, ',', '.'); ?></td>
+                                        <td>€ <?php echo number_format($vat, 2, ',', '.'); ?></td>
+                                        <td>€ <?php echo number_format($total, 2, ',', '.'); ?></td>
                                     </tr>
 
                                     </tbody>

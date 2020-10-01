@@ -126,7 +126,7 @@
                                                 <td>{{$key->rate}}</td>
                                                 <td>€ {{$key->service_rate}}</td>
                                                 <td>{{$date}}</td>
-                                                <td>€ <?php echo str_replace('.', ',', number_format($key->total,2)); ?></td>
+                                                <td>€ <?php echo number_format($key->total, 2, ',', '.'); ?></td>
 
                                             </tr>
 
@@ -276,9 +276,9 @@
                                             </td>
                                             @if($invoice[0]->is_cancelled == 1)
 
-                                                <td>€ <?php echo str_replace('.', ',', number_format($invoice[0]->amount_refund,2)); ?></td>
+                                                <td>€ <?php echo number_format($invoice[0]->amount_refund, 2, ',', '.'); ?></td>
 
-                                                <td>€ <?php echo str_replace('.', ',', number_format($invoice[0]->amount_refund,2)); ?></td>
+                                                <td>€ <?php echo number_format($invoice[0]->amount_refund, 2, ',', '.'); ?></td>
 
                                             @else
 
@@ -287,19 +287,19 @@
                                                     <?php $paid = $invoice[0]->inv_total * 0.3; ?>
 
 
-                                                    <td>€ <?php echo str_replace('.', ',', number_format($paid,2)); ?></td>
+                                                    <td>€ <?php echo number_format($paid, 2, ',', '.'); ?></td>
 
                                                 @else
 
-                                                    <td>€ <?php echo str_replace('.', ',', number_format($invoice[0]->inv_total,2)); ?></td>
+                                                    <td>€ <?php echo number_format($invoice[0]->inv_total, 2, ',', '.'); ?></td>
 
                                                 @endif
 
                                             @endif
-                                            <td>€ <?php echo str_replace('.', ',', number_format($vat,2)); ?></td>
-                                            <td>€ <?php echo str_replace('.', ',', number_format($invoice[0]->service_fee,2)); ?></td>
-                                            <td>€ <?php echo str_replace('.', ',', number_format($ex_vat,2)); ?></td>
-                                            <td>€ <?php echo str_replace('.', ',', number_format($invoice[0]->inv_total,2)); ?></td>
+                                            <td>€ <?php echo number_format($vat, 2, ',', '.'); ?></td>
+                                            <td>€ <?php echo number_format($invoice[0]->service_fee, 2, ',', '.'); ?></td>
+                                            <td>€ <?php echo number_format($ex_vat, 2, ',', '.'); ?></td>
+                                            <td>€ <?php echo number_format($invoice[0]->inv_total, 2, ',', '.'); ?></td>
                                         </tr>
 
                                         </tbody>

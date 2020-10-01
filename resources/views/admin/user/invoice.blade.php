@@ -124,7 +124,7 @@
                                             <td>{{$key->rate}}</td>
                                             <td>€ {{$key->service_rate}}</td>
                                             <td>{{$date}}</td>
-                                            <td>€ <?php echo str_replace('.', ',', number_format($key->total,2)); ?></td>
+                                            <td>€ <?php echo number_format($key->total, 2, ',', '.'); ?></td>
 
                                         </tr>
 

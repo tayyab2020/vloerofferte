@@ -28,7 +28,7 @@
 
     $('.alert').fadeIn().delay(3000).fadeOut();
 
-</script> 
+</script>
 
     <div class="container" style="width: 100%;">
         <div class="row">
@@ -55,7 +55,7 @@
 
                                 <?php $date12 = date("d-m-Y",$date21); ?>
 
-                                
+
                                 <p class="text-muted" style="font-size: 15px;">{{$lang->iat}}: {{$date12}}</p>
 
                                     <?php $booking_date = strtotime($invoice[0]->booking_date);
@@ -115,7 +115,7 @@
 
                                                           $date = date('d-m-Y',$date);  ?>
 
-                                        
+
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td>{{$key->cat_name}}</td>
@@ -138,34 +138,34 @@
                                                     {{$lang->servT4}}
 
                                             @else
-                                            
 
-                                            @endif 
+
+                                            @endif
 
                                             </td>
                                             <td>{{$key->rate}}</td>
                                             <td>€ {{$key->service_rate}}</td>
                                             <td>{{$date}}</td>
-                                            <td>€ <?php echo str_replace('.', ',', number_format($key->total,2)); ?></td>
-                                            
+                                            <td>€ <?php echo number_format($key->total, 2, ',', '.'); ?></td>
+
                                         </tr>
 
                                         <?php $i++; ?>
-                                        
+
                                         @endforeach
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
                         <style type="text/css">
-                            
+
                             .table td, .table th{
                                 text-align: center;
                                 vertical-align: middle;
                             }
-                            
+
                         </style>
 
                         <div class="d-flex flex-row-reverse bg-dark text-white p-4">
@@ -176,7 +176,9 @@
 
                             $total = $total_handyman - $commission_fee;
 
-                            $vat = $total * ($invoice[0]->vat_percentage/100);
+                            $vat = $total/($invoice[0]->vat_percentage + 100) * 100;
+
+                            $vat = $total - $vat;
 
                             $ex_vat = $total - $vat;  ?>
 
@@ -281,10 +283,10 @@
 
                                             @endif
                                         </td>
-                                        <td>€ <?php echo str_replace('.', ',', number_format($ex_vat,2)); ?></td>
-                                        <td>- € <?php echo str_replace('.', ',', number_format($commission_fee,2)); ?></td>
-                                        <td>€ <?php echo str_replace('.', ',', number_format($vat,2)); ?></td>
-                                        <td>€ <?php echo str_replace('.', ',', number_format($total,2)); ?></td>
+                                        <td>€ <?php echo number_format($ex_vat, 2, ',', '.'); ?></td>
+                                        <td>- € <?php echo number_format($commission_fee, 2, ',', '.'); ?></td>
+                                        <td>€ <?php echo number_format($vat, 2, ',', '.'); ?></td>
+                                        <td>€ <?php echo number_format($total, 2, ',', '.'); ?></td>
                                     </tr>
 
                                     </tbody>
@@ -293,12 +295,12 @@
 
 
 
-                            
 
 
-                           
 
-                           
+
+
+
                         </div>
                     </div>
                 </div>
@@ -317,7 +319,7 @@
 </div>
 
 <style type="text/css">
-    
+
     @media (max-width: 768px) {
 
         .inv-rigth{
@@ -348,7 +350,7 @@
         }
 
     }
-    
+
 .col-12{
 
     flex: 0 0 100%;
@@ -510,7 +512,7 @@ hr{
 
 
 .pb-3, .py-3{
-   
+
 
     padding-bottom: 1rem !important;
 }
