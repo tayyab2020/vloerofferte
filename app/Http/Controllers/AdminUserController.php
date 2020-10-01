@@ -146,12 +146,10 @@ class AdminUserController extends Controller
 
             $link = url('/').'/handyman/client-dashboard';
 
-            $msg = "<html><p>Dear Mr/Mrs ".$user_name.",<br><br>You have received a quotation request. You can take further action from your dashboard through <a href='".$link."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders</p></html>";
-
-            \Mail::raw([], function ($message) use($file,$email,$filename,$msg){
+            \Mail::raw([], function ($message) use($file,$email,$filename){
                 $message->from('info@topstoffeerders.nl');
                 $message->to($email)->subject('Quotation Request!');
-                $message->setBody($msg, 'text/html' );
+                $message->setBody( '<html><h1>5% off its awesome</h1><p>Go get it now !</p></html>', 'text/html' );
 
                         $message->attach($file, [
                             'as' => $filename,
