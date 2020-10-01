@@ -88,9 +88,7 @@
                                         <thead>
 
                                         <tr>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Name</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Email</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Contact</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold">Description</th>
                                         </tr>
 
                                         </thead>
@@ -98,9 +96,7 @@
                                         <tbody>
 
                                         <tr>
-                                            <td>{{$quote->quote_name}} {{$quote->quote_familyname}}</td>
-                                            <td>{{$quote->quote_email}}</td>
-                                            <td>{{$quote->quote_contact}}</td>
+                                            <td>{{$quote->quote_description}}</td>
                                         </tr>
 
                                         </tbody>

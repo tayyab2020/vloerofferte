@@ -120,17 +120,23 @@ class AdminUserController extends Controller
 
         $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name')->first();
 
-        $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
-
         $date = strtotime($quote->created_at);
 
         $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
 
-        ini_set('max_execution_time', 180);
-
         $filename = $quote_number.'.pdf';
 
-        $pdf->save(public_path().'/assets/quotesPDF/'.$filename);
+        $file = public_path().'/assets/quotesPDF/'.$filename;
+
+        if (!file_exists($file)){
+
+            ini_set('max_execution_time', 180);
+
+            $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+
+            $pdf->save(public_path().'/assets/quotesPDF/'.$filename);
+        }
+
 
         foreach ($handyman as $key)
         {
@@ -139,17 +145,15 @@ class AdminUserController extends Controller
 
             $user_name = $user->name. ' ' .$user->family_name;
 
-            $handyman_dash = url('/').'/handyman/dashboard';
-
-            $path = public_path().'/assets/quotesPDF/';
-            $file = $path . "/" . $filename;
-
             $link = url('/').'/handyman/client-dashboard';
 
-            \Mail::raw([], function ($message) use($file,$email,$filename){
+            \Mail::send('admin.user.quote_request_mail',
+                array(
+                    'username' => $user_name,
+                    'link' => $link,
+                ), function ($message) use($file,$email,$filename){
                 $message->from('info@topstoffeerders.nl');
                 $message->to($email)->subject('Quotation Request!');
-                $message->setBody( '<html><h1>5% off its awesome</h1><p>Go get it now !</p></html>', 'text/html' );
 
                         $message->attach($file, [
                             'as' => $filename,
