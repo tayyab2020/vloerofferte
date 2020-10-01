@@ -148,7 +148,7 @@
 
 
                         <div class="d-flex flex-row-reverse bg-dark text-white p-4">
-                            
+
 
                             <?php $total_handyman = $invoice[0]->inv_total - $invoice[0]->service_fee;
 
@@ -263,10 +263,10 @@
 
                                             @endif
                                         </td>
-                                        <td>€ <?php echo str_replace('.', ',', number_format($ex_vat,2)); ?></td>
-                                        <td>- € <?php echo str_replace('.', ',', number_format($commission_fee,2)); ?></td>
-                                        <td>€ <?php echo str_replace('.', ',', number_format($vat,2)); ?></td>
-                                        <td>€ <?php echo str_replace('.', ',', number_format($total,2)); ?></td>
+                                        <td>€ <?php echo number_format($ex_vat, 2, ',', '.'); ?></td>
+                                        <td>- € <?php echo number_format($commission_fee, 2, ',', '.'); ?></td>
+                                        <td>€ <?php echo number_format($vat, 2, ',', '.'); ?></td>
+                                        <td>€ <?php echo number_format($total, 2, ',', '.'); ?></td>
                                     </tr>
 
                                     </tbody>
