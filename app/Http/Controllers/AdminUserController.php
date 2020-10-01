@@ -120,12 +120,6 @@ class AdminUserController extends Controller
 
         $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name')->first();
 
-        foreach ($handyman as $key)
-        {
-            $email = users::where('id',$key)->first();
-            $email = $email->email;
-        }
-
         $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
         $date = strtotime($quote->created_at);
@@ -134,7 +128,49 @@ class AdminUserController extends Controller
 
         ini_set('max_execution_time', 180);
 
-        return $pdf->download($quote_number.'.pdf');
+        $filename = $quote_number.'.pdf';
+
+        $pdf->save(public_path().'/assets/quotesPDF/'.$filename);
+
+        foreach ($handyman as $key)
+        {
+            $user = users::where('id',$key)->first();
+            $email = $user->email;
+
+            $user_name = $user->name. ' ' .$user->family_name;
+
+            $handyman_dash = url('/').'/handyman/dashboard';
+
+            $path = public_path().'/assets/quotesPDF/';
+            $file = $path . "/" . $filename;
+
+            $content = file_get_contents($file);
+            $content = chunk_split(base64_encode($content));
+
+            // a random hash will be necessary to send mixed content
+            $separator = md5(time());
+
+            // carriage return type (RFC)
+            $eol = "\r\n";
+
+            $headers =  'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            $subject = "Quotation Request!";
+            $msg = "Dear Mr/Mrs ". $user_name .",<br><br>You have received a quotation request. For further details visit your handyman panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+
+            // attachment
+            $msg .= "--" . $separator . $eol;
+            $msg .= "Content-Type: application/octet-stream; name=\"" . $filename . "\"" . $eol;
+            $msg .= "Content-Transfer-Encoding: base64" . $eol;
+            $msg .= "Content-Disposition: attachment" . $eol;
+            $msg .= $content . $eol;
+            $msg .= "--" . $separator . "--";
+            mail($email,$subject,$msg,$headers);
+
+        }
+
+
     }
 
     public function Clients()
