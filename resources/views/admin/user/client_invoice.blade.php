@@ -151,7 +151,7 @@
                         <div class="d-flex flex-row-reverse bg-dark text-white p-4">
 
 
-                            <?php $vat = $invoice[0]->inv_total*($invoice[0]->vat_percentage/100); $ex_vat = $invoice[0]->inv_total - $vat; ?>
+                            <?php $vat = $invoice[0]->inv_total/($invoice[0]->vat_percentage + 100) * 100; $vat = $invoice[0]->inv_total - $vat; $ex_vat = $invoice[0]->inv_total - $vat; ?>
 
                                 <div class="col-md-12" style="overflow-x: auto">
                                     <table class="table">
@@ -297,7 +297,7 @@
 
                                             @endif
                                             <td>€ <?php echo str_replace('.', ',', number_format($vat,2)); ?></td>
-                                            <td>- € <?php echo str_replace('.', ',', number_format($invoice[0]->service_fee,2)); ?></td>
+                                            <td>€ <?php echo str_replace('.', ',', number_format($invoice[0]->service_fee,2)); ?></td>
                                             <td>€ <?php echo str_replace('.', ',', number_format($ex_vat,2)); ?></td>
                                             <td>€ <?php echo str_replace('.', ',', number_format($invoice[0]->inv_total,2)); ?></td>
                                         </tr>

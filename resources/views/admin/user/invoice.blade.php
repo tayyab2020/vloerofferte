@@ -28,7 +28,7 @@
 
     $('.alert').fadeIn().delay(3000).fadeOut();
 
-</script> 
+</script>
 
     <div class="container" style="width: 100%;">
         <div class="row">
@@ -55,7 +55,7 @@
 
                                 <?php  $date = date('d-m-Y',$date);  ?>
 
-                                
+
                                 <p class="text-muted" style="font-size: 15px;margin-top: 20px;">Invoiced at: {{$date}}</p>
 
                                     <?php $booking_date = strtotime($invoice[0]->booking_date);
@@ -116,7 +116,7 @@
 
                                                           $date = date('d-m-Y',$date);  ?>
 
-                                        
+
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td>{{$key->cat_name}}</td>
@@ -125,29 +125,31 @@
                                             <td>€ {{$key->service_rate}}</td>
                                             <td>{{$date}}</td>
                                             <td>€ <?php echo str_replace('.', ',', number_format($key->total,2)); ?></td>
-                                            
+
                                         </tr>
 
                                         <?php $i++; ?>
-                                        
+
                                         @endforeach
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
                         <style type="text/css">
-                            
+
                             .table td, .table th{
                                 text-align: center;
                                 vertical-align: middle;
                             }
-                            
+
                         </style>
 
 
                         <div class="d-flex flex-row-reverse bg-dark text-white p-4">
+
+                            <?php $vat = $invoice[0]->inv_total/($invoice[0]->vat_percentage + 100) * 100; $vat = $invoice[0]->inv_total - $vat; $ex_vat = $invoice[0]->inv_total - $vat; ?>
 
                             <?php $total_handyman = $invoice[0]->inv_total - $invoice[0]->service_fee;
 
@@ -155,7 +157,9 @@
 
                             $total = $total_handyman - $commission_fee;
 
-                            $vat = $total * ($invoice[0]->vat_percentage/100);
+                            $vat = $total/($invoice[0]->vat_percentage + 100) * 100;
+
+                            $vat = $total - $vat;
 
                             $ex_vat = $total - $vat;  ?>
 
@@ -296,7 +300,7 @@
 </div>
 
 <style type="text/css">
-    
+
     @media (max-width: 768px) {
 
         .inv-rigth{
