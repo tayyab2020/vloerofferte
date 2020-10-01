@@ -148,8 +148,7 @@
 
 
                         <div class="d-flex flex-row-reverse bg-dark text-white p-4">
-
-                            <?php $vat = $invoice[0]->inv_total/($invoice[0]->vat_percentage + 100) * 100; $vat = $invoice[0]->inv_total - $vat; $ex_vat = $invoice[0]->inv_total - $vat; ?>
+                            
 
                             <?php $total_handyman = $invoice[0]->inv_total - $invoice[0]->service_fee;
 
