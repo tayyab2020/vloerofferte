@@ -1,4 +1,4 @@
-@extends('layouts.handyman')
+@extends('layouts.client')
 
 @section('content')
     <div class="right-side">

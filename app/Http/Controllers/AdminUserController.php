@@ -19,6 +19,7 @@ use App\service_types;
 use App\invoices;
 use App\handyman_temporary;
 use File;
+use PDF;
 
 
 class AdminUserController extends Controller
@@ -111,6 +112,29 @@ class AdminUserController extends Controller
         }
 
         return view('admin.user.send_quote',compact('request','handymen','array1'));
+    }
+
+    public function SendQuoteRequestHandymen(Request $request)
+    {
+        $handyman = $request->action;
+
+        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name')->first();
+
+        foreach ($handyman as $key)
+        {
+            $email = users::where('id',$key)->first();
+            $email = $email->email;
+        }
+
+        $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+
+        $date = strtotime($quote->created_at);
+
+        $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
+
+        ini_set('max_execution_time', 180);
+
+        return $pdf->download($quote_number.'.pdf');
     }
 
     public function Clients()

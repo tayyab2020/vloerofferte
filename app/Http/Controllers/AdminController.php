@@ -45,7 +45,7 @@ class AdminController extends Controller
     {
 
 
-        $data = how_it_works::findOrFail(1);        
+        $data = how_it_works::findOrFail(1);
 
         return view('admin.how_it_works',compact('data'));
     }
@@ -60,21 +60,21 @@ class AdminController extends Controller
     public function HandymanTermsPost(StoreValidationRequest $request)
     {
 
-        $input = $request->all(); 
+        $input = $request->all();
         $terms = terms_conditions::where("role",1)->first();
 
         if($terms)
         {
 
-            if ($file = $request->file('file')) 
-            {              
+            if ($file = $request->file('file'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets',$name);
 
                 if($terms->file != null)
                 {
                     unlink(public_path().'/assets/'.$terms->file);
-                }            
+                }
             $input['file'] = $name;
             }
 
@@ -82,17 +82,17 @@ class AdminController extends Controller
         $terms->update($input);
 
 
-        }   
+        }
 
         else
         {
 
-            if ($file = $request->file('file')) 
-            {              
+            if ($file = $request->file('file'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets',$name);
 
-                         
+
             $input['file'] = $name;
             }
 
@@ -103,8 +103,8 @@ class AdminController extends Controller
             $terms->save();
 
 
-        }    
-            
+        }
+
         Session::flash('success', 'Successfully updated the terms and conditions file for handyman');
         return redirect()->route('admin-handyman-terms');
     }
@@ -122,21 +122,21 @@ class AdminController extends Controller
     public function ClientTermsPost(StoreValidationRequest $request)
     {
 
-        $input = $request->all(); 
+        $input = $request->all();
         $terms = terms_conditions::where("role",2)->first();
 
         if($terms)
         {
 
-            if ($file = $request->file('file')) 
-            {              
+            if ($file = $request->file('file'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets',$name);
 
                 if($terms->file != null)
                 {
                     unlink(public_path().'/assets/'.$terms->file);
-                }            
+                }
             $input['file'] = $name;
             }
 
@@ -144,17 +144,17 @@ class AdminController extends Controller
         $terms->update($input);
 
 
-        }   
+        }
 
         else
         {
 
-            if ($file = $request->file('file')) 
-            {              
+            if ($file = $request->file('file'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets',$name);
 
-                         
+
             $input['file'] = $name;
             }
 
@@ -165,8 +165,8 @@ class AdminController extends Controller
             $terms->save();
 
 
-        }    
-            
+        }
+
         Session::flash('success', 'Successfully updated the terms and conditions file for client');
         return redirect()->route('admin-client-terms');
     }
@@ -175,7 +175,7 @@ class AdminController extends Controller
     {
 
 
-        $data = reasons_to_book::findOrFail(1);        
+        $data = reasons_to_book::findOrFail(1);
 
         return view('admin.reasons_to_book',compact('data'));
     }
@@ -207,7 +207,7 @@ class AdminController extends Controller
     public function Invoice($id)
     {
 
-        
+
 
         $invoice = invoices::leftjoin('bookings','bookings.invoice_id','=','invoices.id')->leftjoin('categories','categories.id','=','bookings.service_id')->leftjoin('service_types','service_types.id','=','bookings.rate_id')->where('invoices.id','=',$id)->Select('invoices.id','invoices.handyman_id','invoices.user_id','categories.cat_name','service_types.type','bookings.service_rate','bookings.rate','bookings.booking_date','bookings.total','invoices.is_booked','invoices.is_completed','invoices.pay_req','invoices.is_paid','invoices.is_partial','invoices.status','invoices.total as inv_total','invoices.created_at as inv_date','invoices.invoice_number','invoices.service_fee','invoices.vat_percentage','invoices.is_cancelled','invoices.cancel_req','invoices.amount_refund','invoices.commission_percentage')->get();
 
@@ -239,7 +239,7 @@ class AdminController extends Controller
     public function CancelledInvoice($id)
     {
 
-        
+
 
         $invoice = invoices::leftjoin('bookings','bookings.invoice_id','=','invoices.id')->leftjoin('categories','categories.id','=','bookings.service_id')->leftjoin('service_types','service_types.id','=','bookings.rate_id')->where('invoices.id','=',$id)->Select('invoices.id','invoices.handyman_id','invoices.user_id','categories.cat_name','service_types.type','bookings.service_rate','bookings.rate','bookings.booking_date','bookings.total','invoices.is_booked','invoices.is_completed','invoices.pay_req','invoices.is_paid','invoices.is_partial','invoices.status','invoices.total as inv_total','invoices.created_at as inv_date','invoices.invoice_number','invoices.service_fee','invoices.vat_percentage','invoices.is_cancelled','invoices.cancel_req','invoices.amount_refund','invoices.commission_percentage')->get();
 
@@ -278,27 +278,15 @@ class AdminController extends Controller
 
     public function Images($id)
     {
-
-
-
         $data = bookings::leftjoin('booking_images','booking_images.booking_id','=','bookings.id')->leftjoin('categories','categories.id','=','bookings.service_id')->where('bookings.invoice_id','=',$id)->Select('categories.cat_name','booking_images.image','booking_images.description')->get();
-
-
-
-    return view('admin.user.images',compact('data'));
-
-        
-
+        return view('admin.user.images',compact('data'));
     }
 
 
     public function DownloadInvoice($id)
     {
 
-        
-
         $invoice = invoices::leftjoin('bookings','bookings.invoice_id','=','invoices.id')->leftjoin('categories','categories.id','=','bookings.service_id')->leftjoin('service_types','service_types.id','=','bookings.rate_id')->where('invoices.id','=',$id)->Select('invoices.id','invoices.handyman_id','invoices.user_id','categories.cat_name','service_types.type','bookings.service_rate','bookings.rate','bookings.booking_date','bookings.total','invoices.is_booked','invoices.is_completed','invoices.pay_req','invoices.is_paid','invoices.is_partial','invoices.status','invoices.total as inv_total','invoices.created_at as inv_date','invoices.invoice_number','invoices.service_fee','invoices.vat_percentage','invoices.is_cancelled','invoices.cancel_req','invoices.amount_refund','commission_percentage')->get();
-
 
         $user = invoices::leftjoin('users','users.id','=','invoices.user_id')->where('invoices.id','=',$id)->first();
 
@@ -306,16 +294,11 @@ class AdminController extends Controller
 
         $pdf = PDF::loadView('admin.user.pdfinvoice',compact('invoice','user','handyman'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
-$invoice_number = $invoice[0]->invoice_number;
+        $invoice_number = $invoice[0]->invoice_number;
 
-       ini_set('max_execution_time', 180);
-
-
+        ini_set('max_execution_time', 180);
 
         return $pdf->download($invoice_number.'.pdf');
-
-       
-
     }
 
 
@@ -349,7 +332,7 @@ $invoice_number = $invoice[0]->invoice_number;
     public function DownloadCancelledInvoice($id)
     {
 
-        
+
 
         $invoice = invoices::leftjoin('bookings','bookings.invoice_id','=','invoices.id')->leftjoin('categories','categories.id','=','bookings.service_id')->leftjoin('service_types','service_types.id','=','bookings.rate_id')->where('invoices.id','=',$id)->Select('invoices.id','invoices.handyman_id','invoices.user_id','categories.cat_name','service_types.type','bookings.service_rate','bookings.rate','bookings.booking_date','bookings.total','invoices.is_booked','invoices.is_completed','invoices.pay_req','invoices.is_paid','invoices.is_partial','invoices.status','invoices.total as inv_total','invoices.created_at as inv_date','invoices.invoice_number','invoices.service_fee','invoices.vat_percentage','invoices.is_cancelled','invoices.cancel_req','invoices.amount_refund','invoices.commission_percentage')->get();
 
@@ -365,7 +348,7 @@ $invoice_number = $invoice[0]->invoice_number;
 
         $pdf = PDF::loadView('admin.user.cancelled_pdfinvoice',compact('invoice','user','handyman','invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
- 
+
 
        ini_set('max_execution_time', 180);
 
@@ -373,7 +356,7 @@ $invoice_number = $invoice[0]->invoice_number;
 
         return $pdf->download($invoice_number.'.pdf');
 
-       
+
 
     }
 
@@ -440,7 +423,7 @@ if( $handyman->featured == 0)
 else
 {
 
-    
+
 
     if($request->statusSelect == 1)
     {
@@ -470,9 +453,9 @@ $payment = $mollie->customers->get($handyman->mollie_customer_id)->createPayment
 
             $post = invoices::where('id','=',$request->item_id)->update(['is_booked' => 1,'is_completed' => 1,'pay_req' => 1,'is_paid' => 1]);
 
-            
 
-        $headers =  'MIME-Version: 1.0' . "\r\n"; 
+
+        $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking Payment!";
@@ -480,7 +463,7 @@ $payment = $mollie->customers->get($handyman->mollie_customer_id)->createPayment
             mail($user_email,$subject,$msg,$headers);
 
 
-            $headers =  'MIME-Version: 1.0' . "\r\n"; 
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Betaling!";
@@ -489,7 +472,7 @@ $payment = $mollie->customers->get($handyman->mollie_customer_id)->createPayment
 
 
 
-            $headers =  'MIME-Version: 1.0' . "\r\n"; 
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking Payment!";
@@ -497,7 +480,7 @@ $payment = $mollie->customers->get($handyman->mollie_customer_id)->createPayment
             mail($handyman_email,$subject,$msg,$headers);
 
 
-            $headers =  'MIME-Version: 1.0' . "\r\n"; 
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Uitbetaling";
@@ -613,13 +596,13 @@ $amount_refund = $thirty_amount;
 
             }
 
-            
-            
+
+
 
 
         }
 
-     
+
 
 
     $post = invoices::where('id','=',$request->item_id)->update(['status' => 'refund','is_cancelled' => 1,'cancel_req' => 0,'is_booked' => 0,'is_completed' => 0,'pay_req' => 0,'is_paid' => 0,'is_partial' => 0,'reply' => $request->reply,'amount_refund' => $amount_refund]);
@@ -644,7 +627,7 @@ $amount_refund = $thirty_amount;
 
 
 
-        $headers =  'MIME-Version: 1.0' . "\r\n"; 
+        $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking Cancelled!";
@@ -653,7 +636,7 @@ $amount_refund = $thirty_amount;
 
 
 
-            $headers =  'MIME-Version: 1.0' . "\r\n"; 
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking Cancelled!";
@@ -662,7 +645,7 @@ $amount_refund = $thirty_amount;
 
 
 
-            $headers =  'MIME-Version: 1.0' . "\r\n"; 
+            $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Klus geannuleerd!";
@@ -676,7 +659,7 @@ $amount_refund = $thirty_amount;
 
     }
 
-  
+
 
 
 }
@@ -713,7 +696,7 @@ $amount_refund = $thirty_amount;
             {
                 $counter = $counter + 1;
             }
-            
+
         }
         fclose ( $handle );
     }
@@ -721,7 +704,7 @@ $amount_refund = $thirty_amount;
     }
 
 
-     
+
     public function profile()
     {
         return view('admin.profile');
@@ -731,18 +714,18 @@ $amount_refund = $thirty_amount;
     public function profileupdate(UpdateValidationRequest $request)
     {
 
-        $input = $request->all();  
-        $admin = Auth::guard('admin')->user();        
-            if ($file = $request->file('photo')) 
-            {              
+        $input = $request->all();
+        $admin = Auth::guard('admin')->user();
+            if ($file = $request->file('photo'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name);
                 if($admin->photo != null)
                 {
                     unlink(public_path().'/assets/images/'.$admin->photo);
-                }            
+                }
             $input['photo'] = $name;
-            } 
+            }
 
         $admin->update($input);
         Session::flash('success', 'Successfully updated your profile');
@@ -776,5 +759,5 @@ $amount_refund = $thirty_amount;
         Session::flash('success', 'Successfully updated your password');
         return redirect()->back();
     }
-    
+
 }

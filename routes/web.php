@@ -147,6 +147,7 @@
   Route::get('/quotation-requests', 'AdminUserController@QuotationRequests')->name('quotation-requests');
   Route::get('/view-quote-request/{id}', 'AdminUserController@QuoteRequest');
   Route::get('/send-quote-request/{id}', 'AdminUserController@SendQuoteRequest');
+  Route::post('/send-quote-request', 'AdminUserController@SendQuoteRequestHandymen')->name('send-quote-request');
   Route::get('/handymans', 'AdminUserController@index')->name('admin-user-index');
   Route::get('/clients', 'AdminUserController@Clients')->name('admin-user-client');
   Route::get('/bookings', 'AdminUserController@UserBookings')->name('admin-user-bookings');

@@ -15,7 +15,7 @@
                                         <a href="{{route('quotation-requests')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
                                     </div>
                                     <hr>
-                                    <form class="form-horizontal" action="{{route('user.quote')}}" method="POST" enctype="multipart/form-data">
+                                    <form class="form-horizontal" id="handyman_form" action="{{route('send-quote-request')}}" method="POST" enctype="multipart/form-data">
 
                                         @include('includes.form-error')
                                         @include('includes.form-success')
@@ -35,7 +35,7 @@
 
                                         <div class="form-group" style="margin: 30px 0px;overflow-y: auto;">
 
-                                            <table style="margin: auto;display: table;text-align: center;">
+                                            <table class="handyman_table" style="margin: auto;display: table;text-align: center;">
 
                                                 <thead>
                                                 <th>Action</th>
@@ -49,7 +49,7 @@
                                                 @foreach($handymen as $i => $key)
 
                                                 <tr>
-                                                <td><input type="checkbox" name="action[]" value="{{$key->id}}" id="action{{$i}}"></td>
+                                                <td><input type="checkbox" name="action[]" value="{{$key->id}}" class="action" id="action{{$i}}"></td>
                                                 <td>{{$key->name}} {{$key->family_name}}</td>
                                                 <td><?php echo number_format((float)$array1[$i]['handyman_distance'], 2, '.', ''); ?> KM</td>
                                                 <td>{{$key->address}}</td>
@@ -66,7 +66,7 @@
                                         @endif
 
                                         <div class="add-product-footer">
-                                            <button type="submit" style="outline: none;" class="btn add-product_btn">Send</button>
+                                            <button type="button" style="outline: none;" class="btn add-product_btn submit_btn">Send</button>
                                         </div>
                                     </form>
                                 </div>
@@ -81,6 +81,8 @@
 @endsection
 
 <style type="text/css">
+
+    tr{cursor: pointer;}
 
     td,th{
         padding: 20px !important;
@@ -101,13 +103,14 @@
 
     .swal2-content
     {
-        font-size: 18px;
+        font-size: 22px !important;
     }
 
     .swal2-actions
     {
         font-size: 16px;
     }
+
 
 </style>
 
@@ -120,6 +123,35 @@
         //]]>
     </script>
 
+    <script>
+        $(document).ready(function() {
+
+            $('.submit_btn').click(function(event) {
+
+                if($('.action:checked').length == 0)
+                {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'You have to select atleast one handyman!',
+                    });
+                }
+                else
+                {
+                    $('#handyman_form').submit();
+                }
+
+            });
+
+
+            $('.handyman_table tr').click(function(event) {
+                if (event.target.type !== 'checkbox') {
+                    $(':checkbox', this).trigger('click');
+                }
+            });
+
+        });
+    </script>
 
 
     <script src="{{asset('assets/admin/js/jquery152.min.js')}}"></script>
