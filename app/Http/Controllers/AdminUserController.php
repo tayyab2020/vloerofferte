@@ -144,29 +144,17 @@ class AdminUserController extends Controller
             $path = public_path().'/assets/quotesPDF/';
             $file = $path . "/" . $filename;
 
-            $content = file_get_contents($file);
-            $content = chunk_split(base64_encode($content));
 
-            // a random hash will be necessary to send mixed content
-            $separator = md5(time());
+            \Mail::raw('Hi, welcome user!', function ($message) use($file,$email,$filename){
+                $message->from('info@topstoffeerders.nl');
+                $message->to($email)->subject('Quotation Request!');
 
-            // carriage return type (RFC)
-            $eol = "\r\n";
+                        $message->attach($file, [
+                            'as' => $filename,
+                            'mime' => 'application/pdf',
+                        ]);
 
-            $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            $subject = "Quotation Request!";
-            $msg = "Dear Mr/Mrs ". $user_name .",<br><br>You have received a quotation request. For further details visit your handyman panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
-
-            // attachment
-            $msg .= "--" . $separator . $eol;
-            $msg .= "Content-Type: application/octet-stream; name=\"" . $filename . "\"" . $eol;
-            $msg .= "Content-Transfer-Encoding: base64" . $eol;
-            $msg .= "Content-Disposition: attachment" . $eol;
-            $msg .= $content . $eol;
-            $msg .= "--" . $separator . "--";
-            mail($email,$subject,$msg,$headers);
+            });
 
         }
 
