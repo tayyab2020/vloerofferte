@@ -144,8 +144,11 @@ class AdminUserController extends Controller
             $path = public_path().'/assets/quotesPDF/';
             $file = $path . "/" . $filename;
 
+            $link = url('/').'/handyman/client-dashboard';
 
-            \Mail::raw('Hi, welcome user!', function ($message) use($file,$email,$filename){
+            $msg = "Dear Mr/Mrs ".$user_name.",<br><br>You have received a quotation request. You can take further action from your dashboard through <a href='".$link."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+
+            \Mail::raw($msg, function ($message) use($file,$email,$filename){
                 $message->from('info@topstoffeerders.nl');
                 $message->to($email)->subject('Quotation Request!');
 
