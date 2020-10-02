@@ -18,6 +18,17 @@
 
                                     <div class="form-horizontal">
 
+                                        <?php $date = strtotime($request->created_at);
+
+                                        $quote_number = date("Y", $date) . "-" . sprintf('%04u', $request->id); ?>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_slug">Quote Number </label>
+                                            <div class="col-sm-6">
+                                                <p style="padding: 10px;" class="form-control">{{$quote_number}}</p>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_slug">Name* </label>
                                             <div class="col-sm-6">

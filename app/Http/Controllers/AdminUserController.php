@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\handyman_quotes;
 use App\handyman_terminals;
 use App\handyman_unavailability;
 use App\quotes;
@@ -145,6 +146,16 @@ class AdminUserController extends Controller
 
             $user_name = $user->name. ' ' .$user->family_name;
 
+            $save = handyman_quotes::where('handyman_id',$key)->where('quote_id',$request->quote_id)->first();
+
+            if(!$save)
+            {
+                $save = new handyman_quotes;
+                $save->handyman_id = $key;
+                $save->quote_id = $request->quote_id;
+                $save->save();
+            }
+
             $link = url('/').'/handyman/client-dashboard';
 
             \Mail::send('admin.user.quote_request_mail',
@@ -164,6 +175,9 @@ class AdminUserController extends Controller
 
         }
 
+        Session::flash('success', 'Quotation request sent successfully!');
+        return redirect()->back();
+
 
     }
 
@@ -174,7 +188,6 @@ class AdminUserController extends Controller
         foreach ($users as $key) {
 
              $categories[] = handyman_services::leftjoin('categories','categories.id','=','handyman_services.service_id')->where('handyman_services.handyman_id',$key->id)->select('categories.cat_name')->get();
-
 
         }
 
@@ -188,9 +201,6 @@ class AdminUserController extends Controller
         $handymans_booked = invoices::leftjoin('users','users.id','=','invoices.handyman_id')->orderBy('invoices.id', 'desc')->get();
 
         $data[] = array('users'=>$users_bookings,'handymans'=>$handymans_booked);
-
-
-
 
         return view('admin.user.bookings',compact('data'));
     }
