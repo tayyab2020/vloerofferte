@@ -1,4 +1,4 @@
-@extends('layouts.handyman')
+@extends('layouts.client')
 
 @section('content')
 
@@ -27,6 +27,10 @@
 
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Service</th>
 
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Name</th>
+
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Postcode</th>
+
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Work Type</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">When</th>
@@ -53,6 +57,10 @@
 
                                                             <td>{{$key->cat_name}}</td>
 
+                                                            <td>{{$key->quote_name}}</td>
+
+                                                            <td>{{$key->quote_zipcode}}</td>
+
                                                             <td>{{$key->quote_work}}</td>
 
                                                             <td>{{$key->quote_when}}</td>
@@ -74,7 +82,7 @@
                                                                     <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
-                                                                        <li><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">View</a></li>
+                                                                        <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">View</a></li>
                                                                         <li><a href="#">Download PDF</a></li>
                                                                     </ul>
                                                                 </div>

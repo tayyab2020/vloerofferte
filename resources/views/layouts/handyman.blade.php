@@ -115,7 +115,11 @@
                         </li>
 
                         <li>
-                                    <a href="{{route('handyman-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->mbt}}</a>
+                            <a href="{{route('handyman-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->mbt}}</a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('handyman-quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Requests</a>
                         </li>
 
                         <li>

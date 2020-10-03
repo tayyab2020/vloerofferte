@@ -1,4 +1,4 @@
-@extends('layouts.handyman')
+@extends('layouts.client')
 
 @section('content')
     <div class="right-side">
@@ -29,8 +29,6 @@
                                             </div>
                                         </div>
 
-                                            @if($request->status)
-
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_slug">Name* </label>
                                             <div class="col-sm-6">
@@ -59,19 +57,17 @@
                                             </div>
                                         </div>
 
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4" for="blood_group_slug">Zip Code* </label>
-                                                    <div class="col-sm-6">
-                                                        <p style="padding: 10px;" class="form-control">{{$request->quote_zipcode}}</p>
-                                                    </div>
-                                                </div>
-
-                                            @endif
-
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_display_name">Service* </label>
                                             <div class="col-sm-6">
                                                 <p style="padding: 10px;" class="form-control">{{$request->cat_name}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_slug">Zip Code* </label>
+                                            <div class="col-sm-6">
+                                                <p style="padding: 10px;" class="form-control">{{$request->quote_zipcode}}</p>
                                             </div>
                                         </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\handyman_quotes;
 use App\quotes;
 use Illuminate\Http\Request;
 use App\User;
@@ -125,10 +126,30 @@ else
 
         $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.user_id',$user_id)->orderBy('quotes.created_at','desc')->select('quotes.*','categories.cat_name')->get();
 
+        return view('user.client_quote_requests',compact('requests'));
+    }
+
+    public function HandymanQuotationRequests()
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        $requests = handyman_quotes::leftjoin('quotes','quotes.id','=','handyman_quotes.quote_id')->leftjoin('categories','categories.id','=','quotes.quote_service')->where('handyman_quotes.handyman_id',$user_id)->orderBy('quotes.created_at','desc')->select('quotes.*','categories.cat_name')->get();
+
         return view('user.quote_requests',compact('requests'));
     }
 
     public function QuoteRequest($id)
+    {
+        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
+
+        $services = Category::all();
+
+        return view('user.client_quote_request',compact('request','services'));
+    }
+
+    public function HandymanQuoteRequest($id)
     {
         $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
 
