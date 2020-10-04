@@ -61,6 +61,19 @@ class AdminUserController extends Controller
         return view('admin.user.quote_request',compact('request','services'));
     }
 
+    public function DownloadQuoteRequest($id)
+    {
+        $quote = quotes::where('id',$id)->first();
+
+        $date = strtotime($quote->created_at);
+
+        $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
+
+        $filename = $quote_number.'.pdf';
+
+        return response()->download(public_path("assets/quotesPDF/{$filename}"));
+    }
+
     public function SendQuoteRequest($id)
     {
         $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();

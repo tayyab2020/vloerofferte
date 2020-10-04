@@ -53,7 +53,9 @@
   Route::get('/quotation-requests', 'UserController@QuotationRequests')->name('client-quotation-requests');
   Route::get('/handyman-quotation-requests', 'UserController@HandymanQuotationRequests')->name('handyman-quotation-requests');
   Route::get('/view-quote-request/{id}', 'UserController@QuoteRequest');
+  Route::get('/download-quote-request/{id}', 'UserController@DownloadQuoteRequest');
   Route::get('/view-handyman-quote-request/{id}', 'UserController@HandymanQuoteRequest');
+  Route::get('/download-handyman-quote-request/{id}', 'UserController@DownloadHandymanQuoteRequest');
   Route::get('/handyman-panel', 'UserController@HandymanPanel')->name('handyman-panel');
   Route::get('/dashboard', 'UserController@index')->name('user-dashboard');
   Route::get('/experience-years', 'UserController@ExperienceYears')->name('experience-years');
@@ -148,6 +150,7 @@
 
   Route::get('/quotation-requests', 'AdminUserController@QuotationRequests')->name('quotation-requests');
   Route::get('/view-quote-request/{id}', 'AdminUserController@QuoteRequest');
+  Route::get('/download-quote-request/{id}', 'AdminUserController@DownloadQuoteRequest');
   Route::get('/send-quote-request/{id}', 'AdminUserController@SendQuoteRequest');
   Route::post('/send-quote-request', 'AdminUserController@SendQuoteRequestHandymen')->name('send-quote-request');
   Route::get('/handymans', 'AdminUserController@index')->name('admin-user-index');

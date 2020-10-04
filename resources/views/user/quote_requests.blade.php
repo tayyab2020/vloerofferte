@@ -75,7 +75,7 @@
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">View</a></li>
-                                                                        <li><a href="#">Download PDF</a></li>
+                                                                        <li><a href="{{ url('/handyman/download-handyman-quote-request/'.$key->id) }}">Download PDF</a></li>
                                                                     </ul>
                                                                 </div>
                                                             </td>

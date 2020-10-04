@@ -149,6 +149,29 @@ else
         return view('user.client_quote_request',compact('request','services'));
     }
 
+    public function DownloadQuoteRequest($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $quote = quotes::where('id',$id)->where('user_id',$user_id)->first();
+
+        if($quote)
+        {
+            $date = strtotime($quote->created_at);
+
+            $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
+
+            $filename = $quote_number.'.pdf';
+
+            return response()->download(public_path("assets/quotesPDF/{$filename}"));
+        }
+        else
+        {
+            return redirect('handyman/client-dashboard');
+        }
+    }
+
     public function HandymanQuoteRequest($id)
     {
         $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
@@ -156,6 +179,29 @@ else
         $services = Category::all();
 
         return view('user.quote_request',compact('request','services'));
+    }
+
+    public function DownloadHandymanQuoteRequest($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $quote = quotes::leftjoin('handyman_quotes','handyman_quotes.quote_id','=','quotes.id')->where('quotes.id',$id)->where('handyman_quotes.handyman_id',$user_id)->select('quotes.*')->first();
+
+        if($quote)
+        {
+            $date = strtotime($quote->created_at);
+
+            $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
+
+            $filename = $quote_number.'.pdf';
+
+            return response()->download(public_path("assets/quotesPDF/{$filename}"));
+        }
+        else
+        {
+            return redirect('handyman/dashboard');
+        }
     }
 
     public function Invoice($id)

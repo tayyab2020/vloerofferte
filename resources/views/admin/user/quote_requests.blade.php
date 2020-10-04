@@ -83,7 +83,7 @@
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="{{ url('/logstof/view-quote-request/'.$key->id) }}">View</a></li>
-                                                                        <li><a href="#">Download PDF</a></li>
+                                                                        <li><a href="{{ url('/logstof/download-quote-request/'.$key->id) }}">Download PDF</a></li>
                                                                         <li><a href="{{ url('/logstof/send-quote-request/'.$key->id) }}">Send</a></li>
                                                                     </ul>
                                                                 </div>
