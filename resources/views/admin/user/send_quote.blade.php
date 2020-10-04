@@ -70,6 +70,43 @@
                                         </div>
                                     </form>
                                 </div>
+
+                                @if($history)
+
+                                    <div class="form-group" style="margin: 30px 0px;overflow-y: auto;">
+
+                                        <h3 style="text-align: center;margin-bottom: 30px;">History</h3>
+
+                                        <table style="margin: auto;display: table;text-align: center;">
+
+                                            <thead>
+                                            <th style="text-align: center;">ID</th>
+                                            <th style="text-align: center;width: 300px;">Name</th>
+                                            <th style="text-align: center;">Date</th>
+                                            </thead>
+
+                                            <tbody>
+                                            @foreach($history as $i => $key)
+
+                                                <?php $date = strtotime($key->quote_date);
+
+                                                $date = date('d-m-Y',$date);  ?>
+
+                                                <tr>
+                                                    <td>{{$i+1}}</td>
+                                                    <td>{{$key->name}} {{$key->family_name}}</td>
+                                                    <td>{{$date}}</td>
+                                                </tr>
+
+                                            @endforeach
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                @endif
+
                             </div>
                         </div>
                     </div>

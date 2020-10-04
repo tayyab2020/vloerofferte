@@ -72,6 +72,8 @@ class AdminUserController extends Controller
         $result_string = file_get_contents($url);
         $result = json_decode($result_string, true);
 
+        $history = handyman_quotes::leftjoin('users','users.id','=','handyman_quotes.handyman_id')->where('handyman_quotes.quote_id',$id)->select('users.*','handyman_quotes.created_at as quote_date')->get();
+
 
         if(($result['status']) != 'ZERO_RESULTS' )
         {
@@ -112,7 +114,7 @@ class AdminUserController extends Controller
             $handymen = '';
         }
 
-        return view('admin.user.send_quote',compact('request','handymen','array1'));
+        return view('admin.user.send_quote',compact('request','handymen','array1','history'));
     }
 
     public function SendQuoteRequestHandymen(Request $request)
@@ -155,8 +157,12 @@ class AdminUserController extends Controller
                 $save->quote_id = $request->quote_id;
                 $save->save();
             }
+            else
+            {
+                handyman_quotes::where('handyman_id',$key)->where('quote_id',$request->quote_id)->update(['updated_at' => date('Y-m-d H:i:s', time())]);
+            }
 
-            $link = url('/').'/handyman/client-dashboard';
+            $link = url('/').'/handyman/dashboard';
 
             \Mail::send('admin.user.quote_request_mail',
                 array(
