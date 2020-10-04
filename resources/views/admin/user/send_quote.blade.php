@@ -63,15 +63,14 @@
 
                                         </div>
 
+                                            <div class="add-product-footer">
+                                                <button type="button" style="outline: none;" class="btn add-product_btn submit_btn">Send</button>
+                                            </div>
+
                                         @endif
 
-                                        <div class="add-product-footer">
-                                            <button type="button" style="outline: none;" class="btn add-product_btn submit_btn">Send</button>
-                                        </div>
                                     </form>
                                 </div>
-
-                                @if($history)
 
                                     <div class="form-group" style="margin: 30px 0px;overflow-y: auto;">
 
@@ -86,6 +85,9 @@
                                             </thead>
 
                                             <tbody>
+
+                                            @if(count($history)>0)
+
                                             @foreach($history as $i => $key)
 
                                                 <?php $date = strtotime($key->quote_date);
@@ -99,13 +101,19 @@
                                                 </tr>
 
                                             @endforeach
+
+                                            @else
+
+                                                <tr>
+                                                    <td colspan="3">No Records Found</td>
+                                                </tr>
+
+                                            @endif
                                             </tbody>
 
                                         </table>
 
                                     </div>
-
-                                @endif
 
                             </div>
                         </div>
