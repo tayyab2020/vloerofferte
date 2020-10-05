@@ -63,13 +63,24 @@ class AdminUserController extends Controller
 
     public function DownloadQuoteRequest($id)
     {
-        $quote = quotes::where('id',$id)->first();
+        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
 
         $date = strtotime($quote->created_at);
 
         $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
 
         $filename = $quote_number.'.pdf';
+
+        $file = public_path().'/assets/quotesPDF/'.$filename;
+
+        if (!file_exists($file)){
+
+            ini_set('max_execution_time', 180);
+
+            $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+
+            $pdf->save(public_path().'/assets/quotesPDF/'.$filename);
+        }
 
         return response()->download(public_path("assets/quotesPDF/{$filename}"));
     }

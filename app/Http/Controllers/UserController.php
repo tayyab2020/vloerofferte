@@ -164,6 +164,17 @@ else
 
             $filename = $quote_number.'.pdf';
 
+            $file = public_path().'/assets/quotesPDF/'.$filename;
+
+            if (!file_exists($file)){
+
+                ini_set('max_execution_time', 180);
+
+                $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+
+                $pdf->save(public_path().'/assets/quotesPDF/'.$filename);
+            }
+
             return response()->download(public_path("assets/quotesPDF/{$filename}"));
         }
         else
@@ -195,6 +206,17 @@ else
             $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
 
             $filename = $quote_number.'.pdf';
+
+            $file = public_path().'/assets/quotesPDF/'.$filename;
+
+            if (!file_exists($file)){
+
+                ini_set('max_execution_time', 180);
+
+                $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+
+                $pdf->save(public_path().'/assets/quotesPDF/'.$filename);
+            }
 
             return response()->download(public_path("assets/quotesPDF/{$filename}"));
         }
