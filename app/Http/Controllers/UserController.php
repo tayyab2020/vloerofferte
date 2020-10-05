@@ -226,6 +226,23 @@ else
         }
     }
 
+    public function CreateQuotation($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $quote = quotes::leftjoin('handyman_quotes','handyman_quotes.quote_id','=','quotes.id')->leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->where('handyman_quotes.handyman_id',$user_id)->select('quotes.*','categories.cat_name')->first();
+
+        if($quote)
+        {
+            return view('user.quotation',compact('quote'));
+        }
+        else
+        {
+            return redirect('handyman/dashboard');
+        }
+    }
+
     public function Invoice($id)
     {
 

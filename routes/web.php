@@ -56,6 +56,7 @@
   Route::get('/download-quote-request/{id}', 'UserController@DownloadQuoteRequest');
   Route::get('/view-handyman-quote-request/{id}', 'UserController@HandymanQuoteRequest');
   Route::get('/download-handyman-quote-request/{id}', 'UserController@DownloadHandymanQuoteRequest');
+  Route::get('/create-quotation/{id}', 'UserController@CreateQuotation');
   Route::get('/handyman-panel', 'UserController@HandymanPanel')->name('handyman-panel');
   Route::get('/dashboard', 'UserController@index')->name('user-dashboard');
   Route::get('/experience-years', 'UserController@ExperienceYears')->name('experience-years');
