@@ -20,16 +20,22 @@
                                         @include('includes.form-success')
 
                                         <div class="row" style="margin: 0;">
-                                            <div class="col-sm-12" style="padding: 25px;">
+                                            <div class="col-sm-12">
+
                                                 <form data-select2-id="13">
-                                                    <div class="row">
+
+                                                    <div class="row" style="margin-top: 20px;">
+
                                                         <div class="col-sm-6 col-md-3" data-select2-id="12">
                                                             <div class="form-group" data-select2-id="11">
                                                                 <label>Service <span class="text-danger">*</span></label>
-                                                                <input class="form-control" name="service" id="service" value="{{$quote->cat_name}}" type="text" readonly>
+                                                                <select class="js-data-example-ajax form-control" style="width: 100%" name="service" id="service" required>
+                                                                    @foreach($services as $key)
+                                                                        <option value="{{$key->id}}" @if($quote->quote_service == $key->id) selected @endif>{{$key->cat_name}}</option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
                                                         </div>
-
 
                                                         <div class="col-sm-6 col-md-3">
                                                             <div class="form-group">
@@ -49,9 +55,9 @@
                                                         <div class="col-sm-6 col-md-3">
                                                             <div class="form-group">
                                                                 <label>Estimate Date <span class="text-danger">*</span></label>
-                                                                <div class="input-group">
-                                                                    <div class="input-group-addon">
-                                                                        <i class="fa fa-fw fa-calendar"></i>
+                                                                <div class="input-group" style="display: flex;flex-direction: row;">
+                                                                    <div class="input-group-addon" style="padding: 0;width: 20%;display: flex;justify-content: center;">
+                                                                        <i class="fa fa-fw fa-calendar" style="align-self: center;"></i>
                                                                     </div>
 
                                                                     <input type="text" name="estimate_date" id="estimate_date" class="form-control" placeholder="Enter Estimate Date" autocomplete="off" required >
@@ -61,18 +67,19 @@
                                                         </div>
 
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12 col-sm-12">
+
+                                                    <div class="row" style="margin: 0;margin-top: 35px;">
+                                                        <div class="col-md-12 col-sm-12" style="border: 1px solid #e5e5e5;padding: 0;">
                                                             <div class="table-responsive">
-                                                                <table class="table table-hover table-white">
+                                                                <table class="table table-hover table-white items-table">
                                                                     <thead>
                                                                     <tr>
-                                                                        <th style="width: 20px">#</th>
-                                                                        <th class="col-sm-2">Item</th>
+                                                                        <th style="width: 40px;">#</th>
+                                                                        <th class="col-sm-2">Item/Service</th>
                                                                         <th class="col-md-6">Description</th>
-                                                                        <th style="width:100px;">Unit Cost</th>
-                                                                        <th style="width:80px;">Qty</th>
-                                                                        <th>Amount</th>
+                                                                        <th style="width:100px;">Cost</th>
+                                                                        <th style="width:120px;">Qty</th>
+                                                                        <th style="width: 120px;">Amount</th>
                                                                         <th> </th>
                                                                     </tr>
                                                                     </thead>
@@ -80,46 +87,47 @@
                                                                     <tr>
                                                                         <td>1</td>
                                                                         <td>
-                                                                            <input class="form-control" type="text" style="min-width:150px">
+                                                                            <input name="item[]" id="item" class="form-control" type="text">
                                                                         </td>
                                                                         <td>
-                                                                            <input class="form-control" type="text" style="min-width:150px">
+                                                                            <input name="description[]" id="description" class="form-control" type="text">
                                                                         </td>
                                                                         <td>
-                                                                            <input class="form-control" style="width:100px" type="text">
+                                                                            <input name="cost[]" id="cost" class="form-control" type="text">
                                                                         </td>
                                                                         <td>
-                                                                            <input class="form-control" style="width:80px" type="text">
+                                                                            <input name="qty[]" id="qty" class="form-control" type="text">
                                                                         </td>
                                                                         <td>
-                                                                            <input class="form-control" readonly="" style="width:120px" type="text">
+                                                                            <input name="amount[]" id="amount" class="form-control" readonly="" type="text">
                                                                         </td>
-                                                                        <td><a href="javascript:void(0)" class="text-success font-18" title="Add"><i class="fa fa-plus"></i></a></td>
+                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-success font-18 add-row" title="Add"><i class="fa fa-plus"></i></a></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>2</td>
                                                                         <td>
-                                                                            <input class="form-control" type="text" style="min-width:150px">
+                                                                            <input class="form-control" type="text">
                                                                         </td>
                                                                         <td>
-                                                                            <input class="form-control" type="text" style="min-width:150px">
+                                                                            <input class="form-control" type="text">
                                                                         </td>
                                                                         <td>
-                                                                            <input class="form-control" style="width:100px" type="text">
+                                                                            <input class="form-control" type="text">
                                                                         </td>
                                                                         <td>
-                                                                            <input class="form-control" style="width:80px" type="text">
+                                                                            <input class="form-control" type="text">
                                                                         </td>
                                                                         <td>
-                                                                            <input class="form-control" readonly="" style="width:120px" type="text">
+                                                                            <input class="form-control" readonly="" type="text">
                                                                         </td>
-                                                                        <td><a href="javascript:void(0)" class="text-danger font-18" title="Remove"><i class="fa fa-trash-o"></i></a></td>
+                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
+
                                                             <div class="table-responsive">
-                                                                <table class="table table-hover table-white">
+                                                                <table class="table table-hover table-white" style="margin-bottom: 0;">
                                                                     <tbody>
                                                                     <tr>
                                                                         <td></td>
@@ -132,7 +140,7 @@
                                                                     <tr>
                                                                         <td colspan="5" class="text-right">Tax</td>
                                                                         <td style="text-align: right; padding-right: 30px;width: 230px">
-                                                                            <input class="form-control text-right" value="0" readonly="" type="text">
+                                                                            <input class="form-control text-right" value="0" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -146,18 +154,20 @@
                                                                     </tbody>
                                                                 </table>
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Other Information</label>
-                                                                        <textarea class="form-control" rows="4"></textarea>
-                                                                    </div>
-                                                                </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
+                                                        <div class="col-md-12" style="padding: 0;">
+                                                            <div class="form-group">
+                                                                <label>Other Information</label>
+                                                                <textarea class="form-control" rows="4"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="submit-section">
-                                                        <button class="btn btn-primary submit-btn">Send</button>
+
+                                                    <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
+                                                        <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Send</button>
                                                     </div>
                                                 </form>
 
@@ -175,6 +185,30 @@
 
 
     <style type="text/css">
+
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th
+        {
+            padding: 25px 10px;
+            vertical-align: middle;
+        }
+
+        .select2-selection
+        {
+            height: 35px !important;
+            padding-top: 3px;
+            outline: none;
+            border-color: #cacaca !important;
+        }
+
+        .select2-selection__arrow
+        {
+            top: 4.5px !important;
+        }
+
+        .select2-selection__clear
+        {
+            display: none;
+        }
 
         .dropdown-menu
         {
@@ -793,6 +827,65 @@
                 startDate: new Date(),
 
             });
+
+            $(".js-data-example-ajax").select2({
+                width: '100%',
+                height: '200px',
+                // placeholder: "City Name",
+                placeholder: "",
+                allowClear: true,
+            });
+
+            $(".add-row").click(function(){
+
+                var rowCount = $('.items-table tr').length;
+
+                $(".items-table").append('<tr>\n' +
+                    '                                                                        <td>'+rowCount+'</td>\n' +
+                    '                                                                        <td>\n' +
+                    '                                                                            <input name="item[]" id="item" class="form-control" type="text">\n' +
+                    '                                                                        </td>\n' +
+                    '                                                                        <td>\n' +
+                    '                                                                            <input name="description[]" id="description" class="form-control" type="text">\n' +
+                    '                                                                        </td>\n' +
+                    '                                                                        <td>\n' +
+                    '                                                                            <input name="cost[]" id="cost" class="form-control" type="text">\n' +
+                    '                                                                        </td>\n' +
+                    '                                                                        <td>\n' +
+                    '                                                                            <input name="qty[]" id="qty" class="form-control" type="text">\n' +
+                    '                                                                        </td>\n' +
+                    '                                                                        <td>\n' +
+                    '                                                                            <input name="amount[]" id="amount" class="form-control" readonly="" type="text">\n' +
+                    '                                                                        </td>\n' +
+                    '                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>\n' +
+                    '                                                                    </tr>');
+
+                $(".remove-row").click(function(){
+
+                    var rowCount = $('.items-table tr').length;
+
+                    $(this).parent().parent().remove();
+
+                    $(".items-table tbody tr").each(function(index) {
+                        $(this).children('td:first-child').text(index+1);
+                    });
+
+                });
+
+            });
+
+            $(".remove-row").click(function(){
+
+                var rowCount = $('.items-table tr').length;
+
+                $(this).parent().parent().remove();
+
+                $(".items-table tbody tr").each(function(index) {
+                    $(this).children('td:first-child').text(index+1);
+                });
+
+            });
+
 
         });
     </script>
