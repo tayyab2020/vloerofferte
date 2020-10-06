@@ -232,12 +232,15 @@ else
         $user_id = $user->id;
 
         $services = Category::where('main_service',1)->get();
+        $settings = Generalsetting::findOrFail(1);
+
+        $vat_percentage = $settings->vat;
 
         $quote = quotes::leftjoin('handyman_quotes','handyman_quotes.quote_id','=','quotes.id')->where('quotes.id',$id)->where('handyman_quotes.handyman_id',$user_id)->select('quotes.*')->first();
 
         if($quote)
         {
-            return view('user.quotation',compact('quote','services'));
+            return view('user.quotation',compact('quote','services','vat_percentage'));
         }
         else
         {

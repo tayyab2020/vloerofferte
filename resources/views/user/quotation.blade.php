@@ -106,19 +106,19 @@
                                                                     <tr>
                                                                         <td>2</td>
                                                                         <td>
-                                                                            <input class="form-control" type="text">
+                                                                            <input name="item[]" id="item" class="form-control" type="text">
                                                                         </td>
                                                                         <td>
-                                                                            <input class="form-control" type="text">
+                                                                            <input name="description[]" id="description" class="form-control" type="text">
                                                                         </td>
                                                                         <td>
-                                                                            <input class="form-control" type="text">
+                                                                            <input name="cost[]" id="cost" class="form-control" type="text">
                                                                         </td>
                                                                         <td>
-                                                                            <input class="form-control" type="text">
+                                                                            <input name="qty[]" id="qty" class="form-control" type="text">
                                                                         </td>
                                                                         <td>
-                                                                            <input class="form-control" readonly="" type="text">
+                                                                            <input name="amount[]" id="amount" class="form-control" readonly="" type="text">
                                                                         </td>
                                                                         <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>
                                                                     </tr>
@@ -134,21 +134,25 @@
                                                                         <td></td>
                                                                         <td></td>
                                                                         <td></td>
-                                                                        <td class="text-right">Total</td>
-                                                                        <td style="text-align: right; padding-right: 30px;width: 230px">0</td>
+                                                                        <td class="text-right">Sub Total</td>
+                                                                        <td style="text-align: right; padding-right: 30px;width: 230px">
+                                                                            <input class="form-control text-right" value="0" name="sub_total" id="sub_total" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td colspan="5" class="text-right">Tax</td>
+                                                                        <td colspan="5" class="text-right">Tax ({{$vat_percentage}}%)</td>
                                                                         <td style="text-align: right; padding-right: 30px;width: 230px">
-                                                                            <input class="form-control text-right" value="0" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
+                                                                            <input type="hidden" name="vat_percentage" id="vat_percentage" value="{{$vat_percentage}}">
+                                                                            <input class="form-control text-right" value="0" name="tax_amount" id="tax_amount" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td colspan="5" style="text-align: right; font-weight: bold">
                                                                             Grand Total
                                                                         </td>
-                                                                        <td style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
-                                                                            $ 0.00
+                                                                        <td id="grand_total_cell" style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
+                                                                            € 0.00
+                                                                            <input class="form-control text-right" value="0" name="grand_total" id="grand_total" type="hidden">
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>
@@ -870,6 +874,152 @@
                         $(this).children('td:first-child').text(index+1);
                     });
 
+                    var vat_percentage = parseInt($('#vat_percentage').val());
+                    vat_percentage = vat_percentage + 100;
+
+                    var amounts = [];
+                    $("input[name='amount[]']").each(function() {
+                        amounts.push($(this).val());
+                    });
+
+                    var grand_total = 0;
+
+                    for (let i = 0; i < amounts.length; ++i) {
+
+                        if(isNaN(parseInt(amounts[i])))
+                        {
+                            amounts[i] = 0;
+                        }
+
+                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                    }
+
+                    var vat = grand_total/vat_percentage * 100;
+                    vat = parseFloat(vat).toFixed(2);
+                    vat = grand_total - vat;
+
+                    var sub_total = grand_total - vat;
+
+                    $('#sub_total').val(sub_total);
+                    $('#tax_amount').val(vat);
+                    $('#grand_total').val(grand_total);
+
+                    $('#grand_total_cell').text('€ ' + grand_total);
+
+                });
+
+                $("input[name='cost[]'").keypress(function(e){
+
+                    e = e || window.event;
+                    var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+                    var val = String.fromCharCode(charCode);
+
+                    if (!val.match(/^[0-9]*\.?[0-9]*$/))  // For characters validation
+                    {
+                        e.preventDefault();
+                    }
+
+                });
+
+                $("input[name='qty[]'").keypress(function(e){
+
+                    e = e || window.event;
+                    var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+                    var val = String.fromCharCode(charCode);
+
+                    if (!val.match(/^[0-9]*\.?[0-9]*$/))  // For characters validation
+                    {
+                        e.preventDefault();
+                    }
+
+                });
+
+                $("input[name='cost[]'").on('input',function(e){
+
+                    var vat_percentage = parseInt($('#vat_percentage').val());
+                    vat_percentage = vat_percentage + 100;
+                    var cost = $(this).val();
+                    var qty = $(this).parent().next('td').children('input').val();
+
+                    var amount = cost * qty;
+
+                    amount = parseFloat(amount).toFixed(2);
+
+                    $(this).parent().next('td').next('td').children('input').val(amount);
+
+                    var amounts = [];
+                    $("input[name='amount[]']").each(function() {
+                        amounts.push($(this).val());
+                    });
+
+                    var grand_total = 0;
+
+                    for (let i = 0; i < amounts.length; ++i) {
+
+                        if(isNaN(parseInt(amounts[i])))
+                        {
+                            amounts[i] = 0;
+                        }
+
+                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                    }
+
+                    var vat = grand_total/vat_percentage * 100;
+                    vat = parseFloat(vat).toFixed(2);
+                    vat = grand_total - vat;
+
+                    var sub_total = grand_total - vat;
+
+                    $('#sub_total').val(sub_total);
+                    $('#tax_amount').val(vat);
+                    $('#grand_total').val(grand_total);
+
+                    $('#grand_total_cell').text('€ ' + grand_total);
+
+                });
+
+                $("input[name='qty[]'").on('input',function(e){
+
+                    var vat_percentage = parseInt($('#vat_percentage').val());
+                    vat_percentage = vat_percentage + 100;
+                    var qty = $(this).val();
+                    var cost = $(this).parent().prev('td').children('input').val();
+
+                    var amount = cost * qty;
+
+                    amount = parseFloat(amount).toFixed(2);
+
+                    $(this).parent().next('td').children('input').val(amount);
+
+                    var amounts = [];
+                    $("input[name='amount[]']").each(function() {
+                        amounts.push($(this).val());
+                    });
+
+                    var grand_total = 0;
+
+                    for (let i = 0; i < amounts.length; ++i) {
+
+                        if(isNaN(parseInt(amounts[i])))
+                        {
+                            amounts[i] = 0;
+                        }
+
+                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                    }
+
+                    var vat = grand_total/vat_percentage * 100;
+                    vat = parseFloat(vat).toFixed(2);
+                    vat = grand_total - vat;
+
+                    var sub_total = grand_total - vat;
+
+                    $('#sub_total').val(sub_total);
+                    $('#tax_amount').val(vat);
+                    $('#grand_total').val(grand_total);
+
+                    $('#grand_total_cell').text('€ ' + grand_total);
+
                 });
 
             });
@@ -883,6 +1033,152 @@
                 $(".items-table tbody tr").each(function(index) {
                     $(this).children('td:first-child').text(index+1);
                 });
+
+                var vat_percentage = parseInt($('#vat_percentage').val());
+                vat_percentage = vat_percentage + 100;
+
+                var amounts = [];
+                $("input[name='amount[]']").each(function() {
+                    amounts.push($(this).val());
+                });
+
+                var grand_total = 0;
+
+                for (let i = 0; i < amounts.length; ++i) {
+
+                    if(isNaN(parseInt(amounts[i])))
+                    {
+                        amounts[i] = 0;
+                    }
+
+                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                }
+
+                var vat = grand_total/vat_percentage * 100;
+                vat = parseFloat(vat).toFixed(2);
+                vat = grand_total - vat;
+
+                var sub_total = grand_total - vat;
+
+                $('#sub_total').val(sub_total);
+                $('#tax_amount').val(vat);
+                $('#grand_total').val(grand_total);
+
+                $('#grand_total_cell').text('€ ' + grand_total);
+
+            });
+
+            $("input[name='cost[]'").keypress(function(e){
+
+                e = e || window.event;
+                var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+                var val = String.fromCharCode(charCode);
+
+                if (!val.match(/^[0-9]*\.?[0-9]*$/))  // For characters validation
+                {
+                    e.preventDefault();
+                }
+
+            });
+
+            $("input[name='qty[]'").keypress(function(e){
+
+                e = e || window.event;
+                var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+                var val = String.fromCharCode(charCode);
+
+                if (!val.match(/^[0-9]*\.?[0-9]*$/))  // For characters validation
+                {
+                    e.preventDefault();
+                }
+
+            });
+
+            $("input[name='cost[]'").on('input',function(e){
+
+                var vat_percentage = parseInt($('#vat_percentage').val());
+                vat_percentage = vat_percentage + 100;
+                var cost = $(this).val();
+                var qty = $(this).parent().next('td').children('input').val();
+
+                var amount = cost * qty;
+
+                amount = parseFloat(amount).toFixed(2);
+
+                $(this).parent().next('td').next('td').children('input').val(amount);
+
+                var amounts = [];
+                $("input[name='amount[]']").each(function() {
+                    amounts.push($(this).val());
+                });
+
+                var grand_total = 0;
+
+                for (let i = 0; i < amounts.length; ++i) {
+
+                    if(isNaN(parseInt(amounts[i])))
+                    {
+                        amounts[i] = 0;
+                    }
+
+                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                }
+
+                var vat = grand_total/vat_percentage * 100;
+                vat = parseFloat(vat).toFixed(2);
+                vat = grand_total - vat;
+
+                var sub_total = grand_total - vat;
+
+                $('#sub_total').val(sub_total);
+                $('#tax_amount').val(vat);
+                $('#grand_total').val(grand_total);
+
+                $('#grand_total_cell').text('€ ' + grand_total);
+
+            });
+
+            $("input[name='qty[]'").on('input',function(e){
+
+                var vat_percentage = parseInt($('#vat_percentage').val());
+                vat_percentage = vat_percentage + 100;
+                var qty = $(this).val();
+                var cost = $(this).parent().prev('td').children('input').val();
+
+                var amount = cost * qty;
+
+                amount = parseFloat(amount).toFixed(2);
+
+                $(this).parent().next('td').children('input').val(amount);
+
+                var amounts = [];
+                $("input[name='amount[]']").each(function() {
+                    amounts.push($(this).val());
+                });
+
+                var grand_total = 0;
+
+                for (let i = 0; i < amounts.length; ++i) {
+
+                    if(isNaN(parseInt(amounts[i])))
+                    {
+                        amounts[i] = 0;
+                    }
+
+                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                }
+
+                var vat = grand_total/vat_percentage * 100;
+                vat = parseFloat(vat).toFixed(2);
+                vat = grand_total - vat;
+
+                var sub_total = grand_total - vat;
+
+                $('#sub_total').val(sub_total);
+                $('#tax_amount').val(vat);
+                $('#grand_total').val(grand_total);
+
+                $('#grand_total_cell').text('€ ' + grand_total);
 
             });
 
