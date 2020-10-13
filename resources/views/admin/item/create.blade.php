@@ -58,7 +58,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="item_description">Description*</label>
+                                            <label class="control-label col-sm-4" for="item_description">Description</label>
                                             <div class="col-sm-6">
                                                 <textarea class="form-control" name="description" id="item_description" rows="5" style="resize: vertical;" placeholder="Enter Description"></textarea>
                                             </div>
@@ -66,7 +66,7 @@
 
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="current_photo">Current Photo*</label>
+                                            <label class="control-label col-sm-4" for="current_photo">Current Photo</label>
                                             <div class="col-sm-6">
                                                 <img width="130px" height="90px" id="adminimg" src="" alt="">
                                             </div>

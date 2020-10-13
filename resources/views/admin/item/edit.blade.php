@@ -33,7 +33,7 @@
                                         @include('includes.form-success')
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="edit_blood_group_display_name"> Title* <span>(In Any Language)</span></label>
+                                            <label class="control-label col-sm-4" for="edit_blood_group_display_name">Title* <span>(In Any Language)</span></label>
                                             <div class="col-sm-6">
                                                 <input class="form-control" name="title" id="edit_blood_group_display_name" placeholder="Enter Title" required="" type="text" value="{{$item->cat_name}}">
                                             </div>
@@ -58,14 +58,14 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="item_description">Item Description*</label>
+                                            <label class="control-label col-sm-4" for="item_description">Item Description</label>
                                             <div class="col-sm-6">
                                                 <textarea class="form-control" name="description" id="item_description" rows="5" style="resize: vertical;" placeholder="Enter Item Description">{{$item->description}}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="current_photo">Current Photo*</label>
+                                            <label class="control-label col-sm-4" for="current_photo">Current Photo</label>
                                             <div class="col-sm-6">
                                                 <img width="130px" height="90px" id="adminimg" src="{{ $item->photo ? asset('assets/item_images/'.$item->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}" alt="" id="adminimg">
                                             </div>
