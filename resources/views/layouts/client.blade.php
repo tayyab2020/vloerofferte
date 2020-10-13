@@ -329,6 +329,11 @@
         color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
     }
 
+    .nicEdit-button
+    {
+        background-image: url("<?php echo asset('assets/images/nicEditIcons-latest.gif'); ?>") !important;
+    }
+
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>

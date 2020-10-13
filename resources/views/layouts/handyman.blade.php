@@ -359,6 +359,11 @@
         color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
     }
 
+    .nicEdit-button
+    {
+        background-image: url("<?php echo asset('assets/images/nicEditIcons-latest.gif'); ?>") !important;
+    }
+
 </style>
 
 
