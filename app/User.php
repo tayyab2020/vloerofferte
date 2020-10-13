@@ -13,9 +13,9 @@ class User extends Authenticatable
 
     protected $hidden = [
         'password'
-    ];  
+    ];
 
-    protected $remember_token = false;  
+    protected $remember_token = false;
 
 
     public function category()

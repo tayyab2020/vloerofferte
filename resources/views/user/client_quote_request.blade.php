@@ -12,7 +12,7 @@
                                 <div class="add-product-box">
                                     <div class="add-product-header">
                                         <h2>View / Edit Quote Request</h2>
-                                        <a href="{{route('quotation-requests')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
+                                        <a href="{{route('client-quotation-requests')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
                                     </div>
                                     <hr>
 

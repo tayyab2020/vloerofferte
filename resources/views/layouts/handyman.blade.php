@@ -104,6 +104,10 @@
                         </li>
 
                         <li>
+                            <a href="{{ route('user-items') }}" id="items"><i class="fa fa-fw fa-hospital-o"></i> My Items</a>
+                        </li>
+
+                        <li>
                             <a href="{{ route('user-subservices') }}" id="sub-services"><i class="fa fa-fw fa-hospital-o"></i> {{$lang->msst}}</a>
                         </li>
 

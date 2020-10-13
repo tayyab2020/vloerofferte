@@ -21,6 +21,7 @@
   Route::post('/update-rate','FrontendController@UpdateRate');
   Route::post('/delete-cart','FrontendController@DeleteCart');
   Route::get('/services', 'UserController@Services');
+  Route::get('/get-quotation-data', 'UserController@GetQuotationData');
   Route::get('/sub-services', 'UserController@SubServices');
   Route::get('/get-id', 'UserController@GetID');
   Route::get('/user-services', 'UserController@UserServices');
@@ -57,6 +58,7 @@
   Route::get('/view-handyman-quote-request/{id}', 'UserController@HandymanQuoteRequest');
   Route::get('/download-handyman-quote-request/{id}', 'UserController@DownloadHandymanQuoteRequest');
   Route::get('/create-quotation/{id}', 'UserController@CreateQuotation');
+  Route::post('/create-quotation', 'UserController@StoreQuotation')->name('store-quotation');
   Route::get('/handyman-panel', 'UserController@HandymanPanel')->name('handyman-panel');
   Route::get('/dashboard', 'UserController@index')->name('user-dashboard');
   Route::get('/experience-years', 'UserController@ExperienceYears')->name('experience-years');
@@ -77,6 +79,12 @@
   Route::get('/radius-management', 'UserController@RadiusManagement')->name('radius-management');
   Route::get('/client-profile', 'UserController@ClientProfile')->name('client-profile');
   Route::get('/my-services', 'UserController@MyServices')->name('user-services');
+  Route::get('/my-items', 'UserController@MyItems')->name('user-items');
+  Route::get('/create-item', 'UserController@CreateItem')->name('create-item');
+  Route::post('/store-item', 'UserController@StoreItem')->name('store-item');
+  Route::get('/edit-item/{id}', 'UserController@EditItem')->name('edit-item');
+  Route::post('/update-item/{id}', 'UserController@UpdateItem')->name('update-item');
+  Route::get('/delete-item/{id}', 'UserController@DestroyItem')->name('delete-item');
   Route::get('/my-subservices', 'UserController@MySubServices')->name('user-subservices');
   Route::get('/delete-services', 'UserController@DeleteServices');
   Route::get('/delete-subservices', 'UserController@DeleteSubServices');
@@ -180,6 +188,13 @@
   Route::get('/category/edit/{id}', 'CategoryController@edit')->name('admin-cat-edit');
   Route::post('/category/update/{id}', 'CategoryController@update')->name('admin-cat-update');
   Route::get('/category/delete/{id}', 'CategoryController@destroy')->name('admin-cat-delete');
+
+  Route::get('/items', 'ItemController@index')->name('admin-item-index');
+  Route::get('/item/create', 'ItemController@create')->name('admin-item-create');
+  Route::post('/item/create', 'ItemController@store')->name('admin-item-store');
+  Route::get('/item/edit/{id}', 'ItemController@edit')->name('admin-item-edit');
+  Route::post('/item/update/{id}', 'ItemController@update')->name('admin-item-update');
+  Route::get('/item/delete/{id}', 'ItemController@destroy')->name('admin-item-delete');
 
   Route::get('/faq', 'FaqController@index')->name('admin-fq-index');
   Route::get('/faq/create', 'FaqController@create')->name('admin-fq-create');

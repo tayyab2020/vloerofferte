@@ -22,51 +22,10 @@
                                         <div class="row" style="margin: 0;">
                                             <div class="col-sm-12">
 
-                                                <form data-select2-id="13">
+                                                <form class="form-horizontal" action="{{route('store-quotation')}}" method="POST" enctype="multipart/form-data">
+                                                    {{csrf_field()}}
 
-                                                    <div class="row" style="margin-top: 20px;">
-
-                                                        <div class="col-sm-6 col-md-3" data-select2-id="12">
-                                                            <div class="form-group" data-select2-id="11">
-                                                                <label>Service <span class="text-danger">*</span></label>
-                                                                <select class="js-data-example-ajax form-control" style="width: 100%" name="service" id="service" required>
-                                                                    @foreach($services as $key)
-                                                                        <option value="{{$key->id}}" @if($quote->quote_service == $key->id) selected @endif>{{$key->cat_name}}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-6 col-md-3">
-                                                            <div class="form-group">
-                                                                <label>Service Rate<span class="text-danger">*</span></label>
-                                                                <input class="form-control" type="number" name="service_rate" id="service_rate" placeholder="Enter Service Rate" required>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-6 col-md-3">
-                                                            <div class="form-group">
-                                                                <label>Service Demand<span class="text-danger">*</span></label>
-                                                                <input class="form-control" type="number" name="service_demand" id="service_demand" placeholder="Enter Service Demand" required>
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="col-sm-6 col-md-3">
-                                                            <div class="form-group">
-                                                                <label>Estimate Date <span class="text-danger">*</span></label>
-                                                                <div class="input-group" style="display: flex;flex-direction: row;">
-                                                                    <div class="input-group-addon" style="padding: 0;width: 20%;display: flex;justify-content: center;">
-                                                                        <i class="fa fa-fw fa-calendar" style="align-self: center;"></i>
-                                                                    </div>
-
-                                                                    <input type="text" name="estimate_date" id="estimate_date" class="form-control" placeholder="Enter Estimate Date" autocomplete="off" required >
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
+                                                    <input type="hidden" name="quote_id" value="{{$quote->id}}">
 
                                                     <div class="row" style="margin: 0;margin-top: 35px;">
                                                         <div class="col-md-12 col-sm-12" style="border: 1px solid #e5e5e5;padding: 0;">
@@ -75,8 +34,9 @@
                                                                     <thead>
                                                                     <tr>
                                                                         <th style="width: 40px;">#</th>
-                                                                        <th class="col-sm-2">Item/Service</th>
-                                                                        <th class="col-md-6">Description</th>
+                                                                        <th class="col-sm-2">Service/Item</th>
+                                                                        <th class="col-md-4">Description</th>
+                                                                        <th style="width:200px;">Estimate Date</th>
                                                                         <th style="width:100px;">Cost</th>
                                                                         <th style="width:120px;">Qty</th>
                                                                         <th style="width: 120px;">Amount</th>
@@ -87,38 +47,64 @@
                                                                     <tr>
                                                                         <td>1</td>
                                                                         <td>
-                                                                            <input name="item[]" id="item" class="form-control" type="text">
+                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
+                                                                                @foreach($services as $key)
+                                                                                    <option value="{{$key->id}}" @if($quote->quote_service == $key->id) selected <?php $rate = $key->rate; $service_title = $key->cat_name; ?> @endif>{{$key->cat_name}}</option>
+                                                                                @endforeach
+
+                                                                                    @foreach($items as $key)
+                                                                                        <option value="{{$key->id}}I">{{$key->cat_name}}</option>
+                                                                                    @endforeach
+                                                                            </select>
+
+                                                                            <input type="hidden" name="service_title[]" value="{{$service_title}}">
                                                                         </td>
                                                                         <td>
-                                                                            <input name="description[]" id="description" class="form-control" type="text">
+                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>
                                                                         </td>
                                                                         <td>
-                                                                            <input name="cost[]" id="cost" class="form-control" type="text">
+                                                                            <input name="date[]" class="form-control estimate_date" type="text" autocomplete="off" required>
                                                                         </td>
                                                                         <td>
-                                                                            <input name="qty[]" id="qty" class="form-control" type="text">
+                                                                            <input name="cost[]" class="form-control" type="text" value="{{$rate}}" required>
                                                                         </td>
                                                                         <td>
-                                                                            <input name="amount[]" id="amount" class="form-control" readonly="" type="text">
+                                                                            <input name="qty[]" class="form-control" type="text" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input name="amount[]" class="form-control" readonly="" type="text">
                                                                         </td>
                                                                         <td style="text-align: center;"><a href="javascript:void(0)" class="text-success font-18 add-row" title="Add"><i class="fa fa-plus"></i></a></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>2</td>
                                                                         <td>
-                                                                            <input name="item[]" id="item" class="form-control" type="text">
+                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
+                                                                                @foreach($services as $key)
+                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
+                                                                                @endforeach
+                                                                                    @foreach($items as $key)
+                                                                                        <option value="{{$key->id}}I">{{$key->cat_name}}</option>
+                                                                                    @endforeach
+
+                                                                            </select>
+
+                                                                            <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">
                                                                         </td>
                                                                         <td>
-                                                                            <input name="description[]" id="description" class="form-control" type="text">
+                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>
                                                                         </td>
                                                                         <td>
-                                                                            <input name="cost[]" id="cost" class="form-control" type="text">
+                                                                            <input name="date[]" class="form-control estimate_date" type="text" autocomplete="off" required>
                                                                         </td>
                                                                         <td>
-                                                                            <input name="qty[]" id="qty" class="form-control" type="text">
+                                                                            <input name="cost[]" class="form-control" type="text" value="{{$services[0]->rate}}" required>
                                                                         </td>
                                                                         <td>
-                                                                            <input name="amount[]" id="amount" class="form-control" readonly="" type="text">
+                                                                            <input name="qty[]" class="form-control" type="text" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input name="amount[]" class="form-control" readonly="" type="text">
                                                                         </td>
                                                                         <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>
                                                                     </tr>
@@ -152,8 +138,8 @@
                                                                         </td>
                                                                         <td id="grand_total_cell" style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
                                                                             € 0.00
-                                                                            <input class="form-control text-right" value="0" name="grand_total" id="grand_total" type="hidden">
                                                                         </td>
+                                                                        <input class="form-control text-right" value="0" name="grand_total" id="grand_total" type="hidden">
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
@@ -163,9 +149,9 @@
 
                                                     <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
                                                         <div class="col-md-12" style="padding: 0;">
-                                                            <div class="form-group">
+                                                            <div class="form-group" style="margin: 0;">
                                                                 <label>Other Information</label>
-                                                                <textarea class="form-control" rows="4"></textarea>
+                                                                <textarea name="other_info" class="form-control" rows="4"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -824,8 +810,7 @@
 
         $(document).ready(function() {
 
-
-            $('#estimate_date').datepicker({
+            $('.estimate_date').datepicker({
 
                 format: 'dd-mm-yyyy',
                 startDate: new Date(),
@@ -840,6 +825,66 @@
                 allowClear: true,
             });
 
+            $(".js-data-example-ajax").change(function(){
+
+                var current = $(this);
+
+                var id = current.val();
+
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + id ,
+                        url: "<?php echo url('/get-quotation-data')?>",
+                        success: function(data) {
+
+                            current.parent().children('input').val(data.cat_name);
+                            current.parent().next('td').next('td').next('td').children('input').val(data.rate);
+
+                            var vat_percentage = parseInt($('#vat_percentage').val());
+                            vat_percentage = vat_percentage + 100;
+                            var cost = current.parent().next('td').next('td').next('td').children('input').val();
+                            var qty = current.parent().next('td').next('td').next('td').next('td').children('input').val();
+
+                            var amount = cost * qty;
+
+                            amount = parseFloat(amount).toFixed(2);
+
+                            current.parent().next('td').next('td').next('td').next('td').next('td').children('input').val(amount);
+
+                            var amounts = [];
+                            $("input[name='amount[]']").each(function() {
+                                amounts.push($(this).val());
+                            });
+
+                            var grand_total = 0;
+
+                            for (let i = 0; i < amounts.length; ++i) {
+
+                                if(isNaN(parseInt(amounts[i])))
+                                {
+                                    amounts[i] = 0;
+                                }
+
+                                grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                            }
+
+                            var vat = grand_total/vat_percentage * 100;
+                            vat = grand_total - vat;
+                            vat = parseFloat(vat).toFixed(2);
+
+                            var sub_total = grand_total - vat;
+                            sub_total = parseFloat(sub_total).toFixed(2);
+
+                            $('#sub_total').val(sub_total);
+                            $('#tax_amount').val(vat);
+                            $('#grand_total').val(grand_total);
+
+                            $('#grand_total_cell').text('€ ' + grand_total);
+                        }
+                    });
+
+            });
+
             $(".add-row").click(function(){
 
                 var rowCount = $('.items-table tr').length;
@@ -847,22 +892,110 @@
                 $(".items-table").append('<tr>\n' +
                     '                                                                        <td>'+rowCount+'</td>\n' +
                     '                                                                        <td>\n' +
-                    '                                                                            <input name="item[]" id="item" class="form-control" type="text">\n' +
+                    '                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>\n' +
+                    '                                                                                @foreach($services as $key)\n' +
+                    '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
+                    '                                                                                @endforeach\n' +
+                    '                                                                                @foreach($items as $key)\n' +
+                    '                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>\n' +
+                    '                                                                                @endforeach\n' +
+                    '                                                                            </select>\n' +
+                    '                                                                           <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">\n'+
                     '                                                                        </td>\n' +
                     '                                                                        <td>\n' +
-                    '                                                                            <input name="description[]" id="description" class="form-control" type="text">\n' +
+                    '                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>\n' +
                     '                                                                        </td>\n' +
                     '                                                                        <td>\n' +
-                    '                                                                            <input name="cost[]" id="cost" class="form-control" type="text">\n' +
+                    '                                                                            <input name="date[]" class="form-control estimate_date" type="text" autocomplete="off" required>\n' +
                     '                                                                        </td>\n' +
                     '                                                                        <td>\n' +
-                    '                                                                            <input name="qty[]" id="qty" class="form-control" type="text">\n' +
+                    '                                                                            <input name="cost[]" class="form-control" type="text" required>\n' +
                     '                                                                        </td>\n' +
                     '                                                                        <td>\n' +
-                    '                                                                            <input name="amount[]" id="amount" class="form-control" readonly="" type="text">\n' +
+                    '                                                                            <input name="qty[]" class="form-control" type="text" required>\n' +
+                    '                                                                        </td>\n' +
+                    '                                                                        <td>\n' +
+                    '                                                                            <input name="amount[]" class="form-control" readonly="" type="text">\n' +
                     '                                                                        </td>\n' +
                     '                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>\n' +
                     '                                                                    </tr>');
+
+
+                $(".js-data-example-ajax").change(function(){
+
+                    var current = $(this);
+
+                    var id = current.val();
+
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + id ,
+                        url: "<?php echo url('/get-quotation-data')?>",
+                        success: function(data) {
+
+                            current.parent().children('input').val(data.cat_name);
+                            current.parent().next('td').next('td').next('td').children('input').val(data.rate);
+
+                            var vat_percentage = parseInt($('#vat_percentage').val());
+                            vat_percentage = vat_percentage + 100;
+                            var cost = current.parent().next('td').next('td').next('td').children('input').val();
+                            var qty = current.parent().next('td').next('td').next('td').next('td').children('input').val();
+
+                            var amount = cost * qty;
+
+                            amount = parseFloat(amount).toFixed(2);
+
+                            current.parent().next('td').next('td').next('td').next('td').next('td').children('input').val(amount);
+
+                            var amounts = [];
+                            $("input[name='amount[]']").each(function() {
+                                amounts.push($(this).val());
+                            });
+
+                            var grand_total = 0;
+
+                            for (let i = 0; i < amounts.length; ++i) {
+
+                                if(isNaN(parseInt(amounts[i])))
+                                {
+                                    amounts[i] = 0;
+                                }
+
+                                grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                            }
+
+                            var vat = grand_total/vat_percentage * 100;
+                            vat = grand_total - vat;
+                            vat = parseFloat(vat).toFixed(2);
+
+                            var sub_total = grand_total - vat;
+                            sub_total = parseFloat(sub_total).toFixed(2);
+
+                            $('#sub_total').val(sub_total);
+                            $('#tax_amount').val(vat);
+                            $('#grand_total').val(grand_total);
+
+                            $('#grand_total_cell').text('€ ' + grand_total);
+                        }
+                    });
+
+                });
+
+
+                $('.estimate_date').datepicker({
+
+                    format: 'dd-mm-yyyy',
+                    startDate: new Date(),
+
+                });
+
+                $(".js-data-example-ajax").select2({
+                    width: '100%',
+                    height: '200px',
+                    // placeholder: "City Name",
+                    placeholder: "",
+                    allowClear: true,
+                });
 
                 $(".remove-row").click(function(){
 
@@ -895,10 +1028,11 @@
                     }
 
                     var vat = grand_total/vat_percentage * 100;
-                    vat = parseFloat(vat).toFixed(2);
                     vat = grand_total - vat;
+                    vat = parseFloat(vat).toFixed(2);
 
                     var sub_total = grand_total - vat;
+                    sub_total = parseFloat(sub_total).toFixed(2);
 
                     $('#sub_total').val(sub_total);
                     $('#tax_amount').val(vat);
@@ -965,10 +1099,11 @@
                     }
 
                     var vat = grand_total/vat_percentage * 100;
-                    vat = parseFloat(vat).toFixed(2);
                     vat = grand_total - vat;
+                    vat = parseFloat(vat).toFixed(2);
 
                     var sub_total = grand_total - vat;
+                    sub_total = parseFloat(sub_total).toFixed(2);
 
                     $('#sub_total').val(sub_total);
                     $('#tax_amount').val(vat);
@@ -1009,10 +1144,11 @@
                     }
 
                     var vat = grand_total/vat_percentage * 100;
-                    vat = parseFloat(vat).toFixed(2);
                     vat = grand_total - vat;
+                    vat = parseFloat(vat).toFixed(2);
 
                     var sub_total = grand_total - vat;
+                    sub_total = parseFloat(sub_total).toFixed(2);
 
                     $('#sub_total').val(sub_total);
                     $('#tax_amount').val(vat);
@@ -1055,10 +1191,11 @@
                 }
 
                 var vat = grand_total/vat_percentage * 100;
-                vat = parseFloat(vat).toFixed(2);
                 vat = grand_total - vat;
+                vat = parseFloat(vat).toFixed(2);
 
                 var sub_total = grand_total - vat;
+                sub_total = parseFloat(sub_total).toFixed(2);
 
                 $('#sub_total').val(sub_total);
                 $('#tax_amount').val(vat);
@@ -1125,10 +1262,11 @@
                 }
 
                 var vat = grand_total/vat_percentage * 100;
-                vat = parseFloat(vat).toFixed(2);
                 vat = grand_total - vat;
+                vat = parseFloat(vat).toFixed(2);
 
                 var sub_total = grand_total - vat;
+                sub_total = parseFloat(sub_total).toFixed(2);
 
                 $('#sub_total').val(sub_total);
                 $('#tax_amount').val(vat);
@@ -1169,10 +1307,11 @@
                 }
 
                 var vat = grand_total/vat_percentage * 100;
-                vat = parseFloat(vat).toFixed(2);
                 vat = grand_total - vat;
+                vat = parseFloat(vat).toFixed(2);
 
                 var sub_total = grand_total - vat;
+                sub_total = parseFloat(sub_total).toFixed(2);
 
                 $('#sub_total').val(sub_total);
                 $('#tax_amount').val(vat);

@@ -66,24 +66,24 @@ class CategoryController extends Controller
         if($request->main_service)
         {
             $request['main_service'] = 1;
-            
+
         }
         else
         {
             $request['main_service'] = 0;
 
-           
+
         }
-        
+
 
         $cat = new Category;
         $input = $request->all();
-            if ($file = $request->file('photo')) 
-            {              
+            if ($file = $request->file('photo'))
+            {
                 $name = time().$file->getClientOriginalName();
-                $file->move('assets/images',$name);           
+                $file->move('assets/images',$name);
             $input['photo'] = $name;
-            } 
+            }
         $cat->fill($input)->save();
 
         if(!$request->main_service)
@@ -103,12 +103,12 @@ class CategoryController extends Controller
             }
 
         }
-       
+
 
 
         }
 
-       
+
 
         Session::flash('success', 'New Service added successfully.');
         return redirect()->route('admin-cat-index');
@@ -131,13 +131,10 @@ class CategoryController extends Controller
     public function update(UpdateValidationRequest $request, $id)
     {
 
-
-                if(!$request->main_service)
+        if(!$request->main_service)
         {
 
-$i =0;
-      
-
+            $i =0;
 
         foreach ($request->sub_service as $key) {
 
@@ -160,23 +157,23 @@ $i =0;
             $i++;
 
         }
-       
+
 
 
         }
 
         $cat = Category::findOrFail($id);
         $input = $request->all();
-            if ($file = $request->file('photo')) 
-            {              
+            if ($file = $request->file('photo'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name);
                 if($cat->photo != null)
                 {
                     unlink(public_path().'/assets/images/'.$cat->photo);
-                }            
+                }
             $input['photo'] = $name;
-            } 
+            }
         $cat->update($input);
         Session::flash('success', 'Service updated successfully.');
         return redirect()->route('admin-cat-index');
@@ -202,8 +199,8 @@ $i =0;
         }
 
         $cart = carts::where('service_id',$id)->delete();
-        
-        
+
+
         if($cat->photo == null){
          $cat->delete();
         Session::flash('success', 'Service deleted successfully.');

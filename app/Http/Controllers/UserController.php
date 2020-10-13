@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\handyman_quotes;
+use App\items;
 use App\quotes;
 use Illuminate\Http\Request;
 use App\User;
@@ -31,6 +32,8 @@ use App\Sociallink;
 use App\sub_services;
 use App\cancelled_invoices;
 use App\handyman_unavailability_hours;
+use File;
+use PDF;
 
 class UserController extends Controller
 {
@@ -231,7 +234,9 @@ else
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
 
-        $services = Category::where('main_service',1)->get();
+        $services = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->where('handyman_services.handyman_id',$user_id)->select('categories.*','handyman_services.rate','handyman_services.description')->get();
+        $items = items::where('user_id',$user_id)->get();
+
         $settings = Generalsetting::findOrFail(1);
 
         $vat_percentage = $settings->vat;
@@ -240,12 +245,43 @@ else
 
         if($quote)
         {
-            return view('user.quotation',compact('quote','services','vat_percentage'));
+            return view('user.quotation',compact('quote','services','vat_percentage','items'));
         }
         else
         {
             return redirect('handyman/dashboard');
         }
+    }
+
+    public function StoreQuotation(Request $request)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $services = $request->item;
+
+        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name')->first();
+
+        $date = strtotime($quote->created_at);
+
+        $requested_quote_number = $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
+
+        $quote_number = date("Y", $date) . "-" . str_pad(rand(0, pow(10, 4)-1), 4, '0', STR_PAD_LEFT) . "-0001";
+
+        $filename = $quote_number.'.pdf';
+
+        $file = public_path().'/assets/quotationsPDF/'.$filename;
+
+        if (!file_exists($file)){
+
+            ini_set('max_execution_time', 180);
+
+            $pdf = PDF::loadView('user.pdf_quotation',compact('quote','request','quote_number','requested_quote_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+
+            $pdf->save(public_path().'/assets/quotationsPDF/'.$filename);
+        }
+
+
     }
 
     public function Invoice($id)
@@ -257,25 +293,19 @@ else
 
         $invoice = invoices::leftjoin('bookings','bookings.invoice_id','=','invoices.id')->leftjoin('categories','categories.id','=','bookings.service_id')->leftjoin('service_types','service_types.id','=','bookings.rate_id')->where('invoices.id','=',$id)->Select('invoices.id','invoices.handyman_id','invoices.user_id','categories.cat_name','service_types.type','bookings.service_rate','bookings.rate','invoices.booking_date','bookings.total','invoices.is_booked','invoices.is_completed','invoices.pay_req','invoices.is_paid','invoices.is_partial','invoices.status','invoices.total as inv_total','invoices.created_at as inv_date','invoices.invoice_number','invoices.service_fee','invoices.vat_percentage','invoices.is_cancelled','invoices.cancel_req','invoices.amount_refund','invoices.commission_percentage')->get();
 
-
-
         $user = invoices::leftjoin('users','users.id','=','invoices.user_id')->where('invoices.id','=',$id)->first();
 
         $handyman = invoices::leftjoin('users','users.id','=','invoices.handyman_id')->where('invoices.id','=',$id)->first();
 
-if($user_role == 2)
-{
 
-    return view('user.invoice',compact('invoice','user','handyman'));
-}
-else
-{
-
-    return view('user.client_invoice',compact('invoice','user','handyman'));
-
-}
-
-
+        if($user_role == 2)
+        {
+            return view('user.invoice',compact('invoice','user','handyman'));
+        }
+        else
+            {
+                return view('user.client_invoice',compact('invoice','user','handyman'));
+            }
 
     }
 
@@ -398,8 +428,6 @@ else
         // }
 
 
-
-
         return view('user.bookings',compact('users_bookings'));
     }
 
@@ -461,9 +489,6 @@ else
         $handyman_dash = url('/').'/handyman/dashboard';
 
         $client_dash = url('/').'/handyman/client-dashboard';
-
-
-
 
 
         if($request->statusSelect == 1)
@@ -738,11 +763,30 @@ $api_key = Generalsetting::findOrFail(1);
 
     }
 
+    public function GetQuotationData(Request $request)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $id = $request->id;
+        if(strpos($id, 'I'))
+        {
+            $id = str_replace("I","",$id);
+            $post = items::where('id',$request->id)->first();
+        }
+        else
+        {
+            $post = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->where('categories.id',$request->id)->where('handyman_services.handyman_id',$user_id)->select('categories.*','handyman_services.rate')->first();
+        }
+
+
+        return $post;
+
+    }
+
     public function SubServices(Request $request)
     {
         $post = handyman_services::leftjoin('categories','categories.id','=','handyman_services.service_id')->leftjoin('service_types','service_types.id','=','categories.service_type')->where('handyman_services.handyman_id',$request->handyman_id)->where('handyman_services.service_id',$request->id)->where('handyman_services.main_id',$request->main)->select('handyman_services.rate','handyman_services.description','service_types.type','service_types.text','service_types.id as rate_id')->first();
-
-
 
         return $post;
 
@@ -755,7 +799,7 @@ $api_key = Generalsetting::findOrFail(1);
 
         $service_rate = handyman_services::where('handyman_id','=',$request->h_id)->where('service_id','=',$request->id)->first();
 
-$data[] = array('service'=>$service,'service_rate'=>$service_rate);
+        $data[] = array('service'=>$service,'service_rate'=>$service_rate);
 
 
         return $data;
@@ -766,9 +810,6 @@ $data[] = array('service'=>$service,'service_rate'=>$service_rate);
     {
 
         $sub_services = handyman_services::leftjoin('categories','categories.id','=','handyman_services.service_id')->leftjoin('service_types','service_types.id','=','categories.service_type')->where('handyman_services.handyman_id',$request->handyman_id)->where('handyman_services.main_id',$request->service)->select('categories.cat_name','categories.cat_slug','categories.id')->get();
-
-
-
 
         return $sub_services;
 
@@ -1516,9 +1557,117 @@ $x = 0;
         $services[] = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->leftjoin('service_types','service_types.id','=','categories.service_type')->where('handyman_services.handyman_id','=',$user_id)->Select('categories.id as id','categories.cat_name as cat_name','handyman_services.rate','service_types.type')->get();
 
 
-
-
         return view('user.my_services',compact('user','cats','services_selected','services'));
+    }
+
+    public function MyItems()
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = Auth::guard('user')->user()->id;
+
+        if($user->role_id == 3)
+        {
+            return redirect()->route('user-login');
+        }
+
+        $items = items::where('user_id',$user_id)->get();
+
+        return view('user.my_items',compact('user_id','items'));
+    }
+
+    public function CreateItem()
+    {
+        return view('user.create_item');
+    }
+
+    public function StoreItem(Request $request)
+    {
+
+        $user_id = Auth::guard('user')->user()->id;
+        $item = new items;
+        $photo = '';
+
+        if ($file = $request->file('photo'))
+        {
+            $name = time().$file->getClientOriginalName();
+            $file->move('assets/item_images',$name);
+            $photo = $name;
+        }
+
+        $item->user_id = $user_id;
+        $item->cat_name = $request->item;
+        $item->photo = $photo;
+        $item->description = $request->description;
+        $item->rate = $request->rate;
+        $item->save();
+
+
+        Session::flash('success', 'Item added successfully.');
+        return redirect()->route('user-items');
+    }
+
+    public function EditItem($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = Auth::guard('user')->user()->id;
+
+        if($user->role_id == 3)
+        {
+            return redirect()->route('user-login');
+        }
+
+        $item = items::where('id',$id)->where('user_id',$user_id)->first();
+
+
+        return view('user.edit_item',compact('item'));
+    }
+
+    public function UpdateItem(Request $request, $id)
+    {
+
+        $item = items::findOrFail($id);
+        $input = $request->all();
+
+        if ($file = $request->file('photo'))
+        {
+            $name = time().$file->getClientOriginalName();
+            $file->move('assets/item_images',$name);
+            if($item->photo != null)
+            {
+                unlink(public_path().'/assets/item_images/'.$item->photo);
+            }
+            $input['photo'] = $name;
+        }
+        else
+        {
+            if($item->photo != null)
+            {
+                unlink(public_path().'/assets/item_images/'.$item->photo);
+            }
+
+            $input['photo'] = '';
+        }
+
+        $item = items::where('id',$id)->update(['cat_name' => $request->item, 'photo' => $input['photo'], 'description' => $request->description, 'rate' => $request->rate]);
+
+        Session::flash('success', 'Item updated successfully.');
+        return redirect()->route('user-items');
+    }
+
+    public function DestroyItem($id)
+    {
+        $item = items::findOrFail($id);
+
+        if($item->photo == null){
+            $item->delete();
+            Session::flash('success', 'Item deleted successfully.');
+            return redirect()->route('user-items');
+        }
+
+        unlink(public_path().'/assets/item_images/'.$item->photo);
+        $item->delete();
+        Session::flash('success', 'Item deleted successfully.');
+        return redirect()->route('user-items');
     }
 
     public function MySubServices()

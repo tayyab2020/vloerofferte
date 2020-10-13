@@ -83,8 +83,6 @@
                                     <a href="{{route('admin-user-requests')}}"><i class="fa fa-fw fa-user-md"></i> Update Requests</a>
                                 </li>
 
-
-
                                 <li>
                                     <a href="{{route('admin-user-bookings')}}"><i class="fa fa-fw fa-user-md"></i> Bookings</a>
                                 </li>
@@ -93,6 +91,9 @@
                                     <a href="{{route('admin-cat-index')}}"><i class="fa fa-fw fa-hospital-o"></i> Services</a>
                                 </li>
 
+                                <li>
+                                    <a href="{{route('admin-item-index')}}"><i class="fa fa-fw fa-hospital-o"></i> Items</a>
+                                </li>
 
                                 <li><a href="{{route('admin-adv-index')}}"><i class="fa fa-fw fa-link"></i> Advertisements</a>
                                 </li>
