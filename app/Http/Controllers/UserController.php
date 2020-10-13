@@ -281,6 +281,8 @@ else
             $pdf->save(public_path().'/assets/quotationsPDF/'.$filename);
         }
 
+        return response()->download(public_path("assets/quotationsPDF/{$filename}"));
+
 
     }
 
