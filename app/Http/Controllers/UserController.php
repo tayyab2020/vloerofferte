@@ -313,8 +313,7 @@ else
             $invoice_items->save();
         }
 
-//        $admin_email = $this->sl->admin_email;
-        $admin_email = 'tayyabkhurram62@gmail.com';
+        $admin_email = $this->sl->admin_email;
 
         \Mail::send('user.quotation_invoice_mail',
             array(
@@ -332,7 +331,7 @@ else
             });
 
         Session::flash('success', 'Quotation Invoice has been created successfully!');
-        return redirect()->back();
+        return redirect()->route('handyman-quotation-requests');
 
 
     }
