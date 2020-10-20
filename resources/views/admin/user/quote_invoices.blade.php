@@ -1,4 +1,4 @@
-@extends('layouts.handyman')
+@extends('layouts.admin')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
-                                        <h2>Quotation Requests</h2>
+                                        <h2>Quotation Invoices</h2>
 
                                     </div>
                                     <hr>
@@ -25,19 +25,19 @@
 
                                                     <tr role="row">
 
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Service</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Quote Number</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Work Type</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Invoice Number</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">When</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Handyman</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="rate">Budget</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Tax</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Job Type</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">Subtotal</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Status</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="rate">Grand Total</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Created At</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Invoice Date</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="date">Action</th>
 
@@ -47,23 +47,25 @@
                                                     <tbody>
                                                     <?php $i=0;  ?>
 
-                                                    @foreach($requests as $i => $key)
+                                                    @foreach($invoices as $key)
 
                                                         <tr role="row" class="odd">
 
-                                                            <td>{{$key->cat_name}}</td>
+                                                            <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
 
-                                                            <td>{{$key->quote_work}}</td>
+                                                            <td>{{$requested_quote_number}}</td>
 
-                                                            <td>{{$key->quote_when}}</td>
+                                                            <td>{{$key->quotation_invoice_number}}</td>
 
-                                                            <td>{{$key->quote_budget}}</td>
+                                                            <td>{{$key->name}} {{$key->family_name}}</td>
 
-                                                            <td>{{$key->quote_job}}</td>
+                                                            <td>{{$key->tax}}</td>
 
-                                                            <td>{{$key->quote_status}}</td>
+                                                            <td>{{$key->subtotal}}</td>
 
-                                                            <?php $date = strtotime($key->created_at);
+                                                            <td>{{$key->grand_total}}</td>
+
+                                                            <?php $date = strtotime($key->invoice_date);
 
                                                             $date = date('d-m-Y',$date);  ?>
 
@@ -74,13 +76,8 @@
                                                                     <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
-                                                                        <li><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">View</a></li>
-                                                                        <li><a href="{{ url('/handyman/download-handyman-quote-request/'.$key->id) }}">Download PDF</a></li>
-                                                                        @if(!$invoices[$i])
-                                                                            <li><a href="{{ url('/handyman/create-quotation/'.$key->id) }}">Create Invoice</a></li>
-                                                                        @else
-                                                                            <li><a href="">Edit Invoice</a></li>
-                                                                        @endif
+                                                                        <li><a href="">View</a></li>
+                                                                        <li><a href="{{ url('/logstof/download-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
                                                                     </ul>
                                                                 </div>
                                                             </td>

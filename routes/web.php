@@ -158,8 +158,10 @@
 
 
   Route::get('/quotation-requests', 'AdminUserController@QuotationRequests')->name('quotation-requests');
+  Route::get('/quotation-invoices', 'AdminUserController@QuotationInvoices')->name('quotation-invoices');
   Route::get('/view-quote-request/{id}', 'AdminUserController@QuoteRequest');
   Route::get('/download-quote-request/{id}', 'AdminUserController@DownloadQuoteRequest');
+  Route::get('/download-quote-invoice/{id}', 'AdminUserController@DownloadQuoteInvoice');
   Route::get('/send-quote-request/{id}', 'AdminUserController@SendQuoteRequest');
   Route::post('/send-quote-request', 'AdminUserController@SendQuoteRequestHandymen')->name('send-quote-request');
   Route::get('/handymans', 'AdminUserController@index')->name('admin-user-index');

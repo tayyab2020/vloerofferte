@@ -6,6 +6,7 @@ use App\Category;
 use App\handyman_quotes;
 use App\handyman_terminals;
 use App\handyman_unavailability;
+use App\quotation_invoices;
 use App\quotes;
 use App\User;
 use Illuminate\Http\Request;
@@ -52,6 +53,13 @@ class AdminUserController extends Controller
         return view('admin.user.quote_requests',compact('requests'));
     }
 
+    public function QuotationInvoices()
+    {
+        $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
+
+        return view('admin.user.quote_invoices',compact('invoices'));
+    }
+
     public function QuoteRequest($id)
     {
         $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
@@ -83,6 +91,17 @@ class AdminUserController extends Controller
         }
 
         return response()->download(public_path("assets/quotesPDF/{$filename}"));
+    }
+
+    public function DownloadQuoteInvoice($id)
+    {
+        $invoice = quotation_invoices::where('id',$id)->first();
+
+        $quotation_invoice_number = $invoice->quotation_invoice_number;
+
+        $filename = $quotation_invoice_number.'.pdf';
+
+        return response()->download(public_path("assets/quotationsPDF/{$filename}"));
     }
 
     public function SendQuoteRequest($id)

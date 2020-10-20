@@ -72,6 +72,10 @@
                                 </li>
 
                                 <li>
+                                    <a href="{{route('quotation-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Invoices</a>
+                                </li>
+
+                                <li>
                                     <a href="{{route('admin-user-index')}}"><i class="fa fa-fw fa-user-md"></i> Handymen</a>
                                 </li>
 
