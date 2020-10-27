@@ -65,6 +65,7 @@
   Route::get('/create-quotation/{id}', 'UserController@CreateQuotation');
   Route::post('/create-quotation', 'UserController@StoreQuotation')->name('store-quotation');
   Route::get('/view-quotation/{id}', 'UserController@ViewQuotation')->name('view-handyman-quotation');
+  Route::get('/edit-quotation/{id}', 'UserController@ViewQuotation')->name('edit-handyman-quotation');
   Route::get('/quotation/{id}', 'UserController@ViewClientQuotation')->name('view-client-quotation');
   Route::get('/handyman-panel', 'UserController@HandymanPanel')->name('handyman-panel');
   Route::get('/dashboard', 'UserController@index')->name('user-dashboard');

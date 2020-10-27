@@ -77,7 +77,9 @@
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">View</a></li>
                                                                         <li><a href="{{ url('/handyman/download-client-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
+                                                                        @if(!$key->ask_customization)
                                                                         <li><a href="{{ url('/handyman/ask-customization/'.$key->invoice_id) }}">Ask Again</a></li>
+                                                                        @endif
                                                                         <li><a href="">Reject</a></li>
                                                                     </ul>
                                                                 </div>

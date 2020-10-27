@@ -80,12 +80,12 @@
                                                                         @if($invoices[$i])
 
                                                                             @if($invoices[$i]->ask_customization && !$invoices[$i]->invoice)
-                                                                            <li><a href="">Edit Invoice</a></li>
+                                                                            <li><a href="{{ url('/handyman/edit-quotation/'.$invoices[$i]->id) }}">Edit Quotation</a></li>
                                                                             @endif
 
                                                                         @else
 
-                                                                            <li><a href="{{ url('/handyman/create-quotation/'.$key->id) }}">Create Invoice</a></li>
+                                                                            <li><a href="{{ url('/handyman/create-quotation/'.$key->id) }}">Create Quotation</a></li>
 
                                                                         @endif
 

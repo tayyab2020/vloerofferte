@@ -196,7 +196,7 @@
                                                 @if(Route::currentRouteName() != 'view-handyman-quotation')
 
                                                 <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
-                                                    <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Update</button>
+                                                    <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn" disabled>Update</button>
                                                 </div>
 
                                             </div></div>

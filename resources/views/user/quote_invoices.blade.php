@@ -73,6 +73,11 @@
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="{{ url('/handyman/view-quotation/'.$key->invoice_id) }}">View</a></li>
                                                                         <li><a href="{{ url('/handyman/download-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
+
+                                                                            @if($key->ask_customization && !$key->invoice)
+                                                                                <li><a href="{{ url('/handyman/edit-quotation/'.$invoices[$i]->invoice_id) }}">Edit Quotation</a></li>
+                                                                            @endif
+
                                                                     </ul>
                                                                 </div>
                                                             </td>
