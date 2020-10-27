@@ -294,6 +294,8 @@ else
 
 
         Session::flash('success', 'Quotation Invoice has been created successfully!');
+
+        return redirect()->back();
     }
 
     public function HandymanQuoteRequest($id)
