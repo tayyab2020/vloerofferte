@@ -283,7 +283,7 @@ else
 
 
 
-        $admin_email = $this->sl->admin_email;
+        $admin_email = 'tayyabkhurram62@gmail.com';
 
         $headers =  'MIME-Version: 1.0' . "\r\n";
         $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
