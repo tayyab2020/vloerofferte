@@ -150,6 +150,28 @@ else
         return view('user.quote_requests',compact('requests','invoices'));
     }
 
+    public function HandymanQuotations()
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotation_invoices.handyman_id',$user_id)->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
+
+        return view('user.quote_invoices',compact('invoices'));
+    }
+
+    public function Quotations()
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotes.user_id',$user_id)->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
+
+        return view('user.client_quote_invoices',compact('invoices'));
+    }
+
     public function QuoteRequest($id)
     {
         $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
@@ -191,6 +213,87 @@ else
         {
             return redirect('handyman/client-dashboard');
         }
+    }
+
+    public function DownloadQuoteInvoice($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        $invoice = quotation_invoices::where('id',$id)->where('handyman_id',$user_id)->first();
+
+        if(!$invoice)
+        {
+            return redirect()->route('quotations');
+        }
+
+        $quotation_invoice_number = $invoice->quotation_invoice_number;
+
+        $filename = $quotation_invoice_number.'.pdf';
+
+        return response()->download(public_path("assets/quotationsPDF/{$filename}"));
+    }
+
+    public function DownloadClientQuoteInvoice($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        $invoice = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->where('quotation_invoices.id',$id)->where('quotes.user_id',$user_id)->first();
+
+        if(!$invoice)
+        {
+            return redirect()->route('client-quotations');
+        }
+
+        $quotation_invoice_number = $invoice->quotation_invoice_number;
+
+        $filename = $quotation_invoice_number.'.pdf';
+
+        return response()->download(public_path("assets/quotationsPDF/{$filename}"));
+    }
+
+    public function AskCustomization($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        $invoice = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotation_invoices.id',$id)->where('quotes.user_id',$user_id)->first();
+
+        if(!$invoice)
+        {
+            return redirect()->back();
+        }
+
+
+        quotation_invoices::where('id',$id)->update(['ask_customization' => 1]);
+
+        $handyman_email = $invoice->email;
+        $user_name = $invoice->name . ' ' . $invoice->family_name;
+
+        $headers =  'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $subject = "Quotation Review Request!";
+        $msg = "Dear Mr/Mrs ".$user_name.",<br><br>Mr/Mrs ".$user->name.' '.$user->family_name." submitted review request against your quotation # ".$invoice->quotation_invoice_number."<br>Kindly take further action on this request.<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+        mail($handyman_email,$subject,$msg,$headers);
+
+
+
+        $admin_email = $this->sl->admin_email;
+
+        $headers =  'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $subject = "Quotation Review Request!";
+        $msg = "A quotation review request has been submitted by Mr/Mrs ".$user->name.' '.$user->family_name." against quotation # ".$invoice->quotation_invoice_number."<br>Handyman: ".$user_name."<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+        mail($admin_email,$subject,$msg,$headers);
+
+
+        Session::flash('success', 'Quotation Invoice has been created successfully!');
     }
 
     public function HandymanQuoteRequest($id)
@@ -252,12 +355,65 @@ else
 
         if($quote)
         {
-            return view('user.quotation',compact('quote','services','vat_percentage','items'));
+            return view('user.create_quotation',compact('quote','services','vat_percentage','items'));
         }
         else
         {
             return redirect('handyman/dashboard');
         }
+    }
+
+    public function ViewQuotation($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        $settings = Generalsetting::findOrFail(1);
+
+        $vat_percentage = $settings->vat;
+
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data','quotation_invoices_data.quotation_id','=','quotation_invoices.id')->leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->where('quotation_invoices.id',$id)->where('quotation_invoices.handyman_id',$user_id)->select('quotation_invoices.*','quotes.id as quote_id','quotes.created_at as quote_date','quotation_invoices_data.id as data_id','quotation_invoices_data.s_i_id','quotation_invoices_data.item','quotation_invoices_data.rate','quotation_invoices_data.qty','quotation_invoices_data.description as data_description','quotation_invoices_data.estimated_date','quotation_invoices_data.amount')->get();
+
+            if(count($quotation) != 0)
+            {
+                $services = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->where('handyman_services.handyman_id',$user_id)->select('categories.*','handyman_services.rate','handyman_services.description')->get();
+
+                $items = items::where('user_id',$user_id)->get();
+
+                return view('user.quotation',compact('quotation','services','vat_percentage','items'));
+            }
+            else
+            {
+                return redirect('handyman/dashboard');
+            }
+
+    }
+
+    public function ViewClientQuotation($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        $settings = Generalsetting::findOrFail(1);
+
+        $vat_percentage = $settings->vat;
+
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data','quotation_invoices_data.quotation_id','=','quotation_invoices.id')->leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->where('quotation_invoices.id',$id)->where('quotes.user_id',$user_id)->select('quotation_invoices.*','quotes.id as quote_id','quotes.created_at as quote_date','quotation_invoices_data.id as data_id','quotation_invoices_data.s_i_id','quotation_invoices_data.item','quotation_invoices_data.service','quotation_invoices_data.rate','quotation_invoices_data.qty','quotation_invoices_data.description as data_description','quotation_invoices_data.estimated_date','quotation_invoices_data.amount')->get();
+
+            if(count($quotation) != 0)
+            {
+                $services = Category::all();
+
+                $items = items::all();
+
+                return view('user.client_quotation',compact('quotation','services','vat_percentage','items'));
+            }
+            else
+            {
+                return redirect('handyman/client-dashboard');
+            }
     }
 
     public function StoreQuotation(Request $request)
@@ -300,15 +456,25 @@ else
         $invoice->description = $request->other_info;
         $invoice->save();
 
-        foreach($request->item as $i => $key)
+        foreach($services as $i => $key)
         {
+            if (strpos($services[$i], 'I') > -1) {
+                $x = 1;
+            }
+            else
+            {
+                $x = 0;
+            }
+
             $invoice_items = new quotation_invoices_data;
             $invoice_items->quotation_id = $invoice->id;
+            $invoice_items->s_i_id = (int)$key;
+            $invoice_items->item = $x;
             $invoice_items->service = $request->service_title[$i];
             $invoice_items->rate = $request->cost[$i];
             $invoice_items->qty = $request->qty[$i];
             $invoice_items->description = $request->description[$i];
-            $invoice_items->estimated_date = $request->date[$i];
+            $invoice_items->estimated_date = $request->date;
             $invoice_items->amount = $request->amount[$i];
             $invoice_items->save();
         }
@@ -319,7 +485,7 @@ else
             array(
                 'username' => $user_name,
                 'quote_number' => $requested_quote_number,
-            ), function ($message) use($file,$admin_email,$filename){
+            ), function ($message) use($file,$admin_email,$filename) {
                 $message->from('info@topstoffeerders.nl');
                 $message->to($admin_email)->subject('Quotation Invoice Created!');
 
@@ -329,6 +495,7 @@ else
                 ]);
 
             });
+
 
         Session::flash('success', 'Quotation Invoice has been created successfully!');
         return redirect()->route('handyman-quotation-requests');
@@ -348,7 +515,6 @@ else
         $user = invoices::leftjoin('users','users.id','=','invoices.user_id')->where('invoices.id','=',$id)->first();
 
         $handyman = invoices::leftjoin('users','users.id','=','invoices.handyman_id')->where('invoices.id','=',$id)->first();
-
 
         if($user_role == 2)
         {

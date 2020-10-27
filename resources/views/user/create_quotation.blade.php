@@ -12,52 +12,31 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
-
-                                        @if(Route::currentRouteName() == 'view-handyman-quotation')
-
-                                            <h2>View Quotation</h2>
-
-                                        @else
-
-                                            <h2>Edit Quotation</h2>
-
-                                        @endif
+                                        <h2>Create Quotation</h2>
 
                                     </div>
                                     <hr>
                                     <div>
                                         @include('includes.form-success')
 
-                                        @if(Route::currentRouteName() != 'view-handyman-quotation')
+                                        <form class="form-horizontal" action="{{route('store-quotation')}}" method="POST" enctype="multipart/form-data">
+                                            {{csrf_field()}}
 
-                                            <form class="form-horizontal" action="{{route('store-quotation')}}" method="POST" enctype="multipart/form-data">
-                                                {{csrf_field()}}
-
-                                                <input type="hidden" name="quote_id" value="{{$quotation[0]->quote_id}}">
-
-                                                @endif
-
-                                        <?php $requested_quote_number = date("Y", strtotime($quotation[0]->quote_date)) . "-" . sprintf('%04u', $quotation[0]->quote_id); ?>
+                                        <?php $requested_quote_number = date("Y", strtotime($quote->created_at)) . "-" . sprintf('%04u', $quote->id); ?>
 
                                         <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
                                             <div class="col-md-4">
                                                 <div class="form-group" style="margin: 0;">
                                                     <label>Request Number</label>
-                                                    <input type="text" value="{{$requested_quote_number}}" class="form-control" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
+                                                    <input type="text" value="{{$requested_quote_number}}" class="form-control" readonly>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
-                                                <div class="form-group" style="margin: 0;">
-                                                    <label>Quotation Number</label>
-                                                    <input type="text" value="{{$quotation[0]->quotation_invoice_number}}" class="form-control" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
-                                                </div>
-                                            </div>
 
                                             <div class="col-md-4">
                                                 <div class="form-group" style="margin: 0;">
                                                     <label>Estimated Date</label>
-                                                    <input type="text" name="date" value="{{$quotation[0]->estimated_date}}" class="form-control estimate_date" autocomplete="off" required @if(Route::currentRouteName() == 'view-handyman-quotation') disabled @endif>
+                                                    <input type="text" name="date" class="form-control estimate_date" autocomplete="off" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -65,149 +44,137 @@
                                         <div class="row" style="margin: 0;">
                                             <div class="col-sm-12">
 
-                                                        <div class="row" style="margin: 0;margin-top: 35px;">
-                                                            <div class="col-md-12 col-sm-12" style="border: 1px solid #e5e5e5;padding: 0;">
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-hover table-white items-table">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th style="width: 40px;">#</th>
-                                                                            <th class="col-sm-2">Service/Item</th>
-                                                                            <th class="col-md-6">Description</th>
-                                                                            <th style="width:100px;">Cost</th>
-                                                                            <th style="width:120px;">Qty</th>
-                                                                            <th style="width: 120px;">Amount</th>
-                                                                            <th> </th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
+                                                    <input type="hidden" name="quote_id" value="{{$quote->id}}">
 
-                                                                        @foreach($quotation as $i => $temp)
+                                                    <div class="row" style="margin: 0;margin-top: 35px;">
+                                                        <div class="col-md-12 col-sm-12" style="border: 1px solid #e5e5e5;padding: 0;">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-hover table-white items-table">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th style="width: 40px;">#</th>
+                                                                        <th class="col-sm-2">Service/Item</th>
+                                                                        <th class="col-md-6">Description</th>
+                                                                        <th style="width:100px;">Cost</th>
+                                                                        <th style="width:120px;">Qty</th>
+                                                                        <th style="width: 120px;">Amount</th>
+                                                                        <th> </th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td>1</td>
+                                                                        <td>
+                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
 
-                                                                            <input type="hidden" name="data_id[]" value="{{$temp->data_id}}">
+                                                                                @foreach($services as $key)
+                                                                                    <option value="{{$key->id}}" @if($quote->quote_service == $key->id) selected <?php $rate = $key->rate; $service_title = $key->cat_name; ?> @endif>{{$key->cat_name}}</option>
+                                                                                @endforeach
 
-                                                                            <tr>
-                                                                                <td>{{$i + 1}}</td>
-                                                                                <td>
-                                                                                    @if(Route::currentRouteName() != 'view-handyman-quotation')
+                                                                                    @foreach($items as $key)
+                                                                                        <option value="{{$key->id}}I">{{$key->cat_name}}</option>
+                                                                                    @endforeach
+                                                                            </select>
 
-                                                                                    <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required @if(Route::currentRouteName() == 'view-handyman-quotation') disabled @endif>
+                                                                            <input type="hidden" name="service_title[]" value="{{$service_title}}">
+                                                                        </td>
+                                                                        <td>
+                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input name="cost[]" class="form-control" type="text" value="{{$rate}}" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input name="qty[]" class="form-control" type="text" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input name="amount[]" class="form-control" readonly="" type="text">
+                                                                        </td>
+                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-success font-18 add-row" title="Add"><i class="fa fa-plus"></i></a></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>2</td>
+                                                                        <td>
+                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
+                                                                                @foreach($services as $key)
+                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
+                                                                                @endforeach
+                                                                                    @foreach($items as $key)
+                                                                                        <option value="{{$key->id}}I">{{$key->cat_name}}</option>
+                                                                                    @endforeach
 
-                                                                                        @foreach($services as $key)
-                                                                                            <option value="{{$key->id}}" @if(!$temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->service; ?> @endif @endif>{{$key->cat_name}}</option>
-                                                                                        @endforeach
+                                                                            </select>
 
-                                                                                        @foreach($items as $key)
-                                                                                            <option value="{{$key->id}}I" @if($temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->temp; ?> @endif @endif>{{$key->cat_name}}</option>
-                                                                                        @endforeach
+                                                                            <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">
+                                                                        </td>
+                                                                        <td>
+                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input name="cost[]" class="form-control" type="text" value="{{$services[0]->rate}}" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input name="qty[]" class="form-control" type="text" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input name="amount[]" class="form-control" readonly="" type="text">
+                                                                        </td>
+                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
 
-                                                                                            <input type="hidden" name="service_title[]" value="{{$service_title}}">
-
-                                                                                    </select>
-                                                                                    @else
-
-                                                                                        <input name="item[]" class="form-control" type="text" value="{{$temp->service}}" readonly>
-
-                                                                                    @endif
-                                                                                </td>
-                                                                                <td>
-                                                                                    <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>{{$temp->data_description}}</textarea>
-                                                                                </td>
-
-                                                                                <td>
-                                                                                    <input name="cost[]" class="form-control" type="text" value="{{$temp->rate}}" required @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input name="qty[]" class="form-control" type="text" value="{{$temp->qty}}" required @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input name="amount[]" class="form-control" readonly="" value="{{$temp->amount}}" type="text" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
-                                                                                </td>
-
-                                                                                @if(Route::currentRouteName() != 'view-handyman-quotation')
-
-                                                                                    @if($i == 0)
-
-                                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-success font-18 add-row" title="Add"><i class="fa fa-plus"></i></a></td>
-
-                                                                                    @else
-
-                                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>
-
-                                                                                    @endif
-
-                                                                                @else
-
-                                                                                    <td></td>
-
-                                                                                @endif
-                                                                            </tr>
-
-                                                                        @endforeach
-
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-hover table-white" style="margin-bottom: 0;">
-                                                                        <tbody>
-                                                                        <tr>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                            <td class="text-right">Sub Total</td>
-                                                                            <td style="text-align: right; padding-right: 30px;width: 230px">
-                                                                                <input class="form-control text-right" value="{{$temp->subtotal}}" name="sub_total" id="sub_total" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td colspan="5" class="text-right">Tax ({{$temp->vat_percentage}}%)</td>
-                                                                            <td style="text-align: right; padding-right: 30px;width: 230px">
-                                                                                <input type="hidden" name="vat_percentage" id="vat_percentage" value="{{$temp->vat_percentage}}">
-                                                                                <input class="form-control text-right" value="{{$temp->tax}}" name="tax_amount" id="tax_amount" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td colspan="5" style="text-align: right; font-weight: bold">
-                                                                                Grand Total
-                                                                            </td>
-                                                                            <td id="grand_total_cell" style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
-                                                                                € {{$temp->grand_total}}
-                                                                            </td>
-                                                                            <input class="form-control text-right" value="{{$temp->grand_total}}" name="grand_total" id="grand_total" type="hidden">
-                                                                        </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-hover table-white" style="margin-bottom: 0;">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td class="text-right">Sub Total</td>
+                                                                        <td style="text-align: right; padding-right: 30px;width: 230px">
+                                                                            <input class="form-control text-right" value="0" name="sub_total" id="sub_total" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="5" class="text-right">Tax ({{$vat_percentage}}%)</td>
+                                                                        <td style="text-align: right; padding-right: 30px;width: 230px">
+                                                                            <input type="hidden" name="vat_percentage" id="vat_percentage" value="{{$vat_percentage}}">
+                                                                            <input class="form-control text-right" value="0" name="tax_amount" id="tax_amount" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="5" style="text-align: right; font-weight: bold">
+                                                                            Grand Total
+                                                                        </td>
+                                                                        <td id="grand_total_cell" style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
+                                                                            € 0.00
+                                                                        </td>
+                                                                        <input class="form-control text-right" value="0" name="grand_total" id="grand_total" type="hidden">
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
+                                                    </div>
 
-                                                        <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
-                                                            <div class="col-md-12" style="padding: 0;">
-                                                                <div class="form-group" style="margin: 0;">
-                                                                    <label>Other Information</label>
-                                                                    <textarea name="other_info" class="form-control" rows="4" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>{{$temp->description}}</textarea>
-                                                                </div>
+                                                    <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
+                                                        <div class="col-md-12" style="padding: 0;">
+                                                            <div class="form-group" style="margin: 0;">
+                                                                <label>Other Information</label>
+                                                                <textarea name="other_info" class="form-control" rows="4"></textarea>
                                                             </div>
                                                         </div>
+                                                    </div>
 
-                                                @if(Route::currentRouteName() != 'view-handyman-quotation')
-
-                                                <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
-                                                    <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Update</button>
-                                                </div>
+                                                    <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
+                                                        <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Send</button>
+                                                    </div>
 
                                             </div></div>
-
-                                            </form>
-
-                                            @else
-
-                                    </div></div>
-
-                                                @endif
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -877,57 +844,57 @@
 
                 var id = current.val();
 
-                $.ajax({
-                    type:"GET",
-                    data: "id=" + id ,
-                    url: "<?php echo url('/get-quotation-data')?>",
-                    success: function(data) {
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + id ,
+                        url: "<?php echo url('/get-quotation-data')?>",
+                        success: function(data) {
 
-                        current.parent().children('input').val(data.cat_name);
-                        current.parent().next('td').next('td').next('td').children('input').val(data.rate);
+                            current.parent().children('input').val(data.cat_name);
+                            current.parent().next('td').next('td').next('td').children('input').val(data.rate);
 
-                        var vat_percentage = parseInt($('#vat_percentage').val());
-                        vat_percentage = vat_percentage + 100;
-                        var cost = current.parent().next('td').next('td').next('td').children('input').val();
-                        var qty = current.parent().next('td').next('td').next('td').next('td').children('input').val();
+                            var vat_percentage = parseInt($('#vat_percentage').val());
+                            vat_percentage = vat_percentage + 100;
+                            var cost = current.parent().next('td').next('td').next('td').children('input').val();
+                            var qty = current.parent().next('td').next('td').next('td').next('td').children('input').val();
 
-                        var amount = cost * qty;
+                            var amount = cost * qty;
 
-                        amount = parseFloat(amount).toFixed(2);
+                            amount = parseFloat(amount).toFixed(2);
 
-                        current.parent().next('td').next('td').next('td').next('td').next('td').children('input').val(amount);
+                            current.parent().next('td').next('td').next('td').next('td').next('td').children('input').val(amount);
 
-                        var amounts = [];
-                        $("input[name='amount[]']").each(function() {
-                            amounts.push($(this).val());
-                        });
+                            var amounts = [];
+                            $("input[name='amount[]']").each(function() {
+                                amounts.push($(this).val());
+                            });
 
-                        var grand_total = 0;
+                            var grand_total = 0;
 
-                        for (let i = 0; i < amounts.length; ++i) {
+                            for (let i = 0; i < amounts.length; ++i) {
 
-                            if(isNaN(parseInt(amounts[i])))
-                            {
-                                amounts[i] = 0;
+                                if(isNaN(parseInt(amounts[i])))
+                                {
+                                    amounts[i] = 0;
+                                }
+
+                                grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
                             }
 
-                            grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                            var vat = grand_total/vat_percentage * 100;
+                            vat = grand_total - vat;
+                            vat = parseFloat(vat).toFixed(2);
+
+                            var sub_total = grand_total - vat;
+                            sub_total = parseFloat(sub_total).toFixed(2);
+
+                            $('#sub_total').val(sub_total);
+                            $('#tax_amount').val(vat);
+                            $('#grand_total').val(grand_total);
+
+                            $('#grand_total_cell').text('€ ' + grand_total);
                         }
-
-                        var vat = grand_total/vat_percentage * 100;
-                        vat = grand_total - vat;
-                        vat = parseFloat(vat).toFixed(2);
-
-                        var sub_total = grand_total - vat;
-                        sub_total = parseFloat(sub_total).toFixed(2);
-
-                        $('#sub_total').val(sub_total);
-                        $('#tax_amount').val(vat);
-                        $('#grand_total').val(grand_total);
-
-                        $('#grand_total_cell').text('€ ' + grand_total);
-                    }
-                });
+                    });
 
             });
 

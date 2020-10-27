@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.client')
 
 @section('content')
 
@@ -13,7 +13,6 @@
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
                                         <h2>Quotations</h2>
-
                                     </div>
                                     <hr>
                                     <div>
@@ -76,8 +75,10 @@
                                                                     <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
-                                                                        <li><a href="{{ url('/logstof/view-quotation/'.$key->invoice_id) }}">View</a></li>
-                                                                        <li><a href="{{ url('/logstof/download-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
+                                                                        <li><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">View</a></li>
+                                                                        <li><a href="{{ url('/handyman/download-client-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
+                                                                        <li><a href="{{ url('/handyman/ask-customization/'.$key->invoice_id) }}">Ask Again</a></li>
+                                                                        <li><a href="">Reject</a></li>
                                                                     </ul>
                                                                 </div>
                                                             </td>

@@ -16,6 +16,7 @@
         <link href="{{asset('assets/admin/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet">
         <link href="{{asset('assets/admin/css/responsive.css')}}" rel="stylesheet">
+        <link href="{{ asset('assets/front/select2/select2.min.css') }}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{asset('assets/images/'.$gs->favicon)}}">
         @include('styles.admin-design')
         @yield('styles')
@@ -72,7 +73,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="{{route('quotation-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Invoices</a>
+                                    <a href="{{route('handyman-quotations')}}"><i class="fa fa-fw fa-file-text"></i> Handyman Quotations</a>
                                 </li>
 
                                 <li>
@@ -218,9 +219,9 @@
 </style>
 
 
-            <script src="{{ asset('assets/front/select2/select2.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css" rel="stylesheet">
+        <script src="{{ asset('assets/front/select2/select2.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css" rel="stylesheet">
         <script src="{{asset('assets/admin/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('assets/admin/js/perfect-scrollbar.jquery.min.js')}}"></script>
         <script src="{{asset('assets/admin/js/jquery.canvasjs.min.js')}}"></script>

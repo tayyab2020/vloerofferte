@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Generalsetting;
 use App\handyman_quotes;
 use App\handyman_terminals;
 use App\handyman_unavailability;
+use App\items;
 use App\quotation_invoices;
 use App\quotes;
 use App\User;
@@ -53,7 +55,7 @@ class AdminUserController extends Controller
         return view('admin.user.quote_requests',compact('requests'));
     }
 
-    public function QuotationInvoices()
+    public function HandymanQuotations()
     {
         $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
 
@@ -91,6 +93,29 @@ class AdminUserController extends Controller
         }
 
         return response()->download(public_path("assets/quotesPDF/{$filename}"));
+    }
+
+    public function ViewQuotation($id)
+    {
+        $settings = Generalsetting::findOrFail(1);
+
+        $vat_percentage = $settings->vat;
+
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data','quotation_invoices_data.quotation_id','=','quotation_invoices.id')->leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->where('quotation_invoices.id',$id)->select('quotation_invoices.*','quotes.id as quote_id','quotes.created_at as quote_date','quotation_invoices_data.id as data_id','quotation_invoices_data.s_i_id','quotation_invoices_data.item','quotation_invoices_data.rate','quotation_invoices_data.qty','quotation_invoices_data.description as data_description','quotation_invoices_data.estimated_date','quotation_invoices_data.amount')->get();
+
+
+        if(count($quotation) != 0)
+        {
+            $services = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->where('handyman_services.handyman_id',$quotation[0]->handyman_id)->select('categories.*','handyman_services.rate','handyman_services.description')->get();
+
+            $items = items::where('user_id',$quotation[0]->handyman_id)->get();
+
+            return view('admin.user.quotation',compact('quotation','services','vat_percentage','items'));
+        }
+        else
+        {
+            return redirect('logstof/dashboard');
+        }
     }
 
     public function DownloadQuoteInvoice($id)

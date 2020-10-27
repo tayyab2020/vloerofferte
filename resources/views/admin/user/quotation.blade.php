@@ -1,4 +1,4 @@
-@extends('layouts.handyman')
+@extends('layouts.admin')
 
 @section('content')
 
@@ -13,7 +13,7 @@
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
 
-                                        @if(Route::currentRouteName() == 'view-handyman-quotation')
+                                        @if(Route::currentRouteName() == 'view-quotation')
 
                                             <h2>View Quotation</h2>
 
@@ -28,14 +28,14 @@
                                     <div>
                                         @include('includes.form-success')
 
-                                        @if(Route::currentRouteName() != 'view-handyman-quotation')
+                                        @if(Route::currentRouteName() != 'view-quotation')
 
                                             <form class="form-horizontal" action="{{route('store-quotation')}}" method="POST" enctype="multipart/form-data">
                                                 {{csrf_field()}}
 
                                                 <input type="hidden" name="quote_id" value="{{$quotation[0]->quote_id}}">
 
-                                                @endif
+                                        @endif
 
                                         <?php $requested_quote_number = date("Y", strtotime($quotation[0]->quote_date)) . "-" . sprintf('%04u', $quotation[0]->quote_id); ?>
 
@@ -43,21 +43,21 @@
                                             <div class="col-md-4">
                                                 <div class="form-group" style="margin: 0;">
                                                     <label>Request Number</label>
-                                                    <input type="text" value="{{$requested_quote_number}}" class="form-control" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
+                                                    <input type="text" value="{{$requested_quote_number}}" class="form-control" @if(Route::currentRouteName() == 'view-quotation') readonly @endif>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-4">
                                                 <div class="form-group" style="margin: 0;">
                                                     <label>Quotation Number</label>
-                                                    <input type="text" value="{{$quotation[0]->quotation_invoice_number}}" class="form-control" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
+                                                    <input type="text" value="{{$quotation[0]->quotation_invoice_number}}" class="form-control" @if(Route::currentRouteName() == 'view-quotation') readonly @endif>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-4">
                                                 <div class="form-group" style="margin: 0;">
                                                     <label>Estimated Date</label>
-                                                    <input type="text" name="date" value="{{$quotation[0]->estimated_date}}" class="form-control estimate_date" autocomplete="off" required @if(Route::currentRouteName() == 'view-handyman-quotation') disabled @endif>
+                                                    <input type="text" name="date" value="{{$quotation[0]->estimated_date}}" class="form-control estimate_date" autocomplete="off" required @if(Route::currentRouteName() == 'view-quotation') disabled @endif>
                                                 </div>
                                             </div>
                                         </div>
@@ -65,33 +65,31 @@
                                         <div class="row" style="margin: 0;">
                                             <div class="col-sm-12">
 
-                                                        <div class="row" style="margin: 0;margin-top: 35px;">
-                                                            <div class="col-md-12 col-sm-12" style="border: 1px solid #e5e5e5;padding: 0;">
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-hover table-white items-table">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th style="width: 40px;">#</th>
-                                                                            <th class="col-sm-2">Service/Item</th>
-                                                                            <th class="col-md-6">Description</th>
-                                                                            <th style="width:100px;">Cost</th>
-                                                                            <th style="width:120px;">Qty</th>
-                                                                            <th style="width: 120px;">Amount</th>
-                                                                            <th> </th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
+                                                    <div class="row" style="margin: 0;margin-top: 35px;">
+                                                        <div class="col-md-12 col-sm-12" style="border: 1px solid #e5e5e5;padding: 0;">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-hover table-white items-table">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th style="width: 40px;">#</th>
+                                                                        <th class="col-sm-2">Service/Item</th>
+                                                                        <th class="col-md-6">Description</th>
+                                                                        <th style="width:100px;">Cost</th>
+                                                                        <th style="width:120px;">Qty</th>
+                                                                        <th style="width: 120px;">Amount</th>
+                                                                        <th> </th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
 
-                                                                        @foreach($quotation as $i => $temp)
+                                                                    @foreach($quotation as $i => $temp)
 
-                                                                            <input type="hidden" name="data_id[]" value="{{$temp->data_id}}">
+                                                                        <input type="hidden" name="data_id[]" value="{{$temp->data_id}}">
 
                                                                             <tr>
                                                                                 <td>{{$i + 1}}</td>
                                                                                 <td>
-                                                                                    @if(Route::currentRouteName() != 'view-handyman-quotation')
-
-                                                                                    <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required @if(Route::currentRouteName() == 'view-handyman-quotation') disabled @endif>
+                                                                                    <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required @if(Route::currentRouteName() == 'view-quotation') disabled @endif>
 
                                                                                         @foreach($services as $key)
                                                                                             <option value="{{$key->id}}" @if(!$temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->service; ?> @endif @endif>{{$key->cat_name}}</option>
@@ -101,30 +99,24 @@
                                                                                             <option value="{{$key->id}}I" @if($temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->temp; ?> @endif @endif>{{$key->cat_name}}</option>
                                                                                         @endforeach
 
-                                                                                            <input type="hidden" name="service_title[]" value="{{$service_title}}">
-
                                                                                     </select>
-                                                                                    @else
 
-                                                                                        <input name="item[]" class="form-control" type="text" value="{{$temp->service}}" readonly>
-
-                                                                                    @endif
+                                                                                    <input type="hidden" name="service_title[]" value="{{$service_title}}">
                                                                                 </td>
                                                                                 <td>
-                                                                                    <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>{{$temp->data_description}}</textarea>
+                                                                                    <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control" @if(Route::currentRouteName() == 'view-quotation') readonly @endif>{{$temp->data_description}}</textarea>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input name="cost[]" class="form-control" type="text" value="{{$temp->rate}}" required @if(Route::currentRouteName() == 'view-quotation') readonly @endif>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input name="qty[]" class="form-control" type="text" value="{{$temp->qty}}" required @if(Route::currentRouteName() == 'view-quotation') readonly @endif>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input name="amount[]" class="form-control" readonly="" value="{{$temp->amount}}" type="text" @if(Route::currentRouteName() == 'view-quotation') readonly @endif>
                                                                                 </td>
 
-                                                                                <td>
-                                                                                    <input name="cost[]" class="form-control" type="text" value="{{$temp->rate}}" required @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input name="qty[]" class="form-control" type="text" value="{{$temp->qty}}" required @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input name="amount[]" class="form-control" readonly="" value="{{$temp->amount}}" type="text" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
-                                                                                </td>
-
-                                                                                @if(Route::currentRouteName() != 'view-handyman-quotation')
+                                                                                @if(Route::currentRouteName() != 'view-quotation')
 
                                                                                     @if($i == 0)
 
@@ -143,71 +135,73 @@
                                                                                 @endif
                                                                             </tr>
 
-                                                                        @endforeach
+                                                                    @endforeach
 
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
 
-                                                                <div class="table-responsive">
-                                                                    <table class="table table-hover table-white" style="margin-bottom: 0;">
-                                                                        <tbody>
-                                                                        <tr>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                            <td class="text-right">Sub Total</td>
-                                                                            <td style="text-align: right; padding-right: 30px;width: 230px">
-                                                                                <input class="form-control text-right" value="{{$temp->subtotal}}" name="sub_total" id="sub_total" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td colspan="5" class="text-right">Tax ({{$temp->vat_percentage}}%)</td>
-                                                                            <td style="text-align: right; padding-right: 30px;width: 230px">
-                                                                                <input type="hidden" name="vat_percentage" id="vat_percentage" value="{{$temp->vat_percentage}}">
-                                                                                <input class="form-control text-right" value="{{$temp->tax}}" name="tax_amount" id="tax_amount" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td colspan="5" style="text-align: right; font-weight: bold">
-                                                                                Grand Total
-                                                                            </td>
-                                                                            <td id="grand_total_cell" style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
-                                                                                € {{$temp->grand_total}}
-                                                                            </td>
-                                                                            <input class="form-control text-right" value="{{$temp->grand_total}}" name="grand_total" id="grand_total" type="hidden">
-                                                                        </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-hover table-white" style="margin-bottom: 0;">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td class="text-right">Sub Total</td>
+                                                                        <td style="text-align: right; padding-right: 30px;width: 230px">
+                                                                            <input class="form-control text-right" value="{{$temp->subtotal}}" name="sub_total" id="sub_total" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="5" class="text-right">Tax ({{$temp->vat_percentage}}%)</td>
+                                                                        <td style="text-align: right; padding-right: 30px;width: 230px">
+                                                                            <input type="hidden" name="vat_percentage" id="vat_percentage" value="{{$temp->vat_percentage}}">
+                                                                            <input class="form-control text-right" value="{{$temp->tax}}" name="tax_amount" id="tax_amount" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="5" style="text-align: right; font-weight: bold">
+                                                                            Grand Total
+                                                                        </td>
+                                                                        <td id="grand_total_cell" style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
+                                                                            € {{$temp->grand_total}}
+                                                                        </td>
+                                                                        <input class="form-control text-right" value="{{$temp->grand_total}}" name="grand_total" id="grand_total" type="hidden">
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
+                                                    </div>
 
-                                                        <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
-                                                            <div class="col-md-12" style="padding: 0;">
-                                                                <div class="form-group" style="margin: 0;">
-                                                                    <label>Other Information</label>
-                                                                    <textarea name="other_info" class="form-control" rows="4" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>{{$temp->description}}</textarea>
-                                                                </div>
+                                                    <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
+                                                        <div class="col-md-12" style="padding: 0;">
+                                                            <div class="form-group" style="margin: 0;">
+                                                                <label>Other Information</label>
+                                                                <textarea name="other_info" class="form-control" rows="4" @if(Route::currentRouteName() == 'view-quotation') readonly @endif>{{$temp->description}}</textarea>
                                                             </div>
                                                         </div>
+                                                    </div>
 
-                                                @if(Route::currentRouteName() != 'view-handyman-quotation')
+                                                    @if(Route::currentRouteName() != 'view-quotation')
 
-                                                <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
-                                                    <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Update</button>
-                                                </div>
+                                                        <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
+                                                            <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Update</button>
+                                                        </div>
 
-                                            </div></div>
+                                                        </div></div>
 
-                                            </form>
+                                                        </form>
 
-                                            @else
+                                                    @else
 
-                                    </div></div>
+                                                        </div></div>
 
-                                                @endif
+                                                    @endif
+
+
                                     </div>
                                 </div>
                             </div>

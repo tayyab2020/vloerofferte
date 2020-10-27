@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.handyman')
 
 @section('content')
 
@@ -13,7 +13,6 @@
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
                                         <h2>Quotations</h2>
-
                                     </div>
                                     <hr>
                                     <div>
@@ -28,8 +27,6 @@
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Quotation Number</th>
-
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Handyman</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Tax</th>
 
@@ -57,8 +54,6 @@
 
                                                             <td>{{$key->quotation_invoice_number}}</td>
 
-                                                            <td>{{$key->name}} {{$key->family_name}}</td>
-
                                                             <td>{{$key->tax}}</td>
 
                                                             <td>{{$key->subtotal}}</td>
@@ -76,8 +71,8 @@
                                                                     <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
-                                                                        <li><a href="{{ url('/logstof/view-quotation/'.$key->invoice_id) }}">View</a></li>
-                                                                        <li><a href="{{ url('/logstof/download-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
+                                                                        <li><a href="{{ url('/handyman/view-quotation/'.$key->invoice_id) }}">View</a></li>
+                                                                        <li><a href="{{ url('/handyman/download-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
                                                                     </ul>
                                                                 </div>
                                                             </td>

@@ -4,7 +4,7 @@
 
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">Quotation Invoice</h1>
+            <h1 class="jumbotron-heading">Quotation</h1>
         </div>
     </section>
 

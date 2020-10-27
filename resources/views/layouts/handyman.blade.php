@@ -25,7 +25,7 @@
     <link href="{{ asset('assets/front/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/front/css/responsive.css') }}" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{asset('assets/images/'.$gs->favicon)}}">
-    <link href="{{ asset('assets/front/select2/select2.min.css') }}" rel="stylesheet" >
+    <link href="{{ asset('assets/front/select2/select2.min.css') }}" rel="stylesheet">
     <script src="{{asset('assets/admin/js/jquery.min.js')}}"></script>
     <script src="{{ asset('assets/front/select2/select2.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
@@ -100,6 +100,18 @@
                         <li><a href="{{ route('user-profile') }}" id="edit"><i class="fa fa-fw fa-user"></i> {{$lang->edit}}</a></li>
 
                         <li>
+                            <a href="{{route('handyman-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->mbt}}</a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('handyman-quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Requests</a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('quotations')}}"><i class="fa fa-fw fa-file-text"></i> Quotations</a>
+                        </li>
+
+                        <li>
                             <a href="{{ route('user-services') }}" id="services"><i class="fa fa-fw fa-hospital-o"></i> {{$lang->mst}}</a>
                         </li>
 
@@ -117,14 +129,6 @@
 
                         <li>
                             <a href="{{ route('radius-management') }}" id="radius_tab"><i class="fa fa-fw fa-hospital-o"></i> {{$lang->rm}}</a>
-                        </li>
-
-                        <li>
-                            <a href="{{route('handyman-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->mbt}}</a>
-                        </li>
-
-                        <li>
-                            <a href="{{route('handyman-quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Requests</a>
                         </li>
 
                         <li>
@@ -172,9 +176,7 @@
                                         <li rel="1" ><a href="#" tabindex="0" class="" style="color: black !important;" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
                                     </ul>
 
-                                    </div>
-
-
+                                </div>
 
                             @elseif($lang->lang == 'du')
 

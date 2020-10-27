@@ -76,11 +76,19 @@
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">View</a></li>
                                                                         <li><a href="{{ url('/handyman/download-handyman-quote-request/'.$key->id) }}">Download PDF</a></li>
-                                                                        @if(!$invoices[$i])
-                                                                            <li><a href="{{ url('/handyman/create-quotation/'.$key->id) }}">Create Invoice</a></li>
-                                                                        @else
+
+                                                                        @if($invoices[$i])
+
+                                                                            @if($invoices[$i]->ask_customization && !$invoices[$i]->invoice)
                                                                             <li><a href="">Edit Invoice</a></li>
+                                                                            @endif
+
+                                                                        @else
+
+                                                                            <li><a href="{{ url('/handyman/create-quotation/'.$key->id) }}">Create Invoice</a></li>
+
                                                                         @endif
+
                                                                     </ul>
                                                                 </div>
                                                             </td>
