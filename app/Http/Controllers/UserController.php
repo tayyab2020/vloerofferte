@@ -283,7 +283,7 @@ else
 
 
 
-        $admin_email = 'tayyabkhurram62@gmail.com';
+        $admin_email = $this->sl->admin_email;
 
         $headers =  'MIME-Version: 1.0' . "\r\n";
         $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
@@ -293,7 +293,7 @@ else
         mail($admin_email,$subject,$msg,$headers);
 
 
-        Session::flash('success', 'Quotation Invoice has been created successfully!');
+        Session::flash('success', 'Request submitted successfully!');
 
         return redirect()->back();
     }
