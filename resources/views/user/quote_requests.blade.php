@@ -70,17 +70,17 @@
 
                                                                     @if($invoices[$i]->ask_customization && !$invoices[$i]->invoice)
 
-                                                                        <button class="btn btn-info">Asking for Review</button>
+                                                                        <span class="btn btn-info">Asking for Review</span>
 
                                                                     @else
 
-                                                                        <button class="btn btn-success">Quotation Sent</button>
+                                                                        <span class="btn btn-success">Quotation Sent</span>
 
                                                                     @endif
 
                                                                     @else
 
-                                                                    <button class="btn btn-warning">Pending</button>
+                                                                    <span class="btn btn-warning">Pending</span>
 
                                                                     @endif
                                                             </td>

@@ -294,11 +294,6 @@ class UserRegisterController extends Controller
 
         }
 
-
-
-
-
-
     }
 
 }

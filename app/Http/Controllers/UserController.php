@@ -129,9 +129,16 @@ else
         $user_id = $user->id;
         $user_role = $user->role_id;
 
-        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.user_id',$user_id)->orderBy('quotes.created_at','desc')->select('quotes.*','categories.cat_name')->get();
+        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.user_id',$user_id)->select('quotes.*','categories.cat_name')->get();
 
-        return view('user.client_quote_requests',compact('requests'));
+
+        foreach($requests as $key)
+        {
+            $invoices[] = quotation_invoices::where('quote_id',$key->id)->first();
+        }
+
+
+        return view('user.client_quote_requests',compact('requests','invoices'));
     }
 
     public function HandymanQuotationRequests()
@@ -140,7 +147,7 @@ else
         $user_id = $user->id;
         $user_role = $user->role_id;
 
-        $requests = handyman_quotes::leftjoin('quotes','quotes.id','=','handyman_quotes.quote_id')->leftjoin('categories','categories.id','=','quotes.quote_service')->where('handyman_quotes.handyman_id',$user_id)->orderBy('quotes.created_at','desc')->select('quotes.*','categories.cat_name','handyman_quotes.quote_id','handyman_quotes.handyman_id')->get();
+        $requests = handyman_quotes::leftjoin('quotes','quotes.id','=','handyman_quotes.quote_id')->leftjoin('categories','categories.id','=','quotes.quote_service')->where('handyman_quotes.handyman_id',$user_id)->select('quotes.*','categories.cat_name','handyman_quotes.quote_id','handyman_quotes.handyman_id')->get();
 
         foreach($requests as $key)
         {
@@ -1944,7 +1951,7 @@ $x = 0;
             return redirect()->route('user-login');
         }
 
-$cats = Category::all();
+        $cats = Category::all();
 
         $services_selected = handyman_services::query()->where('handyman_id','=', $user_id)->get();
 

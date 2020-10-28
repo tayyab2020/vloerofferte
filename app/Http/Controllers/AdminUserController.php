@@ -172,7 +172,6 @@ class AdminUserController extends Controller
 
             }
 
-
             $handymen = handyman_services::leftjoin('users','users.id','=','handyman_services.handyman_id')->whereIn('users.id', $array)->where('users.active',1)->where('handyman_services.service_id','=', $request->quote_service)->select('users.*')->get();
 
         }
