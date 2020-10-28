@@ -153,7 +153,7 @@ else
         {
             $invoices[] = quotation_invoices::where('quote_id',$key->quote_id)->where('handyman_id',$key->handyman_id)->first();
         }
-
+        
         return view('user.quote_requests',compact('requests','invoices'));
     }
 
