@@ -1767,7 +1767,7 @@ $x = 0;
         }
 
 
-        $cats = Category::where('main_service',1)->get();
+        $cats = Category::all();
         $services_selected = handyman_services::query()->where('handyman_id','=', $user_id)->where('main_id',0)->get();
 
 
