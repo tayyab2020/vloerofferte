@@ -17,19 +17,28 @@
                                     </div>
                                     <hr>
                                     <div>
-                                        @include('includes.form-success')
+                                        <form class="form-horizontal" id="handyman_form" action="{{route('approve-handyman-quotations')}}" method="POST" enctype="multipart/form-data">
+
+                                            @include('includes.form-error')
+                                            @include('includes.form-success')
+
+                                            {{csrf_field()}}
+
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <table id="example" class="table table-striped table-hover products dt-responsive dataTable no-footer dtr-inline" role="grid" aria-describedby="product-table_wrapper_info" style="width: 100%;margin-top: 55px !important;" width="100%" cellspacing="0">
+
+                                                <table id="example" class="handyman_table table table-striped table-hover products dt-responsive dataTable no-footer dtr-inline" role="grid" aria-describedby="product-table_wrapper_info" style="width: 100%;margin-top: 45px !important;" width="100%" cellspacing="0">
                                                     <thead>
 
                                                     <tr role="row">
 
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
-
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Quotation Number</th>
 
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
+
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Handyman</th>
+
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Status</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Tax</th>
 
@@ -51,13 +60,27 @@
 
                                                         <tr role="row" class="odd">
 
+                                                            <td style="outline: none;"><input @if($key->approved) disabled @endif style="margin: 10px 10px;position: relative;top: 2px;" type="checkbox" name="action[]" value="{{$key->invoice_id}}" class="action">{{$key->quotation_invoice_number}}</td>
+
                                                             <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
 
                                                             <td>{{$requested_quote_number}}</td>
 
-                                                            <td>{{$key->quotation_invoice_number}}</td>
-
                                                             <td>{{$key->name}} {{$key->family_name}}</td>
+
+                                                            <td>
+
+                                                                @if($key->approved)
+
+                                                                    <span class="btn btn-success">Approved</span>
+
+                                                                @else
+
+                                                                    <span class="btn btn-danger">Not Approved</span>
+
+                                                                @endif
+
+                                                            </td>
 
                                                             <td>{{$key->tax}}</td>
 
@@ -85,7 +108,15 @@
 
                                                     @endforeach
                                                     </tbody>
-                                                </table></div></div>
+                                                </table></div>
+
+                                            <div class="col-sm-12 add-product-footer" style="display: inline-block;width: 100%;text-align: right;margin-top: 20px;padding: 0px 30px;">
+                                                <button type="button" style="outline: none;padding: 5px 20px;border-radius: 5px;font-size: 20px;" class="btn btn-success submit_btn">Submit</button>
+                                            </div>
+
+                                        </div>
+
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -183,12 +214,6 @@
 
         }
 
-        .swal2-popup{
-
-            width: 25% !important;
-            height: 330px !important;
-        }
-
         .swal2-icon.swal2-warning{
 
             width: 20% !important;
@@ -231,11 +256,11 @@
         }
 
         #photo{
-            width: 168px !important;
+            width: 275px !important;
         }
 
         #client{
-            width: 185px !important;
+            width: 230px !important;
         }
 
         #handyman{
@@ -273,6 +298,30 @@
 
         }
 
+        tr{cursor: pointer;}
+
+        .swal2-show
+        {
+            padding: 40px !important;
+            width: 30% !important;
+
+        }
+
+        .swal2-header
+        {
+            font-size: 23px;
+        }
+
+        .swal2-content
+        {
+            font-size: 22px !important;
+        }
+
+        .swal2-actions
+        {
+            font-size: 16px;
+        }
+
 
     </style>
 
@@ -282,6 +331,35 @@
 
     <script type="text/javascript">
         $('#example').DataTable();
+
+        $(document).ready(function() {
+
+            $('.submit_btn').click(function(event) {
+
+                if($('.action:checked').length == 0)
+                {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'You have to select atleast one row!',
+                    });
+                }
+                else
+                {
+                    $('#handyman_form').submit();
+                }
+
+            });
+
+
+            $('.handyman_table tr').click(function(event) {
+                if (event.target.type !== 'checkbox') {
+                    $(':checkbox', this).trigger('click');
+                }
+            });
+
+        });
+
     </script>
 
 @endsection

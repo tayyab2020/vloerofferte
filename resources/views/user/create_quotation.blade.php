@@ -78,18 +78,23 @@
 
                                                                             <input type="hidden" name="service_title[]" value="{{$service_title}}">
                                                                         </td>
-                                                                        <td>
+
+                                                                        <td class="td-desc">
                                                                             <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>
                                                                         </td>
-                                                                        <td>
+
+                                                                        <td class="td-rate">
                                                                             <input name="cost[]" class="form-control" type="text" value="{{$rate}}" required>
                                                                         </td>
-                                                                        <td>
+
+                                                                        <td class="td-qty">
                                                                             <input name="qty[]" class="form-control" type="text" required>
                                                                         </td>
-                                                                        <td>
+
+                                                                        <td class="td-amount">
                                                                             <input name="amount[]" class="form-control" readonly="" type="text">
                                                                         </td>
+
                                                                         <td style="text-align: center;"><a href="javascript:void(0)" class="text-success font-18 add-row" title="Add"><i class="fa fa-plus"></i></a></td>
                                                                     </tr>
                                                                     <tr>
@@ -107,18 +112,23 @@
 
                                                                             <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">
                                                                         </td>
-                                                                        <td>
+
+                                                                        <td class="td-desc">
                                                                             <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>
                                                                         </td>
-                                                                        <td>
+
+                                                                        <td class="td-rate">
                                                                             <input name="cost[]" class="form-control" type="text" value="{{$services[0]->rate}}" required>
                                                                         </td>
-                                                                        <td>
+
+                                                                        <td class="td-qty">
                                                                             <input name="qty[]" class="form-control" type="text" required>
                                                                         </td>
-                                                                        <td>
+
+                                                                        <td class="td-amount">
                                                                             <input name="amount[]" class="form-control" readonly="" type="text">
                                                                         </td>
+
                                                                         <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>
                                                                     </tr>
                                                                     </tbody>
@@ -851,18 +861,19 @@
                         success: function(data) {
 
                             current.parent().children('input').val(data.cat_name);
-                            current.parent().next('td').next('td').next('td').children('input').val(data.rate);
+
+                            current.parent().parent().find('.td-rate').children('input').val(data.rate);
 
                             var vat_percentage = parseInt($('#vat_percentage').val());
                             vat_percentage = vat_percentage + 100;
-                            var cost = current.parent().next('td').next('td').next('td').children('input').val();
-                            var qty = current.parent().next('td').next('td').next('td').next('td').children('input').val();
+                            var cost = current.parent().parent().find('.td-rate').children('input').val();
+                            var qty = current.parent().parent().find('.td-qty').children('input').val();
 
                             var amount = cost * qty;
 
                             amount = parseFloat(amount).toFixed(2);
 
-                            current.parent().next('td').next('td').next('td').next('td').next('td').children('input').val(amount);
+                            current.parent().parent().find('.td-amount').children('input').val(amount);
 
                             var amounts = [];
                             $("input[name='amount[]']").each(function() {
@@ -915,16 +926,16 @@
                     '                                                                            </select>\n' +
                     '                                                                           <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">\n'+
                     '                                                                        </td>\n' +
-                    '                                                                        <td>\n' +
+                    '                                                                        <td class="td-desc">\n' +
                     '                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>\n' +
                     '                                                                        </td>\n' +
-                    '                                                                        <td>\n' +
+                    '                                                                        <td class="td-rate">\n' +
                     '                                                                            <input name="cost[]" class="form-control" type="text" required>\n' +
                     '                                                                        </td>\n' +
-                    '                                                                        <td>\n' +
+                    '                                                                        <td class="td-qty">\n' +
                     '                                                                            <input name="qty[]" class="form-control" type="text" required>\n' +
                     '                                                                        </td>\n' +
-                    '                                                                        <td>\n' +
+                    '                                                                        <td class="td-amount">\n' +
                     '                                                                            <input name="amount[]" class="form-control" readonly="" type="text">\n' +
                     '                                                                        </td>\n' +
                     '                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>\n' +
@@ -944,18 +955,18 @@
                         success: function(data) {
 
                             current.parent().children('input').val(data.cat_name);
-                            current.parent().next('td').next('td').next('td').children('input').val(data.rate);
+                            current.parent().parent().find('.td-rate').children('input').val(data.rate);
 
                             var vat_percentage = parseInt($('#vat_percentage').val());
                             vat_percentage = vat_percentage + 100;
-                            var cost = current.parent().next('td').next('td').next('td').children('input').val();
-                            var qty = current.parent().next('td').next('td').next('td').next('td').children('input').val();
+                            var cost = current.parent().parent().find('.td-rate').children('input').val();
+                            var qty = current.parent().parent().find('.td-qty').children('input').val();
 
                             var amount = cost * qty;
 
                             amount = parseFloat(amount).toFixed(2);
 
-                            current.parent().next('td').next('td').next('td').next('td').next('td').children('input').val(amount);
+                            current.parent().parent().find('.td-amount').children('input').val(amount);
 
                             var amounts = [];
                             $("input[name='amount[]']").each(function() {
@@ -1083,13 +1094,13 @@
                     var vat_percentage = parseInt($('#vat_percentage').val());
                     vat_percentage = vat_percentage + 100;
                     var cost = $(this).val();
-                    var qty = $(this).parent().next('td').children('input').val();
+                    var qty = $(this).parent().parent().find('.td-qty').children('input').val();
 
                     var amount = cost * qty;
 
                     amount = parseFloat(amount).toFixed(2);
 
-                    $(this).parent().next('td').next('td').children('input').val(amount);
+                    $(this).parent().parent().find('.td-amount').children('input').val(amount);
 
                     var amounts = [];
                     $("input[name='amount[]']").each(function() {
@@ -1128,13 +1139,13 @@
                     var vat_percentage = parseInt($('#vat_percentage').val());
                     vat_percentage = vat_percentage + 100;
                     var qty = $(this).val();
-                    var cost = $(this).parent().prev('td').children('input').val();
+                    var cost = $(this).parent().parent().find('.td-rate').children('input').val();
 
                     var amount = cost * qty;
 
                     amount = parseFloat(amount).toFixed(2);
 
-                    $(this).parent().next('td').children('input').val(amount);
+                    $(this).parent().parent().find('.td-amount').children('input').val(amount);
 
                     var amounts = [];
                     $("input[name='amount[]']").each(function() {
@@ -1246,13 +1257,13 @@
                 var vat_percentage = parseInt($('#vat_percentage').val());
                 vat_percentage = vat_percentage + 100;
                 var cost = $(this).val();
-                var qty = $(this).parent().next('td').children('input').val();
+                var qty = $(this).parent().parent().find('.td-qty').children('input').val();
 
                 var amount = cost * qty;
 
                 amount = parseFloat(amount).toFixed(2);
 
-                $(this).parent().next('td').next('td').children('input').val(amount);
+                $(this).parent().parent().find('.td-amount').children('input').val(amount);
 
                 var amounts = [];
                 $("input[name='amount[]']").each(function() {
@@ -1291,13 +1302,14 @@
                 var vat_percentage = parseInt($('#vat_percentage').val());
                 vat_percentage = vat_percentage + 100;
                 var qty = $(this).val();
-                var cost = $(this).parent().prev('td').children('input').val();
+                var cost = $(this).parent().parent().find('.td-rate').children('input').val();
+
 
                 var amount = cost * qty;
 
                 amount = parseFloat(amount).toFixed(2);
 
-                $(this).parent().next('td').children('input').val(amount);
+                $(this).parent().parent().find('.td-amount').children('input').val(amount);
 
                 var amounts = [];
                 $("input[name='amount[]']").each(function() {

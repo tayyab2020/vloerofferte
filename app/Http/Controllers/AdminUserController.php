@@ -57,7 +57,7 @@ class AdminUserController extends Controller
 
     public function HandymanQuotations()
     {
-        $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
+        $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.approved','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
 
         return view('admin.user.quote_invoices',compact('invoices'));
     }
@@ -182,6 +182,45 @@ class AdminUserController extends Controller
         }
 
         return view('admin.user.send_quote',compact('request','handymen','array1','history'));
+    }
+
+
+    public function ApproveHandymanQuotations(Request $request)
+    {
+        $handyman = $request->action;
+
+        foreach ($handyman as $key)
+        {
+            $quotation = quotation_invoices::where('id',$key)->first();
+
+            $quotation->approved = 1;
+            $quotation->save();
+
+            $quotation_invoice_number = $quotation->quotation_invoice_number;
+
+            $user = users::where('id',$quotation->handyman_id)->first();
+            $user_name = $user->name. ' ' .$user->family_name;
+            $email = $user->email;
+
+            $link = url('/').'/handyman/dashboard';
+
+            \Mail::send('admin.user.quotation_approved_mail',
+                array(
+                    'username' => $user_name,
+                    'quotation_invoice_number' => $quotation_invoice_number,
+                    'link' => $link,
+                ), function ($message) use($email){
+                    $message->from('info@topstoffeerders.nl');
+                    $message->to($email)->subject('Your Quotation has been Approved!');
+
+                });
+
+        }
+
+        Session::flash('success', 'Quotation approved successfully!');
+        return redirect()->back();
+
+
     }
 
     public function SendQuoteRequestHandymen(Request $request)

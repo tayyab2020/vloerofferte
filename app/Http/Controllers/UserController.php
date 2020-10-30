@@ -153,7 +153,7 @@ else
         {
             $invoices[] = quotation_invoices::where('quote_id',$key->quote_id)->where('handyman_id',$key->handyman_id)->first();
         }
-        
+
         return view('user.quote_requests',compact('requests','invoices'));
     }
 
@@ -174,7 +174,7 @@ else
         $user_id = $user->id;
         $user_role = $user->role_id;
 
-        $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotes.user_id',$user_id)->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.ask_customization','quotation_invoices.id as invoice_id','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
+        $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotes.user_id',$user_id)->where('quotation_invoices.approved',1)->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.ask_customization','quotation_invoices.id as invoice_id','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
 
         return view('user.client_quote_invoices',compact('invoices'));
     }
@@ -434,6 +434,9 @@ else
         $services = $request->item;
 
         $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name')->first();
+        $quote->status = 1;
+        $quote->save();
+
 
         $date = strtotime($quote->created_at);
 
@@ -506,7 +509,7 @@ else
             });
 
 
-        Session::flash('success', 'Quotation Invoice has been created successfully!');
+        Session::flash('success', 'Quotation has been created successfully!');
         return redirect()->route('handyman-quotation-requests');
 
 

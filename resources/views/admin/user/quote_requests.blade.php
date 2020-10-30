@@ -41,6 +41,8 @@
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Status</th>
 
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Current Stage</th>
+
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Created At</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="date">Action</th>
@@ -70,6 +72,20 @@
                                                             <td>{{$key->quote_job}}</td>
 
                                                             <td>{{$key->quote_status}}</td>
+
+                                                            <td>
+
+                                                                @if($key->status == 0)
+
+                                                                    <span class="btn btn-warning">Pending</span>
+
+                                                                @elseif($key->status == 1)
+
+                                                                    <span class="btn btn-info">In Progress</span>
+
+                                                                @endif
+
+                                                            </td>
 
                                                             <?php $date = strtotime($key->created_at);
 
