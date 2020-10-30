@@ -43,14 +43,14 @@
                                             <div class="col-md-4">
                                                 <div class="form-group" style="margin: 0;">
                                                     <label>Request Number</label>
-                                                    <input type="text" value="{{$requested_quote_number}}" class="form-control" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
+                                                    <input type="text" value="{{$requested_quote_number}}" class="form-control" readonly>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-4">
                                                 <div class="form-group" style="margin: 0;">
                                                     <label>Quotation Number</label>
-                                                    <input type="text" value="{{$quotation[0]->quotation_invoice_number}}" class="form-control" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
+                                                    <input type="text" value="{{$quotation[0]->quotation_invoice_number}}" class="form-control" readonly>
                                                 </div>
                                             </div>
 
