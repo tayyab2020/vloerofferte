@@ -50,21 +50,29 @@ class AdminUserController extends Controller
 
     public function QuotationRequests()
     {
-        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->orderBy('quotes.created_at','desc')->select('quotes.*','categories.cat_name')->get();
+        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->orderBy('quotes.created_at','desc')->select('quotes.*','categories.cat_name')->withCount('quotations')->get();
+
 
         return view('admin.user.quote_requests',compact('requests'));
     }
 
-    public function HandymanQuotations()
+    public function HandymanQuotations($id = '')
     {
-        $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.approved','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
+        if($id)
+        {
+            $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotation_invoices.quote_id',$id)->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.approved','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
+        }
+        else
+        {
+            $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.approved','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
+        }
 
         return view('admin.user.quote_invoices',compact('invoices'));
     }
 
     public function QuoteRequest($id)
     {
-        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
+        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->withCount('quotations')->first();
 
         $services = Category::where('main_service',1)->get();
 
@@ -142,7 +150,6 @@ class AdminUserController extends Controller
 
         $history = handyman_quotes::leftjoin('users','users.id','=','handyman_quotes.handyman_id')->where('handyman_quotes.quote_id',$id)->select('users.*','handyman_quotes.created_at as quote_date')->get();
 
-
         if(($result['status']) != 'ZERO_RESULTS' )
         {
             $user_latitude = $result['results'][0]['geometry']['location']['lat'];
@@ -152,9 +159,10 @@ class AdminUserController extends Controller
             $array1[] = "";
             $i = 0;
 
-            $post = handyman_terminals::all();
+            $post = handyman_terminals::leftjoin('users','users.id','=','handyman_terminals.handyman_id')->where('users.active',1)->select('handyman_terminals.*','users.*')->get();
 
-            foreach ($post as $key ) {
+
+            foreach ($post as $key) {
 
                 $lat = $key->latitude;
                 $lng = $key->longitude;
@@ -174,14 +182,27 @@ class AdminUserController extends Controller
 
             $handymen = handyman_services::leftjoin('users','users.id','=','handyman_services.handyman_id')->whereIn('users.id', $array)->where('users.active',1)->where('handyman_services.service_id','=', $request->quote_service)->select('users.*')->get();
 
+
+            if(count($handymen) != 0)
+            {
+                foreach($handymen as $key)
+                {
+                    $post = $post->except($key->id);
+                }
+
+            }
+
+            $other_handymen = $post;
+
         }
 
         else
         {
             $handymen = '';
+            $other_handymen = handyman_terminals::leftjoin('users','users.id','=','handyman_terminals.handyman_id')->where('users.active',1)->select('handyman_terminals.*','users.*')->get();
         }
 
-        return view('admin.user.send_quote',compact('request','handymen','array1','history'));
+        return view('admin.user.send_quote',compact('request','handymen','array1','history','other_handymen'));
     }
 
 

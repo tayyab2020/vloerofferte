@@ -25,21 +25,21 @@
 
                                                     <tr role="row">
 
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Service</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request No.</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Name</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending">Quotations</th>
+
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="rate">Service</th>
+
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="rate">Name</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Postcode</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Work Type</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="service">Work Type</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">When</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="service">When</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="rate">Budget</th>
-
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Job Type</th>
-
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Status</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Current Stage</th>
 
@@ -57,6 +57,12 @@
 
                                                         <tr role="row" class="odd">
 
+                                                            <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
+
+                                                            <td><a href="{{ url('/logstof/handyman-quotations/'.$key->id) }}">{{$requested_quote_number}}</a></td>
+
+                                                            <td>{{$key->quotations_count}}</td>
+
                                                             <td>{{$key->cat_name}}</td>
 
                                                             <td>{{$key->quote_name}}</td>
@@ -69,17 +75,13 @@
 
                                                             <td>{{$key->quote_budget}}</td>
 
-                                                            <td>{{$key->quote_job}}</td>
-
-                                                            <td>{{$key->quote_status}}</td>
-
                                                             <td>
 
-                                                                @if($key->status == 0)
+                                                                @if($key->quotations_count == 0)
 
                                                                     <span class="btn btn-warning">Pending</span>
 
-                                                                @elseif($key->status == 1)
+                                                                @else
 
                                                                     <span class="btn btn-info">In Progress</span>
 
@@ -99,6 +101,7 @@
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="{{ url('/logstof/view-quote-request/'.$key->id) }}">View</a></li>
+                                                                        <li><a href="{{ url('/logstof/handyman-quotations/'.$key->id) }}">View Quotations</a></li>
                                                                         <li><a href="{{ url('/logstof/download-quote-request/'.$key->id) }}">Download PDF</a></li>
                                                                         <li><a href="{{ url('/logstof/send-quote-request/'.$key->id) }}">Send</a></li>
                                                                     </ul>
@@ -126,6 +129,14 @@
         .dropdown-menu
         {
             left: -65px;
+        }
+
+        @media (max-width: 768px)
+        {
+            .dropdown-menu
+            {
+                left: 0;
+            }
         }
 
         select {
@@ -254,11 +265,11 @@
         }
 
         #photo{
-            width: 168px !important;
+            width: 300px !important;
         }
 
         #client{
-            width: 185px !important;
+            width: 300px !important;
         }
 
         #handyman{
@@ -274,7 +285,7 @@
         }
 
         #service{
-            width: 151px !important;
+            width: 190px !important;
         }
 
         #date{

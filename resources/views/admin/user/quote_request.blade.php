@@ -36,6 +36,13 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_slug">Number of Quotations </label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" value="{{$request->quotations_count}}" type="number" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_slug">Email* </label>
                                             <div class="col-sm-6">
                                                 <input class="form-control" value="{{$request->quote_email}}" name="quote_email" id="quote_email" placeholder="Enter Email" required="" type="email" readonly>

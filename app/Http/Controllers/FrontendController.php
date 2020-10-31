@@ -1238,12 +1238,13 @@ else
 
                 $link = url('/').'/handyman/client-dashboard';
 
-                $headers =  'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
-                $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                $subject = "Quotation Request Submitted!";
-                $msg = "Dear Mr/Mrs ".$user_name.",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='".$link."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
-                mail($user_email,$subject,$msg,$headers);
+                \Mail::send(array(), array(), function ($message) use($user_email,$user_name,$link) {
+                    $message->to($user_email)
+                        ->from('info@topstoffeerders.nl')
+                        ->subject('Quotation Request Submitted!')
+                        ->setBody("Dear Mr/Mrs ".$user_name.",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='".$link."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+                });
+
             }
             else
             {
@@ -1264,13 +1265,13 @@ else
 
                 $link = url('/').'/handyman/client-dashboard';
 
+                \Mail::send(array(), array(), function ($message) use($user_email,$user_name,$link,$password) {
+                    $message->to($user_email)
+                        ->from('info@topstoffeerders.nl')
+                        ->subject('Account Created!')
+                        ->setBody("Dear Mr/Mrs ".$user_name.",<br><br>Your account has been created and your quotation request has been submitted successfully. Kindly complete your profile and change your password. You can go to your dashboard through <a href='".$link."'>here.</a><br><br>Your Password: ".$password."<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+                });
 
-                $headers =  'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
-                $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                $subject = "Account Created!";
-                $msg = "Dear Mr/Mrs ".$user_name.",<br><br>Your account has been created and your quotation request has been submitted successfully. Kindly complete your profile and change your password. You can go to your dashboard through <a href='".$link."'>here.</a><br><br>Your Password: ".$password."<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
-                mail($user_email,$subject,$msg,$headers);
             }
 
             $quote = new quotes;

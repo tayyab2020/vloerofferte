@@ -60,11 +60,11 @@
 
                                                         <tr role="row" class="odd">
 
-                                                            <td style="outline: none;"><input @if($key->approved) disabled @endif style="margin: 10px 10px;position: relative;top: 2px;" type="checkbox" name="action[]" value="{{$key->invoice_id}}" class="action">{{$key->quotation_invoice_number}}</td>
+                                                            <td style="outline: none;"><input @if($key->approved) disabled @endif style="margin: 10px 10px;position: relative;top: 2px;" type="checkbox" name="action[]" value="{{$key->invoice_id}}" class="action"><a href="{{ url('/logstof/view-quotation/'.$key->invoice_id) }}">{{$key->quotation_invoice_number}}</a></td>
 
                                                             <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
 
-                                                            <td>{{$requested_quote_number}}</td>
+                                                            <td><a href="{{ url('/logstof/view-quote-request/'.$key->id) }}">{{$requested_quote_number}}</a></td>
 
                                                             <td>{{$key->name}} {{$key->family_name}}</td>
 
@@ -100,6 +100,7 @@
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="{{ url('/logstof/view-quotation/'.$key->invoice_id) }}">View</a></li>
+                                                                        <li><a href="{{ url('/logstof/view-quote-request/'.$key->id) }}">View Request</a></li>
                                                                         <li><a href="{{ url('/logstof/download-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
                                                                     </ul>
                                                                 </div>

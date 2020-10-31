@@ -48,15 +48,29 @@
                                                 <tbody>
                                                 @foreach($handymen as $i => $key)
 
-                                                <tr>
+                                                <tr style="background: #ccffcc;">
                                                 <td><input type="checkbox" name="action[]" value="{{$key->id}}" class="action" id="action{{$i}}"></td>
-                                                <td>{{$key->name}} {{$key->family_name}}</td>
+                                                <td>{{$key->name}} {{$key->family_name}} <br> <span class="btn btn-info" style="margin-top: 7px;background-color: #5bc0de !important;border-color: #46b8da !important;">Preferred</span></td>
                                                 <td><?php echo number_format((float)$array1[$i]['handyman_distance'], 2, '.', ''); ?> KM</td>
                                                 <td>{{$key->address}}</td>
                                                 <td>{{$key->postcode}}</td>
                                                 </tr>
 
                                                 @endforeach
+
+
+                                                @foreach($other_handymen as $x => $key)
+
+                                                    <tr>
+                                                        <td><input type="checkbox" name="action[]" value="{{$key->id}}" class="action" id="action{{$x}}"></td>
+                                                        <td>{{$key->name}} {{$key->family_name}}</td>
+                                                        <td><?php echo number_format((float)$array1[$x]['handyman_distance'], 2, '.', ''); ?> KM</td>
+                                                        <td>{{$key->address}}</td>
+                                                        <td>{{$key->postcode}}</td>
+                                                    </tr>
+
+                                                @endforeach
+
                                                 </tbody>
 
                                             </table>
