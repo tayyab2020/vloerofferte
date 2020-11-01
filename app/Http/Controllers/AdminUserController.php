@@ -139,6 +139,7 @@ class AdminUserController extends Controller
 
     public function SendQuoteRequest($id)
     {
+
         $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
 
         $search = $request->quote_zipcode;
@@ -159,10 +160,9 @@ class AdminUserController extends Controller
             $array1[] = "";
             $i = 0;
 
-            $post = handyman_terminals::leftjoin('users','users.id','=','handyman_terminals.handyman_id')->where('users.active',1)->select('handyman_terminals.*','users.*')->get();
+            $handymen = handyman_services::leftjoin('users','users.id','=','handyman_services.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('handyman_services.service_id','=', $request->quote_service)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();
 
-
-            foreach ($post as $key) {
+            foreach ($handymen as $key) {
 
                 $lat = $key->latitude;
                 $lng = $key->longitude;
@@ -174,35 +174,43 @@ class AdminUserController extends Controller
                 $miles = $dist * 60 * 1.1515;
                 $distance = $miles * 1.609344;
 
-                $array[$i] = array('handyman_id'=>$key->handyman_id);
+                $array[$i] = array('handyman_id'=>$key->id);
                 $array1[$i] = array('handyman_distance'=>$distance);
                 $i = $i + 1;
 
             }
 
-            $handymen = handyman_services::leftjoin('users','users.id','=','handyman_services.handyman_id')->whereIn('users.id', $array)->where('users.active',1)->where('handyman_services.service_id','=', $request->quote_service)->select('users.*')->get();
+            $other_handymen = handyman_terminals::leftjoin('users','users.id','=','handyman_terminals.handyman_id')->whereNotIn('users.id',$array)->where('users.active',1)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();
 
+            $array2[] = "";
+            $x = 0;
 
-            if(count($handymen) != 0)
-            {
-                foreach($handymen as $key)
-                {
-                    $post = $post->except($key->id);
-                }
+            foreach ($other_handymen as $key) {
+
+                $lat = $key->latitude;
+                $lng = $key->longitude;
+
+                $theta = $lng - $user_longitude;
+                $dist = sin(deg2rad($lat)) * sin(deg2rad($user_latitude)) +  cos(deg2rad($lat)) * cos(deg2rad($user_latitude)) * cos(deg2rad($theta));
+                $dist = acos($dist);
+                $dist = rad2deg($dist);
+                $miles = $dist * 60 * 1.1515;
+                $distance = $miles * 1.609344;
+
+                $array2[$x] = array('handyman_distance'=>$distance);
+                $x = $x + 1;
 
             }
-
-            $other_handymen = $post;
 
         }
 
         else
         {
-            $handymen = '';
-            $other_handymen = handyman_terminals::leftjoin('users','users.id','=','handyman_terminals.handyman_id')->where('users.active',1)->select('handyman_terminals.*','users.*')->get();
+            Session::flash('unsuccess', 'Invalid Postal code given in quote request!');
+            return redirect()->back();
         }
 
-        return view('admin.user.send_quote',compact('request','handymen','array1','history','other_handymen'));
+        return view('admin.user.send_quote',compact('request','handymen','array1','array2','history','other_handymen'));
     }
 
 

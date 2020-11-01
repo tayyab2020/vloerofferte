@@ -2268,9 +2268,7 @@ $handyman_unavailability_hours->save();
 
         $user = Auth::guard('user')->user();
 
-
-
-$post = handyman_terminals::where('handyman_id','=',$user->id)->first();
+        $post = handyman_terminals::where('handyman_id','=',$user->id)->first();
 
         if($post == '')
         {
@@ -2290,7 +2288,7 @@ $post = handyman_terminals::where('handyman_id','=',$user->id)->first();
 
         }
 
-
+        $user_update = users::where('id','=',$user->id)->update(['postcode' => $input['postal_code']]);
 
 
         Session::flash('success', $this->lang->success);
