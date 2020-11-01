@@ -34,6 +34,8 @@
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="rate">Grand Total</th>
 
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="rate">Current Stage</th>
+
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Date</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="date">Action</th>
@@ -60,6 +62,24 @@
 
                                                             <td>{{$key->grand_total}}</td>
 
+                                                            <td>
+
+                                                                @if($key->ask_customization)
+
+                                                                    <span class="btn btn-info">Asking for Review</span>
+
+                                                                @elseif($key->approved)
+
+                                                                    <span class="btn btn-success">Quotation Approved</span>
+
+                                                                @else
+
+                                                                    <span class="btn btn-warning">Pending</span>
+
+                                                                @endif
+
+                                                            </td>
+
                                                             <?php $date = strtotime($key->invoice_date);
 
                                                             $date = date('d-m-Y',$date);  ?>
@@ -74,7 +94,7 @@
                                                                         <li><a href="{{ url('/handyman/view-quotation/'.$key->invoice_id) }}">View</a></li>
                                                                         <li><a href="{{ url('/handyman/download-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
 
-                                                                            @if($key->ask_customization && !$key->invoice)
+                                                                            @if($key->ask_customization)
                                                                                 <li><a href="{{ url('/handyman/edit-quotation/'.$invoices[$i]->invoice_id) }}">Edit Quotation</a></li>
                                                                             @endif
 
@@ -231,11 +251,11 @@
         }
 
         #photo{
-            width: 168px !important;
+            width: 250px !important;
         }
 
         #client{
-            width: 185px !important;
+            width: 230px !important;
         }
 
         #handyman{

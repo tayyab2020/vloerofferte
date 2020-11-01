@@ -70,7 +70,11 @@
 
                                                             <td>
 
-                                                                @if($key->approved)
+                                                                @if($key->ask_customization)
+
+                                                                    <span class="btn btn-info">Asking for Review</span>
+
+                                                                @elseif($key->approved)
 
                                                                     <span class="btn btn-success">Approved</span>
 

@@ -77,13 +77,13 @@
                                   <input class="form-control" id="family_name" name="family_name" placeholder="{{$lang->fn}}" type="text" value="{{$user->family_name}}" required="">
                                 </div>
                               </div>
-                             
+
                               <div class="form-group">
                                 <label for="current_photo" class="col-sm-3 control-label">{{$lang->cup}}*</label>
                                 <div class="col-sm-8">
-     
+
                                 <img width="130px" height="90px" id="adminimg" src="{{ $user->photo ? asset('assets/images/'.$user->photo):asset('assets/default.jpg')}}" alt="" id="adminimg">
-                                         
+
                                 </div>
                               </div>
                               <div class="form-group">
@@ -103,7 +103,6 @@
 
 
 
-
                               <div class="form-group">
                                 <label for="company_name" class="col-sm-3 control-label">{{$lang->compname}}</label>
                                 <div class="col-sm-8">
@@ -118,7 +117,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" style="display: none;">
                                     <label for="registration_number" class="col-sm-3 control-label">{{$lang->pct}}</label>
                                     <div class="col-sm-8">
                                         <input class="form-control" id="postcode" name="postcode" placeholder="{{$lang->pct}}" type="text" value="{{$user->postcode}}" >
@@ -269,7 +268,7 @@
                 {
                     width: 100% !important;
                 }
-                
+
 .datepicker {
   padding: 4px;
   -webkit-border-radius: 4px;
@@ -755,9 +754,9 @@
 
         </style>
 
-     
 
-   
+
+
 
     <style>
 
@@ -819,7 +818,7 @@
     $(document).ready(function() {
         $("#myTags").tagit({
           fieldName: "special[]",
-          allowSpaces: true 
+          allowSpaces: true
         });
     });
 </script>

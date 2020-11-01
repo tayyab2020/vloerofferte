@@ -62,15 +62,15 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        
+
  <div class="profile-filup-description-box margin-bottom-30">
 
                               <div class="form-group">
-                                
+
                                 <table class="table table-striped ">
 <thead>
 <tr>
- 
+
 <th width="250">{{$lang->pct}}</th>
 <th>{{$lang->rt}}</th>
 </tr>
@@ -78,7 +78,7 @@
 <tbody id="tbody">
 
 <tr data-id="1">
- 
+
 <td>
 
 @if($terminal != '')
@@ -266,298 +266,252 @@ border: 1px solid red;
 
 <script>
 
-  $(document).ready(function(){
+    $(document).ready(function(){
 
-$("#form").submit(function(e){
+        $("#form").submit(function(e){
 
-  e.preventDefault(e);
+            e.preventDefault(e);
 
-
-var longitude = $('#longitude').val();
-var latitude = $('#latitude').val();
-
-
-if(longitude == "" || latitude == "")
-{
-
-  Swal.fire({
-                        icon: 'error',
-                        title: <?php echo "'".$lang->sww."'" ?>,
-                        text: <?php echo "'".$lang->pcet."'" ?>,
-
-                    });
+            var longitude = $('#longitude').val();
+            var latitude = $('#latitude').val();
 
 
-}
+            if(longitude == "" || latitude == "")
+            {
+                Swal.fire({
+                    icon: 'error',
+                    title: '<?php echo $lang->sww; ?>',
+                    text: '<?php echo $lang->pcet; ?>',
+                });
+            }
+            else
+            {
+                $('#form').off('submit');
+                $(this).submit();
+            }
 
-else
-{
+        });
 
-  $('#form').off('submit');
-
-  $(this).submit();
-
-
-}
-
-
-
-});
-
-});
+    });
 
     if($('#longitude').val() == "" || $('#latitude').val() == "")
-  {
+    {
+
+        var latitude = 52.014689;
+        var longitude = 5.584757;
+        var terminal_city = "Veenendaal";
+
+    }
+    else
+    {
+        var longitude = parseFloat($('#longitude').val());
+        var latitude = parseFloat($('#latitude').val());
+        var terminal_city = $('#terminal_city').val();
+
+    }
+
+    var radius = $('#radius').val();
+
+    var regionData = {
+
+        1: {
+            latitude: latitude,
+            longitude: longitude,
+            radius: radius,
+            terminal_city: terminal_city
+        },
+
+    };
 
 
-    var latitude = 52.014689;
-    var longitude = 5.584757;
-    var terminal_city = "Veenendaal";
+    function removeNode(id) {
+
+        $('tr[data-id="'+id+'"]').addClass('hidden');
+        $('.zipInput[data-id="'+id+'"]').val('-1');
+        $('.zipInput[data-id="'+id+'"]').trigger('keypress');
+
+        delete regionData[id];
+        handleCircles(true);
+        bindListeners();
+    }
+
+    function handleCopy() {
+        var maxId = Object.keys(regionData).length;
+        maxId+= 1;
+        var tpl = '<tr data-id="'+maxId+'">'+$('#template').html()+'</tr>';
+        var tpl = tpl.replace("[id]", maxId);
+        var tpl = tpl.replace("[id]", maxId);
+        var tpl = tpl.replace("[id]", maxId);
+        var tpl = tpl.replace("[id]", maxId);
+        $('#tbody').append(tpl);
+        bindListeners();
+    }
+
+    function bindListeners() {
+
+        $('.radiusInput').on('input',function(e){
+            var id = $(this).data('id');
+            regionData[id].radius = parseInt($(this).val());
+            handleCircles(true);
+        });
+
+        $('#search').click(function(e){
+            var obj = $('.zipInput');
+            var id = $('.zipInput').data('id');
+            var zipCode = $('.zipInput').val();
 
 
-  }
+            if(zipCode) {
 
-  else
+                if(zipCode.length>=6) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&address='+zipCode+',+Netherlands&sensor=false',
+                        success: function (data) {
 
-  {
+                            if (data.status == 'OK') {
 
-  var longitude = parseFloat($('#longitude').val());
-  var latitude = parseFloat($('#latitude').val());
-  var terminal_city = $('#terminal_city').val();
+                                $(obj).removeClass('error');
 
+                                if(regionData[id]==undefined) {
+                                    regionData[id] = { latitude: null, longitude: null, radius: 30 };
+                                }
 
-  }
+                                regionData[id].latitude = parseFloat(data.results[0].geometry.location.lat);
+                                regionData[id].longitude = parseFloat(data.results[0].geometry.location.lng);
 
-  
-  var radius = $('#radius').val();
+                                for (var i = 0; i < data.results[0].address_components.length; i++) {
 
+                                    if(data.results[0].address_components[i].types[0] == 'locality')
+                                    {
 
+                                        regionData[id].terminal_city = data.results[0].address_components[i].long_name;
 
-
-
-
-                        var regionData = {
-                                                                        1: {
-                            latitude: latitude,
-                            longitude: longitude,
-                            radius: radius,
-                            terminal_city: terminal_city
-                                },
-
-
-                                                                        };
-
-      
+                                    }
 
 
 
-                        function removeNode(id) {
-                            $('tr[data-id="'+id+'"]').addClass('hidden');
-                            $('.zipInput[data-id="'+id+'"]').val('-1');
-                            $('.zipInput[data-id="'+id+'"]').trigger('keypress');
+                                }
 
-                            delete regionData[id];
-                            handleCircles(true);
-                            bindListeners();
-
-                        }
-
-                        function handleCopy() {
-                            var maxId = Object.keys(regionData).length;
-                            maxId+= 1;
-                            var tpl = '<tr data-id="'+maxId+'">'+$('#template').html()+'</tr>';
-                            var tpl = tpl.replace("[id]", maxId);
-                            var tpl = tpl.replace("[id]", maxId);
-                            var tpl = tpl.replace("[id]", maxId);
-                            var tpl = tpl.replace("[id]", maxId);
-                            $('#tbody').append(tpl);
-                            bindListeners();
-                        }
-
-                        function bindListeners() {
-                            $('.radiusInput').on('input',function(e){
-                                var id = $(this).data('id');
-                                regionData[id].radius = parseInt($(this).val());
                                 handleCircles(true);
-                            });
-                            $('#search').click(function(e){
-                                var obj = $('.zipInput');
-                                var id = $('.zipInput').data('id');
-                                var zipCode = $('.zipInput').val();
 
-                              
-                               
-                                if(zipCode) {
-                                    if(zipCode.length>=6) {
-                                        $.ajax({
-                                            type: 'GET',
-                                            url: 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&address='+zipCode+',+Netherlands&sensor=false',
-                                            success: function (data) {
-                                              
+                                clearMarkers();
 
-                                                if (data.status == 'OK') {
+                                marker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(regionData[id].latitude,regionData[id].longitude),
+                                    map: map,
+                                });
 
-                                                    $(obj).removeClass('error');
-
-                                                    if(regionData[id]==undefined) {
-                                                        regionData[id] = { latitude: null, longitude: null, radius: 30 };
-                                                    }
-                                                    regionData[id].latitude = parseFloat(data.results[0].geometry.location.lat);
-                                                    regionData[id].longitude = parseFloat(data.results[0].geometry.location.lng);
-
-                                                     for (var i = 0; i < data.results[0].address_components.length; i++) {
-
-                                                      
-
-                                                      if(data.results[0].address_components[i].types[0] == 'locality')
-                                                      {
-
-                                                        regionData[id].terminal_city = data.results[0].address_components[i].long_name;
-                                                       
-
-                                                      }
-                                                      
-
-
-                                                     }
-
-
-                                                    
-
-                                                     
-                                                    handleCircles(true);
-
-                                                    clearMarkers();
-
-                                                    marker = new google.maps.Marker({
-                position: new google.maps.LatLng(regionData[id].latitude,regionData[id].longitude),
-                map: map,
-            });
-
-for (var region in regionData) {
-
-                            regionData[region].marker = marker;
-
-                          }
- 
-
- map.panTo(new google.maps.LatLng(regionData[id].latitude,regionData[id].longitude));
-
-
- $("#latitude").val(regionData[id].latitude);
- $("#longitude").val(regionData[id].longitude);
- $("#terminal_city").val(regionData[id].terminal_city);
- $("#postal_code").val(zipCode);
-
-
-                                                } else {
-
-                                                    $(obj).addClass('error');
-
-                                                    $("#latitude").val("");
-                                                    $("#longitude").val("");
-                                                    $("#terminal_city").val("");
-                                                    $("#postal_code").val("");
-
-
-                                                     
-                                                    clearCircles();
-
-                                                    clearMarkers();
-
-
-                                                }
-                                            }
-                                        });
-                                    }
-
-                                    else {
-
-                                                    $(obj).addClass('error');
-
-                                                    $("#latitude").val("");
-                                                    $("#longitude").val("");
-                                                    $("#terminal_city").val("");
-                                                    $("#postal_code").val("");
-
-
-                                                     
-                                                    clearCircles();
-
-                                                    clearMarkers();
-
-
-                                                }
-
-                                } else {
-                                    if(zipCode.length==0) {
-                                        regionData[id].circle.setMap(null);
-                                        regionData[id].marker.setMap(null);
-                                        delete regionData[id];
-                                        handleCircles(true);
-                                    }
-                                }
-                            });
-                        }
-
-                        $( document ).ready(function() {
-                            bindListeners();
-                        });
-
-
-                        var map = null;
-
-                        function clearCircles() {
-                            for(var i in regionData) {
-                                if(regionData[i].circle !== undefined) {
-                                    regionData[i].circle.setMap(null);
+                                for (var region in regionData) {
+                                    regionData[region].marker = marker;
                                 }
 
-                                
+
+                                map.panTo(new google.maps.LatLng(regionData[id].latitude,regionData[id].longitude));
+
+
+                                $("#latitude").val(regionData[id].latitude);
+                                $("#longitude").val(regionData[id].longitude);
+                                $("#terminal_city").val(regionData[id].terminal_city);
+                                $("#postal_code").val(zipCode);
+
                             }
-                        }
+                            else
+                                {
 
-                         function clearMarkers() {
-                            for(var i in regionData) {
-                               
+                                    $(obj).addClass('error');
+                                    $("#latitude").val("");
+                                    $("#longitude").val("");
+                                    $("#terminal_city").val("");
+                                    $("#postal_code").val("");
 
-                                if(regionData[i].marker !== undefined) {
-                                    regionData[i].marker.setMap(null);
+                                    clearCircles();
+                                    clearMarkers();
+
                                 }
-                            }
                         }
+                    });
+                }
+                else
+                {
 
-                        function initMap() {
-                          
-                            map = new google.maps.Map(document.getElementById('map'), {
-                                zoom: 7,
-                                maxZoom: 19,
+                    $(obj).addClass('error');
+                    $("#latitude").val("");
+                    $("#longitude").val("");
+                    $("#terminal_city").val("");
+                    $("#postal_code").val("");
 
-                                                                center: { lat: regionData[1].latitude, lng: regionData[1].longitude },
-                                                                mapTypeId: 'roadmap'
-                            });
-                            
-                            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(regionData[1].latitude, regionData[1].longitude),
-                map: map,
-            });
+                    clearCircles();
+                    clearMarkers();
 
-                             for (var region in regionData) {
+                }
+            }
+            else
+            {
 
-                            regionData[region].marker = marker;
-
-                          }
-
-                          
-
-                          if( $(".edit").val() != 0 )
-                          {
+                if(zipCode.length==0) {
+                    regionData[id].circle.setMap(null);
+                    regionData[id].marker.setMap(null);
+                    delete regionData[id];
+                    handleCircles(true);
+                }
+            }
+        });
+    }
 
 
-                            handleCircles();
+    $( document ).ready(function() {
+        bindListeners();
+    });
 
 
-                          }
+    var map = null;
+
+    function clearCircles() {
+        for(var i in regionData) {
+            if(regionData[i].circle !== undefined) {
+                regionData[i].circle.setMap(null);
+                map.panTo(new google.maps.LatLng(regionData[i].latitude,regionData[i].longitude));
+            }
+
+        }
+    }
+
+    function clearMarkers() {
+
+        for(var i in regionData) {
+
+            if(regionData[i].marker !== undefined) {
+                regionData[i].marker.setMap(null);
+            }
+
+        }
+
+    }
+
+    function initMap() {
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 7,
+            maxZoom: 19,
+
+            center: { lat: regionData[1].latitude, lng: regionData[1].longitude },
+            mapTypeId: 'roadmap'
+        });
+
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(regionData[1].latitude, regionData[1].longitude),
+            map: map,
+        });
+
+        for (var region in regionData) {
+            regionData[region].marker = marker;
+        }
+
+        if($(".edit").val() != 0)
+        {
+            handleCircles();
+        }
 
 
 
@@ -565,7 +519,7 @@ for (var region in regionData) {
 // google.maps.event.addListener(map, "click", function (event) {
 //     var latitude = event.latLng.lat();
 //     var longitude = event.latLng.lng();
-    
+
 //     regionData[1].latitude = parseFloat(latitude);
 //     regionData[1].longitude = parseFloat(longitude);
 //     handleCircles(true);
@@ -579,22 +533,21 @@ for (var region in regionData) {
 //     map.panTo(new google.maps.LatLng(latitude,longitude));
 
 
- 
+
 
 //     $.ajax({
 //                                             type: 'GET',
 //                                             url: 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&latlng='+latitude+','+longitude+'&countryCode=Pk',
 //                                             success: function (data) {
 //                                                 console.log(data);
-                                               
+
 //                                             }
 //                                         });
 
 // }); //end addListener
 
 
-
-                        }
+    }
 
 
 
@@ -623,20 +576,19 @@ for (var region in regionData) {
                             }
 
                             if(regionData) {
-                                
+
                                 var zoom = 11;
                                 map.setZoom(zoom);
                             }
                         }
-                    </script>
-<script async defer
-                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&callback=initMap">
-                    </script>
+
+</script>
+
+                                  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&callback=initMap"></script>
 
                               </div>
 
-
-                          </div>
+ </div>
 
 
 
@@ -649,7 +601,7 @@ for (var region in regionData) {
                                                     </div>
                                                 </div>
                                             </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -657,7 +609,7 @@ for (var region in regionData) {
 </form>
                     </div></div></div></div></div>
 
-  
+
   <style type="text/css">
             /*!
  * Datepicker for Bootstrap v1.5.0 (https://github.com/eternicode/bootstrap-datepicker)
@@ -1175,7 +1127,7 @@ for (var region in regionData) {
             display: none;
         }
 
-     
+
     </style>
 
     <style>
@@ -1199,7 +1151,7 @@ for (var region in regionData) {
 
 
 
-  
+
     <script src="{{asset('assets/admin/js/tag-it.js')}}" type="text/javascript" charset="utf-8"></script>
 
 

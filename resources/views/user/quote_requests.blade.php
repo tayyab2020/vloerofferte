@@ -68,21 +68,25 @@
                                                             <td>
                                                                 @if($invoices[$i])
 
-                                                                    @if($invoices[$i]->ask_customization && !$invoices[$i]->invoice)
+                                                                    @if($invoices[$i]->ask_customization)
 
                                                                         <span class="btn btn-info">Asking for Review</span>
 
+                                                                    @elseif($invoices[$i]->approved)
+
+                                                                        <span class="btn btn-success">Quotation Approved</span>
+
                                                                     @else
 
-                                                                        <span class="btn btn-success">Quotation Sent</span>
+                                                                        <span class="btn btn-info">Waiting For Approval</span>
 
                                                                     @endif
 
-                                                                    @else
+                                                                @else
 
                                                                     <span class="btn btn-warning">Pending</span>
 
-                                                                    @endif
+                                                                @endif
                                                             </td>
 
                                                             <?php $date = strtotime($key->created_at);
@@ -101,7 +105,7 @@
 
                                                                         @if($invoices[$i])
 
-                                                                            @if($invoices[$i]->ask_customization && !$invoices[$i]->invoice)
+                                                                            @if($invoices[$i]->ask_customization)
                                                                             <li><a href="{{ url('/handyman/edit-quotation/'.$invoices[$i]->id) }}">Edit Quotation</a></li>
                                                                             @endif
 

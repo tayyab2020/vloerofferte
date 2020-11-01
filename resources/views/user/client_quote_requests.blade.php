@@ -74,9 +74,9 @@
                                                             <td>{{$key->quote_status}}</td>
 
                                                             <td>
-                                                                @if($invoices[$i])
+                                                                @if(count($invoices[$i]) > 0)
 
-                                                                    <span class="btn btn-success">In Progress</span>
+                                                                    <span class="btn btn-success">Quotation(s) Received</span>
 
                                                                 @else
 
