@@ -24,9 +24,9 @@
 
                                                     <tr role="row">
 
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
-
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Quotation Number</th>
+
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Tax</th>
 
@@ -50,11 +50,11 @@
 
                                                         <tr role="row" class="odd">
 
+                                                            <td><a href="{{ url('/handyman/view-quotation/'.$key->invoice_id) }}">{{$key->quotation_invoice_number}}</a></td>
+
                                                             <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
 
-                                                            <td>{{$requested_quote_number}}</td>
-
-                                                            <td>{{$key->quotation_invoice_number}}</td>
+                                                            <td><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">{{$requested_quote_number}}</a></td>
 
                                                             <td>{{$key->tax}}</td>
 
@@ -64,17 +64,33 @@
 
                                                             <td>
 
-                                                                @if($key->ask_customization)
+                                                                @if($key->status == 2)
 
-                                                                    <span class="btn btn-info">Asking for Review</span>
+                                                                    @if($key->accepted)
 
-                                                                @elseif($key->approved)
+                                                                        <span class="btn btn-success">Quotation Accepted</span>
 
-                                                                    <span class="btn btn-success">Quotation Approved</span>
+                                                                    @else
+
+                                                                        <span class="btn btn-success">Closed</span>
+
+                                                                    @endif
 
                                                                 @else
 
-                                                                    <span class="btn btn-warning">Pending</span>
+                                                                    @if($key->ask_customization)
+
+                                                                        <span class="btn btn-info">Asking for Review</span>
+
+                                                                    @elseif($key->approved)
+
+                                                                        <span class="btn btn-success">Quotation Approved</span>
+
+                                                                    @else
+
+                                                                        <span class="btn btn-warning">Pending</span>
+
+                                                                    @endif
 
                                                                 @endif
 
@@ -92,11 +108,20 @@
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="{{ url('/handyman/view-quotation/'.$key->invoice_id) }}">View</a></li>
+                                                                        <li><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">View Request</a></li>
                                                                         <li><a href="{{ url('/handyman/download-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
+
+                                                                        @if($key->status == 2 && $key->accepted)
+
+                                                                            <li><a href="{{ url('/handyman/create-invoice/'.$key->invoice_id) }}">Create Invoice</a></li>
+
+                                                                        @elseif($key->status != 2)
 
                                                                             @if($key->ask_customization)
                                                                                 <li><a href="{{ url('/handyman/edit-quotation/'.$invoices[$i]->invoice_id) }}">Edit Quotation</a></li>
                                                                             @endif
+
+                                                                        @endif
 
                                                                     </ul>
                                                                 </div>

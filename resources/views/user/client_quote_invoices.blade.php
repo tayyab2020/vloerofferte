@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <!-- Starting of Dashboard data-table area -->
-                    <div class="section-padding add-product-1">
+                    <div class="section-padding add-product-1" style="padding: 0;">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
@@ -24,9 +24,9 @@
 
                                                     <tr role="row">
 
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
-
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Quotation Number</th>
+
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Handyman</th>
 
@@ -52,11 +52,11 @@
 
                                                         <tr role="row" class="odd">
 
+                                                            <td><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">{{$key->quotation_invoice_number}}</a></td>
+
                                                             <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
 
-                                                            <td>{{$requested_quote_number}}</td>
-
-                                                            <td>{{$key->quotation_invoice_number}}</td>
+                                                            <td><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">{{$requested_quote_number}}</a></td>
 
                                                             <td>{{$key->name}} {{$key->family_name}}</td>
 
@@ -72,9 +72,13 @@
 
                                                                     <span class="btn btn-info">Asking for Review</span>
 
+                                                                @elseif($key->accepted)
+
+                                                                    <span class="btn btn-success">Quotation Accepted</span>
+
                                                                 @else
 
-                                                                    <span class="btn btn-success">Quotation Received</span>
+                                                                    <span class="btn btn-primary1">Quotation Received</span>
 
                                                                 @endif
 
@@ -92,11 +96,17 @@
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">View</a></li>
+                                                                        <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">View Request</a></li>
                                                                         <li><a href="{{ url('/handyman/download-client-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
+
+                                                                        @if(!$key->accepted)
+
                                                                         @if(!$key->ask_customization)
                                                                         <li><a href="{{ url('/handyman/ask-customization/'.$key->invoice_id) }}">Ask Again</a></li>
                                                                         @endif
-                                                                        <li><a href="">Accept</a></li>
+                                                                        <li><a href="{{ url('/handyman/accept-quotation/'.$key->invoice_id) }}">Accept</a></li>
+
+                                                                        @endif
                                                                     </ul>
                                                                 </div>
                                                             </td>
@@ -118,6 +128,13 @@
 
 
     <style type="text/css">
+
+        .btn-primary1
+        {
+            background-color: darkcyan;
+            border-color: darkcyan;
+            color: white !important;
+        }
 
         .dropdown-menu
         {

@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <!-- Starting of Dashboard data-table area -->
-                    <div class="section-padding add-product-1">
+                    <div class="section-padding add-product-1" style="padding: 0;">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
@@ -24,6 +24,8 @@
                                                     <thead>
 
                                                     <tr role="row">
+
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request No.</th>
 
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Service</th>
 
@@ -53,6 +55,10 @@
 
                                                         <tr role="row" class="odd">
 
+                                                            <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
+
+                                                            <td><a href="{{ url('/handyman/handyman-quotations/'.$key->id) }}">{{$requested_quote_number}}</a></td>
+
                                                             <td>{{$key->cat_name}}</td>
 
                                                             <td>{{$key->quote_work}}</td>
@@ -66,25 +72,54 @@
                                                             <td>{{$key->quote_status}}</td>
 
                                                             <td>
-                                                                @if($invoices[$i])
 
-                                                                    @if($invoices[$i]->ask_customization)
+                                                                @if($key->status == 3)
 
-                                                                        <span class="btn btn-info">Asking for Review</span>
+                                                                    @if($invoices[$i] && $invoices[$i]->invoice)
 
-                                                                    @elseif($invoices[$i]->approved)
-
-                                                                        <span class="btn btn-success">Quotation Approved</span>
+                                                                        <span class="btn btn-success">Invoice Generated</span>
 
                                                                     @else
 
-                                                                        <span class="btn btn-info">Waiting For Approval</span>
+                                                                        <span class="btn btn-success">Closed</span>
+
+                                                                    @endif
+
+                                                                @elseif($key->status == 2)
+
+                                                                    @if($invoices[$i] && $invoices[$i]->accepted)
+
+                                                                        <span class="btn btn-success">Quotation Accepted</span>
+
+                                                                    @else
+
+                                                                        <span class="btn btn-success">Closed</span>
 
                                                                     @endif
 
                                                                 @else
 
-                                                                    <span class="btn btn-warning">Pending</span>
+                                                                    @if($invoices[$i])
+
+                                                                        @if($invoices[$i]->ask_customization)
+
+                                                                            <span class="btn btn-info">Asking for Review</span>
+
+                                                                        @elseif($invoices[$i]->approved)
+
+                                                                            <span class="btn btn-success">Quotation Approved</span>
+
+                                                                        @else
+
+                                                                            <span class="btn btn-info">Waiting For Approval</span>
+
+                                                                        @endif
+
+                                                                    @else
+
+                                                                        <span class="btn btn-warning">Pending</span>
+
+                                                                    @endif
 
                                                                 @endif
                                                             </td>
@@ -101,20 +136,30 @@
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">View</a></li>
+                                                                        <li><a href="{{ url('/handyman/handyman-quotations/'.$key->id) }}">View Quotations</a></li>
                                                                         <li><a href="{{ url('/handyman/download-handyman-quote-request/'.$key->id) }}">Download PDF</a></li>
 
-                                                                        @if($invoices[$i])
+                                                                        @if($key->status == 2 && $invoices[$i] && $invoices[$i]->accepted)
 
-                                                                            @if($invoices[$i]->ask_customization)
-                                                                            <li><a href="{{ url('/handyman/edit-quotation/'.$invoices[$i]->id) }}">Edit Quotation</a></li>
+                                                                            <li><a href="{{ url('/handyman/create-invoice/'.$invoices[$i]->id) }}">Create Invoice</a></li>
+
+                                                                        @elseif($key->status != 2 && $key->status != 3)
+
+                                                                            @if($invoices[$i])
+
+                                                                                @if($invoices[$i]->ask_customization)
+
+                                                                                    <li><a href="{{ url('/handyman/edit-quotation/'.$invoices[$i]->id) }}">Edit Quotation</a></li>
+
+                                                                                @endif
+
+                                                                            @else
+
+                                                                                <li><a href="{{ url('/handyman/create-quotation/'.$key->id) }}">Create Quotation</a></li>
+
                                                                             @endif
 
-                                                                        @else
-
-                                                                            <li><a href="{{ url('/handyman/create-quotation/'.$key->id) }}">Create Quotation</a></li>
-
                                                                         @endif
-
                                                                     </ul>
                                                                 </div>
                                                             </td>

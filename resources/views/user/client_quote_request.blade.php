@@ -30,6 +30,13 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_slug">Number of Quotations </label>
+                                            <div class="col-sm-6">
+                                                <p style="padding: 10px;" class="form-control">{{$request->quotations_count}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_slug">Name* </label>
                                             <div class="col-sm-6">
                                                 <p style="padding: 10px;" class="form-control">{{$request->quote_name}}</p>

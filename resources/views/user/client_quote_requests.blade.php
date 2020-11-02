@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <!-- Starting of Dashboard data-table area -->
-                    <div class="section-padding add-product-1">
+                    <div class="section-padding add-product-1" style="padding: 0;">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
@@ -25,9 +25,13 @@
 
                                                     <tr role="row">
 
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Service</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request No.</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Name</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Quotations</th>
+
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="rate">Service</th>
+
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="rate">Name</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Postcode</th>
 
@@ -36,10 +40,6 @@
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">When</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="rate">Budget</th>
-
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Job Type</th>
-
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Status</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Current Stage</th>
 
@@ -57,6 +57,12 @@
 
                                                         <tr role="row" class="odd">
 
+                                                            <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
+
+                                                            <td><a href="{{ url('/handyman/quotations/'.$key->id) }}">{{$requested_quote_number}}</a></td>
+
+                                                            <td>{{count($invoices[$i])}}</td>
+
                                                             <td>{{$key->cat_name}}</td>
 
                                                             <td>{{$key->quote_name}}</td>
@@ -69,14 +75,22 @@
 
                                                             <td>{{$key->quote_budget}}</td>
 
-                                                            <td>{{$key->quote_job}}</td>
-
-                                                            <td>{{$key->quote_status}}</td>
-
                                                             <td>
-                                                                @if(count($invoices[$i]) > 0)
+                                                                @if($key->status == 3)
 
-                                                                    <span class="btn btn-success">Quotation(s) Received</span>
+                                                                    <span class="btn btn-success">Invoice Generated</span>
+
+                                                                @elseif(count($invoices[$i]) > 0)
+
+                                                                    @if($invoices[$i]->contains('accepted', 1))
+
+                                                                        <span class="btn btn-success">Quotation Accepted</span>
+
+                                                                    @else
+
+                                                                        <span class="btn btn-info">Quotation(s) Received</span>
+
+                                                                    @endif
 
                                                                 @else
 
@@ -97,6 +111,7 @@
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">View</a></li>
+                                                                        <li><a href="{{ url('/handyman/quotations/'.$key->id) }}">View Quotations</a></li>
                                                                         <li><a href="{{ url('/handyman/download-quote-request/'.$key->id) }}">Download PDF</a></li>
                                                                     </ul>
                                                                 </div>
@@ -251,7 +266,7 @@
         }
 
         #photo{
-            width: 168px !important;
+            width: 300px !important;
         }
 
         #client{
@@ -271,7 +286,7 @@
         }
 
         #service{
-            width: 151px !important;
+            width: 200px !important;
         }
 
         #date{

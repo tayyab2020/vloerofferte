@@ -40,7 +40,7 @@
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Status</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Tax</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending">Tax</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">Subtotal</th>
 
@@ -70,17 +70,25 @@
 
                                                             <td>
 
-                                                                @if($key->ask_customization)
+                                                                @if($key->accepted)
 
-                                                                    <span class="btn btn-info">Asking for Review</span>
-
-                                                                @elseif($key->approved)
-
-                                                                    <span class="btn btn-success">Approved</span>
+                                                                    <span class="btn btn-success">Accepted</span>
 
                                                                 @else
 
-                                                                    <span class="btn btn-danger">Not Approved</span>
+                                                                    @if($key->ask_customization)
+
+                                                                        <span class="btn btn-info">Asking for Review</span>
+
+                                                                    @elseif($key->approved)
+
+                                                                        <span class="btn btn-primary1">Approved</span>
+
+                                                                    @else
+
+                                                                        <span class="btn btn-danger">Not Approved</span>
+
+                                                                    @endif
 
                                                                 @endif
 
@@ -135,6 +143,13 @@
 
 
     <style type="text/css">
+
+        .btn-primary1
+        {
+            background-color: darkcyan;
+            border-color: darkcyan;
+            color: white !important;
+        }
 
         .dropdown-menu
         {

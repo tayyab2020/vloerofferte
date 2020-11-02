@@ -27,7 +27,7 @@
 
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request No.</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending">Quotations</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Quotations</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="rate">Service</th>
 
@@ -83,7 +83,19 @@
 
                                                                 @else
 
-                                                                    <span class="btn btn-info">In Progress</span>
+                                                                    @if($key->status == 3)
+
+                                                                        <span class="btn btn-success">Invoice Generated</span>
+
+                                                                    @elseif($key->status == 2)
+
+                                                                        <span class="btn btn-success">Quotation Accepted</span>
+
+                                                                    @else
+
+                                                                        <span class="btn btn-info">Quotation(s) Received</span>
+
+                                                                    @endif
 
                                                                 @endif
 
@@ -103,7 +115,10 @@
                                                                         <li><a href="{{ url('/logstof/view-quote-request/'.$key->id) }}">View</a></li>
                                                                         <li><a href="{{ url('/logstof/handyman-quotations/'.$key->id) }}">View Quotations</a></li>
                                                                         <li><a href="{{ url('/logstof/download-quote-request/'.$key->id) }}">Download PDF</a></li>
-                                                                        <li><a href="{{ url('/logstof/send-quote-request/'.$key->id) }}">Send</a></li>
+
+                                                                        @if($key->status != 3)
+                                                                            <li><a href="{{ url('/logstof/send-quote-request/'.$key->id) }}">Send</a></li>
+                                                                        @endif
                                                                     </ul>
                                                                 </div>
                                                             </td>

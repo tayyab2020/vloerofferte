@@ -29,7 +29,7 @@
                                             </div>
                                         </div>
 
-                                            @if($request->status)
+                                            @if($request->status == 2 && $invoice && $invoice->accepted)
 
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_slug">Name* </label>

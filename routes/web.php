@@ -53,19 +53,23 @@
 
   Route::get('/quotation-requests', 'UserController@QuotationRequests')->name('client-quotation-requests');
   Route::get('/handyman-quotation-requests', 'UserController@HandymanQuotationRequests')->name('handyman-quotation-requests');
-  Route::get('/handyman-quotations', 'UserController@HandymanQuotations')->name('quotations');
-  Route::get('/quotations', 'UserController@Quotations')->name('client-quotations');
+  Route::get('/handyman-quotations/{id?}', 'UserController@HandymanQuotations')->name('quotations');
+  Route::get('/quotations/{id?}', 'UserController@Quotations')->name('client-quotations');
   Route::get('/view-quote-request/{id}', 'UserController@QuoteRequest');
   Route::get('/download-quote-request/{id}', 'UserController@DownloadQuoteRequest');
   Route::get('/download-quote-invoice/{id}', 'UserController@DownloadQuoteInvoice');
   Route::get('/download-client-quote-invoice/{id}', 'UserController@DownloadClientQuoteInvoice');
   Route::get('/ask-customization/{id}', 'UserController@AskCustomization');
+  Route::get('/accept-quotation/{id}', 'UserController@AcceptQuotation');
   Route::get('/view-handyman-quote-request/{id}', 'UserController@HandymanQuoteRequest');
   Route::get('/download-handyman-quote-request/{id}', 'UserController@DownloadHandymanQuoteRequest');
   Route::get('/create-quotation/{id}', 'UserController@CreateQuotation');
   Route::post('/create-quotation', 'UserController@StoreQuotation')->name('store-quotation');
+  Route::post('/update-quotation', 'UserController@StoreQuotation')->name('update-quotation');
+  Route::post('/create-invoice', 'UserController@StoreQuotation')->name('create-invoice');
   Route::get('/view-quotation/{id}', 'UserController@ViewQuotation')->name('view-handyman-quotation');
   Route::get('/edit-quotation/{id}', 'UserController@ViewQuotation')->name('edit-handyman-quotation');
+  Route::get('/create-invoice/{id}', 'UserController@ViewQuotation')->name('create-handyman-invoice');
   Route::get('/quotation/{id}', 'UserController@ViewClientQuotation')->name('view-client-quotation');
   Route::get('/handyman-panel', 'UserController@HandymanPanel')->name('handyman-panel');
   Route::get('/dashboard', 'UserController@index')->name('user-dashboard');

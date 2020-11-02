@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <!-- Starting of Dashboard data-table area -->
-                    <div class="section-padding add-product-1">
+                    <div class="section-padding add-product-1" style="padding: 0;">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
@@ -16,6 +16,10 @@
                                         @if(Route::currentRouteName() == 'view-handyman-quotation')
 
                                             <h2>View Quotation</h2>
+
+                                        @elseif(Route::currentRouteName() == 'create-handyman-invoice')
+
+                                            <h2>Create Invoice</h2>
 
                                         @else
 
@@ -26,16 +30,22 @@
                                     </div>
                                     <hr>
                                     <div>
+
                                         @include('includes.form-success')
 
-                                        @if(Route::currentRouteName() != 'view-handyman-quotation')
+                                        @if(Route::currentRouteName() == 'edit-handyman-quotation')
 
-                                            <form class="form-horizontal" action="{{route('store-quotation')}}" method="POST" enctype="multipart/form-data">
+                                            <form class="form-horizontal" action="{{route('update-quotation')}}" method="POST" enctype="multipart/form-data">
+
+                                        @elseif(Route::currentRouteName() == 'create-handyman-invoice')
+
+                                            <form class="form-horizontal" action="{{route('create-invoice')}}" method="POST" enctype="multipart/form-data">
+
+                                        @endif
+
                                                 {{csrf_field()}}
 
                                                 <input type="hidden" name="quote_id" value="{{$quotation[0]->quote_id}}">
-
-                                                @endif
 
                                         <?php $requested_quote_number = date("Y", strtotime($quotation[0]->quote_date)) . "-" . sprintf('%04u', $quotation[0]->quote_id); ?>
 
@@ -84,9 +94,8 @@
 
                                                                         @foreach($quotation as $i => $temp)
 
-                                                                            <input type="hidden" name="data_id[]" value="{{$temp->data_id}}">
-
                                                                             <tr>
+                                                                                <input type="hidden" name="data_id[]" value="{{$temp->data_id}}">
                                                                                 <td>{{$i + 1}}</td>
                                                                                 <td>
                                                                                     @if(Route::currentRouteName() != 'view-handyman-quotation')
@@ -98,7 +107,7 @@
                                                                                         @endforeach
 
                                                                                         @foreach($items as $key)
-                                                                                            <option value="{{$key->id}}I" @if($temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->temp; ?> @endif @endif>{{$key->cat_name}}</option>
+                                                                                            <option value="{{$key->id}}I" @if($temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $key->cat_name; ?> @endif @endif>{{$key->cat_name}}</option>
                                                                                         @endforeach
 
                                                                                             <input type="hidden" name="service_title[]" value="{{$service_title}}">
@@ -196,19 +205,29 @@
                                                             </div>
                                                         </div>
 
-                                                @if(Route::currentRouteName() != 'view-handyman-quotation')
+                                                @if(Route::currentRouteName() == 'edit-handyman-quotation')
 
                                                 <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
-                                                    <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn" disabled>Update</button>
+                                                    <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Update</button>
                                                 </div>
 
-                                            </div></div>
+                                                </div></div>
 
-                                            </form>
+                                                </form>
 
-                                            @else
+                                                @elseif(Route::currentRouteName() == 'create-handyman-invoice')
 
-                                    </div></div>
+                                                    <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
+                                                        <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Create</button>
+                                                    </div>
+
+                                                    </div></div>
+
+                                                    </form>
+
+                                                @else
+
+                                                </div></div>
 
                                                 @endif
                                     </div>
@@ -938,7 +957,7 @@
 
                 var rowCount = $('.items-table tr').length;
 
-                $(".items-table").append('<tr>\n' +
+                $(".items-table").append('<tr> <input type="hidden" name="data_id[]" value="">\n' +
                     '                                                                        <td>'+rowCount+'</td>\n' +
                     '                                                                        <td>\n' +
                     '                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>\n' +

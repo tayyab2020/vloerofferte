@@ -4,7 +4,7 @@
 
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">Quotation</h1>
+            <h1 class="jumbotron-heading">@if($type == 'invoice') Quotation Invoice @else Quotation @endif</h1>
         </div>
     </section>
 
@@ -37,6 +37,7 @@
                         <hr class="my-5">
 
                         <div class="row pb-5 p-5" style="margin-right: 15px !important;">
+
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <p class="font-weight-bold mb-4 m-heading">Quote Information</p>
                                 <p class="mb-1 m-rest">Requested Quote Number: {{$requested_quote_number}}</p>
@@ -48,6 +49,17 @@
                                 <p class="mb-1 m-rest">Job Type: {{$quote->quote_job}}</p>
                                 <p class="mb-1 m-rest">Status: {{$quote->quote_status}}</p>
                             </div>
+
+                            @if($type == 'invoice')
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
+                                <p class="mb-1 m-rest">Name: {{$quote->quote_name}} {{$quote->quote_familyname}}</p>
+                                <p class="mb-1 m-rest">{{$quote->quote_email}}</p>
+                                <p class="mb-1 m-rest">{{$quote->quote_contact}}</p>
+                            </div>
+
+                            @endif
+
                         </div>
 
                         <div class="row p-5" style="font-size: 15px;padding: 2rem !important;">
@@ -69,7 +81,7 @@
 
                                         <tr>
                                             <td>{{$request->service_title[$i]}}</td>
-                                            <td>{{$request->date[$i]}}</td>
+                                            <td>{{$request->date}}</td>
                                             <td>{{$request->description[$i]}}</td>
                                             <td>{{$request->cost[$i]}}</td>
                                             <td>{{$request->qty[$i]}}</td>
