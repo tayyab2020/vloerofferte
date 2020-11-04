@@ -171,6 +171,14 @@
   Route::post('/client-terms-post', 'AdminController@ClientTermsPost')->name('admin-client-terms-post');
 
 
+  Route::get('/quotation-questions', 'AdminUserController@QuotationQuestions')->name('quotation-questions');
+  Route::get('/create-question', 'AdminUserController@CreateQuestion')->name('create-question');
+  Route::post('/create-question', 'AdminUserController@SubmitQuestion')->name('save-question');
+  Route::get('/edit-question/{id}', 'AdminUserController@EditQuestion')->name('edit-question');
+  Route::post('/edit-question/{id}', 'AdminUserController@UpdateQuestion');
+  Route::get('/delete-question/{id}', 'AdminUserController@DeleteQuestion')->name('delete-question');
+
+
   Route::get('/quotation-requests', 'AdminUserController@QuotationRequests')->name('quotation-requests');
   Route::get('/handyman-quotations/{id?}', 'AdminUserController@HandymanQuotations')->name('handyman-quotations');
   Route::get('/handyman-quotations-invoices/{id?}', 'AdminUserController@HandymanQuotationsInvoices')->name('handyman-quotations-invoices');

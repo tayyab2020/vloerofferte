@@ -81,6 +81,10 @@
                                 </li>
 
                                 <li>
+                                    <a href="{{route('quotation-questions')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Questions</a>
+                                </li>
+
+                                <li>
                                     <a href="{{route('admin-user-index')}}"><i class="fa fa-fw fa-user-md"></i> Handymen</a>
                                 </li>
 

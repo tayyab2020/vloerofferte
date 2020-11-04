@@ -8,7 +8,9 @@ use App\handyman_quotes;
 use App\handyman_terminals;
 use App\handyman_unavailability;
 use App\items;
+use App\predefined_answers;
 use App\quotation_invoices;
+use App\quotation_questions;
 use App\quotes;
 use App\User;
 use Illuminate\Http\Request;
@@ -31,6 +33,51 @@ class AdminUserController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+    }
+
+    public function QuotationQuestions()
+    {
+        $data = quotation_questions::with('answers')->get();
+
+        return view('admin.user.questions',compact('data'));
+    }
+
+    public function CreateQuestion()
+    {
+        return view('admin.user.create_question');
+    }
+
+    public function SubmitQuestion(Request $request)
+    {
+        $predefined = $request->predefined;
+        if($predefined == 'on')
+        {
+            $predefined = 1;
+        }
+        else
+        {
+            $predefined = 0;
+        }
+
+        $question = new quotation_questions;
+        $question->title = $request->title;
+        $question->predefined = $predefined;
+        $question->save();
+
+        if($predefined)
+        {
+            foreach ($request->predefined_answer as $key)
+            {
+                $answer = new predefined_answers;
+                $answer->question_id = $question->id;
+                $answer->title = $key;
+                $answer->save();
+            }
+        }
+
+        Session::flash('success', 'Question Created Successfully!');
+        return redirect()->back();
+
     }
 
     public function index()
