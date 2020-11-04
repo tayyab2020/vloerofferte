@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <!-- Starting of Dashboard data-table area -->
-                    <div class="section-padding add-product-1">
+                    <div class="section-padding add-product-1" style="padding: 0;">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
@@ -15,7 +15,7 @@
 
                                         @if(Route::currentRouteName() == 'view-client-quotation')
 
-                                            <h2>View Quotation</h2>
+                                            <h2>Quotation</h2>
 
                                         @else
 
@@ -50,7 +50,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group" style="margin: 0;">
                                                             <label>Quotation Number</label>
-                                                            <input type="text" value="{{$quotation[0]->quotation_invoice_number}}" class="form-control" @if(Route::currentRouteName() == 'view-client-quotation') readonly @endif>
+                                                            <input type="text" value="QUO# {{$quotation[0]->quotation_invoice_number}}" class="form-control" @if(Route::currentRouteName() == 'view-client-quotation') readonly @endif>
                                                         </div>
                                                     </div>
 

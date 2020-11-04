@@ -54,7 +54,9 @@
   Route::get('/quotation-requests', 'UserController@QuotationRequests')->name('client-quotation-requests');
   Route::get('/handyman-quotation-requests', 'UserController@HandymanQuotationRequests')->name('handyman-quotation-requests');
   Route::get('/handyman-quotations/{id?}', 'UserController@HandymanQuotations')->name('quotations');
+  Route::get('/handyman-quotations-invoices/{id?}', 'UserController@HandymanQuotationsInvoices')->name('quotations-invoices');
   Route::get('/quotations/{id?}', 'UserController@Quotations')->name('client-quotations');
+  Route::get('/quotations-invoices/{id?}', 'UserController@QuotationsInvoices')->name('client-quotations-invoices');
   Route::get('/view-quote-request/{id}', 'UserController@QuoteRequest');
   Route::get('/download-quote-request/{id}', 'UserController@DownloadQuoteRequest');
   Route::get('/download-quote-invoice/{id}', 'UserController@DownloadQuoteInvoice');
@@ -171,6 +173,7 @@
 
   Route::get('/quotation-requests', 'AdminUserController@QuotationRequests')->name('quotation-requests');
   Route::get('/handyman-quotations/{id?}', 'AdminUserController@HandymanQuotations')->name('handyman-quotations');
+  Route::get('/handyman-quotations-invoices/{id?}', 'AdminUserController@HandymanQuotationsInvoices')->name('handyman-quotations-invoices');
   Route::get('/view-quote-request/{id}', 'AdminUserController@QuoteRequest');
   Route::get('/view-quotation/{id}', 'AdminUserController@ViewQuotation')->name('view-quotation');
   Route::get('/download-quote-request/{id}', 'AdminUserController@DownloadQuoteRequest');

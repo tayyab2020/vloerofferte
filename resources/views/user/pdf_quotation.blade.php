@@ -25,7 +25,7 @@
 
                             <div class="col-md-6 col-sm-6 col-xs-12 text-right inv-rigth" style="float: right;margin-top: 50px;">
 
-                                <p class="font-weight-bold mb-1" style="font-size: 20px;">{{$quotation_invoice_number}}</p>
+                                <p class="font-weight-bold mb-1" style="font-size: 20px;">@if($type == 'invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
 
                                 <?php $date = date('d-m-Y');  ?>
 

@@ -15,7 +15,7 @@
 
                                         @if(Route::currentRouteName() == 'view-handyman-quotation')
 
-                                            <h2>View Quotation</h2>
+                                            <h2>Quotation</h2>
 
                                         @elseif(Route::currentRouteName() == 'create-handyman-invoice')
 
@@ -60,7 +60,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group" style="margin: 0;">
                                                     <label>Quotation Number</label>
-                                                    <input type="text" value="{{$quotation[0]->quotation_invoice_number}}" class="form-control" readonly>
+                                                    <input type="text" value="QUO# {{$quotation[0]->quotation_invoice_number}}" class="form-control" readonly>
                                                 </div>
                                             </div>
 

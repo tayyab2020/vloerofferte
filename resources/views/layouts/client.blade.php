@@ -115,6 +115,10 @@
                             <a href="{{route('client-quotations')}}"><i class="fa fa-fw fa-file-text"></i> Quotations</a>
                         </li>
 
+                        <li>
+                            <a href="{{route('client-quotations-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Invoices</a>
+                        </li>
+
                         <li  class="lang-list" style="text-align: center;margin-top: 20px;">
 
                             <form method="post" action="{{route('lang.clientchange')}}" id="lang-form">

@@ -71,10 +71,13 @@
                                                                                     <option value="{{$key->id}}" @if($quote->quote_service == $key->id) selected <?php $rate = $key->rate; $service_title = $key->cat_name; ?> @endif>{{$key->cat_name}}</option>
                                                                                 @endforeach
 
-                                                                                    @foreach($items as $key)
-                                                                                        <option value="{{$key->id}}I">{{$key->cat_name}}</option>
-                                                                                    @endforeach
+                                                                                @foreach($items as $key)
+                                                                                     <option value="{{$key->id}}I">{{$key->cat_name}}</option>
+                                                                                @endforeach
+
                                                                             </select>
+
+                                                                            <?php if(!isset($service_title)){ $service_title = $services[0]->cat_name; $rate = $services[0]->rate; } ?>
 
                                                                             <input type="hidden" name="service_title[]" value="{{$service_title}}">
                                                                         </td>

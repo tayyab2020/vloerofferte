@@ -12,8 +12,11 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
-                                        <h2>Quotations</h2>
-
+                                        @if(Route::currentRouteName() == 'handyman-quotations')
+                                            <h2>Quotations</h2>
+                                        @else
+                                            <h2>Quotations Invoices</h2>
+                                        @endif
                                     </div>
                                     <hr>
                                     <div>
@@ -32,7 +35,7 @@
 
                                                     <tr role="row">
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Quotation Number</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">@if(Route::currentRouteName() == 'handyman-quotations') Quotation Number @else Invoice Number @endif</th>
 
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
 
@@ -60,7 +63,7 @@
 
                                                         <tr role="row" class="odd">
 
-                                                            <td style="outline: none;"><input @if($key->approved) disabled @endif style="margin: 10px 10px;position: relative;top: 2px;" type="checkbox" name="action[]" value="{{$key->invoice_id}}" class="action"><a href="{{ url('/logstof/view-quotation/'.$key->invoice_id) }}">{{$key->quotation_invoice_number}}</a></td>
+                                                            <td style="outline: none;">@if(Route::currentRouteName() == 'handyman-quotations') <input @if($key->approved || $key->status >= 2) disabled @endif style="margin: 10px 10px;position: relative;top: 2px;" type="checkbox" name="action[]" value="{{$key->invoice_id}}" class="action"> @endif <a href="{{ url('/logstof/view-quotation/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'handyman-quotations') QUO# @else INV# @endif {{$key->quotation_invoice_number}}</a></td>
 
                                                             <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
 
@@ -70,25 +73,53 @@
 
                                                             <td>
 
-                                                                @if($key->accepted)
+                                                                @if(Route::currentRouteName() == 'handyman-quotations')
 
-                                                                    <span class="btn btn-success">Accepted</span>
+                                                                    @if($key->status == 3)
 
-                                                                @else
+                                                                        @if($key->invoice)
 
-                                                                    @if($key->ask_customization)
+                                                                            <span class="btn btn-success">Invoice Generated</span>
 
-                                                                        <span class="btn btn-info">Asking for Review</span>
+                                                                        @else
 
-                                                                    @elseif($key->approved)
+                                                                            <span class="btn btn-primary1">Closed</span>
 
-                                                                        <span class="btn btn-primary1">Approved</span>
+                                                                        @endif
+
+                                                                    @elseif($key->status == 2)
+
+                                                                        @if($key->accepted)
+
+                                                                            <span class="btn btn-success">Accepted</span>
+
+                                                                        @else
+
+                                                                            <span class="btn btn-primary1">Closed</span>
+
+                                                                        @endif
 
                                                                     @else
 
-                                                                        <span class="btn btn-danger">Not Approved</span>
+                                                                        @if($key->ask_customization)
+
+                                                                            <span class="btn btn-info">Asking for Review</span>
+
+                                                                        @elseif($key->approved)
+
+                                                                            <span class="btn btn-primary1">Approved</span>
+
+                                                                        @else
+
+                                                                            <span class="btn btn-danger">Not Approved</span>
+
+                                                                        @endif
 
                                                                     @endif
+
+                                                                @else
+
+                                                                    <span class="btn btn-success">Invoice Generated</span>
 
                                                                 @endif
 
@@ -123,9 +154,13 @@
                                                     </tbody>
                                                 </table></div>
 
+                                            @if(Route::currentRouteName() == 'handyman-quotations')
+
                                             <div class="col-sm-12 add-product-footer" style="display: inline-block;width: 100%;text-align: right;margin-top: 20px;padding: 0px 30px;">
                                                 <button type="button" style="outline: none;padding: 5px 20px;border-radius: 5px;font-size: 20px;" class="btn btn-success submit_btn">Submit</button>
                                             </div>
+
+                                            @endif
 
                                         </div>
 

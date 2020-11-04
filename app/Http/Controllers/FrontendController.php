@@ -1234,6 +1234,12 @@ else
 
             if($check)
             {
+                if($check->role_id == 2)
+                {
+                    Session::flash('unsuccess', 'Email address is already in use for a handyman account!');
+                    return redirect()->back();
+                }
+
                 $user_id = $check->id;
 
                 $link = url('/').'/handyman/client-dashboard';

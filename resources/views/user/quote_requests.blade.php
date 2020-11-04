@@ -136,7 +136,9 @@
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">View</a></li>
-                                                                        <li><a href="{{ url('/handyman/handyman-quotations/'.$key->id) }}">View Quotations</a></li>
+                                                                        @if($invoices[$i])
+                                                                        <li><a href="{{ url('/handyman/view-quotation/'.$invoices[$i]->id) }}">View Quotation</a></li>
+                                                                        @endif
                                                                         <li><a href="{{ url('/handyman/download-handyman-quote-request/'.$key->id) }}">Download PDF</a></li>
 
                                                                         @if($key->status == 2 && $invoices[$i] && $invoices[$i]->accepted)

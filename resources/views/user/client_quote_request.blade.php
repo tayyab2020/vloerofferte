@@ -6,12 +6,12 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <!-- Starting of Dashboard area -->
-                    <div class="section-padding add-product-1">
+                    <div class="section-padding add-product-1" style="padding: 0;">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header">
-                                        <h2>View / Edit Quote Request</h2>
+                                        <h2>Quote Request</h2>
                                         <a href="{{route('client-quotation-requests')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
                                     </div>
                                     <hr>

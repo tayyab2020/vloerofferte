@@ -6,12 +6,12 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <!-- Starting of Dashboard area -->
-                    <div class="section-padding add-product-1">
+                    <div class="section-padding add-product-1" style="padding: 0;">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header">
-                                        <h2>View / Edit Quote Request</h2>
+                                        <h2>Quote Request</h2>
                                         <a href="{{route('handyman-quotation-requests')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
                                     </div>
                                     <hr>
@@ -23,13 +23,13 @@
                                         $quote_number = date("Y", $date) . "-" . sprintf('%04u', $request->id); ?>
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_slug">Quote Number </label>
+                                            <label class="control-label col-sm-4" for="blood_group_slug">Request Number </label>
                                             <div class="col-sm-6">
                                                 <p style="padding: 10px;" class="form-control">{{$quote_number}}</p>
                                             </div>
                                         </div>
 
-                                            @if($request->status == 2 && $invoice && $invoice->accepted)
+                                            @if($request->status > 1 && $invoice && $invoice->accepted)
 
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_slug">Name* </label>

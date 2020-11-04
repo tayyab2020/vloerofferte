@@ -60,11 +60,25 @@ class AdminUserController extends Controller
     {
         if($id)
         {
-            $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotation_invoices.quote_id',$id)->where('quotation_invoices.invoice',0)->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.approved','quotation_invoices.accepted','quotation_invoices.ask_customization','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
+            $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotation_invoices.quote_id',$id)->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.invoice','quotation_invoices.approved','quotation_invoices.accepted','quotation_invoices.ask_customization','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
         }
         else
         {
-            $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotation_invoices.invoice',0)->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.approved','quotation_invoices.accepted','quotation_invoices.ask_customization','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
+            $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.invoice','quotation_invoices.approved','quotation_invoices.accepted','quotation_invoices.ask_customization','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
+        }
+
+        return view('admin.user.quote_invoices',compact('invoices'));
+    }
+
+    public function HandymanQuotationsInvoices($id = '')
+    {
+        if($id)
+        {
+            $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotes.status','=',3)->where('quotation_invoices.quote_id',$id)->where('quotes.status','<',3)->where('quotation_invoices.invoice',1)->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.approved','quotation_invoices.accepted','quotation_invoices.ask_customization','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
+        }
+        else
+        {
+            $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotes.status','=',3)->where('quotation_invoices.invoice',1)->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.id as invoice_id','quotation_invoices.approved','quotation_invoices.accepted','quotation_invoices.ask_customization','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
         }
 
         return view('admin.user.quote_invoices',compact('invoices'));

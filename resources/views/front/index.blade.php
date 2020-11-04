@@ -19,7 +19,7 @@
 
         @if(Session::has('unsuccess'))
 
-            <div class="alert alert-danger validation" style="position: absolute;top: 0px;width: 100%;background-color: #af0000;color: black;border: none;">
+            <div class="alert alert-danger validation" style="position: absolute;top: 0px;width: 100%;background-color: #e53333;color: white;border: none;">
 
                 <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close" style="text-shadow: none;opacity: 1;"><span aria-hidden="true" style="font-size: 30px;">×</span></button>
 

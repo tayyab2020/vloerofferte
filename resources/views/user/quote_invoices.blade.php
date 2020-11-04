@@ -7,12 +7,16 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <!-- Starting of Dashboard data-table area -->
-                    <div class="section-padding add-product-1">
+                    <div class="section-padding add-product-1" style="padding: 0;">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
-                                        <h2>Quotations</h2>
+                                        @if(Route::currentRouteName() == 'quotations')
+                                            <h2>Quotations</h2>
+                                        @else
+                                            <h2>Quotation Invoices</h2>
+                                        @endif
                                     </div>
                                     <hr>
                                     <div>
@@ -24,7 +28,7 @@
 
                                                     <tr role="row">
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Quotation Number</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">@if(Route::currentRouteName() == 'quotations') Quotation Number @else Invoice Number @endif</th>
 
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
 
@@ -50,7 +54,7 @@
 
                                                         <tr role="row" class="odd">
 
-                                                            <td><a href="{{ url('/handyman/view-quotation/'.$key->invoice_id) }}">{{$key->quotation_invoice_number}}</a></td>
+                                                            <td><a href="{{ url('/handyman/view-quotation/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'quotations') QUO# @else INV# @endif {{$key->quotation_invoice_number}}</a></td>
 
                                                             <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
 
@@ -64,33 +68,41 @@
 
                                                             <td>
 
-                                                                @if($key->status == 2)
+                                                                @if(Route::currentRouteName() == 'quotations')
 
-                                                                    @if($key->accepted)
+                                                                    @if($key->status >= 2)
 
-                                                                        <span class="btn btn-success">Quotation Accepted</span>
+                                                                        @if($key->accepted)
+
+                                                                            <span class="btn btn-success">Quotation Accepted</span>
+
+                                                                        @else
+
+                                                                            <span class="btn btn-success">Closed</span>
+
+                                                                        @endif
 
                                                                     @else
 
-                                                                        <span class="btn btn-success">Closed</span>
+                                                                        @if($key->ask_customization)
+
+                                                                            <span class="btn btn-info">Asking for Review</span>
+
+                                                                        @elseif($key->approved)
+
+                                                                            <span class="btn btn-success">Quotation Approved</span>
+
+                                                                        @else
+
+                                                                            <span class="btn btn-warning">Pending</span>
+
+                                                                        @endif
 
                                                                     @endif
 
                                                                 @else
 
-                                                                    @if($key->ask_customization)
-
-                                                                        <span class="btn btn-info">Asking for Review</span>
-
-                                                                    @elseif($key->approved)
-
-                                                                        <span class="btn btn-success">Quotation Approved</span>
-
-                                                                    @else
-
-                                                                        <span class="btn btn-warning">Pending</span>
-
-                                                                    @endif
+                                                                    <span class="btn btn-success">Invoice Generated</span>
 
                                                                 @endif
 
@@ -115,7 +127,7 @@
 
                                                                             <li><a href="{{ url('/handyman/create-invoice/'.$key->invoice_id) }}">Create Invoice</a></li>
 
-                                                                        @elseif($key->status != 2)
+                                                                        @elseif($key->status == 1)
 
                                                                             @if($key->ask_customization)
                                                                                 <li><a href="{{ url('/handyman/edit-quotation/'.$invoices[$i]->invoice_id) }}">Edit Quotation</a></li>
