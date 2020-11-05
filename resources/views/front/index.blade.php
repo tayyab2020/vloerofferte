@@ -366,45 +366,8 @@
 
 
                                         <div class="tab-pane fade" id="step3">
-                                            <div class="well" style="height: 300px;">
 
-                                                <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">When do you need work to start?</h3>
-
-                                                <div>
-                                                    <hr>
-                                                    <label class="container-radio">Emergency
-                                                        <input type="radio" checked value="Emergency" name="quote_when">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">ASAP
-                                                        <input type="radio" value="ASAP" name="quote_when">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">Next few days
-                                                        <input type="radio" value="Next few days" name="quote_when">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">I'm Flexible
-                                                        <input type="radio" value="I'm Flexible" name="quote_when">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">Few Months
-                                                        <input type="radio" value="Few Months" name="quote_when">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-
-                                                </div>
-
-                                            </div>
+                                            <div class="well" style="height: 300px;"></div>
 
                                             <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
 
@@ -1112,9 +1075,51 @@
 
             $('.quote-service').change(function(){
 
+                var id = $(this).val();
+
                 $('.quote-service').val($(this).val());
 
                 $(".quote-service").trigger('change.select2');
+
+                $.ajax({
+                    type:"GET",
+                    data: "id=" + id ,
+                    url: "<?php echo url('get-questions')?>",
+
+                    success: function(data) {
+
+                        $.each(data, function (index, val) {
+
+                            $.each(val.answers, function (index1, val1) {
+                                console.log(val1);
+                            });
+
+                            $('#step3').children('.well').append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 40px;">'+val.title+'</h3>');
+
+                            if(val.predefined)
+                            {
+
+                                $('#step3').children('.well').append('<div></div>');
+
+                                $.each(val.answers, function (index1, val1) {
+                                    console.log(val1);
+                                    $('#step3').children('.well').children().last('div').append('<hr>\n' +
+                                        '                                        <label class="container-radio">'+val1.title+'\n' +
+                                        '                                        <input type="radio" value="'+val1.title+'">\n' +
+                                        '                                        <span class="checkmark-radio"></span>\n' +
+                                        '                                        </label>');
+                                });
+                            }
+                            else
+                            {
+                                $('#step3').children('.well').append('<textarea style="resize: vertical;margin-bottom: 20px;" rows="7" class="form-control quote_validation" placeholder=""></textarea>');
+                            }
+                            });
+
+                        /*$('#step3').children('div').children('h3').
+                        console.log(data);*/
+                    }
+                });
 
             });
 

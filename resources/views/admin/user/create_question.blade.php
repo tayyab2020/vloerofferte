@@ -31,38 +31,149 @@
                                         @include('includes.form-error')
                                         @include('includes.form-success')
                                         {{csrf_field()}}
+
+                                        <input type="hidden" name="question_id" @if(isset($data)) value="{{$data->id}}" @endif>
+
+                                        <div style="border-bottom: 1px solid rgba(233,233,233,0.33);padding: 15px 0px;margin-bottom: 20px;">
+
+                                            <h2 style="text-align: center;">Services</h2>
+
+                                            <div class="service_box" style="margin-bottom: 20px;">
+
+                                                @if(isset($data))
+
+                                                    @foreach($data->services as $service)
+
+                                                        <div class="form-group">
+
+                                                            <label class="control-label col-sm-4">Service* </label>
+
+                                                            <div class="col-sm-6">
+
+                                                                <select class="form-control validate js-data-example-ajax" name="services[]" required>
+
+                                                                    <option value="">Select Service</option>
+
+                                                                    @foreach($services as $key)
+
+                                                                        <option @if($service->service_id == $key->id) selected @endif value="{{$key->id}}">{{$key->cat_name}}</option>
+
+                                                                    @endforeach
+
+                                                                </select>
+
+                                                            </div>
+
+                                                            <div class="col-xs-1 col-sm-1">
+                                                                <span class="ui-close remove-service" style="margin:0;right:70%;">X</span>
+                                                            </div>
+
+                                                        </div>
+
+                                                    @endforeach
+
+                                                @else
+
+                                                    <div class="form-group">
+
+                                                        <label class="control-label col-sm-4">Service* </label>
+
+                                                        <div class="col-sm-6">
+
+                                                            <select class="form-control validate js-data-example-ajax" name="services[]" required>
+
+                                                                <option value="">Select Service</option>
+
+                                                                @foreach($services as $key)
+
+                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
+
+                                                                @endforeach
+
+                                                            </select>
+
+                                                        </div>
+
+                                                        <div class="col-xs-1 col-sm-1">
+                                                            <span class="ui-close remove-service" style="margin:0;right:70%;">X</span>
+                                                        </div>
+
+                                                    </div>
+
+                                                @endif
+
+                                            </div>
+
+                                            <div class="form-group add-service">
+                                                <label class="control-label col-sm-3" for=""></label>
+
+                                                <div class="col-sm-12 text-center">
+                                                    <button class="btn btn-default featured-btn" type="button" id="add-service-btn"><i class="fa fa-plus"></i> Add More Services</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_display_name">Question Title* <span>(In Any Language)</span></label>
                                             <div class="col-sm-6">
-                                                <input class="form-control question_title" name="title" id="blood_group_display_name" placeholder="Enter Question Title" required="" type="text">
+                                                <input class="form-control validate" name="title" id="blood_group_display_name" placeholder="Enter Question Title" required="" @if(isset($data)) value="{{$data->title}}" @endif type="text">
                                             </div>
                                         </div>
-
 
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="">Predefined Answers* </label>
                                             <div class="col-sm-3">
                                                 <label class="switch">
-                                                    <input type="checkbox" name="predefined" id="predefined" onchange="Predefined()">
+                                                    <input @if(isset($data) && $data->predefined) checked @endif type="checkbox" name="predefined" id="predefined" onchange="Predefined()">
                                                     <span class="slider round"></span>
                                                 </label>
                                             </div>
                                         </div>
 
-                                        <div class="sub-services s_box" id="q" style="display: none;">
+                                        <div class="sub-services s_box" id="q" @if(isset($data) && $data->predefined) style="display: block;"  @else style="display: none;" @endif>
 
-                                            <div class="form-group">
+                                            @if(isset($data) && $data->predefined)
 
-                                                <label class="control-label col-sm-4" for="sub_service">Text* </label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" class="form-control predefined_answer" name="predefined_answer[]" id="predefined_answer">
+                                                @foreach($data->answers as $x => $key)
+
+                                                    <div class="form-group">
+
+                                                        <label class="control-label col-sm-4">Text* </label>
+
+                                                        <div class="col-sm-6">
+                                                            <input type="text" value="{{$key->title}}" class="form-control predefined_answer" name="predefined_answer[]" id="predefined_answer">
+                                                        </div>
+
+                                                        <div class="col-xs-1 col-sm-1">
+                                                            <span class="ui-close remove-ui1" style="margin:0;right:70%;">X</span>
+                                                        </div>
+
+                                                    </div>
+
+                                                @endforeach
+
+
+                                            @else
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label col-sm-4">Text* </label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="form-control predefined_answer" name="predefined_answer[]" id="predefined_answer">
+                                                    </div>
+
+                                                    <div class="col-xs-1 col-sm-1">
+                                                        <span class="ui-close remove-ui1" style="margin:0;right:70%;">X</span>
+                                                    </div>
+
                                                 </div>
 
-                                            </div>
+                                            @endif
 
                                         </div>
 
-                                        <div class="form-group s_box" style="margin-top: 40px;display: none;">
+                                        <div class="form-group s_box" @if(isset($data) && $data->predefined) style="margin-top: 40px;display: block;" @else style="margin-top: 40px;display: none;" @endif>
 
                                             <label class="control-label col-sm-3" for=""></label>
 
@@ -71,8 +182,6 @@
                                                 <button class="btn btn-default featured-btn" type="button" name="add-field-btn" id="add-field-btn"><i class="fa fa-plus"></i> Add More Fields</button>
                                             </div>
                                         </div>
-
-
 
 
                                         <hr>
@@ -102,6 +211,122 @@
 
     <script type="text/javascript">
 
+        $(document).ready(function() {
+
+            var $selects = $('.js-data-example-ajax').change(function() {
+
+
+                var id = this.value;
+                var selector = this;
+
+                if ($selects.find('option[value=' + id + ']:selected').length > 1) {
+                    Swal.fire({
+                        title: 'Oops...',
+                        text: 'Service already selected!',
+
+                    })
+                    this.options[0].selected = true;
+
+                    $(selector).val('');
+
+
+                }
+
+            });
+
+
+        });
+
+        $("#add-service-btn").on('click',function() {
+
+
+            $(".service_box").append('<div class="form-group">\n' +
+                '\n' +
+                '                <label class="control-label col-sm-4">Service* </label>\n' +
+                '\n' +
+                '                <div class="col-sm-6">\n' +
+                '                <select class="form-control validate js-data-example-ajax" name="services[]" required>\n' +
+                '\n' +
+                '            <option value="">Select Service</option>\n' +
+                '\n' +
+                '            @foreach($services as $key)\n' +
+                '\n' +
+                '            <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
+                '\n' +
+                '                @endforeach\n' +
+                '\n' +
+                '                </select>\n' +
+                '                </div>\n' +
+                '\n' +
+                '                <div class="col-xs-1 col-sm-1">\n' +
+                '                <span class="ui-close remove-service" style="margin:0;right:70%;">X</span>\n' +
+                '                </div>\n' +
+                '\n' +
+                '                </div>');
+
+            var $selects = $('.js-data-example-ajax').change(function() {
+
+
+                var id = this.value;
+                var selector = this;
+
+                if ($selects.find('option[value=' + id + ']:selected').length > 1) {
+                    Swal.fire({
+                        title: 'Oops...',
+                        text: 'Service already selected!',
+
+                    })
+                    this.options[0].selected = true;
+
+                    $(selector).val('');
+
+
+                }
+
+            });
+
+        });
+
+        $(document).on('click', '.remove-service' ,function() {
+
+            var parent = this.parentNode.parentNode;
+
+            $(parent).hide();
+            $(parent).remove();
+
+            if($(".service_box .form-group").length == 0)
+            {
+                $(".service_box").append('<div class="form-group">\n' +
+                    '\n' +
+                    '                <label class="control-label col-sm-4">Service* </label>\n' +
+                    '\n' +
+                    '                <div class="col-sm-6">\n' +
+                    '                <select class="form-control validate js-data-example-ajax" name="services[]" required>\n' +
+                    '\n' +
+                    '            <option value="">Select Service</option>\n' +
+                    '\n' +
+                    '            @foreach($services as $key)\n' +
+                    '\n' +
+                    '            <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
+                    '\n' +
+                    '                @endforeach\n' +
+                    '\n' +
+                    '                </select>\n' +
+                    '                </div>\n' +
+                    '\n' +
+                    '                <div class="col-xs-1 col-sm-1">\n' +
+                    '                <span class="ui-close remove-service" style="margin:0;right:70%;">X</span>\n' +
+                    '                </div>\n' +
+                    '\n' +
+                    '                </div>');
+
+
+            }
+
+
+
+        });
+
         function Predefined()
         {
 
@@ -125,7 +350,7 @@
 
 
             $(".sub-services").append('<div class="form-group">'+
-                '<label class="control-label col-sm-4" for="sub_service">Text* </label>'+
+                '<label class="control-label col-sm-4">Text* </label>'+
                 '<div class="col-sm-6">'+
                 // '<input type="text" class="form-control" name="title[]" id="title" placeholder="'+title+'" required="">'+
                 '<input type="text" class="form-control predefined_answer" name="predefined_answer[]" id="predefined_answer">'+
@@ -141,15 +366,17 @@
 
             if($('#predefined').is(":checked"))
             {
-                if($('.question_title').val() == "")
-                {
-                    $('.question_title').css('border','1px solid red');
-                    check = 1;
-                }
-                else
-                {
-                    $('.question_title').css('border','');
-                }
+                $(".validate").each(function() {
+                    var element = $(this);
+                    if (element.val() == "") {
+                        $(this).css('border','1px solid red');
+                        check = 1;
+                    }
+                    else
+                    {
+                        $(this).css('border','');
+                    }
+                });
 
                 $(".predefined_answer").each(function() {
                     var element = $(this);
@@ -170,13 +397,20 @@
             }
             else
             {
-                if($('.question_title').val() == "")
+                $(".validate").each(function() {
+                    var element = $(this);
+                    if (element.val() == "") {
+                        $(this).css('border','1px solid red');
+                        check = 1;
+                    }
+                    else
+                    {
+                        $(this).css('border','');
+                    }
+                });
+
+                if(!check)
                 {
-                    $('.question_title').css('border','1px solid red');
-                }
-                else
-                {
-                    $('.question_title').css('border','');
                     $('form').submit();
                 }
 
@@ -191,6 +425,18 @@
 
             $(parent).hide();
             $(parent).remove();
+
+            if($("#q .form-group").length == 0)
+            {
+                $(".sub-services").append('<div class="form-group">'+
+                    '<label class="control-label col-sm-4">Text* </label>'+
+                    '<div class="col-sm-6">'+
+                    // '<input type="text" class="form-control" name="title[]" id="title" placeholder="'+title+'" required="">'+
+                    '<input type="text" class="form-control predefined_answer" name="predefined_answer[]" id="predefined_answer">'+
+                    '</div>'+
+                    '<div class="col-xs-1 col-sm-1">'+
+                    '<span class="ui-close remove-ui1" style="margin:0;right:70%;">X</span></div></div>');
+            }
 
 
 

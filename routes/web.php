@@ -12,6 +12,7 @@
 */
 
   Route::get('/','FrontendController@index')->name('front.index');
+  Route::get('/get-questions','FrontendController@GetQuestions');
   Route::get('/thankyou/{id}','FrontendController@Thankyou');
   Route::get('/thankyou-page/{id}','FrontendController@ThankyouPage');
   Route::post('/lang-change','FrontendController@LanguageChange')->name('lang.change');
@@ -175,7 +176,6 @@
   Route::get('/create-question', 'AdminUserController@CreateQuestion')->name('create-question');
   Route::post('/create-question', 'AdminUserController@SubmitQuestion')->name('save-question');
   Route::get('/edit-question/{id}', 'AdminUserController@EditQuestion')->name('edit-question');
-  Route::post('/edit-question/{id}', 'AdminUserController@UpdateQuestion');
   Route::get('/delete-question/{id}', 'AdminUserController@DeleteQuestion')->name('delete-question');
 
 

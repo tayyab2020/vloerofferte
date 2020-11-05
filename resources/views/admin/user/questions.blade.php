@@ -24,8 +24,9 @@
                                                 <table id="example" class="table table-striped table-hover products dt-responsive dataTable no-footer dtr-inline" role="grid" aria-describedby="product-table_wrapper_info" style="width: 100%;" width="100%" cellspacing="0">
                                                     <thead>
                                                     <tr role="row">
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 30%;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Title</th>
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" style="width: 50%;" colspan="1" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Predefined Answers</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 20%;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Title</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 20%;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Service(s)</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" style="width: 50%;" colspan="1" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Predefined Answer(s)</th>
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Actions</th>
                                                     </tr>
                                                     </thead>
@@ -33,18 +34,25 @@
                                                     <tbody>
                                                     @foreach($data as $key)
                                                         <tr role="row" class="odd">
-                                                            <td>{{$key->title}}</td>
+                                                            <td style="padding-left: 10px;">{{$key->title}}</td>
 
                                                             <td>
-                                                            @foreach($key->answers as $i => $temp)
-                                                                <span>{{$i+1}}. {{$temp->title}}</span>
+                                                            @foreach($key->services as $x => $service)
+                                                                <b>{{$x+1}}. {{$service->cat_name}}</b>
                                                                 <br>
                                                             @endforeach
                                                             </td>
 
                                                             <td>
-                                                                <a href="{{route('admin-cat-edit',$key->id)}}" class="btn btn-primary product-btn"><i class="fa fa-edit"></i> Edit</a>
-                                                                <a href="{{route('admin-cat-delete',$key->id)}}" class="btn btn-danger product-btn"><i class="fa fa-trash"></i> Remove</a>
+                                                            @foreach($key->answers as $i => $temp)
+                                                                <b>{{$i+1}}. {{$temp->title}}</b>
+                                                                <br>
+                                                            @endforeach
+                                                            </td>
+
+                                                            <td>
+                                                                <a href="{{route('edit-question',$key->id)}}" class="btn btn-primary product-btn"><i class="fa fa-edit"></i> Edit</a>
+                                                                <a href="{{route('delete-question',$key->id)}}" class="btn btn-danger product-btn"><i class="fa fa-trash"></i> Remove</a>
                                                             </td>
                                                         </tr>
                                                     @endforeach

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\question_services;
+use App\quotation_questions;
 use App\quotes;
 use Illuminate\Http\Request;
 use App\Category;
@@ -338,6 +340,14 @@ $inv_decrypt = Crypt::decrypt($id);
     }
 
 
+    public function GetQuestions(Request $request)
+    {
+        $data = quotation_questions::with('answers')->whereHas('services',function($query) use($request){
+            $query->where('question_services.service_id',$request->id);
+        })->get();
+
+        return $data;
+    }
 
 
     public function index()
