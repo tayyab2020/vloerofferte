@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\question_services;
 use App\quotation_questions;
 use App\quotes;
+use App\requests_q_a;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Portfolio;
@@ -325,17 +326,10 @@ else
 
     }
 
-public function ThankyouPage($id)
+    public function ThankyouPage($id)
     {
-
-
-$inv_decrypt = Crypt::decrypt($id);
-
-
-    return view('front.thankyou');
-
-
-
+        $inv_decrypt = Crypt::decrypt($id);
+        return view('front.thankyou');
 
     }
 
@@ -1211,6 +1205,7 @@ else
 
     public function quote(Request $request)
     {
+
         if($request->quote_id)
         {
             $quote = quotes::where('id',$request->quote_id)->update(['quote_service' => $request->quote_service, 'quote_zipcode' => $request->quote_zipcode, 'quote_work' => $request->quote_work, 'quote_when' => $request->quote_when, 'quote_budget' => $request->quote_budget, 'quote_job' => $request->quote_job, 'quote_status' => $request->quote_status, 'quote_description' => $request->quote_description, 'quote_name' => $request->quote_name, 'quote_familyname' => $request->quote_familyname, 'quote_email' => $request->quote_email, 'quote_contact' => $request->quote_contact]);
@@ -1294,11 +1289,6 @@ else
             $quote->user_id = $user_id;
             $quote->quote_service = $request->quote_service;
             $quote->quote_zipcode = $request->quote_zipcode;
-            $quote->quote_work = $request->quote_work;
-            $quote->quote_when = $request->quote_when;
-            $quote->quote_budget = $request->quote_budget;
-            $quote->quote_job = $request->quote_job;
-            $quote->quote_status = $request->quote_status;
             $quote->quote_description = $request->quote_description;
             $quote->quote_name = $request->quote_name;
             $quote->quote_familyname = $request->quote_familyname;
@@ -1306,6 +1296,17 @@ else
             $quote->quote_contact = $request->quote_contact;
 
             $quote->save();
+
+            foreach ($request->questions as $i => $key)
+            {
+                $answer = 'answers'.$i;
+
+                $post = new requests_q_a;
+                $post->request_id = $quote->id;
+                $post->question = $key;
+                $post->answer = $request->$answer;
+                $post->save();
+            }
 
             Session::flash('success', 'Your Quotation request has been created successfully!');
             return redirect()->back();

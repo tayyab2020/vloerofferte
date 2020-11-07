@@ -7,6 +7,7 @@ use App\items;
 use App\quotation_invoices_data;
 use App\quotation_invoices;
 use App\quotes;
+use App\requests_q_a;
 use Illuminate\Http\Request;
 use App\User;
 use App\Category;
@@ -233,9 +234,11 @@ else
     {
         $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->withCount('quotations')->first();
 
+        $q_a = requests_q_a::where('request_id',$id)->get();
+
         $services = Category::all();
 
-        return view('user.client_quote_request',compact('request','services'));
+        return view('user.client_quote_request',compact('request','services','q_a'));
     }
 
     public function DownloadQuoteRequest($id)
@@ -244,6 +247,8 @@ else
         $user_id = $user->id;
 
         $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->where('quotes.user_id',$user_id)->select('quotes.*','categories.cat_name')->first();
+
+        $q_a = requests_q_a::where('request_id',$id)->get();
 
         if($quote)
         {
@@ -259,7 +264,7 @@ else
 
                 ini_set('max_execution_time', 180);
 
-                $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+                $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote','q_a'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
                 $pdf->save(public_path().'/assets/quotesPDF/'.$filename);
             }
@@ -406,11 +411,13 @@ else
 
         $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
 
+        $q_a = requests_q_a::where('request_id',$id)->get();
+
         $invoice = quotation_invoices::where('quote_id',$request->id)->where('handyman_id',$user_id)->first();
 
         $services = Category::all();
 
-        return view('user.quote_request',compact('request','services','invoice'));
+        return view('user.quote_request',compact('request','services','invoice','q_a'));
     }
 
     public function DownloadHandymanQuoteRequest($id)
@@ -419,6 +426,8 @@ else
         $user_id = $user->id;
 
         $quote = quotes::leftjoin('handyman_quotes','handyman_quotes.quote_id','=','quotes.id')->where('quotes.id',$id)->where('handyman_quotes.handyman_id',$user_id)->select('quotes.*')->first();
+
+        $q_a = requests_q_a::where('request_id',$id)->get();
 
         if($quote)
         {
@@ -434,7 +443,7 @@ else
 
                 ini_set('max_execution_time', 180);
 
-                $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+                $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote','q_a'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
                 $pdf->save(public_path().'/assets/quotesPDF/'.$filename);
             }

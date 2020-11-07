@@ -91,65 +91,17 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">When* </label>
-                                            <div class="col-sm-6">
-                                                <select class="form-control" name="quote_when" id="quote_when" required="">
-                                                    <option @if($request->quote_when == "Emergency") selected @endif value="Emergency">Emergency</option>
-                                                    <option @if($request->quote_when == "ASAP") selected @endif value="ASAP">ASAP</option>
-                                                    <option @if($request->quote_when == "Next few days") selected @endif value="Next few days">Next few days</option>
-                                                    <option @if($request->quote_when == "I'm Flexible") selected @endif value="I'm Flexible">I'm Flexible</option>
-                                                    <option @if($request->quote_when == "Few Months") selected @endif value="Few Months">Few Months</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        @foreach($q_a as $key)
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Budget* </label>
-                                            <div class="col-sm-6">
-                                                <select class="form-control" name="quote_budget" id="quote_budget" required="">
-                                                    <option @if($request->quote_budget == "Under € 1000") selected @endif value="Under € 1000">Under € 1000</option>
-                                                    <option @if($request->quote_budget == "€ 1000 - € 5000") selected @endif value="€ 1000 - € 5000">€ 1000 - € 5000</option>
-                                                    <option @if($request->quote_budget == "€ 5000 - € 10000") selected @endif value="€ 5000 - € 10000">€ 5000 - € 10000</option>
-                                                    <option @if($request->quote_budget == "More than € 10000") selected @endif value="More than € 10000">More than € 10000</option>
-                                                    <option @if($request->quote_budget == "Not Sure") selected @endif value="Not Sure">Not Sure</option>
-                                                </select>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">{{$key->question}}* </label>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control" value="{{$key->answer}}" required="" type="text">
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Job Type* </label>
-                                            <div class="col-sm-6">
-                                                <select class="form-control" name="quote_job" id="quote_job" required="">
-                                                    <option @if($request->quote_job == "Residential") selected @endif value="Residential">Residential</option>
-                                                    <option @if($request->quote_job == "Commercial") selected @endif value="Commercial">Commercial</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        @endforeach
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Work Type* </label>
-                                            <div class="col-sm-6">
-                                                <select class="form-control" name="quote_work" id="quote_work" required="">
-                                                    <option @if($request->quote_work == "New Build") selected @endif value="New Build">New Build</option>
-                                                    <option @if($request->quote_work == "Renovations") selected @endif value="Renovations">Renovations</option>
-                                                    <option @if($request->quote_work == "Repairs") selected @endif value="Repairs">Repairs</option>
-                                                    <option @if($request->quote_work == "Installation") selected @endif value="Installation">Installation</option>
-                                                    <option @if($request->quote_work == "Maintenance") selected @endif value="Maintenance">Maintenance</option>
-                                                    <option @if($request->quote_work == "Other") selected @endif value="Other">Other</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Status* </label>
-                                            <div class="col-sm-6">
-                                                <select class="form-control" name="quote_status" id="quote_status" required="">
-                                                    <option @if($request->quote_status == "Ready to hire") selected @endif value="Ready to hire">Ready to hire</option>
-                                                    <option @if($request->quote_status == "Planning & Budgeting") selected @endif value="Planning & Budgeting">Planning & Budgeting</option>
-                                                </select>
-                                            </div>
-                                        </div>
 
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="service_description">Description*</label>
@@ -160,9 +112,9 @@
 
 
                                         <hr>
-                                        <div class="add-product-footer">
+                                        {{--<div class="add-product-footer">
                                             <button type="submit" style="outline: none;" class="btn add-product_btn">EDIT</button>
-                                        </div>
+                                        </div>--}}
                                     </form>
                                 </div>
                             </div>

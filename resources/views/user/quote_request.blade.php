@@ -68,6 +68,7 @@
 
                                             @endif
 
+
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_display_name">Service* </label>
                                             <div class="col-sm-6">
@@ -75,40 +76,16 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">When* </label>
-                                            <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->quote_when}}</p>
-                                            </div>
-                                        </div>
+                                            @foreach($q_a as $key)
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Budget* </label>
-                                            <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->quote_budget}}</p>
-                                            </div>
-                                        </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4" for="blood_group_display_name">{{$key->question}}* </label>
+                                                    <div class="col-sm-6">
+                                                        <p style="padding: 10px;" class="form-control">{{$key->answer}}</p>
+                                                    </div>
+                                                </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Job Type* </label>
-                                            <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->quote_job}}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Work Type* </label>
-                                            <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->quote_work}}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Status* </label>
-                                            <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->quote_status}}</p>
-                                            </div>
-                                        </div>
+                                            @endforeach
 
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="service_description">Description*</label>

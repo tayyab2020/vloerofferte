@@ -42,15 +42,13 @@
 
                             <div class="row p-5" style="font-size: 15px;padding: 2rem !important;">
                                 <div class="col-md-12" style="padding: 0px !important;padding-top: 50px;">
+
+
                                     <table class="table" style="border: 1px solid #e5e5e5;">
                                         <thead>
                                         <tr>
                                             <th class="border-0 text-uppercase small font-weight-bold">Service</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Job Type</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Work Type</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Budget</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Status</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">When</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold">Description</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">Postcode</th>
                                         </tr>
                                         </thead>
@@ -58,17 +56,30 @@
 
                                             <tr>
                                                 <td>{{$quote->cat_name}}</td>
-                                                <td>{{$quote->quote_job}}</td>
-                                                <td>{{$quote->quote_work}}</td>
-                                                <td>{{$quote->quote_budget}}</td>
-                                                <td>{{$quote->quote_status}}</td>
-                                                <td>{{$quote->quote_when}}</td>
+                                                <td>{{$quote->quote_description}}</td>
                                                 <td>{{$quote->quote_zipcode}}</td>
 
                                             </tr>
 
                                         </tbody>
                                     </table>
+
+
+                                    @if(count($q_a) > 0)
+
+                                        <div style="padding: 10px;">
+
+                                                @foreach($q_a as $key)
+
+                                                    <span style="color: rgba(67,67,67,0.87) !important;">{{$key->question}}: {{$key->answer}}</span>
+                                                    <br>
+
+                                                @endforeach
+
+                                        </div>
+
+                                    @endif
+
                                 </div>
                             </div>
 

@@ -1088,33 +1088,63 @@
 
                     success: function(data) {
 
+                        $('#step3').children('.well').empty();
+
+                        var index_count = 0;
+
                         $.each(data, function (index, val) {
 
                             $.each(val.answers, function (index1, val1) {
                                 console.log(val1);
                             });
 
-                            $('#step3').children('.well').append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 40px;">'+val.title+'</h3>');
+                            if(data.length == index + 1)
+                            {
+                                $('#step3').children('.well').append('<div></div>');
+                            }
+                            else
+                            {
+                                $('#step3').children('.well').append('<div style="margin-bottom: 40px;"></div>');
+                            }
+
+                            var last = $('#step3').children('.well').children().last('div');
+
+                            last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">'+val.title+'</h3><input type="hidden" name="questions[]" value="'+val.title+'">');
 
                             if(val.predefined)
                             {
 
-                                $('#step3').children('.well').append('<div></div>');
+                                last.append('<div></div>');
 
                                 $.each(val.answers, function (index1, val1) {
-                                    console.log(val1);
-                                    $('#step3').children('.well').children().last('div').append('<hr>\n' +
-                                        '                                        <label class="container-radio">'+val1.title+'\n' +
-                                        '                                        <input type="radio" value="'+val1.title+'">\n' +
-                                        '                                        <span class="checkmark-radio"></span>\n' +
-                                        '                                        </label>');
+
+                                    if(index1 == 0){
+                                        last.children('div').append('<hr>\n' +
+                                            '                                        <label class="container-radio">'+val1.title+'\n' +
+                                            '                                        <input name="answers'+index+'" checked type="radio" value="'+val1.title+'">\n' +
+                                            '                                        <span class="checkmark-radio"></span>\n' +
+                                            '                                        </label>');
+                                    }
+                                    else
+                                    {
+                                        last.children('div').append('<hr>\n' +
+                                            '                                        <label class="container-radio">'+val1.title+'\n' +
+                                            '                                        <input name="answers'+index+'" type="radio" value="'+val1.title+'">\n' +
+                                            '                                        <span class="checkmark-radio"></span>\n' +
+                                            '                                        </label>');
+                                    }
                                 });
                             }
                             else
                             {
-                                $('#step3').children('.well').append('<textarea style="resize: vertical;margin-bottom: 20px;" rows="7" class="form-control quote_validation" placeholder=""></textarea>');
+                                last.append('<textarea name="answers'+index+'" style="resize: vertical;" rows="7" class="form-control quote_validation" placeholder=""></textarea>');
                             }
+
+                            index_count = index;
+
                             });
+
+                        $('#step3').children('.well').append('<input type="hidden" name="index_count" value="'+index_count+'">');
 
                         /*$('#step3').children('div').children('h3').
                         console.log(data);*/

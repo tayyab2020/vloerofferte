@@ -14,6 +14,7 @@ use App\question_services;
 use App\quotation_invoices;
 use App\quotation_questions;
 use App\quotes;
+use App\requests_q_a;
 use App\sub_services;
 use App\User;
 use Illuminate\Http\Request;
@@ -208,14 +209,18 @@ class AdminUserController extends Controller
     {
         $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->withCount('quotations')->first();
 
+        $q_a = requests_q_a::where('request_id',$id)->get();
+
         $services = Category::where('main_service',1)->get();
 
-        return view('admin.user.quote_request',compact('request','services'));
+        return view('admin.user.quote_request',compact('request','services','q_a'));
     }
 
     public function DownloadQuoteRequest($id)
     {
         $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
+
+        $q_a = requests_q_a::where('request_id',$id)->get();
 
         $date = strtotime($quote->created_at);
 
@@ -229,7 +234,7 @@ class AdminUserController extends Controller
 
             ini_set('max_execution_time', 180);
 
-            $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+            $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote','q_a'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
             $pdf->save(public_path().'/assets/quotesPDF/'.$filename);
         }
@@ -425,6 +430,8 @@ class AdminUserController extends Controller
 
         $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name')->first();
 
+        $q_a = requests_q_a::where('request_id',$request->quote_id)->get();
+
         $date = strtotime($quote->created_at);
 
         $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
@@ -437,7 +444,7 @@ class AdminUserController extends Controller
 
             ini_set('max_execution_time', 180);
 
-            $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+            $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote','q_a'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
             $pdf->save(public_path().'/assets/quotesPDF/'.$filename);
         }
