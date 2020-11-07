@@ -302,7 +302,7 @@
                                 <div class="modal-body" id="myWizard">
 
                                     <div class="progress" style="height: 25px;">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="9" style="width: 11.1111%;line-height: 25px;font-size: 14px;font-weight: 100;">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 20%;line-height: 25px;font-size: 14px;font-weight: 100;">
                                             Step 1
                                         </div>
                                     </div>
@@ -315,10 +315,6 @@
                                                 <li><a href="#step3" data-toggle="tab" data-step="3">Step 3</a></li>
                                                 <li><a href="#step4" data-toggle="tab" data-step="4">Step 4</a></li>
                                                 <li><a href="#step5" data-toggle="tab" data-step="5">Step 5</a></li>
-                                                <li><a href="#step6" data-toggle="tab" data-step="6">Step 6</a></li>
-                                                <li><a href="#step7" data-toggle="tab" data-step="7">Step 7</a></li>
-                                                <li><a href="#step8" data-toggle="tab" data-step="8">Step 8</a></li>
-                                                <li><a href="#step9" data-toggle="tab" data-step="9">Step 9</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -374,156 +370,7 @@
                                         </div>
 
                                         <div class="tab-pane fade" id="step4">
-                                            <div class="well" style="height: 300px;">
 
-                                                <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Budget</h3>
-
-                                                <div>
-                                                    <hr>
-                                                    <label class="container-radio">Under € 1000
-                                                        <input checked type="radio" value="Under € 1000" name="quote_budget">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">€ 1000 - € 5000
-                                                        <input type="radio" value="€ 1000 - € 5000" name="quote_budget">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">€ 5000 - € 10000
-                                                        <input type="radio" value="€ 5000 - € 10000" name="quote_budget">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">More than € 10000
-                                                        <input type="radio" value="More than € 10000" name="quote_budget">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">Not Sure
-                                                        <input type="radio" value="Not Sure" name="quote_budget">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-
-                                                </div>
-
-                                            </div>
-
-                                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-
-                                        </div>
-
-                                        <div class="tab-pane fade" id="step5">
-                                            <div class="well" style="height: 300px;">
-
-                                                <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Residential or Commercial Job</h3>
-
-                                                <div>
-
-                                                    <hr>
-                                                    <label class="container-radio">Residential
-                                                        <input checked type="radio" value="Residential" name="quote_job">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">Commercial
-                                                        <input type="radio" value="Commercial" name="quote_job">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-
-                                        </div>
-
-                                        <div class="tab-pane fade" id="step6">
-                                            <div class="well" style="height: 300px;">
-
-                                                <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Type of Work</h3>
-
-                                                <div>
-
-                                                    <hr>
-                                                    <label class="container-radio">New Build
-                                                        <input checked type="radio" value="New Build" name="quote_work">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">Renovations
-                                                        <input type="radio" value="Renovations" name="quote_work">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">Repairs
-                                                        <input type="radio" value="Repairs" name="quote_work">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">Installation
-                                                        <input type="radio" value="Installation" name="quote_work">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">Maintenance
-                                                        <input type="radio" value="Maintenance" name="quote_work">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">Other
-                                                        <input type="radio" value="Other" name="quote_work">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-
-                                        </div>
-
-                                        <div class="tab-pane fade" id="step7">
-                                            <div class="well" style="height: 300px;">
-
-                                                <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">What is the status of your job?</h3>
-
-                                                <div>
-
-                                                    <hr>
-                                                    <label class="container-radio">Ready to hire
-                                                        <input checked type="radio" value="Ready to hire" name="quote_status">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                    <hr>
-                                                    <label class="container-radio">Planning & Budgeting
-                                                        <input type="radio" value="Planning & Budgeting" name="quote_status">
-                                                        <span class="checkmark-radio"></span>
-                                                    </label>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-
-                                        </div>
-
-                                        <div class="tab-pane fade" id="step8">
                                             <div class="well" style="height: 300px;">
 
                                                 <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Provide a description of your job</h3>
@@ -536,7 +383,7 @@
 
                                         </div>
 
-                                        <div class="tab-pane fade" id="step9">
+                                        <div class="tab-pane fade" id="step5">
                                             <div class="well" style="height: 300px;">
 
                                                 <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Please provide some contact details.</h3>
@@ -561,8 +408,8 @@
 
                                             </div>
                                             <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-                                        </div>
 
+                                        </div>
 
                                     </div>
 
@@ -1219,7 +1066,7 @@
 
                     $('.back').show();
 
-                    if(nextId == 'step9')
+                    if(nextId == 'step5')
                     {
                         $('.next').hide();
                         $('.next-submit').show();
@@ -1253,7 +1100,7 @@
 
                 //update progress
                 var step = $(e.target).data('step');
-                var percent = (parseInt(step) / 9) * 100;
+                var percent = (parseInt(step) / 5) * 100;
 
                 $('.progress-bar').css({width: percent + '%'});
                 $('.progress-bar').text("Step " + step);
