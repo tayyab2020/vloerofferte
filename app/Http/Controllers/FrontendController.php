@@ -1247,15 +1247,6 @@ else
 
                 $user_id = $check->id;
 
-                $link = url('/').'/handyman/client-dashboard';
-
-                \Mail::send(array(), array(), function ($message) use($user_email,$user_name,$link) {
-                    $message->to($user_email)
-                        ->from('info@topstoffeerders.nl')
-                        ->subject('Quotation Request Submitted!')
-                        ->setBody("Dear Mr/Mrs ".$user_name.",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='".$link."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
-                });
-
             }
             else
             {
@@ -1301,12 +1292,30 @@ else
             {
                 $answer = 'answers'.$i;
 
+                if($request->$answer)
+                {
+                    $answers = implode(',', $request->$answer);
+                }
+                else
+                {
+                    $answers = '';
+                }
+
                 $post = new requests_q_a;
                 $post->request_id = $quote->id;
                 $post->question = $key;
-                $post->answer = $request->$answer;
+                $post->answer = $answers;
                 $post->save();
             }
+
+            $link = url('/').'/handyman/client-dashboard';
+
+            \Mail::send(array(), array(), function ($message) use($user_email,$user_name,$link) {
+                $message->to($user_email)
+                    ->from('info@topstoffeerders.nl')
+                    ->subject('Quotation Request Submitted!')
+                    ->setBody("Dear Mr/Mrs ".$user_name.",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='".$link."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+            });
 
             Session::flash('success', 'Your Quotation request has been created successfully!');
             return redirect()->back();

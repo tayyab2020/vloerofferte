@@ -162,7 +162,6 @@ class AdminUserController extends Controller
 
              $categories[] = handyman_services::leftjoin('categories','categories.id','=','handyman_services.service_id')->where('handyman_services.handyman_id',$key->id)->select('categories.cat_name')->get();
 
-
         }
 
         return view('admin.user.index',compact('users','categories'));
@@ -781,13 +780,13 @@ $handyman_dash = url('/').'/handyman/dashboard';
         if($user->photo == null){
          $user->delete();
         Session::flash('success', 'Successfully deleted your User');
-        return redirect()->route('admin-user-index');
+        return redirect()->back();
         }
 
         unlink(public_path().'/assets/images/'.$user->photo);
         $user->delete();
         Session::flash('success', 'Successfully deleted your User');
-        return redirect()->route('admin-user-index');
+        return redirect()->back();
     }
 
     public function Insurance($id)

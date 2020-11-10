@@ -116,6 +116,10 @@
                         </li>
 
                         <li>
+                            <a href="{{route('create-custom-quotation')}}"><i class="fa fa-fw fa-file-text"></i> Create Quotation</a>
+                        </li>
+
+                        <li>
                             <a href="{{ route('user-services') }}" id="services"><i class="fa fa-fw fa-hospital-o"></i> {{$lang->mst}}</a>
                         </li>
 

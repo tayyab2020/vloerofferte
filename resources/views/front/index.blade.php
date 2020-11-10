@@ -429,68 +429,77 @@
 
                     <style>
 
-                        .container-radio {
-                            display: inline;
+                        .container-checkbox {
+                            display: flex;
                             position: relative;
-                            padding-left: 35px;
+                            padding-left: 30px;
                             margin-bottom: 12px;
                             cursor: pointer;
-                            font-size: 18px;
-                            font-weight: 100;
+                            font-size: 22px;
+                            font-weight: 300;
                             -webkit-user-select: none;
                             -moz-user-select: none;
                             -ms-user-select: none;
                             user-select: none;
+                            align-items: center;
+                            font-family: sans-serif;
+                            color: #353535;
                         }
 
                         /* Hide the browser's default radio button */
-                        .container-radio input {
+                        .container-checkbox input {
                             position: absolute;
                             opacity: 0;
                             cursor: pointer;
+                            height: 0;
+                            width: 0;
                         }
 
                         /* Create a custom radio button */
-                        .checkmark-radio {
+                        .checkmark-checkbox {
                             position: absolute;
-                            top: 0;
+                            /*top: 6.5px;*/
                             left: 0;
                             height: 20px;
                             width: 20px;
-                            background-color: #eee;
-                            border-radius: 50%;
+                            background-color: transparent;
+                            border: 1px solid #e5e5e5;
+                            border-radius: 2px;
                         }
 
                         /* On mouse-over, add a grey background color */
-                        .container-radio:hover input ~ .checkmark-radio {
+                        .container-checkbox:hover input ~ .checkmark-checkbox {
                             background-color: #ccc;
                         }
 
                         /* When the radio button is checked, add a blue background */
-                        .container-radio input:checked ~ .checkmark-radio {
+                        .container-checkbox input:checked ~ .checkmark-checkbox {
                             background-color: #2196F3;
                         }
 
                         /* Create the indicator (the dot/circle - hidden when not checked) */
-                        .checkmark-radio:after {
+                        .checkmark-checkbox:after {
                             content: "";
                             position: absolute;
                             display: none;
                         }
 
                         /* Show the indicator (dot/circle) when checked */
-                        .container-radio input:checked ~ .checkmark-radio:after {
+                        .container-checkbox input:checked ~ .checkmark-checkbox:after {
                             display: block;
                         }
 
                         /* Style the indicator (dot/circle) */
-                        .container-radio .checkmark-radio:after {
-                            top: 4px;
-                            left: 4px;
-                            width: 12px;
-                            height: 12px;
-                            border-radius: 50%;
-                            background: white;
+                        .container-checkbox .checkmark-checkbox:after {
+                            left: 7px;
+                            top: 3.5px;
+                            width: 5px;
+                            height: 10px;
+                            border: solid white;
+                            border-width: 0 3px 3px 0;
+                            -webkit-transform: rotate(45deg);
+                            -ms-transform: rotate(45deg);
+                            transform: rotate(45deg);
                         }
 
                         .pac-container
@@ -965,26 +974,17 @@
 
                                 $.each(val.answers, function (index1, val1) {
 
-                                    if(index1 == 0){
                                         last.children('div').append('<hr>\n' +
-                                            '                                        <label class="container-radio">'+val1.title+'\n' +
-                                            '                                        <input name="answers'+index+'" checked type="radio" value="'+val1.title+'">\n' +
-                                            '                                        <span class="checkmark-radio"></span>\n' +
+                                            '                                        <label class="container-checkbox">'+val1.title+'\n' +
+                                            '                                        <input name="answers'+index+'[]" type="checkbox" value="'+val1.title+'">\n' +
+                                            '                                        <span class="checkmark-checkbox"></span>\n' +
                                             '                                        </label>');
-                                    }
-                                    else
-                                    {
-                                        last.children('div').append('<hr>\n' +
-                                            '                                        <label class="container-radio">'+val1.title+'\n' +
-                                            '                                        <input name="answers'+index+'" type="radio" value="'+val1.title+'">\n' +
-                                            '                                        <span class="checkmark-radio"></span>\n' +
-                                            '                                        </label>');
-                                    }
+
                                 });
                             }
                             else
                             {
-                                last.append('<textarea name="answers'+index+'" style="resize: vertical;" rows="7" class="form-control quote_validation" placeholder=""></textarea>');
+                                last.append('<textarea name="answers'+index+'" style="resize: vertical;" rows="7" class="form-control" placeholder=""></textarea>');
                             }
 
                             index_count = index;

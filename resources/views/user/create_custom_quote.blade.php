@@ -16,35 +16,67 @@
 
                                     </div>
                                     <hr>
-                                    <div>
-                                        @include('includes.form-success')
 
-                                        <form class="form-horizontal" action="{{route('store-quotation')}}" method="POST" enctype="multipart/form-data">
-                                            {{csrf_field()}}
+                                    <div class="main-box1">
 
-                                        <?php $requested_quote_number = date("Y", strtotime($quote->created_at)) . "-" . sprintf('%04u', $quote->id); ?>
+                                        <div class="alert-box">
 
-                                        <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
-                                            <div class="col-md-4">
-                                                <div class="form-group" style="margin: 0;">
-                                                    <label>Request Number</label>
-                                                    <input type="text" value="{{$requested_quote_number}}" class="form-control" readonly>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-md-4">
-                                                <div class="form-group" style="margin: 0;">
-                                                    <label>Estimated Date</label>
-                                                    <input type="text" name="date" class="form-control estimate_date" autocomplete="off" required>
-                                                </div>
-                                            </div>
                                         </div>
 
-                                        <div class="row" style="margin: 0;">
-                                            <div class="col-sm-12">
+                                        @include('includes.form-success')
 
-                                                    <input type="hidden" name="quote_id" value="{{$quote->id}}">
+                                        <div class="row" style="margin: 20px 0px;border-bottom: 1px solid #f1f1f1;padding-bottom: 20px;">
+
+                                            <div class="col-md-4 col-sm-4 col-xs-12 customer-details" style="float: left;text-align: left">
+
+                                            </div>
+
+                                            <div class="col-md-4 col-sm-4 col-xs-12" style="float: right;text-align: right;">
+
+                                                <img class="img-fluid" src="{{ asset('assets/images/'.$gs->logo) }}" style="width:50%; height:100%;margin-bottom: 30px;">
+                                                {!! $gs->street  !!}TEL: {{$gs->phone}}<br>BTW: NL001973883B94<br>IBAN: NL87ABNA0825957680<br>KvK-nummer: 70462623
+
+                                            </div>
+
+                                        </div>
+
+                                        <form class="form-horizontal" action="{{route('store-custom-quotation')}}" method="POST" enctype="multipart/form-data">
+                                            {{csrf_field()}}
+
+                                            <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group" style="margin: 0;">
+                                                        <label>Estimated Date</label>
+                                                        <input type="text" name="date" placeholder="Select Estimated Date" class="form-control estimate_date" autocomplete="off" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                </div>
+
+                                                <div class="col-md-5">
+                                                    <div class="form-group" style="margin: 0;">
+                                                        <label>Customer</label>
+                                                        <div id="cus-box" style="display: flex;">
+                                                            <select class="customer-select form-control" name="customer" required>
+
+                                                                @foreach($customers as $key)
+
+                                                                    <option value="{{$key->id}}">{{$key->name}} {{$key->family_name}}</option>
+
+                                                                @endforeach
+
+                                                            </select>
+                                                            <button type="button" href="#myModal" role="button" data-toggle="modal" style="outline: none;margin-left: 10px;" class="btn btn-primary">Add New Customer</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row" style="margin: 0;">
+                                                <div class="col-sm-12">
 
                                                     <div class="row" style="margin: 0;margin-top: 35px;">
                                                         <div class="col-md-12 col-sm-12" style="border: 1px solid #e5e5e5;padding: 0;">
@@ -68,16 +100,16 @@
                                                                             <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
 
                                                                                 @foreach($services as $key)
-                                                                                    <option value="{{$key->id}}" @if($quote->quote_service == $key->id) selected <?php $rate = $key->rate; $service_title = $key->cat_name; ?> @endif>{{$key->cat_name}}</option>
+                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
                                                                                 @endforeach
 
                                                                                 @foreach($items as $key)
-                                                                                     <option value="{{$key->id}}I">{{$key->cat_name}}</option>
+                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>
                                                                                 @endforeach
 
                                                                             </select>
 
-                                                                            <?php if(!isset($service_title)){ $service_title = $services[0]->cat_name; $rate = $services[0]->rate; } ?>
+                                                                            <?php $service_title = $services[0]->cat_name; $rate = $services[0]->rate;  ?>
 
                                                                             <input type="hidden" name="service_title[]" value="{{$service_title}}">
                                                                         </td>
@@ -107,9 +139,9 @@
                                                                                 @foreach($services as $key)
                                                                                     <option value="{{$key->id}}">{{$key->cat_name}}</option>
                                                                                 @endforeach
-                                                                                    @foreach($items as $key)
-                                                                                        <option value="{{$key->id}}I">{{$key->cat_name}}</option>
-                                                                                    @endforeach
+                                                                                @foreach($items as $key)
+                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>
+                                                                                @endforeach
 
                                                                             </select>
 
@@ -183,11 +215,12 @@
                                                     </div>
 
                                                     <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
-                                                        <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Send</button>
+                                                        <button type="submit" style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Create</button>
                                                     </div>
 
-                                            </div></div>
+                                                </div></div>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -199,8 +232,163 @@
         </div>
     </div>
 
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <form id="quote_form" method="post" action="{{route('user.quote')}}">
+
+                <input type="hidden" name="_token" value="{{@csrf_token()}}">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button style="background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="myModalLabel">Create Customer</h3>
+                    </div>
+
+                    <div class="modal-body" id="myWizard" style="display: inline-block;">
+
+                        <input type="hidden" id="token" name="token" value="{{csrf_token()}}">
+                        <input type="hidden" id="handyman_id" name="handyman_id" value="{{Auth::user()->id}}">
+                        <input type="hidden" id="handyman_name" name="handyman_name" value="<?php echo Auth::user()->name .' '. Auth::user()->family_name; ?>">
+
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <input id="name" name="name" class="form-control validation" placeholder="{{$lang->suf}}" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <input id="family_name" name="family_name" class="form-control validation" placeholder="{{$lang->fn}}" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <input id="business_name" name="business_name" class="form-control validation" placeholder="{{$lang->bn}}" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <input id="postcode" name="postcode" class="form-control validation" placeholder="{{$lang->pc}}" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <input id="address" name="address" class="form-control validation" placeholder="{{$lang->ad}}" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <input id="city" name="city" class="form-control validation" placeholder="{{$lang->ct}}" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <input id="phone" name="phone" class="form-control validation" placeholder="{{$lang->pn}}" type="number">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <input id="email" name="email" class="form-control validation" placeholder="{{$lang->sue}}" type="email">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-unlock-alt"></i>
+                                </div>
+                                <input id="password" class="form-control validation" name="password" placeholder="{{$lang->sup}}" type="password">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-unlock-alt"></i>
+                                </div>
+                                <input class="form-control validation" id="password_confirmation" name="password_confirmation" placeholder="{{$lang->sucp}}" type="password">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" style="border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary submit-customer">Create</button>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div id="cover"></div>
+
 
     <style type="text/css">
+
+        #cover {
+            background: url(<?php echo asset('assets/images/page-loader.gif'); ?>) no-repeat scroll center center #ffffff78;
+            position: fixed;
+            z-index: 100000;
+            height: 100%;
+            width: 100%;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-size: 8%;
+            display: none;
+        }
+
+        .form-control
+        {
+            height: 35px;
+        }
+
+        #cus-box .select2-selection
+        {
+            height: 40px !important;
+            padding-top: 5px !important;
+        }
+
+        #cus-box .select2-selection__arrow
+        {
+            top: 7.5px !important;
+        }
 
         .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th
         {
@@ -836,11 +1024,167 @@
 
         $(document).ready(function() {
 
+            $(".submit-customer").click(function(){
+
+                var name = $('#name').val();
+                var family_name = $('#family_name').val();
+                var business_name = $('#business_name').val();
+                var postcode = $('#postcode').val();
+                var address = $('#address').val();
+                var city = $('#city').val();
+                var phone = $('#phone').val();
+                var email = $('#email').val();
+                var password = $('#password').val();
+                var password_confirmation = $('#password_confirmation').val();
+                var handyman_id = $('#handyman_id').val();
+                var handyman_name = $('#handyman_name').val();
+                var token = $('#token').val();
+
+                var validation = $('.modal-body').find('.validation');
+
+                var flag = 0;
+
+                $(validation).each(function(){
+
+                    if(!$(this).val())
+                    {
+                        $(this).css('border','1px solid red');
+                        flag = 1;
+                    }
+                    else
+                    {
+                        $(this).css('border','');
+                    }
+
+                });
+
+                if(!flag)
+                {
+                    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+                    if(!regex.test(email))
+                    {
+                        $('#email').css('border','1px solid red');
+
+                        $('.alert-box').html('<div class="alert alert-danger">\n' +
+                            '                                            <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>\n' +
+                            '                                            <p class="text-left">Email address is not valid...</p>\n' +
+                            '                                        </div>');
+                        $('.alert-box').show();
+                        $('.alert-box').delay(5000).fadeOut(400);
+                    }
+                    else if(password != password_confirmation)
+                    {
+                        $('#email').css('border','');
+                        $('#password').css('border','1px solid red');
+                        $('#password_confirmation').css('border','1px solid red');
+
+                        $('.alert-box').html('<div class="alert alert-danger">\n' +
+                            '                                            <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>\n' +
+                            '                                            <p class="text-left">Password does not match...</p>\n' +
+                            '                                        </div>');
+                        $('.alert-box').show();
+                        $('.alert-box').delay(5000).fadeOut(400);
+                    }
+                    else
+                    {
+                        $('#email').css('border','');
+                        $('#password').css('border','');
+                        $('#password_confirmation').css('border','');
+
+                        $('#cover').show();
+
+                        $.ajax({
+
+                            type: "POST",
+                            data: "handyman_id=" + handyman_id + "&handyman_name=" + handyman_name +  "&name=" + name +  "&family_name=" + family_name +  "&business_name=" + business_name +  "&postcode=" + postcode +  "&address=" + address +  "&city=" + city +  "&phone=" + phone +  "&email=" + email +  "&password=" + password +  "&_token=" + token,
+                            url: "<?php echo url('/handyman/create-customer')?>",
+
+                            success: function(data) {
+
+                                $('.customer-details').empty();
+
+                                $('.customer-details').append('<div><b>'+data.data.name+' '+data.data.family_name+'</b></div>\n'+
+                                    '<div>'+data.data.address+'</div>\n'+
+                                    '<div>'+data.data.city+'</div>\n'+
+                                    '<div>'+data.data.postcode+'</div>\n');
+
+                                console.log(data);
+
+                                $('#cover').hide();
+
+                                var newStateVal = data.data.id;
+                                var newName = data.data.name + " " + data.data.family_name;
+
+                                // Set the value, creating a new option if necessary
+                                if ($(".customer-select").find("option[value=" + newStateVal + "]").length) {
+                                    $(".customer-select").val(newStateVal).trigger("change");
+                                } else {
+                                    // Create the DOM option that is pre-selected by default
+                                    var newState = new Option(newName, newStateVal, true, true);
+                                    // Append it to the select
+                                    $(".customer-select").append(newState).trigger('change');
+                                }
+
+                                $('.alert-box').html('<div class="alert alert-success">\n' +
+                                        '                                            <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>\n' +
+                                        '                                            <p class="text-left">'+data.message+'</p>\n' +
+                                        '                                        </div>');
+                                $('.alert-box').show();
+                                $('.alert-box').delay(5000).fadeOut(400);
+
+                                $('#myModal').modal('toggle');
+                                window.scrollTo({top: 0, behavior: 'smooth'});
+                            },
+                            error: function(data) {
+
+                                console.log(data);
+
+                                $('#cover').hide();
+
+                                if (data.status == 422) {
+                                    $.each(data.responseJSON.errors, function (i, error) {
+                                        $('.alert-box').html('<div class="alert alert-danger">\n' +
+                                            '                                            <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>\n' +
+                                            '                                            <p class="text-left">'+error[0]+'</p>\n' +
+                                            '                                        </div>');
+                                    });
+                                    $('.alert-box').show();
+                                    $('.alert-box').delay(5000).fadeOut(400);
+                                }
+                                else
+                                {
+                                    $('.alert-box').html('<div class="alert alert-danger">\n' +
+                                        '                                            <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>\n' +
+                                        '                                            <p class="text-left">Something went wrong!</p>\n' +
+                                        '                                        </div>');
+                                    $('.alert-box').show();
+                                    $('.alert-box').delay(5000).fadeOut(400);
+                                }
+
+                                $('#myModal').modal('toggle');
+                                window.scrollTo({top: 0, behavior: 'smooth'});
+                            }
+
+                        });
+
+                    }
+                }
+
+            });
+
             $('.estimate_date').datepicker({
 
                 format: 'dd-mm-yyyy',
                 startDate: new Date(),
 
+            });
+
+            $(".customer-select").select2({
+                width: '100%',
+                height: '200px',
+                placeholder: "Select Customer",
+                allowClear: true,
             });
 
             $(".js-data-example-ajax").select2({
@@ -857,58 +1201,58 @@
 
                 var id = current.val();
 
-                    $.ajax({
-                        type:"GET",
-                        data: "id=" + id ,
-                        url: "<?php echo url('/get-quotation-data')?>",
-                        success: function(data) {
+                $.ajax({
+                    type:"GET",
+                    data: "id=" + id ,
+                    url: "<?php echo url('/get-quotation-data')?>",
+                    success: function(data) {
 
-                            current.parent().children('input').val(data.cat_name);
+                        current.parent().children('input').val(data.cat_name);
 
-                            current.parent().parent().find('.td-rate').children('input').val(data.rate);
+                        current.parent().parent().find('.td-rate').children('input').val(data.rate);
 
-                            var vat_percentage = parseInt($('#vat_percentage').val());
-                            vat_percentage = vat_percentage + 100;
-                            var cost = current.parent().parent().find('.td-rate').children('input').val();
-                            var qty = current.parent().parent().find('.td-qty').children('input').val();
+                        var vat_percentage = parseInt($('#vat_percentage').val());
+                        vat_percentage = vat_percentage + 100;
+                        var cost = current.parent().parent().find('.td-rate').children('input').val();
+                        var qty = current.parent().parent().find('.td-qty').children('input').val();
 
-                            var amount = cost * qty;
+                        var amount = cost * qty;
 
-                            amount = parseFloat(amount).toFixed(2);
+                        amount = parseFloat(amount).toFixed(2);
 
-                            current.parent().parent().find('.td-amount').children('input').val(amount);
+                        current.parent().parent().find('.td-amount').children('input').val(amount);
 
-                            var amounts = [];
-                            $("input[name='amount[]']").each(function() {
-                                amounts.push($(this).val());
-                            });
+                        var amounts = [];
+                        $("input[name='amount[]']").each(function() {
+                            amounts.push($(this).val());
+                        });
 
-                            var grand_total = 0;
+                        var grand_total = 0;
 
-                            for (let i = 0; i < amounts.length; ++i) {
+                        for (let i = 0; i < amounts.length; ++i) {
 
-                                if(isNaN(parseInt(amounts[i])))
-                                {
-                                    amounts[i] = 0;
-                                }
-
-                                grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                            if(isNaN(parseInt(amounts[i])))
+                            {
+                                amounts[i] = 0;
                             }
 
-                            var vat = grand_total/vat_percentage * 100;
-                            vat = grand_total - vat;
-                            vat = parseFloat(vat).toFixed(2);
-
-                            var sub_total = grand_total - vat;
-                            sub_total = parseFloat(sub_total).toFixed(2);
-
-                            $('#sub_total').val(sub_total);
-                            $('#tax_amount').val(vat);
-                            $('#grand_total').val(grand_total);
-
-                            $('#grand_total_cell').text('€ ' + grand_total);
+                            grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
                         }
-                    });
+
+                        var vat = grand_total/vat_percentage * 100;
+                        vat = grand_total - vat;
+                        vat = parseFloat(vat).toFixed(2);
+
+                        var sub_total = grand_total - vat;
+                        sub_total = parseFloat(sub_total).toFixed(2);
+
+                        $('#sub_total').val(sub_total);
+                        $('#tax_amount').val(vat);
+                        $('#grand_total').val(grand_total);
+
+                        $('#grand_total_cell').text('€ ' + grand_total);
+                    }
+                });
 
             });
 

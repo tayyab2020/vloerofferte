@@ -52,6 +52,9 @@
 
   Route::prefix('handyman')->group(function() {
 
+  Route::post('/create-customer','UserController@CreateCustomer');
+  Route::get('/handyman-create-quotation', 'UserController@HandymanCreateQuote')->name('create-custom-quotation');
+  Route::post('/create-custom-quotation', 'UserController@StoreCustomQuotation')->name('store-custom-quotation');
   Route::get('/quotation-requests', 'UserController@QuotationRequests')->name('client-quotation-requests');
   Route::get('/handyman-quotation-requests', 'UserController@HandymanQuotationRequests')->name('handyman-quotation-requests');
   Route::get('/handyman-quotations/{id?}', 'UserController@HandymanQuotations')->name('quotations');
