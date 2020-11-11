@@ -18,6 +18,8 @@
                             <div class="col-md-4 col-sm-4 col-xs-12">
 
                                 <img class="img-fluid" src="{{ public_path('assets/images/'.$user->photo) }}" style="width:30%; height:100%;margin-bottom: 30px;">
+                                <p style="margin: 0"><b>{{$user->name}} {{$user->family_name}}</b></p>
+                                <p style="margin: 0">{{$user->company_name}}</p>
                                 <p style="margin: 0">{{$user->address}}<?php if($user->city){ echo ', '.$user->city; } ?></p>
                                 <p style="margin: 0">TEL: {{$user->phone}}</p>
                                 <p style="margin: 0">{{$user->email}}</p>
@@ -34,7 +36,6 @@
                                 <p class="text-muted" style="font-size: 15px;margin-top: 10px;">Created at: {{$date}}</p>
 
                                 <p class="mb-1 m-rest">{{$client->name}} {{$client->family_name}}</p>
-                                <p class="mb-1 m-rest">{{$client->company_name}}</p>
                                 <p class="mb-1 m-rest">{{$client->address}}</p>
                                 <p class="mb-1 m-rest">{{$client->city}}</p>
                                 <p class="mb-1 m-rest">{{$client->postcode}}</p>
