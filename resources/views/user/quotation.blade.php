@@ -17,7 +17,7 @@
 
                                             <h2>Quotation</h2>
 
-                                        @elseif(Route::currentRouteName() == 'create-handyman-invoice')
+                                        @elseif(Route::currentRouteName() == 'create-handyman-invoice' || Route::currentRouteName() == 'create-custom-invoice')
 
                                             <h2>Create Invoice</h2>
 
@@ -41,6 +41,15 @@
 
                                                 <input type="hidden" name="quote_id" value="{{$quotation[0]->quote_id}}">
 
+                                        @elseif(Route::currentRouteName() == 'edit-custom-quotation')
+
+                                             <form class="form-horizontal" action="{{route('update-custom-quotation')}}" method="POST" enctype="multipart/form-data">
+
+                                                  {{csrf_field()}}
+
+                                                 <input type="hidden" name="quotation_id" value="{{$quotation[0]->id}}">
+                                                 <input type="hidden" name="customer" value="{{$quotation[0]->user_id}}">
+
                                         @elseif(Route::currentRouteName() == 'create-handyman-invoice')
 
                                             <form class="form-horizontal" action="{{route('create-invoice')}}" method="POST" enctype="multipart/form-data">
@@ -49,12 +58,21 @@
 
                                                 <input type="hidden" name="quote_id" value="{{$quotation[0]->quote_id}}">
 
+                                        @elseif(Route::currentRouteName() == 'create-custom-invoice')
+
+                                             <form class="form-horizontal" action="{{route('post-custom-invoice')}}" method="POST" enctype="multipart/form-data">
+
+                                                  {{csrf_field()}}
+
+                                                  <input type="hidden" name="quotation_id" value="{{$quotation[0]->id}}">
+                                                  <input type="hidden" name="customer" value="{{$quotation[0]->user_id}}">
+
                                         @endif
 
 
                                         <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
 
-                                            @if(Route::currentRouteName() != 'view-custom-quotation')
+                                            @if(Route::currentRouteName() != 'view-custom-quotation' && Route::currentRouteName() != 'edit-custom-quotation' && Route::currentRouteName() != 'create-custom-invoice')
 
                                                 <?php $requested_quote_number = date("Y", strtotime($quotation[0]->quote_date)) . "-" . sprintf('%04u', $quotation[0]->quote_id); ?>
 
@@ -77,7 +95,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group" style="margin: 0;">
                                                     <label>Estimated Date</label>
-                                                    <input type="text" name="date" value="{{$quotation[0]->estimated_date}}" class="form-control estimate_date" autocomplete="off" required @if(Route::currentRouteName() == 'view-handyman-quotation') disabled @endif>
+                                                    <input type="text" name="date" value="{{$quotation[0]->estimated_date}}" class="form-control estimate_date" autocomplete="off" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') disabled @endif>
                                                 </div>
                                             </div>
                                         </div>
@@ -110,7 +128,7 @@
                                                                                 <td>
                                                                                     @if(Route::currentRouteName() != 'view-handyman-quotation' && Route::currentRouteName() != 'view-custom-quotation')
 
-                                                                                    <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required @if(Route::currentRouteName() == 'view-handyman-quotation') disabled @endif>
+                                                                                    <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
 
                                                                                         @foreach($services as $key)
                                                                                             <option value="{{$key->id}}" @if(!$temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->service; ?> @endif @endif>{{$key->cat_name}}</option>
@@ -216,7 +234,7 @@
                                                             </div>
                                                         </div>
 
-                                                @if(Route::currentRouteName() == 'edit-handyman-quotation')
+                                                @if(Route::currentRouteName() == 'edit-handyman-quotation' || Route::currentRouteName() == 'edit-custom-quotation')
 
                                                 <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
                                                     <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Update</button>
@@ -226,7 +244,7 @@
 
                                                 </form>
 
-                                                @elseif(Route::currentRouteName() == 'create-handyman-invoice')
+                                                @elseif(Route::currentRouteName() == 'create-handyman-invoice' || Route::currentRouteName() == 'create-custom-invoice')
 
                                                     <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
                                                         <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Create</button>

@@ -89,7 +89,11 @@
 
                                                                 @if(Route::currentRouteName() == 'quotations' || Route::currentRouteName() == 'customer-quotations')
 
-                                                                    @if($key->status >= 2)
+                                                                    @if($key->status == 3)
+
+                                                                        <span class="btn btn-success">Invoice Generated</span>
+
+                                                                    @elseif($key->status == 2)
 
                                                                         @if($key->accepted)
 
@@ -144,22 +148,34 @@
                                                                             <li><a href="{{ url('/handyman/view-custom-quotation/'.$key->invoice_id) }}">View</a></li>
                                                                             <li><a href="{{ url('/handyman/download-custom-quotation/'.$key->invoice_id) }}">Download PDF</a></li>
 
+                                                                            @if($key->status == 2 && $key->accepted)
+
+                                                                                <li><a href="{{ url('/handyman/create-custom-invoice/'.$key->invoice_id) }}">Create Invoice</a></li>
+
+                                                                            @elseif($key->status == 1)
+
+                                                                                @if($key->ask_customization)
+                                                                                    <li><a href="{{ url('/handyman/edit-custom-quotation/'.$key->invoice_id) }}">Edit Quotation</a></li>
+                                                                                @endif
+
+                                                                            @endif
+
                                                                         @else
 
                                                                             <li><a href="{{ url('/handyman/view-quotation/'.$key->invoice_id) }}">View</a></li>
                                                                             <li><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">View Request</a></li>
                                                                             <li><a href="{{ url('/handyman/download-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
 
-                                                                        @endif
+                                                                            @if($key->status == 2 && $key->accepted)
 
-                                                                        @if($key->status == 2 && $key->accepted)
+                                                                                <li><a href="{{ url('/handyman/create-invoice/'.$key->invoice_id) }}">Create Invoice</a></li>
 
-                                                                            <li><a href="{{ url('/handyman/create-invoice/'.$key->invoice_id) }}">Create Invoice</a></li>
+                                                                            @elseif($key->status == 1)
 
-                                                                        @elseif($key->status == 1)
+                                                                                @if($key->ask_customization)
+                                                                                    <li><a href="{{ url('/handyman/edit-quotation/'.$key->invoice_id) }}">Edit Quotation</a></li>
+                                                                                @endif
 
-                                                                            @if($key->ask_customization)
-                                                                                <li><a href="{{ url('/handyman/edit-quotation/'.$invoices[$i]->invoice_id) }}">Edit Quotation</a></li>
                                                                             @endif
 
                                                                         @endif

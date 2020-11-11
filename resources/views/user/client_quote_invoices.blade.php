@@ -86,7 +86,11 @@
 
                                                                 @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-custom-quotations')
 
-                                                                    @if($key->status == 2)
+                                                                    @if($key->status == 3)
+
+                                                                        <span class="btn btn-success">Invoice Generated</span>
+
+                                                                    @elseif($key->status == 2)
 
                                                                         @if($key->accepted)
 
@@ -137,13 +141,22 @@
                                                                             <li><a href="{{ url('/handyman/custom-quotation/'.$key->invoice_id) }}">View</a></li>
                                                                             <li><a href="{{ url('/handyman/download-client-custom-quotation/'.$key->invoice_id) }}">Download PDF</a></li>
 
+                                                                            @if($key->status != 2 && $key->status != 3)
+
+                                                                                @if(!$key->ask_customization)
+                                                                                    <li><a href="{{ url('/handyman/custom-quotation/ask-customization/'.$key->invoice_id) }}">Ask Again</a></li>
+                                                                                @endif
+                                                                                <li><a href="{{ url('/handyman/custom-quotation/accept-quotation/'.$key->invoice_id) }}">Accept</a></li>
+
+                                                                            @endif
+
                                                                         @else
 
                                                                             <li><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">View</a></li>
                                                                             <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">View Request</a></li>
                                                                             <li><a href="{{ url('/handyman/download-client-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
 
-                                                                            @if($key->status != 2 && $key->status != 3)
+                                                                            @if($key->status != 0 && $key->status != 2 && $key->status != 3)
 
                                                                                 @if(!$key->ask_customization)
                                                                                     <li><a href="{{ url('/handyman/ask-customization/'.$key->invoice_id) }}">Ask Again</a></li>
@@ -151,7 +164,7 @@
                                                                                 <li><a href="{{ url('/handyman/accept-quotation/'.$key->invoice_id) }}">Accept</a></li>
 
                                                                             @endif
-                                                                            
+
                                                                         @endif
 
                                                                     </ul>
