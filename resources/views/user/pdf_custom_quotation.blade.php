@@ -34,6 +34,7 @@
                                 <p class="text-muted" style="font-size: 15px;margin-top: 10px;">Created at: {{$date}}</p>
 
                                 <p class="mb-1 m-rest">{{$client->name}} {{$client->family_name}}</p>
+                                <p class="mb-1 m-rest">{{$client->company_name}}</p>
                                 <p class="mb-1 m-rest">{{$client->address}}</p>
                                 <p class="mb-1 m-rest">{{$client->city}}</p>
                                 <p class="mb-1 m-rest">{{$client->postcode}}</p>

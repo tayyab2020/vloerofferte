@@ -35,6 +35,8 @@
 
                                                 <img class="img-fluid" src="{{ asset('assets/images/'.$user->photo) }}" style="width:50%; height:100%;margin-bottom: 30px;">
 
+                                                <p style="margin: 0"><b>{{$user->name}} {{$user->family_name}}</b></p>
+                                                <p style="margin: 0">{{$user->company_name}}</p>
                                                 <p style="margin: 0">{{$user->address}}<?php if($user->city){ echo ', '.$user->city; } ?></p>
                                                 <p style="margin: 0">TEL: {{$user->phone}}</p>
                                                 <p style="margin: 0">{{$user->email}}</p>
