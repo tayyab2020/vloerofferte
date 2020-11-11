@@ -177,6 +177,24 @@ else
         return view('user.quote_invoices',compact('invoices'));
     }
 
+    public function CustomerQuotations($id = '')
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        if($id)
+        {
+            $invoices = custom_quotations::leftjoin('users','users.id','=','custom_quotations.handyman_id')->where('custom_quotations.handyman_id',$user_id)->where('custom_quotations.invoice',0)->orderBy('custom_quotations.created_at','desc')->select('custom_quotations.*','custom_quotations.id as invoice_id','custom_quotations.created_at as invoice_date','users.name','users.family_name')->get();
+        }
+        else
+        {
+            $invoices = custom_quotations::leftjoin('users','users.id','=','custom_quotations.handyman_id')->where('custom_quotations.handyman_id',$user_id)->where('custom_quotations.invoice',0)->orderBy('custom_quotations.created_at','desc')->select('custom_quotations.*','custom_quotations.id as invoice_id','custom_quotations.created_at as invoice_date','users.name','users.family_name')->get();
+        }
+
+        return view('user.quote_invoices',compact('invoices'));
+    }
+
     public function HandymanQuotationsInvoices($id = '')
     {
         $user = Auth::guard('user')->user();
@@ -208,6 +226,24 @@ else
         else
         {
             $invoices = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotes.user_id',$user_id)->where('quotes.status','<',3)->where('quotation_invoices.invoice',0)->where('quotation_invoices.approved',1)->orderBy('quotation_invoices.created_at','desc')->select('quotes.*','quotation_invoices.ask_customization','quotation_invoices.approved','quotation_invoices.accepted','quotation_invoices.id as invoice_id','quotation_invoices.quotation_invoice_number','quotation_invoices.tax','quotation_invoices.subtotal','quotation_invoices.grand_total','quotation_invoices.created_at as invoice_date','users.name','users.family_name')->get();
+        }
+
+        return view('user.client_quote_invoices',compact('invoices'));
+    }
+
+    public function CustomQuotations($id = '')
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        if($id)
+        {
+            $invoices = custom_quotations::leftjoin('users','users.id','=','custom_quotations.handyman_id')->where('custom_quotations.user_id',$user_id)->where('custom_quotations.status','<',3)->where('custom_quotations.id',$id)->where('custom_quotations.invoice',0)->where('custom_quotations.approved',1)->orderBy('custom_quotations.created_at','desc')->select('custom_quotations.*','custom_quotations.id as invoice_id','custom_quotations.created_at as invoice_date','users.name','users.family_name')->get();
+        }
+        else
+        {
+            $invoices = custom_quotations::leftjoin('users','users.id','=','custom_quotations.handyman_id')->where('custom_quotations.user_id',$user_id)->where('custom_quotations.status','<',3)->where('custom_quotations.invoice',0)->where('custom_quotations.approved',1)->orderBy('custom_quotations.created_at','desc')->select('custom_quotations.*','custom_quotations.id as invoice_id','custom_quotations.created_at as invoice_date','users.name','users.family_name')->get();
         }
 
         return view('user.client_quote_invoices',compact('invoices'));
@@ -296,6 +332,26 @@ else
         $filename = $quotation_invoice_number.'.pdf';
 
         return response()->download(public_path("assets/quotationsPDF/{$filename}"));
+    }
+
+    public function DownloadCustomQuotation($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        $invoice = custom_quotations::where('id',$id)->where('handyman_id',$user_id)->first();
+
+        if(!$invoice)
+        {
+            return redirect()->back();
+        }
+
+        $quotation_invoice_number = $invoice->quotation_invoice_number;
+
+        $filename = $quotation_invoice_number.'.pdf';
+
+        return response()->download(public_path("assets/customQuotations/{$filename}"));
     }
 
     public function DownloadClientQuoteInvoice($id)
@@ -608,6 +664,33 @@ else
             {
                 return redirect('handyman/dashboard');
             }
+
+    }
+
+    public function ViewCustomQuotation($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        $settings = Generalsetting::findOrFail(1);
+
+        $vat_percentage = $settings->vat;
+
+        $quotation = custom_quotations::leftjoin('custom_quotations_data','custom_quotations_data.quotation_id','=','custom_quotations.id')->where('custom_quotations.id',$id)->where('custom_quotations.handyman_id',$user_id)->select('custom_quotations.*','custom_quotations_data.id as data_id','custom_quotations_data.s_i_id','custom_quotations_data.item','custom_quotations_data.service','custom_quotations_data.rate','custom_quotations_data.qty','custom_quotations_data.description as data_description','custom_quotations_data.estimated_date','custom_quotations_data.amount')->get();
+
+        if(count($quotation) != 0)
+        {
+            $services = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->where('handyman_services.handyman_id',$user_id)->select('categories.*','handyman_services.rate','handyman_services.description')->get();
+
+            $items = items::where('user_id',$user_id)->get();
+
+            return view('user.quotation',compact('quotation','services','vat_percentage','items'));
+        }
+        else
+        {
+            return redirect('handyman/dashboard');
+        }
 
     }
 
@@ -966,6 +1049,7 @@ else
             $invoice = new custom_quotations;
             $invoice->quotation_invoice_number = $quotation_invoice_number;
             $invoice->handyman_id = $user_id;
+            $invoice->approved = 1;
             $invoice->user_id = $request->customer;
             $invoice->vat_percentage = $request->vat_percentage;
             $invoice->tax = $request->tax_amount;

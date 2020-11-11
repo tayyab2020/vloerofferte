@@ -116,7 +116,7 @@
                         </li>
 
                         <li>
-                            <a href="{{route('create-custom-quotation')}}"><i class="fa fa-fw fa-file-text"></i> Create Quotation</a>
+                            <a href="{{route('customer-quotations')}}"><i class="fa fa-fw fa-file-text"></i> Customer Quotations</a>
                         </li>
 
                         <li>

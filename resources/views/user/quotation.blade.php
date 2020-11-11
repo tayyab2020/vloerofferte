@@ -13,7 +13,7 @@
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
 
-                                        @if(Route::currentRouteName() == 'view-handyman-quotation')
+                                        @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation')
 
                                             <h2>Quotation</h2>
 
@@ -37,25 +37,35 @@
 
                                             <form class="form-horizontal" action="{{route('update-quotation')}}" method="POST" enctype="multipart/form-data">
 
+                                                {{csrf_field()}}
+
+                                                <input type="hidden" name="quote_id" value="{{$quotation[0]->quote_id}}">
+
                                         @elseif(Route::currentRouteName() == 'create-handyman-invoice')
 
                                             <form class="form-horizontal" action="{{route('create-invoice')}}" method="POST" enctype="multipart/form-data">
-
-                                        @endif
 
                                                 {{csrf_field()}}
 
                                                 <input type="hidden" name="quote_id" value="{{$quotation[0]->quote_id}}">
 
-                                        <?php $requested_quote_number = date("Y", strtotime($quotation[0]->quote_date)) . "-" . sprintf('%04u', $quotation[0]->quote_id); ?>
+                                        @endif
+
 
                                         <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
-                                            <div class="col-md-4">
-                                                <div class="form-group" style="margin: 0;">
-                                                    <label>Request Number</label>
-                                                    <input type="text" value="{{$requested_quote_number}}" class="form-control" readonly>
-                                                </div>
-                                            </div>
+
+                                            @if(Route::currentRouteName() != 'view-custom-quotation')
+
+                                                <?php $requested_quote_number = date("Y", strtotime($quotation[0]->quote_date)) . "-" . sprintf('%04u', $quotation[0]->quote_id); ?>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group" style="margin: 0;">
+                                                            <label>Request Number</label>
+                                                            <input type="text" value="{{$requested_quote_number}}" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+
+                                            @endif
 
                                             <div class="col-md-4">
                                                 <div class="form-group" style="margin: 0;">
@@ -98,7 +108,7 @@
                                                                                 <input type="hidden" name="data_id[]" value="{{$temp->data_id}}">
                                                                                 <td>{{$i + 1}}</td>
                                                                                 <td>
-                                                                                    @if(Route::currentRouteName() != 'view-handyman-quotation')
+                                                                                    @if(Route::currentRouteName() != 'view-handyman-quotation' && Route::currentRouteName() != 'view-custom-quotation')
 
                                                                                     <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required @if(Route::currentRouteName() == 'view-handyman-quotation') disabled @endif>
 
@@ -113,6 +123,7 @@
                                                                                             <input type="hidden" name="service_title[]" value="{{$service_title}}">
 
                                                                                     </select>
+
                                                                                     @else
 
                                                                                         <input name="item[]" class="form-control" type="text" value="{{$temp->service}}" readonly>
@@ -121,22 +132,22 @@
                                                                                 </td>
 
                                                                                 <td class="td-desc">
-                                                                                    <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>{{$temp->data_description}}</textarea>
+                                                                                    <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control" @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>{{$temp->data_description}}</textarea>
                                                                                 </td>
 
                                                                                 <td class="td-rate">
-                                                                                    <input name="cost[]" class="form-control" type="text" value="{{$temp->rate}}" required @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
+                                                                                    <input name="cost[]" class="form-control" type="text" value="{{$temp->rate}}" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
                                                                                 </td>
 
                                                                                 <td class="td-qty">
-                                                                                    <input name="qty[]" class="form-control" type="text" value="{{$temp->qty}}" required @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
+                                                                                    <input name="qty[]" class="form-control" type="text" value="{{$temp->qty}}" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
                                                                                 </td>
 
                                                                                 <td class="td-amount">
-                                                                                    <input name="amount[]" class="form-control" readonly="" value="{{$temp->amount}}" type="text" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>
+                                                                                    <input name="amount[]" class="form-control" readonly="" value="{{$temp->amount}}" type="text" @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
                                                                                 </td>
 
-                                                                                @if(Route::currentRouteName() != 'view-handyman-quotation')
+                                                                                @if(Route::currentRouteName() != 'view-handyman-quotation' && Route::currentRouteName() != 'view-custom-quotation')
 
                                                                                     @if($i == 0)
 
@@ -200,7 +211,7 @@
                                                             <div class="col-md-12" style="padding: 0;">
                                                                 <div class="form-group" style="margin: 0;">
                                                                     <label>Other Information</label>
-                                                                    <textarea name="other_info" class="form-control" rows="4" @if(Route::currentRouteName() == 'view-handyman-quotation') readonly @endif>{{$temp->description}}</textarea>
+                                                                    <textarea name="other_info" class="form-control" rows="4" @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>{{$temp->description}}</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>

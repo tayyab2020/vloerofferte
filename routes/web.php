@@ -53,6 +53,7 @@
   Route::prefix('handyman')->group(function() {
 
   Route::post('/create-customer','UserController@CreateCustomer');
+  Route::get('/customer-quotations/{id?}', 'UserController@CustomerQuotations')->name('customer-quotations');
   Route::get('/handyman-create-quotation', 'UserController@HandymanCreateQuote')->name('create-custom-quotation');
   Route::post('/create-custom-quotation', 'UserController@StoreCustomQuotation')->name('store-custom-quotation');
   Route::get('/quotation-requests', 'UserController@QuotationRequests')->name('client-quotation-requests');
@@ -60,10 +61,12 @@
   Route::get('/handyman-quotations/{id?}', 'UserController@HandymanQuotations')->name('quotations');
   Route::get('/handyman-quotations-invoices/{id?}', 'UserController@HandymanQuotationsInvoices')->name('quotations-invoices');
   Route::get('/quotations/{id?}', 'UserController@Quotations')->name('client-quotations');
+  Route::get('/custom-quotations/{id?}', 'UserController@CustomQuotations')->name('client-custom-quotations');
   Route::get('/quotations-invoices/{id?}', 'UserController@QuotationsInvoices')->name('client-quotations-invoices');
   Route::get('/view-quote-request/{id}', 'UserController@QuoteRequest');
   Route::get('/download-quote-request/{id}', 'UserController@DownloadQuoteRequest');
   Route::get('/download-quote-invoice/{id}', 'UserController@DownloadQuoteInvoice');
+  Route::get('/download-custom-quotation/{id}', 'UserController@DownloadCustomQuotation');
   Route::get('/download-client-quote-invoice/{id}', 'UserController@DownloadClientQuoteInvoice');
   Route::get('/ask-customization/{id}', 'UserController@AskCustomization');
   Route::get('/accept-quotation/{id}', 'UserController@AcceptQuotation');
@@ -74,6 +77,7 @@
   Route::post('/update-quotation', 'UserController@StoreQuotation')->name('update-quotation');
   Route::post('/create-invoice', 'UserController@StoreQuotation')->name('create-invoice');
   Route::get('/view-quotation/{id}', 'UserController@ViewQuotation')->name('view-handyman-quotation');
+  Route::get('/view-custom-quotation/{id}', 'UserController@ViewCustomQuotation')->name('view-custom-quotation');
   Route::get('/edit-quotation/{id}', 'UserController@ViewQuotation')->name('edit-handyman-quotation');
   Route::get('/create-invoice/{id}', 'UserController@ViewQuotation')->name('create-handyman-invoice');
   Route::get('/quotation/{id}', 'UserController@ViewClientQuotation')->name('view-client-quotation');

@@ -12,7 +12,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
-                                        @if(Route::currentRouteName() == 'client-quotations')
+                                        @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-custom-quotations')
                                             <h2>Quotations</h2>
                                         @else
                                             <h2>Quotation Invoices</h2>
@@ -28,9 +28,13 @@
 
                                                     <tr role="row">
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">@if(Route::currentRouteName() == 'client-quotations') Quotation Number @else Invoice Number @endif</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">@if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-custom-quotations') Quotation Number @else Invoice Number @endif</th>
+
+                                                        @if(Route::currentRouteName() != 'client-custom-quotations')
 
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
+
+                                                        @endif
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Handyman</th>
 
@@ -56,11 +60,19 @@
 
                                                         <tr role="row" class="odd">
 
-                                                            <td><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'client-quotations') QUO# @else INV# @endif{{$key->quotation_invoice_number}}</a></td>
+                                                            @if(Route::currentRouteName() == 'client-custom-quotations')
 
-                                                            <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
+                                                                <td><a href="{{ url('/handyman/custom-quotation/'.$key->invoice_id) }}">QUO# {{$key->quotation_invoice_number}}</a></td>
 
-                                                            <td><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">{{$requested_quote_number}}</a></td>
+                                                            @else
+
+                                                                <td><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'client-quotations') QUO# @else INV# @endif{{$key->quotation_invoice_number}}</a></td>
+
+                                                                <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
+
+                                                                <td><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">{{$requested_quote_number}}</a></td>
+
+                                                            @endif
 
                                                             <td>{{$key->name}} {{$key->family_name}}</td>
 
@@ -72,7 +84,7 @@
 
                                                             <td>
 
-                                                                @if(Route::currentRouteName() == 'client-quotations')
+                                                                @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-custom-quotations')
 
                                                                     @if($key->status == 2)
 
@@ -119,18 +131,29 @@
                                                                     <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
-                                                                        <li><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">View</a></li>
-                                                                        <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">View Request</a></li>
-                                                                        <li><a href="{{ url('/handyman/download-client-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
 
-                                                                        @if($key->status != 2 && $key->status != 3)
+                                                                        @if(Route::currentRouteName() == 'client-custom-quotations')
 
-                                                                        @if(!$key->ask_customization)
-                                                                        <li><a href="{{ url('/handyman/ask-customization/'.$key->invoice_id) }}">Ask Again</a></li>
+                                                                            <li><a href="{{ url('/handyman/custom-quotation/'.$key->invoice_id) }}">View</a></li>
+                                                                            <li><a href="{{ url('/handyman/download-client-custom-quotation/'.$key->invoice_id) }}">Download PDF</a></li>
+
+                                                                        @else
+
+                                                                            <li><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">View</a></li>
+                                                                            <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">View Request</a></li>
+                                                                            <li><a href="{{ url('/handyman/download-client-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
+
+                                                                            @if($key->status != 2 && $key->status != 3)
+
+                                                                                @if(!$key->ask_customization)
+                                                                                    <li><a href="{{ url('/handyman/ask-customization/'.$key->invoice_id) }}">Ask Again</a></li>
+                                                                                @endif
+                                                                                <li><a href="{{ url('/handyman/accept-quotation/'.$key->invoice_id) }}">Accept</a></li>
+
+                                                                            @endif
+                                                                            
                                                                         @endif
-                                                                        <li><a href="{{ url('/handyman/accept-quotation/'.$key->invoice_id) }}">Accept</a></li>
 
-                                                                        @endif
                                                                     </ul>
                                                                 </div>
                                                             </td>
