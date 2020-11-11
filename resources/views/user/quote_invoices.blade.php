@@ -42,9 +42,17 @@
 
                                                         @endif
 
+                                                        @if(Route::currentRouteName() != 'customer-quotations')
+
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Tax</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">Subtotal</th>
+
+                                                        @else
+
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Customer Name</th>
+
+                                                        @endif
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="rate">Grand Total</th>
 
@@ -79,9 +87,18 @@
                                                             @endif
 
 
+                                                            @if(Route::currentRouteName() != 'customer-quotations')
+
                                                             <td>{{$key->tax}}</td>
 
                                                             <td>{{$key->subtotal}}</td>
+
+                                                            @else
+
+                                                            <td>{{$key->name}} {{$key->family_name}}</td>
+
+                                                            @endif
+
 
                                                             <td>{{$key->grand_total}}</td>
 

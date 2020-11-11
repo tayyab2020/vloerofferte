@@ -38,6 +38,7 @@ use App\sub_services;
 use App\cancelled_invoices;
 use App\handyman_unavailability_hours;
 use File;
+use Illuminate\Support\Str;
 use PDF;
 
 class UserController extends Controller
@@ -185,11 +186,11 @@ else
 
         if($id)
         {
-            $invoices = custom_quotations::leftjoin('users','users.id','=','custom_quotations.handyman_id')->where('custom_quotations.handyman_id',$user_id)->orderBy('custom_quotations.created_at','desc')->select('custom_quotations.*','custom_quotations.id as invoice_id','custom_quotations.created_at as invoice_date','users.name','users.family_name')->get();
+            $invoices = custom_quotations::leftjoin('users','users.id','=','custom_quotations.user_id')->where('custom_quotations.handyman_id',$user_id)->orderBy('custom_quotations.created_at','desc')->select('custom_quotations.*','custom_quotations.id as invoice_id','custom_quotations.created_at as invoice_date','users.name','users.family_name')->get();
         }
         else
         {
-            $invoices = custom_quotations::leftjoin('users','users.id','=','custom_quotations.handyman_id')->where('custom_quotations.handyman_id',$user_id)->orderBy('custom_quotations.created_at','desc')->select('custom_quotations.*','custom_quotations.id as invoice_id','custom_quotations.created_at as invoice_date','users.name','users.family_name')->get();
+            $invoices = custom_quotations::leftjoin('users','users.id','=','custom_quotations.user_id')->where('custom_quotations.handyman_id',$user_id)->orderBy('custom_quotations.created_at','desc')->select('custom_quotations.*','custom_quotations.id as invoice_id','custom_quotations.created_at as invoice_date','users.name','users.family_name')->get();
         }
 
         return view('user.quote_invoices',compact('invoices'));
@@ -605,7 +606,7 @@ else
 
             $customers = User::where('parent_id',$user_id)->get();
 
-            return view('user.create_custom_quote',compact('services','items','settings','vat_percentage','customers'));
+            return view('user.create_custom_quote',compact('services','items','settings','vat_percentage','customers','user'));
         }
         else
         {
@@ -616,14 +617,14 @@ else
 
     public function CreateCustomer(Request $request)
     {
-        $this->validate($request, [
+        /*$this->validate($request, [
             'password' => 'required|min:8',
         ],
 
             [
                 'password.min' => $this->lang->pamv,
 
-            ]);
+            ]);*/
 
         $check = User::where('email',$request->email)->first();
 
@@ -642,9 +643,8 @@ else
 
             $handyman_name = $request->handyman_name;
 
-            $org_password = $request->password;
-
-            $password = bcrypt($org_password);
+            $org_password = Str::random(8);
+            $password = Hash::make($org_password);
 
             $user->role_id = 3;
             $user->category_id = 20;
@@ -1220,7 +1220,7 @@ else
 
                 ini_set('max_execution_time', 180);
 
-                $pdf = PDF::loadView('user.pdf_custom_quotation',compact('client','type','request','quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+                $pdf = PDF::loadView('user.pdf_custom_quotation',compact('client','user','type','request','quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
                 $pdf->save(public_path().'/assets/customQuotations/'.$filename);
             }
@@ -1314,7 +1314,7 @@ else
 
             ini_set('max_execution_time', 180);
 
-            $pdf = PDF::loadView('user.pdf_custom_quotation',compact('client','type','request','quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+            $pdf = PDF::loadView('user.pdf_custom_quotation',compact('client','user','type','request','quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
             $pdf->save(public_path().'/assets/customQuotations/'.$filename);
 
@@ -1412,7 +1412,7 @@ else
 
             ini_set('max_execution_time', 180);
 
-            $pdf = PDF::loadView('user.pdf_custom_quotation',compact('client','type','request','quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+            $pdf = PDF::loadView('user.pdf_custom_quotation',compact('client','user','type','request','quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
             $pdf->save(public_path().'/assets/customQuotations/'.$filename);
 

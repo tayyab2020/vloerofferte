@@ -17,8 +17,10 @@
 
                             <div class="col-md-4 col-sm-4 col-xs-12">
 
-                                <img class="img-fluid" src="{{ public_path('assets/images/'.$gs->logo) }}" style="width:50%; height:100%;margin-bottom: 30px;">
-                                <p class="para" style="margin-top: 20px;margin-left: 26px;">{!! $gs->street  !!}<br>TEL: {{$gs->phone}}<br>BTW: NL001973883B94<br>IBAN: NL87ABNA0825957680<br>KvK-nummer: 70462623</p>
+                                <img class="img-fluid" src="{{ public_path('assets/images/'.$user->photo) }}" style="width:30%; height:100%;margin-bottom: 30px;">
+                                <p style="margin: 0">{{$user->address}}<?php if($user->city){ echo ', '.$user->city; } ?></p>
+                                <p style="margin: 0">TEL: {{$user->phone}}</p>
+                                <p style="margin: 0">{{$user->email}}</p>
 
                             </div>
 
@@ -29,25 +31,27 @@
 
                                 <?php $date = date('d-m-Y');  ?>
 
-                                <p class="text-muted" style="font-size: 15px;margin-top: 20px;">Created at: {{$date}}</p>
+                                <p class="text-muted" style="font-size: 15px;margin-top: 10px;">Created at: {{$date}}</p>
+
+                                <p class="mb-1 m-rest">{{$client->name}} {{$client->family_name}}</p>
+                                <p class="mb-1 m-rest">{{$client->address}}</p>
+                                <p class="mb-1 m-rest">{{$client->city}}</p>
+                                <p class="mb-1 m-rest">{{$client->postcode}}</p>
+                                <p class="mb-1 m-rest">{{$client->email}}</p>
 
                             </div>
                         </div>
 
                         <hr class="my-5">
 
-                        <div class="row pb-5 p-5" style="margin-right: 15px !important;">
+                        {{--<div class="row pb-5 p-5" style="margin-right: 15px !important;">
 
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <p class="font-weight-bold mb-4 m-heading">Client Information</p>
-                                <p class="mb-1 m-rest">Name: {{$client->name}} {{$client->family_name}}</p>
-                                <p class="mb-1 m-rest">{{$client->address}}</p>
-                                <p class="mb-1 m-rest">{{$client->city}}</p>
-                                <p class="mb-1 m-rest">{{$client->postcode}}</p>
-                                <p class="mb-1 m-rest">{{$client->email}}</p>
+
                             </div>
 
-                        </div>
+                        </div>--}}
 
                         <div class="row p-5" style="font-size: 15px;padding: 2rem !important;">
                             <div class="col-md-12" style="padding: 0px !important;padding-top: 50px;">

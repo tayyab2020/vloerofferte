@@ -33,8 +33,11 @@
 
                                             <div class="col-md-4 col-sm-4 col-xs-12" style="float: right;text-align: right;">
 
-                                                <img class="img-fluid" src="{{ asset('assets/images/'.$gs->logo) }}" style="width:50%; height:100%;margin-bottom: 30px;">
-                                                {!! $gs->street  !!}TEL: {{$gs->phone}}<br>BTW: NL001973883B94<br>IBAN: NL87ABNA0825957680<br>KvK-nummer: 70462623
+                                                <img class="img-fluid" src="{{ asset('assets/images/'.$user->photo) }}" style="width:50%; height:100%;margin-bottom: 30px;">
+
+                                                <p style="margin: 0">{{$user->address}}<?php if($user->city){ echo ', '.$user->city; } ?></p>
+                                                <p style="margin: 0">TEL: {{$user->phone}}</p>
+                                                <p style="margin: 0">{{$user->email}}</p>
 
                                             </div>
 
@@ -94,6 +97,7 @@
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
+
                                                                     <tr>
                                                                         <td>1</td>
                                                                         <td>
@@ -132,40 +136,7 @@
 
                                                                         <td style="text-align: center;"><a href="javascript:void(0)" class="text-success font-18 add-row" title="Add"><i class="fa fa-plus"></i></a></td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td>2</td>
-                                                                        <td>
-                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
-                                                                                @foreach($services as $key)
-                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
-                                                                                @endforeach
-                                                                                @foreach($items as $key)
-                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>
-                                                                                @endforeach
 
-                                                                            </select>
-
-                                                                            <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">
-                                                                        </td>
-
-                                                                        <td class="td-desc">
-                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>
-                                                                        </td>
-
-                                                                        <td class="td-rate">
-                                                                            <input name="cost[]" class="form-control" type="text" value="{{$services[0]->rate}}" required>
-                                                                        </td>
-
-                                                                        <td class="td-qty">
-                                                                            <input name="qty[]" class="form-control" type="text" required>
-                                                                        </td>
-
-                                                                        <td class="td-amount">
-                                                                            <input name="amount[]" class="form-control" readonly="" type="text">
-                                                                        </td>
-
-                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>
-                                                                    </tr>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -321,24 +292,6 @@
                                     <i class="fa fa-envelope"></i>
                                 </div>
                                 <input id="email" name="email" class="form-control validation" placeholder="{{$lang->sue}}" type="email">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6">
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-unlock-alt"></i>
-                                </div>
-                                <input id="password" class="form-control validation" name="password" placeholder="{{$lang->sup}}" type="password">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6">
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-unlock-alt"></i>
-                                </div>
-                                <input class="form-control validation" id="password_confirmation" name="password_confirmation" placeholder="{{$lang->sucp}}" type="password">
                             </div>
                         </div>
 
@@ -1034,8 +987,6 @@
                 var city = $('#city').val();
                 var phone = $('#phone').val();
                 var email = $('#email').val();
-                var password = $('#password').val();
-                var password_confirmation = $('#password_confirmation').val();
                 var handyman_id = $('#handyman_id').val();
                 var handyman_name = $('#handyman_name').val();
                 var token = $('#token').val();
@@ -1073,31 +1024,16 @@
                         $('.alert-box').show();
                         $('.alert-box').delay(5000).fadeOut(400);
                     }
-                    else if(password != password_confirmation)
-                    {
-                        $('#email').css('border','');
-                        $('#password').css('border','1px solid red');
-                        $('#password_confirmation').css('border','1px solid red');
-
-                        $('.alert-box').html('<div class="alert alert-danger">\n' +
-                            '                                            <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>\n' +
-                            '                                            <p class="text-left">Password does not match...</p>\n' +
-                            '                                        </div>');
-                        $('.alert-box').show();
-                        $('.alert-box').delay(5000).fadeOut(400);
-                    }
                     else
                     {
                         $('#email').css('border','');
-                        $('#password').css('border','');
-                        $('#password_confirmation').css('border','');
 
                         $('#cover').show();
 
                         $.ajax({
 
                             type: "POST",
-                            data: "handyman_id=" + handyman_id + "&handyman_name=" + handyman_name +  "&name=" + name +  "&family_name=" + family_name +  "&business_name=" + business_name +  "&postcode=" + postcode +  "&address=" + address +  "&city=" + city +  "&phone=" + phone +  "&email=" + email +  "&password=" + password +  "&_token=" + token,
+                            data: "handyman_id=" + handyman_id + "&handyman_name=" + handyman_name + "&name=" + name + "&family_name=" + family_name + "&business_name=" + business_name + "&postcode=" + postcode + "&address=" + address + "&city=" + city + "&phone=" + phone + "&email=" + email + "&_token=" + token,
                             url: "<?php echo url('/handyman/create-customer')?>",
 
                             success: function(data) {
@@ -1142,7 +1078,7 @@
 
                                 $('#cover').hide();
 
-                                if (data.status == 422) {
+                                /*if (data.status == 422) {
                                     $.each(data.responseJSON.errors, function (i, error) {
                                         $('.alert-box').html('<div class="alert alert-danger">\n' +
                                             '                                            <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>\n' +
@@ -1151,23 +1087,20 @@
                                     });
                                     $('.alert-box').show();
                                     $('.alert-box').delay(5000).fadeOut(400);
-                                }
-                                else
-                                {
+                                }*/
+
                                     $('.alert-box').html('<div class="alert alert-danger">\n' +
                                         '                                            <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>\n' +
                                         '                                            <p class="text-left">Something went wrong!</p>\n' +
                                         '                                        </div>');
                                     $('.alert-box').show();
                                     $('.alert-box').delay(5000).fadeOut(400);
-                                }
 
                                 $('#myModal').modal('toggle');
                                 window.scrollTo({top: 0, behavior: 'smooth'});
-                            }
+                                }
 
                         });
-
                     }
                 }
 
