@@ -1159,6 +1159,51 @@ else
 
     }
 
+    public function SendCustomQuotation($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_name = $user->name . $user->family_name;
+
+        $result = custom_quotations::leftjoin('users','users.id','=','custom_quotations.user_id')->where('custom_quotations.id',$id)->select('users.id','users.name','users.family_name','users.email','custom_quotations.*')->first();
+        $result->approved = 1;
+        $result->status = 1;
+        $result->save();
+
+        $quotation_invoice_number = $result->quotation_invoice_number;
+
+        $filename = $quotation_invoice_number.'.pdf';
+
+        $file = public_path().'/assets/customQuotations/'.$filename;
+
+        $type = 'new';
+
+        $client_email = $result->email;
+        $client_name = $result->name . ' ' . $result->family_name;
+
+        \Mail::send('user.custom_quotation_mail',
+            array(
+                'username' => $user_name,
+                'client' => $client_name,
+                'quotation_invoice_number' => $quotation_invoice_number,
+                'type' => $type
+            ), function ($message) use($file,$client_email,$filename) {
+                    $message->from('info@topstoffeerders.nl');
+                    $message->to($client_email)->subject('Quotation Created!');
+
+                    $message->attach($file, [
+                        'as' => $filename,
+                        'mime' => 'application/pdf',
+                    ]);
+
+                });
+
+
+            Session::flash('success', 'Quotation has been sent to customer');
+            return redirect()->route('customer-quotations');
+
+    }
+
     public function StoreCustomQuotation(Request $request)
     {
         $user = Auth::guard('user')->user();
@@ -1178,7 +1223,6 @@ else
             $invoice = new custom_quotations;
             $invoice->quotation_invoice_number = $quotation_invoice_number;
             $invoice->handyman_id = $user_id;
-            $invoice->approved = 1;
             $invoice->user_id = $request->customer;
             $invoice->vat_percentage = $request->vat_percentage;
             $invoice->tax = $request->tax_amount;
@@ -1243,8 +1287,88 @@ else
 
                 });*/
 
-            $client_email = $client->email;
+
+            Session::flash('success', 'Quotation has been created successfully!');
+            return redirect()->route('customer-quotations');
+        }
+        elseif($name == 'store-direct-invoice')
+        {
+
+            $quotation_invoice_number = date("Y") . "-" . str_pad(rand(0, pow(10, 4)-1), 4, '0', STR_PAD_LEFT) . "-0001";
+
+            $invoice = new custom_quotations;
+            $invoice->quotation_invoice_number = $quotation_invoice_number;
+            $invoice->status = 3;
+            $invoice->approved = 1;
+            $invoice->accepted = 1;
+            $invoice->invoice = 1;
+            $invoice->handyman_id = $user_id;
+            $invoice->user_id = $request->customer;
+            $invoice->vat_percentage = $request->vat_percentage;
+            $invoice->tax = $request->tax_amount;
+            $invoice->subtotal = $request->sub_total;
+            $invoice->grand_total = $request->grand_total;
+            $invoice->description = $request->other_info;
+            $invoice->save();
+
+            foreach($services as $i => $key)
+            {
+                if (strpos($services[$i], 'I') > -1) {
+                    $x = 1;
+                }
+                else
+                {
+                    $x = 0;
+                }
+
+                $invoice_items = new custom_quotations_data;
+                $invoice_items->quotation_id = $invoice->id;
+                $invoice_items->s_i_id = (int)$key;
+                $invoice_items->item = $x;
+                $invoice_items->service = $request->service_title[$i];
+                $invoice_items->rate = $request->cost[$i];
+                $invoice_items->qty = $request->qty[$i];
+                $invoice_items->description = $request->description[$i];
+                $invoice_items->estimated_date = $request->date;
+                $invoice_items->amount = $request->amount[$i];
+                $invoice_items->save();
+            }
+
+            $filename = $quotation_invoice_number.'.pdf';
+
+            $file = public_path().'/assets/customQuotations/'.$filename;
+
+            $type = 'direct-invoice';
+
+            if (!file_exists($file)){
+
+                ini_set('max_execution_time', 180);
+
+                $pdf = PDF::loadView('user.pdf_custom_quotation',compact('client','user','type','request','quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+
+                $pdf->save(public_path().'/assets/customQuotations/'.$filename);
+            }
+
+            /*$admin_email = $this->sl->admin_email;
+
+            \Mail::send('user.quotation_invoice_mail',
+                array(
+                    'username' => $user_name,
+                    'quotation_invoice_number' => $quotation_invoice_number,
+                    'type' => $type
+                ), function ($message) use($file,$admin_email,$filename) {
+                    $message->from('info@topstoffeerders.nl');
+                    $message->to($admin_email)->subject('Quotation Created!');
+
+                    $message->attach($file, [
+                        'as' => $filename,
+                        'mime' => 'application/pdf',
+                    ]);
+
+                });*/
+
             $client_name = $client->name . ' ' . $client->family_name;
+            $client_email = $client->email;
 
             \Mail::send('user.custom_quotation_mail',
                 array(
@@ -1254,7 +1378,7 @@ else
                     'type' => $type
                 ), function ($message) use($file,$client_email,$filename) {
                     $message->from('info@topstoffeerders.nl');
-                    $message->to($client_email)->subject('Quotation Created!');
+                    $message->to($client_email)->subject('Direct Invoice Created!');
 
                     $message->attach($file, [
                         'as' => $filename,
@@ -1264,7 +1388,7 @@ else
                 });
 
 
-            Session::flash('success', 'Quotation has been created successfully!');
+            Session::flash('success', 'Direct invoice has been created successfully!');
             return redirect()->route('customer-quotations');
         }
         elseif($name == 'update-custom-quotation')

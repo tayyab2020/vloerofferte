@@ -11,16 +11,17 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
-                                    <div class="add-product-header products">
+                                    <div class="add-product-header products" style="display: block;">
                                         @if(Route::currentRouteName() == 'quotations' || Route::currentRouteName() == 'customer-quotations')
-                                            <h2>Quotations</h2>
+                                            <h2 style="display: inline-block;">Quotations</h2>
                                         @else
-                                            <h2>Quotation Invoices</h2>
+                                            <h2 style="display: inline-block;">Quotation Invoices</h2>
                                         @endif
 
                                             @if(Route::currentRouteName() == 'customer-quotations')
 
-                                                <a href="{{url('/handyman/handyman-create-quotation')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Create New Quotation</a>
+                                                <a style="float: right;" href="{{url('/handyman/handyman-create-quotation')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Create New Quotation</a>
+                                                <a style="float: right;margin-right: 10px;" href="{{url('/handyman/handyman-create-direct-invoice')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Create New Invoice</a>
 
                                             @endif
                                     </div>
@@ -114,7 +115,7 @@
 
                                                                         @if($key->accepted)
 
-                                                                            <span class="btn btn-success">Quotation Accepted</span>
+                                                                            <span class="btn btn-primary1">Quotation Accepted</span>
 
                                                                         @else
 
@@ -165,16 +166,20 @@
                                                                             <li><a href="{{ url('/handyman/view-custom-quotation/'.$key->invoice_id) }}">View</a></li>
                                                                             <li><a href="{{ url('/handyman/download-custom-quotation/'.$key->invoice_id) }}">Download PDF</a></li>
 
+                                                                            @if(!$key->approved)
+
+                                                                            <li><a href="{{ url('/handyman/send-custom-quotation/'.$key->invoice_id) }}">Send Quotation</a></li>
+
+                                                                            @endif
+
                                                                             @if($key->status == 2 && $key->accepted)
 
                                                                                 <li><a href="{{ url('/handyman/create-custom-invoice/'.$key->invoice_id) }}">Create Invoice</a></li>
 
-                                                                            @elseif($key->status == 1)
+                                                                            @endif
 
-                                                                                @if($key->ask_customization)
-                                                                                    <li><a href="{{ url('/handyman/edit-custom-quotation/'.$key->invoice_id) }}">Edit Quotation</a></li>
-                                                                                @endif
-
+                                                                            @if($key->status != 2 && $key->status != 3)
+                                                                                <li><a href="{{ url('/handyman/edit-custom-quotation/'.$key->invoice_id) }}">Edit Quotation</a></li>
                                                                             @endif
 
                                                                         @else
@@ -218,6 +223,13 @@
 
 
     <style type="text/css">
+
+        .btn-primary1
+        {
+            background-color: darkcyan;
+            border-color: darkcyan;
+            color: white !important;
+        }
 
         .dropdown-menu
         {

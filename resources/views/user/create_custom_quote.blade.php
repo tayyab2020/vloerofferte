@@ -12,8 +12,15 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
-                                        <h2>Create Quotation</h2>
+                                       @if(Route::currentRouteName() == 'create-custom-quotation')
 
+                                            <h2>Create Quotation</h2>
+
+                                        @else
+
+                                           <h2>Create Invoice</h2>
+
+                                        @endif
                                     </div>
                                     <hr>
 
@@ -45,8 +52,17 @@
 
                                         </div>
 
+                                        @if(Route::currentRouteName() == 'create-custom-quotation')
+
                                         <form class="form-horizontal" action="{{route('store-custom-quotation')}}" method="POST" enctype="multipart/form-data">
                                             {{csrf_field()}}
+
+                                        @else
+
+                                        <form class="form-horizontal" action="{{route('store-direct-invoice')}}" method="POST" enctype="multipart/form-data">
+                                             {{csrf_field()}}
+
+                                        @endif
 
                                             <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
 
