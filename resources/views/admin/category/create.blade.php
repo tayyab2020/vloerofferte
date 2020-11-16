@@ -24,7 +24,7 @@
                                     <div class="add-product-box">
                                         <div class="add-product-header">
                                             <h2>Add Service</h2>
-                                            <a href="{{route('admin-cat-index')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>  
+                                            <a href="{{route('admin-cat-index')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
                                         </div>
                                         <hr>
                                         <form class="form-horizontal" action="{{route('admin-cat-store')}}" method="POST" enctype="multipart/form-data">
@@ -45,6 +45,23 @@
                                           </div>
 
                                             <div class="form-group">
+                                                <label class="control-label col-sm-4" for="service_type">VAT* </label>
+                                                <div class="col-sm-6">
+                                                    <select class="form-control" name="vat" id="vat" required="" >
+
+                                                        <option value="">Select VAT</option>
+
+                                                        @foreach($vats as $key)
+
+                                                            <option value="{{$key->id}}">{{$key->rule}}</option>
+
+                                                        @endforeach
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
                                                 <label class="control-label col-sm-4" for="service_description">Service Description*</label>
                                                 <div class="col-sm-6">
                                                     <textarea class="form-control" name="description" id="service_description" rows="5" style="resize: vertical;" placeholder="Enter Service Description"></textarea>
@@ -58,8 +75,6 @@
                                              <img width="130px" height="90px" id="adminimg" src="" alt="">
                                             </div>
                                           </div>
-
-
 
 
                                           <div class="form-group">
@@ -130,7 +145,7 @@
 
 
                                           <div class="col-xs-3 col-sm-3" id="s3Type" style="height: 40px;">
-                                          
+
                                           <input class="form-control" style="text-align: center;padding-top: 5px;height: 100%;margin-bottom: 0;background-color: transparent;" value="(Main Service) Service Type" readonly>
 
                                           </div>
@@ -140,7 +155,7 @@
                                           </div>
 
                                           <div class="form-group s_box" style="margin-top: 40px;display: none;">
-                                                    
+
                                                     <label class="control-label col-sm-3" for=""></label>
 
                                                     <div class="col-sm-12 text-center">
@@ -149,7 +164,7 @@
                                                     </div>
                                           </div>
 
-                                          
+
 
 
                                             <hr>
@@ -161,7 +176,7 @@
                                 </div>
                         </div>
                     </div>
-                    <!-- Ending of Dashboard area --> 
+                    <!-- Ending of Dashboard area -->
                 </div>
             </div>
         </div>
@@ -193,7 +208,7 @@
       $('.s_box').show();
 
     }
-    
+
   }
 
   $(document).ready(function() {
@@ -215,7 +230,7 @@ var $selects = $('.js-data-example-ajax').change(function() {
 
                     $(selector).val('');
 
-                    
+
                 }
 
 
@@ -315,7 +330,7 @@ if(id)
 
 }
 
-                
+
 
             });
 
@@ -338,7 +353,7 @@ if(id)
 
 
         });
-  
+
   function uploadclick(){
     $("#uploadFile").click();
     $("#uploadFile").change(function(event) {
@@ -362,7 +377,7 @@ if(id)
 </script>
 
 <style type="text/css">
-  
+
   .swal2-show
   {
     padding: 40px;
@@ -396,6 +411,6 @@ if(id)
 
 
 <script src="{{asset('assets/admin/js/jquery152.min.js')}}"></script>
-<script src="{{asset('assets/admin/js/jqueryui.min.js')}}"></script> 
+<script src="{{asset('assets/admin/js/jqueryui.min.js')}}"></script>
 
 @endsection

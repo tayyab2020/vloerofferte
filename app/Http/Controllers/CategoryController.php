@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\vats;
 use Illuminate\Http\Request;
 use App\Category;
 use Illuminate\Support\Facades\Session;
@@ -48,6 +49,7 @@ class CategoryController extends Controller
     public function index()
     {
         $cats = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->orderBy('id','desc')->select('categories.id','categories.cat_name','categories.cat_slug','categories.photo','categories.description','categories.main_service','service_types.type')->get();
+
         return view('admin.category.index',compact('cats'));
     }
 
@@ -57,7 +59,9 @@ class CategoryController extends Controller
 
         $cats = Category::where('categories.main_service',1)->get();
 
-        return view('admin.category.create',compact('service_types','cats'));
+        $vats = vats::all();
+
+        return view('admin.category.create',compact('service_types','cats','vats'));
     }
 
     public function store(StoreValidationRequest $request)
