@@ -12,12 +12,12 @@
                                   <div class="add-product-box">
                                       <div class="add-product-header products">
                                           <h2>Services</h2>
-                                          <a href="{{route('admin-cat-create')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Add New Service</a>  
+                                          <a href="{{route('admin-cat-create')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Add New Service</a>
                                       </div>
                                       <hr>
                   <div>
                                   @include('includes.form-success')
-        
+
 
 
                                       <div class="row">
@@ -25,22 +25,34 @@
 
                                         <table id="example" class="table table-striped table-hover products dt-responsive dataTable no-footer dtr-inline" role="grid" aria-describedby="product-table_wrapper_info" style="width: 100%;" width="100%" cellspacing="0">
                                               <thead>
-                                                  <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 344px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Photo</th><th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Name</th><th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Service Type</th><th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Main Service</th><th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Description</th><th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 120px;" aria-label="Blood Group Slug: activate to sort column ascending">Slug</th><th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 314px;" aria-label="Actions: activate to sort column ascending">Actions</th></tr>
+                                                  <tr role="row">
+                                                      <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 344px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Photo</th>
+                                                      <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Name</th>
+                                                      <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">VAT Percentage</th>
+                                                      <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">VAT Rule</th>
+                                                      <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">VAT Code</th>
+                                                      <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Service Type</th>
+                                                      <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Main Service</th>
+                                                      <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 314px;" aria-label="Actions: activate to sort column ascending">Actions</th>
+                                                  </tr>
                                               </thead>
 
                                               <tbody>
-                                              @foreach($cats as $cat)    
+                                              @foreach($cats as $cat)
                                               <tr role="row" class="odd">
                                                       <td tabindex="0" class="sorting_1"><img src="{{ $cat->photo ? asset('assets/images/'.$cat->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}" alt="Category's Photo" style="max-height: 100px;"></td>
                                                       <td>{{$cat->cat_name}}</td>
+                                                      <td>{{$cat->vat_percentage}} %</td>
+                                                      <td>{{$cat->vat_rule}}</td>
+                                                      <td>{{$cat->vat_code}}</td>
                                                       <td>{{$cat->type}}</td>
                                                       @if($cat->main_service)
                                                       <td><button class="btn btn-success">Yes</button></td>
                                                       @else
                                                       <td><button class="btn btn-warning">No</button></td>
                                                       @endif
-                                                      <td>{!!$cat->description!!}</td>
-                                                      <td>{{$cat->cat_slug}}</td>
+                                                      {{--<td>{!!$cat->description!!}</td>
+                                                      <td>{{$cat->cat_slug}}</td>--}}
                                                       <td>
                                                         <a href="{{route('admin-cat-edit',$cat->id)}}" class="btn btn-primary product-btn"><i class="fa fa-edit"></i> Edit</a>
                                                         <a href="{{route('admin-cat-delete',$cat->id)}}" class="btn btn-danger product-btn"><i class="fa fa-trash"></i> Remove</a>

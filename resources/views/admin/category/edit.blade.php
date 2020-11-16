@@ -24,25 +24,47 @@
                                     <div class="add-product-box">
                                         <div class="add-product-header">
                                             <h2>Edit Service</h2>
-                                            <a href="{{route('admin-cat-index')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>  
+                                            <a href="{{route('admin-cat-index')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
                                         </div>
                                         <hr>
                                         <form class="form-horizontal" action="{{route('admin-cat-update',$cat->id)}}" method="POST" enctype="multipart/form-data">
                                           {{csrf_field()}}
                                           @include('includes.form-error')
                                           @include('includes.form-success')
+
                                           <div class="form-group">
                                             <label class="control-label col-sm-4" for="edit_blood_group_display_name"> Name* <span>(In Any Language)</span></label>
                                             <div class="col-sm-6">
                                               <input class="form-control" name="cat_name" id="edit_blood_group_display_name" placeholder="Enter Category Name" required="" type="text" value="{{$cat->cat_name}}">
                                             </div>
                                           </div>
+
+
                                           <div class="form-group">
                                             <label class="control-label col-sm-4" for="edit_blood_group_slug">Slug* <span>(In English)</span></label>
                                             <div class="col-sm-6">
                                               <input class="form-control" name="cat_slug" id="edit_blood_group_slug" placeholder="Enter Category Slug" required="" type="text" value="{{$cat->cat_slug}}">
                                             </div>
                                           </div>
+
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="service_type">VAT* </label>
+                                                <div class="col-sm-6">
+
+                                                    <select class="form-control" name="vat" id="vat" required="" >
+
+                                                        <option value="">Select VAT</option>
+
+                                                        @foreach($vats as $key)
+
+                                                            <option @if($key->id == $cat->vat_id) selected @endif value="{{$key->id}}">{{$key->rule}}</option>
+
+                                                        @endforeach
+
+                                                    </select>
+                                                </div>
+                                            </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4" for="service_description">Service Description*</label>
@@ -92,7 +114,7 @@
 
                                                 <option value="{{$key->id}}">{{$key->type}}</option>
 
-                                                
+
                                                 @endif
 
 
@@ -123,7 +145,7 @@
                                                   <input type="hidden" name="main_service" value="0">
 
                                                   @endif
-                                                  
+
                                                 </label>
                                             </div>
                                           </div>
@@ -154,7 +176,7 @@
 
                                                 @endif
 
-                                                
+
 
                                                 @endforeach
 
@@ -165,10 +187,10 @@
 
 
                                           <div class="col-xs-3 col-sm-3" id="s3Type" style="height: 40px;">
-                                          
+
                                           <input class="form-control" style="text-align: center;padding-top: 5px;height: 100%;margin-bottom: 0;background-color: transparent;" value="{{$temp->type}}" readonly>
 
-                                          
+
 
                                           </div>
 
@@ -185,7 +207,7 @@
                                           </div>
 
                                           <div class="form-group s_box" style="margin-top: 40px;">
-                                                    
+
                                                     <label class="control-label col-sm-3" for=""></label>
 
                                                     <div class="col-sm-12 text-center">
@@ -206,7 +228,7 @@
                                 </div>
                         </div>
                     </div>
-                    <!-- Ending of Dashboard area --> 
+                    <!-- Ending of Dashboard area -->
                 </div>
             </div>
         </div>
@@ -243,7 +265,7 @@ var $selects = $('.js-data-example-ajax').change(function() {
 
                     $(selector).val('');
 
-                    
+
                 }
 
 
@@ -343,7 +365,7 @@ if(id)
 
 }
 
-                
+
 
             });
 
@@ -419,7 +441,7 @@ if(id)
                 '<div class="col-xs-1 col-sm-1">'+
                 '<span class="ui-close remove-ui1" style="margin:0;right:70%;">X</span></div></div>');
 
-                      
+
 
                         $('.js-data-example-ajax').on('change', function() {
                             var id = this.value;
@@ -456,7 +478,7 @@ if(id)
 
 
         });
-  
+
   function uploadclick(){
     $("#uploadFile").click();
     $("#uploadFile").change(function(event) {
@@ -480,7 +502,7 @@ if(id)
 </script>
 
 <style type="text/css">
-  
+
   .swal2-show
   {
     padding: 40px;
@@ -513,6 +535,6 @@ if(id)
 
 
 <script src="{{asset('assets/admin/js/jquery152.min.js')}}"></script>
-<script src="{{asset('assets/admin/js/jqueryui.min.js')}}"></script> 
+<script src="{{asset('assets/admin/js/jqueryui.min.js')}}"></script>
 
 @endsection

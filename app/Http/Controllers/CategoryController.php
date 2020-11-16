@@ -48,7 +48,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $cats = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->orderBy('id','desc')->select('categories.id','categories.cat_name','categories.cat_slug','categories.photo','categories.description','categories.main_service','service_types.type')->get();
+        $cats = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->orderBy('id','desc')->select('categories.*','service_types.type')->get();
 
         return view('admin.category.index',compact('cats'));
     }
@@ -66,6 +66,7 @@ class CategoryController extends Controller
 
     public function store(StoreValidationRequest $request)
     {
+        $vat = vats::where('id',$request->vat)->first();
 
         if($request->main_service)
         {
@@ -81,7 +82,14 @@ class CategoryController extends Controller
 
 
         $cat = new Category;
+
         $input = $request->all();
+
+        $input['vat_id'] = $vat->id;
+        $input['vat_percentage'] = $vat->vat_percentage;
+        $input['vat_rule'] = $vat->rule;
+        $input['vat_code'] = $vat->code;
+
             if ($file = $request->file('photo'))
             {
                 $name = time().$file->getClientOriginalName();
@@ -128,12 +136,15 @@ class CategoryController extends Controller
 
         $sub_services = sub_services::leftjoin('categories','categories.id','=','sub_services.cat_id')->leftjoin('service_types','service_types.id','=','categories.service_type')->where('sub_id',$cat->id)->select('sub_services.id','sub_services.cat_id','service_types.type')->get();
 
+        $vats = vats::all();
 
-        return view('admin.category.edit',compact('cat','service_types','cats','sub_services'));
+        return view('admin.category.edit',compact('cat','service_types','cats','sub_services','vats'));
     }
 
     public function update(UpdateValidationRequest $request, $id)
     {
+
+        $vat = vats::where('id',$request->vat)->first();
 
         if(!$request->main_service)
         {
@@ -167,7 +178,14 @@ class CategoryController extends Controller
         }
 
         $cat = Category::findOrFail($id);
+
         $input = $request->all();
+
+        $input['vat_id'] = $vat->id;
+        $input['vat_percentage'] = $vat->vat_percentage;
+        $input['vat_rule'] = $vat->rule;
+        $input['vat_code'] = $vat->code;
+
             if ($file = $request->file('photo'))
             {
                 $name = time().$file->getClientOriginalName();
