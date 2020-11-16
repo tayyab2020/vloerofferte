@@ -159,6 +159,8 @@
 
                                         <li><a href="{{route('admin-gs-payments')}}"><i class="fa fa-angle-right"></i> Payment Informations</a></li>
 
+                                        <li><a href="{{route('admin-gs-vats')}}"><i class="fa fa-angle-right"></i> VAT Settings</a></li>
+
                                         <li>
                                     <a href="{{route('admin-handyman-terms')}}"><i class="fa fa-angle-right"></i> Handyman Terms & Conditions</a>
                                 </li>

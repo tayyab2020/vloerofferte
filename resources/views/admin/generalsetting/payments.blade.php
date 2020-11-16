@@ -11,11 +11,11 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="add-product-box">
                                         <div class="add-product-header">
-                                            <h2>Payment Informations</h2> 
+                                            <h2>Payment Informations</h2>
                                         </div>
                                         <hr>
                                         <form class="form-horizontal" action="{{route('admin-gs-paymentsup')}}" method="POST">
-                                        @include('includes.form-success')      
+                                        @include('includes.form-success')
                                           {{csrf_field()}}
 
                                           <div class="form-group" style="display:none;">
@@ -56,14 +56,14 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
+                                            {{--<div class="form-group">
                                                 <label class="control-label col-sm-4" for="vat">VAT % *</label>
                                                 <div class="col-sm-6">
                                                     <input name="vat" id="vat" class="form-control" placeholder="Enter VAT" type="number" value="{{$data->vat}}" required="" style="width: 94%;float: left;">
 
                                                     <div style="padding: 10px;display: inline-block;width: 6%;height: 40px;border: 1px solid #ccc;text-align: center;cursor: not-allowed;">%</div>
                                                 </div>
-                                            </div>
+                                            </div>--}}
 
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4" for="vat">Commission Percentage % *</label>
@@ -104,7 +104,7 @@
                                           </div>
                                             <hr>
                                             <div class="add-product-footer" style="margin-top: 50px;">
-                                                <button name="addProduct_btn" type="submit" class="btn add-product_btn">Update Setting</button> 
+                                                <button name="addProduct_btn" type="submit" class="btn add-product_btn">Update Setting</button>
                                             </div>
                                         </form>
                                     </div>

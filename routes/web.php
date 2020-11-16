@@ -309,6 +309,12 @@
   Route::get('/general-settings/payments', 'GeneralSettingController@payments')->name('admin-gs-payments');
   Route::post('/general-settings/payments', 'GeneralSettingController@paymentsup')->name('admin-gs-paymentsup');
 
+  Route::get('/general-settings/vats', 'GeneralSettingController@vats')->name('admin-gs-vats');
+  Route::get('/general-settings/view-vat/{id}', 'GeneralSettingController@viewVat');
+  Route::get('/general-settings/delete-vat/{id}', 'GeneralSettingController@deleteVat');
+  Route::get('/general-settings/create-vat', 'GeneralSettingController@createVat')->name('admin-gs-create-vat');
+  Route::post('/general-settings/vats', 'GeneralSettingController@vatsup')->name('admin-gs-vatsup');
+
   Route::get('/general-settings/contents', 'GeneralSettingController@contents')->name('admin-gs-contents');
   Route::post('/general-settings/contents', 'GeneralSettingController@contentsup')->name('admin-gs-contentsup');
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\vats;
 use Illuminate\Http\Request;
 use App\Generalsetting;
 use Illuminate\Support\Facades\Session;
@@ -242,6 +243,51 @@ class GeneralSettingController extends Controller
 
         Session::flash('success', 'Successfully updated the Data');
         return redirect()->route('admin-gs-payments');
+    }
+
+    public function vats()
+    {
+        $data = vats::all();
+
+        return view('admin.generalsetting.vats',compact('data'));
+    }
+
+    public function viewVat($id)
+    {
+        $data = vats::where('id',$id)->first();
+
+        return view('admin.generalsetting.create_vat',compact('data'));
+    }
+
+    public function deleteVat($id)
+    {
+        vats::where('id',$id)->delete();
+
+        return redirect()->route('admin-gs-vats');
+    }
+
+    public function createVat()
+    {
+        return view('admin.generalsetting.create_vat');
+    }
+
+    public function vatsup(Request $request)
+    {
+        if($request->vat_id)
+        {
+            vats::where('id',$request->vat_id)->update(['vat_percentage' => $request->vat_percentage, 'code' => $request->code, 'rule' => $request->rule]);
+        }
+        else
+        {
+            $data = new vats;
+            $data->vat_percentage = $request->vat_percentage;
+            $data->rule = $request->rule;
+            $data->code = $request->code;
+            $data->save();
+        }
+
+        Session::flash('success', 'Task Successful');
+        return redirect()->route('admin-gs-vats');
     }
 
     public function about()
