@@ -30,9 +30,9 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h2>{{$user->name}} {{$user->family_name}}</h2>
-                                        <p>{{$lang->bg}} 
-                                            
-                                            <?php for ($i=0; $i < sizeof($services[0]); $i++) { 
+                                        <p>{{$lang->bg}}
+
+                                            <?php for ($i=0; $i < sizeof($services[0]); $i++) {
 
                                                 if($i == 0)
 
@@ -51,7 +51,7 @@
 
                                     }
                                     ?>
-                                        
+
                                     </p>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                                                             <div class="qualification-area" style="border: 1px solid #bebebe;display: inline-block;width: 100%;padding-left: 20px;margin-bottom:20px;padding-top: 20px;padding-bottom: 10px;">
                                                                 <div class="form-group" style="float: left;width: 100%;">
 
-                                                                    <div class="col-xs-11 col-sm-3 col-md-offset-0 mb-12" style="height: 100px;">
+                                                                    <div class="col-xs-12 col-sm-3 col-md-offset-0 mb-12" style="height: 100px;">
 
                                                                         <span class="headings1">{{$lang->iservt}}</span>
 
@@ -105,62 +105,79 @@
                                                                         </select>
 
                                                                     </div>
-                                                                    <div class="col-xs-5 col-sm-2" id="rate" style="height: 100px;">
+
+                                                                    <div class="col-xs-6 col-sm-2" id="rate" style="height: 100px;">
 
                                                                         <span class="headings1">{{$lang->sr}}</span>
 
                                                                         <input class="form-control" name="details[]" id="text_details" placeholder="{{$lang->esrt}}" type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="{{$key->rate}}" required style="text-align: center;height: 59%;padding: 0;">
+
                                                                     </div>
 
-                                                                    <div class="col-xs-6 col-sm-2" id="service_type" style="height: 100px;">
+                                                                    <div class="col-xs-6 col-sm-2" id="vat" style="height: 100px;">
+
+                                                                        <span class="headings1">VAT <small>(21%)</small></span>
+
+                                                                        <input class="form-control" name="vat_percentages[]" id="vat_percentages" placeholder="VAT" type="number" value="{{$key->vat_percentage}}" readonly required style="text-align: center;height: 59%;padding: 0;">
+
+                                                                    </div>
+
+                                                                    <div class="col-xs-6 col-sm-2" id="sell_rate" style="height: 100px;">
+
+                                                                        <span class="headings1">Selling Rate</span>
+
+                                                                        <input class="form-control" name="sell_rates[]" id="sell_rates" placeholder="Selling Rate" type="number" value="{{$key->sell_rate}}" readonly required style="text-align: center;height: 59%;padding: 0;">
+
+                                                                    </div>
+
+                                                                    <div class="col-xs-6 col-sm-3" id="service_type" style="height: 100px;">
 
                                                                         <span class="headings1">{{$lang->istt}}</span>
 
                                                                         <p class="form-control" style="text-align: center;padding-top: 18px;height: 59%;">
-                                                    @if($services[0][$i]->type == 'Per Hour Rate')
 
-                                                    {{$lang->servT1}}
+                                                                            @if($services[0][$i]->type == 'Per Hour Rate')
 
-                                                    @elseif($services[0][$i]->type == 'Per Meter Rate')
+                                                                                {{$lang->servT1}}
 
-                                                    {{$lang->servT2}}
+                                                                            @elseif($services[0][$i]->type == 'Per Meter Rate')
 
-                                                    @elseif($services[0][$i]->type == 'Per Foot Rate')
+                                                                                {{$lang->servT2}}
 
-                                                    {{$lang->servT3}}
+                                                                            @elseif($services[0][$i]->type == 'Per Foot Rate')
 
-                                                    @elseif($services[0][$i]->type == 'Per Piece Rate')
+                                                                                {{$lang->servT3}}
 
-                                                    {{$lang->servT4}}
+                                                                            @elseif($services[0][$i]->type == 'Per Piece Rate')
 
-                                                    @else
+                                                                                {{$lang->servT4}}
 
+                                                                            @endif
 
-
-                                                    @endif                                                    
-                                                                   
                                                                         </p>
                                                                     </div>
 
-                                                                    <div class="col-xs-11 col-sm-4 mb-12" id="description" style="height: 100px;">
+                                                                    <div class="col-xs-12 col-sm-12 mb-12" id="description" style="margin-top: 20px;">
 
                                                                         <span class="headings1">{{$lang->dt}}</span>
 
-                                                                        <textarea class="form-control" name="description[]"  placeholder="{{$lang->sdesc}}"  cols="1" rows="2" style="resize: vertical;height: 59%;">{{$key->description}}</textarea>
+                                                                        <textarea class="form-control" name="description[]" placeholder="{{$lang->sdesc}}"  cols="1" rows="4" style="resize: vertical;height: 59%;">{{$key->description}}</textarea>
                                                                     </div>
 
                                                                 </div>
-                                                                <span class="ui-close remove-ui" id="{{$key->id}}" style="top: 45px;padding-top: 1.5px;float: left;position: relative;">X</span>
+                                                                <span class="ui-close remove-ui" id="{{$key->id}}" style="top: -10px;float: left;position: relative;">X</span>
                                                             </div>
 
                                                             <?php $i++; ?>
 
                                                         @endforeach
+
                                                     @else
 
                                                         <div class="qualification-area" style="border: 1px solid #bebebe;display: inline-block;width: 100%;padding-left: 20px;margin-bottom:20px;padding-top: 20px;padding-bottom: 10px;">
                                                             <div class="form-group" style="float: left;width: 100%;">
-                                                                <div class="col-xs-11 col-sm-3 col-md-offset-0 mb-12" style="height: 100px;">
+
+                                                                <div class="col-xs-12 col-sm-3 col-md-offset-0 mb-12" style="height: 100px;">
 
                                                                     <span class="headings1">{{$lang->iservt}}</span>
 
@@ -172,34 +189,53 @@
                                                                     </select>
 
                                                                 </div>
-                                                                <div class="col-xs-5 col-sm-2" id="rate" style="height: 100px;">
+
+                                                                <div class="col-xs-6 col-sm-2" id="rate" style="height: 100px;">
 
                                                                     <span class="headings1">{{$lang->sr}}</span>
 
                                                                     <input class="form-control" name="details[]" id="text_details" placeholder="{{$lang->esrt}}" type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required style="height: 59%;text-align: center;padding: 0;">
                                                                 </div>
 
-                                                                <div class="col-xs-6 col-sm-2" id="service_type" style="height: 100px;">
+                                                                <div class="col-xs-6 col-sm-2" id="vat" style="height: 100px;">
+
+                                                                    <span class="headings1">VAT <small>(21%)</small></span>
+
+                                                                    <input class="form-control" name="vat_percentages[]" id="vat_percentages" placeholder="VAT" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">
+
+                                                                </div>
+
+                                                                <div class="col-xs-6 col-sm-2" id="sell_rate" style="height: 100px;">
+
+                                                                    <span class="headings1">Selling Rate</span>
+
+                                                                    <input class="form-control" name="sell_rates[]" id="sell_rates" placeholder="Selling Rate" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">
+
+                                                                </div>
+
+                                                                <div class="col-xs-6 col-sm-3" id="service_type" style="height: 100px;">
 
                                                                     <span class="headings1">{{$lang->istt}}</span>
                                                                        <p class="form-control" style="text-align: center;padding-top: 18px;height: 59%;">
-                                                                    
-                                                                        </p>
-                                                                    </div>
+                                                                       </p>
 
-                                                                    <div class="col-xs-11 col-sm-4 mb-12" id="description" style="height: 100px;">
+                                                                </div>
 
-                                                                        <span class="headings1">{{$lang->dt}}</span>
 
-                                                                        <textarea class="form-control" name="description[]"  placeholder="{{$lang->sdesc}}"  cols="1" rows="2" style="resize: vertical;height: 59%;"></textarea>
-                                                                    </div>
+                                                                <div class="col-xs-12 col-sm-12 mb-12" id="description" style="margin-top: 20px;">
+
+                                                                    <span class="headings1">{{$lang->dt}}</span>
+
+                                                                    <textarea class="form-control" name="description[]"  placeholder="{{$lang->sdesc}}"  cols="1" rows="4" style="resize: vertical;height: 59%;"></textarea>
+                                                                </div>
 
                                                             </div>
-                                                            <span class="ui-close remove-ui1" id="parentclose" style="top: 45px;padding-top: 1.5px;float: left;position: relative;">X</span>
+                                                            <span class="ui-close remove-ui1" id="parentclose" style="top: -10px;float: left;position: relative;">X</span>
                                                         </div>
                                                     @endif
 
                                                 </div>
+
                                                 <div class="form-group">
                                                     <label class="control-label col-sm-3" for=""></label>
                                                     <div class="col-sm-12 text-center">
@@ -230,11 +266,7 @@
 
     <script type="text/javascript">
 
-
-
         $(document).ready(function() {
-
-
 
             $(".js-data-example-ajax").select2({
                 width: '100%',
@@ -266,9 +298,6 @@
 
                     $(selector).select2();
                 }
-
-
-
 
 
 
@@ -315,17 +344,44 @@
                         }
 
                         $(selector).parent().parent().children('#rate').children("input").attr("placeholder", text);
-
                         $(selector).parent().parent().children('#service_type').children("p").text(type);
+                        $(selector).parent().parent().children('#vat').children("input").val(data.vat_percentage);
 
+                        var rate = $(selector).parent().parent().children('#rate').children("input").val();
+                        rate = parseInt(rate);
 
+                        if(rate)
+                        {
+                            var vat_percentage = data.vat_percentage;
+                            vat_percentage = vat_percentage/100;
+
+                            var sell_rate = rate * (vat_percentage);
+                            sell_rate = parseFloat(sell_rate.toFixed(2));
+                            sell_rate = rate + sell_rate;
+
+                            $(selector).parent().parent().children('#sell_rate').children("input").val(sell_rate);
+                        }
 
 
                     }
                 });
 
+            });
 
+            $("input[name='details[]'").on('input',function(e) {
 
+                var rate = parseInt($(this).val());
+                var vat_percentage = parseInt($(this).parent().parent().children('#vat').children("input").val());
+                vat_percentage = vat_percentage/100;
+
+                if(vat_percentage)
+                {
+                    var sell_rate = rate * (vat_percentage);
+                    sell_rate = parseFloat(sell_rate.toFixed(2));
+                    sell_rate = rate + sell_rate;
+
+                    $(this).parent().parent().children('#sell_rate').children("input").val(sell_rate);
+                }
 
             });
 
@@ -338,63 +394,50 @@
 
     <style>
 
-.headings1{
+        .headings1{
 
-    text-align: center;display: block;font-size: 15px;font-weight: 600;margin-bottom: 10px;
-}
+            text-align: center;display: block;font-size: 15px;font-weight: 600;margin-bottom: 10px;
 
-@media (max-width: 1024px){
-    .headings1{
-        font-size: 14px;
-    }
-}
+        }
 
-@media (max-width: 850px){
-
-
-
-    .col-xs-5{
-
-        margin-bottom: 20px;
-    }
-
-    .col-xs-6{
-
-        margin-bottom: 20px;
-    }
-
-    .col-xs-11{
-
-        margin-bottom: 20px;
-    }
+        .ui-close
+        {
+            width: 25px;
+            height: 25px;
+            line-height: 26px;
+            font-size: 14px;
+            right: 0%;
+        }
 
 
-}
+        @media (max-width: 1024px){
+            .headings1{
+                font-size: 14px;
+            }
+        }
 
-@media (max-width: 767px){
 
-    .ui-close{
+        @media (max-width: 767px)
+        {
+            .col-xs-6{
 
-        top: 165px !important;
-    }
+                margin-top: 20px;
 
-}
+            }
+        }
 
-@media (max-width: 400px){
 
-    .col-xs-5{
-        width: 91.66666667%;
-    }
+        @media (max-width: 400px){
 
-    .col-xs-6{
-        width: 91.66666667%;
-    }
+            .col-xs-5{
+                width: 91.66666667%;
+            }
 
-    .ui-close{
+            .col-xs-6{
+                width: 100%;
+            }
 
-        top: 225px !important;
-    }
-}
+        }
 
         .select2-container--default .select2-selection--single{
 
@@ -420,9 +463,10 @@
         }
 
         .container
-                {
-                    width: 100% !important;
-                }
+        {
+            width: 100% !important;
+        }
+
     </style>
 
     <style>
@@ -448,7 +492,6 @@
     <script type="text/javascript">
 
 
-
         // Handling the click event
         $("#add-field-btn").on('click',function() {
             var title = $('#tttl').val();
@@ -456,7 +499,7 @@
 
             $(".qualification").append('<div class="qualification-area" style="border: 1px solid #bebebe;display: inline-block;width: 100%;padding-left: 20px;margin-bottom:20px;padding-top: 20px;padding-bottom: 10px;">'+
                 '<div class="form-group" style="float:left;width:100%;">'+
-                '<div class="col-xs-11 col-sm-3 col-md-offset-0 mb-12" style="height: 100px;">'+
+                '<div class="col-xs-12 col-sm-3 col-md-offset-0 mb-12" style="height: 100px;">'+
                 '<span class="headings1">{{$lang->iservt}}</span>'+
                 '<input type="hidden" name="hs_id[]" value="0">' +
                 // '<input type="text" class="form-control" name="title[]" id="title" placeholder="'+title+'" required="">'+
@@ -467,21 +510,29 @@
                 '@endforeach' +
                 '</select>'+
                 '</div>'+
-                '<div class="col-xs-5 col-sm-2" id="rate" style="height: 100px;">'+
+                '<div class="col-xs-6 col-sm-2" id="rate" style="height: 100px;">'+
                 '<span class="headings1">{{$lang->sr}}</span>'+
                 // '<select class="js-example-responsive" style="width: 100%" name="details[]" id="text_details" placeholder="'+desc+'" type="text" ></select>'+
                 '<input type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control" name="details[]" id="text_details" placeholder="{{$lang->esrt}}" required style="height: 59%;text-align:center;padding:0;">'+
                 '</div>'+
-                '<div class="col-xs-6 col-sm-2" id="service_type" style="height: 100px;">'+
+                '<div class="col-xs-6 col-sm-2" id="vat" style="height: 100px;">'+
+                '<span class="headings1">VAT <small>(21%)</small></span>'+
+                '<input class="form-control" name="vat_percentages[]" id="vat_percentages" placeholder="VAT" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">'+
+                '</div>'+
+                '<div class="col-xs-6 col-sm-2" id="sell_rate" style="height: 100px;">'+
+                '<span class="headings1">Selling Rate</span>'+
+                '<input class="form-control" name="sell_rates[]" id="sell_rates" placeholder="Selling Rate" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">'+
+                '</div>'+
+                '<div class="col-xs-6 col-sm-3" id="service_type" style="height: 100px;">'+
                 '<span class="headings1">{{$lang->istt}}</span>'+
                 '<p class="form-control" style="text-align: center;padding-top: 18px;height: 59%;"></p>'+
                 '</div>'+
-                '<div class="col-xs-11 col-sm-4" id="description" style="height:100px;">'+
+                '<div class="col-xs-12 col-sm-12" id="description" style="margin-top: 20px;">'+
                 '<span class="headings1">{{$lang->dt}}</span>'+
-                '<textarea class="form-control" name="description[]"  placeholder="{{$lang->sdesc}}" style="resize:vertical;height:59%;"  cols="2" rows="2"></textarea>'+
+                '<textarea class="form-control" name="description[]" placeholder="{{$lang->sdesc}}" style="resize:vertical;height:59%;" cols="2" rows="4"></textarea>'+
                 '</div>'+
                 '</div>'+
-                '<span class="ui-close remove-ui1" style="top:45px;padding-top:1.5px;float:left;position:relative;">X</span>'+
+                '<span class="ui-close remove-ui1" style="top:-10px;float:left;position:relative;">X</span>'+
                 '</div>');
 
             $(".js-data-example-ajax").select2({
@@ -495,7 +546,6 @@
             });
 
             var $selects = $('.js-data-example-ajax').change(function() {
-
 
                 var id = this.value;
                 var selector = this;
@@ -562,12 +612,43 @@
 
                         $(selector).parent().parent().children('#rate').children("input").attr("placeholder", text);
                         $(selector).parent().parent().children('#service_type').children("p").text(type);
+                        $(selector).parent().parent().children('#vat').children("input").val(data.vat_percentage);
 
+                        var rate = $(selector).parent().parent().children('#rate').children("input").val();
+                        rate = parseInt(rate);
 
+                        if(rate)
+                        {
+                            var vat_percentage = data.vat_percentage;
+                            vat_percentage = vat_percentage/100;
+
+                            var sell_rate = rate * (vat_percentage);
+                            sell_rate = parseFloat(sell_rate.toFixed(2));
+                            sell_rate = rate + sell_rate;
+
+                            $(selector).parent().parent().children('#sell_rate').children("input").val(sell_rate);
+                        }
 
 
                     }
                 });
+
+            });
+
+            $("input[name='details[]'").on('input',function(e) {
+
+                var rate = parseInt($(this).val());
+                var vat_percentage = parseInt($(this).parent().parent().children('#vat').children("input").val());
+                vat_percentage = vat_percentage/100;
+
+                if(vat_percentage)
+                {
+                    var sell_rate = rate * (vat_percentage);
+                    sell_rate = parseFloat(sell_rate.toFixed(2));
+                    sell_rate = rate + sell_rate;
+
+                    $(this).parent().parent().children('#sell_rate').children("input").val(sell_rate);
+                }
 
             });
 
@@ -583,7 +664,6 @@
             var id = $(this).attr('id');
 
             var parent = this.parentNode;
-
 
 
             $.ajax({
@@ -615,7 +695,7 @@
                         var desc = $('#dddc').val();
                         $(".qualification").append('<div class="qualification-area" style="border: 1px solid #bebebe;display: inline-block;width: 100%;padding-left: 20px;margin-bottom:20px;padding-top: 20px;padding-bottom: 10px;">'+
                             '<div class="form-group" style="float:left;width:100%;">'+
-                            '<div class="col-xs-11 col-sm-3 col-md-offset-0 mb-12" style="height: 100px;">'+
+                            '<div class="col-xs-12 col-sm-3 col-md-offset-0 mb-12" style="height: 100px;">'+
                             '<span class="headings1">{{$lang->iservt}}</span>'+
                             '<select class="js-data-example-ajax" style="width: 100%"name="title[]" id="title" required>'+
                             '<option value="">{{$lang->sbg}}</option>' +
@@ -625,21 +705,29 @@
                             '</select>'+
                             // '<input type="text" class="form-control" name="title[]" id="title" placeholder="'+title+'">'+
                             '</div>'+
-                            '<div class="col-xs-5 col-sm-2" id="rate" style="height: 100px;">'+
+                            '<div class="col-xs-6 col-sm-2" id="rate" style="height: 100px;">'+
                             '<span class="headings1">{{$lang->sr}}</span>'+
                             '<input type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control" name="details[]" id="text_details" placeholder="{{$lang->esrt}}" required style="height: 59%;text-align:center;padding:0;">'+
                             // '<select class="js-example-responsive" style="width: 100%" name="details[]" id="text_details" placeholder="'+desc+'" type="text" ></select>'+
                             '</div>'+
-                            '<div class="col-xs-6 col-sm-2" id="service_type" style="height: 100px;">'+
+                            '<div class="col-xs-6 col-sm-2" id="vat" style="height: 100px;">'+
+                            '<span class="headings1">VAT <small>(21%)</small></span>'+
+                            '<input class="form-control" name="vat_percentages[]" id="vat_percentages" placeholder="VAT" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">'+
+                            '</div>'+
+                            '<div class="col-xs-6 col-sm-2" id="sell_rate" style="height: 100px;">'+
+                            '<span class="headings1">Selling Rate</span>'+
+                            '<input class="form-control" name="sell_rates[]" id="sell_rates" placeholder="Selling Rate" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">'+
+                            '</div>'+
+                            '<div class="col-xs-6 col-sm-3" id="service_type" style="height: 100px;">'+
                             '<span class="headings1">{{$lang->istt}}</span>'+
                             '<p class="form-control" style="text-align: center;padding-top: 18px;height: 59%;"></p>'+
                             '</div>'+
-                            '<div class="col-xs-11 col-sm-4" id="description" style="height:100px;">'+
+                            '<div class="col-xs-12 col-sm-12" id="description" style="margin-top: 20px;">'+
                             '<span class="headings1">{{$lang->dt}}</span>'+
-                            '<textarea class="form-control" name="description[]"  placeholder="{{$lang->sdesc}}" style="resize:vertical;height:59%;"  cols="2" rows="2"></textarea>'+
+                            '<textarea class="form-control" name="description[]" placeholder="{{$lang->sdesc}}" style="resize:vertical;height:59%;" cols="2" rows="4"></textarea>'+
                             '</div>'+
                             '</div>'+
-                            '<span class="ui-close remove-ui1" style="top:45px;padding-top:1.5px;float:left;position:relative;">X</span>'+
+                            '<span class="ui-close remove-ui1" style="top: -10px;float:left;position:relative;">X</span>'+
                             '</div>');
 
                         $(".js-data-example-ajax").select2({
@@ -657,7 +745,6 @@
                             var selector = this;
 
 
-
                             $.ajax({
                                 type:"GET",
                                 data: "id=" + id ,
@@ -666,63 +753,92 @@
 
                                     if(data.type == "Per Hour Rate"){
 
-                            var type = <?php echo "'".$lang->servT1."'" ?>;
-                            var text = <?php echo "'".$lang->servP1."'" ?>;
+                                        var type = <?php echo "'".$lang->servT1."'" ?>;
+                                        var text = <?php echo "'".$lang->servP1."'" ?>;
 
-                        }
+                                    }
 
-                        else if(data.type == "Per Meter Rate")
-                            {
+                                    else if(data.type == "Per Meter Rate")
+                                    {
 
-                                var type = <?php echo "'".$lang->servT2."'" ?>;
-                                var text = <?php echo "'".$lang->servP2."'" ?>;
-                            }
+                                        var type = <?php echo "'".$lang->servT2."'" ?>;
+                                        var text = <?php echo "'".$lang->servP2."'" ?>;
 
-                        else if(data.type == "Per Foot Rate")
-                        {
-                            var type = <?php echo "'".$lang->servT3."'" ?>;
-                            var text = <?php echo "'".$lang->servP3."'" ?>;
+                                    }
 
-                        }
+                                    else if(data.type == "Per Foot Rate")
+                                    {
 
-                        else if(data.type == "Per Piece Rate")
-                        {
-                            var type = <?php echo "'".$lang->servT4."'" ?>;
-                            var text = <?php echo "'".$lang->servP4."'" ?>;
+                                        var type = <?php echo "'".$lang->servT3."'" ?>;
+                                        var text = <?php echo "'".$lang->servP3."'" ?>;
 
-                        }
+                                    }
 
-                        else
-                        {
+                                    else if(data.type == "Per Piece Rate")
+                                    {
 
-                            var type = "";
-                            var text = "";
+                                        var type = <?php echo "'".$lang->servT4."'" ?>;
+                                        var text = <?php echo "'".$lang->servP4."'" ?>;
 
-                        }
+                                    }
 
-                        $(selector).parent().parent().children('#rate').children("input").attr("placeholder", text);
-                            $(selector).parent().parent().children('#service_type').children("p").text(type);
+                                    else
+                                    {
 
+                                        var type = "";
+                                        var text = "";
 
+                                    }
 
+                                    $(selector).parent().parent().children('#rate').children("input").attr("placeholder", text);
+                                    $(selector).parent().parent().children('#service_type').children("p").text(type);
+                                    $(selector).parent().parent().children('#vat').children("input").val(data.vat_percentage);
+
+                                    var rate = $(selector).parent().parent().children('#rate').children("input").val();
+                                    rate = parseInt(rate);
+
+                                    if(rate)
+                                    {
+                                        var vat_percentage = data.vat_percentage;
+                                        vat_percentage = vat_percentage/100;
+
+                                        var sell_rate = rate * (vat_percentage);
+                                        sell_rate = parseFloat(sell_rate.toFixed(2));
+                                        sell_rate = rate + sell_rate;
+
+                                        $(selector).parent().parent().children('#sell_rate').children("input").val(sell_rate);
+                                    }
 
                                 }
                             });
 
                         });
+
+                        $("input[name='details[]'").on('input',function(e) {
+
+                            var rate = parseInt($(this).val());
+                            var vat_percentage = parseInt($(this).parent().parent().children('#vat').children("input").val());
+                            vat_percentage = vat_percentage/100;
+
+                            if(vat_percentage)
+                            {
+                                var sell_rate = rate * (vat_percentage);
+                                sell_rate = parseFloat(sell_rate.toFixed(2));
+                                sell_rate = rate + sell_rate;
+
+                                $(this).parent().parent().children('#sell_rate').children("input").val(sell_rate);
+                            }
+
+                        });
+
                     }
-
-
 
                 }
             });
 
-
         });
 
         $(document).on('click', '.remove-ui1' ,function() {
-
-
 
             var parent = this.parentNode;
 
@@ -742,7 +858,7 @@
                 var desc = $('#dddc').val();
                 $(".qualification").append('<div class="qualification-area" style="border: 1px solid #bebebe;display: inline-block;width: 100%;padding-left: 20px;margin-bottom:20px;padding-top: 20px;padding-bottom: 10px;">'+
                     '<div class="form-group" style="float:left;width:100%;">'+
-                    '<div class="col-xs-11 col-sm-3 col-md-offset-0 mb-12" style="height: 100px;">'+
+                    '<div class="col-xs-12 col-sm-3 col-md-offset-0 mb-12" style="height: 100px;">'+
                     '<span class="headings1">{{$lang->iservt}}</span>'+
                     '<select class="js-data-example-ajax" style="width: 100%"name="title[]" id="title" required>'+
                     '<option value="">{{$lang->sbg}}</option>' +
@@ -752,21 +868,29 @@
                     '</select>'+
                     // '<input type="text" class="form-control" name="title[]" id="title" placeholder="'+title+'">'+
                     '</div>'+
-                    '<div class="col-xs-5 col-sm-2" id="rate" style="height: 100px;">'+
+                    '<div class="col-xs-6 col-sm-2" id="rate" style="height: 100px;">'+
                     '<span class="headings1">{{$lang->sr}}</span>'+
                     '<input type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control" name="details[]" id="text_details" placeholder="{{$lang->esrt}}" required style="height: 59%;text-align:center;padding:0;">'+
                     // '<select class="js-example-responsive" style="width: 100%" name="details[]" id="text_details" placeholder="'+desc+'" type="text" ></select>'+
                     '</div>'+
-                    '<div class="col-xs-6 col-sm-2" id="service_type" style="height: 100px;">'+
+                    '<div class="col-xs-6 col-sm-2" id="vat" style="height: 100px;">'+
+                    '<span class="headings1">VAT <small>(21%)</small></span>'+
+                    '<input class="form-control" name="vat_percentages[]" id="vat_percentages" placeholder="VAT" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">'+
+                    '</div>'+
+                    '<div class="col-xs-6 col-sm-2" id="sell_rate" style="height: 100px;">'+
+                    '<span class="headings1">Selling Rate</span>'+
+                    '<input class="form-control" name="sell_rates[]" id="sell_rates" placeholder="Selling Rate" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">'+
+                    '</div>'+
+                    '<div class="col-xs-6 col-sm-3" id="service_type" style="height: 100px;">'+
                     '<span class="headings1">{{$lang->istt}}</span>'+
                     '<p class="form-control" style="text-align: center;padding-top: 18px;height: 59%;"></p>'+
                     '</div>'+
-                    '<div class="col-xs-11 col-sm-4" id="description" style="height:100px;">'+
+                    '<div class="col-xs-12 col-sm-12" id="description" style="margin-top: 20px;">'+
                     '<span class="headings1">{{$lang->dt}}</span>'+
-                    '<textarea class="form-control" name="description[]"  placeholder="{{$lang->sdesc}}" style="resize:vertical;height:59%;"  cols="2" rows="2"></textarea>'+
+                    '<textarea class="form-control" name="description[]" placeholder="{{$lang->sdesc}}" style="resize:vertical;height:59%;" cols="2" rows="4"></textarea>'+
                     '</div>'+
                     '</div>'+
-                    '<span class="ui-close remove-ui1" style="top:45px;padding-top:1.5px;float:left;position:relative;">X</span>'+
+                    '<span class="ui-close remove-ui1" style="top:-10px;float:left;position:relative;">X</span>'+
                     '</div>');
 
                 $(".js-data-example-ajax").select2({
@@ -797,47 +921,73 @@
                             var type = <?php echo "'".$lang->servT1."'" ?>;
                             var text = <?php echo "'".$lang->servP1."'" ?>;
 
-                        }
+                            }
 
-                        else if(data.type == "Per Meter Rate")
+                            else if(data.type == "Per Meter Rate")
                             {
-
                                 var type = <?php echo "'".$lang->servT2."'" ?>;
                                 var text = <?php echo "'".$lang->servP2."'" ?>;
                             }
 
-                        else if(data.type == "Per Foot Rate")
-                        {
-                            var type = <?php echo "'".$lang->servT3."'" ?>;
-                            var text = <?php echo "'".$lang->servP3."'" ?>;
+                            else if(data.type == "Per Foot Rate")
+                            {
+                                var type = <?php echo "'".$lang->servT3."'" ?>;
+                                var text = <?php echo "'".$lang->servP3."'" ?>;
+                            }
 
-                        }
+                            else if(data.type == "Per Piece Rate")
+                            {
+                                var type = <?php echo "'".$lang->servT4."'" ?>;
+                                var text = <?php echo "'".$lang->servP4."'" ?>;
+                            }
 
-                        else if(data.type == "Per Piece Rate")
-                        {
-                            var type = <?php echo "'".$lang->servT4."'" ?>;
-                            var text = <?php echo "'".$lang->servP4."'" ?>;
+                            else
+                            {
+                                var type = "";
+                                var text = "";
+                            }
 
-                        }
-
-                        else
-                        {
-
-                            var type = "";
-                            var text = "";
-
-                        }
-
-                        $(selector).parent().parent().children('#rate').children("input").attr("placeholder", text);
+                            $(selector).parent().parent().children('#rate').children("input").attr("placeholder", text);
                             $(selector).parent().parent().children('#service_type').children("p").text(type);
+                            $(selector).parent().parent().children('#vat').children("input").val(data.vat_percentage);
 
+                            var rate = $(selector).parent().parent().children('#rate').children("input").val();
+                            rate = parseInt(rate);
 
+                            if(rate)
+                            {
+                                var vat_percentage = data.vat_percentage;
+                                vat_percentage = vat_percentage/100;
 
+                                var sell_rate = rate * (vat_percentage);
+                                sell_rate = parseFloat(sell_rate.toFixed(2));
+                                sell_rate = rate + sell_rate;
+
+                                $(selector).parent().parent().children('#sell_rate').children("input").val(sell_rate);
+                            }
 
                         }
                     });
 
                 });
+
+                $("input[name='details[]'").on('input',function(e) {
+
+                    var rate = parseInt($(this).val());
+                    var vat_percentage = parseInt($(this).parent().parent().children('#vat').children("input").val());
+                    vat_percentage = vat_percentage/100;
+
+                    if(vat_percentage)
+                    {
+                        var sell_rate = rate * (vat_percentage);
+                        sell_rate = parseFloat(sell_rate.toFixed(2));
+                        sell_rate = rate + sell_rate;
+
+                        $(this).parent().parent().children('#sell_rate').children("input").val(sell_rate);
+                    }
+
+                });
+
             }
 
         });

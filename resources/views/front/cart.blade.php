@@ -18,9 +18,9 @@
 <button type="button" class="close cl-btn" data-dismiss="alert" aria-label="Close" style="text-shadow: none;opacity: 1;"><span aria-hidden="true" style="font-size: 30px;">×</span></button>
 
 <ul class="text-left" style="text-align: center;font-size: 21px;list-style: none;padding-left: 0;font-weight: 600;font-family: monospace;">
-                                               
+
                                                     <li>{{ Session::get('unsuccess') }}</li>
-                                                
+
                                             </ul>
                                         </div>
 
@@ -47,7 +47,8 @@
                                 <th scope="col">{{$lang->chs}}</th>
                                 <th scope="col">{{$lang->chst}}</th>
                                 <th scope="col">{{$lang->chr}}(€)</th>
-                                <th scope="col" class="text-center">{{$lang->csd}}</th>
+                                <th scope="col" style="width: 80px;">{{$lang->cvat}}</th>
+                                <th scope="col" style="width: 115px;" class="text-center">{{$lang->csd}}</th>
                                 <th scope="col" class="text-center">{{$lang->cbd}}</th>
                                 <th scope="col" class="text-right">{{$lang->ctot}}(€)</th>
                                 <th scope="col" class="text-right">{{$lang->cac}}</th>
@@ -76,7 +77,7 @@
 
                                     @endif
                                      </td>
-                                     
+
                                 <td>{{$temp->name}} {{$temp->full_name}}</td>
 
                                 @if($lang->lang == 'eng')
@@ -105,8 +106,9 @@
 
                                 <td>{{$service_type}}</td>
                                 <td class="product-price">{{$temp->service_rate}}</td>
-                                
-                                
+
+                                <td>{{$temp->vat_percentage}}%</td>
+
                                 <input type="hidden" name="service_rate[]" value="{{$temp->service_rate}}">
                                 <input type="hidden" name="rate_id[]" value="{{$temp->rate_id}}">
                                 <input type="hidden" name="service_id[]" value="{{$temp->service_id}}">
@@ -140,31 +142,28 @@
 
                             @endforeach
 
-                            
 
-                            
 
-                            <?php  if(!$cart->isEmpty()){ $sub_total = $sub_total + $service_fee;} ?> 
+                            <?php  if(!$cart->isEmpty()){ $sub_total = $sub_total + $service_fee;} ?>
 
                             <tr>
-                                <td colspan="7" style="border-right: 1px solid #e8e8e8;">{{$lang->csf}}</td>
+                                <td colspan="8" style="border-right: 1px solid #e8e8e8;">{{$lang->csf}}</td>
                                 <td colspan="2" class="text-left totals-value" id="service-fee"><?php echo str_replace('.', ',', number_format($service_fee,2)); ?></td>
 
                                 <input type="hidden" id="service_fee" name="service_fee" value="{{$service_fee}}">
                             </tr>
 
+
                             <tr>
-                                <td colspan="7" style="border-right: 1px solid #e8e8e8;">{{$lang->cpit}}</td>
+                                <td colspan="8" style="border-right: 1px solid #e8e8e8;">{{$lang->cpit}}</td>
                                 <td colspan="2" class="text-left totals-value" id="cart-total"><?php echo str_replace('.', ',', number_format($sub_total,2)); ?></td>
                             </tr>
 
                             <input type="hidden" name="sub_total" id="cart-total1" value="{{$sub_total}}">
 
 
-                            
-
                             <tr>
-                                <td colspan="7" style="border-right: 1px solid #e8e8e8;">{{$lang->cvat}}</td>
+                                <td colspan="8" style="border-right: 1px solid #e8e8e8;">{{$lang->cvat}}</td>
                                 <td colspan="2" class="text-left totals-value" ><?php echo str_replace('.', ',', number_format($vat_percentage,2)) . '%' ?></td>
 
                                 <input type="hidden" name="vat_percentage" id="vat_percentage" value="{{$vat_percentage}}">
@@ -177,16 +176,16 @@
                             } ?>
 
                             <tr>
-                                <td colspan="7" style="border-right: 1px solid #e8e8e8;">{{$lang->cvatam}}</td>
+                                <td colspan="8" style="border-right: 1px solid #e8e8e8;">{{$lang->cvatam}}</td>
                                 <td colspan="2" class="text-left totals-value" id="cart-vat"><?php echo str_replace('.', ',', number_format($vat,2)); ?></td>
                             </tr>
 
 <?php $grand_total = $sub_total - $vat; ?>
 
                             <tr>
-                                <td colspan="7" style="border-right: 1px solid #e8e8e8;" class="product-line-price"><strong>{{$lang->cpet}}</strong></td>
+                                <td colspan="8" style="border-right: 1px solid #e8e8e8;" class="product-line-price"><strong>{{$lang->cpet}}</strong></td>
                                 <td colspan="2" class="text-left totals-value" id="cart-grandtotal"><strong><?php echo str_replace('.', ',', number_format($grand_total,2));  ?></strong>
-                               
+
                             </tr>
                         </tbody>
                     </table>
@@ -203,12 +202,12 @@
 
             <div class="col mb-2" style="margin-top: 70px;">
                 <div class="row" style="width: 100%;margin-left: 0;margin-right: 0;">
-                    
 
-                    
+
+
                     @if(!$cart->isEmpty())
 
-                    @php 
+                    @php
 
 $now = time(); // or your date as well
 $your_date = strtotime($cart[0]->booking_date);
@@ -240,14 +239,14 @@ $days = round($datediff / (60 * 60 * 24));
 
  @endif
 
-@else                    
+@else
 
 <div class="col-sm-6  col-md-6 col-xs-6 cb">
                         <button  onclick="window.location.href = '{{route('front.featured')}}';" type="button" class="btn btn-lg btn-block btn-primary"><a class="btn-primary"  style="background-color: transparent; text-decoration: none;">{{$lang->ccs}}</a></button>
                     </div>
                     @endif
 
-                    
+
                 </div>
             </div>
         </div>
@@ -256,7 +255,7 @@ $days = round($datediff / (60 * 60 * 24));
     <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog" style="margin-top: 150px;">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -264,15 +263,15 @@ $days = round($datediff / (60 * 60 * 24));
           <h4 class="modal-title">{{$lang->cspo}}</h4>
         </div>
         <div class="modal-body">
-         
-            
+
+
 
          <div style="text-align: center;font-size: 18px;margin: 20px;">
 
             <div style="width: 100%; margin: auto;text-align: left;">
 
             <input type="radio" checked name="payment_option" id="test2" value="1"><label for="test2">{{$lang->cfp}}</label>
-        
+
         </div></div>
 
         <div style="text-align: center;font-size: 18px;margin: 20px;">
@@ -280,13 +279,13 @@ $days = round($datediff / (60 * 60 * 24));
                 <div style="width: 100%; margin: auto;text-align: left;">
 
          <input type="radio" name="payment_option" id="test1" value="2"><label for="test1">{{$lang->cpp}}
-        
+
             <p style="font-size: 12px;color: red;font-weight: 500;margin-top: 5px;">{{$lang->cppt}}</p>
 
         </label>
 
         </div></div>
-        
+
         </div>
 
         <div  style="text-align: center;margin-bottom: 20px;font-size: 20px;font-weight: 500;border: 1px solid #e0e0e0;color: green;">{{$lang->cpa}}: <span  id="total_payment"><?php echo number_format($sub_total,2) ?></span></div>
@@ -297,7 +296,7 @@ $days = round($datediff / (60 * 60 * 24));
           <button type="submit" class="btn btn-success" >{{$lang->cc}}</button>
         </div>
       </div>
-      
+
     </div>
   </div>
 
@@ -306,14 +305,14 @@ $days = round($datediff / (60 * 60 * 24));
 
 
   <script type="text/javascript">
-      
+
       $('input[type=radio][name=payment_option]').change(function() {
 
         var x = $('#cart-total1').val();
         x = parseInt(x, 10);
 
     if (this.value == 2) {
-   
+
 
         var a = x * 0.3;
 
@@ -322,8 +321,8 @@ $days = round($datediff / (60 * 60 * 24));
             $('#total_payment1').val(a);
     }
     else {
-        
-        
+
+
         $('#total_payment').html(x.toFixed(2));
             $('#total_payment1').val(x);
 
@@ -417,10 +416,10 @@ vertical-align: middle;
 }
 
 
-    
-    .pulse_start{ 
+
+    .pulse_start{
   animation: pulse 1s;
-  animation-timing-function: linear;   
+  animation-timing-function: linear;
 }
 
 @keyframes pulse {
@@ -437,7 +436,7 @@ vertical-align: middle;
 <script type="text/javascript">
 
 
-    
+
     function Qty(input)
     {
 

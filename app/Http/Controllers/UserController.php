@@ -2057,8 +2057,7 @@ $api_key = Generalsetting::findOrFail(1);
 
     public function Services(Request $request)
     {
-        $post = Category::query()->where('id', '=', $request->id)->first();
-        $service = service_types::query()->where('id', '=', $post->service_type)->first();
+        $service = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->where('categories.id', '=', $request->id)->select('service_types.id','service_types.type','service_types.text','categories.vat_percentage')->first();
 
         return $service;
 
@@ -3466,7 +3465,6 @@ $user_name  = $user->name;
         $post = handyman_services::query()->where('handyman_id','=', $user_id)->first();
 
 
-
         if($post != "")
         {
             for($i = 0; $i<sizeof($input['title']); $i++) {
@@ -3476,6 +3474,8 @@ $user_name  = $user->name;
                     $post->handyman_id = $user_id;
                     $post->service_id = $input['title'][$i];
                     $post->rate = $input['details'][$i];
+                    $post->vat_percentage = $input['vat_percentages'][$i];
+                    $post->sell_rate = $input['sell_rates'][$i];
                     $post->description = $input['description'][$i];
 
                     $post->save();
@@ -3483,7 +3483,7 @@ $user_name  = $user->name;
                 else
                 {
 
-                    $post = handyman_services::query()->where('id', '=', $input['hs_id'][$i])->update(['service_id' => $input['title'][$i] , 'rate' => $input['details'][$i] , 'description' => $input['description'][$i] ]);
+                    $post = handyman_services::query()->where('id', '=', $input['hs_id'][$i])->update(['service_id' => $input['title'][$i], 'rate' => $input['details'][$i], 'vat_percentage' => $input['vat_percentages'][$i], 'sell_rate' => $input['sell_rates'][$i], 'description' => $input['description'][$i] ]);
 
                 }
 
@@ -3499,6 +3499,8 @@ $user_name  = $user->name;
                 $post->handyman_id = $user_id;
                 $post->service_id = $input['title'][$i];
                 $post->rate = $input['details'][$i];
+                $post->vat_percentage = $input['vat_percentages'][$i];
+                $post->sell_rate = $input['sell_rates'][$i];
                 $post->description = $input['description'][$i];
 
                 $post->save();
@@ -3506,12 +3508,7 @@ $user_name  = $user->name;
             }
 
 
-
-
         }
-
-
-
 
 
         Session::flash('success', $this->lang->success);
