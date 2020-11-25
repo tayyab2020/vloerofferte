@@ -556,128 +556,122 @@ else
         $to_date = date('Y-m-d', strtotime($to_date));
 
 
-
         if( $from_date > $to_date)
         {
-
             Session::flash('unsuccess', $this->lang->idr);
-        return redirect()->route('front.index');
+            return redirect()->route('front.index');
         }
         else
         {
-                    $catt = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->where('categories.id',$type)->first();
+            $catt = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->where('categories.id',$type)->first();
 
-                    $url = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&address=".urlencode($search).",+Netherlands&sensor=false";
+            $usersss= handyman_services::leftjoin('users','users.id','=','handyman_services.handyman_id')->where('users.active',1)->where('handyman_services.service_id','=', $type);
 
-                    $result_string = file_get_contents($url);
-                    $result = json_decode($result_string, true);
+            $ids = array();
+
+            foreach ($usersss->get() as $key ) {
+
+                $post = bookings::where('handyman_id','=', $key->handyman_id)->get();
+
+                if(count($post) != 0)
+                {
+                    foreach ($post as $temp ) {
+
+                        $check = bookings::whereDate('booking_date', '>=', $from_date)->whereDate('booking_date', '<=', $to_date)->where('handyman_id','=', $key->handyman_id)->get();
+
+                    }
+
+                    $check_count = count($check);
+                }
+                else
+                {
+                    $check = null;
+                    $check_count = 0;
+                }
 
 
-                    if(($result['status']) != 'ZERO_RESULTS' )
+                if( ($check_count != $total_days) || ($check_count == 0) )
+                {
+                    $post = handyman_unavailability::where('handyman_id','=', $key->handyman_id)->get();
+
+
+                    if(count($post) != 0)
                     {
-                        $user_latitude = $result['results'][0]['geometry']['location']['lat'];
-                        $user_longitude = $result['results'][0]['geometry']['location']['lng'];
 
-                        $array[] = "";
-                        $i = 0;
+                        foreach ($post as $temp ) {
 
-                        $post = handyman_terminals::all();
+                            $check1 = handyman_unavailability::whereDate('date', '>=', $from_date)->whereDate('date', '<=', $to_date)->where('handyman_id','=', $key->handyman_id)->get();
 
-                        foreach ($post as $key ) {
-
-                            $lat = $key->latitude;
-                            $lng = $key->longitude;
-                            $radius = $key->radius;
-
-                            $theta = $lng - $user_longitude;
-                            $dist = sin(deg2rad($lat)) * sin(deg2rad($user_latitude)) +  cos(deg2rad($lat)) * cos(deg2rad($user_latitude)) * cos(deg2rad($theta));
-                            $dist = acos($dist);
-                            $dist = rad2deg($dist);
-                            $miles = $dist * 60 * 1.1515;
-                            $distance = $miles * 1.609344;
-
-
-                            if($distance <= $radius)
-                            {
-                                $array[$i] = array('handyman_id'=>$key->handyman_id);
-                                $i = $i + 1;
-                            }
                         }
 
-                        $usersss= handyman_services::leftjoin('users','users.id','=','handyman_services.handyman_id')->whereIn('users.id', $array)->where('users.active',1)->where('handyman_services.service_id','=', $type);
-
-                        $ids = array();
-
-                        foreach ($usersss->get() as $key ) {
-
-                            $post = bookings::where('handyman_id','=', $key->handyman_id)->get();
-
-                            if(count($post) != 0)
-                            {
-                                foreach ($post as $temp ) {
-
-                                    $check = bookings::whereDate('booking_date', '>=', $from_date)->whereDate('booking_date', '<=', $to_date)->where('handyman_id','=', $key->handyman_id)->get();
-
-                                }
-
-                                $check_count = count($check);
-                            }
-                            else
-                                {
-                                    $check = null;
-                                    $check_count = 0;
-                                }
-
-
-                            if( ($check_count != $total_days) || ($check_count == 0) )
-                            {
-                                $post = handyman_unavailability::where('handyman_id','=', $key->handyman_id)->get();
-
-
-                                if(count($post) != 0)
-                                {
-
-                                    foreach ($post as $temp ) {
-
-                                        $check1 = handyman_unavailability::whereDate('date', '>=', $from_date)->whereDate('date', '<=', $to_date)->where('handyman_id','=', $key->handyman_id)->get();
-
-                                    }
-
-                                    $check1_count = count($check1);
-
-                                }
-
-                                else
-                                    {
-                                        $check1 = null;
-                                        $check1_count = 0;
-                                    }
-
-                                if( ($check1_count != $total_days-$check_count) || ($check1_count == 0) )
-                                {
-                                    $ids[] =  array('id' => $key->handyman_id);
-                                }
-                            }
-                        }
-
-                        $users= $usersss->whereIn('users.id', $ids)->paginate(8);
-                        $usersss = $usersss->whereIn('users.id', $ids)->get();
+                        $check1_count = count($check1);
 
                     }
 
                     else
-                        {
+                    {
+                        $check1 = null;
+                        $check1_count = 0;
+                    }
 
-                            Session::flash('unsuccess', $this->lang->ipcoc);
-                            return redirect()->route('front.index');
-                        }
+                    if( ($check1_count != $total_days-$check_count) || ($check1_count == 0) )
+                    {
+                        $ids[] = array('id' => $key->handyman_id);
+                    }
+                }
+            }
+
+            $url = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&address=".urlencode($search).",+Netherlands&sensor=false";
+
+            $result_string = file_get_contents($url);
+            $result = json_decode($result_string, true);
+
+            if(($result['status']) != 'ZERO_RESULTS' )
+            {
+                $user_latitude = $result['results'][0]['geometry']['location']['lat'];
+                $user_longitude = $result['results'][0]['geometry']['location']['lng'];
+
+                $array[] = "";
+                $i = 0;
+
+                $post = handyman_terminals::whereIn('handyman_id',$ids)->get();
+
+                foreach ($post as $key ) {
+
+                    $lat = $key->latitude;
+                    $lng = $key->longitude;
+                    $radius = $key->radius;
+
+                    $theta = $lng - $user_longitude;
+                    $dist = sin(deg2rad($lat)) * sin(deg2rad($user_latitude)) +  cos(deg2rad($lat)) * cos(deg2rad($user_latitude)) * cos(deg2rad($theta));
+                    $dist = acos($dist);
+                    $dist = rad2deg($dist);
+                    $miles = $dist * 60 * 1.1515;
+                    $distance = $miles * 1.609344;
+
+
+                    if($distance <= $radius)
+                    {
+                        $array[$i] = array('handyman_id'=>$key->handyman_id);
+                        $i = $i + 1;
+                    }
+                }
+
+                $users = $usersss->whereIn('users.id',$array)->paginate(8);
+
+            }
+            else
+                {
+
+                    Session::flash('unsuccess', $this->lang->ipcoc);
+                    return redirect()->route('front.index');
+                }
 
         }
 
         //        $usersss= User::where('city','LIKE','%'.$search.'%')->where('category_id','LIKE','%'.$type.'%')->where('active','=',1)->get();
         //        $users = User::where('city','LIKE','%'.$search.'%')->where('category_id','LIKE','%'.$type.'%')->where('active','=',1)->paginate(8);
 
-        $userss = User::all();
 
         $cats = Category::all();
 
@@ -706,7 +700,7 @@ else
         $from_date = $return_fromDate;
         $to_date = $return_toDate;
 
-        return view('front.searchuser',compact('usersss','users','cats','catt','search','type','from_date','to_date','jobs'));
+        return view('front.searchuser',compact('users','cats','catt','search','type','from_date','to_date','jobs'));
     }
 
 

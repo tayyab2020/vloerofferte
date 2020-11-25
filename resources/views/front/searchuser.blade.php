@@ -34,11 +34,11 @@ input::-webkit-calendar-picker-indicator {
 
                         @if($lang->lang == 'eng')
 
-                            <h1 class="donors-header text-center" style="color: black;margin-left: 130px;">{{count($usersss)}} {{$lang->dni}} {{$catt->cat_slug}}</h1>
+                            <h1 class="donors-header text-center" style="color: black;margin-left: 130px;">{{$users->total()}} {{$lang->dni}} {{$catt->cat_slug}}</h1>
 
                             @else
 
-                            <h1 class="donors-header text-center" style="color: black;margin-left: 130px;">{{count($usersss)}} {{$lang->dni}} {{$catt->cat_name}}</h1>
+                            <h1 class="donors-header text-center" style="color: black;margin-left: 130px;">{{$users->total()}} {{$lang->dni}} {{$catt->cat_name}}</h1>
 
                             @endif
 
@@ -567,11 +567,8 @@ $('#to_date').datepicker({
 <div class="cd-main-content is-fixed" style="height: 795px;overflow-y: auto;min-height: 795px;margin-top: 70px;">
 
 
-
     <div class="section-padding all-donors-wrap team_section team_style2 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;float: right;width: 100%;">
             <div class="container">
-
-
 
                 <div class="row">
 
@@ -759,6 +756,13 @@ $('.cd-filter-trigger').on('click', function(){
     triggerFilter(false);
   });
 
+
+  var windowWidth = $(window).width();
+
+  if(windowWidth < 768){
+      triggerFilter(false);
+  }
+
   function triggerFilter($bool) {
     var elementsToTrigger = $([$('.cd-filter-trigger'), $('.cd-filter'), $('.cd-tab-filter'), $('.cd-gallery')]);
     elementsToTrigger.each(function(){
@@ -821,7 +825,6 @@ else
 
     <style type="text/css">
 
-      @import url('https://entrusters.com/templates/yoo_moustache/css/theme.css');
 /* reset.css */
 
 /* https://meyerweb.com/eric/tools/css/reset/
@@ -1002,7 +1005,7 @@ xtab-filter
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: url("https://entrusters.com/templates/yoo_moustache/html/com_entrusters_shop/products/ui-img/cd-icon-arrow.svg") no-repeat center center;
+  background: url("") no-repeat center center;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
@@ -1268,7 +1271,7 @@ xfilter
   text-indent: 100%;
   color: transparent;
   white-space: nowrap;
-  background: transparent url("https://entrusters.com/templates/yoo_moustache/html/com_entrusters_shop/products/ui-img/cd-icon-filter.svg") no-repeat center center;
+  background: transparent url("") no-repeat center center;
   z-index: 3;
 }
 .cd-filter-trigger.filter-is-visible {
@@ -1338,7 +1341,7 @@ xcustom form elements
   top: 50%;
   width: 16px;
   height: 16px;
-  background: url("https://entrusters.com/templates/yoo_moustache/html/com_entrusters_shop/products/ui-img/cd-icon-arrow.svg") no-repeat center center;
+  background: url("") no-repeat center center;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
@@ -1410,7 +1413,7 @@ xcustom form elements
   display: block;
   width: 16px;
   height: 16px;
-  background: url("https://entrusters.com/templates/yoo_moustache/html/com_entrusters_shop/products/ui-img/cd-icon-arrow.svg") no-repeat center center;
+  background: url("") no-repeat center center;
   pointer-events: none;
 }
 .cd-filter-block select {
