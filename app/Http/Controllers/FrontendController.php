@@ -657,7 +657,7 @@ else
                     }
                 }
 
-                $users = $usersss->whereIn('users.id',$array)->paginate(1);
+                $users = $usersss->whereIn('users.id',$array)->paginate(8);
 
             }
             else
