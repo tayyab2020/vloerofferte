@@ -116,7 +116,7 @@
 
                                                                     <div class="col-xs-6 col-sm-2" id="vat" style="height: 100px;">
 
-                                                                        <span class="headings1">VAT <small>(21%)</small></span>
+                                                                        <span class="headings1">VAT <small>(%)</small></span>
 
                                                                         <input class="form-control" name="vat_percentages[]" id="vat_percentages" placeholder="VAT" type="number" value="{{$key->vat_percentage}}" readonly required style="text-align: center;height: 59%;padding: 0;">
 
@@ -199,7 +199,7 @@
 
                                                                 <div class="col-xs-6 col-sm-2" id="vat" style="height: 100px;">
 
-                                                                    <span class="headings1">VAT <small>(21%)</small></span>
+                                                                    <span class="headings1">VAT <small>(%)</small></span>
 
                                                                     <input class="form-control" name="vat_percentages[]" id="vat_percentages" placeholder="VAT" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">
 
@@ -516,7 +516,7 @@
                 '<input type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control" name="details[]" id="text_details" placeholder="{{$lang->esrt}}" required style="height: 59%;text-align:center;padding:0;">'+
                 '</div>'+
                 '<div class="col-xs-6 col-sm-2" id="vat" style="height: 100px;">'+
-                '<span class="headings1">VAT <small>(21%)</small></span>'+
+                '<span class="headings1">VAT <small>(%)</small></span>'+
                 '<input class="form-control" name="vat_percentages[]" id="vat_percentages" placeholder="VAT" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">'+
                 '</div>'+
                 '<div class="col-xs-6 col-sm-2" id="sell_rate" style="height: 100px;">'+
@@ -711,7 +711,7 @@
                             // '<select class="js-example-responsive" style="width: 100%" name="details[]" id="text_details" placeholder="'+desc+'" type="text" ></select>'+
                             '</div>'+
                             '<div class="col-xs-6 col-sm-2" id="vat" style="height: 100px;">'+
-                            '<span class="headings1">VAT <small>(21%)</small></span>'+
+                            '<span class="headings1">VAT <small>(%)</small></span>'+
                             '<input class="form-control" name="vat_percentages[]" id="vat_percentages" placeholder="VAT" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">'+
                             '</div>'+
                             '<div class="col-xs-6 col-sm-2" id="sell_rate" style="height: 100px;">'+
@@ -874,7 +874,7 @@
                     // '<select class="js-example-responsive" style="width: 100%" name="details[]" id="text_details" placeholder="'+desc+'" type="text" ></select>'+
                     '</div>'+
                     '<div class="col-xs-6 col-sm-2" id="vat" style="height: 100px;">'+
-                    '<span class="headings1">VAT <small>(21%)</small></span>'+
+                    '<span class="headings1">VAT <small>(%)</small></span>'+
                     '<input class="form-control" name="vat_percentages[]" id="vat_percentages" placeholder="VAT" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">'+
                     '</div>'+
                     '<div class="col-xs-6 col-sm-2" id="sell_rate" style="height: 100px;">'+

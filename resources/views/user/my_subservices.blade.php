@@ -30,9 +30,9 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h2>{{$user->name}} {{$user->family_name}}</h2>
-                                        <p>{{$lang->bg}} 
-                                            
-                                            <?php for ($i=0; $i < sizeof($main_cats_selected); $i++) { 
+                                        <p>{{$lang->bg}}
+
+                                            <?php for ($i=0; $i < sizeof($main_cats_selected); $i++) {
 
                                                 if($i == 0)
 
@@ -51,7 +51,7 @@
 
                                     }
                                     ?>
-                                        
+
                                     </p>
                                     </div>
                                 </div>
@@ -84,60 +84,72 @@
                                                     @if($main_cats_selected->count() != 0)
 
                                                         @foreach($main_cats_selected as $key)
-                                                        
+
                                                         <div class="qualification" id="q" style="display: inline-block;width: 100%;">
-                                                            
+
                                                                     <h2>{{$key->cat_name}}</h2>
 
-                                                               <?php if(sizeof($sub_selected[$key->id]) != 0){ 
-                                                               
-                                                               for($s=0; $s<sizeof($sub_selected[$key->id]); $s++){ if($sub_selected[$key->id][$s]->main_id == $key->id){  ?>
+                                                            <?php if(sizeof($sub_selected[$key->id]) != 0){
 
-                                                                <div class="qualification-area" style="margin-top: 50px;display: inline-block;width: 100%;">
+                                                                for($s=0; $s<sizeof($sub_selected[$key->id]); $s++){ if($sub_selected[$key->id][$s]->main_id == $key->id){  ?>
 
+                                                            <div class="qualification-area" style="border: 1px solid #bebebe;display: inline-block;width: 100%;padding-left: 20px;margin-top:30px;padding-top: 20px;padding-bottom: 10px;">
 
-                                                                <div class="form-group" style="float: left;width: 100%;border: 1px solid #bebebe;display: inline-block;width: 100%;padding-left: 20px;margin-bottom:20px;padding-top: 20px;padding-bottom: 10px;">
-
-                                                                <div class="col-xs-11 col-sm-3 col-md-offset-0" style="height: 100px;">
-
-                                                                    <span class="headings1">{{$lang->iservt}}</span>
-
-                                                                <input type="hidden" name="hs_id[]" value="{{$sub_selected[$key->id][$s]->h_id}}">
-
-                                                                <input type="hidden" name="main_id[]" value="{{$sub_selected[$key->id][$s]->main_id}}">
-
-                                                                <select class="js-data-example-ajax" data-value="<?php echo $i; ?>"  style="width: 100%" name="title[]" id="title" >
-
-                                                                <option value="">{{$lang->ssst}}</option>
-
-                                                                <?php for($x=0; $x<sizeof($sub_cats[$key->id]); $x++){ 
-
-                                                                if($sub_cats[$key->id][$x]->id == $sub_selected[$key->id][$s]->id){ ?>
-
-                                                                 <option value="{{$sub_cats[$key->id][$x]->id}}" selected>{{$sub_cats[$key->id][$x]->cat_name}}</option>
-
-                                                             <?php }else{ ?>
+                                                                <div class="form-group" style="float: left;width: 100%;">
 
 
-                                                            <option value="{{$sub_cats[$key->id][$x]->id}}">{{$sub_cats[$key->id][$x]->cat_name}}</option>
-                                                                
+                                                                    <div class="col-xs-12 col-sm-3 col-md-offset-0" style="height: 100px;">
 
-                                                                <?php  }} ?>
+                                                                        <span class="headings1">{{$lang->iservt}}</span>
 
+                                                                        <input type="hidden" name="hs_id[]" value="{{$sub_selected[$key->id][$s]->h_id}}">
+                                                                        <input type="hidden" name="main_id[]" value="{{$sub_selected[$key->id][$s]->main_id}}">
 
-                                                                </select>
+                                                                        <select class="js-data-example-ajax" data-value="<?php echo $i; ?>"  style="width: 100%" name="title[]" id="title" >
+                                                                            <option value="">{{$lang->ssst}}</option>
 
-                                                            </div>
+                                                                            <?php for($x=0; $x<sizeof($sub_cats[$key->id]); $x++){
 
-                                                            <div class="col-xs-5 col-sm-2" id="rate" style="height: 100px;">
+                                                                                if($sub_cats[$key->id][$x]->id == $sub_selected[$key->id][$s]->id){ ?>
 
-                                                                <span class="headings1">{{$lang->sr}}</span>
+                                                                            <option value="{{$sub_cats[$key->id][$x]->id}}" selected>{{$sub_cats[$key->id][$x]->cat_name}}</option>
 
-                                                                          <input class="form-control" name="details[]" id="text_details" placeholder="{{$lang->esrt}}" type="number" value="{{$sub_selected[$key->id][$s]->rate}}" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required style="height: 59%;text-align: center;padding: 0;">
-                                                                      
+                                                                            <?php }else{ ?>
+
+                                                                            <option value="{{$sub_cats[$key->id][$x]->id}}">{{$sub_cats[$key->id][$x]->cat_name}}</option>
+
+                                                                            <?php  }} ?>
+
+                                                                        </select>
+
                                                                     </div>
 
-                                                                    <div class="col-xs-6 col-sm-2" id="service_type" style="height: 100px;">
+
+                                                                    <div class="col-xs-6 col-sm-2" id="rate" style="height: 100px;">
+
+                                                                        <span class="headings1">{{$lang->sr}}</span>
+
+                                                                        <input class="form-control" name="details[]" id="text_details" placeholder="{{$lang->esrt}}" type="number" value="{{$sub_selected[$key->id][$s]->rate}}" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required style="height: 59%;text-align: center;padding: 0;">
+
+                                                                    </div>
+
+                                                                    <div class="col-xs-6 col-sm-2" id="vat" style="height: 100px;">
+
+                                                                        <span class="headings1">VAT <small>(%)</small></span>
+
+                                                                        <input class="form-control" name="vat_percentages[]" id="vat_percentages" placeholder="VAT" type="number" value="{{$sub_selected[$key->id][$s]->vat_percentage}}" readonly required style="text-align: center;height: 59%;padding: 0;">
+
+                                                                    </div>
+
+                                                                    <div class="col-xs-6 col-sm-2" id="sell_rate" style="height: 100px;">
+
+                                                                        <span class="headings1">Selling Rate</span>
+
+                                                                        <input class="form-control" name="sell_rates[]" id="sell_rates" placeholder="Selling Rate" type="number" value="{{$sub_selected[$key->id][$s]->sell_rate}}" readonly required style="text-align: center;height: 59%;padding: 0;">
+
+                                                                    </div>
+
+                                                                    <div class="col-xs-6 col-sm-3" id="service_type" style="height: 100px;">
 
                                                                         <span class="headings1">{{$lang->istt}}</span>
 
@@ -172,22 +184,22 @@
                                                                         ?>
 
                                                                         <p class="form-control" style="text-align: center;padding-top: 18px;height: 59%;">{{$type}}
-                                                                    
+
                                                                         </p>
-                                                                       
+
                                                                     </div>
 
-                                                                    <div class="col-xs-11 col-sm-4" id="description" style="height: 100px;">
+                                                                    <div class="col-xs-12 col-sm-12" id="description" style="margin-top: 20px;">
 
                                                                         <span class="headings1">{{$lang->dt}}</span>
 
-                                                                        <textarea class="form-control" name="description[]"  placeholder="{{$lang->sdesc}}"  cols="1" rows="2" style="resize: vertical;height: 59%;">{{$sub_selected[$key->id][$s]->description}}</textarea>
-                                                                      
+                                                                        <textarea class="form-control" name="description[]" placeholder="{{$lang->sdesc}}" cols="2" rows="4" style="resize: vertical;height: 59%;">{{$sub_selected[$key->id][$s]->description}}</textarea>
+
                                                                     </div>
 
                                                                 </div>
 
-                                                                <span class="ui-close remove-ui" id="{{$sub_selected[$key->id][$s]->h_id}}" style="top: 70px;padding-top: 1.5px;float: left;position: relative;">X</span>
+                                                                <span class="ui-close remove-ui" id="{{$sub_selected[$key->id][$s]->h_id}}" style="top: -10px;float: left;position: relative;">X</span>
 
                                                             </div>
 
@@ -195,86 +207,100 @@
                                                             <?php }}}else{ ?>
 
 
+                                                            <div class="qualification-area" style="border: 1px solid #bebebe;display: inline-block;width: 100%;padding-left: 20px;margin-top:30px;padding-top: 20px;padding-bottom: 10px;">
 
-                                                                <div class="qualification-area" style="margin-top: 50px;display: inline-block;width: 100%;">
+                                                                <div class="form-group" style="float: left;width: 100%;">
 
+                                                                    <div class="col-xs-12 col-sm-3 col-md-offset-0" style="height: 100px;">
 
-                                                                <div class="form-group" style="float: left;width: 100%;border: 1px solid #bebebe;display: inline-block;width: 100%;padding-left: 20px;margin-bottom:20px;padding-top: 20px;padding-bottom: 10px;">
+                                                                        <span class="headings1">{{$lang->iservt}}</span>
 
-                                                                <div class="col-xs-11 col-sm-3 col-md-offset-0" style="height: 100px;">
-
-                                                                    <span class="headings1">{{$lang->iservt}}</span>
-
-                                                                <input type="hidden" name="main_id[]" value="{{$key->id}}">
-
-                                                                <input type="hidden" name="hs_id[]" value="0">
+                                                                        <input type="hidden" name="main_id[]" value="{{$key->id}}">
+                                                                        <input type="hidden" name="hs_id[]" value="0">
 
 
 
-                                                                <select class="js-data-example-ajax" data-value="<?php echo $i; ?>"  style="width: 100%" name="title[]" id="title" >
+                                                                        <select class="js-data-example-ajax" data-value="<?php echo $i; ?>"  style="width: 100%" name="title[]" id="title" >
 
-                                                                <option value="">{{$lang->ssst}}</option>
+                                                                            <option value="">{{$lang->ssst}}</option>
 
-                                                                <?php for($x=0; $x<sizeof($sub_cats[$key->id]); $x++){  ?>
-                                                                                
+                                                                            <?php for($x=0; $x<sizeof($sub_cats[$key->id]); $x++){  ?>
 
-                                                                <option value="{{$sub_cats[$key->id][$x]->id}}" >{{$sub_cats[$key->id][$x]->cat_name}}</option>
+                                                                            <option value="{{$sub_cats[$key->id][$x]->id}}" >{{$sub_cats[$key->id][$x]->cat_name}}</option>
 
-                                                                <?php  } ?>
+                                                                            <?php  } ?>
 
+                                                                        </select>
 
-                                                                </select>
-
-                                                                </div>
-
-                                                                <div class="col-xs-5 col-sm-2" id="rate" style="height: 100px;">
-
-                                                                    <span class="headings1">{{$lang->sr}}</span>
-
-                                                                          <input class="form-control" name="details[]" id="text_details" placeholder="{{$lang->esrt}}" type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required style="height: 59%;text-align: center;padding: 0;">
-                                                                      
                                                                     </div>
 
-                                                                    <div class="col-xs-6 col-sm-2" id="service_type" style="height: 100px;">
+
+                                                                    <div class="col-xs-6 col-sm-2" id="rate" style="height: 100px;">
+
+                                                                        <span class="headings1">{{$lang->sr}}</span>
+
+                                                                        <input class="form-control" name="details[]" id="text_details" placeholder="{{$lang->esrt}}" type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required style="height: 59%;text-align: center;padding: 0;">
+
+                                                                    </div>
+
+                                                                    <div class="col-xs-6 col-sm-2" id="vat" style="height: 100px;">
+
+                                                                        <span class="headings1">VAT <small>(%)</small></span>
+
+                                                                        <input class="form-control" name="vat_percentages[]" id="vat_percentages" placeholder="VAT" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">
+
+                                                                    </div>
+
+                                                                    <div class="col-xs-6 col-sm-2" id="sell_rate" style="height: 100px;">
+
+                                                                        <span class="headings1">Selling Rate</span>
+
+                                                                        <input class="form-control" name="sell_rates[]" id="sell_rates" placeholder="Selling Rate" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">
+
+                                                                    </div>
+
+
+                                                                    <div class="col-xs-6 col-sm-3" id="service_type" style="height: 100px;">
 
                                                                         <span class="headings1">{{$lang->istt}}</span>
 
                                                                         <p class="form-control" style="text-align: center;padding-top: 18px;height: 59%;">
-                                                                    
+
                                                                         </p>
-                                                                       
+
                                                                     </div>
 
-                                                                    <div class="col-xs-11 col-sm-4" id="description" style="height: 100px;">
+
+                                                                    <div class="col-xs-12 col-sm-12" id="description" style="margin-top: 20px;">
 
                                                                         <span class="headings1">{{$lang->dt}}</span>
 
-                                                                        <textarea class="form-control" name="description[]"  placeholder="{{$lang->sdesc}}"  cols="1" rows="2" style="resize: vertical;height: 59%;"></textarea>
-                                                                      
+                                                                        <textarea class="form-control" name="description[]" placeholder="{{$lang->sdesc}}" cols="2" rows="4" style="resize: vertical;height: 59%;"></textarea>
+
                                                                     </div>
 
                                                                 </div>
 
-                                                                <span class="ui-close remove-ui1" id="parentclose" style="top: 70px;padding-top: 1.5px;float: left;position: relative;">X</span>
+                                                                <span class="ui-close remove-ui1" id="parentclose" style="top: -10px;float: left;position: relative;">X</span>
 
                                                             </div>
 
                                                             <?php } ?>
 
-                                                             </div>
+                                                        </div>
 
 
                                                 <div class="form-group" style="margin-top: 30px;margin-bottom: 50px;">
                                                     <label class="control-label col-sm-3" for=""></label>
                                                     <div class="col-sm-12 text-center">
-                                                        
+
                                                         <button class="btn btn-default featured-btn add-field-btn" type="button" name="add-field-btn" data-id="{{$key->id}}" data-key="{{$i}}" id="add-field-btn"><i class="fa fa-plus"></i> {{$lang->amsst}}</button>
                                                     </div>
                                                 </div>
 
                                                 <?php $i++; ?>
 
-                                                           
+
 
                                                         @endforeach
 
@@ -284,12 +310,12 @@
                                                     @else
 
                                                         <h1 style="margin: 80px;text-align: center;">{{$lang->mssn1}}</h1>
-                                                    
+
                                                     @endif
 
                                                 </div>
 
-                                                
+
                                             </div>
 
                                             @if($main_cats_selected->count() != 0)
@@ -318,7 +344,6 @@
 
 
         $(document).ready(function() {
-
 
 
             $(".js-data-example-ajax").select2({
@@ -354,9 +379,6 @@
 
                     $(selector).select2();
                 }
-
-
-
 
 
 
@@ -403,17 +425,43 @@
                         }
 
                         $(selector).parent().parent().children('#rate').children("input").attr("placeholder", text);
-
                         $(selector).parent().parent().children('#service_type').children("p").text(type);
+                        $(selector).parent().parent().children('#vat').children("input").val(data.vat_percentage);
 
+                        var rate = $(selector).parent().parent().children('#rate').children("input").val();
+                        rate = parseInt(rate);
 
+                        if(rate)
+                        {
+                            var vat_percentage = data.vat_percentage;
+                            vat_percentage = vat_percentage/100;
 
+                            var sell_rate = rate * (vat_percentage);
+                            sell_rate = parseFloat(sell_rate.toFixed(2));
+                            sell_rate = rate + sell_rate;
+
+                            $(selector).parent().parent().children('#sell_rate').children("input").val(sell_rate);
+                        }
 
                     }
                 });
 
+            });
 
+            $("input[name='details[]'").on('input',function(e) {
 
+                var rate = parseInt($(this).val());
+                var vat_percentage = parseInt($(this).parent().parent().children('#vat').children("input").val());
+                vat_percentage = vat_percentage/100;
+
+                if(vat_percentage)
+                {
+                    var sell_rate = rate * (vat_percentage);
+                    sell_rate = parseFloat(sell_rate.toFixed(2));
+                    sell_rate = rate + sell_rate;
+
+                    $(this).parent().parent().children('#sell_rate').children("input").val(sell_rate);
+                }
 
             });
 
@@ -435,7 +483,7 @@
 
                         $.each(data, function(index, value) {
 
-                         
+
                     var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
 
                     options = options + opt;
@@ -443,23 +491,33 @@
                         });
 
 
-
-                        $(parent).append('<div class="qualification-area" style="margin-top: 50px;display: inline-block;width: 100%;"><div class="form-group" style="float: left;width: 100%;border: 1px solid #bebebe;display: inline-block;width: 100%;padding-left: 20px;margin-bottom:20px;padding-top: 20px;padding-bottom: 10px;"><div class="col-xs-11 col-sm-3 col-md-offset-0" style="height: 100px;">'+
-                '<span class="headings1">{{$lang->iservt}}</span>'+
-                '<input type="hidden" name="hs_id[]" value="0">'+
-                '<input type="hidden" name="main_id[]" value="'+main_id+'">'+
-                '<select class="js-data-example-ajax" data-value="'+key+'"  style="width: 100%" name="title[]" id="title" required>'+
-                '<option value=""><?php echo $lang->ssst; ?></option>'+options+'</select>'+
-                '</div><div class="col-xs-5 col-sm-2" id="rate" style="height: 100px;">'+
-                '<span class="headings1">{{$lang->sr}}</span>'+
-                '<input class="form-control" name="details[]" id="text_details" placeholder="{{$lang->esrt}}" type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required style="height: 59%;text-align: center;padding:0;"></div>'+
-                '<div class="col-xs-6 col-sm-2" id="service_type" style="height: 100px;">'+
-                '<span class="headings1">{{$lang->istt}}</span>'+
-                '<p class="form-control" style="text-align: center;padding-top: 18px;height: 59%;"></p></div>'+
-                '<div class="col-xs-11 col-sm-4" id="description" style="height:100px;">'+
-                '<span class="headings1">{{$lang->dt}}</span>'+
-                '<textarea class="form-control" name="description[]"  placeholder="{{$lang->sdesc}}"  cols="1" rows="2" style="resize: vertical;height:59%;"></textarea></div></div>'+
-                '<span class="ui-close remove-ui1" id="parentclose" style="top: 70px;padding-top: 1.5px;float: left;position: relative;">X</span></div>');
+                        $(parent).append('<div class="qualification-area" style="border: 1px solid #bebebe;display: inline-block;width: 100%;padding-left: 20px;margin-top:30px;padding-top: 20px;padding-bottom: 10px;">'+
+                            '<div class="form-group" style="float: left;width: 100%;">'+
+                            '<div class="col-xs-12 col-sm-3 col-md-offset-0" style="height: 100px;">'+
+                            '<span class="headings1">{{$lang->iservt}}</span>'+
+                            '<input type="hidden" name="hs_id[]" value="0">'+
+                            '<input type="hidden" name="main_id[]" value="'+main_id+'">'+
+                            '<select class="js-data-example-ajax" data-value="'+key+'"  style="width: 100%" name="title[]" id="title" required>'+
+                            '<option value=""><?php echo $lang->ssst; ?></option>'+options+'</select>'+
+                            '</div>'+
+                            '<div class="col-xs-6 col-sm-2" id="rate" style="height: 100px;">'+
+                            '<span class="headings1">{{$lang->sr}}</span>'+
+                            '<input class="form-control" name="details[]" id="text_details" placeholder="{{$lang->esrt}}" type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required style="height: 59%;text-align: center;padding:0;"></div>'+
+                            '<div class="col-xs-6 col-sm-2" id="vat" style="height: 100px;">'+
+                            '<span class="headings1">VAT <small>(%)</small></span>'+
+                            '<input class="form-control" name="vat_percentages[]" id="vat_percentages" placeholder="VAT" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">'+
+                            '</div>'+
+                            '<div class="col-xs-6 col-sm-2" id="sell_rate" style="height: 100px;">'+
+                            '<span class="headings1">Selling Rate</span>'+
+                            '<input class="form-control" name="sell_rates[]" id="sell_rates" placeholder="Selling Rate" type="number" readonly required style="text-align: center;height: 59%;padding: 0;">'+
+                            '</div>'+
+                            '<div class="col-xs-6 col-sm-3" id="service_type" style="height: 100px;">'+
+                            '<span class="headings1">{{$lang->istt}}</span>'+
+                            '<p class="form-control" style="text-align: center;padding-top: 18px;height: 59%;"></p></div>'+
+                            '<div class="col-xs-12 col-sm-12" id="description" style="margin-top: 20px;">'+
+                            '<span class="headings1">{{$lang->dt}}</span>'+
+                            '<textarea class="form-control" name="description[]" placeholder="{{$lang->sdesc}}"  cols="2" rows="4" style="resize: vertical;height:59%;"></textarea></div></div>'+
+                            '<span class="ui-close remove-ui1" id="parentclose" style="top: -10px;float: left;position: relative;">X</span></div>');
 
             $(".js-data-example-ajax").select2({
                 width: '100%',
@@ -555,9 +613,9 @@
                     }
 
                     });
-          
 
-            
+
+
 
         });
 
@@ -580,7 +638,7 @@
 
          });
 
-  
+
 
         $(document).on('click', '.remove-ui' ,function() {
 
@@ -608,7 +666,7 @@
                     $(parent).children().children().children('select').select2();
 
 
-                    
+
                     $(node).hide();
                     $(node).remove();
                     $(parent).children('div').hide();
@@ -622,7 +680,7 @@
                         'success'
                     )
 
- 
+
 
 
 
@@ -646,42 +704,28 @@
             text-align: center;display: block;font-size: 15px;font-weight: 600;margin-bottom: 10px;
         }
 
+        .ui-close
+        {
+            width: 25px;
+            height: 25px;
+            line-height: 26px;
+            font-size: 14px;
+            right: 0%;
+        }
+
         @media (max-width: 1024px){
             .headings1{
                 font-size: 14px;
             }
         }
 
-        @media (max-width: 850px){
-
-
-
-            .col-xs-5{
-
-                margin-bottom: 20px;
-            }
-
+        @media (max-width: 767px)
+        {
             .col-xs-6{
 
-                margin-bottom: 20px;
+                margin-top: 20px;
+
             }
-
-            .col-xs-11{
-
-                margin-bottom: 20px;
-            }
-
-
-        }
-
-        @media (max-width: 767px){
-
-            .ui-close{
-
-                top: 190px !important;
-                right:5%;
-            }
-
         }
 
         @media (max-width: 400px){
@@ -691,13 +735,7 @@
             }
 
             .col-xs-6{
-                width: 91.66666667%;
-            }
-
-            .ui-close{
-
-                top: 245px !important;
-                right: 8%;
+                width: 100%;
             }
         }
 
@@ -751,10 +789,6 @@
 
 
     <script type="text/javascript">
-
-
-
-
 
 
         function uploadclick(){

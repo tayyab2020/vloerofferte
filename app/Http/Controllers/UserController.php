@@ -2987,10 +2987,9 @@ $x = 0;
 
         foreach ($main_cats_selected as $key => $value) {
 
-
             $sub_cats[$value->id] = Category::leftjoin('sub_services','sub_services.sub_id','=','categories.id')->where('sub_services.cat_id',$value->id)->select('categories.id','categories.cat_name','sub_services.cat_id','sub_services.sub_id')->get();
 
-            $sub_selected[$value->id] = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->leftjoin('service_types','service_types.id','=','categories.service_type')->where('handyman_services.handyman_id',$user_id)->where('handyman_services.main_id',$value->id)->select('categories.id','categories.cat_name','handyman_services.id as h_id','handyman_services.rate','handyman_services.description','handyman_services.main_id','service_types.type')->get();
+            $sub_selected[$value->id] = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->leftjoin('service_types','service_types.id','=','categories.service_type')->where('handyman_services.handyman_id',$user_id)->where('handyman_services.main_id',$value->id)->select('categories.id','categories.cat_name','handyman_services.id as h_id','handyman_services.rate','handyman_services.description','handyman_services.main_id','service_types.type','handyman_services.vat_percentage','handyman_services.sell_rate')->get();
 
             # code...
         }
@@ -3530,39 +3529,31 @@ $user_name  = $user->name;
                     if($check)
                     {
 
-                        $post = handyman_services::query()->where('id', '=', $check->id)->update(['service_id' => $input['title'][$i] , 'rate' => $input['details'][$i] , 'description' => $input['description'][$i] ]);
+                        $post = handyman_services::query()->where('id', '=', $check->id)->update(['service_id' => $input['title'][$i], 'rate' => $input['details'][$i], 'vat_percentage' => $input['vat_percentages'][$i], 'sell_rate' => $input['sell_rates'][$i], 'description' => $input['description'][$i] ]);
 
                     }
                     else
                     {
                        $post = new handyman_services();
-                    $post->handyman_id = $user_id;
-                    $post->service_id = $input['title'][$i];
-                    $post->main_id = $input['main_id'][$i];
-                    $post->rate = $input['details'][$i];
-                    $post->description = $input['description'][$i];
-
-                    $post->save();
+                       $post->handyman_id = $user_id;
+                       $post->service_id = $input['title'][$i];
+                       $post->main_id = $input['main_id'][$i];
+                       $post->rate = $input['details'][$i];
+                       $post->vat_percentage = $input['vat_percentages'][$i];
+                       $post->sell_rate = $input['sell_rates'][$i];
+                       $post->description = $input['description'][$i];
+                       $post->save();
 
                     }
-
-
 
                 }
                 else
                 {
-
-                    $post = handyman_services::query()->where('id', '=', $input['hs_id'][$i])->update(['service_id' => $input['title'][$i] , 'rate' => $input['details'][$i] , 'description' => $input['description'][$i] ]);
-
+                    $post = handyman_services::query()->where('id', '=', $input['hs_id'][$i])->update(['service_id' => $input['title'][$i], 'rate' => $input['details'][$i], 'vat_percentage' => $input['vat_percentages'][$i], 'sell_rate' => $input['sell_rates'][$i], 'description' => $input['description'][$i] ]);
                 }
 
 
             }
-
-
-
-
-
 
         Session::flash('success', $this->lang->success);
         return redirect()->route('user-subservices');
