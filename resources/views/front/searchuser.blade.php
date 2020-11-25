@@ -46,11 +46,7 @@ input::-webkit-calendar-picker-indicator {
                             <div class="hero-form-wrapper inline">
                                 <form action="{{route('user.search')}}" method="GET">
 
-
                                     <div class="row">
-
-
-
 
                                         <div class="col-md-6" style="margin-top: 10px;">
                                             <div class="form-group" id="zipbox">
@@ -58,8 +54,8 @@ input::-webkit-calendar-picker-indicator {
                                               <div class="input-group-addon">
                                                   <i class="fa fa-fw fa-home"></i>
                                               </div>
-                                      <input type="search" name="zipcode" id="zipcode" class="form-control" placeholder="{{$lang->spzc}}" autocomplete="off" required value="{{$search}}" style="font-weight: 500;">
 
+                                                <input type="search" name="zipcode" id="zipcode" class="form-control" placeholder="{{$lang->spzc}}" autocomplete="off" required value="{{$search}}" style="font-weight: 500;">
 
                                             </div>
                                           </div>
@@ -69,100 +65,76 @@ input::-webkit-calendar-picker-indicator {
 
                                         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
 
-                                      <script type="text/javascript">
-
-
+                                        <script type="text/javascript">
 
                                           function initMap() {
 
+                                              var input = document.getElementById('zipcode');
 
-  var input = document.getElementById('zipcode');
+                                              var options = {
+                                                  componentRestrictions: {country: "nl"}
+                                              };
 
+                                              var autocomplete = new google.maps.places.Autocomplete(input,options);
 
-   var options = {
-  componentRestrictions: {country: "nl"}
- };
+                                              // Set the data fields to return when the user selects a place.
 
-  var autocomplete = new google.maps.places.Autocomplete(input,options);
+                                              autocomplete.setFields(
+                                                  ['address_components', 'geometry', 'icon', 'name']);
 
+                                              autocomplete.addListener('place_changed', function() {
 
-
-
-  // Set the data fields to return when the user selects a place.
-  autocomplete.setFields(
-      ['address_components', 'geometry', 'icon', 'name']);
-
-
-  autocomplete.addListener('place_changed', function() {
+                                                  var place = autocomplete.getPlace();
 
 
-    var place = autocomplete.getPlace();
+                                                  if (!place.geometry) {
+
+                                                      // User entered the name of a Place that was not suggested and
+                                                      // pressed the Enter key, or the Place Details request failed.
+
+                                                      window.alert("No details available for input: '" + place.name + "'");
+                                                      return;
+                                                  }
+
+                                                  var city = '';
+
+                                                  for(var i=0; i < place.address_components.length; i++)
+                                                  {
+                                                      if(place.address_components[i].types[0] == 'locality')
+                                                      {
+
+                                                          city = place.address_components[i].long_name;
+
+                                                      }
+
+                                                  }
+
+                                                  if(city == '')
+                                                  {
+                                                      for(var i=0; i < place.address_components.length; i++)
+                                                      {
+                                                          if(place.address_components[i].types[0] == 'administrative_area_level_2')
+                                                          {
+                                                              var city = place.address_components[i].long_name;
+
+                                                          }
+
+                                                      }
+                                                  }
+                                              });
+                                          }
+
+                                        </script>
 
 
-
-
-
-    if (!place.geometry) {
-
-      // User entered the name of a Place that was not suggested and
-      // pressed the Enter key, or the Place Details request failed.
-      window.alert("No details available for input: '" + place.name + "'");
-      return;
-    }
-
-    var city = '';
-
-    for(var i=0; i < place.address_components.length; i++)
-    {
-
-
-
-        if(place.address_components[i].types[0] == 'locality')
-        {
-
-           city = place.address_components[i].long_name;
-
-        }
-
-
-    }
-
-
-    if(city == '')
-    {
-
-        for(var i=0; i < place.address_components.length; i++)
-    {
-
-
-        if(place.address_components[i].types[0] == 'administrative_area_level_2')
-        {
-
-            var city = place.address_components[i].long_name;
-
-        }
-
-
-    }
-
-    }
-
-
-
-    });
-
-
-}
-
-</script>
-
-                                         <div class="col-md-6" style="margin-top: 10px;">
+                                        <div class="col-md-6" style="margin-top: 10px;">
 
                                             <div class="form-group">
-                                        <div class="input-group" id="service_box" style="height: 50px;">
-                                          <div class="input-group-addon">
-                                              <i class="fa fa-fw fa-cog"></i>
-                                          </div>
+                                                <div class="input-group" id="service_box" style="height: 50px;">
+
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-fw fa-cog"></i>
+                                                    </div>
 
                                             <select class="js-data-example-ajax form-control"  style="width: 100%" name="group" id="blood_grp" required>
 

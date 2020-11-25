@@ -563,7 +563,7 @@ else
         }
         else
         {
-            $catt = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->where('categories.id',$type)->first();
+            $catt = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->where('categories.id',$type)->select('categories.*','service_types.type')->first();
 
             $usersss= handyman_services::leftjoin('users','users.id','=','handyman_services.handyman_id')->where('users.active',1)->where('handyman_services.service_id','=', $type);
 
