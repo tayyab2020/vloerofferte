@@ -80,98 +80,113 @@
                                           <div class="form-group">
                                             <label class="control-label col-sm-4" for="profile_photo">Add Photo</label>
                                             <div class="col-sm-6">
-                                    <input type="file" id="uploadFile" class="hidden" name="photo" value="">
+                                                <input type="file" id="uploadFile" class="hidden" name="photo" value="">
                                               <button type="button" id="uploadTrigger" onclick="uploadclick()" class="form-control"><i class="fa fa-download"></i> Add Category Photo</button>
                                               <p>Prefered Size: (600x600) or Square Sized Image</p>
                                             </div>
                                           </div>
-                                          <div class="form-group">
-                                            <label class="control-label col-sm-4" for="website_title">Color *<span>(Don't Use RGB)</span></label>
-                                            <div class="col-sm-6">
-                                              <div id="cp2" class="input-group colorpicker-component">
-                                <input id="cp1" type="text" name="colors"   required="" class="form-control"/>
-                                    <span class="input-group-addon"><i></i></span>
-                                    </div>
-                                            </div>
-                                          </div>
 
-                                          <div class="form-group">
-                                            <label class="control-label col-sm-4" for="service_type">Service Type* </label>
-                                            <div class="col-sm-6">
-                                              <select class="form-control" name="service_type" id="service_type" required="" >
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="website_title">Color *<span>(Don't Use RGB)</span></label>
 
-                                                <option value="">Select Service Type</option>
-
-                                                @foreach($service_types as $key)
-
-                                                <option value="{{$key->id}}">{{$key->type}}</option>
-
-                                                @endforeach
-
-                                              </select>
-                                            </div>
-                                          </div>
-
-                                          <div class="form-group">
-                                            <label class="control-label col-sm-4" for="">Main Service* </label>
-                                            <div class="col-sm-3">
-                                                <label class="switch">
-                                                  <input type="checkbox" name="main_service" id="main_service" checked="" onchange="SubService()">
-                                                  <span class="slider round"></span>
-                                                </label>
-                                            </div>
-                                          </div>
-
-                                          <div class="sub-services s_box" id="q" style="display: none;">
-
-                                          <div class="form-group">
-
-                                            <label class="control-label col-sm-4" for="sub_service">Services </label>
-                                            <div class="col-sm-3">
-                                              <select class="form-control js-data-example-ajax" name="sub_service[]" id="sub_service">
-
-                                                <option value="">Select Main Service</option>
-
-                                                @foreach($cats as $key)
-
-                                                <option value="{{$key->id}}">{{$key->cat_name}}</option>
-
-                                                @endforeach
-
-                                              </select>
-
-
-                                            </div>
-
-
-                                          <div class="col-xs-3 col-sm-3" id="s3Type" style="height: 40px;">
-
-                                          <input class="form-control" style="text-align: center;padding-top: 5px;height: 100%;margin-bottom: 0;background-color: transparent;" value="(Main Service) Service Type" readonly>
-
-                                          </div>
-
-                                          </div>
-
-                                          </div>
-
-                                          <div class="form-group s_box" style="margin-top: 40px;display: none;">
-
-                                                    <label class="control-label col-sm-3" for=""></label>
-
-                                                    <div class="col-sm-12 text-center">
-
-                                                        <button class="btn btn-default featured-btn" type="button" name="add-field-btn" id="add-field-btn"><i class="fa fa-plus"></i> Add More Main Services</button>
+                                                <div class="col-sm-6">
+                                                    <div id="cp2" class="input-group colorpicker-component">
+                                                        <input id="cp1" type="text" name="colors"   required="" class="form-control"/>
+                                                        <span class="input-group-addon"><i></i></span>
                                                     </div>
+                                                </div>
+                                            </div>
+
+                                          <div class="form-group">
+                                              <label class="control-label col-sm-4" for="service_type">Service Type* </label>
+                                              <div class="col-sm-6">
+                                                  <select class="form-control" name="service_type" id="service_type" required="" >
+
+                                                      <option value="">Select Service Type</option>
+
+                                                      @foreach($service_types as $key)
+
+                                                          <option value="{{$key->id}}">{{$key->type}}</option>
+
+                                                      @endforeach
+
+                                                  </select>
+                                              </div>
                                           </div>
 
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Main Service* </label>
+                                                <div class="col-sm-3">
+                                                    <label class="switch">
+                                                        <input type="checkbox" name="main_service" id="main_service" checked="" onchange="SubService()">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Variable Questions* </label>
+                                                <div class="col-sm-3">
+                                                    <label class="switch">
+                                                        <input type="checkbox" name="variable_questions" id="variable_questions">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
 
 
+                                            <div class="sub-services s_box" id="q" style="display: none;">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label col-sm-4" for="sub_service">Services </label>
+
+                                                    <div class="col-sm-3">
+
+                                                        <select class="form-control js-data-example-ajax" name="sub_service[]" id="sub_service">
+
+                                                            <option value="">Select Main Service</option>
+
+                                                            @foreach($cats as $key)
+
+                                                                <option value="{{$key->id}}">{{$key->cat_name}}</option>
+
+                                                            @endforeach
+
+                                                        </select>
+
+                                                    </div>
+
+
+                                                    <div class="col-xs-3 col-sm-3" id="s3Type" style="height: 40px;">
+
+                                                        <input class="form-control" style="text-align: center;padding-top: 5px;height: 100%;margin-bottom: 0;background-color: transparent;" value="(Main Service) Service Type" readonly>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group s_box" style="margin-top: 40px;display: none;">
+                                                <label class="control-label col-sm-3" for=""></label>
+
+                                                <div class="col-sm-12 text-center">
+
+                                                    <button class="btn btn-default featured-btn" type="button" name="add-field-btn" id="add-field-btn"><i class="fa fa-plus"></i> Add More Main Services</button>
+
+                                                </div>
+                                            </div>
 
                                             <hr>
+
                                             <div class="add-product-footer">
                                                 <button name="addProduct_btn" type="submit" class="btn add-product_btn">Add Service</button>
                                             </div>
+
                                         </form>
+
                                     </div>
                                 </div>
                         </div>

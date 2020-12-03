@@ -82,73 +82,86 @@
                                           <div class="form-group">
                                             <label class="control-label col-sm-4" for="profile_photo">Edit Photo *</label>
                                             <div class="col-sm-6">
-                                    <input type="file" id="uploadFile" class="hidden" name="photo" value="">
+                                                <input type="file" id="uploadFile" class="hidden" name="photo" value="">
                                               <button type="button" id="uploadTrigger" onclick="uploadclick()" class="form-control"><i class="fa fa-download"></i> Edit Category Photo</button>
                                               <p>Prefered Size: (600x600) or Square Sized Image</p>
                                             </div>
                                           </div>
-                                          <div class="form-group">
-                                            <label class="control-label col-sm-4" for="website_title">Color *<span>(Don't Use RGB)</span></label>
-                                            <div class="col-sm-6">
-                                              <div id="cp2" class="input-group colorpicker-component">
-                                <input id="cp1" type="text" name="colors" value="{{$cat->colors}}"   required="" class="form-control"/>
-                                    <span class="input-group-addon"><i></i></span>
-                                    </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="website_title">Color *<span>(Don't Use RGB)</span></label>
+                                                <div class="col-sm-6">
+                                                    <div id="cp2" class="input-group colorpicker-component">
+                                                        <input id="cp1" type="text" name="colors" value="{{$cat->colors}}"   required="" class="form-control"/>
+                                                        <span class="input-group-addon"><i></i></span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                          </div>
 
-                                          <div class="form-group">
-                                            <label class="control-label col-sm-4" for="service_type">Service Type* </label>
-                                            <div class="col-sm-6">
-                                              <select class="form-control" name="service_type" id="service_type" required="" >
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="service_type">Service Type* </label>
+                                                <div class="col-sm-6">
 
-                                                <option value="">Select Service Type</option>
+                                                    <select class="form-control" name="service_type" id="service_type" required="" >
 
-                                                @foreach($service_types as $key)
+                                                        <option value="">Select Service Type</option>
 
-                                                @if($cat->service_type == $key->id)
+                                                        @foreach($service_types as $key)
 
-                                                <option value="{{$key->id}}" selected>{{$key->type}}</option>
+                                                            @if($cat->service_type == $key->id)
 
-                                                @else
+                                                                <option value="{{$key->id}}" selected>{{$key->type}}</option>
 
-                                                <option value="{{$key->id}}">{{$key->type}}</option>
+                                                            @else
 
+                                                                <option value="{{$key->id}}">{{$key->type}}</option>
 
-                                                @endif
+                                                            @endif
 
+                                                        @endforeach
 
-                                                @endforeach
+                                                    </select>
 
-                                              </select>
+                                                </div>
                                             </div>
-                                          </div>
 
-                                          <div class="form-group">
-                                            <label class="control-label col-sm-4" for="">Main Service* </label>
-                                            <div class="col-sm-3">
-                                                <label class="switch">
-                                                  @if($cat->main_service)
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Main Service* </label>
+                                                <div class="col-sm-3">
+                                                    <label class="switch">
 
-                                                  <input type="checkbox"  checked disabled  onchange="SubService()">
+                                                        @if($cat->main_service)
 
-                                                  <span class="slider round" style="cursor: not-allowed;"></span>
+                                                            <input type="checkbox" checked disabled onchange="SubService()">
 
-                                                  <input type="hidden" name="main_service" value="1">
+                                                            <span class="slider round" style="cursor: not-allowed;"></span>
 
-                                                  @else
+                                                            <input type="hidden" name="main_service" value="1">
 
-                                                  <input type="checkbox" name="main_service" id="main_service" disabled style="cursor: disabled;" onchange="SubService()">
+                                                        @else
 
-                                                  <span class="slider round" style="cursor: not-allowed;"></span>
+                                                            <input type="checkbox" name="main_service" id="main_service" disabled style="cursor: disabled;" onchange="SubService()">
 
-                                                  <input type="hidden" name="main_service" value="0">
+                                                            <span class="slider round" style="cursor: not-allowed;"></span>
 
-                                                  @endif
+                                                            <input type="hidden" name="main_service" value="0">
 
-                                                </label>
+                                                        @endif
+
+                                                    </label>
+
+                                                </div>
                                             </div>
-                                          </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Variable Questions* </label>
+                                                <div class="col-sm-3">
+                                                    <label class="switch">
+                                                        <input @if($cat->variable_questions) checked @endif type="checkbox" name="variable_questions" id="variable_questions">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
 
                                           @if(!$cat->main_service)
 

@@ -963,7 +963,6 @@ else
     public function user($id)
     {
 
-
         $user = User::findOrFail($id);
         $user1 = Auth::guard('user')->user();
 
@@ -971,40 +970,27 @@ else
         {
 
             if($user1->id == $id)
-        {
-            return redirect()->route('front.index');
+            {
+                return redirect()->route('front.index');
+            }
+
         }
 
-
-        }
-
-
-        $services = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->where('handyman_services.handyman_id','=',$id)->where('categories.main_service',1)->leftjoin('service_types','service_types.id','=','categories.service_type')->Select('categories.id as id','categories.cat_name as cat_name','categories.cat_slug as cat_slug','categories.photo as cat_photo','service_types.type as service_type','service_types.text as service_text','handyman_services.rate','handyman_services.description','service_types.id as service_id')->get();
-
-
-
-
+        $services = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->where('handyman_services.handyman_id','=',$id)->where('categories.main_service',1)->leftjoin('service_types','service_types.id','=','categories.service_type')->Select('categories.id as id','categories.variable_questions','categories.cat_name as cat_name','categories.cat_slug as cat_slug','categories.photo as cat_photo','service_types.type as service_type','service_types.text as service_text','handyman_services.rate','handyman_services.description','handyman_services.vat_percentage','handyman_services.sell_rate','service_types.id as service_id')->get();
 
         if($user1 != "")
         {
             $user_id = Auth::guard('user')->user()->id;
-
             $bookings = bookings::where('user_id','=',$user_id)->where('handyman_id','=',$id)->where('is_booked','=',1)->first();
-
         }
-        else{
+        else {
             $user_id = '';
             $bookings = '';
         }
 
-
-
         $bookings_dates = bookings::where('handyman_id','=',$id)->select('booking_date')->get();
         $unavailable_dates = handyman_unavailability::where('handyman_id','=',$id)->get();
-
         $unavailable_hours = handyman_unavailability_hours::where('handyman_id','=',$id)->get();
-
-
 
         $dates_array[] = '';
         $dates_array1[] = '';
@@ -1015,81 +1001,62 @@ else
 
        foreach ($bookings_dates as $key ) {
 
-        $dt = strtotime($key->booking_date); //make timestamp with datetime string
-
-        $date = date("m-d-Y", $dt);
-
-
+           $dt = strtotime($key->booking_date); //make timestamp with datetime string
+           $date = date("m-d-Y", $dt);
            $dates_array[$i] = array('notAvailable_date'=>$date);
-
            $i++;
        }
 
        foreach ($unavailable_dates as $temp ) {
 
-        $dt1 = strtotime($temp->date); //make timestamp with datetime string
-
-        $date1 = date("m-d-Y", $dt1);
-
-
-
-
+           $dt1 = strtotime($temp->date); //make timestamp with datetime string
+           $date1 = date("m-d-Y", $dt1);
            $dates_array1[$x] = array('notAvailable_date'=>$date1);
-
            $x++;
        }
 
+       $dates_array = array_merge($dates_array,$dates_array1);
 
-$dates_array = array_merge($dates_array,$dates_array1);
-
-foreach ($unavailable_hours as $temp ) {
-
+       foreach ($unavailable_hours as $temp ) {
 
            $hours[$y] = array('notAvailable_hour'=>$temp->hour);
-
            $y++;
        }
 
+       if (!empty($_SERVER['HTTP_CLIENT_IP']))
+       {
+           $ip_address = $_SERVER['HTTP_CLIENT_IP'];
+       }
+       //whether ip is from proxy
 
- if (!empty($_SERVER['HTTP_CLIENT_IP']))
-  {
-    $ip_address = $_SERVER['HTTP_CLIENT_IP'];
-  }
-//whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-  {
-    $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
-  }
-//whether ip is from remote address
-else
-  {
-    $ip_address = $_SERVER['REMOTE_ADDR'];
-  }
+       elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+       {
+           $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+       }
+       //whether ip is from remote address
 
+       else
+           {
+               $ip_address = $_SERVER['REMOTE_ADDR'];
+           }
 
+       $cart = carts::where('user_ip','=',$ip_address)->get();
 
-$cart = carts::where('user_ip','=',$ip_address)->get();
+       if(!$cart->isEmpty()){
 
-if(!$cart->isEmpty()){
+           $cart_count = count($cart);
+           $booking_date = $cart[0]->booking_date;
+           $booking_date = strtotime($booking_date);
+           $booking_date = date("d-m-Y h:i a", $booking_date);
 
-    $cart_count = count($cart);
-    $booking_date = $cart[0]->booking_date;
-    $booking_date = strtotime($booking_date);
+       }
+       else
+           {
+               $cart_count = 0;
+               $booking_date = '';
+           }
 
-    $booking_date = date("d-m-Y h:i a", $booking_date);
-
-}
-
-else
-{
-    $cart_count = 0;
-    $booking_date = '';
-}
-
-
-
-
-        return view('front.user',compact('user','user_id','bookings','services','id','dates_array','cart_count','booking_date','hours'));
+       return view('front.user',compact('user','user_id','bookings','services','id','dates_array','cart_count','booking_date','hours'));
 
     }
 

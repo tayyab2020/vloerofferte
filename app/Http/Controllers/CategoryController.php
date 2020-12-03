@@ -71,13 +71,19 @@ class CategoryController extends Controller
         if($request->main_service)
         {
             $request['main_service'] = 1;
-
         }
         else
         {
             $request['main_service'] = 0;
+        }
 
-
+        if($request->variable_questions)
+        {
+            $request['variable_questions'] = 1;
+        }
+        else
+        {
+            $request['variable_questions'] = 0;
         }
 
 
@@ -90,36 +96,30 @@ class CategoryController extends Controller
         $input['vat_rule'] = $vat->rule;
         $input['vat_code'] = $vat->code;
 
-            if ($file = $request->file('photo'))
-            {
-                $name = time().$file->getClientOriginalName();
-                $file->move('assets/images',$name);
+        if ($file = $request->file('photo'))
+        {
+            $name = time().$file->getClientOriginalName();
+            $file->move('assets/images',$name);
             $input['photo'] = $name;
-            }
+        }
+
         $cat->fill($input)->save();
 
         if(!$request->main_service)
         {
+            foreach ($request->sub_service as $key) {
 
+                if($key)
+                {
 
-        foreach ($request->sub_service as $key) {
-
-            if($key)
-            {
-
-            $sub_services = new sub_services;
-            $sub_services->cat_id = $key;
-            $sub_services->sub_id = $cat->id;
-            $sub_services->save();
+                    $sub_services = new sub_services;
+                    $sub_services->cat_id = $key;
+                    $sub_services->sub_id = $cat->id;
+                    $sub_services->save();
+                }
 
             }
-
         }
-
-
-
-        }
-
 
 
         Session::flash('success', 'New Service added successfully.');
@@ -172,9 +172,15 @@ class CategoryController extends Controller
             $i++;
 
         }
+        }
 
-
-
+        if($request->variable_questions)
+        {
+            $request['variable_questions'] = 1;
+        }
+        else
+        {
+            $request['variable_questions'] = 0;
         }
 
         $cat = Category::findOrFail($id);
@@ -196,6 +202,7 @@ class CategoryController extends Controller
                 }
             $input['photo'] = $name;
             }
+
         $cat->update($input);
         Session::flash('success', 'Service updated successfully.');
         return redirect()->route('admin-cat-index');

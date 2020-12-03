@@ -17,21 +17,21 @@
         <link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet">
         <link href="{{asset('assets/admin/css/responsive.css')}}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{asset('assets/images/'.$gs->favicon)}}">
-        @include('styles.admin-design') 
+        @include('styles.admin-design')
         @yield('styles')
-        
+
 
     </head>
     <body>
         <div class="dashboard-wrapper">
-            
+
             @yield('content')
 </div>
 
 
 
 <style type="text/css">
-   
+
 
 
     .add-back-btn, .add-newProduct-btn

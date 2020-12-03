@@ -2136,463 +2136,384 @@ $api_key = Generalsetting::findOrFail(1);
     public function AddCart(Request $request)
     {
 
-
-
         if (!empty($_SERVER['HTTP_CLIENT_IP']))
-  {
-    $ip_address = $_SERVER['HTTP_CLIENT_IP'];
-  }
-//whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-  {
-    $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
-  }
-//whether ip is from remote address
-else
-  {
-    $ip_address = $_SERVER['REMOTE_ADDR'];
-  }
-
-$img_desc = $request->file('file');
-$size = 0;
-$no = 0;
-$uploadedFiles = array (); // return value
-
-
-
-if($img_desc)
-{
-
- foreach( $img_desc as $img )
- {
-    $no = $no + 1;
-
-    if($img->getSize() == '') // Size of single image from list is greater than 2mb
-    {
-
-        $msg = $this->lang->tpe;
-
-                        $type = 1;
-
-                        $cart = carts::where('user_ip','=',$ip_address)->get();
-
-         $cart_count = count($cart);
-
-                        $data  = array('msg' => $msg , 'type' => $type , 'count' => $cart_count);
-
-        return $data;
-
-    }
-
-    $size = $img->getSize() + $size;
-
-
-        /* Location */
-$location = public_path().'/assets/bookingImages/'.$img->getClientOriginalName();
-$uploadOk = 1;
-$imageFileType = pathinfo($location,PATHINFO_EXTENSION);
-
-/* Valid Extensions */
-$valid_extensions = array("jpg","jpeg","png","pdf");
-/* Check file extension */
-
-if( !in_array(strtolower($imageFileType),$valid_extensions) ) {
-
-     $msg = $this->lang->fte;
-
-                        $type = 1;
-
-                        $cart = carts::where('user_ip','=',$ip_address)->get();
-
-         $cart_count = count($cart);
-
-                        $data  = array('msg' => $msg , 'type' => $type , 'count' => $cart_count);
-
-        return $data;
-
-
-    }
-
- }
-
-if($no > 5)
-{
-
-    $msg = $this->lang->mie;
-
-                        $type = 1;
-
-                        $cart = carts::where('user_ip','=',$ip_address)->get();
-
-         $cart_count = count($cart);
-
-                        $data  = array('msg' => $msg , 'type' => $type , 'count' => $cart_count);
-
-        return $data;
-
-}
-
-if($size > '2097152‬')
-{
-
-    $msg = $this->lang->tpe;
-
-                        $type = 1;
-
-                        $cart = carts::where('user_ip','=',$ip_address)->get();
-
-         $cart_count = count($cart);
-
-                        $data  = array('msg' => $msg , 'type' => $type , 'count' => $cart_count);
-
-        return $data;
-
-}
-
-foreach( $img_desc as $img )
-{
-
-    $fileName = date('YmdHis',time()).mt_rand().'.'.pathinfo( $img->getClientOriginalName(), PATHINFO_EXTENSION );
-
-   /* Upload file */
-   $img->move( public_path().'/assets/bookingImages/', $fileName );
-
-     array_push( $uploadedFiles, $fileName );
-
-}
-
-
-
-}
-
-
-
-
-
-$check = carts::where('user_ip','=',$ip_address)->first();
-
-
-if($check)
-{
-
-    if( $check->handyman_id == $request->handyman_id )
-
-{
-
-    $to_update = carts::where('user_ip','=',$ip_address)->where('service_id','=',$request->service)->where('handyman_id','=',$request->handyman_id)->first();
-
-    if($to_update)
-    {
-        $qty = $to_update->rate + $request->rate;
-
-        $update = carts::where('user_ip','=',$ip_address)->where('service_id','=',$request->service)->where('handyman_id','=',$request->handyman_id)->update(['rate'=>$qty]);
-
-        $sub_service = $request->sub_service;
-
-        if($sub_service)
         {
-            $i = 0;
+            $ip_address = $_SERVER['HTTP_CLIENT_IP'];
+        }
+        //whether ip is from proxy
 
-            $date = new DateTime($request->date);
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+        {
+            $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        //whether ip is from remote address
 
-        $date = $date->format('Y-m-d H:i');
-
-            foreach ($sub_service as $key ) {
-
-                $cart = new carts;
-                $cart->user_ip = $ip_address;
-                $cart->handyman_id = $request->handyman_id;
-                $cart->service_id = $key;
-                $cart->main_id = $request->service;
-                $cart->rate_id = $request->sub_rate_id[$i];
-                $cart->rate = $request->sub_rate[$i];
-                $cart->service_rate = $request->sub_service_rate[$i];
-                $cart->booking_date = $date;
-
-                $cart->save();
-
-                $i++;
+        else
+            {
+                $ip_address = $_SERVER['REMOTE_ADDR'];
             }
 
+        $img_desc = $request->file('file');
+        $size = 0;
+        $no = 0;
+        $uploadedFiles = array (); // return value
+
+        if($img_desc)
+        {
+            foreach( $img_desc as $img )
+            {
+                $no = $no + 1;
+                if($img->getSize() == '') // Size of single image from list is greater than 2mb
+                    {
+                        $msg = $this->lang->tpe;
+                        $type = 1;
+                        $cart = carts::where('user_ip','=',$ip_address)->get();
+                        $cart_count = count($cart);
+                        $data  = array('msg' => $msg , 'type' => $type , 'count' => $cart_count);
+                        return $data;
+                    }
+
+                $size = $img->getSize() + $size;
+
+                /* Location */
+
+                $location = public_path().'/assets/bookingImages/'.$img->getClientOriginalName();
+                $uploadOk = 1;
+                $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+
+                /* Valid Extensions */
+                $valid_extensions = array("jpg","jpeg","png","pdf");
+                /* Check file extension */
+
+                if( !in_array(strtolower($imageFileType),$valid_extensions) ) {
+
+                    $msg = $this->lang->fte;
+                    $type = 1;
+                    $cart = carts::where('user_ip','=',$ip_address)->get();
+                    $cart_count = count($cart);
+
+                    $data  = array('msg' => $msg , 'type' => $type , 'count' => $cart_count);
+
+                    return $data;
+
+                }
+
+            }
+
+            if($no > 5)
+            {
+                $msg = $this->lang->mie;
+                $type = 1;
+                $cart = carts::where('user_ip','=',$ip_address)->get();
+                $cart_count = count($cart);
+
+                $data  = array('msg' => $msg , 'type' => $type , 'count' => $cart_count);
+                return $data;
+            }
+
+            if($size > '2097152‬')
+            {
+                $msg = $this->lang->tpe;
+                $type = 1;
+                $cart = carts::where('user_ip','=',$ip_address)->get();
+                $cart_count = count($cart);
+                $data  = array('msg' => $msg , 'type' => $type , 'count' => $cart_count);
+                return $data;
+            }
+
+            foreach( $img_desc as $img )
+            {
+                $fileName = date('YmdHis',time()).mt_rand().'.'.pathinfo( $img->getClientOriginalName(), PATHINFO_EXTENSION );
+                /* Upload file */
+                $img->move( public_path().'/assets/bookingImages/', $fileName );
+
+                array_push( $uploadedFiles, $fileName );
+            }
         }
 
-
-
-          if(!empty($_FILES ['file']))
+        if($request->service_questions)
         {
+            $purpose = $request->purpose;
 
-$x = 0;
-
-
-             foreach( $img_desc as $img )
-             {
-
-
-
-                 $images = new booking_images;
-                 $images->cart_id = $to_update->id;
-                 $images->image = $uploadedFiles[$x];
-                 $images->description = $request->description;
-
-                 $images->save();
-
-                 $x++;
-             }
-
+            if($purpose == 1)
+            {
+                if($request->vat_percentage == 21)
+                {
+                    $vat_percentage = $request->vat_percentage;
+                    $sell_rate = $request->sell_rate;
+                }
+                else
+                {
+                    $service_rate = $request->service_rate;
+                    $vat_percentage = 21;
+                    $sell_rate = $service_rate * ($vat_percentage/100);
+                    $sell_rate = $sell_rate + $service_rate;
+                }
+            }
+            else
+            {
+                if($request->purpose_type == 1)
+                {
+                    if($request->vat_percentage == 21)
+                    {
+                        $vat_percentage = $request->vat_percentage;
+                        $sell_rate = $request->sell_rate;
+                    }
+                    else
+                    {
+                        $service_rate = $request->service_rate;
+                        $vat_percentage = 21;
+                        $sell_rate = $service_rate * ($vat_percentage/100);
+                        $sell_rate = $sell_rate + $service_rate;
+                    }
+                }
+                else
+                {
+                    $service_rate = $request->service_rate;
+                    $vat_percentage = 9;
+                    $sell_rate = $service_rate * ($vat_percentage/100);
+                    $sell_rate = $sell_rate + $service_rate;
+                }
+            }
         }
         else
         {
-            if($request->description)
+            $vat_percentage = $request->vat_percentage;
+            $sell_rate = $request->sell_rate;
+        }
+
+        $check = carts::where('user_ip','=',$ip_address)->first();
+
+        if($check)
+        {
+            if( $check->handyman_id == $request->handyman_id )
             {
+                $to_update = carts::where('user_ip','=',$ip_address)->where('service_id','=',$request->service)->where('handyman_id','=',$request->handyman_id)->first();
 
-                $images = new booking_images;
-                 $images->cart_id = $to_update->id;
-                 $images->description = $request->description;
+                if($to_update)
+                {
+                    $qty = $to_update->rate + $request->rate;
+                    carts::where('user_ip','=',$ip_address)->where('service_id','=',$request->service)->where('handyman_id','=',$request->handyman_id)->update(['rate'=>$qty, 'vat_percentage' => $vat_percentage, 'sell_rate' => $sell_rate]);
+                    $sub_service = $request->sub_service;
 
-                 $images->save();
+                    if($sub_service)
+                    {
+                        $date = new DateTime($request->date);
+                        $date = $date->format('Y-m-d H:i');
 
+                        foreach ($sub_service as $i => $key ) {
+
+                            $sub_service_id = $key;
+
+                            $to_update_sub = carts::where('user_ip','=',$ip_address)->where('service_id','=',$sub_service_id)->where('main_id','=',$request->service)->where('handyman_id','=',$request->handyman_id)->first();
+
+                            if($to_update_sub)
+                            {
+                                $qty_sub = $to_update_sub->rate + $request->sub_rate[$i];
+                                carts::where('user_ip','=',$ip_address)->where('service_id','=',$sub_service_id)->where('main_id','=',$request->service)->where('handyman_id','=',$request->handyman_id)->update(['rate'=>$qty_sub]);
+                            }
+                            else
+                            {
+                                $cart = new carts;
+                                $cart->user_ip = $ip_address;
+                                $cart->handyman_id = $request->handyman_id;
+                                $cart->service_id = $sub_service_id;
+                                $cart->main_id = $request->service;
+                                $cart->rate_id = $request->sub_rate_id[$i];
+                                $cart->rate = $request->sub_rate[$i];
+                                $cart->service_rate = $request->sub_service_rate[$i];
+                                $cart->booking_date = $date;
+                                $cart->save();
+                            }
+                        }
+                    }
+
+                    if(!empty($_FILES ['file']))
+                    {
+                        $x = 0;
+
+                        foreach( $img_desc as $img )
+                        {
+                            $images = new booking_images;
+                            $images->cart_id = $to_update->id;
+                            $images->image = $uploadedFiles[$x];
+                            $images->description = $request->description;
+                            $images->save();
+                            $x++;
+                        }
+                    }
+                    else
+                        {
+
+                            if($request->description)
+                            {
+                                $images = new booking_images;
+                                $images->cart_id = $to_update->id;
+                                $images->description = $request->description;
+                                $images->save();
+                            }
+                        }
+                }
+                else
+                    {
+                        $date = new DateTime($request->date);
+                        $date = $date->format('Y-m-d H:i');
+
+                        $post = new carts();
+                        $post->user_ip = $ip_address;
+                        $post->handyman_id = $request->handyman_id;
+                        $post->service_id = $request->service;
+                        $post->rate_id = $request->rate_id;
+                        $post->rate = $request->rate;
+                        $post->service_rate = $request->service_rate;
+                        $post->booking_date = $date;
+                        $post->vat_percentage = $vat_percentage;
+                        $post->sell_rate = $sell_rate;
+                        $post->save();
+
+                        $sub_service = $request->sub_service;
+
+                        if($sub_service)
+                        {
+                            $i = 0;
+                            $date = new DateTime($request->date);
+                            $date = $date->format('Y-m-d H:i');
+
+                            foreach ($sub_service as $key ) {
+
+                                $cart = new carts;
+                                $cart->user_ip = $ip_address;
+                                $cart->handyman_id = $request->handyman_id;
+                                $cart->service_id = $key;
+                                $cart->main_id = $request->service;
+                                $cart->rate_id = $request->sub_rate_id[$i];
+                                $cart->rate = $request->sub_rate[$i];
+                                $cart->service_rate = $request->sub_service_rate[$i];
+                                $cart->booking_date = $date;
+                                $cart->save();
+                                $i++;
+
+                            }
+                        }
+
+                        if(!empty($_FILES ['file']))
+                        {
+                            $x = 0;
+
+                            foreach( $img_desc as $img )
+                            {
+                                $images = new booking_images;
+                                $images->cart_id = $post->id;
+                                $images->image = $uploadedFiles[$x];
+                                $images->description = $request->description;
+                                $images->save();
+                                $x++;
+                            }
+                        }
+                        else
+                            {
+
+                                if($request->description)
+                                {
+                                    $images = new booking_images;
+                                    $images->cart_id = $post->id;
+                                    $images->description = $request->description;
+                                    $images->save();
+                                }
+                            }
+                    }
+
+                $type = 0;
+
+                // $msg = 'Service added to cart successfully!';
+                $msg = $this->lang->acm;
             }
-        }
-
-
-
-    }
-    else
-    {
-
-        $date = new DateTime($request->date);
-
-        $date = $date->format('Y-m-d H:i');
-
-
-        $post = new carts();
-
-        $post->user_ip = $ip_address;
-
-        $post->handyman_id = $request->handyman_id;
-
-        $post->service_id = $request->service;
-
-        $post->rate_id = $request->rate_id;
-
-        $post->rate = $request->rate;
-
-        $post->service_rate = $request->service_rate;
-
-        $post->booking_date = $date;
-
-
-        $post->save();
-
-        $sub_service = $request->sub_service;
-
-        if($sub_service)
-        {
-            $i = 0;
-
-            $date = new DateTime($request->date);
-
-        $date = $date->format('Y-m-d H:i');
-
-            foreach ($sub_service as $key ) {
-
-                $cart = new carts;
-                $cart->user_ip = $ip_address;
-                $cart->handyman_id = $request->handyman_id;
-                $cart->service_id = $key;
-                $cart->main_id = $request->service;
-                $cart->rate_id = $request->sub_rate_id[$i];
-                $cart->rate = $request->sub_rate[$i];
-                $cart->service_rate = $request->sub_service_rate[$i];
-                $cart->booking_date = $date;
-
-                $cart->save();
-
-                $i++;
-            }
-
-        }
-
-          if(!empty($_FILES ['file']))
-        {
-
-$x = 0;
-
-
-             foreach( $img_desc as $img )
-             {
-
-
-
-                 $images = new booking_images;
-                 $images->cart_id = $post->id;
-                 $images->image = $uploadedFiles[$x];
-                 $images->description = $request->description;
-
-                 $images->save();
-
-                 $x++;
-             }
-
+            else
+                {
+                    // $msg = 'Sorry, You can only add multiple services of same handyman into your cart!';
+                    $msg = $this->lang->ace;
+                    $type = 1;
+                }
         }
         else
-        {
-            if($request->description)
             {
+                $date = new DateTime($request->date);
+                $date = $date->format('Y-m-d H:i');
 
-                $images = new booking_images;
-                 $images->cart_id = $post->id;
-                 $images->description = $request->description;
+                $post = new carts();
+                $post->user_ip = $ip_address;
+                $post->handyman_id = $request->handyman_id;
+                $post->service_id = $request->service;
+                $post->rate_id = $request->rate_id;
+                $post->rate = $request->rate;
+                $post->service_rate = $request->service_rate;
+                $post->booking_date = $date;
+                $post->vat_percentage = $vat_percentage;
+                $post->sell_rate = $sell_rate;
+                $post->save();
 
-                 $images->save();
+                $sub_service = $request->sub_service;
 
-            }
-        }
+                if($sub_service)
+                {
+                    $i = 0;
 
+                    $date = new DateTime($request->date);
+                    $date = $date->format('Y-m-d H:i');
 
-    }
+                    foreach ($sub_service as $key ) {
 
+                        $cart = new carts;
+                        $cart->user_ip = $ip_address;
+                        $cart->handyman_id = $request->handyman_id;
+                        $cart->service_id = $key;
+                        $cart->main_id = $request->service;
+                        $cart->rate_id = $request->sub_rate_id[$i];
+                        $cart->rate = $request->sub_rate[$i];
+                        $cart->service_rate = $request->sub_service_rate[$i];
+                        $cart->booking_date = $date;
+                        $cart->save();
+                        $i++;
+                    }
+                }
 
+                if(!empty($_FILES ['file']))
+                {
+                    $x = 0;
 
-         $type = 0;
+                    foreach( $img_desc as $img )
+                    {
+                        $images = new booking_images;
+                        $images->cart_id = $post->id;
+                        $images->image = $uploadedFiles[$x];
+                        $images->description = $request->description;
+                        $images->save();
+                        $x++;
+                    }
+                }
+                else
+                    {
+                        if($request->description)
+                        {
+                            $images = new booking_images;
+                            $images->cart_id = $post->id;
+                            $images->description = $request->description;
+                            $images->save();
+                        }
+                    }
 
+                $type = 0;
 
-         // $msg = 'Service added to cart successfully!';
-
-         $msg = $this->lang->acm;
-
-
-}
-
-else
-{
-
-    // $msg = 'Sorry, You can only add multiple services of same handyman into your cart!';
-
-    $msg = $this->lang->ace;
-    $type = 1;
-}
-
-}
-
-else
-{
-
-
-
-    $date = new DateTime($request->date);
-
-        $date = $date->format('Y-m-d H:i');
-
-
-
-        $post = new carts();
-
-        $post->user_ip = $ip_address;
-
-        $post->handyman_id = $request->handyman_id;
-
-        $post->service_id = $request->service;
-
-        $post->rate_id = $request->rate_id;
-
-        $post->rate = $request->rate;
-
-        $post->service_rate = $request->service_rate;
-
-        $post->booking_date = $date;
-
-
-        $post->save();
-
-        $sub_service = $request->sub_service;
-
-        if($sub_service)
-        {
-            $i = 0;
-
-            $date = new DateTime($request->date);
-
-        $date = $date->format('Y-m-d H:i');
-
-            foreach ($sub_service as $key ) {
-
-                $cart = new carts;
-                $cart->user_ip = $ip_address;
-                $cart->handyman_id = $request->handyman_id;
-                $cart->service_id = $key;
-                $cart->main_id = $request->service;
-                $cart->rate_id = $request->sub_rate_id[$i];
-                $cart->rate = $request->sub_rate[$i];
-                $cart->service_rate = $request->sub_service_rate[$i];
-                $cart->booking_date = $date;
-
-                $cart->save();
-
-                $i++;
-            }
-
-        }
-
-           if(!empty($_FILES ['file']))
-        {
-
-$x = 0;
-
-
-             foreach( $img_desc as $img )
-             {
-
-
-
-                 $images = new booking_images;
-                 $images->cart_id = $post->id;
-                 $images->image = $uploadedFiles[$x];
-                 $images->description = $request->description;
-
-                 $images->save();
-
-                 $x++;
-             }
-
-        }
-        else
-        {
-            if($request->description)
-            {
-
-                $images = new booking_images;
-                 $images->cart_id = $post->id;
-                 $images->description = $request->description;
-
-                 $images->save();
+                // $msg = 'Service added to cart successfully!';
+                $msg = $this->lang->acm;
 
             }
-        }
-
-
-         $type = 0;
-
-         // $msg = 'Service added to cart successfully!';
-
-         $msg = $this->lang->acm;
-
-
-}
-
-
-
 
         $cart = carts::where('user_ip','=',$ip_address)->get();
-
-         $cart_count = count($cart);
-
+        $cart_count = count($cart);
 
         $data  = array('msg' => $msg , 'type' => $type , 'count' => $cart_count);
-
         return $data;
-
-
     }
 
     public function BookHandyman(Request $request)

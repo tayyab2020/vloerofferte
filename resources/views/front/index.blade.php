@@ -2184,6 +2184,7 @@
             // placeholder: "City Name",
             placeholder: "<?php echo $lang->sbg; ?>",
             allowClear: true,
+            dropdownParent: $('#myModal'),
 
 
         });

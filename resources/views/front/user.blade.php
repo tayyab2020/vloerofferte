@@ -63,14 +63,14 @@
 
         <div id="errmsg" class="alert alert-danger" style="text-align: center;font-size: 20px;font-weight: 600;font-family: monospace;display: none;">
 </div>
- 
+
 
 <div class="donors-profile-wrap wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
 
-                      
+
                         <div class="profile-description-box margin-bottom-30">
                             <h2 class="ut">{{$lang->dopd}}</h2>
                             <hr>
@@ -78,29 +78,31 @@
 
                             <p>{!!$user->description!!}</p>
 
-                            
+
                         </div>
-                       
 
-        @if($user->special != null)
-                        <div class="other-description-box margin-bottom-30">
-                            <h2 class="ut">{{$lang->doo}}</h2>
-                            <hr>
-                            <div class="table-responsive" style="overflow: hidden;">
-@php
-    $specials = explode(',', $user->special);  
-@endphp
-<ul class="row">
-    @foreach($specials as $special)
-    <li class="col-md-6 col-sm-6">{{$special}}</li>
 
-    @endforeach
-</ul>
-        
-          
+                        @if($user->special != null)
+
+                            <div class="other-description-box margin-bottom-30">
+                                <h2 class="ut">{{$lang->doo}}</h2>
+                                <hr>
+                                <div class="table-responsive" style="overflow: hidden;">
+
+                                    @php
+                                        $specials = explode(',', $user->special);
+                                    @endphp
+
+                                    <ul class="row">
+                                        @foreach($specials as $special)
+                                            <li class="col-md-6 col-sm-6">{{$special}}</li>
+                                        @endforeach
+                                    </ul>
+
+                                </div>
                             </div>
-                        </div>
-        @endif
+
+                        @endif
 
                         <div class="other-description-box margin-bottom-30" style="display: none;">
                             <h2 class="ut">{{$lang->binfo}}</h2>
@@ -146,8 +148,8 @@
 
                         <div class="other-description-box margin-bottom-30">
                             <h2 class="ut">{{$lang->sat}}</h2>
-                            <hr>  
-    
+                            <hr>
+
     <div style="height:auto;width:100%;display:inline-block;">
 
 
@@ -165,99 +167,109 @@
 
 @endif
 
-  <div class="container" style="padding: 0px;">
-    <div class="top" <?php if($temp->cat_photo){ ?> style="background: url(<?php echo asset('assets/images/'.$temp->cat_photo) ?>) no-repeat center center;background-size: 100%;" <?php } else{ ?> style="background: url(<?php echo asset('assets/default.jpg') ?>) no-repeat center center;background-size: 100%;" <?php } ?> ></div>
-    <div class="bottom<?php echo $x; ?>">
-      <div class="left">
-        <div class="details" style="width: 75%;padding-right: 0;cursor: pointer;">
+    <div class="container" style="padding: 0px;">
 
-            @if($lang->lang == 'eng')
+        <div class="top" <?php if($temp->cat_photo){ ?> style="background: url(<?php echo asset('assets/images/'.$temp->cat_photo) ?>) no-repeat center center;background-size: 100%;" <?php } else{ ?> style="background: url(<?php echo asset('assets/default.jpg') ?>) no-repeat center center;background-size: 100%;" <?php } ?> ></div>
 
-                <h3>{{$temp->cat_slug}}</h3>
+        <div class="bottom<?php echo $x; ?>">
 
-                @else
+            <div class="left">
 
-                <h3>{{$temp->cat_name}}</h3>
+                <div class="details" style="width: 75%;padding-right: 0;cursor: pointer;">
 
-                @endif
+                    @if($lang->lang == 'eng')
+
+                        <h3>{{$temp->cat_slug}}</h3>
+
+                    @else
+
+                        <h3>{{$temp->cat_name}}</h3>
+
+                    @endif
+
+                    <?php if($temp->service_id == 1){ $service_type = $lang->servT1; $service_placeholder = $lang->servP1; }
+
+                    elseif($temp->service_id == 2){ $service_type = $lang->servT2; $service_placeholder = $lang->servP2; }
+
+                    elseif($temp->service_id == 3){ $service_type = $lang->servT3; $service_placeholder = $lang->servP3; }
+
+                    elseif($temp->service_id == 4){ $service_type = $lang->servT4; $service_placeholder = $lang->servP4; }
+
+                    else{$service_type = ""; $service_placeholder = "";}
+
+                    ?>
+
+                        <p style="font-size: 13.5pt;">€ {{$temp->rate}} {{$service_type}}</p>
+
+                </div>
 
 
-          <?php if($temp->service_id == 1){ $service_type = $lang->servT1; $service_placeholder = $lang->servP1; }
+                <div class="buy<?php echo $x; ?>" style="padding-top: 20px;"><a href="" class="openModal" data-toggle="modal" data-target="#modalLoginAvatar" data-value="{{$temp->id}}" data-type="{{$service_placeholder}}" @if($lang->lang == 'eng') data-main="{{$temp->cat_slug}}" @else data-main="{{$temp->cat_name}}" @endif  data-stype="{{$service_type}}" data-service="{{$temp->service_id}}" data-questions="{{$temp->variable_questions}}" data-vat="{{$temp->vat_percentage}}" data-sellRate="{{$temp->sell_rate}}" data-rate="{{$temp->rate}}" data-description="{{$temp->description}}"><i class="material-icons">add_shopping_cart</i></a></div>
 
-          elseif($temp->service_id == 2){ $service_type = $lang->servT2; $service_placeholder = $lang->servP2; }
+            </div>
 
-          elseif($temp->service_id == 3){ $service_type = $lang->servT3; $service_placeholder = $lang->servP3; }
 
-          elseif($temp->service_id == 4){ $service_type = $lang->servT4; $service_placeholder = $lang->servP4; }
+            <div class="right">
 
-          else{$service_type = ""; $service_placeholder = "";}
+                <div class="done" style="padding-top: 20px;"><i class="material-icons">done</i></div>
 
-           ?>
+                <div class="details" style="width: 75%;padding-left: 10px;padding-right: 0;cursor: pointer;">
 
-          <p style="font-size: 13.5pt;">€ {{$temp->rate}} {{$service_type}}</p>
+                    @if($lang->lang == 'eng')
+
+                        <h3>{{$temp->cat_slug}}</h3>
+
+                    @else
+
+                        <h3>{{$temp->cat_name}}</h3>
+
+                    @endif
+
+                        <p>{{$lang->rtac}}</p>
+
+                </div>
+
+
+                <div class="remove<?php echo $x; ?>" style="padding-top: 20px;"><i class="material-icons">clear</i></div>
+
+            </div>
         </div>
+    </div>
 
-        
 
-        <div class="buy<?php echo $x; ?>" style="padding-top: 20px;"><a href="" class="openModal" data-toggle="modal" data-target="#modalLoginAvatar" data-value="{{$temp->id}}" data-type="{{$service_placeholder}}" @if($lang->lang == 'eng') data-main="{{$temp->cat_slug}}" @else data-main="{{$temp->cat_name}}" @endif  data-stype="{{$service_type}}" data-service="{{$temp->service_id}}" data-rate="{{$temp->rate}}" data-description="{{$temp->description}}"><i class="material-icons">add_shopping_cart</i></a></div>
-      </div>
-      <div class="right">
-        <div class="done" style="padding-top: 20px;"><i class="material-icons">done</i></div>
-        <div class="details" style="width: 75%;padding-left: 10px;padding-right: 0;cursor: pointer;">
+    <div class="inside">
 
-            @if($lang->lang == 'eng')
+        <div class="icon" style="width: 13%;"><i class="material-icons">info_outline</i></div>
 
-                <h3>{{$temp->cat_slug}}</h3>
+        <div class="contents">
+            <table>
+                <tr>
+                    <th style="font-size: 20px;">{{$lang->st}}</th>
+                </tr>
 
-                @else
+                <tr>
+                    <td style="font-size: 14pt;padding: 10px;">{{$service_type}}</td>
+                </tr>
 
-                <h3>{{$temp->cat_name}}</h3>
+                <tr>
+                    <th style="font-size: 20px;">{{$lang->sr}}</th>
+                </tr>
 
-                @endif
+                <tr>
+                    <td style="font-size: 14pt;padding: 10px;">€ {{$temp->rate}}</td>
+                </tr>
 
-          <p>{{$lang->rtac}}</p>
+                <tr>
+                    <th style="font-size: 20px;">{{$lang->dt}}</th>
+                </tr>
+
+                <tr>
+                    <td style="padding: 0px;"><p style="font-size: 11pt;word-break: break-word;">{!!$temp->description!!}</p></td>
+                </tr>
+
+            </table>
         </div>
-        <div class="remove<?php echo $x; ?>" style="padding-top: 20px;"><i class="material-icons">clear</i></div>
-      </div>
     </div>
-  </div>
-  <div class="inside">
-    <div class="icon" style="width: 13%;"><i class="material-icons">info_outline</i></div>
-    <div class="contents">
-      <table>
-        <tr>
-          <th style="font-size: 20px;">{{$lang->st}}</th>
-          
-        </tr>
-
-
-        <tr>
-          <td style="font-size: 14pt;padding: 10px;">{{$service_type}}</td>
-          
-        </tr>
-       
-       <tr>
-           <th style="font-size: 20px;">{{$lang->sr}}</th>
-       </tr>
-
-       <tr>
-           <td style="font-size: 14pt;padding: 10px;">€ {{$temp->rate}}</td>
-
-       </tr>
-
-       <tr>
-           <th style="font-size: 20px;">{{$lang->dt}}</th>
-       </tr>
-
-       <tr>
-        
-           <td style="padding: 0px;"><p style="font-size: 11pt;word-break: break-word;">{!!$temp->description!!}</p></td>
-
-       </tr>
-
-      </table>
-    </div>
-  </div>
 </div>
 
 
@@ -277,8 +289,8 @@
     -webkit-transform: scale(0.95);
     transition: box-shadow 0.5s, transform 0.5s;
     -webkit-transition: box-shadow 0.5s, -webkit-transform 0.5s;
-    
-    
+
+
 }
 
 .wrapper:hover {
@@ -528,7 +540,7 @@
 </style>
 
 <script type="text/javascript">
-    
+
     $('.buy<?php echo $x; ?>').click(function(){
   $('.bottom<?php echo $x; ?>').addClass("clicked");
   $('.donors-profile-wrap').css('display','inline');
@@ -578,7 +590,7 @@ $('.remove<?php echo $x; ?>').click(function(){
 
 
 <style type="text/css">
-    
+
     .ajax-loader {
   visibility: hidden;
   background-color: rgba(255, 255, 255, 0.86);
@@ -627,9 +639,11 @@ $('.remove<?php echo $x; ?>').click(function(){
                                              <img src="{{ $user->photo ? asset('assets/images/'.$user->photo):asset('assets/default.jpg')}}" alt="avatar" class="rounded-circle img-responsive" style="border-radius: 50%!important;height: 120px;">
 
                                              @endif
-                                            
+
                                         </div>
+
                                         <!--Body-->
+
                                         <div class="modal-body text-center mb-1" style="width: 65%;">
 
                                             <h2 class="mt-1 mb-2">{{$user->name}} {{$user->family_name}}</h2>
@@ -637,114 +651,114 @@ $('.remove<?php echo $x; ?>').click(function(){
                                             <div class="md-form" style="margin-top: 65px;">
 
                                                 <div class="form-group" style="width: 100%;margin-right: 0px;margin-left: 0;"><div class="input-group">
-                                          <div class="input-group-addon">
-                                              <i class="fa fa-fw fa-calendar"></i>
-                                          </div>
 
-                                                <input placeholder="Selected date and time" name="date" type="text" id='datetimepicker4'  class="form-control" onkeydown="return false;" autocomplete="off"  style="width: 95%;padding-left: 15px;border: 1px solid #ced4da;margin: 0;" required>
-                                               
-                                            </div></div></div>
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-fw fa-calendar"></i>
+                                                        </div>
 
-                                           
-                                                <input type="hidden" name="service" id="service"  class="form-control form-control-sm service" required>
+                                                        <input placeholder="Selected date and time" name="date" type="text" id='datetimepicker4'  class="form-control" onkeydown="return false;" autocomplete="off"  style="width: 95%;padding-left: 15px;border: 1px solid #ced4da;margin: 0;" required>
 
-                                                <input type="hidden" name="noUpdate" id="noUpdate"  class="form-control form-control-sm service" value="0">
-
-                                                <div class="md-form ml-0 mr-0" style="margin-top: 50px;">
-
-                                                <div class="form-group" style="width: 100%;margin-right: 0px;margin-left: 0;">
-
-                                          <div class="col-sm-12" style="padding-left: 0;padding-right: 0;">
-
-                                          <div class="input-group">
-                                          <div class="input-group-addon">
-                                              <i class="fas fa-hammer"></i>
-                                          </div>
-
-                                                <input type="text" id="main_service" readonly placeholder="Main Service" class="form-control" style="width: 95%;padding-left: 15px;border: 1px solid #ced4da;margin: 0;">
-
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                    <div class="col-sm-12" style="padding-right: 0;padding-left: 0;margin-top: 50px;">
 
-                                          <div class="input-group">
-                                          <div class="input-group-addon">
-                                              <i class="fa fa-fw fa-tags"></i>
-                                          </div>
+                                            <input type="hidden" name="service" id="service"  class="form-control form-control-sm service" required>
 
-                                                <input type="text" id="main_price" readonly placeholder="Main Service Price" class="form-control" style="width: 95%;padding-left: 15px;border: 1px solid #ced4da;margin: 0;">
-
-                                            </div>
-                                        </div>
-
-                                                    <dfn style="right: -258px;top:-75px;position:relative;display:inline-block;" data-info="" id="main_description"><span class="ui-close"  style="margin:0;position:relative;padding: 7px 14px;background-color: #febb22 !important;font-family: monospace;">i</span></dfn>
-
-                                    </div></div>
-
+                                            <input type="hidden" name="noUpdate" id="noUpdate"  class="form-control form-control-sm service" value="0">
 
                                             <div class="md-form ml-0 mr-0" style="margin-top: 50px;">
 
-                                                <div class="form-group" style="width: 100%;margin-right: 0px;margin-left: 0;"><div class="input-group">
-                                          <div class="input-group-addon">
-                                              <i class="fa fa-fw fa-sort"></i>
-                                          </div>
+                                                <div class="form-group" style="width: 100%;margin-right: 0px;margin-left: 0;">
 
-                                                <input type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="rate" id="rate" autocomplete="off" placeholder="Rate" class="form-control" style="width: 95%;padding-left: 15px;border: 1px solid #ced4da;margin: 0;" required>
+                                                    <div class="col-sm-12" style="padding-left: 0;padding-right: 0;">
 
-                                                <input type="hidden" name="rate_id" id="rate_id"  class="form-control" >
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fas fa-hammer"></i>
+                                                            </div>
 
-                                                <input type="hidden" name="service_rate" id="service_rate"  class="form-control" >
+                                                            <input type="text" id="main_service" readonly placeholder="Main Service" class="form-control" style="width: 95%;padding-left: 15px;border: 1px solid #ced4da;margin: 0;">
 
-                                                <input type="hidden" name="cart_count" id="cart_count" value="{{$cart_count}}"  class="form-control" >
+                                                        </div>
+                                                    </div>
 
-                                            </div></div></div>
+                                                    <div class="col-sm-12" style="padding-right: 0;padding-left: 0;margin-top: 50px;">
 
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-fw fa-tags"></i>
+                                                            </div>
 
-                                            
+                                                            <input type="text" id="main_price" readonly placeholder="Main Service Price" class="form-control" style="width: 95%;padding-left: 15px;border: 1px solid #ced4da;margin: 0;">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <dfn style="right: -258px;top:-75px;position:relative;display:inline-block;" data-info="" id="main_description"><span class="ui-close"  style="margin:0;position:relative;padding: 7px 14px;background-color: #febb22 !important;font-family: monospace;">i</span></dfn>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="md-form ml-0 mr-0" id="rqb" style="margin-top: 30px;">
+
+                                                <div class="form-group" style="width: 100%;margin-right: 0px;margin-left: 0;">
+
+                                                    <div class="input-group">
+
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-fw fa-sort"></i>
+                                                        </div>
+
+                                                        <input type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="rate" id="rate" autocomplete="off" placeholder="Rate" class="form-control" style="width: 95%;padding-left: 15px;border: 1px solid #ced4da;margin: 0;" required>
+                                                        <input type="hidden" name="rate_id" id="rate_id" class="form-control">
+                                                        <input type="hidden" name="service_rate" id="service_rate" class="form-control">
+                                                        <input type="hidden" name="service_questions" id="service_questions" class="form-control">
+                                                        <input type="hidden" name="vat_percentage" id="vat_percentage" class="form-control">
+                                                        <input type="hidden" name="sell_rate" id="sell_rate" class="form-control">
+                                                        <input type="hidden" name="cart_count" id="cart_count" value="{{$cart_count}}" class="form-control">
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
 
 
                                             <div class="md-form ml-0 mr-0" >
 
                                                 <div class="add-sub" style="margin-top: 75px;"></div>
 
-                                            <div class="form-group s_box" style="margin-top: 40px;">
-                                                    
+                                                <div class="form-group s_box" style="margin-top: 40px;">
+
                                                     <label class="control-label col-sm-3" for=""></label>
 
                                                     <div class="col-sm-12 text-center">
-
                                                         <button class="btn btn-default featured-btn" type="button" name="add-field-btn" id="add-field-btn" style="font-size: 13px;background-color: #febb22 !important;"><i class="fa fa-plus" ></i> {{$lang->asst}}</button>
                                                     </div>
-                                          </div>
-                                      </div>
-
-                                      <div class="md-form ml-0 mr-0" style="margin-top: 50px;margin-bottom: 45px;">
-
-                                                <textarea name="description" id="description" placeholder="{{$lang->bdp}}" style="width: 100%;resize: vertical;padding: 10px;border-top: 1px solid #bdbdbd;"></textarea>
-
+                                                </div>
                                             </div>
 
 
-                                            <div class="file-field" style="margin-top: 50px;">
-            <div class="btn btn-primary btn-sm" style="width: 100%;">
-                <span style="font-size: 16px;">{{$lang->uit}}</span>
-                <input name="file[]" id="file" type="file" multiple style="font-size: 12px;padding: 20px;">
-            </div>
-        </div>
+                                            <div class="md-form ml-0 mr-0" style="margin-top: 50px;margin-bottom: 45px;">
+                                                <textarea name="description" id="description" placeholder="{{$lang->bdp}}" style="width: 100%;resize: vertical;padding: 10px;border-top: 1px solid #bdbdbd;"></textarea>
+                                            </div>
 
-        
-                                            
+                                            <div class="file-field" style="margin-top: 50px;">
+                                                <div class="btn btn-primary btn-sm" style="width: 100%;">
+                                                    <span style="font-size: 16px;">{{$lang->uit}}</span>
+                                                    <input name="file[]" id="file" type="file" multiple style="font-size: 12px;padding: 20px;">
+                                                </div>
+                                            </div>
 
                                             <div class="text-center mt-4" style="margin-top: 50px;">
                                                 <button type="button" class="btn btn-default" style="font-size: 15px;background-color: #febb22 !important;" id="btnclose" data-dismiss="modal">{{$lang->clt}}</button>
                                                 <button type="submit" class="btn btn-cyan mt-1" style="font-size: 15px;">{{$lang->cnf_btn}} </button>
                                             </div>
-                                        </div>
 
+                                        </div>
                                     </div>
 
-                                </form>
+                                     </form>
                                     <!--/.Content-->
                                 </div>
                             </div>
@@ -755,17 +769,12 @@ $('.remove<?php echo $x; ?>').click(function(){
 
                                  @if($bookings != '')
 
-
                                 <div class="add-area margin-bottom-30" style="margin-top: 50px;">
-                          <iframe
-                            width="340"
-                            height="350"
-                            frameborder="0" style="border:0;width: 100%;"
-                            src="https://www.google.com/maps/embed/v1/place?key={{$gs->map_key}}&q={{$user->address == null ? '@':$user->address}}" allowfullscreen>
-                          </iframe>
-                        </div>
+                                    <iframe width="340" height="350" frameborder="0" style="border:0;width: 100%;" src="https://www.google.com/maps/embed/v1/place?key={{$gs->map_key}}&q={{$user->address == null ? '@':$user->address}}" allowfullscreen></iframe>
+                                </div>
 
-                                    @endif
+                                @endif
+
                             </div>
 
 
@@ -871,7 +880,7 @@ $('.remove<?php echo $x; ?>').click(function(){
                         @endif
                         @endif
 
-         
+
 
                         </div>
 
@@ -890,10 +899,10 @@ $('.remove<?php echo $x; ?>').click(function(){
             width: 90% !important;
         }
     }
-    
-    .pulse_start{ 
+
+    .pulse_start{
   animation: pulse 1s;
-  animation-timing-function: linear;   
+  animation-timing-function: linear;
 }
 
 @keyframes pulse {
@@ -962,205 +971,180 @@ button[type="submit"]:hover
 }
 
 </style>
-<script src="https://malsup.github.io/jquery.form.js"></script>
-
-         <script type="text/javascript">
-
-            $("#add-field-btn").on('click',function() {
 
 
-var parent = this;
+    <script src="https://malsup.github.io/jquery.form.js"></script>
 
-var service = $('#service').val();
+    <script type="text/javascript">
 
-var handyman_id = $('#handyman_id').val();
+        $("#add-field-btn").on('click',function() {
 
-var options = "";
+            var parent = this;
+            var service = $('#service').val();
+            var handyman_id = $('#handyman_id').val();
+            var options = "";
 
-$.ajax({
-                    type:"GET",
-                    data: "handyman_id=" + handyman_id + "&service=" + service,
-                    url: "<?php echo url('/user-subservices')?>",
-                    success: function(data) {
+            $.ajax({
+                type:"GET",
+                data: "handyman_id=" + handyman_id + "&service=" + service,
+                url: "<?php echo url('/user-subservices')?>",
+                success: function(data) {
 
-                         $.each(data, function(index, value) {
+                    $.each(data, function(index, value) {
 
-                             <?php if($lang->lang == 'eng'){ ?>
+                            <?php if($lang->lang == 'eng'){ ?>
 
-                             var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
+                        var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
 
-                                 <?php } else { ?>
+                            <?php } else { ?>
 
-                             var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
+                        var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
 
-                                 <?php } ?>
+                        <?php } ?>
 
+                            options = options + opt;
 
-                    options = options + opt;
-
-                        });
-
-
-                        $(parent).parent().parent().parent().children('.add-sub').append('<div class="form-group" style="margin-bottom:45px;">'+
-    '<div class="col-sm-12"><h5 style="font-weight: bold;text-align:left;margin-bottom:22px;"><?php echo $lang->msnt; ?></h5><div class="input-group"><div class="input-group-addon"><i class="fas fa-hammer"></i></div><select class="js-data-example-ajax sub_service" style="width:100%;padding:10px;" name="sub_service[]" id="sub_service" required><option value=""><?php echo $lang->ssstf; ?></option>'+options+'</select></div></div>'+
-    '<div class="col-sm-12" id="service_rate_box" style="margin-top:20px;"><h5 style="font-weight: bold;text-align:left;margin-bottom:22px;margin-top:10px;"><?php echo $lang->mput; ?></h5><div class="input-group"><div class="input-group-addon"><i class="fa fa-fw fa-tags"></i></div><p style="width:100%;height:27px;border:1px solid #a9a9a9;margin:0;" id="sub_type">{{$lang->sr}}</p><input type="hidden" class="sub_rate_id" name="sub_rate_id[]" id="sub_rate_id" ><input class="sub_service_rate" type="hidden" name="sub_service_rate[]" id="sub_service_rate" ></div></div>'+
-    '<div class="col-sm-12" id="rate_box" style="margin-top:20px;"><h5 style="font-weight: bold;text-align:left;margin-bottom:22px;margin-top:10px;"><?php echo $lang->mrt; ?></h5><div class="input-group"><div class="input-group-addon"><i class="fa fa-fw fa-sort"></i></div><input type="number" class="sub_rate" placeholder="{{$lang->mrt}}" required style="width: 96%;height:22.9999999px;padding-left: 15px;border: 1px solid #ced4da;margin: 0;" id="sub_rate" name="sub_rate[]"></div></div>'+
-    '<span class="ui-close remove-ui1"  style="margin:0;left:-285px;top:-130px;position:relative;padding:7.5px 13px;padding-top:5px;font-family: monospace;">x</span>'+
-    '<dfn style="right: -258px;top:-135px;position:relative;display:inline-block;" data-info="" id="sub_description"><span class="ui-close"  style="margin:0;position:relative;padding: 7px 14px;background-color: #febb22 !important;font-family: monospace;">i</span></dfn>'+
-    '</div>');
-
- var $selects = $('.js-data-example-ajax').change(function() {
+                    });
 
 
-                var id = this.value;
-                var handyman_id = $('#handyman_id').val();
-                var service = $('#service').val();
-                var selector = this;
+                    $(parent).parent().parent().parent().children('.add-sub').append('<div class="form-group" style="margin-bottom:45px;">'+
+                        '<div class="col-sm-12"><h5 style="font-weight: bold;text-align:left;margin-bottom:22px;"><?php echo $lang->msnt; ?></h5><div class="input-group"><div class="input-group-addon"><i class="fas fa-hammer"></i></div><select class="js-data-example-ajax sub_service" style="width:100%;padding:10px;" name="sub_service[]" id="sub_service" required><option value=""><?php echo $lang->ssstf; ?></option>'+options+'</select></div></div>'+
+                        '<div class="col-sm-12" id="service_rate_box" style="margin-top:20px;"><h5 style="font-weight: bold;text-align:left;margin-bottom:22px;margin-top:10px;"><?php echo $lang->mput; ?></h5><div class="input-group"><div class="input-group-addon"><i class="fa fa-fw fa-tags"></i></div><p style="width:100%;height:27px;border:1px solid #a9a9a9;margin:0;" id="sub_type">{{$lang->sr}}</p><input type="hidden" class="sub_rate_id" name="sub_rate_id[]" id="sub_rate_id" ><input class="sub_service_rate" type="hidden" name="sub_service_rate[]" id="sub_service_rate" ></div></div>'+
+                        '<div class="col-sm-12" id="rate_box" style="margin-top:20px;"><h5 style="font-weight: bold;text-align:left;margin-bottom:22px;margin-top:10px;"><?php echo $lang->mrt; ?></h5><div class="input-group"><div class="input-group-addon"><i class="fa fa-fw fa-sort"></i></div><input type="number" class="sub_rate" placeholder="{{$lang->mrt}}" required style="width: 96%;height:22.9999999px;padding-left: 15px;border: 1px solid #ced4da;margin: 0;" id="sub_rate" name="sub_rate[]"></div></div>'+
+                        '<span class="ui-close remove-ui1"  style="margin:0;left:-285px;top:-130px;position:relative;padding:7.5px 13px;padding-top:5px;font-family: monospace;">x</span>'+
+                        '<dfn style="right: -258px;top:-135px;position:relative;display:inline-block;" data-info="" id="sub_description"><span class="ui-close"  style="margin:0;position:relative;padding: 7px 14px;background-color: #febb22 !important;font-family: monospace;">i</span></dfn>'+
+                        '</div>');
+
+                    var $selects = $('.js-data-example-ajax').change(function() {
+
+                        var id = this.value;
+                        var handyman_id = $('#handyman_id').val();
+                        var service = $('#service').val();
+                        var selector = this;
+
+                        if ($selects.find('option[value=' + id + ']:selected').length > 1) {
+
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Oops...',
+                                text: '<?php echo $lang->sast; ?>',
+                            });
+
+                            this.options[0].selected = true;
+                            $(selector).val('');
+                        }
+
+                        if(id)
+                        {
+
+                            $.ajax({
+                                type:"GET",
+                                data: "id=" + id + "&handyman_id=" + handyman_id + "&main=" + service,
+                                url: "<?php echo url('/sub-services')?>",
+
+                                success: function(data) {
+
+                                    if(data.type == "Per Hour Rate"){
+
+                                        var type = <?php echo "'".$lang->servT1."'" ?>;
+                                        var text = <?php echo "'".$lang->servP1."'" ?>;
+
+                                    }
+
+                                    else if(data.type == "Per Meter Rate")
+                                    {
+
+                                        var type = <?php echo "'".$lang->servT2."'" ?>;
+                                        var text = <?php echo "'".$lang->servP2."'" ?>;
+
+                                    }
+
+                                    else if(data.type == "Per Foot Rate")
+                                    {
+
+                                        var type = <?php echo "'".$lang->servT3."'" ?>;
+                                        var text = <?php echo "'".$lang->servP3."'" ?>;
+
+                                    }
+
+                                    else if(data.type == "Per Piece Rate")
+                                    {
+
+                                        var type = <?php echo "'".$lang->servT4."'" ?>;
+                                        var text = <?php echo "'".$lang->servP4."'" ?>;
+
+                                    }
+
+                                    else
+                                    {
+
+                                        var type = "";
+                                        var text = "";
+
+                                    }
 
 
-                if ($selects.find('option[value=' + id + ']:selected').length > 1) {
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Oops...',
-                        text: '<?php echo $lang->sast; ?>',
+                                    $(selector).parent().parent().parent().children('#service_rate_box').children().children("#sub_type").text("€ " + data.rate + " - " + type);
+                                    $(selector).parent().parent().parent().children('#service_rate_box').children().children("#sub_rate_id").val(data.rate_id);
+                                    $(selector).parent().parent().parent().children('#service_rate_box').children().children("#sub_service_rate").val(data.rate);
+                                    $(selector).parent().parent().parent().children('#rate_box').children().children("#sub_rate").attr("placeholder", text);
+                                    $(selector).parent().parent().parent().children('#sub_description').attr("data-info", data.description);
 
-                    })
-                    this.options[0].selected = true;
-
-                    $(selector).val('');
-
-                    
+                                }
+                            });
+                        }
+                    });
                 }
-
-
-if(id)
-{
-
-  $.ajax({
-                    type:"GET",
-                    data: "id=" + id + "&handyman_id=" + handyman_id + "&main=" + service,
-                    url: "<?php echo url('/sub-services')?>",
-                    success: function(data) {
-
-                        if(data.type == "Per Hour Rate"){
-
-                            var type = <?php echo "'".$lang->servT1."'" ?>;
-                            var text = <?php echo "'".$lang->servP1."'" ?>;
-
-                        }
-
-                        else if(data.type == "Per Meter Rate")
-                            {
-
-                                var type = <?php echo "'".$lang->servT2."'" ?>;
-                                var text = <?php echo "'".$lang->servP2."'" ?>;
-                            }
-
-                        else if(data.type == "Per Foot Rate")
-                        {
-                            var type = <?php echo "'".$lang->servT3."'" ?>;
-                            var text = <?php echo "'".$lang->servP3."'" ?>;
-
-                        }
-
-                        else if(data.type == "Per Piece Rate")
-                        {
-                            var type = <?php echo "'".$lang->servT4."'" ?>;
-                            var text = <?php echo "'".$lang->servP4."'" ?>;
-
-                        }
-
-                        else
-                        {
-
-                            var type = "";
-                            var text = "";
-
-                        }
-
-
-                        $(selector).parent().parent().parent().children('#service_rate_box').children().children("#sub_type").text("€ " + data.rate + " - " + type);
-
-                        $(selector).parent().parent().parent().children('#service_rate_box').children().children("#sub_rate_id").val(data.rate_id);
-
-                        $(selector).parent().parent().parent().children('#service_rate_box').children().children("#sub_service_rate").val(data.rate);
-
-                        $(selector).parent().parent().parent().children('#rate_box').children().children("#sub_rate").attr("placeholder", text);
-
-                        $(selector).parent().parent().parent().children('#sub_description').attr("data-info", data.description);
-
-
-
-                    }
-                });
-
-}
-
             });
-
-                    }
-
-                });
-
-
         });
 
 
-
-            $(document).on('click', '.remove-ui1' ,function() {
-
-
+        $(document).on('click', '.remove-ui1' ,function() {
 
             var parent = this.parentNode;
-
-
             $(parent).hide();
             $(parent).remove();
 
-
-
         });
 
-            $('.openModal').click(function(){
 
-                $('#rate').val("");
-                $('#description').val("");
-                $('#file').val("");
-                $('.add-sub').html("");
-                $('#main_service').val("");
-                $('#main_price').val("");
-                $('#main_description').attr("data-info","");
+        $('.openModal').click(function(){
 
-                var cart_count = $('#cart_count').val();
-                var noUpdate = $('#noUpdate').val();
+            $('#rate').val("");
+            $('#description').val("");
+            $('#file').val("");
+            $('.add-sub').html("");
+            $('#main_service').val("");
+            $('#main_price').val("");
+            $('#main_description').attr("data-info","");
 
-                if(noUpdate == 1)
+            var cart_count = $('#cart_count').val();
+            var noUpdate = $('#noUpdate').val();
+
+            if(noUpdate == 1)
+            {
+
+                $('#datetimepicker4').attr("readonly",true);
+
+            }
+            else
+            {
+
+                if(cart_count != 0)
                 {
-
-                    $('#datetimepicker4').attr("readonly",true);
-
-                }
-                else
-                {
-
-                    if(cart_count != 0)
-                {
-
                     $('#datetimepicker4').attr("readonly",true);
                     $('#datetimepicker4').val(<?php echo "'".$booking_date."'"; ?>);
-
                 }
 
-                }
-
-                
-
-                
+            }
 
             var id  = $(this).attr('data-value');
             var type  = $(this).attr('data-type');
             var s_id  = $(this).attr('data-service');
             var rate  = $(this).attr('data-rate');
+            var questions  = $(this).attr('data-questions');
+            var vat_percentage  = $(this).attr('data-vat');
+            var sell_rate  = $(this).attr('data-sellRate');
             var main =  $(this).attr('data-main');
             var stype = $(this).attr('data-stype');
             var description = $(this).attr('data-description');
@@ -1169,155 +1153,192 @@ if(id)
             $('#rate').attr("placeholder", type);
             $('#rate_id').val(s_id);
             $('#service_rate').val(rate);
+            $('#service_questions').val(questions);
+            $('#vat_percentage').val(vat_percentage);
+            $('#sell_rate').val(sell_rate);
             $('#main_service').val(main);
             $('#main_price').val("€ " + rate + " - " + stype);
             $('#main_description').attr("data-info",description);
 
-    })
+            $('#question_box').remove();
+            $('#question_box1').remove();
+
+            if(questions == 1)
+            {
+                $('#rqb').append('<div class="form-group" id="question_box" style="width: 100%;margin-right: 0px;margin-left: 0;margin-top: 50px;">\n' +
+                    '                                                    <div class="col-sm-12" style="padding: 0;">\n' +
+                    '\n' +
+                    '                                                        <h5 style="font-weight: bold;text-align:left;">Purpose</h5>\n' +
+                    '\n' +
+                    '                                                        <div class="input-group" style="width: 100%;">\n' +
+                    '                                                            <select class="js-data-example-ajax" style="width:100%;padding:10px;" name="purpose" id="purpose" required>\n' +
+                    '                                                                <option value="">Select Purpose</option>\n' +
+                    '                                                                <option value="1">Business</option>\n' +
+                    '                                                                <option value="2">Private</option>\n' +
+                    '                                                            </select>\n' +
+                    '                                                        </div>\n' +
+                    '\n' +
+                    '                                                    </div>\n' +
+                    '                                                </div>');
+
+                $('#purpose').change(function() {
+
+                    var purpose = $('#purpose').val();
+
+                    if(purpose == 2)
+                    {
+                        $('#rqb').append('<div class="form-group" id="question_box1" style="width: 100%;margin-right: 0px;margin-left: 0;margin-top: 50px;">\n' +
+                            '                                                    <div class="col-sm-12" style="padding: 0;">\n' +
+                            '\n' +
+                            '                                                        <h5 style="font-weight: bold;text-align:left;">How old is your house is?</h5>\n' +
+                            '\n' +
+                            '                                                        <div class="input-group" style="width: 100%;">\n' +
+                            '                                                            <select class="js-data-example-ajax" style="width:100%;padding:10px;" name="purpose_type" id="purpose_type" required>\n' +
+                            '                                                                <option value="1">Less than 2 years</option>\n' +
+                            '                                                                <option value="2">More than 2 years</option>\n' +
+                            '                                                            </select>\n' +
+                            '                                                        </div>\n' +
+                            '\n' +
+                            '                                                    </div>\n' +
+                            '                                                </div>');
+                    }
+                    else
+                    {
+                        $('#question_box1').remove();
+                    }
+
+                });
+            }
+
+        });
 
 
-                $("#form").submit(function(e){
+        $("#form").submit(function(e){
 
-        e.preventDefault();
+            e.preventDefault();
 
-        var fd = new FormData();
-        var date = $('#datetimepicker4').val();
-        var service = $('#service').val();
-        var rate = $('#rate').val();
-        var rate_id = $('#rate_id').val();
-        var service_rate = $('#service_rate').val();
-        var handyman_id = $('#handyman_id').val();
-        var description = $('#description').val();
-        var token = $('#token').val();
-        
-        var subs_length = $('.sub_service').length;
-
-        
-        var length = $('#file')[0].files.length;
-
-        fd.append("handyman_id",handyman_id);
-        fd.append("date",date);
-        fd.append("service",service);
-        fd.append("rate",rate);
-        fd.append("rate_id",rate_id);
-        fd.append("service_rate",service_rate);
-        fd.append("description",description);
+            var fd = new FormData();
+            var date = $('#datetimepicker4').val();
+            var service = $('#service').val();
+            var rate = $('#rate').val();
+            var service_questions = $('#service_questions').val();
+            var purpose = $('#purpose').val();
+            var purpose_type = $('#purpose_type').val();
+            var vat_percentage = $('#vat_percentage').val();
+            var sell_rate = $('#sell_rate').val();
+            var rate_id = $('#rate_id').val();
+            var service_rate = $('#service_rate').val();
+            var handyman_id = $('#handyman_id').val();
+            var description = $('#description').val();
+            var token = $('#token').val();
+            var subs_length = $('.sub_service').length;
+            var length = $('#file')[0].files.length;
 
 
-        for(var i=0; i<length; i++)
-        {
-
-            var files = $('#file')[0].files[i];
-            fd.append('file[]',files);
-
-        }
-
-        for(var i=0; i<subs_length; i++)
-        {
-
-            var sub_service = $('.sub_service').eq(i).val();
-            fd.append('sub_service[]',sub_service);
-
-            var sub_rate_id = $('.sub_rate_id').eq(i).val();
-            fd.append('sub_rate_id[]',sub_rate_id);
-
-            var sub_rate = $('.sub_rate').eq(i).val();
-            fd.append('sub_rate[]',sub_rate);
-
-            var sub_service_rate = $('.sub_service_rate').eq(i).val();
-            fd.append('sub_service_rate[]',sub_service_rate);
-
-        }
-        
-       
-
-        $.ajax({
-
-             beforeSend: function(){
-                $('.modal').modal('hide');
-    $('.ajax-loader').css("visibility", "visible");
-  },
-
-            url: "<?php echo url('/handyman/add-cart') ?>",
-            type: 'post',
-           data: fd,
-           processData: false,
-    contentType: false,
-     headers: {
-        'X-CSRF-TOKEN': token,
-    },
-            success: function ( data ) {
-                 
-
-$('html, body').animate({
-    scrollTop: $("html").offset().top
-}, 2000);
-
-$('.modal').modal('hide');
-
-if(data.type == 1)
-{
-
- $('#errmsg').html(data.msg).fadeIn('slow');
-     //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message 
-     $('#errmsg').delay(5000).fadeOut('slow');
-
-}
-
-else
-{
-
-    $('.has-badge').addClass('pulse_start');
-$(".has-badge").attr("data-count", data.count);
-
- $('#msg').html(data.msg).fadeIn('slow');
-     //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message 
-     $('#msg').delay(5000).fadeOut('slow');
-
-     $('#cart_count').val(data.count);
-
-     $('#noUpdate').val(1);
+            fd.append("handyman_id",handyman_id);
+            fd.append("date",date);
+            fd.append("service",service);
+            fd.append("rate",rate);
+            fd.append("service_questions",service_questions);
+            fd.append("purpose",purpose);
+            fd.append("purpose_type",purpose_type);
+            fd.append("vat_percentage",vat_percentage);
+            fd.append("sell_rate",sell_rate);
+            fd.append("rate_id",rate_id);
+            fd.append("service_rate",service_rate);
+            fd.append("description",description);
 
 
+            for(var i=0; i<length; i++)
+            {
+                var files = $('#file')[0].files[i];
+                fd.append('file[]',files);
+            }
 
+            for(var i=0; i<subs_length; i++)
+            {
 
+                var sub_service = $('.sub_service').eq(i).val();
+                fd.append('sub_service[]',sub_service);
 
-}
+                var sub_rate_id = $('.sub_rate_id').eq(i).val();
+                fd.append('sub_rate_id[]',sub_rate_id);
 
-                        
-                    },
+                var sub_rate = $('.sub_rate').eq(i).val();
+                fd.append('sub_rate[]',sub_rate);
 
-                    error: function(data){
+                var sub_service_rate = $('.sub_service_rate').eq(i).val();
+                fd.append('sub_service_rate[]',sub_service_rate);
 
+            }
 
+            $.ajax({
 
-$('html, body').animate({
-    scrollTop: $("html").offset().top
-}, 2000);
+                beforeSend: function(){
+                    $('.modal').modal('hide');
+                    $('.ajax-loader').css("visibility", "visible");
 
-$('.modal').modal('hide');
+                },
 
- $('#errmsg').html(data.statusText).fadeIn('slow');
-     //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message 
-     $('#errmsg').delay(5000).fadeOut('slow');
+                url: "<?php echo url('/handyman/add-cart') ?>",
+                type: 'post',
+                data: fd,
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': token,
+                },
+                success: function ( data ) {
 
+                    $('html, body').animate({
+                        scrollTop: $("html").offset().top
+                    }, 2000);
 
-},
+                    $('.modal').modal('hide');
 
-complete: function(){
-    $('.ajax-loader').css("visibility", "hidden");
-  }
+                    if(data.type == 1)
+                    {
 
+                        $('#errmsg').html(data.msg).fadeIn('slow');
+                        //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message
+                        $('#errmsg').delay(5000).fadeOut('slow');
+                    }
+                    else
+                    {
+                        $('.has-badge').addClass('pulse_start');
+                        $(".has-badge").attr("data-count", data.count);
+                        $('#msg').html(data.msg).fadeIn('slow');
+                        //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message
+                        $('#msg').delay(5000).fadeOut('slow');
+                        $('#cart_count').val(data.count);
+                        $('#noUpdate').val(1);
+                    }
+
+                },
+                error: function(data){
+
+                    $('html, body').animate({
+                        scrollTop: $("html").offset().top
+                    }, 2000);
+
+                    $('.modal').modal('hide');
+                    $('#errmsg').html(data.statusText).fadeIn('slow');
+                    //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message
+                    $('#errmsg').delay(5000).fadeOut('slow');
+
+                },
+
+                complete: function(){
+                    $('.ajax-loader').css("visibility", "hidden");
+                }
 
             });
 
-        $('.has-badge').removeClass('pulse_start');
 
-                
-                });
+            $('.has-badge').removeClass('pulse_start');
 
-                
 
+        });
 
 
 //         var date = $('#datetimepicker4').val();
@@ -1327,7 +1348,7 @@ complete: function(){
 //         var service_rate = $('#service_rate').val();
 //         var handyman_id = $('#handyman_id').val();
 //         var token = $('#token').val();
-        
+
 
 //                 $.ajax({
 //                     type:"POST",
@@ -1357,7 +1378,7 @@ complete: function(){
 // {
 
 //  $('#errmsg').html(data.msg).fadeIn('slow');
-//      //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message 
+//      //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message
 //      $('#errmsg').delay(5000).fadeOut('slow');
 
 // }
@@ -1369,7 +1390,7 @@ complete: function(){
 // $(".has-badge").attr("data-count", data.count);
 
 //  $('#msg').html(data.msg).fadeIn('slow');
-//      //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message 
+//      //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message
 //      $('#msg').delay(5000).fadeOut('slow');
 
 //      $('#cart_count').val(data.count);
@@ -1384,7 +1405,7 @@ complete: function(){
 
 
 
-                            
+
 
 //                     },
 
@@ -1399,7 +1420,7 @@ complete: function(){
 // $('.modal').modal('hide');
 
 //  $('#errmsg').html(data.statusText).fadeIn('slow');
-//      //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message 
+//      //$('#msg').html("data insert successfully").fadeIn('slow') //also show a success message
 //      $('#errmsg').delay(5000).fadeOut('slow');
 
 
@@ -1409,114 +1430,82 @@ complete: function(){
 
 //                 $('.has-badge').removeClass('pulse_start');
 
- 
 
-            $(document).ready(function() {
+        $(document).ready(function() {
 
+            var $selects = $('.service').change(function() {
 
-
-
-
-             var $selects = $('.service').change(function() {
                 var id = this.value;
                 var h_id = $('#handyman_id').val();
                 var selector = this;
-
-
-
 
                 $.ajax({
                     type:"GET",
                     data: "id=" + id + "&h_id=" + h_id,
                     url: "<?php echo url('/user-services')?>",
+
                     success: function(data) {
 
                         $.each(data, function (key, val) {
 
-                        $('#rate').attr("placeholder", val.service.text);
+                            $('#rate').attr("placeholder", val.service.text);
                             $('#rate_id').val(val.service.id);
                             $('#service_rate').val(val.service_rate.rate);
-});
 
-
-                       
-
-                            
-
-
+                        });
                     }
-
                 });
-
-
-
-
             });
-
 
             $(function () {
 
-
-
-var js_array = [<?php echo '"'.implode('","', array_column($dates_array, 'notAvailable_date')).'"' ?>];
-
-console.log(js_array);
-
+                var js_array = [<?php echo '"'.implode('","', array_column($dates_array, 'notAvailable_date')).'"' ?>];
+                console.log(js_array);
                 var datesForDisable = js_array;
-
                 var now = new Date();
-now.setDate(now.getDate()+1);
+
+                now.setDate(now.getDate()+1);
+                var year=now.getFullYear();
+                var month=now.getMonth()+1 //getMonth is zero based;
+                var day=now.getDate();
+
+                formatted = ('0' + month).slice(-2) + '-'
+                    + ('0' + day).slice(-2) + '-'
+                    + year;
+
+                console.log(formatted);
 
 
-var year=now.getFullYear();
-var month=now.getMonth()+1 //getMonth is zero based;
-var day=now.getDate();
+                function SortByDate(a, b){
 
-formatted = ('0' + month).slice(-2) + '-'
-             + ('0' + day).slice(-2) + '-'
-             + year;
+                    var amyDate = a.split("-");
+                    var aNewDate=new Date(amyDate[0]+"/"+amyDate[1]+"/"+amyDate[2]).getTime();
+                    var bmyDate = b.split("-");
+                    var bNewDate=new Date(bmyDate[0]+"/"+bmyDate[1]+"/"+bmyDate[2]).getTime();
 
-console.log(formatted);
+                    return ((aNewDate < bNewDate) ? -1 : ((aNewDate > bNewDate) ? 1 : 0));
+                }
 
- function SortByDate(a, b){
-       var amyDate = a.split("-");
-       var aNewDate=new Date(amyDate[0]+"/"+amyDate[1]+"/"+amyDate[2]).getTime();
-       var bmyDate = b.split("-");
-       var bNewDate=new Date(bmyDate[0]+"/"+bmyDate[1]+"/"+bmyDate[2]).getTime();
+                datesForDisable.sort(SortByDate);
+                console.log(datesForDisable);
 
-       return ((aNewDate < bNewDate) ? -1 : ((aNewDate > bNewDate) ? 1 : 0));
-    }
-    datesForDisable.sort(SortByDate);
+                for (var i = 0; i < datesForDisable.length; ++i) {
 
+                    if (datesForDisable[i] != "") {
 
- console.log(datesForDisable);
+                        if (datesForDisable[i] == formatted) {
 
+                            now.setDate(now.getDate() + 1);
+                            var year = now.getFullYear();
+                            var month = now.getMonth() + 1 //getMonth is zero based;
+                            var day = now.getDate();
+                            formatted = ('0' + month).slice(-2) + '-'
+                                + ('0' + day).slice(-2) + '-'
+                                + year;
+                        }
+                    }
+                }
 
-
-for (var i = 0; i < datesForDisable.length; ++i) {
-
-    if (datesForDisable[i] != "") {
-
-
-    if (datesForDisable[i] == formatted) {
-
-        now.setDate(now.getDate() + 1);
-
-
-        var year = now.getFullYear();
-        var month = now.getMonth() + 1 //getMonth is zero based;
-        var day = now.getDate();
-        formatted = ('0' + month).slice(-2) + '-'
-            + ('0' + day).slice(-2) + '-'
-            + year;
-
-
-    }
-
-}
-   
- 
-}
 
                 for (var i = 0; i < datesForDisable.length; ++i) {
 
@@ -1524,20 +1513,15 @@ for (var i = 0; i < datesForDisable.length; ++i) {
 
                         var dateAr = datesForDisable[i].split('-');
                         var newDate = dateAr[0] + '/' + dateAr[1] + '/' + dateAr[2].slice(-2);
-
                         datesForDisable[i] = newDate;
 
                     }
                 }
 
                 console.log(datesForDisable);
+                console.log(now);
 
-console.log(now);
-
-
-var hours_array = [<?php echo '"'.implode('","', array_column($hours, 'notAvailable_hour')).'"' ?>];
-
-
+                var hours_array = [<?php echo '"'.implode('","', array_column($hours, 'notAvailable_hour')).'"' ?>];
                 var hoursForDisable = hours_array;
 
 
@@ -1547,18 +1531,14 @@ var hours_array = [<?php echo '"'.implode('","', array_column($hours, 'notAvaila
                 disabledDates: datesForDisable,
                 disabledHours: hoursForDisable,
 
-
                 });
 
                 $('#datetimepicker4').data('DateTimePicker').keyBinds();
 
-
-
-                
             });
-
         });
-        </script>
+
+    </script>
 
         <style>
 
@@ -1567,7 +1547,7 @@ var hours_array = [<?php echo '"'.implode('","', array_column($hours, 'notAvaila
   cursor: help;
   font-style: normal;
   position: relative;
-  
+
 }
 dfn::after {
   content: attr(data-info);
@@ -1606,7 +1586,7 @@ dfn:hover::before {top: 35px;}
             background: rgb(255, 166, 166) !important;
             color: black;
             border-radius: 0;
-            
+
 
         }
 
@@ -1640,7 +1620,7 @@ dfn:hover::before {top: 35px;}
 
 
 
-            
+
             table td{
                 font-size: 1.2rem;
             }
@@ -1665,10 +1645,10 @@ dfn:hover::before {top: 35px;}
             {
                 color: #3a3939;
                 font-weight: 500;
-                
+
             }
 
-   
+
 
         </style>
 
