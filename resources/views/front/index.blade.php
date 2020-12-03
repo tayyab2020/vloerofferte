@@ -327,7 +327,7 @@
 
                                                 <h3 style="text-align: center;color: #4b4b4b;">Select Service</h3>
 
-                                                <select class="js-data-example-ajax1 form-control quote-service quote_validation" style="height: 40px;" name="quote_service" id="blood_grp" required>
+                                                <select class="js-data-example-ajax2 form-control quote-service quote_validation" style="height: 40px;" name="quote_service" id="blood_grp" required>
 
                                                     <option value="">{{$lang->sbg}}</option>
 
@@ -2179,6 +2179,16 @@
         });
 
         $(".js-data-example-ajax1").select2({
+            width: '100%',
+            height: '200px',
+            // placeholder: "City Name",
+            placeholder: "<?php echo $lang->sbg; ?>",
+            allowClear: true,
+
+
+        });
+
+        $(".js-data-example-ajax2").select2({
             width: '100%',
             height: '200px',
             // placeholder: "City Name",
