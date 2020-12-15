@@ -33,7 +33,7 @@ class GeneralSettingController extends Controller
                 $file->move('assets/images',$name);
                 if($logo->logo != null)
                 {
-                    unlink(public_path().'/assets/images/'.$logo->logo);
+                    \File::delete(public_path() .'/assets/images/'.$logo->logo);
                 }
             $input['logo'] = $name;
             }
