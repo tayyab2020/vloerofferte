@@ -1249,24 +1249,27 @@ else
 
             $quote->save();
 
-            foreach ($request->questions as $i => $key)
+            if(isset($request->questions))
             {
-                $answer = 'answers'.$i;
-
-                if($request->$answer)
+                foreach ($request->questions as $i => $key)
                 {
-                    $answers = implode(',', $request->$answer);
-                }
-                else
-                {
-                    $answers = '';
-                }
+                    $answer = 'answers'.$i;
 
-                $post = new requests_q_a;
-                $post->request_id = $quote->id;
-                $post->question = $key;
-                $post->answer = $answers;
-                $post->save();
+                    if($request->$answer)
+                    {
+                        $answers = implode(',', $request->$answer);
+                    }
+                    else
+                    {
+                        $answers = '';
+                    }
+
+                    $post = new requests_q_a;
+                    $post->request_id = $quote->id;
+                    $post->question = $key;
+                    $post->answer = $answers;
+                    $post->save();
+                }
             }
 
             $link = url('/').'/handyman/client-dashboard';
