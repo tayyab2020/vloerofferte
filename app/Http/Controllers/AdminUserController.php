@@ -47,7 +47,7 @@ class AdminUserController extends Controller
         }])->get();
 
 
-        return view('admin.user.questions',compact('data','services'));
+        return view('admin.user.questions',compact('data'));
     }
 
     public function CreateQuestion()
