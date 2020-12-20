@@ -49,209 +49,127 @@
 
             @include('includes.form-error')
 
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
 
-        <div class="container">
+            <script type="text/javascript">
+
+                function initMap() {
+
+                    var input = document.getElementById('zipcode');
+
+                    var options = {
+                        componentRestrictions: {country: "nl"}
+                    };
+
+                    var autocomplete = new google.maps.places.Autocomplete(input,options);
+
+
+                    // Set the data fields to return when the user selects a place.
+                    autocomplete.setFields(
+                        ['address_components', 'geometry', 'icon', 'name']);
+
+
+                    autocomplete.addListener('place_changed', function() {
+
+                        var place = autocomplete.getPlace();
+
+
+                        if (!place.geometry) {
+
+                            // User entered the name of a Place that was not suggested and
+                            // pressed the Enter key, or the Place Details request failed.
+                            window.alert("No details available for input: '" + place.name + "'");
+                            return;
+                        }
+
+                        var city = '';
+
+                        for(var i=0; i < place.address_components.length; i++)
+                        {
+
+                            if(place.address_components[i].types[0] == 'locality')
+                            {
+                                city = place.address_components[i].long_name;
+                            }
+
+                        }
+
+
+                        if(city == '')
+                        {
+                            for(var i=0; i < place.address_components.length; i++)
+                            {
+                                if(place.address_components[i].types[0] == 'administrative_area_level_2')
+                                {
+                                    var city = place.address_components[i].long_name;
+                                }
+                            }
+                        }
+
+                    });
+
+                    var input1 = document.getElementById('quote-zipcode');
+
+                    var options1 = {
+                        componentRestrictions: {country: "nl"}
+                    };
+
+                    var autocomplete1 = new google.maps.places.Autocomplete(input1,options1);
+
+                    // Set the data fields to return when the user selects a place.
+                    autocomplete1.setFields(
+                        ['address_components', 'geometry', 'icon', 'name']);
+
+
+                    autocomplete1.addListener('place_changed', function() {
+
+
+                        var place1 = autocomplete1.getPlace();
+
+
+                        if (!place1.geometry) {
+
+                            // User entered the name of a Place that was not suggested and
+                            // pressed the Enter key, or the Place Details request failed.
+                            window.alert("No details available for input: '" + place1.name + "'");
+                            return;
+                        }
+
+                        var city1 = '';
+
+                        for(var i=0; i < place1.address_components.length; i++)
+                        {
+
+                            if(place1.address_components[i].types[0] == 'locality')
+                            {
+                                city1 = place1.address_components[i].long_name;
+                            }
+
+                        }
+
+
+                        if(city1 == '')
+                        {
+                            for(var i=0; i < place1.address_components.length; i++)
+                            {
+                                if(place1.address_components[i].types[0] == 'administrative_area_level_2')
+                                {
+                                    var city1 = place1.address_components[i].long_name;
+
+                                }
+                            }
+                        }
+
+                    });
+                }
+
+            </script>
+
+        <div class="container" style="width: 100%;">
+
             <div class="row">
-                <div class="col-lg-6 col-lg-push-6 col-md-6 col-md-push-6 col-sm-6 col-sm-push-6 col-xs-12 col-xs-push-0">
-                    <div class="hero-form">
-                        <div class="hero-form-header">
-                            <h3>{{$lang->ss}}</h3>
-                            <hr>
-                        </div>
 
-                        <form action="{{route('user.search')}}" method="GET">
-
-                            <div class="hero-form-wrapper">
-
-                                <div class="form-group" id="zipbox">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-fw fa-home"></i>
-                                        </div>
-
-                                        <input  type="search" name="zipcode" id="zipcode" class="form-control" placeholder="{{$lang->spzc}}" autocomplete="off" required >
-
-                                    </div>
-                                </div>
-
-                                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
-
-                                <script type="text/javascript">
-
-                                    function initMap() {
-
-                                        var input = document.getElementById('zipcode');
-
-                                        var options = {
-                                            componentRestrictions: {country: "nl"}
-                                        };
-
-                                        var autocomplete = new google.maps.places.Autocomplete(input,options);
-
-
-                                        // Set the data fields to return when the user selects a place.
-                                        autocomplete.setFields(
-                                            ['address_components', 'geometry', 'icon', 'name']);
-
-
-                                        autocomplete.addListener('place_changed', function() {
-
-                                            var place = autocomplete.getPlace();
-
-
-                                            if (!place.geometry) {
-
-                                                // User entered the name of a Place that was not suggested and
-                                                // pressed the Enter key, or the Place Details request failed.
-                                                window.alert("No details available for input: '" + place.name + "'");
-                                                return;
-                                            }
-
-                                            var city = '';
-
-                                            for(var i=0; i < place.address_components.length; i++)
-                                            {
-
-                                                if(place.address_components[i].types[0] == 'locality')
-                                                {
-                                                    city = place.address_components[i].long_name;
-                                                }
-
-                                            }
-
-
-                                            if(city == '')
-                                            {
-                                                for(var i=0; i < place.address_components.length; i++)
-                                                {
-                                                    if(place.address_components[i].types[0] == 'administrative_area_level_2')
-                                                    {
-                                                        var city = place.address_components[i].long_name;
-                                                    }
-                                                }
-                                            }
-
-                                        });
-
-                                        var input1 = document.getElementById('quote-zipcode');
-
-                                        var options1 = {
-                                            componentRestrictions: {country: "nl"}
-                                        };
-
-                                        var autocomplete1 = new google.maps.places.Autocomplete(input1,options1);
-
-                                        // Set the data fields to return when the user selects a place.
-                                        autocomplete1.setFields(
-                                            ['address_components', 'geometry', 'icon', 'name']);
-
-
-                                        autocomplete1.addListener('place_changed', function() {
-
-
-                                            var place1 = autocomplete1.getPlace();
-
-
-                                            if (!place1.geometry) {
-
-                                                // User entered the name of a Place that was not suggested and
-                                                // pressed the Enter key, or the Place Details request failed.
-                                                window.alert("No details available for input: '" + place1.name + "'");
-                                                return;
-                                            }
-
-                                            var city1 = '';
-
-                                            for(var i=0; i < place1.address_components.length; i++)
-                                            {
-
-                                                if(place1.address_components[i].types[0] == 'locality')
-                                                {
-                                                    city1 = place1.address_components[i].long_name;
-                                                }
-
-                                            }
-
-
-                                            if(city1 == '')
-                                            {
-                                                for(var i=0; i < place1.address_components.length; i++)
-                                                {
-                                                    if(place1.address_components[i].types[0] == 'administrative_area_level_2')
-                                                    {
-                                                        var city1 = place1.address_components[i].long_name;
-
-                                                    }
-                                                }
-                                            }
-
-                                        });
-                                    }
-
-                                </script>
-
-
-                                <div class="form-group" >
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-fw fa-calendar"></i>
-                                        </div>
-
-                                        <input type="text" name="from_date" id="from_date" class="form-control" placeholder="{{$lang->spdf}}" autocomplete="off" required >
-
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group" >
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-fw fa-calendar"></i>
-                                        </div>
-
-                                        <input  type="text" name="to_date" id="to_date" class="form-control" placeholder="{{$lang->spdt}}" autocomplete="off" required>
-
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group" style="height: 50px;">
-                                    <div class="input-group" id="service_box">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-fw fa-cog"></i>
-                                        </div>
-
-                                        <select class="js-data-example-ajax form-control"  style="width: 100%" name="group" id="blood_grp" required>
-
-                                            <option value="">{{$lang->sbg}}</option>
-
-                                            @if($lang->lang == 'eng')
-
-                                                @foreach($cats as $cat)
-                                                    <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
-                                                @endforeach
-
-                                                @else
-
-                                                @foreach($cats as $cat)
-                                                    <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
-                                                @endforeach
-
-                                                @endif
-
-                                        </select>
-
-                                    </div>
-                                </div>
-                                <div class="form-group text-center">
-                                    <input type="submit" class="btn btn-block hero-btn" name="button" value="{{$lang->search}}">
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-lg-pull-6 col-md-6 col-md-pull-6 col-sm-6 col-sm-pull-6 col-xs-12 col-xs-pull-0">
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12" id="quote-con">
 
                     {{--<h1 style="color: black;">{{$gs->bg_title}}</h1>
                     <p>{!!$gs->bg_text!!}</p>--}}
@@ -260,29 +178,63 @@
 
                         <h3 style="text-align: center;padding-top: 25px;color: white;text-shadow: 1px 2px 5px #4f4f4f;font-weight: 400;">Select Service For Quotation</h3>
 
-                        <div id="quote-box" style="display: inline-block;width: 100%;padding: 20px;">
+                        <div id="quote-box" style="display: flex;justify-content: space-between;width: 100%;padding: 20px;">
 
-                            <select class="js-data-example-ajax1 form-control quote-service" name="group" id="blood_grp" required>
+                            <div style="width: 25%;">
 
-                                <option value="">{{$lang->sbg}}</option>
+                                <select class="js-data-example-ajax1 form-control quote-service" name="group" id="blood_grp">
 
-                                @if($lang->lang == 'eng')
+                                    <option value="">Select Main Product</option>
 
-                                    @foreach($cats as $cat)
-                                        <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
-                                    @endforeach
+                                    @if($lang->lang == 'eng')
 
-                                @else
+                                        @foreach($cats as $cat)
+                                            <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
+                                        @endforeach
 
-                                    @foreach($cats as $cat)
-                                        <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
-                                    @endforeach
+                                    @else
 
-                                @endif
+                                        @foreach($cats as $cat)
+                                            <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
+                                        @endforeach
 
-                            </select>
+                                    @endif
 
-                            <button href="#myModal" role="button" data-toggle="modal" style="height: 45px;width: 25%;float: right;border: 0;outline: none;font-size: 18px;" class="btn btn-primary">Get Started</button>
+                                </select>
+
+                            </div>
+
+                            <div style="width: 25%;">
+
+                                <select class="js-data-example-ajax3 form-control" name="group" id="blood_grp">
+
+                                    <option value="">Select Sub product</option>
+
+                                    @if($lang->lang == 'eng')
+
+                                        @foreach($subs as $sub)
+                                            <option value="{{$sub->id}}">{{$sub->cat_slug}}</option>
+                                        @endforeach
+
+                                    @else
+
+                                        @foreach($subs as $sub)
+                                            <option value="{{$sub->id}}">{{$sub->cat_name}}</option>
+                                        @endforeach
+
+                                    @endif
+
+                                </select>
+
+                            </div>
+
+                            <div style="width: 25%;">
+
+                                <input type="text" style="height: 100%;" name="product_code" class="form-control" placeholder="Product Code" />
+
+                            </div>
+
+                            <button href="#myModal" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;" class="btn btn-primary">Search</button>
 
                         </div>
                     </div>
@@ -294,134 +246,134 @@
 
                                 <input type="hidden" name="_token" value="{{@csrf_token()}}">
 
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button style="background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h3 id="myModalLabel">Ask for Quotation</h3>
-                                </div>
-                                <div class="modal-body" id="myWizard">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button style="background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h3 id="myModalLabel">Ask for Quotation</h3>
+                                    </div>
+                                    <div class="modal-body" id="myWizard">
 
-                                    <div class="progress" style="height: 25px;">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 20%;line-height: 25px;font-size: 14px;font-weight: 100;">
-                                            Step 1
+                                        <div class="progress" style="height: 25px;">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 20%;line-height: 25px;font-size: 14px;font-weight: 100;">
+                                                Step 1
+                                            </div>
                                         </div>
+
+                                        <div class="navbar" style="display: none;">
+                                            <div class="navbar-inner">
+                                                <ul class="nav nav-pills">
+                                                    <li class="active"><a href="#step1" data-toggle="tab" data-step="1">Step 1</a></li>
+                                                    <li><a href="#step2" data-toggle="tab" data-step="2">Step 2</a></li>
+                                                    <li><a href="#step3" data-toggle="tab" data-step="3">Step 3</a></li>
+                                                    <li><a href="#step4" data-toggle="tab" data-step="4">Step 4</a></li>
+                                                    <li><a href="#step5" data-toggle="tab" data-step="5">Step 5</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-content">
+
+                                            <div class="tab-pane fade in active" id="step1">
+
+                                                <div class="well">
+
+                                                    <h3 style="text-align: center;color: #4b4b4b;">Select Service</h3>
+
+                                                    <select class="js-data-example-ajax2 form-control quote-service quote_validation" style="height: 40px;" name="quote_service" id="blood_grp" required>
+
+                                                        <option value="">{{$lang->sbg}}</option>
+
+                                                        @if($lang->lang == 'eng')
+
+                                                            @foreach($cats as $cat)
+                                                                <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
+                                                            @endforeach
+
+                                                        @else
+
+                                                            @foreach($cats as $cat)
+                                                                <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
+                                                            @endforeach
+
+                                                        @endif
+
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="tab-pane fade" id="step2">
+                                                <div class="well">
+
+                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Where do you need the job done?</h3>
+
+                                                    <input style="height: 40px;" type="search" name="quote_zipcode" id="quote-zipcode" class="form-control quote_validation" placeholder="{{$lang->spzc}}" autocomplete="off">
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="tab-pane fade" id="step3">
+
+                                                <div class="well" style="height: 300px;"></div>
+
+                                                <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
+
+                                            </div>
+
+                                            <div class="tab-pane fade" id="step4">
+
+                                                <div class="well" style="height: 300px;">
+
+                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Provide a description of your job</h3>
+
+                                                    <textarea style="resize: vertical;" rows="7" name="quote_description" class="form-control quote_validation" placeholder="Providing more details increases interest from tradies"></textarea>
+
+                                                </div>
+
+                                                <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
+
+                                            </div>
+
+                                            <div class="tab-pane fade" id="step5">
+                                                <div class="well" style="height: 300px;">
+
+                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Please provide some contact details.</h3>
+
+                                                    <label>Name <span style="color: red;">*</span></label>
+                                                    <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_name" class="form-control quote_validation" placeholder="Enter Name" autocomplete="off">
+
+                                                    <label>Family Name <span style="color: red;">*</span></label>
+                                                    <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_familyname" class="form-control quote_validation" placeholder="Enter Family Name" autocomplete="off">
+
+                                                    <label>Email <span style="color: red;">*</span></label>
+                                                    <input style="height: 45px;margin-bottom: 20px" type="email" name="quote_email" class="form-control quote_validation" placeholder="Enter Email">
+
+                                                    <label>Contact Number <span style="color: red;">*</span></label>
+                                                    <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_contact" class="form-control quote_validation" placeholder="Enter Contact Number" autocomplete="off">
+
+                                                    <small style="text-align: center;display: block;width: 95%;margin: auto;">Your details will be used to create a job post, so that you can monitor and manage the job you've posted.</small>
+
+                                                    <br>
+
+                                                    <small style="text-align: center;display: block;width: 80%;margin: auto;">By pressing Get Quotes you agree to the <a href="#">terms and conditions</a> of our website.</small>
+
+                                                </div>
+                                                <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
+
+                                            </div>
+
+                                        </div>
+
                                     </div>
 
-                                    <div class="navbar" style="display: none;">
-                                        <div class="navbar-inner">
-                                            <ul class="nav nav-pills">
-                                                <li class="active"><a href="#step1" data-toggle="tab" data-step="1">Step 1</a></li>
-                                                <li><a href="#step2" data-toggle="tab" data-step="2">Step 2</a></li>
-                                                <li><a href="#step3" data-toggle="tab" data-step="3">Step 3</a></li>
-                                                <li><a href="#step4" data-toggle="tab" data-step="4">Step 4</a></li>
-                                                <li><a href="#step5" data-toggle="tab" data-step="5">Step 5</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-content">
-
-                                        <div class="tab-pane fade in active" id="step1">
-
-                                            <div class="well">
-
-                                                <h3 style="text-align: center;color: #4b4b4b;">Select Service</h3>
-
-                                                <select class="js-data-example-ajax2 form-control quote-service quote_validation" style="height: 40px;" name="quote_service" id="blood_grp" required>
-
-                                                    <option value="">{{$lang->sbg}}</option>
-
-                                                    @if($lang->lang == 'eng')
-
-                                                        @foreach($cats as $cat)
-                                                            <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
-                                                        @endforeach
-
-                                                    @else
-
-                                                        @foreach($cats as $cat)
-                                                            <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
-                                                        @endforeach
-
-                                                    @endif
-
-                                                </select>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="tab-pane fade" id="step2">
-                                            <div class="well">
-
-                                                <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Where do you need the job done?</h3>
-
-                                                <input style="height: 40px;" type="search" name="quote_zipcode" id="quote-zipcode" class="form-control quote_validation" placeholder="{{$lang->spzc}}" autocomplete="off">
-
-                                            </div>
-                                        </div>
-
-
-                                        <div class="tab-pane fade" id="step3">
-
-                                            <div class="well" style="height: 300px;"></div>
-
-                                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-
-                                        </div>
-
-                                        <div class="tab-pane fade" id="step4">
-
-                                            <div class="well" style="height: 300px;">
-
-                                                <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Provide a description of your job</h3>
-
-                                                <textarea style="resize: vertical;" rows="7" name="quote_description" class="form-control quote_validation" placeholder="Providing more details increases interest from tradies"></textarea>
-
-                                            </div>
-
-                                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-
-                                        </div>
-
-                                        <div class="tab-pane fade" id="step5">
-                                            <div class="well" style="height: 300px;">
-
-                                                <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Please provide some contact details.</h3>
-
-                                                <label>Name <span style="color: red;">*</span></label>
-                                                <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_name" class="form-control quote_validation" placeholder="Enter Name" autocomplete="off">
-
-                                                <label>Family Name <span style="color: red;">*</span></label>
-                                                <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_familyname" class="form-control quote_validation" placeholder="Enter Family Name" autocomplete="off">
-
-                                                <label>Email <span style="color: red;">*</span></label>
-                                                <input style="height: 45px;margin-bottom: 20px" type="email" name="quote_email" class="form-control quote_validation" placeholder="Enter Email">
-
-                                                <label>Contact Number <span style="color: red;">*</span></label>
-                                                <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_contact" class="form-control quote_validation" placeholder="Enter Contact Number" autocomplete="off">
-
-                                                <small style="text-align: center;display: block;width: 95%;margin: auto;">Your details will be used to create a job post, so that you can monitor and manage the job you've posted.</small>
-
-                                                <br>
-
-                                                <small style="text-align: center;display: block;width: 80%;margin: auto;">By pressing Get Quotes you agree to the <a href="#">terms and conditions</a> of our website.</small>
-
-                                            </div>
-                                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-
-                                        </div>
-
+                                    <div class="modal-footer">
+                                        <button style="border: 0;display: none;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">Back</button>
+                                        <button style="border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary next">Continue</button>
+                                        <button style="display: none;border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary next-submit">Get Quotes</button>
                                     </div>
 
                                 </div>
-
-                                <div class="modal-footer">
-                                    <button style="border: 0;display: none;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">Back</button>
-                                    <button style="border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary next">Continue</button>
-                                    <button style="display: none;border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary next-submit">Get Quotes</button>
-                                </div>
-
-                            </div>
 
                             </form>
                         </div>
@@ -509,7 +461,36 @@
 
                         #quote-box .select2
                         {
-                            width: 70% !important;float: left;border: 1px solid lightgrey;
+                            /*width: 70% !important;
+                            float: left;*/
+                            border: 1px solid lightgrey;
+                        }
+
+                        @media (max-width: 500px)
+                        {
+                            #quote-box
+                            {
+                                flex-wrap: wrap;
+                            }
+
+                            #quote-box div
+                            {
+                                width: 30% !important;
+                            }
+
+                            #quote-box button
+                            {
+                                width: 100%;
+                                margin-top: 20px;
+                            }
+                        }
+
+                        @media (max-width: 767px)
+                        {
+                            #quote-con
+                            {
+                                margin-bottom: 30px;
+                            }
                         }
 
                         .well
@@ -529,6 +510,91 @@
                     </style>
 
                 </div>
+
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+
+                    <div class="hero-form" style="margin: 0;">
+                        <div class="hero-form-header">
+                            <h3>{{$lang->ss}}</h3>
+                            <hr>
+                        </div>
+
+                        <form action="{{route('user.search')}}" method="GET">
+
+                            <div class="hero-form-wrapper">
+
+                                <div class="form-group" id="zipbox">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-fw fa-home"></i>
+                                        </div>
+
+                                        <input  type="search" name="zipcode" id="zipcode" class="form-control" placeholder="{{$lang->spzc}}" autocomplete="off" required >
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group" >
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-fw fa-calendar"></i>
+                                        </div>
+
+                                        <input type="text" name="from_date" id="from_date" class="form-control" placeholder="{{$lang->spdf}}" autocomplete="off" required >
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" >
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-fw fa-calendar"></i>
+                                        </div>
+
+                                        <input  type="text" name="to_date" id="to_date" class="form-control" placeholder="{{$lang->spdt}}" autocomplete="off" required>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" style="height: 50px;">
+                                    <div class="input-group" id="service_box">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-fw fa-cog"></i>
+                                        </div>
+
+                                        <select class="js-data-example-ajax form-control"  style="width: 100%" name="group" id="blood_grp" required>
+
+                                            <option value="">{{$lang->sbg}}</option>
+
+                                            @if($lang->lang == 'eng')
+
+                                                @foreach($cats as $cat)
+                                                    <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
+                                                @endforeach
+
+                                                @else
+
+                                                @foreach($cats as $cat)
+                                                    <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
+                                                @endforeach
+
+                                                @endif
+
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="form-group text-center">
+                                    <input type="submit" class="btn btn-block hero-btn" name="button" value="{{$lang->search}}">
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -1040,8 +1106,7 @@
                     {
                         if($(this).hasClass('select2-hidden-accessible'))
                         {
-                            $('.select2').css('border','1px solid red');
-                            $('.select2-selection').css('outline','none');
+                            $(this).next().css('border','1px solid red');
                         }
                         else
                         {
@@ -1629,6 +1694,8 @@
             padding: 7px;
             border: none;
             border-radius: 0;
+            outline: none;
+
         }
 
         .select2-container--default .select2-selection--single .select2-selection__arrow{
@@ -2181,11 +2248,8 @@
         $(".js-data-example-ajax1").select2({
             width: '100%',
             height: '200px',
-            // placeholder: "City Name",
-            placeholder: "<?php echo $lang->sbg; ?>",
+            placeholder: "Select Main Product",
             allowClear: true,
-
-
         });
 
         $(".js-data-example-ajax2").select2({
@@ -2196,7 +2260,13 @@
             allowClear: true,
             dropdownParent: $('#myModal'),
 
+        });
 
+        $(".js-data-example-ajax3").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "Select Sub Product",
+            allowClear: true,
         });
 
     </script>

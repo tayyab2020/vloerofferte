@@ -361,6 +361,7 @@ else
         }
         $ads = Portfolio::all();
         $cats = Category::where('main_service',1)->get();
+        $subs = Category::where('main_service',0)->get();
         $rusers =   User::where('featured','=',1)->where('active','=',1)->orderBy('created_at', 'desc')->limit(4)->get();
 
         $no = 0;
@@ -387,7 +388,7 @@ else
         $language = $this->lang->lang;
 
 
-        return view('front.index',compact('ads','cats','rusers','cities','jobs','language'));
+        return view('front.index',compact('ads','cats','subs','rusers','cities','jobs','language'));
 
     }
 
