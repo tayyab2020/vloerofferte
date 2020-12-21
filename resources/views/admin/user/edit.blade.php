@@ -33,23 +33,19 @@
                                               <input class="form-control" name="name" id="edit_full_name" placeholder="Enter Full Name" required="" type="text" value="{{$user->name}}">
                                             </div>
                                           </div>
-                                          <div class="form-group" style="display: none;">
+                                          {{--<div class="form-group" style="display: none;">
                                             <label class="control-label col-sm-4" for="edit_blood_group">Category*</label>
                                             <div class="col-sm-6">
                                               <select class="form-control" name="category_id" id="edit_blood_group" required="">
                                                   <option value="">Select Category</option>
 
-                                                  @if(count($cats) > 0)
-
                                                       @foreach($cats as $cat)
                                                           <option value="{{$cat->id}}" {{$cat->cat_name == $user->category->cat_name?"selected":""}}>{{$cat->cat_name}}</option>
                                                       @endforeach
 
-                                                  @endif
-
                                               </select>
                                             </div>
-                                          </div>
+                                          </div>--}}
                                           <div class="form-group">
                                             <label class="control-label col-sm-4" for="edit_current_photo">Current Photo*</label>
                                             <div class="col-sm-6">
