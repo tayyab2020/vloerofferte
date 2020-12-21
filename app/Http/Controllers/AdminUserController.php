@@ -659,7 +659,8 @@ class AdminUserController extends Controller
         $user = User::findOrFail($id);
         $cats = Category::all();
 
-
+        var_dump($user->category->cat_name);
+        exit();
         if($user->title!=null && $user->details!=null)
         {
             $title = explode(',', $user->title);
