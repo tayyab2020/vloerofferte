@@ -12,8 +12,8 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'captcha_key' => '6LcIXvEUAAAAAPGWN1IC6kqhuzJR2yB0K5OUJSyT',
-    'captcha_secret' => '6LcIXvEUAAAAAPhfsz-sbQsjgzF5FQWi_9Jylxk7',
+    'captcha_key' => '6LdKLw8aAAAAAOFrz_RS6PVBs3cEYAZURDqmhiic',
+    'captcha_secret' => '6LdKLw8aAAAAAN2FP4C9wc3ZwfFfEJK35jP6adcC',
 
     'name' => env('APP_NAME', 'Laravel'),
 
