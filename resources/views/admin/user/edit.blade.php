@@ -38,9 +38,15 @@
                                             <div class="col-sm-6">
                                               <select class="form-control" name="category_id" id="edit_blood_group" required="">
                                                   <option value="">Select Category</option>
-                                     @foreach($cats as $cat)
-                                     <option value="{{$cat->id}}" {{$cat->cat_name == $user->category->cat_name?"selected":""}}>{{$cat->cat_name}}</option>
-                                     @endforeach
+
+                                                  @if(count($cats) > 0)
+
+                                                      @foreach($cats as $cat)
+                                                          <option value="{{$cat->id}}" {{$cat->cat_name == $user->category->cat_name?"selected":""}}>{{$cat->cat_name}}</option>
+                                                      @endforeach
+
+                                                  @endif
+
                                               </select>
                                             </div>
                                           </div>
