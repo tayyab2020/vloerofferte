@@ -3547,10 +3547,7 @@ $user_name  = $user->name;
        "currency" => "EUR",
        "value" => $registration_fee,
     ],
-    "method" => "ideal",
-
     "description" => "Registration Fee Payment",
-    "sequenceType" => "first",
     "redirectUrl" => route('user-complete-profile'),
     "webhookUrl" => route('webhooks.first'),
     "metadata" => [

@@ -167,9 +167,9 @@
 
         <div class="container" style="width: 100%;">
 
-            <div class="row">
+            <div class="row" style="display: flex;justify-content: center;">
 
-                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12" id="quote-con">
+                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12" id="quote-con">
 
                     {{--<h1 style="color: black;">{{$gs->bg_title}}</h1>
                     <p>{!!$gs->bg_text!!}</p>--}}
@@ -180,7 +180,7 @@
 
                         <div id="quote-box" style="display: flex;justify-content: space-between;width: 100%;padding: 20px;">
 
-                            <div style="width: 25%;">
+                            <div style="width: 20%;">
 
                                 <select class="js-data-example-ajax1 form-control quote-service" name="group" id="blood_grp">
 
@@ -204,7 +204,7 @@
 
                             </div>
 
-                            <div style="width: 25%;">
+                            <div style="width: 20%;">
 
                                 <select class="js-data-example-ajax3 form-control" name="group" id="blood_grp">
 
@@ -228,7 +228,31 @@
 
                             </div>
 
-                            <div style="width: 25%;">
+                            <div style="width: 20%;">
+
+                                <select class="js-data-example-ajax4 form-control" name="group" id="blood_grp">
+
+                                    <option value="">Select Sub product 2</option>
+
+                                    @if($lang->lang == 'eng')
+
+                                        @foreach($subs as $sub)
+                                            <option value="{{$sub->id}}">{{$sub->cat_slug}}</option>
+                                        @endforeach
+
+                                    @else
+
+                                        @foreach($subs as $sub)
+                                            <option value="{{$sub->id}}">{{$sub->cat_name}}</option>
+                                        @endforeach
+
+                                    @endif
+
+                                </select>
+
+                            </div>
+
+                            <div style="width: 20%;">
 
                                 <input type="text" style="height: 100%;" name="product_code" class="form-control" placeholder="Product Code" />
 
@@ -509,90 +533,6 @@
 
                     </style>
 
-                </div>
-
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-
-                    <div class="hero-form" style="margin: 0;">
-                        <div class="hero-form-header">
-                            <h3>{{$lang->ss}}</h3>
-                            <hr>
-                        </div>
-
-                        <form action="{{route('user.search')}}" method="GET">
-
-                            <div class="hero-form-wrapper">
-
-                                <div class="form-group" id="zipbox">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-fw fa-home"></i>
-                                        </div>
-
-                                        <input  type="search" name="zipcode" id="zipcode" class="form-control" placeholder="{{$lang->spzc}}" autocomplete="off" required >
-
-                                    </div>
-                                </div>
-
-                                <div class="form-group" >
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-fw fa-calendar"></i>
-                                        </div>
-
-                                        <input type="text" name="from_date" id="from_date" class="form-control" placeholder="{{$lang->spdf}}" autocomplete="off" required >
-
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group" >
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-fw fa-calendar"></i>
-                                        </div>
-
-                                        <input  type="text" name="to_date" id="to_date" class="form-control" placeholder="{{$lang->spdt}}" autocomplete="off" required>
-
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group" style="height: 50px;">
-                                    <div class="input-group" id="service_box">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-fw fa-cog"></i>
-                                        </div>
-
-                                        <select class="js-data-example-ajax form-control"  style="width: 100%" name="group" id="blood_grp" required>
-
-                                            <option value="">{{$lang->sbg}}</option>
-
-                                            @if($lang->lang == 'eng')
-
-                                                @foreach($cats as $cat)
-                                                    <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
-                                                @endforeach
-
-                                                @else
-
-                                                @foreach($cats as $cat)
-                                                    <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
-                                                @endforeach
-
-                                                @endif
-
-                                        </select>
-
-                                    </div>
-                                </div>
-                                <div class="form-group text-center">
-                                    <input type="submit" class="btn btn-block hero-btn" name="button" value="{{$lang->search}}">
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
                 </div>
 
             </div>
@@ -2266,6 +2206,13 @@
             width: '100%',
             height: '200px',
             placeholder: "Select Sub Product",
+            allowClear: true,
+        });
+
+        $(".js-data-example-ajax4").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "Select Sub Product 2",
             allowClear: true,
         });
 
