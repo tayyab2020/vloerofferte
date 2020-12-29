@@ -11,9 +11,9 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
-                                        <h2>Categories</h2>
-                                        <a href="{{route('admin-cat-create')}}" class="btn add-newProduct-btn"><i
-                                                class="fa fa-plus"></i> Add New Category</a>
+                                        <h2>Brands</h2>
+                                        <a href="{{route('admin-brand-create')}}" class="btn add-newProduct-btn"><i
+                                                class="fa fa-plus"></i> Add New Brand</a>
                                     </div>
                                     <hr>
                                     <div>
@@ -74,10 +74,10 @@
                                                             <td>{!!$cat->description!!}</td>
                                                             <td>{{$cat->cat_slug}}</td>
                                                             <td>
-                                                                <a href="{{route('admin-cat-edit',$cat->id)}}"
+                                                                <a href="{{route('admin-brand-edit',$cat->id)}}"
                                                                    class="btn btn-primary product-btn"><i
                                                                         class="fa fa-edit"></i> Edit</a>
-                                                                <a href="{{route('admin-cat-delete',$cat->id)}}"
+                                                                <a href="{{route('admin-brand-delete',$cat->id)}}"
                                                                    class="btn btn-danger product-btn"><i
                                                                         class="fa fa-trash"></i> Remove</a>
                                                             </td>

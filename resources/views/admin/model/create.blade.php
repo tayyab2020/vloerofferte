@@ -23,11 +23,11 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="add-product-box">
                                         <div class="add-product-header">
-                                            <h2>{{isset($cats) ? 'Edit Category' : 'Add Category'}}</h2>
-                                            <a href="{{route('admin-cat-index')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
+                                            <h2>{{isset($cats) ? 'Edit Model' : 'Add Model'}}</h2>
+                                            <a href="{{route('admin-model-index')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
                                         </div>
                                         <hr>
-                                        <form class="form-horizontal" action="{{route('admin-cat-store')}}" method="POST" enctype="multipart/form-data">
+                                        <form class="form-horizontal" action="{{route('admin-model-store')}}" method="POST" enctype="multipart/form-data">
 
                                             @include('includes.form-error')
                                             @include('includes.form-success')
@@ -45,15 +45,15 @@
                                           <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_slug">Slug* <span>(In English)</span></label>
                                             <div class="col-sm-6">
-                                              <input value="{{isset($cats) ? $cats->cat_slug : null}}" class="form-control" name="cat_slug" id="blood_group_slug" placeholder="Enter Category Slug" required="" type="text">
+                                              <input value="{{isset($cats) ? $cats->cat_slug : null}}" class="form-control" name="cat_slug" id="blood_group_slug" placeholder="Enter Model Slug" required="" type="text">
                                             </div>
                                           </div>
 
 
                                             <div class="form-group">
-                                                <label class="control-label col-sm-4" for="service_description">Category Description*</label>
+                                                <label class="control-label col-sm-4" for="service_description">Model Description*</label>
                                                 <div class="col-sm-6">
-                                                    <textarea class="form-control" name="description" id="service_description" rows="5" style="resize: vertical;" placeholder="Enter Category Description">{{isset($cats) ? $cats->description : null}}</textarea>
+                                                    <textarea class="form-control" name="description" id="service_description" rows="5" style="resize: vertical;" placeholder="Enter Model Description">{{isset($cats) ? $cats->description : null}}</textarea>
                                                 </div>
                                             </div>
 
@@ -89,7 +89,7 @@
                                             <hr>
 
                                             <div class="add-product-footer">
-                                                <button name="addProduct_btn" type="submit" class="btn add-product_btn">{{isset($cats) ? 'Edit Category' : 'Add Category'}}</button>
+                                                <button name="addProduct_btn" type="submit" class="btn add-product_btn">{{isset($cats) ? 'Edit Model' : 'Add Model'}}</button>
                                             </div>
 
                                         </form>

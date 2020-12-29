@@ -11,9 +11,9 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
-                                        <h2>Categories</h2>
-                                        <a href="{{route('admin-cat-create')}}" class="btn add-newProduct-btn"><i
-                                                class="fa fa-plus"></i> Add New Category</a>
+                                        <h2>Products</h2>
+                                        <a href="{{route('admin-product-create')}}" class="btn add-newProduct-btn"><i
+                                                class="fa fa-plus"></i> Add New Product</a>
                                     </div>
                                     <hr>
                                     <div>
@@ -54,6 +54,24 @@
                                                             aria-label="Blood Group Name: activate to sort column descending">
                                                             Slug
                                                         </th>
+                                                        <th class="sorting_asc" tabindex="0"
+                                                            aria-controls="product-table_wrapper" rowspan="1"
+                                                            colspan="1" style="width: 144px;" aria-sort="ascending"
+                                                            aria-label="Blood Group Name: activate to sort column descending">
+                                                            Category
+                                                        </th>
+                                                        <th class="sorting_asc" tabindex="0"
+                                                            aria-controls="product-table_wrapper" rowspan="1"
+                                                            colspan="1" style="width: 144px;" aria-sort="ascending"
+                                                            aria-label="Blood Group Name: activate to sort column descending">
+                                                            Brand
+                                                        </th>
+                                                        <th class="sorting_asc" tabindex="0"
+                                                            aria-controls="product-table_wrapper" rowspan="1"
+                                                            colspan="1" style="width: 144px;" aria-sort="ascending"
+                                                            aria-label="Blood Group Name: activate to sort column descending">
+                                                            Model
+                                                        </th>
                                                         <th class="sorting" tabindex="0"
                                                             aria-controls="product-table_wrapper" rowspan="1"
                                                             colspan="1" style="width: 314px;"
@@ -70,14 +88,17 @@
                                                                     src="{{ $cat->photo ? asset('assets/images/'.$cat->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}"
                                                                     alt="Category's Photo" style="max-height: 100px;">
                                                             </td>
-                                                            <td>{{$cat->cat_name}}</td>
+                                                            <td>{{$cat->title}}</td>
                                                             <td>{!!$cat->description!!}</td>
-                                                            <td>{{$cat->cat_slug}}</td>
+                                                            <td>{{$cat->slug}}</td>
+                                                            <td>{{$cat->category}}</td>
+                                                            <td>{{$cat->brand}}</td>
+                                                            <td>{{$cat->model}}</td>
                                                             <td>
-                                                                <a href="{{route('admin-cat-edit',$cat->id)}}"
+                                                                <a href="{{route('admin-product-edit',$cat->id)}}"
                                                                    class="btn btn-primary product-btn"><i
                                                                         class="fa fa-edit"></i> Edit</a>
-                                                                <a href="{{route('admin-cat-delete',$cat->id)}}"
+                                                                <a href="{{route('admin-product-delete',$cat->id)}}"
                                                                    class="btn btn-danger product-btn"><i
                                                                         class="fa fa-trash"></i> Remove</a>
                                                             </td>

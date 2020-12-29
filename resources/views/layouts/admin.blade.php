@@ -101,7 +101,19 @@
                                 </li>
 
                                 <li>
-                                    <a href="{{route('admin-cat-index')}}"><i class="fa fa-fw fa-hospital-o"></i> Services</a>
+                                    <a href="{{route('admin-product-index')}}"><i class="fa fa-fw fa-hospital-o"></i> Products</a>
+                                </li>
+
+                                <li>
+                                    <a href="{{route('admin-cat-index')}}"><i class="fa fa-fw fa-hospital-o"></i> Categories</a>
+                                </li>
+
+                                <li>
+                                    <a href="{{route('admin-brand-index')}}"><i class="fa fa-fw fa-hospital-o"></i> Brands</a>
+                                </li>
+
+                                <li>
+                                    <a href="{{route('admin-model-index')}}"><i class="fa fa-fw fa-hospital-o"></i> Models</a>
                                 </li>
 
                                 <li>

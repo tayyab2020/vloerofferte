@@ -48,53 +48,34 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $cats = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->orderBy('id','desc')->select('categories.*','service_types.type')->get();
+        $cats = Category::orderBy('id','desc')->get();
 
         return view('admin.category.index',compact('cats'));
     }
 
     public function create()
     {
-        $service_types = service_types::all();
-
-        $cats = Category::where('categories.main_service',1)->get();
-
-        $vats = vats::all();
-
-        return view('admin.category.create',compact('service_types','cats','vats'));
+        return view('admin.category.create');
     }
 
     public function store(StoreValidationRequest $request)
     {
-        $vat = vats::where('id',$request->vat)->first();
 
-        if($request->main_service)
+        $request['main_service'] = 1;
+
+        if($request->cat_id)
         {
-            $request['main_service'] = 1;
+            $cat = Category::where('id',$request->cat_id)->first();
+            Session::flash('success', 'Category edited successfully.');
         }
         else
         {
-            $request['main_service'] = 0;
+            $cat = new Category;
+            Session::flash('success', 'New Category added successfully.');
         }
-
-        if($request->variable_questions)
-        {
-            $request['variable_questions'] = 1;
-        }
-        else
-        {
-            $request['variable_questions'] = 0;
-        }
-
-
-        $cat = new Category;
 
         $input = $request->all();
 
-        $input['vat_id'] = $vat->id;
-        $input['vat_percentage'] = $vat->vat_percentage;
-        $input['vat_rule'] = $vat->rule;
-        $input['vat_code'] = $vat->code;
 
         if ($file = $request->file('photo'))
         {
@@ -105,40 +86,14 @@ class CategoryController extends Controller
 
         $cat->fill($input)->save();
 
-        if(!$request->main_service)
-        {
-            foreach ($request->sub_service as $key) {
-
-                if($key)
-                {
-
-                    $sub_services = new sub_services;
-                    $sub_services->cat_id = $key;
-                    $sub_services->sub_id = $cat->id;
-                    $sub_services->save();
-                }
-
-            }
-        }
-
-
-        Session::flash('success', 'New Service added successfully.');
         return redirect()->route('admin-cat-index');
     }
 
     public function edit($id)
     {
-        $cat = Category::findOrFail($id);
+        $cats = Category::where('id','=',$id)->first();
 
-        $service_types = service_types::all();
-
-        $cats = Category::where('categories.main_service',1)->get();
-
-        $sub_services = sub_services::leftjoin('categories','categories.id','=','sub_services.cat_id')->leftjoin('service_types','service_types.id','=','categories.service_type')->where('sub_id',$cat->id)->select('sub_services.id','sub_services.cat_id','service_types.type')->get();
-
-        $vats = vats::all();
-
-        return view('admin.category.edit',compact('cat','service_types','cats','sub_services','vats'));
+        return view('admin.category.create',compact('cats'));
     }
 
     public function update(UpdateValidationRequest $request, $id)
@@ -213,31 +168,15 @@ class CategoryController extends Controller
 
         $cat = Category::findOrFail($id);
 
-        if($cat->main_service){
-
-            $sub = sub_services::where('cat_id',$id)->delete();
-            $handyman = handyman_services::where('service_id',$id)->orWhere('main_id',$id)->delete();
-
-        }
-        else
-        {
-
-            $sub = sub_services::where('sub_id',$id)->delete();
-            $handyman = handyman_services::where('service_id',$id)->delete();
-
-        }
-
-        $cart = carts::where('service_id',$id)->delete();
-
-
         if($cat->photo == null){
          $cat->delete();
-        Session::flash('success', 'Service deleted successfully.');
-        return redirect()->route('admin-cat-index');
+         Session::flash('success', 'Category deleted successfully.');
+         return redirect()->route('admin-cat-index');
         }
+
         unlink(public_path().'/assets/images/'.$cat->photo);
         $cat->delete();
-        Session::flash('success', 'Service deleted successfully.');
+        Session::flash('success', 'Category deleted successfully.');
         return redirect()->route('admin-cat-index');
     }
 }

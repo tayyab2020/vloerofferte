@@ -5,9 +5,9 @@ namespace App\Http\Requests;
 use http\Env\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreValidationRequest extends FormRequest
+class StoreValidationRequest1 extends FormRequest
 {
-  /**
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -24,9 +24,10 @@ class StoreValidationRequest extends FormRequest
      */
     public function rules(\Illuminate\Http\Request $request)
     {
+
         return [
-            /*'cat_name'=>'unique:categories,cat_name,NULL,id,deleted_at,NULL',*/
-            'cat_slug'=>'unique:categories,cat_slug,'.$request->cat_id,
+            /*'cat_name'=>'unique:brands,cat_name,NULL,id,deleted_at,NULL',*/
+            'cat_slug'=>'unique:brands,cat_slug,'.$request->cat_id,
             'photo' => 'mimes:jpeg,jpg,png',
             'email' => 'unique:users|unique:admins',
             'logo'  => 'mimes:jpeg,jpg,png',
@@ -36,9 +37,9 @@ class StoreValidationRequest extends FormRequest
 
     public function messages()
     {
-    return [
-         'cat_name.unique' => 'This name has already been taken.',
-         'cat_slug.unique' => 'This slug has already been taken.',
-    ];
+        return [
+            'cat_name.unique' => 'This name has already been taken.',
+            'cat_slug.unique' => 'This slug has already been taken.',
+        ];
     }
 }
