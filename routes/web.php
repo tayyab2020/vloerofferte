@@ -111,7 +111,12 @@
   Route::get('/availability-manager', 'UserController@AvailabilityManager')->name('user-availability');
   Route::get('/radius-management', 'UserController@RadiusManagement')->name('radius-management');
   Route::get('/client-profile', 'UserController@ClientProfile')->name('client-profile');
-  Route::get('/my-services', 'UserController@MyServices')->name('user-services');
+  Route::get('/my-products', 'UserController@MyProducts')->name('user-products');
+  Route::get('/product-create', 'UserController@ProductCreate')->name('product-create');
+  Route::post('/product-store', 'UserController@ProductStore')->name('product-store');
+  Route::get('/product-edit/{id}', 'UserController@ProductEdit')->name('product-edit');
+  Route::get('/product-delete/{id}', 'UserController@ProductDelete')->name('product-delete');
+  Route::get('/product-details', 'UserController@ProductDetails');
   Route::get('/my-items', 'UserController@MyItems')->name('user-items');
   Route::get('/create-item', 'UserController@CreateItem')->name('create-item');
   Route::post('/store-item', 'UserController@StoreItem')->name('store-item');
@@ -240,6 +245,7 @@
   Route::get('/product/edit/{id}', 'ProductController@edit')->name('admin-product-edit');
   Route::post('/product/update/{id}', 'ProductController@update')->name('admin-product-update');
   Route::get('/product/delete/{id}', 'ProductController@destroy')->name('admin-product-delete');
+  Route::get('/product/products-models-by-brands', 'ProductController@productsModelsByBrands');
 
   Route::get('/brands', 'BrandController@index')->name('admin-brand-index');
   Route::get('/brand/create', 'BrandController@create')->name('admin-brand-create');

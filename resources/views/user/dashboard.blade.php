@@ -21,22 +21,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h2 class="ut">{{$user->name}} {{$user->family_name}}</h2>
-                                        <p>{{$lang->bg}} <?php $count = count($services); $i=1; ?>
-                                            @foreach($services as $key)
 
-                                                @if($i == $count)
-
-                                                    {{$key->cat_name}}
-
-                                                @else
-
-                                                    {{$key->cat_name}},
-
-                                                @endif
-
-                                                <?php $i++; ?>
-
-                                            @endforeach</p>
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +150,7 @@
                                         </div>
 
                                         <style type="text/css">
-          
+
                                 .checked {
   color: orange !important;
 }

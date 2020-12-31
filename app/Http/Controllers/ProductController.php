@@ -18,7 +18,7 @@ use App\Generalsetting;
 use Mollie\Laravel\Facades\Mollie;
 use App\service_types;
 use App\sub_services;
-use App\handyman_services;
+use App\handyman_products;
 use App\carts;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -27,6 +27,13 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+    }
+
+    public function productsModelsByBrands(Request $request)
+    {
+        $models = Model1::where('brand_id','=',$request->id)->get();
+
+        return $models;
     }
 
     public function index()
@@ -40,9 +47,8 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $brands = Brand::all();
-        $models = Model1::all();
 
-        return view('admin.product.create',compact('categories','brands','models'));
+        return view('admin.product.create',compact('categories','brands'));
     }
 
     public function store(StoreValidationRequest3 $request)
@@ -79,7 +85,7 @@ class ProductController extends Controller
 
         $categories = Category::all();
         $brands = Brand::all();
-        $models = Model1::all();
+        $models = Model1::where('brand_id',$cats->brand_id)->get();
 
         return view('admin.product.create',compact('cats','categories','brands','models'));
     }

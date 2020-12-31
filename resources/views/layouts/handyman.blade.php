@@ -31,21 +31,26 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/0.8.2/css/flag-icon.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css">
 
 
+@include('styles.admin-design')
 
-    @include('styles.admin-design')
 
-
-    @yield('styles')
+@yield('styles')
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165295462-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'UA-165295462-1');
@@ -73,38 +78,49 @@
             <div class="sidebar-menu-body">
                 <nav id="sidebar-menu">
                     <div class="sidebar-header">
-                       <a href="{{route('front.index')}}" > <img src="{{asset('assets/images/'.$gs->logo)}}" alt="Sidebar header logo" class="sidebar-header-logo" style="height: 55px;"></a>
+                        <a href="{{route('front.index')}}"> <img src="{{asset('assets/images/'.$gs->logo)}}"
+                                                                 alt="Sidebar header logo" class="sidebar-header-logo"
+                                                                 style="height: 55px;"></a>
                     </div>
                     <ul class="list-unstyled profile">
                         <li class="active">
                             <div class="row" style="margin-left: 0px;margin-right: 0px;">
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <img src="{{ Auth::guard('user')->user()->photo ? asset('assets/images/'.Auth::guard('user')->user()->photo):asset('assets/default.jpg')}}" alt="profile image">
+                                    <img
+                                        src="{{ Auth::guard('user')->user()->photo ? asset('assets/images/'.Auth::guard('user')->user()->photo):asset('assets/default.jpg')}}"
+                                        alt="profile image">
                                 </div>
                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">{{ Auth::guard('user')->user()->name}} {{Auth::guard('user')->user()->family_name}} <span>{{$lang->hmt}}</span></a>
+                                    <a href="#homeSubmenu" data-toggle="collapse"
+                                       aria-expanded="false">{{ Auth::guard('user')->user()->name}} {{Auth::guard('user')->user()->family_name}}
+                                        <span>{{$lang->hmt}}</span></a>
                                 </div>
                             </div>
                             <ul class="collapse list-unstyled profile-submenu" id="homeSubmenu">
 
-                                <li><a href=" {{ route('user-reset') }} "><i class="fa fa-fw fa-cog"></i> {{$lang->chnp}}</a></li>
-                                <li><a href="{{ route('user-logout') }}"><i class="fa fa-fw fa-power-off"></i> {{$lang->logout}}</a></li>
+                                <li><a href=" {{ route('user-reset') }} "><i
+                                            class="fa fa-fw fa-cog"></i> {{$lang->chnp}}</a></li>
+                                <li><a href="{{ route('user-logout') }}"><i
+                                            class="fa fa-fw fa-power-off"></i> {{$lang->logout}}</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="list-unstyled components">
                         <li>
-                            <a href="{{route('user-dashboard')}}"  id="dashboard"><i class="fa fa-home"></i> {{$lang->dashboard}}</a>
+                            <a href="{{route('user-dashboard')}}" id="dashboard"><i
+                                    class="fa fa-home"></i> {{$lang->dashboard}}</a>
                         </li>
 
-                        <li><a href="{{ route('user-profile') }}" id="edit"><i class="fa fa-fw fa-user"></i> {{$lang->edit}}</a></li>
+                        <li><a href="{{ route('user-profile') }}" id="edit"><i
+                                    class="fa fa-fw fa-user"></i> {{$lang->edit}}</a></li>
 
                         <li>
                             <a href="{{route('handyman-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->mbt}}</a>
                         </li>
 
                         <li>
-                            <a href="{{route('handyman-quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Requests</a>
+                            <a href="{{route('handyman-quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i>
+                                Quotation Requests</a>
                         </li>
 
                         <li>
@@ -112,105 +128,144 @@
                         </li>
 
                         <li>
-                            <a href="{{route('quotations-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Invoices</a>
+                            <a href="{{route('quotations-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Quotation
+                                Invoices</a>
                         </li>
 
                         <li>
-                            <a href="{{route('customer-quotations')}}"><i class="fa fa-fw fa-file-text"></i> Customer Quotations</a>
+                            <a href="{{route('customer-quotations')}}"><i class="fa fa-fw fa-file-text"></i> Customer
+                                Quotations</a>
                         </li>
 
                         <li>
-                            <a href="{{ route('user-services') }}" id="services"><i class="fa fa-fw fa-hospital-o"></i> {{$lang->mst}}</a>
+                            <a href="{{ route('user-products') }}" id="services"><i
+                                    class="fa fa-fw fa-hospital-o"></i> My Products</a>
                         </li>
 
                         <li>
-                            <a href="{{ route('user-items') }}" id="items"><i class="fa fa-fw fa-hospital-o"></i> My Items</a>
+                            <a href="{{ route('user-items') }}" id="items"><i class="fa fa-fw fa-hospital-o"></i> My
+                                Items</a>
                         </li>
 
                         <li>
-                            <a href="{{ route('user-subservices') }}" id="sub-services"><i class="fa fa-fw fa-hospital-o"></i> {{$lang->msst}}</a>
+                            <a href="{{ route('user-subservices') }}" id="sub-services"><i
+                                    class="fa fa-fw fa-hospital-o"></i> {{$lang->msst}}</a>
                         </li>
 
                         <li>
-                            <a href="{{ route('user-availability') }}" id="availability"><i class="fa fa-fw fa-hospital-o"></i> {{$lang->avmt}}</a>
+                            <a href="{{ route('user-availability') }}" id="availability"><i
+                                    class="fa fa-fw fa-hospital-o"></i> {{$lang->avmt}}</a>
                         </li>
 
                         <li>
-                            <a href="{{ route('radius-management') }}" id="radius_tab"><i class="fa fa-fw fa-hospital-o"></i> {{$lang->rm}}</a>
+                            <a href="{{ route('radius-management') }}" id="radius_tab"><i
+                                    class="fa fa-fw fa-hospital-o"></i> {{$lang->rm}}</a>
                         </li>
 
                         <li>
-                            <a href="{{route('purchased-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->pbt}}</a>
+                            <a href="{{route('purchased-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->pbt}}
+                            </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('user-complete-profile') }}" id="complete"><i class="fa fa-fw fa-dashboard"></i> {{$lang->cmpt}}</a>
+                            <a href="{{ route('user-complete-profile') }}" id="complete"><i
+                                    class="fa fa-fw fa-dashboard"></i> {{$lang->cmpt}}</a>
                         </li>
 
                         <li>
-                            <a href="{{ route('experience-years') }}" id="experience"><i class="fa fa-fw fa-hospital-o"></i> {{$lang->eyt}}</a>
+                            <a href="{{ route('experience-years') }}" id="experience"><i
+                                    class="fa fa-fw fa-hospital-o"></i> {{$lang->eyt}}</a>
                         </li>
 
                         <li>
-                            <a href="{{ route('insurance') }}" id="insurance"><i class="fa fa-fw fa-book"></i> {{$lang->ist}}</a>
+                            <a href="{{ route('insurance') }}" id="insurance"><i
+                                    class="fa fa-fw fa-book"></i> {{$lang->ist}}</a>
                         </li>
 
                         <li>
-                            <a href="{{ route('ratings') }}" id="rating"><i class="fa fa-fw fa-book"></i> {{$lang->hpmrt}}</a>
+                            <a href="{{ route('ratings') }}" id="rating"><i
+                                    class="fa fa-fw fa-book"></i> {{$lang->hpmrt}}</a>
                         </li>
 
-                        <li  class="lang-list" style="text-align: center;margin-top: 20px;">
+                        <li class="lang-list" style="text-align: center;margin-top: 20px;">
 
                             <form method="post" action="{{route('lang.handymanchange')}}" id="lang-form">
-{{csrf_field()}}
+                                {{csrf_field()}}
 
 
-<input type="hidden" class="lang_select" value="{{$lang->lang}}" name="lang_select">
+                                <input type="hidden" class="lang_select" value="{{$lang->lang}}" name="lang_select">
 
-    <div class="btn-group bootstrap-select fit-width">
+                                <div class="btn-group bootstrap-select fit-width">
 
-                            @if($lang->lang == 'eng')
+                                    @if($lang->lang == 'eng')
 
-                            <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" title="English" style="color: black !important;">
+                                        <button type="button" class="btn dropdown-toggle selectpicker btn-default"
+                                                data-toggle="dropdown" title="English" style="color: black !important;">
 
-                                <span class="filter-option pull-left"><span class="flag-icon flag-icon-nl"></span> English</span>&nbsp;<span class="caret"></span></button>
+                                            <span class="filter-option pull-left"><span
+                                                    class="flag-icon flag-icon-nl"></span> English</span>&nbsp;<span
+                                                class="caret"></span></button>
 
-                                <div class="dropdown-menu open">
+                                        <div class="dropdown-menu open">
 
-                                    <ul class="dropdown-menu inner selectpicker" role="menu">
+                                            <ul class="dropdown-menu inner selectpicker" role="menu">
 
-                                        <li rel="0" class="selected" ><a href="#" tabindex="0" class=""  onclick="formSubmit(this)" data-value="eng" style="color: black !important;"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+                                                <li rel="0" class="selected"><a href="#" tabindex="0" class=""
+                                                                                onclick="formSubmit(this)"
+                                                                                data-value="eng"
+                                                                                style="color: black !important;"><span
+                                                            class="flag-icon flag-icon-us"></span> English<i
+                                                            class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                                                </li>
 
-                                        <li rel="1" ><a href="#" tabindex="0" class="" style="color: black !important;" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
-                                    </ul>
+                                                <li rel="1"><a href="#" tabindex="0" class=""
+                                                               style="color: black !important;"
+                                                               onclick="formSubmit(this)" data-value="du"><span
+                                                            class="flag-icon flag-icon-nl"></span> Nederlands<i
+                                                            class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+
+                                    @elseif($lang->lang == 'du')
+
+                                        <button type="button" class="btn dropdown-toggle selectpicker btn-default"
+                                                data-toggle="dropdown" title="Nederlands"
+                                                style="color: black !important;">
+
+                                            <span class="filter-option pull-left"><span
+                                                    class="flag-icon flag-icon-nl"></span> Nederlands</span>&nbsp;<span
+                                                class="caret"></span></button>
+
+                                        <div class="dropdown-menu open">
+
+                                            <ul class="dropdown-menu inner selectpicker" role="menu">
+
+                                                <li rel="0"><a href="#" tabindex="0" class="" onclick="formSubmit(this)"
+                                                               data-value="eng" style="color: black !important;"><span
+                                                            class="flag-icon flag-icon-us"></span> English<i
+                                                            class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                                                </li>
+
+                                                <li rel="1" class="selected"><a href="#" tabindex="0" class=""
+                                                                                onclick="formSubmit(this)"
+                                                                                data-value="du"
+                                                                                style="color: black !important;"><span
+                                                            class="flag-icon flag-icon-nl"></span> Nederlands<i
+                                                            class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+
+                                    @endif
 
                                 </div>
 
-                            @elseif($lang->lang == 'du')
+                            </form>
 
-                            <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" title="Nederlands" style="color: black !important;">
-
-                                <span class="filter-option pull-left"><span class="flag-icon flag-icon-nl"></span> Nederlands</span>&nbsp;<span class="caret"></span></button>
-
-                                <div class="dropdown-menu open">
-
-                                    <ul class="dropdown-menu inner selectpicker" role="menu">
-
-                                        <li rel="0" ><a href="#" tabindex="0" class=""  onclick="formSubmit(this)" data-value="eng" style="color: black !important;"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
-
-                                        <li rel="1" class="selected" ><a href="#" tabindex="0" class=""  onclick="formSubmit(this)" data-value="du" style="color: black !important;"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
-                                    </ul>
-
-                                    </div>
-
-                            @endif
-
-                            </div>
-
-                        </form>
-
-                                </li>
-
+                        </li>
 
 
                     </ul>
@@ -227,8 +282,7 @@
 
 <script type="text/javascript">
 
-    function formSubmit(e)
-    {
+    function formSubmit(e) {
         var value = $(e).data('value');
 
         $('.lang_select').val(value);
@@ -242,140 +296,125 @@
 
 <style type="text/css">
 
-    button
-    {
+    button {
         outline: none !important;
     }
 
-      .bootstrap-select
-    {
+    .bootstrap-select {
         margin-bottom: 0px !important;
     }
 
-    #lang-form .bootstrap-select .selectpicker
-    {
+    #lang-form .bootstrap-select .selectpicker {
 
         background-color: white !important;
-    color: inherit !important;
-    margin: 0;
-    text-transform: inherit;
-    white-space: nowrap;
-    border: 1px solid transparent;
-    box-shadow: none;
-    border-color: #ccc !important;
-    font-size: 14px;
-    padding: 6px 12px;
-    padding-right: 25px;
-    border-radius: 4px;
+        color: inherit !important;
+        margin: 0;
+        text-transform: inherit;
+        white-space: nowrap;
+        border: 1px solid transparent;
+        box-shadow: none;
+        border-color: #ccc !important;
+        font-size: 14px;
+        padding: 6px 12px;
+        padding-right: 25px;
+        border-radius: 4px;
 
     }
 
-     .bootstrap-select .dropdown-menu
-            {
-                padding: 0 !important;
-            }
+    .bootstrap-select .dropdown-menu {
+        padding: 0 !important;
+    }
 
-            .selected
-            {
-                background-color: #ececec;
+    .selected {
+        background-color: #ececec;
 
-            }
+    }
 
-.language-select
-                {
+    .language-select {
 
-                    width: 100% !important;
-                    text-align: center;
-                    margin-top: 25px !important;
-                }
+        width: 100% !important;
+        text-align: center;
+        margin-top: 25px !important;
+    }
 
 
+    @media only screen and (min-width: 1200px) and (min-width: 768px) {
 
-                @media only screen and (min-width: 1200px) and (min-width: 768px)
-                {
+        .right-side {
+            width: 81%;
+        }
 
-                    .right-side
-                {
-                    width: 81%;
-                }
+        ul.profile li.active img {
 
-                ul.profile li.active img
-                {
+            margin-left: 0px;
+        }
 
-                    margin-left: 0px;
-                }
+    }
 
-                }
+    .bootstrap-select.fit-width {
+        width: 50% !important;
+    }
 
-                .bootstrap-select.fit-width
-                {
-                    width: 50% !important;
-                }
-
-                #sidebar-menu ul.components ul li a
-                {
-                    padding-left: 15px;
-                }
+    #sidebar-menu ul.components ul li a {
+        padding-left: 15px;
+    }
 
 
+    iframe {
+        width: 100%;
+    }
 
 
-                iframe
-                {
-                    width: 100%;
-                }
+    .bootstrap-select .dropdown-menu {
+        position: relative;
+    }
 
 
-
-                .bootstrap-select .dropdown-menu
-                {
-                    position: relative;
-                }
-
-
-    .add-back-btn, .add-newProduct-btn
-    {
+    .add-back-btn, .add-newProduct-btn {
         background-color: <?php if($gs->btn_bg == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->btn_bg. ' !important;'; } ?>
 
-        border-color: <?php if($gs->btn_brd != null) { echo $gs->btn_brd. ' !important;'; } else { echo '#ffffff00 !important;'; } ?>
+         border-color:
+        <?php if($gs->btn_brd != null) { echo $gs->btn_brd. ' !important;'; } else { echo '#ffffff00 !important;'; } ?>
 
-        color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
+ color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
+
     }
 
-    .featured-btn
-    {
+    .featured-btn {
         background-color: <?php if($gs->btn_bg == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->btn_bg. ' !important;'; } ?>
 
-        border-color: <?php if($gs->btn_brd != null) { echo $gs->btn_brd. ' !important;'; } else { echo '#ffffff00 !important;'; } ?>
+         border-color:
+        <?php if($gs->btn_brd != null) { echo $gs->btn_brd. ' !important;'; } else { echo '#ffffff00 !important;'; } ?>
 
-        color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
+ color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
+
     }
 
-    .add-product_btn
-    {
+    .add-product_btn {
         background-color: <?php if($gs->btn_bg == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->btn_bg. ' !important;'; } ?>
 
-        border-color: <?php if($gs->btn_brd != null) { echo $gs->btn_brd. ' !important;'; } else { echo '#ffffff00 !important;'; } ?>
+         border-color:
+        <?php if($gs->btn_brd != null) { echo $gs->btn_brd. ' !important;'; } else { echo '#ffffff00 !important;'; } ?>
 
-        color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
+ color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
+
     }
 
-    .boxed-btn.blog
-     {
+    .boxed-btn.blog {
         background-color: <?php if($gs->btn_bg == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->btn_bg. ' !important;'; } ?>
 
-        border-color: <?php if($gs->btn_brd != null) { echo $gs->btn_brd. ' !important;'; } else { echo '#ffffff00 !important;'; } ?>
+         border-color:
+        <?php if($gs->btn_brd != null) { echo $gs->btn_brd. ' !important;'; } else { echo '#ffffff00 !important;'; } ?>
 
-        color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
+ color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
+
     }
 
-    .nicEdit-button
-    {
+    .nicEdit-button {
         background-image: url("<?php echo asset('assets/images/nicEditIcons-latest.gif'); ?>") !important;
     }
 
 </style>
-
 
 
 <script src="{{asset('assets/admin/js/bootstrap.min.js')}}"></script>
@@ -387,7 +426,6 @@
 <script src="{{asset('assets/admin/js/bootstrap-colorpicker.js')}}"></script>
 <script src="{{asset('assets/admin/js/main.js')}}"></script>
 <script src="{{asset('assets/admin/js/admin-main.js')}}"></script>
-
 
 
 @yield('scripts')

@@ -16,7 +16,7 @@ use App\Generalsetting;
 use Mollie\Laravel\Facades\Mollie;
 use App\service_types;
 use App\sub_services;
-use App\handyman_services;
+use App\handyman_products;
 use App\carts;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

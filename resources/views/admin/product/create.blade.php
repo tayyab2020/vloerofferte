@@ -83,13 +83,19 @@
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4" for="blood_group_slug">Model*</label>
                                                 <div class="col-sm-6">
-                                                    <select class="js-data-example-ajax form-control quote_validation" style="height: 40px;" name="model_id" id="blood_grp" required>
+                                                    <select class="js-data-example-ajax2 form-control quote_validation" style="height: 40px;" name="model_id" id="blood_grp" required>
 
                                                         <option value="">Select Model</option>
 
-                                                        @foreach($models as $key)
-                                                            <option @if(isset($cats)) @if($cats->model_id == $key->id) selected @endif @endif value="{{$key->id}}">{{$key->cat_name}}</option>
-                                                        @endforeach
+                                                        @if(isset($cats))
+
+                                                            @foreach($models as $key)
+
+                                                                <option @if($cats->model_id == $key->id) selected @endif value="{{$key->id}}">{{$key->cat_name}}</option>
+
+                                                            @endforeach
+
+                                                        @endif
 
                                                     </select>
                                                 </div>
@@ -175,11 +181,40 @@
         allowClear: true,
     });
 
-    $(".js-data-example-aja2").select2({
+    $(".js-data-example-ajax2").select2({
         width: '100%',
         height: '200px',
         placeholder: "Select Model",
         allowClear: true,
+    });
+
+    $('.js-data-example-ajax1').on('change', function() {
+
+        var brand_id = $(this).val();
+        var options = '';
+
+        $.ajax({
+            type:"GET",
+            data: "id=" + brand_id ,
+            url: "<?php echo url('/logstof/product/products-models-by-brands')?>",
+            success: function(data) {
+
+                $.each(data, function(index, value) {
+
+                    var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
+
+                        options = options + opt;
+
+                });
+
+                $('.js-data-example-ajax2').find('option')
+                    .remove()
+                    .end()
+                    .append('<option value="">Select Model</option>'+options);
+
+            }
+        });
+
     });
 
   function uploadclick(){

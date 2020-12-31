@@ -23,7 +23,7 @@ use App\Http\Requests\StoreValidationRequest;
 use App\Http\Requests\UpdateValidationRequest;
 use Auth;
 use App\bookings;
-use App\handyman_services;
+use App\handyman_products;
 use App\users;
 use App\service_types;
 use App\invoices;
@@ -160,7 +160,7 @@ class AdminUserController extends Controller
 
         foreach ($users as $key) {
 
-             $categories[] = handyman_services::leftjoin('categories','categories.id','=','handyman_services.service_id')->where('handyman_services.handyman_id',$key->id)->select('categories.cat_name')->get();
+             $categories[] = handyman_products::leftjoin('categories','categories.id','=','handyman_services.service_id')->where('handyman_services.handyman_id',$key->id)->select('categories.cat_name')->get();
 
         }
 
@@ -298,7 +298,7 @@ class AdminUserController extends Controller
             $array1[] = "";
             $i = 0;
 
-            $handymen = handyman_services::leftjoin('users','users.id','=','handyman_services.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('handyman_services.service_id','=', $request->quote_service)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();
+            $handymen = handyman_products::leftjoin('users','users.id','=','handyman_services.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('handyman_services.service_id','=', $request->quote_service)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();
 
             foreach ($handymen as $key) {
 
@@ -501,7 +501,7 @@ class AdminUserController extends Controller
 
         foreach ($users as $key) {
 
-             $categories[] = handyman_services::leftjoin('categories','categories.id','=','handyman_services.service_id')->where('handyman_services.handyman_id',$key->id)->select('categories.cat_name')->get();
+             $categories[] = handyman_products::leftjoin('categories','categories.id','=','handyman_services.service_id')->where('handyman_services.handyman_id',$key->id)->select('categories.cat_name')->get();
 
         }
 

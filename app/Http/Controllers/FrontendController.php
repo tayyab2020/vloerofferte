@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Session;
 use InvalidArgumentException;
 use Markury\MarkuryPost;
 use Auth;
-use App\handyman_services;
+use App\handyman_products;
 use App\users;
 use App\handyman_terminals;
 use App\handyman_unavailability;
@@ -566,7 +566,7 @@ else
         {
             $catt = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->where('categories.id',$type)->select('categories.*','service_types.type')->first();
 
-            $usersss= handyman_services::leftjoin('users','users.id','=','handyman_services.handyman_id')->where('users.active',1)->where('handyman_services.service_id','=', $type);
+            $usersss= handyman_products::leftjoin('users','users.id','=','handyman_services.handyman_id')->where('users.active',1)->where('handyman_services.service_id','=', $type);
 
             $ids = array();
 
@@ -722,7 +722,7 @@ else
          $array[] = array($key);
      }
 
-     $users= handyman_services::leftjoin('users','users.id','=','handyman_services.handyman_id')->whereIn('users.id', $array)->where('handyman_services.service_id','=', $request->service);
+     $users= handyman_products::leftjoin('users','users.id','=','handyman_services.handyman_id')->whereIn('users.id', $array)->where('handyman_services.service_id','=', $request->service);
 
      if($socialdata->ins == 1)
      {
