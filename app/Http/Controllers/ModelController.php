@@ -29,14 +29,16 @@ class ModelController extends Controller
 
     public function index()
     {
-        $cats = Model1::orderBy('id','desc')->get();
+        $cats = Model1::leftjoin('brands','brands.id','=','models.brand_id')->orderBy('models.id','desc')->select('models.*','brands.cat_name as brand')->get();
 
         return view('admin.model.index',compact('cats'));
     }
 
     public function create()
     {
-        return view('admin.model.create');
+        $brands = Brand::all();
+
+        return view('admin.model.create',compact('brands'));
     }
 
     public function store(StoreValidationRequest2 $request)
@@ -70,8 +72,9 @@ class ModelController extends Controller
     public function edit($id)
     {
         $cats = Model1::where('id','=',$id)->first();
+        $brands = Brand::all();
 
-        return view('admin.model.create',compact('cats'));
+        return view('admin.model.create',compact('cats','brands'));
     }
 
     public function update(UpdateValidationRequest $request, $id)

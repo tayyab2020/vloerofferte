@@ -39,7 +39,7 @@
                                           <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_display_name">Title* <span>(In Any Language)</span></label>
                                             <div class="col-sm-6">
-                                              <input value="{{isset($cats) ? $cats->cat_name : null}}" class="form-control" name="cat_name" id="blood_group_display_name" placeholder="Enter Category title" required="" type="text">
+                                              <input value="{{isset($cats) ? $cats->cat_name : null}}" class="form-control" name="cat_name" id="blood_group_display_name" placeholder="Enter Model title" required="" type="text">
                                             </div>
                                           </div>
                                           <div class="form-group">
@@ -83,6 +83,23 @@
                                                         <input value="{{isset($cats) ? $cats->colors : null}}" id="cp1" type="text" name="colors" required="" class="form-control"/>
                                                         <span class="input-group-addon"><i></i></span>
                                                     </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="website_title">Brand *</label>
+
+                                                <div class="col-sm-6">
+                                                    <select class="form-control" name="brand_id" required>
+                                                        <option value="">Select Brand</option>
+
+                                                        @foreach($brands as $key)
+
+                                                            <option @if(isset($cats)) @if($cats->brand_id == $key->id) selected @endif @endif value="{{$key->id}}">{{$key->cat_name}}</option>
+
+                                                        @endforeach
+
+                                                    </select>
                                                 </div>
                                             </div>
 
