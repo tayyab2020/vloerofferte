@@ -566,7 +566,7 @@ else
         {
             $catt = Category::leftjoin('service_types','service_types.id','=','categories.service_type')->where('categories.id',$type)->select('categories.*','service_types.type')->first();
 
-            $usersss= handyman_products::leftjoin('users','users.id','=','handyman_services.handyman_id')->where('users.active',1)->where('handyman_services.service_id','=', $type);
+            $usersss= handyman_products::leftjoin('users','users.id','=','handyman_products.handyman_id')->where('users.active',1)->where('handyman_products.product_id','=', $type);
 
             $ids = array();
 
@@ -722,7 +722,7 @@ else
          $array[] = array($key);
      }
 
-     $users= handyman_products::leftjoin('users','users.id','=','handyman_services.handyman_id')->whereIn('users.id', $array)->where('handyman_services.service_id','=', $request->service);
+     $users= handyman_products::leftjoin('users','users.id','=','handyman_products.handyman_id')->whereIn('users.id', $array)->where('handyman_products.product_id','=', $request->service);
 
      if($socialdata->ins == 1)
      {
@@ -785,7 +785,7 @@ $e = floatval($request->range_end);
 
 
 
-        $users = $users->whereBetween('handyman_services.rate', [$s, $e]);
+        $users = $users->whereBetween('handyman_products.rate', [$s, $e]);
 
          $range_start = $s;
     $range_end = $e;
@@ -977,7 +977,7 @@ else
 
         }
 
-        $services = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->where('handyman_services.handyman_id','=',$id)->where('categories.main_service',1)->leftjoin('service_types','service_types.id','=','categories.service_type')->Select('categories.id as id','categories.variable_questions','categories.cat_name as cat_name','categories.cat_slug as cat_slug','categories.photo as cat_photo','service_types.type as service_type','service_types.text as service_text','handyman_services.rate','handyman_services.description','handyman_services.vat_percentage','handyman_services.sell_rate','service_types.id as service_id')->get();
+        $services = Category::leftjoin('handyman_products','handyman_products.product_id','=','categories.id')->where('handyman_products.handyman_id','=',$id)->where('categories.main_service',1)->leftjoin('service_types','service_types.id','=','categories.service_type')->Select('categories.id as id','categories.variable_questions','categories.cat_name as cat_name','categories.cat_slug as cat_slug','categories.photo as cat_photo','service_types.type as service_type','service_types.text as service_text','handyman_products.rate','handyman_products.description','handyman_products.vat_percentage','handyman_products.sell_rate','service_types.id as service_id')->get();
 
         if($user1 != "")
         {
@@ -1116,7 +1116,7 @@ else
 
         $cats = Category::all();
         $cat = Category::where('cat_slug', '=', $slug)->first();
-        $users = User::leftjoin('handyman_services','handyman_services.handyman_id','=','users.id')->where('handyman_services.service_id','=',$cat->id)->where('users.active',1)->select('users.id','users.photo','users.name','users.family_name','users.rating','users.experience_years','users.f_url','users.t_url','users.l_url','users.g_url')->orderBy('created_at','desc')->paginate(8);
+        $users = User::leftjoin('handyman_products','handyman_products.handyman_id','=','users.id')->where('handyman_products.product_id','=',$cat->id)->where('users.active',1)->select('users.id','users.photo','users.name','users.family_name','users.rating','users.experience_years','users.f_url','users.t_url','users.l_url','users.g_url')->orderBy('created_at','desc')->paginate(8);
 
 
         $userss = User::all();

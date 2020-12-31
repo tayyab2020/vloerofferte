@@ -545,7 +545,7 @@ class UserController extends Controller
         $user_role = $user->role_id;
 
         if ($user_role == 2) {
-            $services = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->where('handyman_services.handyman_id', $user_id)->select('categories.*', 'handyman_services.rate', 'handyman_services.description')->get();
+            $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate', 'handyman_products.description')->get();
 
             if (count($services) == 0) {
                 Session::flash('unsuccess', 'No services found, You have to select at least one service');
@@ -664,7 +664,7 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
 
-        $services = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->where('handyman_services.handyman_id', $user_id)->select('categories.*', 'handyman_services.rate', 'handyman_services.description')->get();
+        $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate', 'handyman_products.description')->get();
 
         if (count($services) == 0) {
             Session::flash('unsuccess', 'No services found, You have to select at least one service');
@@ -699,7 +699,7 @@ class UserController extends Controller
         $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotation_invoices.handyman_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
 
         if (count($quotation) != 0) {
-            $services = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->where('handyman_services.handyman_id', $user_id)->select('categories.*', 'handyman_services.rate', 'handyman_services.description')->get();
+            $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate', 'handyman_products.description')->get();
 
             $items = items::where('user_id', $user_id)->get();
 
@@ -723,7 +723,7 @@ class UserController extends Controller
         $quotation = custom_quotations::leftjoin('custom_quotations_data', 'custom_quotations_data.quotation_id', '=', 'custom_quotations.id')->where('custom_quotations.id', $id)->where('custom_quotations.handyman_id', $user_id)->select('custom_quotations.*', 'custom_quotations_data.id as data_id', 'custom_quotations_data.s_i_id', 'custom_quotations_data.item', 'custom_quotations_data.service', 'custom_quotations_data.rate', 'custom_quotations_data.qty', 'custom_quotations_data.description as data_description', 'custom_quotations_data.estimated_date', 'custom_quotations_data.amount')->get();
 
         if (count($quotation) != 0) {
-            $services = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->where('handyman_services.handyman_id', $user_id)->select('categories.*', 'handyman_services.rate', 'handyman_services.description')->get();
+            $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate', 'handyman_products.description')->get();
 
             $items = items::where('user_id', $user_id)->get();
 
@@ -1928,7 +1928,7 @@ class UserController extends Controller
             $id = str_replace("I", "", $id);
             $post = items::where('id', $request->id)->first();
         } else {
-            $post = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->where('categories.id', $request->id)->where('handyman_services.handyman_id', $user_id)->select('categories.*', 'handyman_services.rate')->first();
+            $post = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('categories.id', $request->id)->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate')->first();
         }
 
 
@@ -1938,7 +1938,7 @@ class UserController extends Controller
 
     public function SubServices(Request $request)
     {
-        $post = handyman_products::leftjoin('categories', 'categories.id', '=', 'handyman_services.service_id')->leftjoin('service_types', 'service_types.id', '=', 'categories.service_type')->where('handyman_services.handyman_id', $request->handyman_id)->where('handyman_services.service_id', $request->id)->where('handyman_services.main_id', $request->main)->select('handyman_services.rate', 'handyman_services.description', 'service_types.type', 'service_types.text', 'service_types.id as rate_id')->first();
+        $post = handyman_products::leftjoin('categories', 'categories.id', '=', 'handyman_products.product_id')->leftjoin('service_types', 'service_types.id', '=', 'categories.service_type')->where('handyman_products.handyman_id', $request->handyman_id)->where('handyman_products.product_id', $request->id)->where('handyman_products.main_id', $request->main)->select('handyman_products.rate', 'handyman_products.description', 'service_types.type', 'service_types.text', 'service_types.id as rate_id')->first();
 
         return $post;
 
@@ -1961,7 +1961,7 @@ class UserController extends Controller
     public function UserSubServices(Request $request)
     {
 
-        $sub_services = handyman_products::leftjoin('categories', 'categories.id', '=', 'handyman_services.service_id')->leftjoin('service_types', 'service_types.id', '=', 'categories.service_type')->where('handyman_services.handyman_id', $request->handyman_id)->where('handyman_services.main_id', $request->service)->select('categories.cat_name', 'categories.cat_slug', 'categories.id')->get();
+        $sub_services = handyman_products::leftjoin('categories', 'categories.id', '=', 'handyman_products.product_id')->leftjoin('service_types', 'service_types.id', '=', 'categories.service_type')->where('handyman_products.handyman_id', $request->handyman_id)->where('handyman_products.main_id', $request->service)->select('categories.cat_name', 'categories.cat_slug', 'categories.id')->get();
 
         return $sub_services;
 
@@ -2477,7 +2477,7 @@ class UserController extends Controller
         $cats = Category::all();
         $services_selected = handyman_products::query()->where('handyman_id', '=', $user_id)->get();
 
-        $services = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->where('handyman_services.handyman_id', '=', $user_id)->get();
+        $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', '=', $user_id)->get();
 
 
         return view('user.profile', compact('user', 'cats', 'services_selected', 'services'));
@@ -2500,7 +2500,7 @@ class UserController extends Controller
 
         $hours = handyman_unavailability_hours::where('handyman_id', '=', $user_id)->get();
 
-        $services = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->where('handyman_services.handyman_id', '=', $user_id)->get();
+        $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', '=', $user_id)->get();
 
 
         return view('user.availability_management', compact('user', 'services', 'unavailable_dates', 'hours'));
@@ -2516,7 +2516,7 @@ class UserController extends Controller
         }
 
 
-        $services = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->where('handyman_services.handyman_id', '=', $user_id)->get();
+        $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', '=', $user_id)->get();
 
 
         $terminal = handyman_terminals::where('handyman_id', '=', $user_id)->first();
@@ -2757,15 +2757,15 @@ class UserController extends Controller
         }
 
 
-        // $sub_cats = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->leftjoin('sub_services','sub_services.sub_id','=','handyman_services.service_id')->where('handyman_services.handyman_id',$user_id)->where('categories.main_service',0)->select('categories.id','categories.cat_name','sub_services.cat_id','sub_services.sub_id','handyman_services.rate','handyman_services.description')->get();
+        // $sub_cats = Category::leftjoin('handyman_products','handyman_products.product_id','=','categories.id')->leftjoin('sub_services','sub_services.sub_id','=','handyman_products.product_id')->where('handyman_products.handyman_id',$user_id)->where('categories.main_service',0)->select('categories.id','categories.cat_name','sub_services.cat_id','sub_services.sub_id','handyman_products.rate','handyman_products.description')->get();
 
-        $main_cats_selected = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->where('handyman_services.handyman_id', $user_id)->where('categories.main_service', 1)->select('categories.id', 'categories.cat_name', 'handyman_services.service_id')->get();
+        $main_cats_selected = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', $user_id)->where('categories.main_service', 1)->select('categories.id', 'categories.cat_name', 'handyman_products.product_id')->get();
 
         foreach ($main_cats_selected as $key => $value) {
 
             $sub_cats[$value->id] = Category::leftjoin('sub_services', 'sub_services.sub_id', '=', 'categories.id')->where('sub_services.cat_id', $value->id)->select('categories.id', 'categories.cat_name', 'sub_services.cat_id', 'sub_services.sub_id')->get();
 
-            $sub_selected[$value->id] = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->leftjoin('service_types', 'service_types.id', '=', 'categories.service_type')->where('handyman_services.handyman_id', $user_id)->where('handyman_services.main_id', $value->id)->select('categories.id', 'categories.cat_name', 'handyman_services.id as h_id', 'handyman_services.rate', 'handyman_services.description', 'handyman_services.main_id', 'service_types.type', 'handyman_services.vat_percentage', 'handyman_services.sell_rate')->get();
+            $sub_selected[$value->id] = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->leftjoin('service_types', 'service_types.id', '=', 'categories.service_type')->where('handyman_products.handyman_id', $user_id)->where('handyman_products.main_id', $value->id)->select('categories.id', 'categories.cat_name', 'handyman_products.id as h_id', 'handyman_products.rate', 'handyman_products.description', 'handyman_products.main_id', 'service_types.type', 'handyman_products.vat_percentage', 'handyman_products.sell_rate')->get();
 
             # code...
         }
@@ -2802,7 +2802,7 @@ class UserController extends Controller
 
         $services_selected = handyman_products::query()->where('handyman_id', '=', $user_id)->get();
 
-        $services = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->where('handyman_services.handyman_id', '=', $user_id)->get();
+        $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', '=', $user_id)->get();
 
 
         return view('user.complete_profile', compact('user', 'cats', 'services_selected', 'services'));
@@ -2821,7 +2821,7 @@ class UserController extends Controller
 
         $services_selected = handyman_products::query()->where('handyman_id', '=', $user_id)->get();
 
-        $services = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->where('handyman_services.handyman_id', '=', $user_id)->get();
+        $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', '=', $user_id)->get();
 
 
         return view('user.experience_years', compact('user', 'services_selected', 'services', 'cats'));
@@ -2840,7 +2840,7 @@ class UserController extends Controller
 
         $services_selected = handyman_products::query()->where('handyman_id', '=', $user_id)->get();
 
-        $services = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->where('handyman_services.handyman_id', '=', $user_id)->get();
+        $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', '=', $user_id)->get();
 
 
         return view('user.insurance', compact('user', 'services_selected', 'services', 'cats'));
@@ -2853,7 +2853,7 @@ class UserController extends Controller
 
         if ($user_role == 2) {
 
-            $services = Category::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'categories.id')->where('handyman_services.handyman_id', '=', $user->id)->get();
+            $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', '=', $user->id)->get();
 
         } else {
             $services = "";

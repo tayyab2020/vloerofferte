@@ -160,7 +160,7 @@ class AdminUserController extends Controller
 
         foreach ($users as $key) {
 
-             $categories[] = handyman_products::leftjoin('categories','categories.id','=','handyman_services.service_id')->where('handyman_services.handyman_id',$key->id)->select('categories.cat_name')->get();
+             $categories[] = handyman_products::leftjoin('categories','categories.id','=','handyman_products.product_id')->where('handyman_products.handyman_id',$key->id)->select('categories.cat_name')->get();
 
         }
 
@@ -252,7 +252,7 @@ class AdminUserController extends Controller
 
         if(count($quotation) != 0)
         {
-            $services = Category::leftjoin('handyman_services','handyman_services.service_id','=','categories.id')->where('handyman_services.handyman_id',$quotation[0]->handyman_id)->select('categories.*','handyman_services.rate','handyman_services.description')->get();
+            $services = Category::leftjoin('handyman_products','handyman_products.product_id','=','categories.id')->where('handyman_products.handyman_id',$quotation[0]->handyman_id)->select('categories.*','handyman_products.rate','handyman_products.description')->get();
 
             $items = items::where('user_id',$quotation[0]->handyman_id)->get();
 
@@ -298,7 +298,7 @@ class AdminUserController extends Controller
             $array1[] = "";
             $i = 0;
 
-            $handymen = handyman_products::leftjoin('users','users.id','=','handyman_services.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('handyman_services.service_id','=', $request->quote_service)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();
+            $handymen = handyman_products::leftjoin('users','users.id','=','handyman_products.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('handyman_products.product_id','=', $request->quote_service)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();
 
             foreach ($handymen as $key) {
 
@@ -501,7 +501,7 @@ class AdminUserController extends Controller
 
         foreach ($users as $key) {
 
-             $categories[] = handyman_products::leftjoin('categories','categories.id','=','handyman_services.service_id')->where('handyman_services.handyman_id',$key->id)->select('categories.cat_name')->get();
+             $categories[] = handyman_products::leftjoin('categories','categories.id','=','handyman_products.product_id')->where('handyman_products.handyman_id',$key->id)->select('categories.cat_name')->get();
 
         }
 
