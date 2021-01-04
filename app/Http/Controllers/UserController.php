@@ -2638,10 +2638,9 @@ class UserController extends Controller
         }
         else
         {
-            $post = new handyman_products;
-
-            foreach ($request->product_checkboxes as $i => $key)
+            foreach ($request->product_checkboxes as $key)
             {
+                $post = new handyman_products;
                 $post->handyman_id = $user_id;
                 $post->product_id = $request->product_id[$key];
                 $post->rate = $request->product_rate[$key];
