@@ -2549,9 +2549,18 @@ class UserController extends Controller
             return redirect()->route('user-login');
         }
 
-        $products_selected = handyman_products::leftjoin('products', 'products.id', '=', 'handyman_products.product_id')->leftjoin('categories', 'categories.id', '=', 'products.category_id')->leftjoin('brands', 'brands.id', '=', 'products.brand_id')->leftjoin('models', 'models.id', '=', 'products.model_id')->where('handyman_products.handyman_id', '=', $user_id)->orderBy('products.id', 'desc')->select('products.*', 'categories.cat_name as category', 'brands.cat_name as brand', 'models.cat_name as model', 'handyman_products.rate', 'handyman_products.vat_percentage', 'handyman_products.sell_rate', 'handyman_products.id')->get();
+        $products_array = array();
 
-        return view('user.my_products', compact('user', 'products_selected'));
+        $products_selected = handyman_products::leftjoin('products', 'products.id', '=', 'handyman_products.product_id')->leftjoin('categories', 'categories.id', '=', 'products.category_id')->leftjoin('brands', 'brands.id', '=', 'products.brand_id')->leftjoin('models', 'models.id', '=', 'products.model_id')->where('handyman_products.handyman_id', '=', $user_id)->orderBy('products.id', 'desc')->select('products.*', 'categories.cat_name as category', 'brands.cat_name as brand', 'models.cat_name as model', 'handyman_products.rate', 'handyman_products.vat_percentage', 'handyman_products.sell_rate', 'handyman_products.id','handyman_products.product_id')->get();
+
+        foreach ($products_selected as $key)
+        {
+            $products_array[] = array($key->product_id);
+        }
+
+        $products = Products::leftjoin('categories', 'categories.id', '=', 'products.category_id')->leftjoin('brands', 'brands.id', '=', 'products.brand_id')->leftjoin('models', 'models.id', '=', 'products.model_id')->whereNotIn('products.id',$products_array)->orderBy('products.id', 'desc')->select('products.*', 'categories.cat_name as category', 'brands.cat_name as brand', 'models.cat_name as model')->get();
+
+        return view('user.my_products', compact('user', 'products_selected','products'));
     }
 
     public function ProductCreate()
@@ -2617,21 +2626,33 @@ class UserController extends Controller
         if($request->handyman_product_id)
         {
             $post = handyman_products::where('id',$request->handyman_product_id)->first();
+            $post->handyman_id = $user_id;
+            $post->product_id = $request->product_id;
+            $post->rate = $request->product_rate;
+            $post->sell_rate = $request->product_sell_rate;
+            $post->vat_percentage = $request->product_vat;
+            $post->model_number = $request->model_number;
+            $post->save();
+
             Session::flash('success', 'Product edited successfully.');
         }
         else
         {
             $post = new handyman_products;
-            Session::flash('success', 'New Product added successfully.');
-        }
 
-        $post->handyman_id = $user_id;
-        $post->product_id = $request->product_id;
-        $post->rate = $request->product_rate;
-        $post->sell_rate = $request->product_sell_rate;
-        $post->vat_percentage = $request->product_vat;
-        $post->model_number = $request->model_number;
-        $post->save();
+            foreach ($request->product_checkboxes as $i => $key)
+            {
+                $post->handyman_id = $user_id;
+                $post->product_id = $request->product_id[$key];
+                $post->rate = $request->product_rate[$key];
+                $post->sell_rate = $request->product_sell_rate[$key];
+                $post->vat_percentage = 21;
+                $post->model_number = $request->model_number[$key];
+                $post->save();
+            }
+
+            Session::flash('success', 'New Product(s) added successfully.');
+        }
 
         return redirect()->route('user-products');
     }

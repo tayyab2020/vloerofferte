@@ -37,6 +37,8 @@ $.fn.editableTableWidget = function (options) {
                 }
                 originalContent = active.html();
                 active.text(text).trigger(evt, text);
+                active.parent().find('td[data-type="rate"]').css('border','');
+                active.parent().find('td[data-type="sell_rate"]').css('border','');
                 if (evt.result === false) {
                     active.html(originalContent);
                 }
@@ -126,5 +128,5 @@ $.fn.editableTableWidget.defaultOptions = {
     cloneProperties: ['padding', 'padding-top', 'padding-bottom', 'padding-left', 'padding-right',
         'text-align', 'font', 'font-size', 'font-family', 'font-weight',
         'border', 'border-top', 'border-bottom', 'border-left', 'border-right'],
-    editor: $('<input>')
+    editor: $('<input type="number">')
 };
