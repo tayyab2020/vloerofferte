@@ -176,7 +176,7 @@
 
                     <div style="background-color: #febb22;border-radius: 10px;box-shadow: 0px 0px 4px 0px #dbdbdb;">
 
-                        <h3 style="text-align: center;padding-top: 25px;color: white;text-shadow: 1px 2px 5px #4f4f4f;font-weight: 400;">Select Service For Quotation</h3>
+                        <h3 style="text-align: center;padding-top: 25px;color: white;text-shadow: 1px 2px 5px #4f4f4f;font-weight: 400;">Fill information For Quotation</h3>
 
                         <div id="quote-box" style="display: flex;justify-content: space-between;width: 100%;padding: 20px;">
 
@@ -184,18 +184,18 @@
 
                                 <select class="js-data-example-ajax1 form-control quote-service" name="group" id="blood_grp">
 
-                                    <option value="">Select Main Product</option>
+                                    <option value="">Select Product</option>
 
                                     @if($lang->lang == 'eng')
 
-                                        @foreach($cats as $cat)
-                                            <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
+                                        @foreach($products as $cat)
+                                            <option value="{{$cat->id}}">{{$cat->slug}}</option>
                                         @endforeach
 
                                     @else
 
-                                        @foreach($cats as $cat)
-                                            <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
+                                        @foreach($products as $cat)
+                                            <option value="{{$cat->id}}">{{$cat->title}}</option>
                                         @endforeach
 
                                     @endif
@@ -206,19 +206,19 @@
 
                             <div style="width: 20%;">
 
-                                <select class="js-data-example-ajax3 form-control" name="group" id="blood_grp">
+                                <select class="js-data-example-ajax3 form-control quote-brand" name="group" id="blood_grp">
 
-                                    <option value="">Select Sub product</option>
+                                    <option value="">Select Brand</option>
 
                                     @if($lang->lang == 'eng')
 
-                                        @foreach($subs as $sub)
+                                        @foreach($brands as $sub)
                                             <option value="{{$sub->id}}">{{$sub->cat_slug}}</option>
                                         @endforeach
 
                                     @else
 
-                                        @foreach($subs as $sub)
+                                        @foreach($brands as $sub)
                                             <option value="{{$sub->id}}">{{$sub->cat_name}}</option>
                                         @endforeach
 
@@ -230,23 +230,9 @@
 
                             <div style="width: 20%;">
 
-                                <select class="js-data-example-ajax4 form-control" name="group" id="blood_grp">
+                                <select class="js-data-example-ajax4 quote-model form-control" name="group" id="blood_grp">
 
-                                    <option value="">Select Sub product 2</option>
-
-                                    @if($lang->lang == 'eng')
-
-                                        @foreach($subs as $sub)
-                                            <option value="{{$sub->id}}">{{$sub->cat_slug}}</option>
-                                        @endforeach
-
-                                    @else
-
-                                        @foreach($subs as $sub)
-                                            <option value="{{$sub->id}}">{{$sub->cat_name}}</option>
-                                        @endforeach
-
-                                    @endif
+                                    <option value="">Select Model</option>
 
                                 </select>
 
@@ -254,7 +240,7 @@
 
                             <div style="width: 20%;">
 
-                                <input type="text" style="height: 100%;" name="product_code" class="form-control" placeholder="Product Code" />
+                                <input type="text" style="height: 100%;" name="model_number" class="form-control" placeholder="Model Number (Optional)" />
 
                             </div>
 
@@ -301,27 +287,68 @@
 
                                                 <div class="well">
 
-                                                    <h3 style="text-align: center;color: #4b4b4b;">Select Service</h3>
+                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 30px;">Fill information for quotation</h3>
 
-                                                    <select class="js-data-example-ajax2 form-control quote-service quote_validation" style="height: 40px;" name="quote_service" id="blood_grp" required>
+                                                    <div style="margin-bottom: 40px;">
 
-                                                        <option value="">{{$lang->sbg}}</option>
+                                                        <select class="js-data-example-ajax2 form-control quote-service quote_validation" style="height: 40px;" name="quote_product" id="blood_grp" required>
 
-                                                        @if($lang->lang == 'eng')
+                                                            <option value="">Select Product</option>
 
-                                                            @foreach($cats as $cat)
-                                                                <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
-                                                            @endforeach
+                                                            @if($lang->lang == 'eng')
 
-                                                        @else
+                                                                @foreach($products as $cat)
+                                                                    <option value="{{$cat->id}}">{{$cat->slug}}</option>
+                                                                @endforeach
 
-                                                            @foreach($cats as $cat)
-                                                                <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
-                                                            @endforeach
+                                                            @else
 
-                                                        @endif
+                                                                @foreach($products as $cat)
+                                                                    <option value="{{$cat->id}}">{{$cat->title}}</option>
+                                                                @endforeach
 
-                                                    </select>
+                                                            @endif
+
+                                                        </select>
+
+                                                    </div>
+
+
+                                                    <div style="margin-bottom: 40px;">
+
+                                                        <select class="js-data-example-ajax5 form-control quote-brand quote_validation" style="height: 40px;" name="quote_brand" id="blood_grp" required>
+
+                                                            <option value="">Select Brand</option>
+
+                                                            @if($lang->lang == 'eng')
+
+                                                                @foreach($brands as $key)
+                                                                    <option value="{{$key->id}}">{{$key->cat_slug}}</option>
+                                                                @endforeach
+
+                                                            @else
+
+                                                                @foreach($brands as $key)
+                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
+                                                                @endforeach
+
+                                                            @endif
+
+                                                        </select>
+
+                                                    </div>
+
+
+                                                    <div>
+
+                                                        <select class="js-data-example-ajax6 form-control quote-model quote_validation" style="height: 40px;" name="quote_model" id="blood_grp" required>
+
+                                                            <option value="">Select Model</option>
+
+                                                        </select>
+
+                                                    </div>
+
                                                 </div>
 
                                             </div>
@@ -623,7 +650,7 @@
             <div class="row">
 
 
-                @foreach($cats as $cat)
+                @foreach($products as $cat)
 
 
 
@@ -647,11 +674,11 @@
 
                                             @if($lang->lang == 'eng')
 
-                                                <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$cat->cat_slug}}</h4>
+                                                <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$cat->slug}}</h4>
 
                                             @else
 
-                                                <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$cat->cat_name}}</h4>
+                                                <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$cat->title}}</h4>
 
                                                 @endif
 
@@ -666,18 +693,18 @@
 
                                             @if($lang->lang == 'eng')
 
-                                                <h4 class="card-title">{{$cat->cat_slug}}</h4>
+                                                <h4 class="card-title">{{$cat->slug}}</h4>
 
                                             @else
 
-                                                <h4 class="card-title">{{$cat->cat_name}}</h4>
+                                                <h4 class="card-title">{{$cat->title}}</h4>
 
                                             @endif
 
 
                                             <p class="card-text">{!! $cat->description !!}</p>
 
-                                            <a class="btn btn-primary" style="color: white !important;margin-top: 20px;" href="{{route('front.types',$cat->cat_slug)}}">View</a>
+                                            <a class="btn btn-primary" style="color: white !important;margin-top: 20px;" href="{{route('front.types',$cat->slug)}}">View</a>
 
 
                                         </div>
@@ -935,6 +962,26 @@
 
         <script type="text/javascript">
 
+            $('.quote-model').change(function() {
+
+                var id = $(this).val();
+
+                $('.quote-model').val($(this).val());
+
+                $(".quote-model").trigger('change.select2');
+
+            });
+
+            $('.quote-brand').change(function() {
+
+                var id = $(this).val();
+
+                $('.quote-brand').val($(this).val());
+
+                $(".quote-brand").trigger('change.select2');
+
+            });
+
             $('.quote-service').change(function(){
 
                 var id = $(this).val();
@@ -1057,7 +1104,7 @@
                     }
                     else
                     {
-                        $('.select2').css('border','');
+                        $(this).next().css('border','');
                         $(this).css('border','');
 
                     }
@@ -2188,32 +2235,117 @@
         $(".js-data-example-ajax1").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Main Product",
+            placeholder: "Select Product",
             allowClear: true,
-        });
-
-        $(".js-data-example-ajax2").select2({
-            width: '100%',
-            height: '200px',
-            // placeholder: "City Name",
-            placeholder: "<?php echo $lang->sbg; ?>",
-            allowClear: true,
-            dropdownParent: $('#myModal'),
-
         });
 
         $(".js-data-example-ajax3").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Sub Product",
+            placeholder: "Select Brand",
             allowClear: true,
         });
 
         $(".js-data-example-ajax4").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Sub Product 2",
+            placeholder: "Select Model",
             allowClear: true,
+        });
+
+        $(".js-data-example-ajax2").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "Select Product",
+            allowClear: true,
+            dropdownParent: $('#myModal'),
+
+        });
+
+        $(".js-data-example-ajax5").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "Select Brand",
+            allowClear: true,
+            dropdownParent: $('#myModal'),
+
+        });
+
+        $(".js-data-example-ajax6").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "Select Model",
+            allowClear: true,
+            dropdownParent: $('#myModal'),
+
+        });
+
+        $('.js-data-example-ajax3').on('change', function() {
+
+            var brand_id = $(this).val();
+            var options = '';
+
+            $.ajax({
+                type:"GET",
+                data: "id=" + brand_id ,
+                url: "<?php echo url('/products-models-by-brands')?>",
+                success: function(data) {
+
+                    $.each(data, function(index, value) {
+
+                        var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
+
+                        options = options + opt;
+
+                    });
+
+                    $('.js-data-example-ajax4').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Model</option>'+options);
+
+                    $('.js-data-example-ajax6').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Model</option>'+options);
+
+                }
+            });
+
+        });
+
+        $('.js-data-example-ajax5').on('change', function() {
+
+            var brand_id = $(this).val();
+            var options = '';
+
+            $.ajax({
+                type:"GET",
+                data: "id=" + brand_id ,
+                url: "<?php echo url('/products-models-by-brands')?>",
+                success: function(data) {
+
+                    $.each(data, function(index, value) {
+
+                        var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
+
+                        options = options + opt;
+
+                    });
+
+                    $('.js-data-example-ajax4').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Model</option>'+options);
+
+                    $('.js-data-example-ajax6').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Model</option>'+options);
+
+                }
+            });
+
         });
 
     </script>

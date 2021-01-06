@@ -119,8 +119,9 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
         $user_role = $user->role_id;
+        $invoices = array();
 
-        $requests = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.user_id', $user_id)->select('quotes.*', 'categories.cat_name')->get();
+        $requests = quotes::leftjoin('products', 'products.id', '=', 'quotes.quote_product')->where('quotes.user_id', $user_id)->select('quotes.*', 'products.title')->get();
 
         foreach ($requests as $key) {
             $invoices[] = quotation_invoices::where('quote_id', $key->id)->where('approved', 1)->get();
@@ -136,7 +137,9 @@ class UserController extends Controller
         $user_id = $user->id;
         $user_role = $user->role_id;
 
-        $requests = handyman_quotes::leftjoin('quotes', 'quotes.id', '=', 'handyman_quotes.quote_id')->leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('handyman_quotes.handyman_id', $user_id)->select('quotes.*', 'categories.cat_name', 'handyman_quotes.quote_id', 'handyman_quotes.handyman_id')->get();
+        $invoices = array();
+
+        $requests = handyman_quotes::leftjoin('quotes', 'quotes.id', '=', 'handyman_quotes.quote_id')->leftjoin('products', 'products.id', '=', 'quotes.quote_product')->where('handyman_quotes.handyman_id', $user_id)->select('quotes.*', 'products.title', 'handyman_quotes.quote_id', 'handyman_quotes.handyman_id')->get();
 
         foreach ($requests as $key) {
             $invoices[] = quotation_invoices::where('quote_id', $key->quote_id)->where('handyman_id', $key->handyman_id)->first();
@@ -237,13 +240,13 @@ class UserController extends Controller
 
     public function QuoteRequest($id)
     {
-        $request = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.id', $id)->select('quotes.*', 'categories.cat_name')->withCount('quotations')->first();
+        $request = quotes::leftjoin('products', 'products.id', '=', 'quotes.quote_product')->where('quotes.id', $id)->select('quotes.*', 'products.title')->withCount('quotations')->first();
 
         $q_a = requests_q_a::where('request_id', $id)->get();
 
-        $services = Category::all();
+        $products = Products::all();
 
-        return view('user.client_quote_request', compact('request', 'services', 'q_a'));
+        return view('user.client_quote_request', compact('request', 'products', 'q_a'));
     }
 
     public function DownloadQuoteRequest($id)
@@ -251,7 +254,7 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
 
-        $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.id', $id)->where('quotes.user_id', $user_id)->select('quotes.*', 'categories.cat_name')->first();
+        $quote = quotes::leftjoin('products', 'products.id', '=', 'quotes.quote_product')->where('quotes.id', $id)->where('quotes.user_id', $user_id)->select('quotes.*', 'products.title')->first();
 
         $q_a = requests_q_a::where('request_id', $id)->get();
 
@@ -366,7 +369,6 @@ class UserController extends Controller
         if (!$invoice) {
             return redirect()->back();
         }
-
 
         quotation_invoices::where('id', $id)->update(['ask_customization' => 1]);
 
@@ -527,15 +529,15 @@ class UserController extends Controller
         $user_id = $user->id;
         $user_role = $user->role_id;
 
-        $request = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.id', $id)->select('quotes.*', 'categories.cat_name')->first();
+        $request = quotes::leftjoin('products', 'products.id', '=', 'quotes.quote_product')->where('quotes.id', $id)->select('quotes.*', 'products.title')->first();
 
         $q_a = requests_q_a::where('request_id', $id)->get();
 
         $invoice = quotation_invoices::where('quote_id', $request->id)->where('handyman_id', $user_id)->first();
 
-        $services = Category::all();
+        $products = Products::all();
 
-        return view('user.quote_request', compact('request', 'services', 'invoice', 'q_a'));
+        return view('user.quote_request', compact('request', 'products', 'invoice', 'q_a'));
     }
 
     public function HandymanCreateQuote()
@@ -631,7 +633,7 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
 
-        $quote = quotes::leftjoin('handyman_quotes', 'handyman_quotes.quote_id', '=', 'quotes.id')->where('quotes.id', $id)->where('handyman_quotes.handyman_id', $user_id)->select('quotes.*')->first();
+        $quote = quotes::leftjoin('products', 'products.id', '=', 'quotes.quote_product')->leftjoin('handyman_quotes', 'handyman_quotes.quote_id', '=', 'quotes.id')->where('quotes.id', $id)->where('handyman_quotes.handyman_id', $user_id)->select('quotes.*','products.title')->first();
 
         $q_a = requests_q_a::where('request_id', $id)->get();
 

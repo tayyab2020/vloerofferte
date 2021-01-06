@@ -8,15 +8,15 @@
         <meta name="author" content="GeniusOcean">
 
         <title>{{$gs->title}}</title>
-        <link href="{{asset('assets/admin/css/bootstrap.min.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/admin/css/font-awesome.min.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/admin/css/perfect-scrollbar.min.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/admin/css/bootstrap-colorpicker.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/admin/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/admin/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/admin/css/responsive.css')}}" rel="stylesheet">
-        <link rel="icon" type="image/png" href="{{asset('assets/images/'.$gs->favicon)}}">
+        <link href="{{public_path('assets/admin/css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{public_path('assets/admin/css/font-awesome.min.css')}}" rel="stylesheet">
+        <link href="{{public_path('assets/admin/css/perfect-scrollbar.min.css')}}" rel="stylesheet">
+        <link href="{{public_path('assets/admin/css/bootstrap-colorpicker.css')}}" rel="stylesheet">
+        <link href="{{public_path('assets/admin/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{public_path('assets/admin/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{public_path('assets/admin/css/style.css')}}" rel="stylesheet">
+        <link href="{{public_path('assets/admin/css/responsive.css')}}" rel="stylesheet">
+        <link rel="icon" type="image/png" href="{{public_path('assets/images/'.$gs->favicon)}}">
         @include('styles.admin-design')
         @yield('styles')
 

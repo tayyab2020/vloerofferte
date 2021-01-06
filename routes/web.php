@@ -12,6 +12,7 @@
 */
 
   Route::get('/','FrontendController@index')->name('front.index');
+  Route::get('/products-models-by-brands', 'FrontendController@productsModelsByBrands');
   Route::get('/get-questions','FrontendController@GetQuestions');
   Route::get('/thankyou/{id}','FrontendController@Thankyou');
   Route::get('/thankyou-page/{id}','FrontendController@ThankyouPage');

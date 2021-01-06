@@ -10,6 +10,7 @@ use App\handyman_terminals;
 use App\handyman_unavailability;
 use App\items;
 use App\predefined_answers;
+use App\Products;
 use App\question_services;
 use App\quotation_invoices;
 use App\quotation_questions;
@@ -170,7 +171,7 @@ class AdminUserController extends Controller
 
     public function QuotationRequests()
     {
-        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->orderBy('quotes.created_at','desc')->select('quotes.*','categories.cat_name')->withCount('quotations')->get();
+        $requests = quotes::leftjoin('products','products.id','=','quotes.quote_product')->orderBy('quotes.created_at','desc')->select('quotes.*','products.title')->withCount('quotations')->get();
 
 
         return view('admin.user.quote_requests',compact('requests'));
@@ -206,18 +207,18 @@ class AdminUserController extends Controller
 
     public function QuoteRequest($id)
     {
-        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->withCount('quotations')->first();
+        $request = quotes::leftjoin('products','products.id','=','quotes.quote_product')->where('quotes.id',$id)->select('quotes.*','products.title')->withCount('quotations')->first();
 
         $q_a = requests_q_a::where('request_id',$id)->get();
 
-        $services = Category::where('main_service',1)->get();
+        $products = Products::all();
 
-        return view('admin.user.quote_request',compact('request','services','q_a'));
+        return view('admin.user.quote_request',compact('request','products','q_a'));
     }
 
     public function DownloadQuoteRequest($id)
     {
-        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
+        $quote = quotes::leftjoin('products','products.id','=','quotes.quote_product')->where('quotes.id',$id)->select('quotes.*','products.title')->first();
 
         $q_a = requests_q_a::where('request_id',$id)->get();
 
@@ -278,7 +279,7 @@ class AdminUserController extends Controller
     public function SendQuoteRequest($id)
     {
 
-        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
+        $request = quotes::leftjoin('products','products.id','=','quotes.quote_product')->where('quotes.id',$id)->select('quotes.*','products.title')->first();
 
         $search = $request->quote_zipcode;
 
@@ -427,7 +428,7 @@ class AdminUserController extends Controller
     {
         $handyman = $request->action;
 
-        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name')->first();
+        $quote = quotes::leftjoin('products','products.id','=','quotes.quote_product')->where('quotes.id',$request->quote_id)->select('quotes.*','products.title')->first();
 
         $q_a = requests_q_a::where('request_id',$request->quote_id)->get();
 
@@ -491,8 +492,6 @@ class AdminUserController extends Controller
 
         Session::flash('success', 'Quotation request sent successfully!');
         return redirect()->back();
-
-
     }
 
     public function Clients()

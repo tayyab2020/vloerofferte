@@ -72,12 +72,12 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Service* </label>
+                                            <label class="control-label col-sm-4" for="blood_group_display_name">Product* </label>
                                             <div class="col-sm-6">
                                                 <select class="form-control" name="quote_service" id="quote_service" required="">
-                                                    @foreach($services as $key)
+                                                    @foreach($products as $key)
 
-                                                        <option @if($request->quote_service == $key->id) selected @endif value="{{$key->id}}">{{$key->cat_name}}</option>
+                                                        <option @if($request->quote_product == $key->id) selected @endif value="{{$key->id}}">{{$key->title}}</option>
 
                                                     @endforeach
                                                 </select>

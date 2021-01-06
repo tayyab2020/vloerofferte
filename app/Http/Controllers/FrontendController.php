@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Brand;
+use App\Model1;
+use App\Products;
 use App\question_services;
 use App\quotation_questions;
 use App\quotes;
@@ -360,9 +363,9 @@ else
             $cities = null;
         }
         $ads = Portfolio::all();
-        $cats = Category::where('main_service',1)->get();
-        $subs = Category::where('main_service',0)->get();
-        $rusers =   User::where('featured','=',1)->where('active','=',1)->orderBy('created_at', 'desc')->limit(4)->get();
+        $products = Products::all();
+        $brands = Brand::all();
+        $rusers = User::where('featured','=',1)->where('active','=',1)->orderBy('created_at', 'desc')->limit(4)->get();
 
         $no = 0;
 
@@ -388,8 +391,15 @@ else
         $language = $this->lang->lang;
 
 
-        return view('front.index',compact('ads','cats','subs','rusers','cities','jobs','language'));
+        return view('front.index',compact('ads','products','brands','rusers','cities','jobs','language'));
 
+    }
+
+    public function productsModelsByBrands(Request $request)
+    {
+        $models = Model1::where('brand_id','=',$request->id)->get();
+
+        return $models;
     }
 
     public function Cart()
@@ -1240,7 +1250,10 @@ else
 
             $quote = new quotes;
             $quote->user_id = $user_id;
-            $quote->quote_service = $request->quote_service;
+            $quote->quote_product = $request->quote_product;
+            $quote->quote_brand = $request->quote_brand;
+            $quote->quote_model = $request->quote_model;
+            $quote->model_number = $request->model_number;
             $quote->quote_zipcode = $request->quote_zipcode;
             $quote->quote_description = $request->quote_description;
             $quote->quote_name = $request->quote_name;
