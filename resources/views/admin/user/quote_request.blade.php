@@ -72,7 +72,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Product* </label>
+                                            <label class="control-label col-sm-4" for="blood_group_display_name">Category* </label>
                                             <div class="col-sm-6">
                                                 <select class="form-control" name="quote_service" id="quote_service" required="">
                                                     @foreach($products as $key)

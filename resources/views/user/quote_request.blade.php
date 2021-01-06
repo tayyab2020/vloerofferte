@@ -70,9 +70,9 @@
 
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Product* </label>
+                                            <label class="control-label col-sm-4" for="blood_group_display_name">Category* </label>
                                             <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->title}}</p>
+                                                <p style="padding: 10px;" class="form-control">{{$request->cat_name}}</p>
                                             </div>
                                         </div>
 

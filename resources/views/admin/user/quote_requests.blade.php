@@ -29,7 +29,7 @@
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Quotations</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="rate">Product</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="rate">Category</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="rate">Name</th>
 
@@ -57,7 +57,7 @@
 
                                                             <td>{{$key->quotations_count}}</td>
 
-                                                            <td>{{$key->title}}</td>
+                                                            <td>{{$key->cat_name}}</td>
 
                                                             <td>{{$key->quote_name}}</td>
 

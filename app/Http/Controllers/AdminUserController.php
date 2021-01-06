@@ -171,7 +171,7 @@ class AdminUserController extends Controller
 
     public function QuotationRequests()
     {
-        $requests = quotes::leftjoin('products','products.id','=','quotes.quote_product')->orderBy('quotes.created_at','desc')->select('quotes.*','products.title')->withCount('quotations')->get();
+        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->orderBy('quotes.created_at','desc')->select('quotes.*','categories.cat_name')->withCount('quotations')->get();
 
 
         return view('admin.user.quote_requests',compact('requests'));
@@ -207,7 +207,7 @@ class AdminUserController extends Controller
 
     public function QuoteRequest($id)
     {
-        $request = quotes::leftjoin('products','products.id','=','quotes.quote_product')->where('quotes.id',$id)->select('quotes.*','products.title')->withCount('quotations')->first();
+        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->withCount('quotations')->first();
 
         $q_a = requests_q_a::where('request_id',$id)->get();
 
@@ -218,7 +218,7 @@ class AdminUserController extends Controller
 
     public function DownloadQuoteRequest($id)
     {
-        $quote = quotes::leftjoin('products','products.id','=','quotes.quote_product')->where('quotes.id',$id)->select('quotes.*','products.title')->first();
+        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
 
         $q_a = requests_q_a::where('request_id',$id)->get();
 
@@ -279,7 +279,7 @@ class AdminUserController extends Controller
     public function SendQuoteRequest($id)
     {
 
-        $request = quotes::leftjoin('products','products.id','=','quotes.quote_product')->where('quotes.id',$id)->select('quotes.*','products.title')->first();
+        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
 
         $search = $request->quote_zipcode;
 
@@ -428,7 +428,7 @@ class AdminUserController extends Controller
     {
         $handyman = $request->action;
 
-        $quote = quotes::leftjoin('products','products.id','=','quotes.quote_product')->where('quotes.id',$request->quote_id)->select('quotes.*','products.title')->first();
+        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name')->first();
 
         $q_a = requests_q_a::where('request_id',$request->quote_id)->get();
 

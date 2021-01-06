@@ -184,18 +184,18 @@
 
                                 <select class="js-data-example-ajax1 form-control quote-service" name="group" id="blood_grp">
 
-                                    <option value="">Select Product</option>
+                                    <option value="">Select Category</option>
 
                                     @if($lang->lang == 'eng')
 
-                                        @foreach($products as $cat)
-                                            <option value="{{$cat->id}}">{{$cat->slug}}</option>
+                                        @foreach($cats as $cat)
+                                            <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
                                         @endforeach
 
                                     @else
 
-                                        @foreach($products as $cat)
-                                            <option value="{{$cat->id}}">{{$cat->title}}</option>
+                                        @foreach($cats as $cat)
+                                            <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
                                         @endforeach
 
                                     @endif
@@ -291,20 +291,20 @@
 
                                                     <div style="margin-bottom: 40px;">
 
-                                                        <select class="js-data-example-ajax2 form-control quote-service quote_validation" style="height: 40px;" name="quote_product" id="blood_grp" required>
+                                                        <select class="js-data-example-ajax2 form-control quote-service quote_validation" style="height: 40px;" name="quote_service" id="blood_grp" required>
 
-                                                            <option value="">Select Product</option>
+                                                            <option value="">Select Category</option>
 
                                                             @if($lang->lang == 'eng')
 
-                                                                @foreach($products as $cat)
-                                                                    <option value="{{$cat->id}}">{{$cat->slug}}</option>
+                                                                @foreach($cats as $cat)
+                                                                    <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
                                                                 @endforeach
 
                                                             @else
 
-                                                                @foreach($products as $cat)
-                                                                    <option value="{{$cat->id}}">{{$cat->title}}</option>
+                                                                @foreach($cats as $cat)
+                                                                    <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
                                                                 @endforeach
 
                                                             @endif
@@ -650,8 +650,7 @@
             <div class="row">
 
 
-                @foreach($products as $cat)
-
+                @foreach($cats as $cat)
 
 
                     <div class="col-xs-12 col-sm-6 col-md-4">
@@ -674,11 +673,11 @@
 
                                             @if($lang->lang == 'eng')
 
-                                                <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$cat->slug}}</h4>
+                                                <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$cat->cat_slug}}</h4>
 
                                             @else
 
-                                                <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$cat->title}}</h4>
+                                                <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$cat->cat_name}}</h4>
 
                                                 @endif
 
@@ -693,18 +692,18 @@
 
                                             @if($lang->lang == 'eng')
 
-                                                <h4 class="card-title">{{$cat->slug}}</h4>
+                                                <h4 class="card-title">{{$cat->cat_slug}}</h4>
 
                                             @else
 
-                                                <h4 class="card-title">{{$cat->title}}</h4>
+                                                <h4 class="card-title">{{$cat->cat_name}}</h4>
 
                                             @endif
 
 
                                             <p class="card-text">{!! $cat->description !!}</p>
 
-                                            <a class="btn btn-primary" style="color: white !important;margin-top: 20px;" href="{{route('front.types',$cat->slug)}}">View</a>
+                                            <a class="btn btn-primary" style="color: white !important;margin-top: 20px;" href="{{route('front.types',$cat->cat_slug)}}">View</a>
 
 
                                         </div>
@@ -713,8 +712,6 @@
                             </div>
                         </div>
                     </div>
-
-
 
 
                 @endforeach
@@ -2235,7 +2232,7 @@
         $(".js-data-example-ajax1").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Product",
+            placeholder: "Select Category",
             allowClear: true,
         });
 
@@ -2256,7 +2253,7 @@
         $(".js-data-example-ajax2").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Product",
+            placeholder: "Select Category",
             allowClear: true,
             dropdownParent: $('#myModal'),
 
