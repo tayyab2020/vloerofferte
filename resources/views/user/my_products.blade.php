@@ -24,16 +24,16 @@
 
                                         <script src="{{asset('assets/admin/js/editable.js')}}"></script>
 
-                                        @if(Route::currentRouteName() == 'user-products')
+                                        @if(Route::currentRouteName() == 'product-create')
 
                                             <form method="post" action="{{route('product-store')}}">
 
                                             {{csrf_field()}}
 
                                             <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                                                    <div class="card" style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+                                                    <div class="card" style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);margin-bottom: 0;">
                                                         <div class="header">
 
                                                             <h2 style="font-weight: bold;">Select Products</h2>
@@ -56,8 +56,8 @@
                                                             <table id="example1" class="mainTable table table-striped table-hover products dt-responsive dataTable no-footer dtr-inline" role="grid" aria-describedby="product-table_wrapper_info" style="width: 100%;cursor: pointer;" width="100%" cellspacing="0">
                                                                 <thead>
                                                                 <tr role="row">
-                                                                    <th class="no-sort hide-col">ID</th>
                                                                     <th class="no-sort"></th>
+                                                                    <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">ID</th>
                                                                     <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Photo</th>
                                                                     <th class="sorting" id="client" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Title</th>
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Slug</th>
@@ -76,16 +76,11 @@
 
                                                                     <tr role="row" class="odd">
 
-                                                                        <input type="hidden" name="product_id[]" value="{{$cat->id}}" />
-                                                                        <input class="product_rate" name="product_rate[]" step="any" value="" type="hidden">
-                                                                        <input class="product_sell_rate" name="product_sell_rate[]" step="any" value="" type="hidden">
-                                                                        <input class="model_number" name="model_number[]" value="" type="hidden">
-
-                                                                        <td class="hide-col" data-editable="false">
-                                                                            {{$cat->id}}
-                                                                        </td>
                                                                         <td data-editable="false">
                                                                             <input value="{{$i}}" class="products-checkboxes" name="product_checkboxes[]" style="position: relative;left: 0;opacity: 1;" type="checkbox" />
+                                                                        </td>
+                                                                        <td data-editable="false" tabindex="0" class="sorting_1">
+                                                                            {{$cat->id}}
                                                                         </td>
                                                                         <td data-editable="false">
                                                                             <img src="{{ $cat->photo ? asset('assets/images/'.$cat->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}" alt="Category's Photo" style="max-height: 100px;">
@@ -100,14 +95,20 @@
                                                                         <td data-type="sell_rate">{{$cat->sell_rate}}</td>
                                                                         <td data-editable="false">21</td>
 
+                                                                        <input type="hidden" name="product_id[]" value="{{$cat->id}}" />
+                                                                        <input class="product_rate" name="product_rate[]" step="any" value="" type="hidden">
+                                                                        <input class="product_sell_rate" name="product_sell_rate[]" step="any" value="" type="hidden">
+                                                                        <input class="model_number" name="model_number[]" value="" type="hidden">
+
                                                                     </tr>
                                                                 @endforeach
                                                                 </tbody>
                                                             </table>
+
+                                                            <button type="button" style="margin: auto;" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Add Product(s)</button>
+
                                                         </div>
                                                     </div>
-
-                                                    <button type="button" style="float: right;" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Add Product(s)</button>
 
                                                 </div>
 
@@ -289,8 +290,8 @@
 
         var table = $('#example1').DataTable(
             {
-                columnDefs: [ { "orderable": false, "targets": [0,1] } ],
-                order: [[0, 'desc']]
+                columnDefs: [ { "orderable": false, "targets": [0] } ],
+                order: [[1, 'desc']]
             }
         );
 

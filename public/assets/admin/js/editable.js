@@ -91,7 +91,7 @@ $.fn.editableTableWidget = function (options) {
                     editor.removeClass('error');
                 }
             });
-        element.on('click keypress dblclick', showEditor)
+        element.find('td[data-editable!="false"]').on('click keypress dblclick', showEditor)
             .css('cursor', 'pointer')
             .keydown(function (e) {
                 var prevent = true,
