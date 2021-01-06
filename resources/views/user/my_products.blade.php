@@ -24,21 +24,23 @@
 
                                         <script src="{{asset('assets/admin/js/editable.js')}}"></script>
 
-                                        <form method="post" action="{{route('product-store')}}">
+                                        @if(Route::currentRouteName() == 'user-products')
+
+                                            <form method="post" action="{{route('product-store')}}">
 
                                             {{csrf_field()}}
 
                                             <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
 
-                                                    <div class="card" style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);margin-top: 50px;">
+                                                    <div class="card" style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
                                                         <div class="header">
 
                                                             <h2 style="font-weight: bold;">Select Products</h2>
 
                                                             <ul class="header-dropdown m-r--5">
                                                                 <li class="dropdown">
-                                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">
                                                                         <i class="material-icons">more_vert</i>
                                                                     </a>
                                                                     <ul class="dropdown-menu pull-right">
@@ -113,16 +115,18 @@
 
                                         </form>
 
-                                        <div class="row">
+                                        @else
+
+                                            <div class="row">
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <div class="card" style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);margin-top: 50px;">
+                                                <div class="card" style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);margin-bottom: 0;">
                                                     <div class="header">
 
                                                         <h2 style="font-weight: bold;">Products Overview</h2>
 
                                                         <ul class="header-dropdown m-r--5">
                                                             <li class="dropdown">
-                                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">
                                                                     <i class="material-icons">more_vert</i>
                                                                 </a>
                                                                 <ul class="dropdown-menu pull-right">
@@ -185,6 +189,7 @@
 
                                         </div>
 
+                                        @endif
 
                                 </div>
                             </div>
@@ -228,10 +233,7 @@
             width: 170px !important;
         }
 
-        a[aria-expanded="false"]::before, a[aria-expanded="true"]::before
-        {
-            display: none;
-        }
+
 
         .btn
         {

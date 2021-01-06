@@ -112,7 +112,7 @@
   Route::get('/radius-management', 'UserController@RadiusManagement')->name('radius-management');
   Route::get('/client-profile', 'UserController@ClientProfile')->name('client-profile');
   Route::get('/my-products', 'UserController@MyProducts')->name('user-products');
-  Route::get('/product-create', 'UserController@ProductCreate')->name('product-create');
+  Route::get('/product-create', 'UserController@MyProducts')->name('product-create');
   Route::post('/product-store', 'UserController@ProductStore')->name('product-store');
   Route::get('/product-edit/{id}', 'UserController@ProductEdit')->name('product-edit');
   Route::get('/product-delete/{id}', 'UserController@ProductDelete')->name('product-delete');

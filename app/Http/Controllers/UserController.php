@@ -2662,7 +2662,7 @@ class UserController extends Controller
 
         $my_product->delete();
         Session::flash('success', 'Product deleted successfully.');
-        return redirect()->route('user-products');
+        return redirect()->back();
     }
 
     public function MyItems()

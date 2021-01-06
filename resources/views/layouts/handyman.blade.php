@@ -138,8 +138,11 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('user-products') }}" id="services"><i
-                                    class="fa fa-fw fa-hospital-o"></i> My Products</a>
+                            <a href="#services" data-toggle="collapse" @if(Route::currentRouteName() == 'user-products' || Route::currentRouteName() == 'product-create') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> My Products</a>
+                            <ul class="collapse list-unstyled submenu" id="services">
+                                <li><a href="{{route('user-products')}}"><i class="fa fa-angle-right"></i> Products Overview</a></li>
+                                <li><a href="{{route('product-create')}}"><i class="fa fa-angle-right"></i> Add Products</a></li>
+                            </ul>
                         </li>
 
                         <li>
