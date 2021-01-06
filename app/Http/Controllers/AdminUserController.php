@@ -12,6 +12,7 @@ use App\handyman_unavailability;
 use App\items;
 use App\Model1;
 use App\predefined_answers;
+use App\product;
 use App\Products;
 use App\question_services;
 use App\quotation_invoices;
@@ -303,7 +304,9 @@ class AdminUserController extends Controller
             $array1[] = "";
             $i = 0;
 
-            $handymen = handyman_products::leftjoin('users','users.id','=','handyman_products.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('handyman_products.product_id','=', $request->quote_service)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();
+            /*$handymen = handyman_products::leftjoin('users','users.id','=','handyman_products.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('handyman_products.product_id','=', $request->quote_service)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();*/
+
+            $handymen = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('users','users.id','=','handyman_products.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('products.category_id','=', $request->quote_service)->where('products.brand_id','=', $request->quote_brand)->where('products.model_id','=', $request->quote_model)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();
 
             foreach ($handymen as $key) {
 
