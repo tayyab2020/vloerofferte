@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Brand;
 use App\carts;
 use App\Category;
 use App\Generalsetting;
@@ -9,6 +10,7 @@ use App\handyman_quotes;
 use App\handyman_terminals;
 use App\handyman_unavailability;
 use App\items;
+use App\Model1;
 use App\predefined_answers;
 use App\Products;
 use App\question_services;
@@ -171,7 +173,7 @@ class AdminUserController extends Controller
 
     public function QuotationRequests()
     {
-        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->orderBy('quotes.created_at','desc')->select('quotes.*','categories.cat_name')->withCount('quotations')->get();
+        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->orderBy('quotes.created_at','desc')->select('quotes.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->withCount('quotations')->get();
 
 
         return view('admin.user.quote_requests',compact('requests'));
@@ -207,13 +209,15 @@ class AdminUserController extends Controller
 
     public function QuoteRequest($id)
     {
-        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->withCount('quotations')->first();
+        $request = quotes::where('id',$id)->withCount('quotations')->first();
 
         $q_a = requests_q_a::where('request_id',$id)->get();
 
-        $products = Products::all();
+        $categories = Category::where('main_service',1)->get();
+        $brands = Brand::all();
+        $models = Model1::all();
 
-        return view('admin.user.quote_request',compact('request','products','q_a'));
+        return view('admin.user.quote_request',compact('request','categories','brands','models','q_a'));
     }
 
     public function DownloadQuoteRequest($id)

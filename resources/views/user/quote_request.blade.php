@@ -12,7 +12,8 @@
                                 <div class="add-product-box">
                                     <div class="add-product-header">
                                         <h2>Quote Request</h2>
-                                        <a href="{{route('handyman-quotation-requests')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
+                                        <a href="{{route('handyman-quotation-requests')}}" class="btn add-back-btn"><i
+                                                class="fa fa-arrow-left"></i> Back</a>
                                     </div>
                                     <hr>
 
@@ -23,74 +24,105 @@
                                         $quote_number = date("Y", $date) . "-" . sprintf('%04u', $request->id); ?>
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_slug">Request Number </label>
+                                            <label class="control-label col-sm-4" for="blood_group_slug">Request
+                                                Number </label>
                                             <div class="col-sm-6">
                                                 <p style="padding: 10px;" class="form-control">{{$quote_number}}</p>
                                             </div>
                                         </div>
 
-                                            @if($request->status > 1 && $invoice && $invoice->accepted)
+                                        @if($request->status > 1 && $invoice && $invoice->accepted)
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_slug">Name* </label>
-                                            <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->quote_name}}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_slug">Family Name* </label>
-                                            <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->quote_familyname}}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_slug">Email* </label>
-                                            <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->quote_email}}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_slug">Contact* </label>
-                                            <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->quote_contact}}</p>
-                                            </div>
-                                        </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4" for="blood_group_slug">Zip Code* </label>
-                                                    <div class="col-sm-6">
-                                                        <p style="padding: 10px;" class="form-control">{{$request->quote_zipcode}}</p>
-                                                    </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4"
+                                                       for="blood_group_slug">Name* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;"
+                                                       class="form-control">{{$request->quote_name}}</p>
                                                 </div>
+                                            </div>
 
-                                            @endif
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Family
+                                                    Name* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;"
+                                                       class="form-control">{{$request->quote_familyname}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4"
+                                                       for="blood_group_slug">Email* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;"
+                                                       class="form-control">{{$request->quote_email}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4"
+                                                       for="blood_group_slug">Contact* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;"
+                                                       class="form-control">{{$request->quote_contact}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Zip
+                                                    Code* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;"
+                                                       class="form-control">{{$request->quote_zipcode}}</p>
+                                                </div>
+                                            </div>
+
+                                        @endif
 
 
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_display_name">Category* </label>
                                             <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->cat_name}}</p>
+                                                <p style="padding: 10px;"
+                                                   class="form-control">{{$request->cat_name}}</p>
                                             </div>
                                         </div>
 
-                                            @foreach($q_a as $key)
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4" for="blood_group_display_name">{{$key->question}}* </label>
-                                                    <div class="col-sm-6">
-                                                        <p style="padding: 10px;" class="form-control">{{$key->answer}}</p>
-                                                    </div>
-                                                </div>
-
-                                            @endforeach
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_display_name">Brand* </label>
+                                            <div class="col-sm-6">
+                                                <p style="padding: 10px;"
+                                                   class="form-control">{{$request->brand_name}}</p>
+                                            </div>
+                                        </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="service_description">Description*</label>
+                                            <label class="control-label col-sm-4" for="blood_group_display_name">Model* </label>
                                             <div class="col-sm-6">
-                                                <p class="form-control" style="padding: 10px;">{{$request->quote_description}}</p>
+                                                <p style="padding: 10px;"
+                                                   class="form-control">{{$request->model_name}}</p>
+                                            </div>
+                                        </div>
+
+                                        @foreach($q_a as $key)
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4"
+                                                       for="blood_group_display_name">{{$key->question}}* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;" class="form-control">{{$key->answer}}</p>
+                                                </div>
+                                            </div>
+
+                                        @endforeach
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4"
+                                                   for="service_description">Description*</label>
+                                            <div class="col-sm-6">
+                                                <p class="form-control"
+                                                   style="padding: 10px;">{{$request->quote_description}}</p>
                                             </div>
                                         </div>
 
@@ -111,7 +143,9 @@
     <script type="text/javascript" src="{{asset('assets/admin/js/nicEdit.js')}}"></script>
     <script type="text/javascript">
         //<![CDATA[
-        bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+        bkLib.onDomLoaded(function () {
+            nicEditors.allTextAreas()
+        });
         //]]>
     </script>
 
@@ -119,25 +153,21 @@
 
     <style type="text/css">
 
-        .swal2-show
-        {
+        .swal2-show {
             padding: 40px;
             width: 30%;
 
         }
 
-        .swal2-header
-        {
+        .swal2-header {
             font-size: 23px;
         }
 
-        .swal2-content
-        {
+        .swal2-content {
             font-size: 18px;
         }
 
-        .swal2-actions
-        {
+        .swal2-actions {
             font-size: 16px;
         }
 

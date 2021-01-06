@@ -29,6 +29,10 @@
 
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Category</th>
 
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Brand</th>
+
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Model</th>
+
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Current Stage</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Created At</th>
@@ -50,6 +54,10 @@
                                                             <td><a href="{{ url('/handyman/handyman-quotations/'.$key->id) }}">{{$requested_quote_number}}</a></td>
 
                                                             <td>{{$key->cat_name}}</td>
+
+                                                                <td>{{$key->brand_name}}</td>
+
+                                                                <td>{{$key->model_name}}</td>
 
                                                             <td>
 
