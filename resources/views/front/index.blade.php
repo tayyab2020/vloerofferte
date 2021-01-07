@@ -2305,7 +2305,7 @@
 
         });
 
-        /*$('.js-data-example-ajax3').on('change', function() {
+        $('.js-data-example-ajax3').on('change', function() {
 
             var brand_id = $(this).val();
             var options = '';
@@ -2371,7 +2371,7 @@
                 }
             });
 
-        });*/
+        });
 
     </script>
 
