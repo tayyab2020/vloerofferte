@@ -326,7 +326,7 @@ class AdminUserController extends Controller
 
             }
 
-            $other_handymen = handyman_terminals::leftjoin('users','users.id','=','handyman_terminals.handyman_id')->whereNotIn('users.id',$array)->where('users.active',1)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();
+            /*$other_handymen = handyman_terminals::leftjoin('users','users.id','=','handyman_terminals.handyman_id')->whereNotIn('users.id',$array)->where('users.active',1)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();
 
             $array2[] = "";
             $x = 0;
@@ -346,7 +346,7 @@ class AdminUserController extends Controller
                 $array2[$x] = array('handyman_distance'=>$distance);
                 $x = $x + 1;
 
-            }
+            }*/
 
         }
 
@@ -356,7 +356,7 @@ class AdminUserController extends Controller
             return redirect()->back();
         }
 
-        return view('admin.user.send_quote',compact('request','handymen','array1','array2','history','other_handymen'));
+        return view('admin.user.send_quote',compact('request','handymen','array1','history'));
     }
 
 

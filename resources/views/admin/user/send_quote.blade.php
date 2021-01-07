@@ -58,19 +58,6 @@
 
                                                 @endforeach
 
-
-                                                @foreach($other_handymen as $x => $key)
-
-                                                    <tr>
-                                                        <td><input type="checkbox" name="action[]" value="{{$key->id}}" class="action"></td>
-                                                        <td>{{$key->name}} {{$key->family_name}}</td>
-                                                        <td><?php echo number_format((float)$array2[$x]['handyman_distance'], 2, '.', ''); ?> KM</td>
-                                                        <td>{{$key->address}}</td>
-                                                        <td>{{$key->postcode}}</td>
-                                                    </tr>
-
-                                                @endforeach
-
                                                 </tbody>
 
                                             </table>
