@@ -234,20 +234,6 @@
 
                                     <option value="">Select Model</option>
 
-                                    @if($lang->lang == 'eng')
-
-                                        @foreach($models as $key)
-                                            <option value="{{$key->id}}">{{$key->cat_slug}}</option>
-                                        @endforeach
-
-                                    @else
-
-                                        @foreach($models as $key)
-                                            <option value="{{$key->id}}">{{$key->cat_name}}</option>
-                                        @endforeach
-
-                                    @endif
-
                                 </select>
 
                             </div>
@@ -358,20 +344,6 @@
                                                         <select class="js-data-example-ajax6 form-control quote-model quote_validation" style="height: 40px;" name="quote_model" id="blood_grp" required>
 
                                                             <option value="">Select Model</option>
-
-                                                            @if($lang->lang == 'eng')
-
-                                                                @foreach($models as $key)
-                                                                    <option value="{{$key->id}}">{{$key->cat_slug}}</option>
-                                                                @endforeach
-
-                                                            @else
-
-                                                                @foreach($models as $key)
-                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
-                                                                @endforeach
-
-                                                            @endif
 
                                                         </select>
 
