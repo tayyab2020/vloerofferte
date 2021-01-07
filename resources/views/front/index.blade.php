@@ -210,20 +210,6 @@
 
                                     <option value="">Select Brand</option>
 
-                                    @if($lang->lang == 'eng')
-
-                                        @foreach($brands as $sub)
-                                            <option value="{{$sub->id}}">{{$sub->cat_slug}}</option>
-                                        @endforeach
-
-                                    @else
-
-                                        @foreach($brands as $sub)
-                                            <option value="{{$sub->id}}">{{$sub->cat_name}}</option>
-                                        @endforeach
-
-                                    @endif
-
                                 </select>
 
                             </div>
@@ -319,20 +305,6 @@
                                                         <select class="js-data-example-ajax5 form-control quote-brand quote_validation" style="height: 40px;" name="quote_brand" id="blood_grp" required>
 
                                                             <option value="">Select Brand</option>
-
-                                                            @if($lang->lang == 'eng')
-
-                                                                @foreach($brands as $key)
-                                                                    <option value="{{$key->id}}">{{$key->cat_slug}}</option>
-                                                                @endforeach
-
-                                                            @else
-
-                                                                @foreach($brands as $key)
-                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
-                                                                @endforeach
-
-                                                            @endif
 
                                                         </select>
 
@@ -971,80 +943,65 @@
 
             $('.quote-brand').change(function() {
 
-                var id = $(this).val();
-
                 $('.quote-brand').val($(this).val());
 
                 $(".quote-brand").trigger('change.select2');
+
+                var brand_id = $(this).val();
+                var options = '';
+
+                $.ajax({
+                    type:"GET",
+                    data: "id=" + brand_id ,
+                    url: "<?php echo url('/products-models-by-brands')?>",
+                    success: function(data) {
+
+                        $.each(data, function(index, value) {
+
+                            var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
+
+                            options = options + opt;
+
+                        });
+
+                        $('.quote-model').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Model</option>'+options);
+
+                    }
+                });
 
             });
 
             $('.quote-service').change(function(){
 
-                var id = $(this).val();
-
                 $('.quote-service').val($(this).val());
 
                 $(".quote-service").trigger('change.select2');
 
+                var category_id = $(this).val();
+                var options = '';
+
                 $.ajax({
                     type:"GET",
-                    data: "id=" + id ,
-                    url: "<?php echo url('get-questions')?>",
-
+                    data: "id=" + category_id ,
+                    url: "<?php echo url('/products-brands-by-category')?>",
                     success: function(data) {
 
-                        $('#step3').children('.well').empty();
+                        $.each(data, function(index, value) {
 
-                        var index_count = 0;
+                            var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
 
-                        $.each(data, function (index, val) {
+                            options = options + opt;
 
-                            $.each(val.answers, function (index1, val1) {
-                                console.log(val1);
-                            });
+                        });
 
-                            if(data.length == index + 1)
-                            {
-                                $('#step3').children('.well').append('<div></div>');
-                            }
-                            else
-                            {
-                                $('#step3').children('.well').append('<div style="margin-bottom: 40px;"></div>');
-                            }
+                        $('.quote-brand').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Brand</option>'+options);
 
-                            var last = $('#step3').children('.well').children().last('div');
-
-                            last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">'+val.title+'</h3><input type="hidden" name="questions[]" value="'+val.title+'">');
-
-                            if(val.predefined)
-                            {
-
-                                last.append('<div></div>');
-
-                                $.each(val.answers, function (index1, val1) {
-
-                                        last.children('div').append('<hr>\n' +
-                                            '                                        <label class="container-checkbox">'+val1.title+'\n' +
-                                            '                                        <input name="answers'+index+'[]" type="checkbox" value="'+val1.title+'">\n' +
-                                            '                                        <span class="checkmark-checkbox"></span>\n' +
-                                            '                                        </label>');
-
-                                });
-                            }
-                            else
-                            {
-                                last.append('<textarea name="answers'+index+'" style="resize: vertical;" rows="7" class="form-control" placeholder=""></textarea>');
-                            }
-
-                            index_count = index;
-
-                            });
-
-                        $('#step3').children('.well').append('<input type="hidden" name="index_count" value="'+index_count+'">');
-
-                        /*$('#step3').children('div').children('h3').
-                        console.log(data);*/
                     }
                 });
 
@@ -2274,74 +2231,6 @@
             placeholder: "Select Model",
             allowClear: true,
             dropdownParent: $('#myModal'),
-
-        });
-
-        $('.js-data-example-ajax3').on('change', function() {
-
-            var brand_id = $(this).val();
-            var options = '';
-
-            $.ajax({
-                type:"GET",
-                data: "id=" + brand_id ,
-                url: "<?php echo url('/products-models-by-brands')?>",
-                success: function(data) {
-
-                    $.each(data, function(index, value) {
-
-                        var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
-
-                        options = options + opt;
-
-                    });
-
-                    $('.js-data-example-ajax4').find('option')
-                        .remove()
-                        .end()
-                        .append('<option value="">Select Model</option>'+options);
-
-                    $('.js-data-example-ajax6').find('option')
-                        .remove()
-                        .end()
-                        .append('<option value="">Select Model</option>'+options);
-
-                }
-            });
-
-        });
-
-        $('.js-data-example-ajax5').on('change', function() {
-
-            var brand_id = $(this).val();
-            var options = '';
-
-            $.ajax({
-                type:"GET",
-                data: "id=" + brand_id ,
-                url: "<?php echo url('/products-models-by-brands')?>",
-                success: function(data) {
-
-                    $.each(data, function(index, value) {
-
-                        var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
-
-                        options = options + opt;
-
-                    });
-
-                    $('.js-data-example-ajax4').find('option')
-                        .remove()
-                        .end()
-                        .append('<option value="">Select Model</option>'+options);
-
-                    $('.js-data-example-ajax6').find('option')
-                        .remove()
-                        .end()
-                        .append('<option value="">Select Model</option>'+options);
-
-                }
-            });
 
         });
 

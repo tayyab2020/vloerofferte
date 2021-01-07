@@ -42,6 +42,8 @@
                                               <input value="{{isset($cats) ? $cats->cat_name : null}}" class="form-control" name="cat_name" id="blood_group_display_name" placeholder="Enter Model title" required="" type="text">
                                             </div>
                                           </div>
+
+
                                           <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_slug">Slug* <span>(In English)</span></label>
                                             <div class="col-sm-6">

@@ -46,6 +46,12 @@
                                                             aria-controls="product-table_wrapper" rowspan="1"
                                                             colspan="1" style="width: 144px;" aria-sort="ascending"
                                                             aria-label="Blood Group Name: activate to sort column descending">
+                                                            Category
+                                                        </th>
+                                                        <th class="sorting_asc" tabindex="0"
+                                                            aria-controls="product-table_wrapper" rowspan="1"
+                                                            colspan="1" style="width: 144px;" aria-sort="ascending"
+                                                            aria-label="Blood Group Name: activate to sort column descending">
                                                             Description
                                                         </th>
                                                         <th class="sorting_asc" tabindex="0"
@@ -71,6 +77,7 @@
                                                                     alt="Category's Photo" style="max-height: 100px;">
                                                             </td>
                                                             <td>{{$cat->cat_name}}</td>
+                                                            <td>{{$cat->category}}</td>
                                                             <td>{!!$cat->description!!}</td>
                                                             <td>{{$cat->cat_slug}}</td>
                                                             <td>

@@ -320,8 +320,8 @@ class FrontendController extends Controller
         }
         $ads = Portfolio::all();
         $cats = Category::where('main_service', '=', 1)->get();
-        $brands = Brand::all();
-        $models = Model1::all();
+        /*$brands = Brand::all();
+        $models = Model1::all();*/
         $rusers = User::where('featured', '=', 1)->where('active', '=', 1)->orderBy('created_at', 'desc')->limit(4)->get();
 
         $no = 0;
@@ -347,7 +347,7 @@ class FrontendController extends Controller
         $language = $this->lang->lang;
 
 
-        return view('front.index', compact('ads', 'cats', 'brands', 'models', 'rusers', 'cities', 'jobs', 'language'));
+        return view('front.index', compact('ads', 'cats', 'rusers', 'cities', 'jobs', 'language'));
 
     }
 
@@ -356,6 +356,13 @@ class FrontendController extends Controller
         $models = Model1::where('brand_id', '=', $request->id)->get();
 
         return $models;
+    }
+
+    public function productsBrandsByCategory(Request $request)
+    {
+        $brands = Brand::where('category_id','=',$request->id)->get();
+
+        return $brands;
     }
 
     public function Cart()

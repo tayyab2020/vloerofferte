@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\Model1;
 use App\vats;
 use Illuminate\Http\Request;
 use App\Category;
@@ -27,14 +28,16 @@ class BrandController extends Controller
 
     public function index()
     {
-        $cats = Brand::orderBy('id','desc')->get();
+        $cats = Brand::leftjoin('categories','categories.id','=','brands.category_id')->orderBy('brands.id','desc')->select('brands.*','categories.cat_name as category')->get();
 
         return view('admin.brand.index',compact('cats'));
     }
 
     public function create()
     {
-        return view('admin.brand.create');
+        $categories = Category::where('main_service',1)->get();
+
+        return view('admin.brand.create',compact('categories'));
     }
 
     public function store(StoreValidationRequest1 $request)
@@ -68,8 +71,9 @@ class BrandController extends Controller
     public function edit($id)
     {
         $cats = Brand::where('id','=',$id)->first();
+        $categories = Category::where('main_service',1)->get();
 
-        return view('admin.brand.create',compact('cats'));
+        return view('admin.brand.create',compact('cats','categories'));
     }
 
     public function update(UpdateValidationRequest $request, $id)
