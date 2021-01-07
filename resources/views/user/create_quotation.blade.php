@@ -53,7 +53,7 @@
                                                                     <thead>
                                                                     <tr>
                                                                         <th style="width: 40px;">#</th>
-                                                                        <th class="col-sm-2">Service/Item</th>
+                                                                        <th class="col-sm-2">Category</th>
                                                                         <th class="col-md-6">Description</th>
                                                                         <th style="width:100px;">Cost</th>
                                                                         <th style="width:120px;">Qty</th>
@@ -69,10 +69,6 @@
 
                                                                                 @foreach($services as $key)
                                                                                     <option value="{{$key->id}}" @if($quote->quote_service == $key->id) selected <?php $rate = $key->rate; $service_title = $key->cat_name; ?> @endif>{{$key->cat_name}}</option>
-                                                                                @endforeach
-
-                                                                                @foreach($items as $key)
-                                                                                     <option value="{{$key->id}}I">{{$key->cat_name}}</option>
                                                                                 @endforeach
 
                                                                             </select>
@@ -107,10 +103,6 @@
                                                                                 @foreach($services as $key)
                                                                                     <option value="{{$key->id}}">{{$key->cat_name}}</option>
                                                                                 @endforeach
-                                                                                    @foreach($items as $key)
-                                                                                        <option value="{{$key->id}}I">{{$key->cat_name}}</option>
-                                                                                    @endforeach
-
                                                                             </select>
 
                                                                             <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">
@@ -922,9 +914,6 @@
                     '                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>\n' +
                     '                                                                                @foreach($services as $key)\n' +
                     '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
-                    '                                                                                @endforeach\n' +
-                    '                                                                                @foreach($items as $key)\n' +
-                    '                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>\n' +
                     '                                                                                @endforeach\n' +
                     '                                                                            </select>\n' +
                     '                                                                           <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">\n'+

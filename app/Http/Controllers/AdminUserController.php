@@ -258,7 +258,7 @@ class AdminUserController extends Controller
 
         if(count($quotation) != 0)
         {
-            $services = Category::leftjoin('handyman_products','handyman_products.product_id','=','categories.id')->where('handyman_products.handyman_id',$quotation[0]->handyman_id)->select('categories.*','handyman_products.rate','handyman_products.description')->get();
+            $services = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('categories','categories.id','=','products.category_id')->where('handyman_products.handyman_id',$quotation[0]->handyman_id)->select('categories.*','handyman_products.rate')->get();
 
             $items = items::where('user_id',$quotation[0]->handyman_id)->get();
 

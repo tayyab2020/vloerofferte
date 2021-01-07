@@ -67,7 +67,7 @@
                                 <table class="table" style="border: 1px solid #e5e5e5;">
                                     <thead>
                                     <tr>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Service/Item</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">Category</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Estimated Date</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Description</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Cost</th>
