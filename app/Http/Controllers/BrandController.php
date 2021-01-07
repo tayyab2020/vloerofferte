@@ -28,16 +28,14 @@ class BrandController extends Controller
 
     public function index()
     {
-        $cats = Brand::leftjoin('categories','categories.id','=','brands.category_id')->orderBy('brands.id','desc')->select('brands.*','categories.cat_name as category')->get();
+        $cats = Brand::orderBy('id','desc')->get();
 
         return view('admin.brand.index',compact('cats'));
     }
 
     public function create()
     {
-        $categories = Category::where('main_service',1)->get();
-
-        return view('admin.brand.create',compact('categories'));
+        return view('admin.brand.create');
     }
 
     public function store(StoreValidationRequest1 $request)
@@ -71,9 +69,8 @@ class BrandController extends Controller
     public function edit($id)
     {
         $cats = Brand::where('id','=',$id)->first();
-        $categories = Category::where('main_service',1)->get();
 
-        return view('admin.brand.create',compact('cats','categories'));
+        return view('admin.brand.create',compact('cats'));
     }
 
     public function update(UpdateValidationRequest $request, $id)

@@ -9,7 +9,7 @@ class Brand extends Model
 {
     use SoftDeletes;
     protected $table = 'brands';
-    protected $fillable = ['cat_name','cat_slug','category_id','photo','description','colors'];
+    protected $fillable = ['cat_name','cat_slug','photo','description','colors'];
     public $timestamps = false;
     protected $dates = ['deleted_at'];
 

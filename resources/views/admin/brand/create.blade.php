@@ -65,25 +65,6 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="website_title">Category *</label>
-
-                                            <div class="col-sm-6">
-                                                <select class="form-control" name="category_id" required>
-                                                    <option value="">Select Category</option>
-
-                                                    @foreach($categories as $key)
-
-                                                        <option
-                                                            @if(isset($cats)) @if($cats->category_id == $key->id) selected
-                                                            @endif @endif value="{{$key->id}}">{{$key->cat_name}}</option>
-
-                                                    @endforeach
-
-                                                </select>
-                                            </div>
-                                        </div>
-
 
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="service_description">Brand
