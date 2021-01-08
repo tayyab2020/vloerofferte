@@ -997,6 +997,11 @@
 
                         });
 
+                        $('.quote-model').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Model</option>');
+
                         $('.quote-brand').find('option')
                             .remove()
                             .end()
