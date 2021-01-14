@@ -668,12 +668,14 @@ class UserController extends Controller
 
         /*$services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate')->get();*/
 
-        $services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate')->get();
+        $services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'brands.id as brand_id', 'brands.cat_name as brand_name', 'models.id as model_id', 'models.cat_name as model_name', 'handyman_products.rate')->get();
 
         if (count($services) == 0) {
             Session::flash('unsuccess', 'No categories found, You have to select at least one product');
             return redirect()->back();
         }
+
+        $items = items::where('user_id',$user_id)->get();
 
         $settings = Generalsetting::findOrFail(1);
 
@@ -682,7 +684,7 @@ class UserController extends Controller
         $quote = quotes::leftjoin('handyman_quotes', 'handyman_quotes.quote_id', '=', 'quotes.id')->where('quotes.id', $id)->where('handyman_quotes.handyman_id', $user_id)->select('quotes.*')->first();
 
         if ($quote) {
-            return view('user.create_quotation', compact('quote', 'services', 'vat_percentage'));
+            return view('user.create_quotation', compact('quote', 'services', 'vat_percentage', 'items'));
         } else {
             return redirect('handyman/dashboard');
         }

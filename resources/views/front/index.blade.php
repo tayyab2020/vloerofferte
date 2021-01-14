@@ -226,7 +226,7 @@
 
                             <div style="width: 20%;">
 
-                                <input type="text" style="height: 100%;" name="model_number" class="form-control" placeholder="Model Number (Optional)" />
+                                <input type="text" style="height: 100%;" name="model_number" class="form-control quote-model-number" placeholder="Model Number (Optional)" />
 
                             </div>
 
@@ -311,13 +311,20 @@
                                                     </div>
 
 
-                                                    <div>
+                                                    <div style="margin-bottom: 40px;">
 
                                                         <select class="js-data-example-ajax6 form-control quote-model quote_validation" style="height: 40px;" name="quote_model" id="blood_grp" required>
 
                                                             <option value="">Select Model</option>
 
                                                         </select>
+
+                                                    </div>
+
+
+                                                    <div>
+
+                                                        <input style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_model_number" placeholder="Model Number (Optional)" class="form-control quote-model-number">
 
                                                     </div>
 
@@ -930,6 +937,12 @@
 
 
         <script type="text/javascript">
+
+            $('.quote-model-number').keyup(function() {
+
+                $('.quote-model-number').val($(this).val());
+
+            });
 
             $('.quote-model').change(function() {
 

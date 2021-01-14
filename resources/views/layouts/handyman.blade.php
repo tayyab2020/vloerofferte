@@ -299,6 +299,11 @@
 
 <style type="text/css">
 
+    #sidebar-menu
+    {
+        width: 100%;
+    }
+
     button {
         outline: none !important;
     }

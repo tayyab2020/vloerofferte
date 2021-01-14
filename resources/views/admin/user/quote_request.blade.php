@@ -135,6 +135,15 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_slug">Model Number </label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" value="{{$request->quote_model_number}}"
+                                                       name="quote_model_number" id="quote_model_number"
+                                                       placeholder="Enter Model Number" required="" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_slug">Zip
                                                 Code* </label>
                                             <div class="col-sm-6">

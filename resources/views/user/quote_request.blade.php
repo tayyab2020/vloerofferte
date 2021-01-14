@@ -90,7 +90,8 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Brand* </label>
+                                            <label class="control-label col-sm-4"
+                                                   for="blood_group_display_name">Brand* </label>
                                             <div class="col-sm-6">
                                                 <p style="padding: 10px;"
                                                    class="form-control">{{$request->brand_name}}</p>
@@ -98,12 +99,26 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Model* </label>
+                                            <label class="control-label col-sm-4"
+                                                   for="blood_group_display_name">Model* </label>
                                             <div class="col-sm-6">
                                                 <p style="padding: 10px;"
                                                    class="form-control">{{$request->model_name}}</p>
                                             </div>
                                         </div>
+
+                                        @if($request->quote_model_number)
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4"
+                                                       for="blood_group_display_name">Model Number </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;"
+                                                       class="form-control">{{$request->quote_model_number}}</p>
+                                                </div>
+                                            </div>
+
+                                        @endif
 
                                         @foreach($q_a as $key)
 

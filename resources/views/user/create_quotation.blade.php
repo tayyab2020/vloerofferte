@@ -54,7 +54,9 @@
                                                                     <tr>
                                                                         <th style="width: 40px;">#</th>
                                                                         <th class="col-sm-2">Category</th>
-                                                                        <th class="col-md-6">Description</th>
+                                                                        <th class="col-sm-2">Brand</th>
+                                                                        <th class="col-sm-2">Model</th>
+                                                                        <th class="col-md-3">Description</th>
                                                                         <th style="width:100px;">Cost</th>
                                                                         <th style="width:120px;">Qty</th>
                                                                         <th style="width: 120px;">Amount</th>
@@ -71,11 +73,43 @@
                                                                                     <option value="{{$key->id}}" @if($quote->quote_service == $key->id) selected <?php $rate = $key->rate; $service_title = $key->cat_name; ?> @endif>{{$key->cat_name}}</option>
                                                                                 @endforeach
 
+                                                                                @foreach($items as $key)
+                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>
+                                                                                @endforeach
+
                                                                             </select>
 
                                                                             <?php if(!isset($service_title)){ $service_title = $services[0]->cat_name; $rate = $services[0]->rate; } ?>
 
                                                                             <input type="hidden" name="service_title[]" value="{{$service_title}}">
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>
+
+                                                                                @foreach($services as $key)
+                                                                                    <option value="{{$key->brand_id}}" @if($quote->quote_brand == $key->brand_id) selected <?php $brand_title = $key->brand_name; ?> @endif>{{$key->brand_name}}</option>
+                                                                                @endforeach
+
+                                                                            </select>
+
+                                                                            <?php if(!isset($brand_title)){ $brand_title = $services[0]->brand_name; } ?>
+
+                                                                            <input type="hidden" name="brand_title[]" value="{{$brand_title}}">
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>
+
+                                                                                @foreach($services as $key)
+                                                                                    <option value="{{$key->model_id}}" @if($quote->quote_model == $key->model_id) selected <?php $model_title = $key->model_name; ?> @endif>{{$key->model_name}}</option>
+                                                                                @endforeach
+
+                                                                            </select>
+
+                                                                            <?php if(!isset($model_title)){ $model_title = $services[0]->model_name; } ?>
+
+                                                                            <input type="hidden" name="model_title[]" value="{{$model_title}}">
                                                                         </td>
 
                                                                         <td class="td-desc">
@@ -96,36 +130,7 @@
 
                                                                         <td style="text-align: center;"><a href="javascript:void(0)" class="text-success font-18 add-row" title="Add"><i class="fa fa-plus"></i></a></td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td>2</td>
-                                                                        <td>
-                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
-                                                                                @foreach($services as $key)
-                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
-                                                                                @endforeach
-                                                                            </select>
 
-                                                                            <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">
-                                                                        </td>
-
-                                                                        <td class="td-desc">
-                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>
-                                                                        </td>
-
-                                                                        <td class="td-rate">
-                                                                            <input name="cost[]" class="form-control" type="text" value="{{$services[0]->rate}}" required>
-                                                                        </td>
-
-                                                                        <td class="td-qty">
-                                                                            <input name="qty[]" class="form-control" type="text" required>
-                                                                        </td>
-
-                                                                        <td class="td-amount">
-                                                                            <input name="amount[]" class="form-control" readonly="" type="text">
-                                                                        </td>
-
-                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>
-                                                                    </tr>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -843,6 +848,22 @@
                 allowClear: true,
             });
 
+            $(".js-data-example-ajax1").select2({
+                width: '100%',
+                height: '200px',
+                // placeholder: "City Name",
+                placeholder: "",
+                allowClear: true,
+            });
+
+            $(".js-data-example-ajax2").select2({
+                width: '100%',
+                height: '200px',
+                // placeholder: "City Name",
+                placeholder: "",
+                allowClear: true,
+            });
+
             $(".js-data-example-ajax").change(function(){
 
                 var current = $(this);
@@ -913,11 +934,33 @@
                     '                                                                        <td>\n' +
                     '                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>\n' +
                     '                                                                                @foreach($services as $key)\n' +
-                    '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
+                    '                                                                                    <option value="{{$key->id}}" @if($quote->quote_service == $key->id) selected <?php $rate = $key->rate; $service_title = $key->cat_name; ?> @endif>{{$key->cat_name}}</option>\n' +
+                    '                                                                                @endforeach\n' +
+                    '                                                                                @foreach($items as $key)\n' +
+                    '                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>\n' +
+                    '                                                                                @endforeach'+
+                    '                                                                            </select>\n' +
+                    '                                                                           <?php if(!isset($service_title)){ $service_title = $services[0]->cat_name; $rate = $services[0]->rate; } ?>\n'+
+                    '                                                                           <input type="hidden" name="service_title[]" value="{{$service_title}}">\n'+
+                    '                                                                        </td>\n' +
+                    '                                                                        <td>\n'+
+                    '                                                                            <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>\n' +
+                    '                                                                                @foreach($services as $key)\n' +
+                    '                                                                                    <option value="{{$key->brand_id}}" @if($quote->quote_brand == $key->brand_id) selected <?php $brand_title = $key->brand_name; ?> @endif>{{$key->brand_name}}</option>\n' +
                     '                                                                                @endforeach\n' +
                     '                                                                            </select>\n' +
-                    '                                                                           <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">\n'+
-                    '                                                                        </td>\n' +
+                    '                                                                            <?php if (!isset($brand_title)) { $brand_title = $services[0]->brand_name; } ?>\n'+
+                    '                                                                            <input type="hidden" name="brand_title[]" value="{{$brand_title}}">\n' +
+                    '                                                                        </td>'+
+                    '                                                                        <td>\n'+
+                    '                                                                            <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>\n' +
+                    '                                                                                @foreach($services as $key)\n' +
+                    '                                                                                    <option value="{{$key->model_id}}" @if($quote->quote_model == $key->model_id) selected <?php $model_title = $key->model_name; ?> @endif>{{$key->model_name}}</option>\n' +
+                    '                                                                                @endforeach\n' +
+                    '                                                                            </select>\n' +
+                    '                                                                            <?php if(!isset($model_title)){ $model_title = $services[0]->model_name; } ?>\n'+
+                    '                                                                            <input type="hidden" name="model_title[]" value="{{$model_title}}">\n' +
+                    '                                                                        </td>'+
                     '                                                                        <td class="td-desc">\n' +
                     '                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>\n' +
                     '                                                                        </td>\n' +
@@ -1003,6 +1046,22 @@
                 });
 
                 $(".js-data-example-ajax").select2({
+                    width: '100%',
+                    height: '200px',
+                    // placeholder: "City Name",
+                    placeholder: "",
+                    allowClear: true,
+                });
+
+                $(".js-data-example-ajax1").select2({
+                    width: '100%',
+                    height: '200px',
+                    // placeholder: "City Name",
+                    placeholder: "",
+                    allowClear: true,
+                });
+
+                $(".js-data-example-ajax2").select2({
                     width: '100%',
                     height: '200px',
                     // placeholder: "City Name",

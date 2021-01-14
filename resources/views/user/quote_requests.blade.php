@@ -353,7 +353,9 @@
 @section('scripts')
 
     <script type="text/javascript">
-        $('#example').DataTable();
+        $('#example').DataTable({
+            order: [[0, 'desc']]
+        });
     </script>
 
 @endsection
