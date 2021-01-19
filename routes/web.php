@@ -14,6 +14,8 @@
   Route::get('/','FrontendController@index')->name('front.index');
   Route::get('/products-models-by-brands', 'FrontendController@productsModelsByBrands');
   Route::get('/products-brands-by-category', 'FrontendController@productsBrandsByCategory');
+  Route::get('/account-products-models-by-brands', 'FrontendController@accountProductsModelsByBrands')->name('products-models-by-brands');
+  Route::get('/account-products-brands-by-category', 'FrontendController@accountProductsBrandsByCategory')->name('products-brands-by-category');
   Route::get('/get-questions','FrontendController@GetQuestions');
   Route::get('/thankyou/{id}','FrontendController@Thankyou');
   Route::get('/thankyou-page/{id}','FrontendController@ThankyouPage');

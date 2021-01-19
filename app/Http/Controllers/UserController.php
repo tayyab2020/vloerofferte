@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Brand;
 use App\custom_quotations;
 use App\custom_quotations_data;
 use App\handyman_quotes;
 use App\items;
+use App\Model1;
 use App\product;
 use App\Products;
 use App\quotation_invoices_data;
@@ -666,12 +668,23 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
 
+        $quote = quotes::leftjoin('handyman_quotes', 'handyman_quotes.quote_id', '=', 'quotes.id')->where('quotes.id', $id)->where('handyman_quotes.handyman_id', $user_id)->select('quotes.*')->first();
+
         /*$services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate')->get();*/
 
-        $services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'brands.id as brand_id', 'brands.cat_name as brand_name', 'models.id as model_id', 'models.cat_name as model_name', 'handyman_products.rate')->get();
+        $matched_data = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id', $user_id)->where('products.category_id', $quote->quote_service)->where('products.brand_id', $quote->quote_brand)->where('products.model_id', $quote->quote_model)->select('categories.id as service_id', 'brands.id as brand_id', 'models.id as model_id', 'handyman_products.sell_rate as rate')->first();
 
-        if (count($services) == 0) {
-            Session::flash('unsuccess', 'No categories found, You have to select at least one product');
+        $all_services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*')->get();
+        $all_services = $all_services->unique();
+
+        $all_brands = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
+        $all_brands = $all_brands->unique();
+
+        $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
+        $all_models = $all_models->unique();
+
+        if (!$matched_data) {
+            Session::flash('unsuccess', 'No product found, You have to select at least one product');
             return redirect()->back();
         }
 
@@ -681,10 +694,8 @@ class UserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quote = quotes::leftjoin('handyman_quotes', 'handyman_quotes.quote_id', '=', 'quotes.id')->where('quotes.id', $id)->where('handyman_quotes.handyman_id', $user_id)->select('quotes.*')->first();
-
         if ($quote) {
-            return view('user.create_quotation', compact('quote', 'services', 'vat_percentage', 'items'));
+            return view('user.create_quotation', compact('quote', 'matched_data', 'vat_percentage', 'items', 'all_services', 'all_brands', 'all_models', 'user_id'));
         } else {
             return redirect('handyman/dashboard');
         }
@@ -830,6 +841,8 @@ class UserController extends Controller
                 $invoice_items->s_i_id = (int)$key;
                 $invoice_items->item = $x;
                 $invoice_items->service = $request->service_title[$i];
+                $invoice_items->brand = $request->brand_title[$i];
+                $invoice_items->model = $request->model_title[$i];
                 $invoice_items->rate = $request->cost[$i];
                 $invoice_items->qty = $request->qty[$i];
                 $invoice_items->description = $request->description[$i];
@@ -862,7 +875,7 @@ class UserController extends Controller
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
                 ), function ($message) use ($file, $admin_email, $filename) {
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($admin_email)->subject('Quotation Created!');
 
                     $message->attach($file, [
@@ -901,6 +914,8 @@ class UserController extends Controller
                 $item->s_i_id = (int)$key;
                 $item->item = $x;
                 $item->service = $request->service_title[$i];
+                $item->brand = $request->brand_title[$i];
+                $item->model = $request->model_title[$i];
                 $item->rate = $request->cost[$i];
                 $item->qty = $request->qty[$i];
                 $item->description = $request->description[$i];
@@ -940,7 +955,7 @@ class UserController extends Controller
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
                 ), function ($message) use ($file, $client_email, $filename) {
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($client_email)->subject('Quotation Edited!');
 
                     $message->attach($file, [
@@ -1933,7 +1948,18 @@ class UserController extends Controller
             $id = str_replace("I", "", $id);
             $post = items::where('id', $request->id)->first();
         } else {
-            $post = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('categories.id', $request->id)->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate')->first();
+            if($request->type == "service")
+            {
+                $post = Category::where('id', $request->id)->first();
+            }
+            elseif($request->type == "brand")
+            {
+                $post = Brand::where('id', $request->id)->first();
+            }
+            else
+            {
+                $post = Model1::where('id', $request->id)->first();
+            }
         }
 
 

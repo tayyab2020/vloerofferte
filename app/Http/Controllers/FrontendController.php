@@ -369,6 +369,24 @@ class FrontendController extends Controller
         return $brands;
     }
 
+    public function accountProductsModelsByBrands(Request $request)
+    {
+        $models = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('models','models.id','=','products.model_id')->where('products.brand_id','=',$request->id)->where('handyman_products.handyman_id','=',$request->handyman_id)->select('models.*')->get();
+
+        $models = $models->unique();
+
+        return $models;
+    }
+
+    public function accountProductsBrandsByCategory(Request $request)
+    {
+        $brands = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('products.category_id','=',$request->id)->where('handyman_products.handyman_id','=',$request->handyman_id)->select('brands.*')->get();
+
+        $brands = $brands->unique();
+
+        return $brands;
+    }
+
     public function Cart()
     {
 
