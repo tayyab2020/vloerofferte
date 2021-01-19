@@ -1009,10 +1009,6 @@
 
                         $.each(data, function (index, val) {
 
-                            $.each(val.answers, function (index1, val1) {
-                                console.log(val1);
-                            });
-
                             if(data.length == index + 1)
                             {
                                 $('#step3').children('.well').append('<div></div>');
@@ -1029,7 +1025,7 @@
                             if(val.predefined)
                             {
 
-                                last.append('<div></div>');
+                                last.append('<div><input name="predefined'+index+'" type="hidden" value="1"></div>');
 
                                 $.each(val.answers, function (index1, val1) {
 
@@ -1043,7 +1039,7 @@
                             }
                             else
                             {
-                                last.append('<textarea name="answers'+index+'" style="resize: vertical;" rows="7" class="form-control" placeholder=""></textarea>');
+                                last.append('<input name="predefined'+index+'" type="hidden" value="0"><textarea name="answers'+index+'" style="resize: vertical;" rows="7" class="form-control" placeholder=""></textarea>');
                             }
 
                             index_count = index;
