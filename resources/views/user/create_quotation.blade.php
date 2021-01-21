@@ -54,7 +54,7 @@
                                                                     <thead>
                                                                     <tr>
                                                                         <th style="width: 40px;">#</th>
-                                                                        <th class="col-sm-2">Category</th>
+                                                                        <th class="col-sm-2">Category/Item</th>
                                                                         <th class="col-sm-2">Brand</th>
                                                                         <th class="col-sm-2">Model</th>
                                                                         <th class="col-md-3">Description</th>
@@ -897,7 +897,7 @@
                                 amounts[i] = 0;
                             }
 
-                            grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                            grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                         }
 
                         var vat = grand_total/vat_percentage * 100;
@@ -1127,7 +1127,7 @@
                                     amounts[i] = 0;
                                 }
 
-                                grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                                grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                             }
 
                             var vat = grand_total/vat_percentage * 100;
@@ -1298,7 +1298,7 @@
                             amounts[i] = 0;
                         }
 
-                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                        grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                     }
 
                     var vat = grand_total/vat_percentage * 100;
@@ -1369,7 +1369,7 @@
                             amounts[i] = 0;
                         }
 
-                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                        grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                     }
 
                     var vat = grand_total/vat_percentage * 100;
@@ -1414,7 +1414,7 @@
                             amounts[i] = 0;
                         }
 
-                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                        grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                     }
 
                     var vat = grand_total/vat_percentage * 100;
@@ -1461,7 +1461,7 @@
                         amounts[i] = 0;
                     }
 
-                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                    grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                 }
 
                 var vat = grand_total/vat_percentage * 100;
@@ -1532,7 +1532,7 @@
                         amounts[i] = 0;
                     }
 
-                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                    grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                 }
 
                 var vat = grand_total/vat_percentage * 100;
@@ -1578,7 +1578,7 @@
                         amounts[i] = 0;
                     }
 
-                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                    grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                 }
 
                 var vat = grand_total/vat_percentage * 100;

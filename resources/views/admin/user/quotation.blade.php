@@ -72,8 +72,10 @@
                                                                     <thead>
                                                                     <tr>
                                                                         <th style="width: 40px;">#</th>
-                                                                        <th class="col-sm-2">Service/Item</th>
-                                                                        <th class="col-md-6">Description</th>
+                                                                        <th class="col-sm-2">Category/Item</th>
+                                                                        <th class="col-sm-2">Brand</th>
+                                                                        <th class="col-sm-2">Model</th>
+                                                                        <th class="col-md-3">Description</th>
                                                                         <th style="width:100px;">Cost</th>
                                                                         <th style="width:120px;">Qty</th>
                                                                         <th style="width: 120px;">Amount</th>
@@ -102,6 +104,28 @@
                                                                                     </select>
 
                                                                                     <input type="hidden" name="service_title[]" value="{{$service_title}}">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required @if(Route::currentRouteName() == 'view-quotation') disabled @endif>
+
+                                                                                        @foreach($all_brands as $key)
+                                                                                            <option value="{{$key->id}}" @if($temp->b_i_id == $key->id) selected <?php $brand_title = $temp->brand; ?> @endif>{{$key->cat_name}}</option>
+                                                                                        @endforeach
+
+                                                                                    </select>
+
+                                                                                    <input type="hidden" name="brand_title[]" value="{{$brand_title}}">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required @if(Route::currentRouteName() == 'view-quotation') disabled @endif>
+
+                                                                                        @foreach($all_models as $key)
+                                                                                            <option value="{{$key->id}}" @if($temp->m_i_id == $key->id) selected <?php $model_title = $temp->model; ?> @endif>{{$key->cat_name}}</option>
+                                                                                        @endforeach
+
+                                                                                    </select>
+
+                                                                                    <input type="hidden" name="model_title[]" value="{{$model_title}}">
                                                                                 </td>
                                                                                 <td>
                                                                                     <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control" @if(Route::currentRouteName() == 'view-quotation') readonly @endif>{{$temp->data_description}}</textarea>
@@ -860,8 +884,21 @@
             $(".js-data-example-ajax").select2({
                 width: '100%',
                 height: '200px',
-                // placeholder: "City Name",
-                placeholder: "",
+                placeholder: "Select Category",
+                allowClear: true,
+            });
+
+            $(".js-data-example-ajax1").select2({
+                width: '100%',
+                height: '200px',
+                placeholder: "Select Brand",
+                allowClear: true,
+            });
+
+            $(".js-data-example-ajax2").select2({
+                width: '100%',
+                height: '200px',
+                placeholder: "Select Model",
                 allowClear: true,
             });
 
@@ -905,7 +942,7 @@
                                 amounts[i] = 0;
                             }
 
-                            grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                            grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                         }
 
                         var vat = grand_total/vat_percentage * 100;
@@ -998,7 +1035,7 @@
                                     amounts[i] = 0;
                                 }
 
-                                grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                                grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                             }
 
                             var vat = grand_total/vat_percentage * 100;
@@ -1029,8 +1066,21 @@
                 $(".js-data-example-ajax").select2({
                     width: '100%',
                     height: '200px',
-                    // placeholder: "City Name",
-                    placeholder: "",
+                    placeholder: "Select Category",
+                    allowClear: true,
+                });
+
+                $(".js-data-example-ajax1").select2({
+                    width: '100%',
+                    height: '200px',
+                    placeholder: "Select Brand",
+                    allowClear: true,
+                });
+
+                $(".js-data-example-ajax2").select2({
+                    width: '100%',
+                    height: '200px',
+                    placeholder: "Select Model",
                     allowClear: true,
                 });
 
@@ -1061,7 +1111,7 @@
                             amounts[i] = 0;
                         }
 
-                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                        grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                     }
 
                     var vat = grand_total/vat_percentage * 100;
@@ -1132,7 +1182,7 @@
                             amounts[i] = 0;
                         }
 
-                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                        grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                     }
 
                     var vat = grand_total/vat_percentage * 100;
@@ -1177,7 +1227,7 @@
                             amounts[i] = 0;
                         }
 
-                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                        grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                     }
 
                     var vat = grand_total/vat_percentage * 100;
@@ -1224,7 +1274,7 @@
                         amounts[i] = 0;
                     }
 
-                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                    grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                 }
 
                 var vat = grand_total/vat_percentage * 100;
@@ -1295,7 +1345,7 @@
                         amounts[i] = 0;
                     }
 
-                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                    grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                 }
 
                 var vat = grand_total/vat_percentage * 100;
@@ -1340,7 +1390,7 @@
                         amounts[i] = 0;
                     }
 
-                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                    grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                 }
 
                 var vat = grand_total/vat_percentage * 100;

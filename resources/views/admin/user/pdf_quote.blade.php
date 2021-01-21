@@ -47,7 +47,9 @@
                                     <table class="table" style="border: 1px solid #e5e5e5;">
                                         <thead>
                                         <tr>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Category</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold">Category/Item</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold">Brand</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold">Model</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">Description</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">Postcode</th>
                                         </tr>
@@ -56,6 +58,8 @@
 
                                             <tr>
                                                 <td>{{$quote->cat_name}}</td>
+                                                <td>{{$quote->brand_name}}</td>
+                                                <td>{{$quote->model_name}}</td>
                                                 <td>{{$quote->quote_description}}</td>
                                                 <td>{{$quote->quote_zipcode}}</td>
 

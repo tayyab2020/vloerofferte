@@ -110,8 +110,10 @@
                                                                         <thead>
                                                                         <tr>
                                                                             <th style="width: 40px;">#</th>
-                                                                            <th class="col-sm-2">Service/Item</th>
-                                                                            <th class="col-md-6">Description</th>
+                                                                            <th class="col-sm-2">Category/Item</th>
+                                                                            <th class="col-sm-2">Brand</th>
+                                                                            <th class="col-sm-2">Model</th>
+                                                                            <th class="col-md-3">Description</th>
                                                                             <th style="width:100px;">Cost</th>
                                                                             <th style="width:120px;">Qty</th>
                                                                             <th style="width: 120px;">Amount</th>
@@ -145,6 +147,54 @@
                                                                                     @else
 
                                                                                         <input name="item[]" class="form-control" type="text" value="{{$temp->service}}" readonly>
+
+                                                                                    @endif
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    @if(Route::currentRouteName() != 'view-handyman-quotation' && Route::currentRouteName() != 'view-custom-quotation')
+
+                                                                                        <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
+
+                                                                                            @foreach($services as $key)
+                                                                                                <option value="{{$key->id}}" @if(!$temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->service; ?> @endif @endif>{{$key->cat_name}}</option>
+                                                                                            @endforeach
+
+                                                                                            @foreach($items as $key)
+                                                                                                <option value="{{$key->id}}I" @if($temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $key->cat_name; ?> @endif @endif>{{$key->cat_name}}</option>
+                                                                                            @endforeach
+
+                                                                                            <input type="hidden" name="service_title[]" value="{{$service_title}}">
+
+                                                                                        </select>
+
+                                                                                    @else
+
+                                                                                        <input name="item[]" class="form-control" type="text" value="{{$temp->brand}}" readonly>
+
+                                                                                    @endif
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    @if(Route::currentRouteName() != 'view-handyman-quotation' && Route::currentRouteName() != 'view-custom-quotation')
+
+                                                                                        <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
+
+                                                                                            @foreach($services as $key)
+                                                                                                <option value="{{$key->id}}" @if(!$temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->service; ?> @endif @endif>{{$key->cat_name}}</option>
+                                                                                            @endforeach
+
+                                                                                            @foreach($items as $key)
+                                                                                                <option value="{{$key->id}}I" @if($temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $key->cat_name; ?> @endif @endif>{{$key->cat_name}}</option>
+                                                                                            @endforeach
+
+                                                                                            <input type="hidden" name="service_title[]" value="{{$service_title}}">
+
+                                                                                        </select>
+
+                                                                                    @else
+
+                                                                                        <input name="item[]" class="form-control" type="text" value="{{$temp->model}}" readonly>
 
                                                                                     @endif
                                                                                 </td>
@@ -962,7 +1012,7 @@
                                 amounts[i] = 0;
                             }
 
-                            grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                            grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                         }
 
                         var vat = grand_total/vat_percentage * 100;
@@ -1055,7 +1105,7 @@
                                     amounts[i] = 0;
                                 }
 
-                                grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                                grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                             }
 
                             var vat = grand_total/vat_percentage * 100;
@@ -1118,7 +1168,7 @@
                             amounts[i] = 0;
                         }
 
-                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                        grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                     }
 
                     var vat = grand_total/vat_percentage * 100;
@@ -1189,7 +1239,7 @@
                             amounts[i] = 0;
                         }
 
-                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                        grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                     }
 
                     var vat = grand_total/vat_percentage * 100;
@@ -1234,7 +1284,7 @@
                             amounts[i] = 0;
                         }
 
-                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                        grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                     }
 
                     var vat = grand_total/vat_percentage * 100;
@@ -1281,7 +1331,7 @@
                         amounts[i] = 0;
                     }
 
-                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                    grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                 }
 
                 var vat = grand_total/vat_percentage * 100;
@@ -1352,7 +1402,7 @@
                         amounts[i] = 0;
                     }
 
-                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                    grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                 }
 
                 var vat = grand_total/vat_percentage * 100;
@@ -1397,7 +1447,7 @@
                         amounts[i] = 0;
                     }
 
-                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
+                    grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
                 }
 
                 var vat = grand_total/vat_percentage * 100;
