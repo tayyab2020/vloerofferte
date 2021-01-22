@@ -253,7 +253,7 @@ class AdminUserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quotation = quotation_invoices::leftjoin('quotation_invoices_data','quotation_invoices_data.quotation_id','=','quotation_invoices.id')->leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->where('quotation_invoices.id',$id)->select('quotation_invoices.*','quotes.id as quote_id','quotes.created_at as quote_date','quotation_invoices_data.id as data_id','quotation_invoices_data.s_i_id','quotation_invoices_data.b_i_id','quotation_invoices_data.m_i_id','quotation_invoices_data.item','quotation_invoices_data.rate','quotation_invoices_data.qty','quotation_invoices_data.description as data_description','quotation_invoices_data.estimated_date','quotation_invoices_data.amount')->get();
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data','quotation_invoices_data.quotation_id','=','quotation_invoices.id')->leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->where('quotation_invoices.id',$id)->select('quotation_invoices.*','quotes.id as quote_id','quotes.created_at as quote_date','quotes.date_delivery','quotation_invoices_data.id as data_id','quotation_invoices_data.s_i_id','quotation_invoices_data.b_i_id','quotation_invoices_data.m_i_id','quotation_invoices_data.item','quotation_invoices_data.rate','quotation_invoices_data.qty','quotation_invoices_data.description as data_description','quotation_invoices_data.estimated_date','quotation_invoices_data.amount')->get();
 
 
         if(count($quotation) != 0)
@@ -291,7 +291,7 @@ class AdminUserController extends Controller
     public function SendQuoteRequest($id)
     {
 
-        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$id)->select('quotes.*','categories.cat_name')->first();
+        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->where('quotes.id',$id)->select('quotes.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->first();
 
         $search = $request->quote_zipcode;
 
@@ -405,7 +405,7 @@ class AdminUserController extends Controller
                     'requested_quote_number' => $requested_quote_number,
                     'link' => $link,
                 ), function ($message) use($email){
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($email)->subject('Your Quotation has been Approved!');
 
                 });
@@ -420,7 +420,7 @@ class AdminUserController extends Controller
                     'requested_quote_number' => $requested_quote_number,
                     'client_link' => $client_link,
                 ), function ($message) use($file,$client_email,$filename) {
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($client_email)->subject('New Quotation Received!');
 
                     $message->attach($file, [
@@ -442,7 +442,7 @@ class AdminUserController extends Controller
     {
         $handyman = $request->action;
 
-        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name')->first();
+        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->first();
 
         $q_a = requests_q_a::where('request_id',$request->quote_id)->get();
 
@@ -492,7 +492,7 @@ class AdminUserController extends Controller
                     'username' => $user_name,
                     'link' => $link,
                 ), function ($message) use($file,$email,$filename){
-                $message->from('info@topstoffeerders.nl');
+                $message->from('info@vloerofferteonline.nl');
                 $message->to($email)->subject('Quotation Request!');
 
                         $message->attach($file, [
@@ -588,18 +588,18 @@ class AdminUserController extends Controller
 
 
         $headers =  'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+        $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Profile Information Updated Successfully!";
-        $msg = "Dear Mr/Mrs ". $user_name .",<br><br>Your profile information update request has been approved. For further details visit your handyman panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+        $msg = "Dear Mr/Mrs ". $user_name .",<br><br>Your profile information update request has been approved. For further details visit your handyman panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
         mail($email,$subject,$msg,$headers);
 
 
         $headers =  'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+        $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Profiel informatie is geupdate";
-        $msg = "Beste". $user_name .",<br><br>je wijziging in je profiel is goeggekeurd. Klik op account om de status van je klus te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Topstoffeerders";
+        $msg = "Beste". $user_name .",<br><br>je wijziging in je profiel is goeggekeurd. Klik op account om de status van je klus te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
         mail($email,$subject,$msg,$headers);
 
         Session::flash('success', 'Profile Updated Successfully');
@@ -778,19 +778,19 @@ $handyman_dash = url('/').'/handyman/dashboard';
 
 
              $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Insurance POD Approved!";
-            $msg = "Dear Mr/Mrs ". $user_name .",<br><br>Your insurance pod has been approved. For further details visit your handyman panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+            $msg = "Dear Mr/Mrs ". $user_name .",<br><br>Your insurance pod has been approved. For further details visit your handyman panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
             mail($email,$subject,$msg,$headers);
 
 
 
             $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Verzekering!";
-            $msg = "Beste". $user_name .",<br><br>je verzekering status is goedgekeurd. Klik op account om de status van je wijziging te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Topstoffeerders";
+            $msg = "Beste". $user_name .",<br><br>je verzekering status is goedgekeurd. Klik op account om de status van je wijziging te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
             mail($email,$subject,$msg,$headers);
 
 

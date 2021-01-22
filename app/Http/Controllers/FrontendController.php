@@ -1122,9 +1122,9 @@ class FrontendController extends Controller
 
                 \Mail::send(array(), array(), function ($message) use ($user_email, $user_name, $link, $password) {
                     $message->to($user_email)
-                        ->from('info@topstoffeerders.nl')
+                        ->from('info@vloerofferteonline.nl')
                         ->subject('Account Created!')
-                        ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Your account has been created and your quotation request has been submitted successfully. Kindly complete your profile and change your password. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Your Password: " . $password . "<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+                        ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Your account has been created and your quotation request has been submitted successfully. Kindly complete your profile and change your password. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Your Password: " . $password . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
                 });
 
             }
@@ -1142,6 +1142,7 @@ class FrontendController extends Controller
             $quote->quote_familyname = $request->quote_familyname;
             $quote->quote_email = $request->quote_email;
             $quote->quote_contact = $request->quote_contact;
+            $quote->date_delivery = $request->date_delivery;
 
             $quote->save();
 
@@ -1152,7 +1153,7 @@ class FrontendController extends Controller
 
                 if($request->$predefined)
                 {
-                    if(count($request->$answer) > 0)
+                    if(isset($request->$answer) && count($request->$answer) > 0)
                     {
                         $answers = implode(',', $request->$answer);
                     }
@@ -1178,9 +1179,9 @@ class FrontendController extends Controller
 
             \Mail::send(array(), array(), function ($message) use ($user_email, $user_name, $link) {
                 $message->to($user_email)
-                    ->from('info@topstoffeerders.nl')
+                    ->from('info@vloerofferteonline.nl')
                     ->subject('Quotation Request Submitted!')
-                    ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+                    ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
             });
 
             Session::flash('success', 'Your Quotation request has been created successfully!');

@@ -382,6 +382,9 @@
                                                     <label>Contact Number <span style="color: red;">*</span></label>
                                                     <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_contact" class="form-control quote_validation" placeholder="Enter Contact Number" autocomplete="off">
 
+                                                    <label>Delivery Date <span style="color: red;">*</span></label>
+                                                    <input style="height: 45px;margin-bottom: 20px" type="text" name="date_delivery" id="from_date" class="form-control quote_validation" placeholder="Select Delivery Date" autocomplete="off">
+
                                                     <small style="text-align: center;display: block;width: 95%;margin: auto;">Your details will be used to create a job post, so that you can monitor and manage the job you've posted.</small>
 
                                                     <br>
@@ -936,7 +939,24 @@
         </section>
 
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+
         <script type="text/javascript">
+
+            $(document).ready(function() {
+
+                var todayDate = new Date().getDate();
+                var endD= new Date(new Date().setDate(todayDate + 1));
+
+
+                $('#from_date').datepicker({
+
+                    format: 'dd-mm-yyyy',
+                    startDate: endD,
+
+                });
+
+            });
 
             $('.quote-model-number').keyup(function() {
 
@@ -952,6 +972,10 @@
 
                 $(".quote-model").trigger('change.select2');
 
+                $('.navbar a[href="#step1"]').trigger('click');
+
+                $('.back').hide();
+
             });
 
             $('.quote-brand').change(function() {
@@ -959,6 +983,10 @@
                 $('.quote-brand').val($(this).val());
 
                 $(".quote-brand").trigger('change.select2');
+
+                $('.navbar a[href="#step1"]').trigger('click');
+
+                $('.back').hide();
 
                 var brand_id = $(this).val();
                 var options = '';
@@ -992,6 +1020,10 @@
                 $('.quote-service').val($(this).val());
 
                 $(".quote-service").trigger('change.select2');
+
+                $('.navbar a[href="#step1"]').trigger('click');
+
+                $('.back').hide();
 
                 var category_id = $(this).val();
                 var options = '';

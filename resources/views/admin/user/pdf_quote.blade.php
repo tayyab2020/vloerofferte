@@ -50,7 +50,7 @@
                                             <th class="border-0 text-uppercase small font-weight-bold">Category/Item</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">Brand</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">Model</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Description</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold">Delivery Date</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">Postcode</th>
                                         </tr>
                                         </thead>
@@ -60,7 +60,7 @@
                                                 <td>{{$quote->cat_name}}</td>
                                                 <td>{{$quote->brand_name}}</td>
                                                 <td>{{$quote->model_name}}</td>
-                                                <td>{{$quote->quote_description}}</td>
+                                                <td>{{$quote->date_delivery}}</td>
                                                 <td>{{$quote->quote_zipcode}}</td>
 
                                             </tr>

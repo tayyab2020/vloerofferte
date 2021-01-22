@@ -379,9 +379,9 @@ class UserController extends Controller
 
         \Mail::send(array(), array(), function ($message) use ($handyman_email, $user_name, $invoice, $user) {
             $message->to($handyman_email)
-                ->from('info@topstoffeerders.nl')
+                ->from('info@vloerofferteonline.nl')
                 ->subject('Quotation Review Request!')
-                ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . ' ' . $user->family_name . " submitted review request against your quotation QUO# " . $invoice->quotation_invoice_number . "<br>Kindly take further action on this request.<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+                ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . ' ' . $user->family_name . " submitted review request against your quotation QUO# " . $invoice->quotation_invoice_number . "<br>Kindly take further action on this request.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
 
@@ -389,9 +389,9 @@ class UserController extends Controller
 
         \Mail::send(array(), array(), function ($message) use ($admin_email, $user_name, $invoice, $user) {
             $message->to($admin_email)
-                ->from('info@topstoffeerders.nl')
+                ->from('info@vloerofferteonline.nl')
                 ->subject('Quotation Review Request!')
-                ->setBody("A quotation review request has been submitted by Mr/Mrs " . $user->name . ' ' . $user->family_name . " against quotation QUO# " . $invoice->quotation_invoice_number . "<br>Handyman: " . $user_name . "<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+                ->setBody("A quotation review request has been submitted by Mr/Mrs " . $user->name . ' ' . $user->family_name . " against quotation QUO# " . $invoice->quotation_invoice_number . "<br>Handyman: " . $user_name . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
 
@@ -420,9 +420,9 @@ class UserController extends Controller
 
         \Mail::send(array(), array(), function ($message) use ($handyman_email, $user_name, $invoice, $user) {
             $message->to($handyman_email)
-                ->from('info@topstoffeerders.nl')
+                ->from('info@vloerofferteonline.nl')
                 ->subject('Quotation Review Request!')
-                ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . ' ' . $user->family_name . " submitted review request against your quotation QUO# " . $invoice->quotation_invoice_number . "<br>Kindly take further action on this request.<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+                ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . ' ' . $user->family_name . " submitted review request against your quotation QUO# " . $invoice->quotation_invoice_number . "<br>Kindly take further action on this request.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
 
@@ -430,9 +430,9 @@ class UserController extends Controller
 
         \Mail::send(array(), array(), function ($message) use($admin_email,$user_name,$invoice,$user) {
             $message->to($admin_email)
-                ->from('info@topstoffeerders.nl')
+                ->from('info@vloerofferteonline.nl')
                 ->subject('Quotation Review Request!')
-                ->setBody("A quotation review request has been submitted by Mr/Mrs ".$user->name.' '.$user->family_name." against quotation QUO# ".$invoice->quotation_invoice_number."<br>Handyman: ".$user_name."<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+                ->setBody("A quotation review request has been submitted by Mr/Mrs ".$user->name.' '.$user->family_name." against quotation QUO# ".$invoice->quotation_invoice_number."<br>Handyman: ".$user_name."<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });*/
 
 
@@ -464,9 +464,9 @@ class UserController extends Controller
 
         \Mail::send(array(), array(), function ($message) use ($handyman_email, $user_name, $invoice, $user) {
             $message->to($handyman_email)
-                ->from('info@topstoffeerders.nl')
+                ->from('info@vloerofferteonline.nl')
                 ->subject('Quotation Accepted!')
-                ->setBody("Congratulations! Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . ' ' . $user->family_name . " has accepted your quotation QUO# " . $invoice->quotation_invoice_number . "<br>You can convert your quotation into invoice once job is completed,<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+                ->setBody("Congratulations! Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . ' ' . $user->family_name . " has accepted your quotation QUO# " . $invoice->quotation_invoice_number . "<br>You can convert your quotation into invoice once job is completed,<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
 
@@ -474,9 +474,9 @@ class UserController extends Controller
 
         \Mail::send(array(), array(), function ($message) use ($admin_email, $user_name, $invoice, $user) {
             $message->to($admin_email)
-                ->from('info@topstoffeerders.nl')
+                ->from('info@vloerofferteonline.nl')
                 ->subject('Quotation Accepted!')
-                ->setBody("A quotation QUO# " . $invoice->quotation_invoice_number . " has been accepted by Mr/Mrs " . $user->name . ' ' . $user->family_name . "<br>Handyman: " . $user_name . "<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+                ->setBody("A quotation QUO# " . $invoice->quotation_invoice_number . " has been accepted by Mr/Mrs " . $user->name . ' ' . $user->family_name . "<br>Handyman: " . $user_name . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
         Session::flash('success', 'Quotation accepted successfully!');
@@ -505,9 +505,9 @@ class UserController extends Controller
 
         \Mail::send(array(), array(), function ($message) use ($handyman_email, $user_name, $invoice, $user) {
             $message->to($handyman_email)
-                ->from('info@topstoffeerders.nl')
+                ->from('info@vloerofferteonline.nl')
                 ->subject('Quotation Accepted!')
-                ->setBody("Congratulations! Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . ' ' . $user->family_name . " has accepted your quotation QUO# " . $invoice->quotation_invoice_number . "<br>You can convert your quotation into invoice once job is completed,<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+                ->setBody("Congratulations! Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . ' ' . $user->family_name . " has accepted your quotation QUO# " . $invoice->quotation_invoice_number . "<br>You can convert your quotation into invoice once job is completed,<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
 
@@ -515,9 +515,9 @@ class UserController extends Controller
 
         \Mail::send(array(), array(), function ($message) use($admin_email,$user_name,$invoice,$user) {
             $message->to($admin_email)
-                ->from('info@topstoffeerders.nl')
+                ->from('info@vloerofferteonline.nl')
                 ->subject('Quotation Accepted!')
-                ->setBody("A quotation QUO# ".$invoice->quotation_invoice_number." has been accepted by Mr/Mrs ".$user->name.' '.$user->family_name."<br>Handyman: ".$user_name."<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+                ->setBody("A quotation QUO# ".$invoice->quotation_invoice_number." has been accepted by Mr/Mrs ".$user->name.' '.$user->family_name."<br>Handyman: ".$user_name."<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });*/
 
         Session::flash('success', 'Quotation accepted successfully!');
@@ -619,9 +619,9 @@ class UserController extends Controller
 
             \Mail::send(array(), array(), function ($message) use ($user_email, $user_name, $handyman_name, $link, $org_password) {
                 $message->to($user_email)
-                    ->from('info@topstoffeerders.nl')
+                    ->from('info@vloerofferteonline.nl')
                     ->subject('Account Created!')
-                    ->setBody("Dear <b>Mr/Mrs " . $user_name . "</b>,<br><br>Your account has been created by handyman <b>" . $handyman_name . "</b> for quotations. Kindly complete your profile and change your password. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Your Password: " . $org_password . "<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders", 'text/html');
+                    ->setBody("Dear <b>Mr/Mrs " . $user_name . "</b>,<br><br>Your account has been created by handyman <b>" . $handyman_name . "</b> for quotations. Kindly complete your profile and change your password. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Your Password: " . $org_password . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
             });
 
             $response = array('data' => $input, 'message' => 'New customer created successfully');
@@ -711,15 +711,22 @@ class UserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotation_invoices.handyman_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotation_invoices.handyman_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.created_at as quote_date', 'quotes.date_delivery', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.b_i_id', 'quotation_invoices_data.m_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
 
         if (count($quotation) != 0) {
 
             $services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate')->get();
+            $services = $services->unique();
+
+            $all_brands = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
+            $all_brands = $all_brands->unique();
+
+            $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
+            $all_models = $all_models->unique();
 
             $items = items::where('user_id', $user_id)->get();
 
-            return view('user.quotation', compact('quotation', 'services', 'vat_percentage', 'items'));
+            return view('user.quotation', compact('quotation', 'services', 'vat_percentage', 'items', 'all_brands', 'all_models', 'user_id'));
 
         } else {
             return redirect('handyman/dashboard');
@@ -761,7 +768,7 @@ class UserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotes.user_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotes.user_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.created_at as quote_date', 'quotes.date_delivery', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
 
         if (count($quotation) != 0) {
             $services = Category::all();
@@ -916,6 +923,8 @@ class UserController extends Controller
                 $item = new quotation_invoices_data;
                 $item->quotation_id = $quotation->id;
                 $item->s_i_id = (int)$key;
+                $item->b_i_id = (int)$request->brand[$i];
+                $item->m_i_id = (int)$request->model[$i];
                 $item->item = $x;
                 $item->service = $request->service_title[$i];
                 $item->brand = $request->brand_title[$i];
@@ -979,7 +988,7 @@ class UserController extends Controller
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
                 ), function ($message) use ($file, $admin_email, $filename) {
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($admin_email)->subject('Quotation Edited!');
 
                     $message->attach($file, [
@@ -1062,7 +1071,7 @@ class UserController extends Controller
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
                 ), function ($message) use ($file, $client_email, $filename) {
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($client_email)->subject('Invoice Generated!');
 
                     $message->attach($file, [
@@ -1082,7 +1091,7 @@ class UserController extends Controller
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
                 ), function ($message) use ($file, $admin_email, $filename) {
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($admin_email)->subject('Invoice Generated!');
 
                     $message->attach($file, [
@@ -1128,7 +1137,7 @@ class UserController extends Controller
                 'quotation_invoice_number' => $quotation_invoice_number,
                 'type' => $type
             ), function ($message) use ($file, $client_email, $filename) {
-                $message->from('info@topstoffeerders.nl');
+                $message->from('info@vloerofferteonline.nl');
                 $message->to($client_email)->subject('Quotation Created!');
 
                 $message->attach($file, [
@@ -1213,7 +1222,7 @@ class UserController extends Controller
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
                 ), function ($message) use($file,$admin_email,$filename) {
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($admin_email)->subject('Quotation Created!');
 
                     $message->attach($file, [
@@ -1288,7 +1297,7 @@ class UserController extends Controller
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
                 ), function ($message) use($file,$admin_email,$filename) {
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($admin_email)->subject('Quotation Created!');
 
                     $message->attach($file, [
@@ -1308,7 +1317,7 @@ class UserController extends Controller
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
                 ), function ($message) use ($file, $client_email, $filename) {
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($client_email)->subject('Direct Invoice Created!');
 
                     $message->attach($file, [
@@ -1380,7 +1389,7 @@ class UserController extends Controller
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
                 ), function ($message) use ($file, $client_email, $filename) {
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($client_email)->subject('Quotation Edited!');
 
                     $message->attach($file, [
@@ -1399,7 +1408,7 @@ class UserController extends Controller
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
                 ), function ($message) use($file,$admin_email,$filename) {
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($admin_email)->subject('Quotation Edited!');
 
                     $message->attach($file, [
@@ -1473,7 +1482,7 @@ class UserController extends Controller
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
                 ), function ($message) use ($file, $client_email, $filename) {
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($client_email)->subject('Invoice Generated!');
 
                     $message->attach($file, [
@@ -1493,7 +1502,7 @@ class UserController extends Controller
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
                 ), function ($message) use($file,$admin_email,$filename) {
-                    $message->from('info@topstoffeerders.nl');
+                    $message->from('info@vloerofferteonline.nl');
                     $message->to($admin_email)->subject('Invoice Generated!');
 
                     $message->attach($file, [
@@ -1702,27 +1711,27 @@ class UserController extends Controller
             {
 
                 $headers = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                 $subject = "Booking status changed!";
-                $msg = "Dear Mr/Mrs " . $client_name . ",<br><br>Your requested handyman Mr/Mrs " . $name . " recently changed the status regarding your booking. You can see your current booking status by visiting your profile through <a href='" . $client_dash . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+                $msg = "Dear Mr/Mrs " . $client_name . ",<br><br>Your requested handyman Mr/Mrs " . $name . " recently changed the status regarding your booking. You can see your current booking status by visiting your profile through <a href='" . $client_dash . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
                 mail($client_email, $subject, $msg, $headers);
 
             } else // Dutch Email Template
             {
 
                 $headers = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                 $subject = "Klus status gewijzigd!";
-                $msg = "Beste " . $client_name . ",<br><br>Je stoffeerder " . $name . " heeft de status van je klus gewijzigd. Klik op account om de status van je klus te bekijken <a href='" . $client_dash . "'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Topstoffeerders";
+                $msg = "Beste " . $client_name . ",<br><br>Je stoffeerder " . $name . " heeft de status van je klus gewijzigd. Klik op account om de status van je klus te bekijken <a href='" . $client_dash . "'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
                 mail($client_email, $subject, $msg, $headers);
 
             }
 
 
             $headers = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $subject = "Booking status changed!";
             $msg = "Dear Nordin Adoui, Recent Activity: Status changed for handyman Mr/Mrs " . $name . ". Kindly visit your admin dashboard to view all bookings statuses.";
@@ -1737,27 +1746,27 @@ class UserController extends Controller
             {
 
                 $headers = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                 $subject = "Booking status changed!";
-                $msg = "Dear Mr/Mrs " . $client_name . ",<br><br>Your handyman Mr/Mrs " . $name . " recently changed the status regarding your booking. Current status for the ongoing job is updated as completed by the handyman, If the job has been completed by this handyman than kindly change the status for this job so that we can transfer funds to handyman account. You can see your current booking status by visiting your profile through <a href='" . $client_dash . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+                $msg = "Dear Mr/Mrs " . $client_name . ",<br><br>Your handyman Mr/Mrs " . $name . " recently changed the status regarding your booking. Current status for the ongoing job is updated as completed by the handyman, If the job has been completed by this handyman than kindly change the status for this job so that we can transfer funds to handyman account. You can see your current booking status by visiting your profile through <a href='" . $client_dash . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
                 mail($client_email, $subject, $msg, $headers);
 
             } else // Dutch Email Template
             {
 
                 $headers = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                 $subject = "Klus status gewijzigd!";
-                $msg = "Beste " . $client_name . ",<br><br>Je stoffeerder " . $name . " heeft de status van je klus gewijzigd. De status is gewijzigd naar afgerond, als je akkoord bent graag ook de status wijzigen naar klus voldaan. Indien, je niet tevreden bent laat dit ons graag binnen 48 uur weten zodat wij contact op kunnen nemen met de stoffeerder. Om de status van je klus te bekijken klik op account <a href='" . $client_dash . "'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Topstoffeerders";
+                $msg = "Beste " . $client_name . ",<br><br>Je stoffeerder " . $name . " heeft de status van je klus gewijzigd. De status is gewijzigd naar afgerond, als je akkoord bent graag ook de status wijzigen naar klus voldaan. Indien, je niet tevreden bent laat dit ons graag binnen 48 uur weten zodat wij contact op kunnen nemen met de stoffeerder. Om de status van je klus te bekijken klik op account <a href='" . $client_dash . "'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
                 mail($client_email, $subject, $msg, $headers);
 
             }
 
 
             $headers = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $subject = "Booking status changed!";
             $msg = "Dear Nordin Adoui, Recent activity: Status changed for handyman Mr/Mrs " . $name . ". Kindly visit your admin dashboard to view all bookings statuses.";
@@ -1826,27 +1835,27 @@ class UserController extends Controller
             {
 
                 $headers = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                 $subject = "Booking status changed!";
-                $msg = "Dear Mr/Mrs " . $handyman_name . ",<br><br>Your client Mr/Mrs. " . $name . " has changed an ongoing job status to Finished. You will get your payment in your account after approval from backoffice in next 48 hours. You can visit your profile dashboard to view your booking status. You can see your current booking status by visiting your profile through <a href='" . $handyman_dash . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+                $msg = "Dear Mr/Mrs " . $handyman_name . ",<br><br>Your client Mr/Mrs. " . $name . " has changed an ongoing job status to Finished. You will get your payment in your account after approval from backoffice in next 48 hours. You can visit your profile dashboard to view your booking status. You can see your current booking status by visiting your profile through <a href='" . $handyman_dash . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
                 mail($handyman_email, $subject, $msg, $headers);
 
             } else // Dutch Email Template
             {
 
                 $headers = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                 $subject = "Klus status gewijzigd!";
-                $msg = "Beste " . $handyman_name . ",<br><br>Je opdrachtgever " . $name . " heeft de status van je klus gewijzigd naar klus voldaan. Je factuur wordt binnen 5 werkdagen uitbetaald. Klik op account om de status van je reservering te bekijken <a href='" . $handyman_dash . "'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Topstoffeerders";
+                $msg = "Beste " . $handyman_name . ",<br><br>Je opdrachtgever " . $name . " heeft de status van je klus gewijzigd naar klus voldaan. Je factuur wordt binnen 5 werkdagen uitbetaald. Klik op account om de status van je reservering te bekijken <a href='" . $handyman_dash . "'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
                 mail($handyman_email, $subject, $msg, $headers);
 
             }
 
 
             $headers = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $subject = "Booking status changed!";
             $msg = "Dear Nordin Adoui, Recent activity: Status changed for handyman Mr/Mrs. " . $name . ". Kindly visit your admin dashboard to view all bookings statuses.";
@@ -1919,7 +1928,7 @@ class UserController extends Controller
 
 
             $headers = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $subject = "Booking cancellation request!";
             $msg = "Dear Nordin Adoui, Recent activity: Job cancellation request has been posted for handyman Mr/Mrs. " . $name . " due to following reason: ' " . $request->reason . " '. Kindly visit your admin dashboard to take further actions.";
@@ -3022,7 +3031,7 @@ class UserController extends Controller
         }
 
         $headers = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+        $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Profile Update Requested!";
         $msg = "Dear Nordin Adoui, Recent activity: A handyman Mr/Mrs. " . $input['name'] . " " . $input['family_name'] . " requested for profile update, kindly visit your admin dashboard in order to take further actions.";
@@ -3174,7 +3183,7 @@ class UserController extends Controller
 
 
         $headers = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+        $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Insurance POD Uploaded!";
         $msg = "Dear Nordin Adoui, Recent activity: A handyman Mr/Mrs. " . $name . " uploaded a pod for his/her insurance, kindly visit your admin dashboard in order to take further actions.";

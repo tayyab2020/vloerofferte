@@ -160,19 +160,19 @@ class MollieWebhookController extends Controller {
                     if($data->language == 'eng') // English Email Template
                         {
                             $headers =  'MIME-Version: 1.0' . "\r\n";
-                            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
                             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                             $subject = "New Booking!";
-                            $msg = "Dear Mr/Mrs ". $client_name .",<br><br>Your partial payment has been received against your order. Kindly pay remaining payment before " . $due_date . ". We have received a total amount of € " . $paid_amount .". Kindly visit your bookings in your client panel to complete your remaining transaction. You can see your current booking status by visiting your profile through <a href='".$client_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+                            $msg = "Dear Mr/Mrs ". $client_name .",<br><br>Your partial payment has been received against your order. Kindly pay remaining payment before " . $due_date . ". We have received a total amount of € " . $paid_amount .". Kindly visit your bookings in your client panel to complete your remaining transaction. You can see your current booking status by visiting your profile through <a href='".$client_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
                             mail($user_email,$subject,$msg,$headers);
                         }
                     else // Dutch Email Template
                     {
                         $headers =  'MIME-Version: 1.0' . "\r\n";
-                        $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                        $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
                         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                         $subject = "Bevestiging aanbetaling!";
-                        $msg = "Beste ". $client_name .",<br><br> Je aanbetaling op je reservering is ontvangen. Het restant dient 7 dagen voor aanvang van de klus voldaan te worden " . $due_date . ". We hebben een totaalbedrag ontvangen van € " . $paid_amount .". Het restant kan voldaan worden door naar reserveringen te gaan en te klikken op restant betalen. Klik op account om de status van je reservering te bekijken <a href='".$client_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Topstoffeerders";
+                        $msg = "Beste ". $client_name .",<br><br> Je aanbetaling op je reservering is ontvangen. Het restant dient 7 dagen voor aanvang van de klus voldaan te worden " . $due_date . ". We hebben een totaalbedrag ontvangen van € " . $paid_amount .". Het restant kan voldaan worden door naar reserveringen te gaan en te klikken op restant betalen. Klik op account om de status van je reservering te bekijken <a href='".$client_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
                         mail($user_email,$subject,$msg,$headers);
 
                     }
@@ -184,19 +184,19 @@ class MollieWebhookController extends Controller {
                     if($data->language == 'eng') // English Email Template
                         {
                             $headers =  'MIME-Version: 1.0' . "\r\n";
-                            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
                             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                             $subject = "New Booking!";
-                            $msg = "Dear Mr/Mrs ". $client_name .",<br><br>Your booking has been made. We have received a total amount of € " . $paid_amount .". For further details visit your client panel through <a href='".$client_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+                            $msg = "Dear Mr/Mrs ". $client_name .",<br><br>Your booking has been made. We have received a total amount of € " . $paid_amount .". For further details visit your client panel through <a href='".$client_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
                             mail($user_email,$subject,$msg,$headers);
                         }
                     else //Dutch Email Template
                     {
                         $headers =  'MIME-Version: 1.0' . "\r\n";
-                        $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                        $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
                         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                         $subject = "Nieuwe reservering!";
-                        $msg = "Beste ". $client_name .",<br><br>Je reservering is geslaagd. Wij hebben een totaalbedrag van € " . $paid_amount ." ontvangen. Om je reservering te bekijken, klik op account <a href='".$client_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Topstoffeerders";
+                        $msg = "Beste ". $client_name .",<br><br>Je reservering is geslaagd. Wij hebben een totaalbedrag van € " . $paid_amount ." ontvangen. Om je reservering te bekijken, klik op account <a href='".$client_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
                         mail($user_email,$subject,$msg,$headers);
                     }
 
@@ -206,24 +206,24 @@ class MollieWebhookController extends Controller {
                 if($data->language == 'eng') //English Email Template
                     {
                         $headers =  'MIME-Version: 1.0' . "\r\n";
-                        $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                        $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
                         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                         $subject = "New Booking!";
-                        $msg = "Dear Mr/Mrs ". $handyman_name .",<br><br>You have a new booking waiting for your response. Kindly review your bookings before it get expired. We have received a total amount of € " . $paid_amount .". You can visit your profile dashboard through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+                        $msg = "Dear Mr/Mrs ". $handyman_name .",<br><br>You have a new booking waiting for your response. Kindly review your bookings before it get expired. We have received a total amount of € " . $paid_amount .". You can visit your profile dashboard through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
                         mail($handyman_email,$subject,$msg,$headers);
                     }
                 else //Dutch Email Template
                 {
                     $headers =  'MIME-Version: 1.0' . "\r\n";
-                    $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                    $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
                     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                     $subject = "Nieuwe reservering!";
-                    $msg = "Beste ". $handyman_name .",<br><br>Je hebt een nieuwe reservering. Graag de opdracht binnen 48 uur accepteren. We hebben een totaalbedrag ontvangen van € " . $paid_amount .". Voor meer informatie over de boeking, klik op de link <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Topstoffeerders";
+                    $msg = "Beste ". $handyman_name .",<br><br>Je hebt een nieuwe reservering. Graag de opdracht binnen 48 uur accepteren. We hebben een totaalbedrag ontvangen van € " . $paid_amount .". Voor meer informatie over de boeking, klik op de link <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
                     mail($handyman_email,$subject,$msg,$headers);
                 }
 
                 $headers =  'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
+                $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                 $subject = "New Booking!";
                 $msg = "Dear Nordin Adoui, A new booking is made on your website. Paid amount is € " . $paid_amount .". You can visit your admin panel to view all bookings.";

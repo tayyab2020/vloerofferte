@@ -38,15 +38,19 @@
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Handyman</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Tax</th>
+                                                        {{--<th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Tax</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">Subtotal</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">Subtotal</th>--}}
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="rate">Grand Total</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="rate">Current Stage</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Date</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">Posting Date</th>
+
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">Delivery Date</th>
+
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">Time Remaining</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="date">Action</th>
 
@@ -76,9 +80,9 @@
 
                                                             <td>{{$key->name}} {{$key->family_name}}</td>
 
-                                                            <td>{{$key->tax}}</td>
+                                                            {{--<td>{{$key->tax}}</td>
 
-                                                            <td>{{$key->subtotal}}</td>
+                                                            <td>{{$key->subtotal}}</td>--}}
 
                                                             <td>{{$key->grand_total}}</td>
 
@@ -124,11 +128,43 @@
 
                                                              </td>
 
-                                                            <?php $date = strtotime($key->invoice_date);
+                                                            <?php
 
-                                                            $date = date('d-m-Y',$date);  ?>
+                                                                $date = strtotime($key->invoice_date);
+                                                                $date = date('d-m-Y',$date);
+
+                                                                $current_date = date('d-m-Y H:i:s', time());
+
+                                                                $delivery_date = strtotime($key->date_delivery);
+                                                                $delivery_date = date('d-m-Y',$delivery_date);
+
+                                                                $delivery_date = $delivery_date.' 23:59:00';
+
+
+                                                                $cal_delivery_date = strtotime($key->date_delivery);
+                                                                $cal_delivery_date = date('Y-m-d',$cal_delivery_date);
+                                                                $cal_delivery_date = $cal_delivery_date.' 23:59:00';
+
+
+                                                                /*$dif = strtotime($delivery_date)-strtotime($current_date);
+                                                                $dateDiff = intval(($dif)/60);
+
+                                                                $days = intval($dateDiff/(60*24));
+                                                                $hours = (intval($dateDiff/60)%24) + 1;
+                                                                $minutes = $dateDiff%60;
+                                                                $seconds = gmdate("s", $dif);
+
+                                                                $interval = $days . 'd ' . $hours . 'h ' . $minutes . 'm ' . $seconds . 's';*/
+                                                            ?>
 
                                                             <td>{{$date}}</td>
+
+                                                                <td class="delivery_date">
+                                                                    <input type="hidden" id="delivery_date" value="{{$cal_delivery_date}}">
+                                                                    {{$delivery_date}}
+                                                                </td>
+
+                                                                <td class="interval"></td>
 
                                                             <td>
                                                                 <div class="dropdown">
@@ -175,6 +211,7 @@
                                                     @endforeach
                                                     </tbody>
                                                 </table></div></div>
+
                                     </div>
                                 </div>
                             </div>
@@ -377,6 +414,47 @@
 @section('scripts')
 
     <script type="text/javascript">
+
+        $('.interval').each(function(i, obj) {
+
+            var p = $(this);
+
+            var delivery_date = $(this).prev().children('input').val();
+
+            (function () {
+                const second = 1000,
+                    minute = second * 60,
+                    hour = minute * 60,
+                    day = hour * 24;
+
+
+                let birthday = delivery_date.toString('M d, Y HH:mm:ss'),
+                    countDown = new Date(birthday).getTime(),
+                    x = setInterval(function() {
+
+                        let now = new Date().getTime(),
+                            distance = countDown - now;
+
+                        var interval = Math.floor(distance / (day)) + 'd ' + Math.floor((distance % (day)) / (hour)) + 'h ' + Math.floor((distance % (hour)) / (minute)) + 'm ' + Math.floor((distance % (minute)) / second) + 's';
+
+
+                        //do something later when date is reached
+                        if (distance > 0) {
+
+                            p.text(interval);
+
+                        }
+                        else
+                        {
+                            p.text('Expired');
+                            clearInterval(x);
+                        }
+                        //seconds
+                    }, 0)
+            }());
+
+        });
+
         $('#example').DataTable();
     </script>
 

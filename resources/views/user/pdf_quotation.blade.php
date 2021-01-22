@@ -43,11 +43,6 @@
                                 <p class="mb-1 m-rest">Requested Quote Number: {{$requested_quote_number}}</p>
                                 <p class="mb-1 m-rest">Requested Service: {{$quote->cat_name}}</p>
                                 <p class="mb-1 m-rest">Zipcode: {{$quote->quote_zipcode}}</p>
-                                <p class="mb-1 m-rest">Type of work: {{$quote->quote_work}}</p>
-                                <p class="mb-1 m-rest">When: {{$quote->quote_when}}</p>
-                                <p class="mb-1 m-rest">Budget: {{$quote->quote_budget}}</p>
-                                <p class="mb-1 m-rest">Job Type: {{$quote->quote_job}}</p>
-                                <p class="mb-1 m-rest">Status: {{$quote->quote_status}}</p>
                             </div>
 
                             @if($type == 'invoice')
@@ -70,7 +65,7 @@
                                         <th class="border-0 text-uppercase small font-weight-bold">Category/Item</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Brand</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Model</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Estimated Date</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">Delivery Date</th>
                                         {{--<th class="border-0 text-uppercase small font-weight-bold">Description</th>--}}
                                         <th class="border-0 text-uppercase small font-weight-bold">Cost</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Qty</th>
@@ -85,7 +80,7 @@
                                             <td>{{$request->service_title[$i]}}</td>
                                             <td>{{$request->brand_title[$i]}}</td>
                                             <td>{{$request->model_title[$i]}}</td>
-                                            <td>{{$request->date}}</td>
+                                            <td>{{$quote->date_delivery}}</td>
                                             {{--<td>{{$request->description[$i]}}</td>--}}
                                             <td>{{$request->cost[$i]}}</td>
                                             <td>{{$request->qty[$i]}}</td>

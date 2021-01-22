@@ -20,12 +20,12 @@ class UserForgotController extends Controller
     {
       $this->middleware('guest:user', ['except' => ['logout']]);
 
-       if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+       if (!empty($_SERVER['HTTP_CLIENT_IP']))
   {
     $ip_address = $_SERVER['HTTP_CLIENT_IP'];
   }
 //whether ip is from proxy
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
   {
     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
   }
@@ -42,7 +42,7 @@ $language = user_languages::where('ip','=',$ip_address)->first();
 
         if($language == '')
             {
-                
+
                 $language = new user_languages;
                 $language->ip = $ip_address;
                 $language->lang = 'eng';
@@ -90,33 +90,33 @@ $language = user_languages::where('ip','=',$ip_address)->first();
             if($this->lang->lang == 'eng') // English Email Template
             {
 
-                $headers =  'MIME-Version: 1.0' . "\r\n"; 
-            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
+                $headers =  'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $subject = "Reset Password Request";
-            $msg = "Dear Mr/Mrs ". $name .",<br><br>Your New Password is : ".$autopass."<br><br>Kind regards,<br><br>Klantenservice Topstoffeerders";
+            $msg = "Dear Mr/Mrs ". $name .",<br><br>Your New Password is : ".$autopass."<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
             mail($request->email,$subject,$msg,$headers);
 
-                
+
 
             }
             else // Dutch Email Template
             {
 
-                $headers =  'MIME-Version: 1.0' . "\r\n"; 
-            $headers .= 'From: Topstoffeerders <info@topstoffeerders.nl>' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
+                $headers =  'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $subject = "Wachtwoord wijzigen";
-            $msg = "Beste ". $name .",<br><br>Je hebt zojuist een nieuw wachtwoord aangevraagd, indien jij niet de aanvrager bent neem contact met ons. Hierbij je nieuw wachtwoord : ".$autopass."<br><br>Met vriendelijke groet,<br><br>Klantenservice Topstoffeerders";
+            $msg = "Beste ". $name .",<br><br>Je hebt zojuist een nieuw wachtwoord aangevraagd, indien jij niet de aanvrager bent neem contact met ons. Hierbij je nieuw wachtwoord : ".$autopass."<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
             mail($request->email,$subject,$msg,$headers);
 
-           
+
 
             }
 
 
 
-            
+
             Session::flash('success', $this->lang->prst);
     		return redirect()->route('user-forgot');
 

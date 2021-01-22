@@ -40,24 +40,31 @@
                                         <?php $requested_quote_number = date("Y", strtotime($quotation[0]->quote_date)) . "-" . sprintf('%04u', $quotation[0]->quote_id); ?>
 
                                         <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
-                                            <div class="col-md-4">
+                                            <div class="col-md-4" style="margin: 10px 0px;">
                                                 <div class="form-group" style="margin: 0;">
                                                     <label>Request Number</label>
                                                     <input type="text" value="{{$requested_quote_number}}" class="form-control" @if(Route::currentRouteName() == 'view-quotation') readonly @endif>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-4" style="margin: 10px 0px;">
                                                 <div class="form-group" style="margin: 0;">
                                                     <label>Quotation Number</label>
                                                     <input type="text" value="QUO# {{$quotation[0]->quotation_invoice_number}}" class="form-control" @if(Route::currentRouteName() == 'view-quotation') readonly @endif>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-4" style="margin: 10px 0px;">
                                                 <div class="form-group" style="margin: 0;">
                                                     <label>Estimated Date</label>
                                                     <input type="text" name="date" value="{{$quotation[0]->estimated_date}}" class="form-control estimate_date" autocomplete="off" required @if(Route::currentRouteName() == 'view-quotation') disabled @endif>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4" style="margin: 10px 0px;">
+                                                <div class="form-group" style="margin: 0;">
+                                                    <label>Delivery Date</label>
+                                                    <input type="text" name="delivery_date" value="{{$quotation[0]->date_delivery}}" class="form-control delivery_date" autocomplete="off" required disabled>
                                                 </div>
                                             </div>
                                         </div>

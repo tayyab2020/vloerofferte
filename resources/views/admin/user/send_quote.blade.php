@@ -28,6 +28,8 @@
                                         <div class="form-group" style="margin: 0;">
                                             <div style="text-align: center;">
                                                 <p style="text-align: center;font-size: 20px;" class="form-control"><b>Category:</b> {{$request->cat_name}}</p>
+                                                <p style="text-align: center;font-size: 20px;" class="form-control"><b>Brand:</b> {{$request->brand_name}}</p>
+                                                <p style="text-align: center;font-size: 20px;" class="form-control"><b>Model:</b> {{$request->model_name}}</p>
                                             </div>
                                         </div>
 
