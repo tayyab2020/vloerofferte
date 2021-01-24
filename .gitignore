@@ -18,4 +18,4 @@ yarn-error.log
 /public/assets/quotationsPDF
 /public/assets/quotesPDF
 /public/assets/temporary_images
-/config/*
+/config/app.php
