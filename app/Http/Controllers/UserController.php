@@ -442,22 +442,31 @@ class UserController extends Controller
     }
 
 
-    public function AcceptQuotation($id)
+    public function AcceptQuotation(Request $request)
     {
+        var_dump(date_default_timezone_get());
+        exit();
+
+        date_default_timezone_set('Australia/Melbourne');
+
+        $now = date('d-m-Y H:i:s', time());
+        $time = strtotime($now);
+        $time = date('H:i:s',$time);
+        $delivery_date = $request->date_delivery . ' ' . $time;
 
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
         $user_role = $user->role_id;
 
-        $invoice = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotation_invoices.id', $id)->where('quotes.user_id', $user_id)->first();
+        $invoice = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotation_invoices.id', $request->invoice_id)->where('quotes.user_id', $user_id)->first();
 
         if (!$invoice) {
             return redirect()->back();
         }
 
 
-        quotes::where('id', $invoice->quote_id)->update(['status' => 2]);
-        quotation_invoices::where('id', $id)->update(['ask_customization' => 0, 'accepted' => 1]);
+        quotes::where('id', $invoice->quote_id)->update(['status' => 2, 'accept_date' => $now, 'date_delivery' => $delivery_date]);
+        quotation_invoices::where('id', $request->invoice_id)->update(['ask_customization' => 0, 'accepted' => 1]);
 
         $handyman_email = $invoice->email;
         $user_name = $invoice->name . ' ' . $invoice->family_name;
