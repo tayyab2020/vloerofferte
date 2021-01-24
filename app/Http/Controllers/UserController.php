@@ -562,7 +562,7 @@ class UserController extends Controller
                 ],
                 'description' => $description,
                 'webhookUrl' => route('webhooks.quotation_payment'),
-                'redirectUrl' => url('/quotation-payment-redirect-page/' . $pay_invoice_id),
+                'redirectUrl' => url('/handyman/quotation-payment-redirect-page/' . $pay_invoice_id),
                 "metadata" => [
                     "invoice_id" => $pay_invoice_id,
                     "quote_id" => $quote_id,
