@@ -551,6 +551,7 @@ class UserController extends Controller
         {
             $total_mollie = number_format((float)$data->grand_total, 2, '.', '');
             $api_key = Generalsetting::findOrFail(1);
+            $description = 'Payment for Invoice No. ' . $quotation_invoice_number;
 
             $mollie = new \Mollie\Api\MollieApiClient();
             $mollie->setApiKey($api_key->mollie);
@@ -559,6 +560,7 @@ class UserController extends Controller
                     'currency' => 'EUR',
                     'value' => $total_mollie, // You must send the correct number of decimals, thus we enforce the use of strings
                 ],
+                'description' => $description,
                 'webhookUrl' => route('webhooks.quotation_payment'),
                 'redirectUrl' => url('/quotation-payment-redirect-page/' . $pay_invoice_id),
                 "metadata" => [
