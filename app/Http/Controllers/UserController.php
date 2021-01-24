@@ -444,12 +444,7 @@ class UserController extends Controller
 
     public function AcceptQuotation(Request $request)
     {
-        var_dump(date_default_timezone_get());
-        exit();
-
-        date_default_timezone_set('Australia/Melbourne');
-
-        $now = date('d-m-Y H:i:s', time());
+        $now = date('d-m-Y H:i:s');
         $time = strtotime($now);
         $time = date('H:i:s',$time);
         $delivery_date = $request->date_delivery . ' ' . $time;

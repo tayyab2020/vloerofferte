@@ -187,7 +187,7 @@
 
                                                                 <td class="interval"></td>
 
-                                                            <td>
+                                                            <td class="action_td">
                                                                 <div class="dropdown">
                                                                     <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
                                                                         <span class="caret"></span></button>
@@ -228,6 +228,12 @@
 
                                                                             @endif
 
+                                                                            @if($key->status == 2)
+
+                                                                                <li><a class="pay_now" onclick="PayNow(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">Pay Now</a></li>
+
+                                                                            @endif
+
                                                                         @endif
 
                                                                     </ul>
@@ -253,7 +259,7 @@
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
 
-            <form id="quote_form" method="post" action="{{url('/handyman/accept-quotation/')}}">
+            <form method="post" action="{{url('/handyman/accept-quotation/')}}">
 
                 <input type="hidden" name="_token" value="{{@csrf_token()}}">
 
@@ -283,6 +289,15 @@
 
         </div>
     </div>
+
+
+    <form id="pay_form" method="post" action="{{url('/handyman/pay-quotation/')}}">
+
+        <input type="hidden" name="_token" value="{{@csrf_token()}}">
+
+        <input type="hidden" name="pay_invoice_id" id="pay_invoice_id">
+
+    </form>
 
     <style type="text/css">
 
@@ -971,13 +986,17 @@
 
     <script type="text/javascript">
 
-        var todayDate = new Date().getDate();
-        var endD= new Date(new Date().setDate(todayDate + 1));
+        $(document).ready(function() {
 
-        $('#date_delivery').datepicker({
+            var todayDate = new Date().getDate();
+            var endD = new Date(new Date().setDate(todayDate + 1));
 
-            format: 'dd-mm-yyyy',
-            startDate: endD,
+            $('#date_delivery').datepicker({
+
+                format: 'dd-mm-yyyy',
+                startDate: endD,
+
+            });
 
         });
 
@@ -990,6 +1009,20 @@
             $('#myModal').modal('toggle');
         }
 
+        function PayNow(e)
+        {
+            var invoice_id = $(e).data('id');
+
+            $('#pay_invoice_id').val(invoice_id);
+
+            var check = $(e).parent().parent().parent().parent().prev().text();
+
+            if(check !== 'Expired')
+            {
+                $('#pay_form').submit();
+            }
+        }
+
         $('.interval').each(function(i, obj) {
 
             const second = 1000,
@@ -1000,7 +1033,6 @@
             var p = $(this);
             var accept_date = $(this).prev().prev().children('input').val();
             var delivery_date = $(this).prev().children('input').val();
-
 
             if(accept_date !== '-' && delivery_date !== '-')
             {
@@ -1051,6 +1083,7 @@
                             //do something later when date is reached
                             if (Math.floor((distance1 % (day)) / (hour)) <= 0 && Math.floor((distance1 % (hour)) / (minute)) <= 0 && Math.floor((distance1 % (minute)) / second) <= 0) {
 
+                                p.next().find('.pay_now').css('cursor', 'not-allowed').css('background', 'white');
                                 p.text('Expired');
                                 clearInterval(x);
 
