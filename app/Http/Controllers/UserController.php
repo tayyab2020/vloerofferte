@@ -488,6 +488,110 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+
+    public function PayQuotation(Request $request)
+    {
+        $pay_invoice_id = $request->pay_invoice_id;
+        $data = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $pay_invoice_id)->select('quotes.*', 'quotation_invoices.grand_total','quotation_invoices.handyman_id','quotation_invoices.quotation_invoice_number')->first();
+        $quote_id = $data->id;
+        $handyman_id = $data->handyman_id;
+        $quotation_invoice_number = $data->quotation_invoice_number;
+
+        $accept_date = $data->accept_date;
+        $delivery_date = $data->date_delivery;
+
+        $second = 1000;
+        $minute = $second * 60;
+        $hour = $minute * 60;
+        $day = $hour * 24;
+
+
+
+        if($accept_date !== NULL && $delivery_date !== NULL)
+        {
+            $now1 = date("d-m-Y H:i:s", strtotime('+6 hours', strtotime($accept_date)));
+            $now1 = strtotime($now1) * 1000;
+
+            $countDown_accept = strtotime($accept_date) * 1000;
+            $countDown_delivery = strtotime($delivery_date) * 1000;
+
+            $dif = $countDown_delivery - $countDown_accept;
+
+            $now = date('d-m-Y H:i:s');
+            $now = strtotime($now) * 1000;
+            $distance = $countDown_delivery - $now;
+            $check = 0;
+
+            if (floor($dif / ($day)) >= 3) {
+
+                if ((floor($distance / ($day)) - 2) <= 0 && floor(($distance % ($day)) / ($hour)) <= 0 && floor(($distance % ($hour)) / ($minute)) <= 0 && floor(($distance % ($minute)) / $second) <= 0) {
+
+                    $check = 1;
+
+                }
+
+            } else {
+
+                $distance1 = $now1 - $now;
+
+                if (floor(($distance1 % ($day)) / ($hour)) <= 0 && floor(($distance1 % ($hour)) / ($minute)) <= 0 && floor(($distance1 % ($minute)) / $second) <= 0) {
+
+                    $check = 1;
+
+                }
+            }
+
+            }
+        else
+        {
+            $check = 1;
+        }
+
+        if($check == 0)
+        {
+            $total_mollie = number_format((float)$data->grand_total, 2, '.', '');
+            $api_key = Generalsetting::findOrFail(1);
+
+            $mollie = new \Mollie\Api\MollieApiClient();
+            $mollie->setApiKey($api_key->mollie);
+            $payment = $mollie->payments->create([
+                'amount' => [
+                    'currency' => 'EUR',
+                    'value' => $total_mollie, // You must send the correct number of decimals, thus we enforce the use of strings
+                ],
+                'webhookUrl' => route('webhooks.quotation_payment'),
+                'redirectUrl' => url('/quotation-payment-redirect-page/' . $pay_invoice_id),
+                "metadata" => [
+                    "invoice_id" => $pay_invoice_id,
+                    "quote_id" => $quote_id,
+                    "handyman_id" => $handyman_id,
+                    "quotation_invoice_number" => $quotation_invoice_number,
+                    "paid_amount" => $total_mollie
+                ],
+            ]);
+
+            return redirect($payment->getCheckoutUrl(), 303);
+        }
+        else
+        {
+            Session::flash('unsuccess', 'Quotation Expired!');
+            return redirect()->back();
+        }
+    }
+
+
+    public function QuotationPaymentRedirectPage($id)
+    {
+        $check = quotation_invoices::where('id',$id)->first();
+
+        if($check->invoice)
+        {
+            Session::flash('success', 'Payment Successful!');
+            return redirect()->route('client-quotations');
+        }
+    }
+
+
     public function CustomQuotationAcceptQuotation($id)
     {
 
