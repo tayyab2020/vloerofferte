@@ -202,9 +202,9 @@ class UserController extends Controller
         $user_role = $user->role_id;
 
         if ($id) {
-            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '<', 3)->where('quotation_invoices.quote_id', $id)->where('quotation_invoices.invoice', 0)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'users.name', 'users.family_name')->get();
+            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '<', 3)->where('quotation_invoices.quote_id', $id)->where('quotation_invoices.invoice', 0)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'quotation_invoices.accept_date', 'quotation_invoices.delivery_date', 'users.name', 'users.family_name')->get();
         } else {
-            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '<', 3)->where('quotation_invoices.invoice', 0)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'users.name', 'users.family_name')->get();
+            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '<', 3)->where('quotation_invoices.invoice', 0)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'quotation_invoices.accept_date', 'quotation_invoices.delivery_date', 'users.name', 'users.family_name')->get();
         }
 
         return view('user.client_quote_invoices', compact('invoices'));
@@ -232,9 +232,9 @@ class UserController extends Controller
         $user_role = $user->role_id;
 
         if ($id) {
-            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('quotation_invoices.quote_id', $id)->where('quotation_invoices.invoice', 1)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'users.name', 'users.family_name')->get();
+            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('quotation_invoices.quote_id', $id)->where('quotation_invoices.invoice', 1)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'quotation_invoices.accept_date', 'quotation_invoices.delivery_date', 'users.name', 'users.family_name')->get();
         } else {
-            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('quotation_invoices.invoice', 1)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'users.name', 'users.family_name')->get();
+            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('quotation_invoices.invoice', 1)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'quotation_invoices.accept_date', 'quotation_invoices.delivery_date', 'users.name', 'users.family_name')->get();
         }
 
         return view('user.client_quote_invoices', compact('invoices'));
@@ -447,7 +447,7 @@ class UserController extends Controller
         $now = date('d-m-Y H:i:s');
         $time = strtotime($now);
         $time = date('H:i:s',$time);
-        $delivery_date = $request->date_delivery . ' ' . $time;
+        $delivery_date = $request->delivery_date . ' ' . $time;
 
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
@@ -460,8 +460,8 @@ class UserController extends Controller
         }
 
 
-        quotes::where('id', $invoice->quote_id)->update(['status' => 2, 'accept_date' => $now, 'date_delivery' => $delivery_date]);
-        quotation_invoices::where('id', $request->invoice_id)->update(['ask_customization' => 0, 'accepted' => 1]);
+        quotes::where('id', $invoice->quote_id)->update(['status' => 2]);
+        quotation_invoices::where('id', $request->invoice_id)->update(['ask_customization' => 0, 'accepted' => 1, 'accept_date' => $now, 'delivery_date' => $delivery_date]);
 
         $handyman_email = $invoice->email;
         $user_name = $invoice->name . ' ' . $invoice->family_name;
@@ -492,13 +492,13 @@ class UserController extends Controller
     public function PayQuotation(Request $request)
     {
         $pay_invoice_id = $request->pay_invoice_id;
-        $data = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $pay_invoice_id)->select('quotes.*', 'quotation_invoices.grand_total','quotation_invoices.handyman_id','quotation_invoices.quotation_invoice_number')->first();
+        $data = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $pay_invoice_id)->select('quotes.*', 'quotation_invoices.grand_total','quotation_invoices.handyman_id','quotation_invoices.quotation_invoice_number','quotation_invoices.accept_date', 'quotation_invoices.delivery_date')->first();
         $quote_id = $data->id;
         $handyman_id = $data->handyman_id;
         $quotation_invoice_number = $data->quotation_invoice_number;
 
         $accept_date = $data->accept_date;
-        $delivery_date = $data->date_delivery;
+        $delivery_date = $data->delivery_date;
 
         $second = 1000;
         $minute = $second * 60;
@@ -812,7 +812,7 @@ class UserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotation_invoices.handyman_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.created_at as quote_date', 'quotes.date_delivery', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.b_i_id', 'quotation_invoices_data.m_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotation_invoices.handyman_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.b_i_id', 'quotation_invoices_data.m_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
 
         if (count($quotation) != 0) {
 
@@ -869,7 +869,7 @@ class UserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotes.user_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.created_at as quote_date', 'quotes.date_delivery', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotes.user_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
 
         if (count($quotation) != 0) {
             $services = Category::all();

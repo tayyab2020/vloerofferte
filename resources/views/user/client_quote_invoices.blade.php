@@ -152,12 +152,12 @@
 
                                                                 $current_date = date('d-m-Y H:i:s', time());
 
-                                                                if($key->date_delivery)
+                                                                if($key->delivery_date)
                                                                     {
-                                                                        $delivery_date = strtotime($key->date_delivery);
+                                                                        $delivery_date = strtotime($key->delivery_date);
                                                                         $delivery_date = date('d-m-Y H:i:s',$delivery_date);
 
-                                                                        $cal_delivery_date = strtotime($key->date_delivery);
+                                                                        $cal_delivery_date = strtotime($key->delivery_date);
                                                                         $cal_delivery_date = date('Y-m-d H:i:s',$cal_delivery_date);
                                                                     }
                                                                 else{
@@ -273,7 +273,7 @@
 
                         <input type="hidden" name="invoice_id" id="invoice_id">
                         <label>Delivery Date <span style="color: red;">*</span></label>
-                        <input style="height: 45px;margin-bottom: 20px" type="text" name="date_delivery" id="date_delivery" class="form-control" placeholder="Select Delivery Date" required autocomplete="off">
+                        <input style="height: 45px;margin-bottom: 20px" type="text" name="delivery_date" id="delivery_date" class="form-control" placeholder="Select Delivery Date" required autocomplete="off">
 
                     </div>
 
@@ -990,7 +990,7 @@
             var todayDate = new Date().getDate();
             var endD = new Date(new Date().setDate(todayDate + 1));
 
-            $('#date_delivery').datepicker({
+            $('#delivery_date').datepicker({
 
                 format: 'dd-mm-yyyy',
                 startDate: endD,

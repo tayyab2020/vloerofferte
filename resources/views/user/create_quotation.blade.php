@@ -25,17 +25,11 @@
                                         <?php $requested_quote_number = date("Y", strtotime($quote->created_at)) . "-" . sprintf('%04u', $quote->id); ?>
 
                                         <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
+
                                             <div class="col-md-4">
                                                 <div class="form-group" style="margin: 0;">
                                                     <label>Request Number</label>
                                                     <input type="text" value="{{$requested_quote_number}}" class="form-control" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group" style="margin: 0;">
-                                                    <label>Delivery Date</label>
-                                                    <input type="text" value="{{$quote->date_delivery}}" class="form-control" readonly>
                                                 </div>
                                             </div>
 

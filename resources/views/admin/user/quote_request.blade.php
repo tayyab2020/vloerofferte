@@ -40,14 +40,6 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_slug">Delivery Date </label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" value="{{$request->date_delivery}}"
-                                                       name="quote_number" id="quote_number" readonly type="text">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_slug">Number of
                                                 Quotations </label>
                                             <div class="col-sm-6">

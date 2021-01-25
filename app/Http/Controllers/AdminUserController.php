@@ -253,7 +253,7 @@ class AdminUserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quotation = quotation_invoices::leftjoin('quotation_invoices_data','quotation_invoices_data.quotation_id','=','quotation_invoices.id')->leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->where('quotation_invoices.id',$id)->select('quotation_invoices.*','quotes.id as quote_id','quotes.created_at as quote_date','quotes.date_delivery','quotation_invoices_data.id as data_id','quotation_invoices_data.s_i_id','quotation_invoices_data.b_i_id','quotation_invoices_data.m_i_id','quotation_invoices_data.item','quotation_invoices_data.rate','quotation_invoices_data.qty','quotation_invoices_data.description as data_description','quotation_invoices_data.estimated_date','quotation_invoices_data.amount')->get();
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data','quotation_invoices_data.quotation_id','=','quotation_invoices.id')->leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->where('quotation_invoices.id',$id)->select('quotation_invoices.*','quotes.id as quote_id','quotes.created_at as quote_date','quotation_invoices_data.id as data_id','quotation_invoices_data.s_i_id','quotation_invoices_data.b_i_id','quotation_invoices_data.m_i_id','quotation_invoices_data.item','quotation_invoices_data.rate','quotation_invoices_data.qty','quotation_invoices_data.description as data_description','quotation_invoices_data.estimated_date','quotation_invoices_data.amount')->get();
 
 
         if(count($quotation) != 0)

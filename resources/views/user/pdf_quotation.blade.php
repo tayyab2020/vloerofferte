@@ -65,8 +65,7 @@
                                         <th class="border-0 text-uppercase small font-weight-bold">Category/Item</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Brand</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Model</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Delivery Date</th>
-                                        {{--<th class="border-0 text-uppercase small font-weight-bold">Description</th>--}}
+                                        <th class="border-0 text-uppercase small font-weight-bold">Description</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Cost</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Qty</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Amount</th>
@@ -80,8 +79,7 @@
                                             <td>{{$request->service_title[$i]}}</td>
                                             <td>{{$request->brand_title[$i]}}</td>
                                             <td>{{$request->model_title[$i]}}</td>
-                                            <td>{{$quote->date_delivery}}</td>
-                                            {{--<td>{{$request->description[$i]}}</td>--}}
+                                            <td>{{$request->description[$i]}}</td>
                                             <td>{{$request->cost[$i]}}</td>
                                             <td>{{$request->qty[$i]}}</td>
                                             <td>{{$request->amount[$i]}}</td>

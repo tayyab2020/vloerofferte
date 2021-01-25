@@ -66,12 +66,6 @@
                                                         </div>
                                                     </div>
 
-                                                        <div class="col-md-4" style="margin: 10px 0px;">
-                                                            <div class="form-group" style="margin: 0;">
-                                                                <label>Delivery Date</label>
-                                                                <input type="text" name="delivery_date" value="{{$quotation[0]->date_delivery}}" class="form-control delivery_date" autocomplete="off" required disabled>
-                                                            </div>
-                                                        </div>
                                                 </div>
 
                                                 <div class="row" style="margin: 0;">

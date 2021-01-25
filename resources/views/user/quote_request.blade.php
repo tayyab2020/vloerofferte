@@ -31,13 +31,6 @@
                                             </div>
                                         </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4" for="blood_group_slug">Delivery Date </label>
-                                                <div class="col-sm-6">
-                                                    <p style="padding: 10px;" class="form-control">{{$request->date_delivery}}</p>
-                                                </div>
-                                            </div>
-
                                         @if($request->status > 1 && $invoice && $invoice->accepted)
 
                                             <div class="form-group">
