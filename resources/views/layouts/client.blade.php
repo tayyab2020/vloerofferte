@@ -303,7 +303,10 @@
 
 <style type="text/css">
 
-
+    #sidebar-menu
+    {
+        width: 100%;
+    }
 
     .add-back-btn, .add-newProduct-btn
     {
