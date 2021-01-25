@@ -79,7 +79,7 @@
   Route::post('/accept-quotation', 'UserController@AcceptQuotation');
   Route::post('/pay-quotation', 'UserController@PayQuotation');
   Route::name('webhooks.quotation_payment')->post('webhooks/quotation_payment', 'MollieQuotationPaymentController@handle');
-  Route::get('/quotation-payment-redirect-page/{id}', 'UserController@QuotationPaymentRedirectPage');
+  Route::get('/quotation-payment-redirect-page/{id}', 'FrontendController@QuotationPaymentRedirectPage');
   Route::get('/send-custom-quotation/{id}', 'UserController@SendCustomQuotation');
   Route::get('/custom-quotation/ask-customization/{id}', 'UserController@CustomQuotationAskCustomization');
   Route::get('/custom-quotation/accept-quotation/{id}', 'UserController@CustomQuotationAcceptQuotation');

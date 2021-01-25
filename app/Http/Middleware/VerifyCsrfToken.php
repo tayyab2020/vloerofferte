@@ -17,6 +17,7 @@ class VerifyCsrfToken extends BaseVerifier
         'webhooks/mollie',
         '/mollie',
         '/mollie1',
+        'webhooks/quotation_payment'
 
     ];
 }

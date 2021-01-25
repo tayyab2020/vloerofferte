@@ -553,6 +553,8 @@ class UserController extends Controller
             $api_key = Generalsetting::findOrFail(1);
             $description = 'Payment for Invoice No. ' . $quotation_invoice_number;
 
+            $inv_encrypt = Crypt::encrypt($pay_invoice_id);
+
             $mollie = new \Mollie\Api\MollieApiClient();
             $mollie->setApiKey($api_key->mollie);
             $payment = $mollie->payments->create([
@@ -562,7 +564,7 @@ class UserController extends Controller
                 ],
                 'description' => $description,
                 'webhookUrl' => route('webhooks.quotation_payment'),
-                'redirectUrl' => url('/handyman/quotation-payment-redirect-page/' . $pay_invoice_id),
+                'redirectUrl' => url('/handyman/quotation-payment-redirect-page/' . $inv_encrypt),
                 "metadata" => [
                     "invoice_id" => $pay_invoice_id,
                     "quote_id" => $quote_id,
@@ -581,17 +583,6 @@ class UserController extends Controller
         }
     }
 
-
-    public function QuotationPaymentRedirectPage($id)
-    {
-        $check = quotation_invoices::where('id',$id)->first();
-
-        if($check->invoice)
-        {
-            Session::flash('success', 'Payment Successful!');
-            return redirect()->route('client-quotations');
-        }
-    }
 
 
     public function CustomQuotationAcceptQuotation($id)

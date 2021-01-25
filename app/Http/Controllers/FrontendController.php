@@ -6,6 +6,7 @@ use App\Brand;
 use App\Model1;
 use App\Products;
 use App\question_services;
+use App\quotation_invoices;
 use App\quotation_questions;
 use App\quotes;
 use App\requests_q_a;
@@ -263,7 +264,6 @@ class FrontendController extends Controller
     public function Thankyou($id)
     {
 
-
         $inv_decrypt = Crypt::decrypt($id);
 
         $invoice = invoices::where('id', '=', $inv_decrypt)->first();
@@ -287,11 +287,36 @@ class FrontendController extends Controller
 
     }
 
+    public function QuotationPaymentRedirectPage($id)
+    {
+
+        $inv_decrypt = Crypt::decrypt($id);
+
+        $invoice = quotation_invoices::where('id',$inv_decrypt)->first();
+
+        if ($invoice == "") {
+            return view('front.index');
+        } else {
+
+            if ($invoice->invoice != 1) {
+
+                return view('front.quotation_payment_failed');
+
+            } else {
+
+                return view('front.quotation_payment_thankyou');
+
+            }
+
+        }
+
+
+    }
+
     public function ThankyouPage($id)
     {
         $inv_decrypt = Crypt::decrypt($id);
         return view('front.thankyou');
-
     }
 
 
