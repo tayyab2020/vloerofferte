@@ -50,7 +50,11 @@
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">Delivery Date</th>
 
+                                                        @if(Route::currentRouteName() == 'client-quotations')
+
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">Time Remaining</th>
+
+                                                        @endif
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="date">Action</th>
 
@@ -163,82 +167,77 @@
 
                                                                 }
 
-
-                                                                /*$dif = strtotime($delivery_date)-strtotime($current_date);
-                                                                $dateDiff = intval(($dif)/60);
-
-                                                                $days = intval($dateDiff/(60*24));
-                                                                $hours = (intval($dateDiff/60)%24) + 1;
-                                                                $minutes = $dateDiff%60;
-                                                                $seconds = gmdate("s", $dif);
-
-                                                                $interval = $days . 'd ' . $hours . 'h ' . $minutes . 'm ' . $seconds . 's';*/
                                                             ?>
 
-                                                            <td class="accept_date">
-                                                                <input type="hidden" id="accept_date" value="{{$cal_accept_date}}">
-                                                                {{$accept_date}}
-                                                            </td>
+
+                                                                <td class="accept_date">
+                                                                    <input type="hidden" id="accept_date" value="{{$cal_accept_date}}">
+                                                                    {{$accept_date}}
+                                                                </td>
 
                                                                 <td class="delivery_date">
                                                                     <input type="hidden" id="delivery_date" value="{{$cal_delivery_date}}">
                                                                     {{$delivery_date}}
                                                                 </td>
 
+                                                                @if(Route::currentRouteName() == 'client-quotations')
+
                                                                 <td class="interval"></td>
 
-                                                            <td class="action_td">
-                                                                <div class="dropdown">
-                                                                    <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
-                                                                        <span class="caret"></span></button>
-                                                                    <ul class="dropdown-menu">
+                                                                @endif
 
-                                                                        @if(Route::currentRouteName() == 'client-custom-quotations')
+                                                                <td class="action_td">
+                                                                    <div class="dropdown">
+                                                                        <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                                                            <span class="caret"></span></button>
+                                                                        <ul class="dropdown-menu">
 
-                                                                            <li><a href="{{ url('/handyman/custom-quotation/'.$key->invoice_id) }}">View</a></li>
-                                                                            <li><a href="{{ url('/handyman/download-client-custom-quotation/'.$key->invoice_id) }}">Download PDF</a></li>
+                                                                            @if(Route::currentRouteName() == 'client-custom-quotations')
 
-                                                                            @if($key->status != 2 && $key->status != 3)
+                                                                                <li><a href="{{ url('/handyman/custom-quotation/'.$key->invoice_id) }}">View</a></li>
+                                                                                <li><a href="{{ url('/handyman/download-client-custom-quotation/'.$key->invoice_id) }}">Download PDF</a></li>
 
-                                                                                @if(!$key->ask_customization)
+                                                                                @if($key->status != 2 && $key->status != 3)
 
-                                                                                    <li><a href="{{ url('/handyman/custom-quotation/ask-customization/'.$key->invoice_id) }}">Ask Again</a></li>
+                                                                                    @if(!$key->ask_customization)
 
-                                                                                @endif
+                                                                                        <li><a href="{{ url('/handyman/custom-quotation/ask-customization/'.$key->invoice_id) }}">Ask Again</a></li>
+
+                                                                                    @endif
 
                                                                                     <li><a href="{{ url('/handyman/custom-quotation/accept-quotation/'.$key->invoice_id) }}">Accept</a></li>
 
-                                                                            @endif
-
-                                                                        @else
-
-                                                                            <li><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">View</a></li>
-                                                                            <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">View Request</a></li>
-                                                                            <li><a href="{{ url('/handyman/download-client-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
-
-                                                                            @if($key->status != 0 && $key->status != 2 && $key->status != 3)
-
-                                                                                @if(!$key->ask_customization)
-
-                                                                                    <li><a href="{{ url('/handyman/ask-customization/'.$key->invoice_id) }}">Ask Again</a></li>
-
                                                                                 @endif
+
+                                                                            @else
+
+                                                                                <li><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">View</a></li>
+                                                                                <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">View Request</a></li>
+                                                                                <li><a href="{{ url('/handyman/download-client-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
+
+                                                                                @if($key->status != 0 && $key->status != 2 && $key->status != 3)
+
+                                                                                    @if(!$key->ask_customization)
+
+                                                                                        <li><a href="{{ url('/handyman/ask-customization/'.$key->invoice_id) }}">Ask Again</a></li>
+
+                                                                                    @endif
 
                                                                                     <li><a onclick="accept(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">Accept</a></li>
 
+                                                                                @endif
+
+                                                                                @if($key->status == 2)
+
+                                                                                    <li><a class="pay_now" onclick="PayNow(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">Pay Now</a></li>
+
+                                                                                @endif
+
                                                                             @endif
 
-                                                                            @if($key->status == 2)
-
-                                                                                <li><a class="pay_now" onclick="PayNow(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">Pay Now</a></li>
-
-                                                                            @endif
-
-                                                                        @endif
-
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
+                                                                        </ul>
+                                                                    </div>
+                                                                </td>
                                                         </tr>
 
                                                     @endforeach
