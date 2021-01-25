@@ -37,7 +37,6 @@ class MollieQuotationPaymentController extends Controller {
         if ($payment->isPaid()) {
 
             $data = $payment->metadata;
-            quotation_invoices::where('id','=',$data->invoice_id)->update(['invoice' => 1, 'ask_customization' => 0]);
             $now = date('d-m-Y H:i:s');
             $paid_amount = $data->paid_amount;
             $quotation_invoice_number = $data->quotation_invoice_number;
