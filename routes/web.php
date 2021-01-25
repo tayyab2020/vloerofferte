@@ -35,6 +35,7 @@
   Route::name('webhooks.mollie')->post('webhooks/mollie', 'MollieWebhookController@handle');
   Route::name('webhooks.first')->post('/mollie', 'MollieFirstPayment@handle');
   Route::name('webhooks.last')->post('/mollie1', 'MollieLastPayment@handle');
+  Route::name('webhooks.quotation_payment')->post('/webhooks/quotation_payment', 'MollieQuotationPaymentController@handle');
   Route::get('/handymans','FrontendController@users')->name('front.users');
   Route::get('/handymans/featured','FrontendController@featured')->name('front.featured');
   Route::get('/handyman-profile/{id}','FrontendController@user')->name('front.user');
@@ -78,7 +79,6 @@
   Route::get('/ask-customization/{id}', 'UserController@AskCustomization');
   Route::post('/accept-quotation', 'UserController@AcceptQuotation');
   Route::post('/pay-quotation', 'UserController@PayQuotation');
-  Route::name('webhooks.quotation_payment')->post('/webhooks/quotation_payment', 'MollieQuotationPaymentController@handle');
   Route::get('/quotation-payment-redirect-page/{id}', 'FrontendController@QuotationPaymentRedirectPage');
   Route::get('/send-custom-quotation/{id}', 'UserController@SendCustomQuotation');
   Route::get('/custom-quotation/ask-customization/{id}', 'UserController@CustomQuotationAskCustomization');
