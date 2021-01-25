@@ -20,15 +20,11 @@ use App\user_languages;
 
 class MollieQuotationPaymentController extends Controller {
 
-    public $sl;
-
     public function handle(Request $request) {
 
         if (! $request->has('id')) {
             return;
         }
-
-        $this->sl = Sociallink::findOrFail(1);
 
         $api_key = Generalsetting::findOrFail(1);
         $sl = Sociallink::findOrFail(1);
@@ -61,7 +57,7 @@ class MollieQuotationPaymentController extends Controller {
                     ->setBody("Dear Mr/Mrs ". $name .",<br><br>We have received a total amount of € " . $paid_amount ." for your quotation # " . $quotation_invoice_number . ". This amount will soon be transferred to your account. For further details visit your panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
             });
 
-            $admin_email = $this->sl->admin_email;
+            $admin_email = $sl->admin_email;
 
             \Mail::send(array(), array(), function ($message) use ($admin_email, $quotation_invoice_number, $paid_amount) {
                 $message->to($admin_email)
