@@ -68,7 +68,7 @@ class MollieQuotationPaymentController extends Controller {
 
             $request = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->where('quotation_invoices.quote_id', $data->quote_id)->select('quotation_invoices_data.*','quotation_invoices.description as other_info')->get();
 
-            $date = strtotime($data->created_at);
+            $date = strtotime($quote->created_at);
             $requested_quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
 
             ini_set('max_execution_time', 180);
