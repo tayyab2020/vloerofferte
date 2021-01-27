@@ -81,6 +81,10 @@
                                 </li>
 
                                 <li>
+                                    <a href="{{route('handyman-commission-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Commission Invoices</a>
+                                </li>
+
+                                <li>
                                     <a href="{{route('quotation-questions')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Questions</a>
                                 </li>
 

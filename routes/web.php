@@ -214,10 +214,12 @@
   Route::get('/quotation-requests', 'AdminUserController@QuotationRequests')->name('quotation-requests');
   Route::get('/handyman-quotations/{id?}', 'AdminUserController@HandymanQuotations')->name('handyman-quotations');
   Route::get('/handyman-quotations-invoices/{id?}', 'AdminUserController@HandymanQuotationsInvoices')->name('handyman-quotations-invoices');
+  Route::get('/handyman-commission-invoices/{id?}', 'AdminUserController@HandymanQuotationsInvoices')->name('handyman-commission-invoices');
   Route::get('/view-quote-request/{id}', 'AdminUserController@QuoteRequest');
   Route::get('/view-quotation/{id}', 'AdminUserController@ViewQuotation')->name('view-quotation');
   Route::get('/download-quote-request/{id}', 'AdminUserController@DownloadQuoteRequest');
   Route::get('/download-quote-invoice/{id}', 'AdminUserController@DownloadQuoteInvoice');
+  Route::get('/download-commission-invoice/{id}', 'AdminUserController@DownloadCommissionInvoice');
   Route::get('/send-quote-request/{id}', 'AdminUserController@SendQuoteRequest');
   Route::post('/send-quote-request', 'AdminUserController@SendQuoteRequestHandymen')->name('send-quote-request');
   Route::post('/approve-handyman-quotations', 'AdminUserController@ApproveHandymanQuotations')->name('approve-handyman-quotations');
