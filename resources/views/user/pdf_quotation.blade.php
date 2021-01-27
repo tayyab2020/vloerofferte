@@ -87,13 +87,13 @@
                                         @foreach($request as $key)
 
                                             <tr>
-                                                <td>{{$request->service}}</td>
-                                                <td>{{$request->brand}}</td>
-                                                <td>{{$request->model}}</td>
-                                                <td>{{$request->description}}</td>
-                                                <td>{{$request->rate}}</td>
-                                                <td>{{$request->qty}}</td>
-                                                <td>{{$request->amount}}</td>
+                                                <td>{{$key->service}}</td>
+                                                <td>{{$key->brand}}</td>
+                                                <td>{{$key->model}}</td>
+                                                <td>{{$key->description}}</td>
+                                                <td>{{$key->rate}}</td>
+                                                <td>{{$key->qty}}</td>
+                                                <td>{{$key->amount}}</td>
                                             </tr>
 
                                         @endforeach
