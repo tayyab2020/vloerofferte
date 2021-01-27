@@ -167,9 +167,11 @@
 
                                 <tr>
                                     @if($type == 'commission_invoice')
-                                        <th class="border-0 text-uppercase small font-weight-bold">Commission({{$request->commission_percentage}}%)</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">Commission({{$commission_percentage}}%)</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request[0]->vat_percentage}}%)</th>
+                                    @else
+                                        <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request->vat_percentage}}%)</th>
                                     @endif
-                                    <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request->vat_percentage}}%)</th>
                                     <th class="border-0 text-uppercase small font-weight-bold">Subtotal</th>
                                     <th class="border-0 text-uppercase small font-weight-bold">Grand Total</th>
                                         @if($type == 'commission_invoice')
