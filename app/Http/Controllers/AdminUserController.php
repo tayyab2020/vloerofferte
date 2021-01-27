@@ -267,6 +267,9 @@ class AdminUserController extends Controller
             $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id', $quotation[0]->handyman_id)->select('models.*','handyman_products.rate')->get();
             $all_models = $all_models->unique();
 
+            var_dump($all_models);
+            exit();
+
             $items = items::where('user_id',$quotation[0]->handyman_id)->get();
 
             return view('admin.user.quotation',compact('quotation','services','vat_percentage','items','all_brands','all_models'));
