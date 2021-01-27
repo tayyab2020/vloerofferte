@@ -59,7 +59,7 @@ class MollieQuotationPaymentController extends Controller {
 
             $filename = $quotation_invoice_number . '.pdf';
 
-            $file = public_path() . '/assets/quotationsPDF/HandymanInvoices/' . $filename;
+            $file = public_path() . '/assets/quotationsPDF/CommissionInvoices/' . $filename;
 
             $type = 'commission_invoice';
             $commission_invoice_number = $data->commission_invoice_number;
@@ -75,7 +75,7 @@ class MollieQuotationPaymentController extends Controller {
 
             $pdf = PDF::loadView('user.pdf_quotation', compact('quote', 'type', 'request', 'commission_invoice_number', 'quotation_invoice_number', 'requested_quote_number', 'commission_percentage', 'commission', 'total_receive'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
-            $pdf->save(public_path() . '/assets/quotationsPDF/CommissionInvoices/' . $filename);
+            $pdf->save($file);
 
 
             \Mail::send(array(), array(), function ($message) use ($file, $filename, $email, $name, $handyman_dash, $paid_amount, $quotation_invoice_number) {
