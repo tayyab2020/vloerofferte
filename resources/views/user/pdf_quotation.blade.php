@@ -121,16 +121,34 @@
                             </div>
                         </div>
 
-                        @if($request->other_info)
+                        @if($type == 'commission_invoice')
 
-                        <div class="row pb-5 p-5">
-                            <div class="col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #e3e3e3;padding: 20px;">
-                                <p class="font-weight-bold mb-4 m-heading">Description</p>
-                                <p class="mb-1 m-rest">{{$request->other_info}}</p>
-                            </div>
-                        </div>
+                            @if($request[0]->other_info)
+
+                                <div class="row pb-5 p-5">
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #e3e3e3;padding: 20px;">
+                                        <p class="font-weight-bold mb-4 m-heading">Description</p>
+                                        <p class="mb-1 m-rest">{{$request[0]->other_info}}</p>
+                                    </div>
+                                </div>
+
+                            @endif
+
+                        @else
+
+                            @if($request->other_info)
+
+                                <div class="row pb-5 p-5">
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #e3e3e3;padding: 20px;">
+                                        <p class="font-weight-bold mb-4 m-heading">Description</p>
+                                        <p class="mb-1 m-rest">{{$request->other_info}}</p>
+                                    </div>
+                                </div>
+
+                            @endif
 
                         @endif
+
 
                         <style type="text/css">
 
