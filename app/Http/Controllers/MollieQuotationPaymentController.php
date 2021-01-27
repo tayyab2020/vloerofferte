@@ -39,8 +39,6 @@ class MollieQuotationPaymentController extends Controller {
         if ($payment->isPaid()) {
 
             $payment_id = $request->id;
-            $payment = $mollie->payments->get($payment_id);
-            $customer_id = $payment->metadata->customer_id;
 
             $data = $payment->metadata;
             $now = date('d-m-Y H:i:s');
@@ -51,7 +49,7 @@ class MollieQuotationPaymentController extends Controller {
             $commission = $data->commission;
             $total_receive = $data->total_receive;
 
-            quotation_invoices::where('id','=',$data->invoice_id)->update(['invoice' => 1, 'ask_customization' => 0, 'commission_percentage' => $commission_percentage, 'commission' => $commission, 'total_receive' => $total_receive, 'payment_date' => $now, 'mollie_customer_id' => $customer_id, 'payment_id' => $payment_id]);
+            quotation_invoices::where('id','=',$data->invoice_id)->update(['invoice' => 1, 'ask_customization' => 0, 'commission_percentage' => $commission_percentage, 'commission' => $commission, 'total_receive' => $total_receive, 'payment_date' => $now, 'payment_id' => $payment_id]);
             quotes::where('id','=',$data->quote_id)->update(['status' => 3]);
 
             $handyman = User::where('id','=',$data->handyman_id)->first();
