@@ -554,6 +554,13 @@ class UserController extends Controller
             $description = 'Payment for Invoice No. ' . $quotation_invoice_number;
 
             $inv_encrypt = Crypt::encrypt($pay_invoice_id);
+            $settings = Generalsetting::findOrFail(1);
+            $commission_percentage = $settings->commission_percentage;
+            $commission = $total_mollie * ($commission_percentage/100);
+            $commission = number_format((float)$commission, 2, '.', '');
+            $total_receive = $total_mollie - $commission;
+            $total_receive = number_format((float)$total_receive, 2, '.', '');
+
 
             $mollie = new \Mollie\Api\MollieApiClient();
             $mollie->setApiKey($api_key->mollie);
@@ -570,7 +577,10 @@ class UserController extends Controller
                     "quote_id" => $quote_id,
                     "handyman_id" => $handyman_id,
                     "quotation_invoice_number" => $quotation_invoice_number,
-                    "paid_amount" => $total_mollie
+                    "paid_amount" => $total_mollie,
+                    "commission_percentage" => $commission_percentage,
+                    "commission" => $commission,
+                    "total_receive" => $total_receive
                 ],
             ]);
 

@@ -119,9 +119,15 @@
                                 <thead>
 
                                 <tr>
+                                    @if(isset($commission_percentage))
+                                        <th class="border-0 text-uppercase small font-weight-bold">Commission({{$request->commission_percentage}}%)</th>
+                                    @endif
                                     <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request->vat_percentage}}%)</th>
                                     <th class="border-0 text-uppercase small font-weight-bold">Subtotal</th>
                                     <th class="border-0 text-uppercase small font-weight-bold">Grand Total</th>
+                                        @if(isset($commission_percentage))
+                                            <th class="border-0 text-uppercase small font-weight-bold">Total to receive</th>
+                                        @endif
                                 </tr>
 
                                 </thead>
@@ -129,9 +135,15 @@
                                 <tbody>
 
                                 <tr>
+                                    @if(isset($commission))
+                                        <td>{{$commission}}</td>
+                                    @endif
                                     <td>{{$request->tax_amount}}</td>
                                     <td>{{$request->sub_total}}</td>
                                     <td>{{$request->grand_total}}</td>
+                                        @if(isset($total_receive))
+                                            <td>{{$total_receive}}</td>
+                                        @endif
                                 </tr>
 
                                 </tbody>
