@@ -186,13 +186,15 @@
                                 <tr>
                                     @if($type == 'commission_invoice')
                                         <td>{{$commission}}</td>
+                                        <td>{{$request[0]->tax}}</td>
+                                        <td>{{$request[0]->sub_total}}</td>
+                                        <td>{{$request[0]->grand_total}}</td>
+                                        <td>{{$total_receive}}</td>
+                                    @else
+                                        <td>{{$request->tax_amount}}</td>
+                                        <td>{{$request->sub_total}}</td>
+                                        <td>{{$request->grand_total}}</td>
                                     @endif
-                                    <td>{{$request->tax_amount}}</td>
-                                    <td>{{$request->sub_total}}</td>
-                                    <td>{{$request->grand_total}}</td>
-                                        @if($type == 'commission_invoice')
-                                            <td>{{$total_receive}}</td>
-                                        @endif
                                 </tr>
 
                                 </tbody>
