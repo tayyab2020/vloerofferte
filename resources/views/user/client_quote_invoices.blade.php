@@ -273,7 +273,7 @@
 
                         <input type="hidden" name="invoice_id" id="invoice_id">
                         <label>Delivery Date <span style="color: red;">*</span></label>
-                        <input style="height: 45px;margin-bottom: 20px" type="text" name="delivery_date" id="delivery_date" class="form-control" placeholder="Select Delivery Date" required autocomplete="off">
+                        <input style="height: 45px;margin-bottom: 20px" type="text" name="delivery_date" id="delivery_date_picker" class="form-control" placeholder="Select Delivery Date" required autocomplete="off">
 
                     </div>
 
@@ -990,7 +990,7 @@
             var todayDate = new Date().getDate();
             var endD = new Date(new Date().setDate(todayDate + 1));
 
-            $('#delivery_date').datepicker({
+            $('#delivery_date_picker').datepicker({
 
                 format: 'dd-mm-yyyy',
                 startDate: endD,
