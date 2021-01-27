@@ -110,7 +110,7 @@
 
                                                                                     </select>
 
-                                                                                    <input type="hidden" name="service_title[]" value="{{$service_title}}">
+                                                                                    <input type="hidden" name="service_title[]" value="{{isset($service_title) ? $service_title : $services[0]->cat_name}}">
                                                                                 </td>
                                                                                 <td>
                                                                                     <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required @if(Route::currentRouteName() == 'view-quotation') disabled @endif>
@@ -121,7 +121,7 @@
 
                                                                                     </select>
 
-                                                                                    <input type="hidden" name="brand_title[]" value="{{$brand_title}}">
+                                                                                    <input type="hidden" name="brand_title[]" value="{{isset($brand_title) ? $brand_title : $all_brands[0]->cat_name}}">
                                                                                 </td>
                                                                                 <td>
                                                                                     <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required @if(Route::currentRouteName() == 'view-quotation') disabled @endif>
@@ -132,7 +132,7 @@
 
                                                                                     </select>
 
-                                                                                    <input type="hidden" name="model_title[]" value="{{$model_title}}">
+                                                                                    <input type="hidden" name="model_title[]" value="{{isset($model_title) ? $model_title : $all_models[0]->cat_name}}">
                                                                                 </td>
                                                                                 <td>
                                                                                     <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control" @if(Route::currentRouteName() == 'view-quotation') readonly @endif>{{$temp->data_description}}</textarea>

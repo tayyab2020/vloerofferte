@@ -61,14 +61,13 @@ class MollieQuotationPaymentController extends Controller {
 
             $file = public_path() . '/assets/quotationsPDF/HandymanInvoices/' . $filename;
 
-            $type = 'new';
-            $commission_invoice = 1;
+            $type = 'commission_invoice';
 
             if (!file_exists($file)) {
 
             ini_set('max_execution_time', 180);
 
-            $pdf = PDF::loadView('user.pdf_quotation', compact('quote', 'type', 'commission_invoice', 'request', 'quotation_invoice_number', 'requested_quote_number', 'commission_percentage', 'commission', 'total_receive'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+            $pdf = PDF::loadView('user.pdf_quotation', compact('quote', 'type', 'request', 'quotation_invoice_number', 'requested_quote_number', 'commission_percentage', 'commission', 'total_receive'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
             $pdf->save(public_path() . '/assets/quotationsPDF/CommissionInvoices/' . $filename);
 

@@ -561,6 +561,9 @@ class UserController extends Controller
             $total_receive = $total_mollie - $commission;
             $total_receive = number_format((float)$total_receive, 2, '.', '');
 
+            $date = strtotime($data->created_at);
+            $commission_invoice_number = date("Y", $date) . "-" . str_pad(rand(0, pow(10, 4) - 1), 4, '0', STR_PAD_LEFT) . "-0001";
+
 
             $mollie = new \Mollie\Api\MollieApiClient();
             $mollie->setApiKey($api_key->mollie);

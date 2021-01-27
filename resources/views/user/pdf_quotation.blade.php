@@ -4,7 +4,7 @@
 
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">@if($type == 'invoice') Quotation Invoice @else Quotation @endif</h1>
+            <h1 class="jumbotron-heading">@if($type == 'commission_invoice') Commission Invoice @elseif($type == 'invoice') Quotation Invoice @else Quotation @endif</h1>
         </div>
     </section>
 
@@ -119,13 +119,13 @@
                                 <thead>
 
                                 <tr>
-                                    @if(isset($commission_percentage))
+                                    @if(isset($commission_invoice))
                                         <th class="border-0 text-uppercase small font-weight-bold">Commission({{$request->commission_percentage}}%)</th>
                                     @endif
                                     <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request->vat_percentage}}%)</th>
                                     <th class="border-0 text-uppercase small font-weight-bold">Subtotal</th>
                                     <th class="border-0 text-uppercase small font-weight-bold">Grand Total</th>
-                                        @if(isset($commission_percentage))
+                                        @if(isset($commission_invoice))
                                             <th class="border-0 text-uppercase small font-weight-bold">Total to receive</th>
                                         @endif
                                 </tr>
@@ -135,13 +135,13 @@
                                 <tbody>
 
                                 <tr>
-                                    @if(isset($commission))
+                                    @if(isset($commission_invoice))
                                         <td>{{$commission}}</td>
                                     @endif
                                     <td>{{$request->tax_amount}}</td>
                                     <td>{{$request->sub_total}}</td>
                                     <td>{{$request->grand_total}}</td>
-                                        @if(isset($total_receive))
+                                        @if(isset($commission_invoice))
                                             <td>{{$total_receive}}</td>
                                         @endif
                                 </tr>
