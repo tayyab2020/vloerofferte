@@ -265,10 +265,7 @@ class AdminUserController extends Controller
             $all_brands = $all_brands->unique();
 
             $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id', $quotation[0]->handyman_id)->select('models.*','handyman_products.rate')->get();
-            
-
-            var_dump($all_models);
-            exit();
+            $all_models = $all_models->unique();
 
             $items = items::where('user_id',$quotation[0]->handyman_id)->get();
 
