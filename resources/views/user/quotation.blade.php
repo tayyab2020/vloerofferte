@@ -172,7 +172,7 @@
                                                                                                 <option value="{{$key->id}}" @if($temp->b_i_id == $key->id) selected <?php $brand_title = $temp->brand; ?> @endif>{{$key->cat_name}}</option>
                                                                                             @endforeach
 
-                                                                                            <input type="hidden" name="brand_title[]" value="{{$brand_title}}">
+                                                                                            <input type="hidden" name="brand_title[]" value="{{isset($brand_title) ? $brand_title : $all_brands[0]->cat_name}}">
 
                                                                                         </select>
 
@@ -192,7 +192,7 @@
                                                                                                 <option value="{{$key->id}}" @if($temp->m_i_id == $key->id) selected <?php $model_title = $temp->model; ?> @endif>{{$key->cat_name}}</option>
                                                                                             @endforeach
 
-                                                                                            <input type="hidden" name="model_title[]" value="{{$model_title}}">
+                                                                                            <input type="hidden" name="model_title[]" value="{{isset($model_title) ? $model_title : $all_models[0]->cat_name}}">
 
                                                                                         </select>
 

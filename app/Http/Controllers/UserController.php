@@ -491,6 +491,7 @@ class UserController extends Controller
 
     public function PayQuotation(Request $request)
     {
+
         $pay_invoice_id = $request->pay_invoice_id;
         $data = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $pay_invoice_id)->select('quotes.*', 'quotation_invoices.grand_total','quotation_invoices.handyman_id','quotation_invoices.quotation_invoice_number','quotation_invoices.accept_date', 'quotation_invoices.delivery_date')->first();
         $quote_id = $data->id;
@@ -504,7 +505,6 @@ class UserController extends Controller
         $minute = $second * 60;
         $hour = $minute * 60;
         $day = $hour * 24;
-
 
 
         if($accept_date !== NULL && $delivery_date !== NULL)
@@ -580,6 +580,7 @@ class UserController extends Controller
                     "quote_id" => $quote_id,
                     "handyman_id" => $handyman_id,
                     "quotation_invoice_number" => $quotation_invoice_number,
+                    "commission_invoice_number" => $commission_invoice_number,
                     "paid_amount" => $total_mollie,
                     "commission_percentage" => $commission_percentage,
                     "commission" => $commission,

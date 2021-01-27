@@ -984,7 +984,7 @@
                     '                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>\n' +
                     '                                                                                @endforeach\n' +
                     '                                                                            </select>\n' +
-                    '                                                                           <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">\n'+
+                    '                                                                           <input type="hidden" name="service_title[]" value="">\n'+
                     '                                                                        </td>\n' +
                     '                                                                        <td>\n' +
                     '                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>\n' +

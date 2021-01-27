@@ -25,11 +25,20 @@
 
                             <div class="col-md-6 col-sm-6 col-xs-12 text-right inv-rigth" style="float: right;margin-top: 50px;">
 
-                                <p class="font-weight-bold mb-1" style="font-size: 20px;">@if($type == 'invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
-
                                 <?php $date = date('d-m-Y');  ?>
 
-                                <p class="text-muted" style="font-size: 15px;margin-top: 20px;">Created at: {{$date}}</p>
+                                @if($type == 'commission_invoice')
+
+                                    <p class="font-weight-bold mb-1" style="font-size: 20px;">INV# {{$commission_invoice_number}}</p>
+                                    <p class="text-muted" style="font-size: 15px;margin-top: 20px;">Customer Invoice: INV# {{$quotation_invoice_number}}</p>
+
+                                @else
+
+                                    <p class="font-weight-bold mb-1" style="font-size: 20px;">@if($type == 'invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
+
+                                @endif
+
+                                    <p class="text-muted" style="font-size: 15px;margin-top: 20px;">Created at: {{$date}}</p>
 
                             </div>
                         </div>
@@ -73,19 +82,39 @@
                                     </thead>
                                     <tbody>
 
-                                    @foreach($request->item as $i => $key)
+                                    @if($type == 'commission_invoice')
 
-                                        <tr>
-                                            <td>{{$request->service_title[$i]}}</td>
-                                            <td>{{$request->brand_title[$i]}}</td>
-                                            <td>{{$request->model_title[$i]}}</td>
-                                            <td>{{$request->description[$i]}}</td>
-                                            <td>{{$request->cost[$i]}}</td>
-                                            <td>{{$request->qty[$i]}}</td>
-                                            <td>{{$request->amount[$i]}}</td>
-                                        </tr>
+                                        @foreach($request as $key)
 
-                                    @endforeach
+                                            <tr>
+                                                <td>{{$request->service}}</td>
+                                                <td>{{$request->brand}}</td>
+                                                <td>{{$request->model}}</td>
+                                                <td>{{$request->description}}</td>
+                                                <td>{{$request->rate}}</td>
+                                                <td>{{$request->qty}}</td>
+                                                <td>{{$request->amount}}</td>
+                                            </tr>
+
+                                        @endforeach
+
+                                    @else
+
+                                        @foreach($request->item as $i => $key)
+
+                                            <tr>
+                                                <td>{{$request->service_title[$i]}}</td>
+                                                <td>{{$request->brand_title[$i]}}</td>
+                                                <td>{{$request->model_title[$i]}}</td>
+                                                <td>{{$request->description[$i]}}</td>
+                                                <td>{{$request->cost[$i]}}</td>
+                                                <td>{{$request->qty[$i]}}</td>
+                                                <td>{{$request->amount[$i]}}</td>
+                                            </tr>
+
+                                        @endforeach
+
+                                    @endif
 
                                     </tbody>
                                 </table>
@@ -119,13 +148,13 @@
                                 <thead>
 
                                 <tr>
-                                    @if(isset($commission_invoice))
+                                    @if($type == 'commission_invoice')
                                         <th class="border-0 text-uppercase small font-weight-bold">Commission({{$request->commission_percentage}}%)</th>
                                     @endif
                                     <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request->vat_percentage}}%)</th>
                                     <th class="border-0 text-uppercase small font-weight-bold">Subtotal</th>
                                     <th class="border-0 text-uppercase small font-weight-bold">Grand Total</th>
-                                        @if(isset($commission_invoice))
+                                        @if($type == 'commission_invoice')
                                             <th class="border-0 text-uppercase small font-weight-bold">Total to receive</th>
                                         @endif
                                 </tr>
@@ -135,13 +164,13 @@
                                 <tbody>
 
                                 <tr>
-                                    @if(isset($commission_invoice))
+                                    @if($type == 'commission_invoice')
                                         <td>{{$commission}}</td>
                                     @endif
                                     <td>{{$request->tax_amount}}</td>
                                     <td>{{$request->sub_total}}</td>
                                     <td>{{$request->grand_total}}</td>
-                                        @if(isset($commission_invoice))
+                                        @if($type == 'commission_invoice')
                                             <td>{{$total_receive}}</td>
                                         @endif
                                 </tr>
