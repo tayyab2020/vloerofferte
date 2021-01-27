@@ -168,6 +168,7 @@ class ProductController extends Controller
         }
 
         unlink(public_path().'/assets/images/'.$cat->photo);
+        handyman_products::where('product_id',$id)->delete();
         $cat->delete();
         Session::flash('success', 'Product deleted successfully.');
         return redirect()->route('admin-product-index');
