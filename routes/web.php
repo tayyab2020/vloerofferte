@@ -67,12 +67,14 @@
   Route::get('/handyman-quotation-requests', 'UserController@HandymanQuotationRequests')->name('handyman-quotation-requests');
   Route::get('/handyman-quotations/{id?}', 'UserController@HandymanQuotations')->name('quotations');
   Route::get('/handyman-quotations-invoices/{id?}', 'UserController@HandymanQuotationsInvoices')->name('quotations-invoices');
+  Route::get('/handyman-commission-invoices/{id?}', 'UserController@HandymanQuotationsInvoices')->name('commission-invoices');
   Route::get('/quotations/{id?}', 'UserController@Quotations')->name('client-quotations');
   Route::get('/custom-quotations/{id?}', 'UserController@CustomQuotations')->name('client-custom-quotations');
   Route::get('/quotations-invoices/{id?}', 'UserController@QuotationsInvoices')->name('client-quotations-invoices');
   Route::get('/view-quote-request/{id}', 'UserController@QuoteRequest');
   Route::get('/download-quote-request/{id}', 'UserController@DownloadQuoteRequest');
   Route::get('/download-quote-invoice/{id}', 'UserController@DownloadQuoteInvoice');
+  Route::get('/download-commission-invoice/{id}', 'UserController@DownloadCommissionInvoice');
   Route::get('/download-custom-quotation/{id}', 'UserController@DownloadCustomQuotation');
   Route::get('/download-client-quote-invoice/{id}', 'UserController@DownloadClientQuoteInvoice');
   Route::get('/download-client-custom-quotation/{id}', 'UserController@DownloadClientCustomQuoteInvoice');

@@ -133,6 +133,10 @@
                         </li>
 
                         <li>
+                            <a href="{{route('commission-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Commission Invoices</a>
+                        </li>
+
+                        <li>
                             <a href="{{route('customer-quotations')}}"><i class="fa fa-fw fa-file-text"></i> Customer
                                 Quotations</a>
                         </li>
