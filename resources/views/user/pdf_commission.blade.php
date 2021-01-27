@@ -4,7 +4,7 @@
 
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">@if($type == 'invoice') Quotation Invoice @else Quotation @endif</h1>
+            <h1 class="jumbotron-heading">Commission Invoice</h1>
         </div>
     </section>
 
@@ -25,9 +25,10 @@
 
                             <div class="col-md-6 col-sm-6 col-xs-12 text-right inv-rigth" style="float: right;margin-top: 50px;">
 
-                                <p class="font-weight-bold mb-1" style="font-size: 20px;">@if($type == 'invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
-
                                 <?php $date = date('d-m-Y');  ?>
+
+                                <p class="font-weight-bold mb-1" style="font-size: 20px;">INV# {{$commission_invoice_number}}</p>
+                                <p class="text-muted" style="font-size: 15px;margin-top: 20px;">Customer Invoice: INV# {{$quotation_invoice_number}}</p>
 
                                 <p class="text-muted" style="font-size: 15px;margin-top: 20px;">Created at: {{$date}}</p>
 
@@ -45,15 +46,11 @@
                                 <p class="mb-1 m-rest">Zipcode: {{$quote->quote_zipcode}}</p>
                             </div>
 
-                            @if($type == 'invoice')
-
-                                <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
-                                    <p class="mb-1 m-rest">Name: {{$quote->quote_name}} {{$quote->quote_familyname}}</p>
-                                    <p class="mb-1 m-rest">{{$quote->quote_email}}</p>
-                                    <p class="mb-1 m-rest">{{$quote->quote_contact}}</p>
-                                </div>
-
-                            @endif
+                            <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
+                                <p class="mb-1 m-rest">Name: {{$quote->quote_name}} {{$quote->quote_familyname}}</p>
+                                <p class="mb-1 m-rest">{{$quote->quote_email}}</p>
+                                <p class="mb-1 m-rest">{{$quote->quote_contact}}</p>
+                            </div>
 
                         </div>
 
@@ -62,46 +59,108 @@
                                 <table class="table" style="border: 1px solid #e5e5e5;">
                                     <thead>
                                     <tr>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Category/Item</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Brand</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Model</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Description</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Cost</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Qty</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">Costs</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Amount</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">VAT %</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">VAT</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
+                                    <?php
+                                        $commission_vat = $commission/($request[0]->vat_percentage + 100);
+                                        $commission_vat = $commission - $commission_vat;
+                                        $subtotal = $commission - $request[0]->tax;
+                                    ?>
+
+                                    <tr>
+                                        <td>Commission</td>
+                                        <td>€ {{$commission}}</td>
+                                        <td>{{$request[0]->vat_percentage}}%</td>
+                                        <td>{{$commission_vat}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Subtotal excluding VAT</td>
+                                        <td>€ {{$subtotal}}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>VAT</td>
+                                        <td>€ {{$request[0]->tax}}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Total including VAT</td>
+                                        <td>€ {{$commission}}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="font-weight: bold;color: black;">Your Sales</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border-top: 1px solid black;">Short Description</td>
+                                        <td style="border-top: 1px solid black;"></td>
+                                        <td style="border-top: 1px solid black;"></td>
+                                        <td style="border-top: 1px solid black;"></td>
+                                    </tr>
+
+
                                     @foreach($request->item as $i => $key)
 
                                         <tr>
-                                            <td>{{$request->service_title[$i]}}</td>
-                                            <td>{{$request->brand_title[$i]}}</td>
-                                            <td>{{$request->model_title[$i]}}</td>
-                                            <td>{{$request->description[$i]}}</td>
-                                            <td>{{$request->cost[$i]}}</td>
-                                            <td>{{$request->qty[$i]}}</td>
-                                            <td>{{$request->amount[$i]}}</td>
+                                            <td>{{$request->service_title[$i]}} {{$request->brand_title[$i]}} {{$request->model_title[$i]}}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
 
                                     @endforeach
+
+
+                                    <tr>
+                                        <td></td>
+                                        <td>€ {{$request[0]->grand_total}}</td>
+                                        <td>{{$request[0]->vat_percentage}}%</td>
+                                        <td>{{$request[0]->tax}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="background-color: gray;font-weight: bold;color: black;">Total to receive</td>
+                                        <td style="background-color: gray;font-weight: bold;color: black;">€ {{$total_receive}}</td>
+                                        <td style="background-color: gray;font-weight: bold;color: black;"></td>
+                                        <td style="background-color: gray;font-weight: bold;color: black;"></td>
+                                    </tr>
 
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
-                        @if($request->other_info)
-
-                            <div class="row pb-5 p-5">
-                                <div class="col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #e3e3e3;padding: 20px;">
-                                    <p class="font-weight-bold mb-4 m-heading">Description</p>
-                                    <p class="mb-1 m-rest">{{$request->other_info}}</p>
-                                </div>
-                            </div>
-
-                        @endif
 
                         <style type="text/css">
 
@@ -112,33 +171,6 @@
 
                         </style>
 
-
-                        <div class="d-flex flex-row-reverse bg-dark text-white p-4" style="background-color: #343a40 !important;display: block !important;margin: 0 !important;">
-
-                            <table class="table">
-                                <thead>
-
-                                <tr>
-                                    <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request->vat_percentage}}%)</th>
-                                    <th class="border-0 text-uppercase small font-weight-bold">Subtotal</th>
-                                    <th class="border-0 text-uppercase small font-weight-bold">Grand Total</th>
-                                </tr>
-
-                                </thead>
-
-                                <tbody>
-
-                                <tr>
-                                    <td>{{$request->tax_amount}}</td>
-                                    <td>{{$request->sub_total}}</td>
-                                    <td>{{$request->grand_total}}</td>
-                                </tr>
-
-                                </tbody>
-
-                            </table>
-
-                        </div>
                     </div>
                 </div>
             </div>

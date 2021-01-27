@@ -919,37 +919,34 @@
                 var category_id = current.val();
                 var item_check = category_id.includes('I');
 
-                if(!item_check)
-                {
-                    var options = '';
+                var options = '';
 
-                    $.ajax({
-                        type:"GET",
-                        data: "id=" + category_id + "&handyman_id=" + handyman_id,
-                        url: "<?php echo route('products-brands-by-category') ?>",
-                        success: function(data) {
+                $.ajax({
+                    type:"GET",
+                    data: "id=" + category_id + "&handyman_id=" + handyman_id,
+                    url: "<?php echo route('products-brands-by-category') ?>",
+                    success: function(data) {
 
-                            $.each(data, function(index, value) {
+                        $.each(data, function(index, value) {
 
-                                var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
+                            var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
 
-                                options = options + opt;
+                            options = options + opt;
 
-                            });
+                        });
 
-                            current.parent().next().children('select').find('option')
-                                .remove()
-                                .end()
-                                .append('<option value="">Select Brand</option>'+options);
+                        current.parent().next().children('select').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Brand</option>'+options);
 
-                            current.parent().next().next().children('select').find('option')
-                                .remove()
-                                .end()
-                                .append('<option value="">Select Model</option>');
+                        current.parent().next().next().children('select').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Model</option>');
 
-                        }
-                    });
-                }
+                    }
+                });
 
             });
 
@@ -1146,37 +1143,34 @@
                     var category_id = current.val();
                     var item_check = category_id.includes('I');
 
-                    if(!item_check)
-                    {
-                        var options = '';
+                    var options = '';
 
-                        $.ajax({
-                            type:"GET",
-                            data: "id=" + category_id + "&handyman_id=" + handyman_id,
-                            url: "<?php echo route('products-brands-by-category') ?>",
-                            success: function(data) {
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + category_id + "&handyman_id=" + handyman_id,
+                        url: "<?php echo route('products-brands-by-category') ?>",
+                        success: function(data) {
 
-                                $.each(data, function(index, value) {
+                            $.each(data, function(index, value) {
 
-                                    var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
+                                var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
 
-                                    options = options + opt;
+                                options = options + opt;
 
-                                });
+                            });
 
-                                current.parent().next().children('select').find('option')
-                                    .remove()
-                                    .end()
-                                    .append('<option value="">Select Brand</option>'+options);
+                            current.parent().next().children('select').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">Select Brand</option>'+options);
 
-                                current.parent().next().next().children('select').find('option')
-                                    .remove()
-                                    .end()
-                                    .append('<option value="">Select Model</option>');
+                            current.parent().next().next().children('select').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">Select Model</option>');
 
-                            }
-                        });
-                    }
+                        }
+                    });
 
                 });
 
