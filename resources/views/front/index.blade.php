@@ -1036,7 +1036,7 @@
 
                             last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">'+val.title+'</h3><input type="hidden" name="questions[]" value="'+val.title+'">');
 
-                            if(val.predefined)
+                            if(val.predefined == 1)
                             {
 
                                 last.append('<div><input name="predefined'+index+'" type="hidden" value="1"></div>');
