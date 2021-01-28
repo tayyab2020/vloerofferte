@@ -126,7 +126,7 @@
                                     @foreach($request as $key)
 
                                         <tr>
-                                            <td>{{$key->service_title}} {{$key->brand_title}} {{$key->model_title[$i]}}</td>
+                                            <td>{{$key->service_title}} {{$key->brand_title}} {{$key->model_title}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
