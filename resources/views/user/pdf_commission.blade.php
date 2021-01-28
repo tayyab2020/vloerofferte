@@ -68,7 +68,7 @@
                                     <tbody>
 
                                     <?php
-                                        $commission_vat = $commission/($request[0]->vat_percentage + 100);
+                                        $commission_vat = ($commission/($request[0]->vat_percentage + 100)) * 100;
                                         $commission_vat = $commission - $commission_vat;
                                         $subtotal = $commission - $request[0]->tax;
                                     ?>
@@ -126,7 +126,7 @@
                                     @foreach($request as $key)
 
                                         <tr>
-                                            <td>{{$key->service_title}} {{$key->brand_title}} {{$key->model_title}}</td>
+                                            <td>{{$key->service}} {{$key->brand}} {{$key->model}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
