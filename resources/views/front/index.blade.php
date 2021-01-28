@@ -1053,7 +1053,8 @@
                             }
                             else
                             {
-                                last.append('<input name="predefined'+index+'" type="hidden" value="0"><textarea name="answers'+index+'" style="resize: vertical;" rows="7" class="form-control" placeholder=""></textarea>');
+                                last.append('<input name="predefined'+index+'" type="hidden" value="0">\n'+
+                                    '<textarea name="answers'+index+'" style="resize: vertical;" rows="7" class="form-control" placeholder=""></textarea>');
                             }
 
                             index_count = index;
