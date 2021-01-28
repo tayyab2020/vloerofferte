@@ -123,10 +123,10 @@
                                     </tr>
 
 
-                                    @foreach($request->item as $i => $key)
+                                    @foreach($request as $key)
 
                                         <tr>
-                                            <td>{{$request->service_title[$i]}} {{$request->brand_title[$i]}} {{$request->model_title[$i]}}</td>
+                                            <td>{{$key->service_title}} {{$key->brand_title}} {{$key->model_title[$i]}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
