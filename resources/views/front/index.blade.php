@@ -1025,7 +1025,7 @@
 
                             if(data.length == index + 1)
                             {
-                                $('#step3').children('.well').append('<div></div>');
+                                $('#step3').children('.well').append('<div style="margin-bottom: 20px;"></div>');
                             }
                             else
                             {
