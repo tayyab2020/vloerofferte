@@ -70,7 +70,7 @@
                                     <?php
                                         $commission_vat = ($commission/($request[0]->vat_percentage + 100)) * 100;
                                         $commission_vat = $commission - $commission_vat;
-                                        $subtotal = $commission - $request[0]->tax;
+                                        $subtotal = $commission - $commission_vat;
                                     ?>
 
                                     <tr>
