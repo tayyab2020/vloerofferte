@@ -89,7 +89,7 @@
 
                                     <tr>
                                         <td>VAT</td>
-                                        <td>€ {{$request[0]->tax}}</td>
+                                        <td>€ {{$commission_vat}}</td>
                                         <td></td>
                                         <td></td>
                                     </tr>
