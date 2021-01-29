@@ -568,6 +568,22 @@ class UserController extends Controller
 
         if($check == 0)
         {
+            $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.id', $quote_id)->select('quotes.*', 'categories.cat_name')->first();
+            $request = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotation_invoices.quote_id', $quote_id)->select('quotation_invoices_data.*','quotation_invoices.description as other_info', 'quotation_invoices.vat_percentage', 'quotation_invoices.tax', 'quotation_invoices.subtotal as sub_total', 'quotation_invoices.grand_total','users.name','users.family_name','users.email','users.phone')->get();
+
+            $date = strtotime($quote->created_at);
+            $requested_quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
+
+            $filename = $quotation_invoice_number . '.pdf';
+
+            $file = public_path() . '/assets/quotationsPDF/' . $filename;
+
+            $type = 'invoice';
+
+            ini_set('max_execution_time', 180);
+            $pdf = PDF::loadView('user.pdf_quotation', compact('quote', 'type', 'request', 'quotation_invoice_number', 'requested_quote_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+            $pdf->save(public_path() . '/assets/quotationsPDF/' . $filename);
+
             $total_mollie = number_format((float)$data->grand_total, 2, '.', '');
             $api_key = Generalsetting::findOrFail(1);
             $description = 'Payment for Invoice No. ' . $quotation_invoice_number;
@@ -603,7 +619,9 @@ class UserController extends Controller
                     "paid_amount" => $total_mollie,
                     "commission_percentage" => $commission_percentage,
                     "commission" => $commission,
-                    "total_receive" => $total_receive
+                    "total_receive" => $total_receive,
+                    "quote" => $quote,
+                    "request" => $request
                 ],
             ]);
 

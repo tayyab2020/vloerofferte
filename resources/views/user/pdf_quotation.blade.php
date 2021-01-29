@@ -36,6 +36,28 @@
 
                         <hr class="my-5">
 
+                        @if($type == 'invoice')
+
+                            <div class="row pb-5 p-5" style="margin-right: 15px !important;">
+
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <p class="font-weight-bold mb-4 m-heading">Client Information</p>
+                                    <p class="mb-1 m-rest">Name: {{$quote->quote_name}} {{$quote->quote_familyname}}</p>
+                                    <p class="mb-1 m-rest">{{$quote->quote_email}}</p>
+                                    <p class="mb-1 m-rest">{{$quote->quote_contact}}</p>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
+                                    <p class="font-weight-bold mb-4 m-heading">Handyman Information</p>
+                                    <p class="mb-1 m-rest">Name: {{$request->name}} {{$request->family_name}}</p>
+                                    <p class="mb-1 m-rest">{{$request->email}}</p>
+                                    <p class="mb-1 m-rest">{{$request->phone}}</p>
+                                </div>
+
+                            </div>
+
+                        @endif
+
                         <div class="row pb-5 p-5" style="margin-right: 15px !important;">
 
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -44,16 +66,6 @@
                                 <p class="mb-1 m-rest">Requested Service: {{$quote->cat_name}}</p>
                                 <p class="mb-1 m-rest">Zipcode: {{$quote->quote_zipcode}}</p>
                             </div>
-
-                            @if($type == 'invoice')
-
-                                <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
-                                    <p class="mb-1 m-rest">Name: {{$quote->quote_name}} {{$quote->quote_familyname}}</p>
-                                    <p class="mb-1 m-rest">{{$quote->quote_email}}</p>
-                                    <p class="mb-1 m-rest">{{$quote->quote_contact}}</p>
-                                </div>
-
-                            @endif
 
                         </div>
 

@@ -64,9 +64,12 @@ class MollieQuotationPaymentController extends Controller {
 
             $type = 'commission_invoice';
 
-            $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.id', $data->quote_id)->select('quotes.*', 'categories.cat_name')->first();
+            $quote = $data->quote;
+            $request = $data->request;
 
-            $request = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->where('quotation_invoices.quote_id', $data->quote_id)->select('quotation_invoices_data.*','quotation_invoices.description as other_info', 'quotation_invoices.vat_percentage', 'quotation_invoices.tax', 'quotation_invoices.subtotal as sub_total', 'quotation_invoices.grand_total')->get();
+            /*$quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.id', $data->quote_id)->select('quotes.*', 'categories.cat_name')->first();
+
+            $request = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->where('quotation_invoices.quote_id', $data->quote_id)->select('quotation_invoices_data.*','quotation_invoices.description as other_info', 'quotation_invoices.vat_percentage', 'quotation_invoices.tax', 'quotation_invoices.subtotal as sub_total', 'quotation_invoices.grand_total')->get();*/
 
             $date = strtotime($quote->created_at);
             $requested_quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
