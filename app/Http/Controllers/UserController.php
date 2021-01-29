@@ -343,23 +343,7 @@ class UserController extends Controller
 
     public function DownloadClientQuoteInvoice($id)
     {
-        $user = Auth::guard('user')->user();
-        $user_id = $user->id;
-        $user_role = $user->role_id;
-
-        $invoice = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotes.user_id', $user_id)->first();
-
-        if (!$invoice) {
-            return redirect()->route('client-quotations');
-        }
-
-        $quotation_invoice_number = $invoice->quotation_invoice_number;
-
-        $filename = $quotation_invoice_number . '.pdf';
-        var_dump($filename);
-        exit();
-
-        return response()->download(public_path("assets/quotationsPDF/{$filename}"));
+       
     }
 
     public function DownloadClientCustomQuoteInvoice($id)
