@@ -213,7 +213,7 @@
 
                                                                                 <li><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">View</a></li>
                                                                                 <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">View Request</a></li>
-                                                                                <li><a href="{{ url('/handyman/download-client-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
+                                                                                
 
                                                                                 @if($key->status != 0 && $key->status != 2 && $key->status != 3)
 
