@@ -49,9 +49,9 @@
 
                                 <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
                                     <p class="font-weight-bold mb-4 m-heading">Handyman Information</p>
-                                    <p class="mb-1 m-rest">Name: {{$request->name}} {{$request->family_name}}</p>
-                                    <p class="mb-1 m-rest">{{$request->email}}</p>
-                                    <p class="mb-1 m-rest">{{$request->phone}}</p>
+                                    <p class="mb-1 m-rest">Name: {{$request[0]->name}} {{$request->family_name}}</p>
+                                    <p class="mb-1 m-rest">{{$request[0]->email}}</p>
+                                    <p class="mb-1 m-rest">{{$request[0]->phone}}</p>
                                 </div>
 
                             </div>
@@ -85,35 +85,74 @@
                                     </thead>
                                     <tbody>
 
-                                    @foreach($request->item as $i => $key)
+                                    @if($type == 'invoice')
 
-                                        <tr>
-                                            <td>{{$request->service_title[$i]}}</td>
-                                            <td>{{$request->brand_title[$i]}}</td>
-                                            <td>{{$request->model_title[$i]}}</td>
-                                            <td>{{$request->description[$i]}}</td>
-                                            <td>{{$request->cost[$i]}}</td>
-                                            <td>{{$request->qty[$i]}}</td>
-                                            <td>{{$request->amount[$i]}}</td>
-                                        </tr>
+                                        @foreach($request as $key)
 
-                                    @endforeach
+                                            <tr>
+                                                <td>{{$key->service}}</td>
+                                                <td>{{$key->brand}}</td>
+                                                <td>{{$key->model}}</td>
+                                                <td>{{$key->description}}</td>
+                                                <td>{{$key->rate}}</td>
+                                                <td>{{$key->qty}}</td>
+                                                <td>{{$key->amount}}</td>
+                                            </tr>
+
+                                        @endforeach
+
+                                    @else
+
+                                        @foreach($request->item as $i => $key)
+
+                                            <tr>
+                                                <td>{{$request->service_title[$i]}}</td>
+                                                <td>{{$request->brand_title[$i]}}</td>
+                                                <td>{{$request->model_title[$i]}}</td>
+                                                <td>{{$request->description[$i]}}</td>
+                                                <td>{{$request->cost[$i]}}</td>
+                                                <td>{{$request->qty[$i]}}</td>
+                                                <td>{{$request->amount[$i]}}</td>
+                                            </tr>
+
+                                        @endforeach
+
+                                    @endif
 
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
-                        @if($request->other_info)
+                        @if($type == 'invoice')
 
-                            <div class="row pb-5 p-5">
-                                <div class="col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #e3e3e3;padding: 20px;">
-                                    <p class="font-weight-bold mb-4 m-heading">Description</p>
-                                    <p class="mb-1 m-rest">{{$request->other_info}}</p>
+                            @if($request[0]->other_info)
+
+                                <div class="row pb-5 p-5">
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #e3e3e3;padding: 20px;">
+                                        <p class="font-weight-bold mb-4 m-heading">Description</p>
+                                        <p class="mb-1 m-rest">{{$request[0]->other_info}}</p>
+                                    </div>
                                 </div>
-                            </div>
+
+                            @endif
+
+
+                        @else
+
+                            @if($request->other_info)
+
+                                <div class="row pb-5 p-5">
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #e3e3e3;padding: 20px;">
+                                        <p class="font-weight-bold mb-4 m-heading">Description</p>
+                                        <p class="mb-1 m-rest">{{$request->other_info}}</p>
+                                    </div>
+                                </div>
+
+                            @endif
 
                         @endif
+
 
                         <style type="text/css">
 
@@ -131,7 +170,11 @@
                                 <thead>
 
                                 <tr>
-                                    <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request->vat_percentage}}%)</th>
+                                    @if($type == 'invoice')
+                                        <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request[0]->vat_percentage}}%)</th>
+                                    @else
+                                        <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request->vat_percentage}}%)</th>
+                                    @endif
                                     <th class="border-0 text-uppercase small font-weight-bold">Subtotal</th>
                                     <th class="border-0 text-uppercase small font-weight-bold">Grand Total</th>
                                 </tr>
@@ -140,11 +183,23 @@
 
                                 <tbody>
 
-                                <tr>
-                                    <td>{{$request->tax_amount}}</td>
-                                    <td>{{$request->sub_total}}</td>
-                                    <td>{{$request->grand_total}}</td>
-                                </tr>
+                                @if($type == 'invoice')
+
+                                    <tr>
+                                        <td>{{$request[0]->tax}}</td>
+                                        <td>{{$request[0]->sub_total}}</td>
+                                        <td>{{$request[0]->grand_total}}</td>
+                                    </tr>
+
+                                @else
+
+                                    <tr>
+                                        <td>{{$request->tax_amount}}</td>
+                                        <td>{{$request->sub_total}}</td>
+                                        <td>{{$request->grand_total}}</td>
+                                    </tr>
+
+                                @endif
 
                                 </tbody>
 
