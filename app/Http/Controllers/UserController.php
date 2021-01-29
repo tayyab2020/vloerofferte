@@ -356,6 +356,8 @@ class UserController extends Controller
         $quotation_invoice_number = $invoice->quotation_invoice_number;
 
         $filename = $quotation_invoice_number . '.pdf';
+        var_dump($filename);
+        exit();
 
         return response()->download(public_path("assets/quotationsPDF/{$filename}"));
     }
