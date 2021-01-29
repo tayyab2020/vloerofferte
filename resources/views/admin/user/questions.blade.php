@@ -27,6 +27,7 @@
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 20%;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Title</th>
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 20%;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Service(s)</th>
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" style="width: 50%;" colspan="1" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Predefined Answer(s)</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" style="width: 50%;" colspan="1" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Sequence No</th>
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Actions</th>
                                                     </tr>
                                                     </thead>
@@ -49,6 +50,8 @@
                                                                 <br>
                                                             @endforeach
                                                             </td>
+
+                                                            <td>{{$key->order_no}}</td>
 
                                                             <td>
                                                                 <a href="{{route('edit-question',$key->id)}}" class="btn btn-primary product-btn"><i class="fa fa-edit"></i> Edit</a>

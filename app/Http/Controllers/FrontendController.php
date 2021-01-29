@@ -324,7 +324,7 @@ class FrontendController extends Controller
     {
         $data = quotation_questions::with('answers')->whereHas('services', function ($query) use ($request) {
             $query->where('question_services.service_id', $request->id);
-        })->get();
+        })->orderBy('quotation_questions.order_no','asc')->get();
 
         return $data;
     }

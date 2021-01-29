@@ -89,6 +89,7 @@ class AdminUserController extends Controller
             $question = new quotation_questions;
             $question->title = $request->title;
             $question->predefined = $predefined;
+            $question->order_no = $request->order_no;
             $question->save();
 
             foreach ($request->services as $i => $temp)
@@ -114,7 +115,7 @@ class AdminUserController extends Controller
         }
         else
         {
-            $question = quotation_questions::where('id',$request->question_id)->update(['title' => $request->title, 'predefined' => $predefined]);
+            $question = quotation_questions::where('id',$request->question_id)->update(['title' => $request->title, 'predefined' => $predefined, 'order_no' => $request->order_no]);
 
             question_services::where('question_id',$request->question_id)->delete();
 

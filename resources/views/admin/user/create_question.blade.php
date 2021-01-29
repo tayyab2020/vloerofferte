@@ -114,6 +114,14 @@
 
                                         </div>
 
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_display_name">Sequence No</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control validate" name="order_no" id="blood_group_display_name" placeholder="Enter Sequence No" @if(isset($data)) value="{{$data->order_no}}" @endif type="number">
+                                            </div>
+                                        </div>
+
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_display_name">Question Title* <span>(In Any Language)</span></label>
                                             <div class="col-sm-6">
