@@ -604,8 +604,6 @@ class UserController extends Controller
                     "commission_percentage" => $commission_percentage,
                     "commission" => $commission,
                     "total_receive" => $total_receive,
-                    "quote" => $quote,
-                    "request" => $request
                 ],
             ]);
 
