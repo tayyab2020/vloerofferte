@@ -49,7 +49,7 @@
 
                                 <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
                                     <p class="font-weight-bold mb-4 m-heading">Handyman Information</p>
-                                    <p class="mb-1 m-rest">Name: {{$request[0]->name}} {{$request->family_name}}</p>
+                                    <p class="mb-1 m-rest">Name: {{$request[0]->name}} {{$request[0]->family_name}}</p>
                                     <p class="mb-1 m-rest">{{$request[0]->email}}</p>
                                     <p class="mb-1 m-rest">{{$request[0]->phone}}</p>
                                 </div>
