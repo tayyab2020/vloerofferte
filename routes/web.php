@@ -76,7 +76,7 @@
   Route::get('/download-quote-invoice/{id}', 'UserController@DownloadQuoteInvoice');
   Route::get('/download-commission-invoice/{id}', 'UserController@DownloadCommissionInvoice');
   Route::get('/download-custom-quotation/{id}', 'UserController@DownloadCustomQuotation');
-  Route::get('/download-client-quote-invoice/{id}', 'UserController@DownloadClientQuoteInvoice');
+  
   Route::get('/download-client-custom-quotation/{id}', 'UserController@DownloadClientCustomQuoteInvoice');
   Route::get('/ask-customization/{id}', 'UserController@AskCustomization');
   Route::post('/accept-quotation', 'UserController@AcceptQuotation');
