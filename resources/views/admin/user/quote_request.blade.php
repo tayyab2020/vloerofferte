@@ -153,6 +153,24 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_slug">Street Number* </label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" value="{{$request->quote_street}}"
+                                                       name="quote_street" id="quote_street"
+                                                       placeholder="Enter Street Number" required="" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_slug">House Number* </label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" value="{{$request->quote_house}}"
+                                                       name="quote_house" id="quote_house"
+                                                       placeholder="Enter House Number" required="" type="text">
+                                            </div>
+                                        </div>
+
                                         @foreach($q_a as $key)
 
                                             <div class="form-group">

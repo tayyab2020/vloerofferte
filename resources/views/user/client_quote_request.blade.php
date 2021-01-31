@@ -107,6 +107,22 @@
                                             </div>
                                         </div>
 
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Street Number* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;"
+                                                       class="form-control">{{$request->quote_street}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">House Number* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;"
+                                                       class="form-control">{{$request->quote_house}}</p>
+                                                </div>
+                                            </div>
+
                                         @foreach($q_a as $key)
 
                                             <div class="form-group">

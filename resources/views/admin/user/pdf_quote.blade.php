@@ -51,6 +51,8 @@
                                             <th class="border-0 text-uppercase small font-weight-bold">Brand</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">Model</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">Postcode</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold">Street</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold">House Number</th>
                                         </tr>
                                         </thead>
 
@@ -61,6 +63,8 @@
                                                 <td>{{$quote->brand_name}}</td>
                                                 <td>{{$quote->model_name}}</td>
                                                 <td>{{$quote->quote_zipcode}}</td>
+                                                <td>{{$quote->quote_street}}</td>
+                                                <td>{{$quote->quote_house}}</td>
 
                                             </tr>
 
