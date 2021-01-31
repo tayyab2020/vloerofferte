@@ -49,9 +49,12 @@
 
                                 <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
                                     <p class="font-weight-bold mb-4 m-heading">Handyman Information</p>
-                                    <p class="mb-1 m-rest">Name: {{$request[0]->name}} {{$request[0]->family_name}}</p>
-                                    <p class="mb-1 m-rest">{{$request[0]->email}}</p>
-                                    <p class="mb-1 m-rest">{{$request[0]->phone}}</p>
+                                    <p class="mb-1 m-rest">{{$request[0]->company_name}}</p>
+                                    <p class="mb-1 m-rest">{{$request[0]->address}}</p>
+                                    <p class="mb-1 m-rest">{{$request[0]->postcode}} {{$request[0]->city}}</p>
+                                    <p class="mb-1 m-rest">{{$request[0]->postcode}} {{$request[0]->city}}</p>
+                                    <p class="mb-1 m-rest">{{$request[0]->tax_number}}</p>
+                                    <p class="mb-1 m-rest">{{$request[0]->registration_number}}</p>
                                 </div>
 
                             </div>
@@ -94,9 +97,9 @@
                                                 <td>{{$key->brand}}</td>
                                                 <td>{{$key->model}}</td>
                                                 <td>{{$key->description}}</td>
-                                                <td>{{$key->rate}}</td>
+                                                <td>{{number_format((float)$key->rate, 2, ',', '.')}}</td>
                                                 <td>{{$key->qty}}</td>
-                                                <td>{{$key->amount}}</td>
+                                                <td>{{number_format((float)$key->amount, 2, ',', '.')}}</td>
                                             </tr>
 
                                         @endforeach
@@ -110,9 +113,9 @@
                                                 <td>{{$request->brand_title[$i]}}</td>
                                                 <td>{{$request->model_title[$i]}}</td>
                                                 <td>{{$request->description[$i]}}</td>
-                                                <td>{{$request->cost[$i]}}</td>
+                                                <td>{{number_format((float)$request->cost[$i], 2, ',', '.')}}</td>
                                                 <td>{{$request->qty[$i]}}</td>
-                                                <td>{{$request->amount[$i]}}</td>
+                                                <td>{{number_format((float)$request->amount[$i], 2, ',', '.')}}</td>
                                             </tr>
 
                                         @endforeach
@@ -186,17 +189,17 @@
                                 @if($type == 'invoice')
 
                                     <tr>
-                                        <td>{{$request[0]->tax}}</td>
-                                        <td>{{$request[0]->sub_total}}</td>
-                                        <td>{{$request[0]->grand_total}}</td>
+                                        <td>{{number_format((float)$request[0]->tax, 2, ',', '.')}}</td>
+                                        <td>{{number_format((float)$request[0]->sub_total, 2, ',', '.')}}</td>
+                                        <td>{{number_format((float)$request[0]->grand_total, 2, ',', '.')}}</td>
                                     </tr>
 
                                 @else
 
                                     <tr>
-                                        <td>{{$request->tax_amount}}</td>
-                                        <td>{{$request->sub_total}}</td>
-                                        <td>{{$request->grand_total}}</td>
+                                        <td>{{number_format((float)$request->tax_amount, 2, ',', '.')}}</td>
+                                        <td>{{number_format((float)$request->sub_total, 2, ',', '.')}}</td>
+                                        <td>{{number_format((float)$request->grand_total, 2, ',', '.')}}</td>
                                     </tr>
 
                                 @endif

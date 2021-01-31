@@ -22,34 +22,29 @@
 
                             </div>
 
-
-                            <div class="col-md-6 col-sm-6 col-xs-12 text-right inv-rigth" style="float: right;margin-top: 50px;">
-
-                                <?php $date = date('d-m-Y');  ?>
-
-                                <p class="font-weight-bold mb-1" style="font-size: 20px;">INV# {{$commission_invoice_number}}</p>
-                                <p class="text-muted" style="font-size: 15px;margin-top: 20px;">Customer Invoice: INV# {{$quotation_invoice_number}}</p>
-
-                                <p class="text-muted" style="font-size: 15px;margin-top: 20px;">Created at: {{$date}}</p>
-
-                            </div>
                         </div>
 
                         <hr class="my-5">
 
                         <div class="row pb-5 p-5" style="margin-right: 15px !important;">
 
+                            <?php $date = date('d-m-Y');  ?>
+
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <p class="font-weight-bold mb-4 m-heading">Quote Information</p>
-                                <p class="mb-1 m-rest">Requested Quote Number: {{$requested_quote_number}}</p>
-                                <p class="mb-1 m-rest">Requested Service: {{$quote->cat_name}}</p>
-                                <p class="mb-1 m-rest">Zipcode: {{$quote->quote_zipcode}}</p>
+                                <p class="mb-1 m-rest">{{$request[0]->company_name}}</p>
+                                <p class="mb-1 m-rest">{{$request[0]->address}}</p>
+                                <p class="mb-1 m-rest">{{$request[0]->postcode}} {{$request[0]->city}}</p>
+                                <p class="mb-1 m-rest">{{$request[0]->tax_number}}</p>
+                                <p class="mb-1 m-rest">{{$request[0]->registration_number}}</p>
                             </div>
 
                             <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
-                                <p class="mb-1 m-rest">Name: {{$quote->quote_name}} {{$quote->quote_familyname}}</p>
-                                <p class="mb-1 m-rest">{{$quote->quote_email}}</p>
-                                <p class="mb-1 m-rest">{{$quote->quote_contact}}</p>
+                                <p class="font-weight-bold mb-4 m-heading">INV# {{$commission_invoice_number}}</p>
+                                <p class="mb-1 m-rest">Customer Invoice: INV# {{$quotation_invoice_number}}</p>
+                                <p class="mb-1 m-rest">Created at: {{$date}}</p>
+                                <p class="mb-1 m-rest">Requested Quote Number: {{$requested_quote_number}}</p>
+                                <p class="mb-1 m-rest">Requested Service: {{$quote->cat_name}}</p>
+                                <p class="mb-1 m-rest">Zipcode: {{$quote->quote_zipcode}}</p>
                             </div>
 
                         </div>
@@ -75,28 +70,28 @@
 
                                     <tr>
                                         <td>Commission</td>
-                                        <td>€ {{$commission}}</td>
+                                        <td>€ {{number_format((float)$commission, 2, ',', '.')}}</td>
                                         <td>{{$request[0]->vat_percentage}}%</td>
-                                        <td>{{$commission_vat}}</td>
+                                        <td>{{number_format((float)$commission_vat, 2, ',', '.')}}</td>
                                     </tr>
 
                                     <tr>
                                         <td>Subtotal excluding VAT</td>
-                                        <td>€ {{$subtotal}}</td>
+                                        <td>€ {{number_format((float)$subtotal, 2, ',', '.')}}</td>
                                         <td></td>
                                         <td></td>
                                     </tr>
 
                                     <tr>
                                         <td>VAT</td>
-                                        <td>€ {{$commission_vat}}</td>
+                                        <td>€ {{number_format((float)$commission_vat, 2, ',', '.')}}</td>
                                         <td></td>
                                         <td></td>
                                     </tr>
 
                                     <tr>
                                         <td>Total including VAT</td>
-                                        <td>€ {{$commission}}</td>
+                                        <td>€ {{number_format((float)$commission, 2, ',', '.')}}</td>
                                         <td></td>
                                         <td></td>
                                     </tr>
@@ -117,9 +112,9 @@
 
                                     <tr>
                                         <td style="border-top: 1px solid black;">Short Description</td>
-                                        <td style="border-top: 1px solid black;"></td>
-                                        <td style="border-top: 1px solid black;"></td>
-                                        <td style="border-top: 1px solid black;"></td>
+                                        <td style="border-top: 1px solid black;">Amount</td>
+                                        <td style="border-top: 1px solid black;">Qty</td>
+                                        <td style="border-top: 1px solid black;">Cost</td>
                                     </tr>
 
 
@@ -127,19 +122,25 @@
 
                                         <tr>
                                             <td>{{$key->service}} {{$key->brand}} {{$key->model}}</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{{number_format((float)$key->amount, 2, ',', '.')}}</td>
+                                            <td>{{$request[0]->qty}}</td>
+                                            <td>{{number_format((float)$request[0]->rate, 2, ',', '.')}}</td>
                                         </tr>
 
                                     @endforeach
 
+                                    <tr>
+                                        <td style="border-top: 1px solid black;"></td>
+                                        <td style="border-top: 1px solid black;">Grand Total</td>
+                                        <td style="border-top: 1px solid black;">VAT %</td>
+                                        <td style="border-top: 1px solid black;">VAT</td>
+                                    </tr>
 
                                     <tr>
                                         <td></td>
-                                        <td>€ {{$request[0]->grand_total}}</td>
+                                        <td>€ {{number_format((float)$request[0]->grand_total, 2, ',', '.')}}</td>
                                         <td>{{$request[0]->vat_percentage}}%</td>
-                                        <td>{{$request[0]->tax}}</td>
+                                        <td>{{number_format((float)$request[0]->tax, 2, ',', '.')}}</td>
                                     </tr>
 
                                     <tr>
@@ -151,7 +152,7 @@
 
                                     <tr>
                                         <td style="background-color: gray;font-weight: bold;color: black;">Total to receive</td>
-                                        <td style="background-color: gray;font-weight: bold;color: black;">€ {{$total_receive}}</td>
+                                        <td style="background-color: gray;font-weight: bold;color: black;">€ {{number_format((float)$total_receive, 2, ',', '.')}}</td>
                                         <td style="background-color: gray;font-weight: bold;color: black;"></td>
                                         <td style="background-color: gray;font-weight: bold;color: black;"></td>
                                     </tr>

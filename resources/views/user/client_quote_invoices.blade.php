@@ -1062,8 +1062,9 @@
                             var interval = (Math.floor(distance / (day)) - 2) + 'd ' + Math.floor((distance % (day)) / (hour)) + 'h ' + Math.floor((distance % (hour)) / (minute)) + 'm ' + Math.floor((distance % (minute)) / second) + 's';
 
                             //do something later when date is reached
-                            if ((Math.floor(distance / (day)) - 2) <= 0 &&  Math.floor((distance % (day)) / (hour)) <= 0 && Math.floor((distance % (hour)) / (minute)) <= 0 && Math.floor((distance % (minute)) / second) <= 0) {
+                            if ((Math.floor(distance / (day)) - 2) < 0) {
 
+                                p.next().find('.pay_now').css('cursor', 'not-allowed').css('background', 'white');
                                 p.text('Expired');
                                 clearInterval(x);
 

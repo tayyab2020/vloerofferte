@@ -103,9 +103,9 @@
                             <a href="{{ route('client-profile') }}" id="edit"><i class="fa fa-fw fa-user"></i> {{$lang->edit}}</a>
                         </li>
 
-                        <li>
+                        {{--<li>
                             <a href="{{route('client-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->mbt1}}</a>
-                        </li>
+                        </li>--}}
 
                         <li>
                             <a href="{{route('client-quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Requests</a>
@@ -119,65 +119,65 @@
                             <a href="{{route('client-quotations-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Invoices</a>
                         </li>
 
-                        <li>
+                        {{--<li>
                             <a href="{{route('client-custom-quotations')}}"><i class="fa fa-fw fa-file-text"></i> Handyman Quotations</a>
-                        </li>
+                        </li>--}}
 
                         <li  class="lang-list" style="text-align: center;margin-top: 20px;">
 
                             <form method="post" action="{{route('lang.clientchange')}}" id="lang-form">
-{{csrf_field()}}
 
+                                {{csrf_field()}}
 
-<input type="hidden" class="lang_select" value="{{$lang->lang}}" name="lang_select">
+                                <input type="hidden" class="lang_select" value="{{$lang->lang}}" name="lang_select">
 
-    <div class="btn-group bootstrap-select fit-width">
+                                <div class="btn-group bootstrap-select fit-width">
 
-                            @if($lang->lang == 'eng')
+                                    @if($lang->lang == 'eng')
 
-                            <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" title="English" style="color: black !important;">
+                                        <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" title="English" style="color: black !important;">
 
-                                <span class="filter-option pull-left"><span class="flag-icon flag-icon-nl"></span> English</span>&nbsp;<span class="caret"></span></button>
+                                            <span class="filter-option pull-left"><span class="flag-icon flag-icon-nl"></span> English</span>&nbsp;<span class="caret"></span>
 
-                                <div class="dropdown-menu open">
+                                        </button>
 
-                                    <ul class="dropdown-menu inner selectpicker" role="menu">
+                                        <div class="dropdown-menu open">
 
-                                        <li rel="0" class="selected" ><a href="#" tabindex="0" class=""  onclick="formSubmit(this)" data-value="eng" style="color: black !important;"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+                                            <ul class="dropdown-menu inner selectpicker" role="menu">
 
-                                        <li rel="1" ><a href="#" tabindex="0" class="" style="color: black !important;" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
-                                    </ul>
+                                                <li rel="0" class="selected" ><a href="#" tabindex="0" class=""  onclick="formSubmit(this)" data-value="eng" style="color: black !important;"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
 
-                                    </div>
+                                                <li rel="1" ><a href="#" tabindex="0" class="" style="color: black !important;" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+                                            </ul>
 
+                                        </div>
 
+                                    @elseif($lang->lang == 'du')
 
-                            @elseif($lang->lang == 'du')
+                                        <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" title="Nederlands" style="color: black !important;">
 
-                            <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" title="Nederlands" style="color: black !important;">
+                                            <span class="filter-option pull-left"><span class="flag-icon flag-icon-nl"></span> Nederlands</span>&nbsp;<span class="caret"></span>
 
-                                <span class="filter-option pull-left"><span class="flag-icon flag-icon-nl"></span> Nederlands</span>&nbsp;<span class="caret"></span></button>
+                                        </button>
 
-                                <div class="dropdown-menu open">
+                                        <div class="dropdown-menu open">
 
-                                    <ul class="dropdown-menu inner selectpicker" role="menu">
+                                            <ul class="dropdown-menu inner selectpicker" role="menu">
 
-                                        <li rel="0" ><a href="#" tabindex="0" class=""  onclick="formSubmit(this)" data-value="eng" style="color: black !important;"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+                                                <li rel="0" ><a href="#" tabindex="0" class=""  onclick="formSubmit(this)" data-value="eng" style="color: black !important;"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
 
-                                        <li rel="1" class="selected" ><a href="#" tabindex="0" class=""  onclick="formSubmit(this)" data-value="du" style="color: black !important;"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
-                                    </ul>
+                                                <li rel="1" class="selected" ><a href="#" tabindex="0" class=""  onclick="formSubmit(this)" data-value="du" style="color: black !important;"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+                                            </ul>
 
-                                    </div>
+                                        </div>
 
-                            @endif
+                                    @endif
 
-                            </div>
+                                </div>
 
-                        </form>
+                            </form>
 
-                                </li>
-
-
+                        </li>
                     </ul>
                 </nav>
             </div>

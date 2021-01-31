@@ -154,7 +154,7 @@
                                 Items</a>
                         </li>
 
-                        <li>
+                        {{--<li>
                             <a href="{{ route('user-subservices') }}" id="sub-services"><i
                                     class="fa fa-fw fa-hospital-o"></i> {{$lang->msst}}</a>
                         </li>
@@ -162,24 +162,24 @@
                         <li>
                             <a href="{{ route('user-availability') }}" id="availability"><i
                                     class="fa fa-fw fa-hospital-o"></i> {{$lang->avmt}}</a>
-                        </li>
+                        </li>--}}
 
                         <li>
                             <a href="{{ route('radius-management') }}" id="radius_tab"><i
                                     class="fa fa-fw fa-hospital-o"></i> {{$lang->rm}}</a>
                         </li>
 
-                        <li>
+                        {{--<li>
                             <a href="{{route('purchased-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->pbt}}
                             </a>
-                        </li>
+                        </li>--}}
 
                         <li>
                             <a href="{{ route('user-complete-profile') }}" id="complete"><i
                                     class="fa fa-fw fa-dashboard"></i> {{$lang->cmpt}}</a>
                         </li>
 
-                        <li>
+                        {{--<li>
                             <a href="{{ route('experience-years') }}" id="experience"><i
                                     class="fa fa-fw fa-hospital-o"></i> {{$lang->eyt}}</a>
                         </li>
@@ -187,7 +187,7 @@
                         <li>
                             <a href="{{ route('insurance') }}" id="insurance"><i
                                     class="fa fa-fw fa-book"></i> {{$lang->ist}}</a>
-                        </li>
+                        </li>--}}
 
                         <li>
                             <a href="{{ route('ratings') }}" id="rating"><i

@@ -577,6 +577,9 @@ class UserController extends Controller
             $commission_percentage = $settings->commission_percentage;
             $commission = $total_mollie * ($commission_percentage/100);
             $commission = number_format((float)$commission, 2, '.', '');
+            $commission_vat = ($commission/(21 + 100)) * 100;
+            $commission_vat = $commission - $commission_vat;
+
             $total_receive = $total_mollie - $commission;
             $total_receive = number_format((float)$total_receive, 2, '.', '');
 
