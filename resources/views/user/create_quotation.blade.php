@@ -58,10 +58,10 @@
                                                                         <th class="col-sm-2">Category/Item</th>
                                                                         <th class="col-sm-2">Brand</th>
                                                                         <th class="col-sm-2">Model</th>
-                                                                        <th class="col-md-3">Description</th>
-                                                                        <th style="width:100px;">Cost</th>
-                                                                        <th style="width:120px;">Qty</th>
-                                                                        <th style="width: 120px;">Amount</th>
+                                                                        <th class="col-sm-2">Cost</th>
+                                                                        <th class="col-sm-2">Qty</th>
+                                                                        <th class="col-sm-2">Amount</th>
+                                                                        <th style="width: 50px;">Description</th>
                                                                         <th> </th>
                                                                     </tr>
                                                                     </thead>
@@ -114,10 +114,6 @@
                                                                             <input type="hidden" name="model_title[]" value="{{$model_title}}">
                                                                         </td>
 
-                                                                        <td class="td-desc">
-                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>
-                                                                        </td>
-
                                                                         <td class="td-rate">
                                                                             <input name="cost[]" class="form-control" type="text" value="{{$rate}}" required>
                                                                         </td>
@@ -128,6 +124,11 @@
 
                                                                         <td class="td-amount">
                                                                             <input name="amount[]" class="form-control" readonly="" type="text">
+                                                                        </td>
+
+                                                                        <td style="text-align: center;" class="td-desc">
+                                                                            <input type="hidden" name="description[]" id="description" class="form-control">
+                                                                            <a href="javascript:void(0)" class="add-desc" title="Add Description" style="color: black;"><i style="font-size: 20px;" class="fa fa-plus-square"></i></a>
                                                                         </td>
 
                                                                         <td style="text-align: center;"><a href="javascript:void(0)" class="text-success font-18 add-row" title="Add"><i class="fa fa-plus"></i></a></td>
@@ -176,7 +177,7 @@
                                                         <div class="col-md-12" style="padding: 0;">
                                                             <div class="form-group" style="margin: 0;">
                                                                 <label>Other Information</label>
-                                                                <textarea name="other_info" class="form-control" rows="4"></textarea>
+                                                                <textarea style="resize: vertical;" name="other_info" class="form-control" rows="4"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -198,6 +199,27 @@
         </div>
     </div>
 
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button style="background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 id="myModalLabel">Add Description</h4>
+                </div>
+
+                <div class="modal-body" id="myWizard">
+                    <textarea rows="5" style="resize: vertical;" id="description-text" class="form-control"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button type="button" class="btn btn-success submit-desc">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <style type="text/css">
 
@@ -835,6 +857,20 @@
 
         $(document).ready(function() {
 
+            var current_desc = '';
+
+            $(".add-desc").click(function(){
+                current_desc = $(this);
+                $("#myModal").modal('show');
+            });
+
+            $(".submit-desc").click(function () {
+                var desc = $('#description-text').val();
+                current_desc.prev('input').val(desc);
+                $('#description-text').val('');
+                $("#myModal").modal('hide');
+            });
+
             $('.estimate_date').datepicker({
 
                 format: 'dd-mm-yyyy',
@@ -1057,9 +1093,6 @@
                     '                                                                            </select>\n' +
                     '                                                                            <input type="hidden" name="model_title[]" value="">\n' +
                     '                                                                        </td>'+
-                    '                                                                        <td class="td-desc">\n' +
-                    '                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>\n' +
-                    '                                                                        </td>\n' +
                     '                                                                        <td class="td-rate">\n' +
                     '                                                                            <input name="cost[]" class="form-control" type="text" required>\n' +
                     '                                                                        </td>\n' +
@@ -1069,9 +1102,18 @@
                     '                                                                        <td class="td-amount">\n' +
                     '                                                                            <input name="amount[]" class="form-control" readonly="" type="text">\n' +
                     '                                                                        </td>\n' +
+                    '                                                                        <td style="text-align: center;" class="td-desc">\n' +
+                    '                                                                            <input type="hidden" name="description[]" id="description" class="form-control">\n' +
+                    '                                                                            <a href="javascript:void(0)" class="add-desc" title="Add Description" style="color: black;"><i style="font-size: 20px;" class="fa fa-plus-square"></i></a>\n'+
+                    '                                                                        </td>\n' +
                     '                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>\n' +
                     '                                                                    </tr>');
 
+
+                $(".add-desc").click(function(){
+                    current_desc = $(this);
+                    $("#myModal").modal('show');
+                });
 
                 $('.js-data-example-ajax').change(function(){
 

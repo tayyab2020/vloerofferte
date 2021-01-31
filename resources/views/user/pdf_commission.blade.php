@@ -40,11 +40,11 @@
 
                             <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
                                 <p class="font-weight-bold mb-4 m-heading">INV# {{$commission_invoice_number}}</p>
-                                <p class="mb-1 m-rest">Customer Invoice: INV# {{$quotation_invoice_number}}</p>
                                 <p class="mb-1 m-rest">Created at: {{$date}}</p>
+                                <p class="mb-1 m-rest">Customer Invoice: INV# {{$quotation_invoice_number}}</p>
                                 <p class="mb-1 m-rest">Requested Quote Number: {{$requested_quote_number}}</p>
                                 <p class="mb-1 m-rest">Requested Service: {{$quote->cat_name}}</p>
-                                <p class="mb-1 m-rest">Zipcode: {{$quote->quote_zipcode}}</p>
+                                <p class="mb-1 m-rest">Address: {{$quote->quote_zipcode}}</p>
                             </div>
 
                         </div>
