@@ -36,7 +36,7 @@
 
                                                         @endif
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Handyman</th>
+                                                        {{--<th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Handyman</th>--}}
 
                                                         {{--<th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Tax</th>
 
@@ -82,7 +82,7 @@
 
                                                             @endif
 
-                                                            <td>{{$key->name}} {{$key->family_name}}</td>
+                                                            {{--<td>{{$key->name}} {{$key->family_name}}</td>--}}
 
                                                             {{--<td>{{$key->tax}}</td>
 
