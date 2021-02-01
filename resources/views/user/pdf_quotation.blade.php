@@ -43,6 +43,8 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <p class="font-weight-bold mb-4 m-heading">Client Information</p>
                                     <p class="mb-1 m-rest">Name: {{$quote->quote_name}} {{$quote->quote_familyname}}</p>
+                                    <p class="mb-1 m-rest">{{$quote->quote_zipcode}} {{$quote->quote_house}}</p>
+                                    <p class="mb-1 m-rest">{{$quote->postcode}} {{$quote->city}}</p>
                                     <p class="mb-1 m-rest">{{$quote->quote_email}}</p>
                                     <p class="mb-1 m-rest">{{$quote->quote_contact}}</p>
                                 </div>
@@ -51,7 +53,6 @@
                                     <p class="font-weight-bold mb-4 m-heading">Handyman Information</p>
                                     <p class="mb-1 m-rest">{{$request[0]->company_name}}</p>
                                     <p class="mb-1 m-rest">{{$request[0]->address}}</p>
-                                    <p class="mb-1 m-rest">{{$request[0]->postcode}} {{$request[0]->city}}</p>
                                     <p class="mb-1 m-rest">{{$request[0]->postcode}} {{$request[0]->city}}</p>
                                     <p class="mb-1 m-rest">{{$request[0]->tax_number}}</p>
                                     <p class="mb-1 m-rest">{{$request[0]->registration_number}}</p>
