@@ -66,6 +66,13 @@
                                                         </div>
                                                     </div>
 
+                                                        <div class="col-md-4" style="margin: 10px 0px;">
+                                                            <div class="form-group" style="margin: 0;">
+                                                                <label>Delivery Date</label>
+                                                                <input type="text" name="delivery_date" value="{{$quotation[0]->delivery_date}}" class="form-control delivery_date" autocomplete="off" required disabled>
+                                                            </div>
+                                                        </div>
+
                                                 </div>
 
                                                 <div class="row" style="margin: 0;">
@@ -78,8 +85,10 @@
                                                                         <thead>
                                                                         <tr>
                                                                             <th style="width: 40px;">#</th>
-                                                                            <th class="col-sm-2">Service/Item</th>
-                                                                            <th class="col-md-6">Description</th>
+                                                                            <th class="col-sm-2">Category/Item</th>
+                                                                            <th class="col-sm-2">Brand</th>
+                                                                            <th class="col-sm-2">Model</th>
+                                                                            <th class="col-md-2">Description</th>
                                                                             <th style="width:100px;">Cost</th>
                                                                             <th style="width:120px;">Qty</th>
                                                                             <th style="width: 120px;">Amount</th>
@@ -107,13 +116,56 @@
                                                                                                 <option value="{{$key->id}}I" @if($temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->temp; ?> @endif @endif>{{$key->cat_name}}</option>
                                                                                             @endforeach
 
-                                                                                            <input type="hidden" name="service_title[]" value="{{$service_title}}">
-
                                                                                         </select>
+
+                                                                                        <input type="hidden" name="service_title[]" value="{{$service_title}}">
 
                                                                                     @else
 
                                                                                         <input name="item[]" class="form-control" type="text" value="{{$temp->service}}" readonly>
+
+                                                                                    @endif
+
+                                                                                </td>
+
+                                                                                <td>
+
+                                                                                    @if(Route::currentRouteName() != 'view-client-quotation' && Route::currentRouteName() != 'view-client-custom-quotation')
+
+                                                                                        <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>
+
+                                                                                            @foreach($all_brands as $key)
+                                                                                                <option value="{{$key->id}}" @if($temp->b_i_id == $key->id) selected <?php $brand_title = $temp->brand; ?> @endif>{{$key->cat_name}}</option>
+                                                                                            @endforeach
+
+                                                                                        </select>
+
+                                                                                        <input type="hidden" name="brand_title[]" value="{{isset($brand_title) ? $brand_title : $all_brands[0]->cat_name}}">
+
+                                                                                    @else
+
+                                                                                        <input name="brand[]" class="form-control" type="text" value="{{$temp->brand}}" readonly>
+
+                                                                                    @endif
+
+                                                                                </td>
+                                                                                <td>
+
+                                                                                    @if(Route::currentRouteName() != 'view-client-quotation' && Route::currentRouteName() != 'view-client-custom-quotation')
+
+                                                                                        <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>
+
+                                                                                            @foreach($all_models as $key)
+                                                                                                <option value="{{$key->id}}" @if($temp->m_i_id == $key->id) selected <?php $model_title = $temp->model; ?> @endif>{{$key->cat_name}}</option>
+                                                                                            @endforeach
+
+                                                                                        </select>
+
+                                                                                        <input type="hidden" name="model_title[]" value="{{isset($model_title) ? $model_title : $all_models[0]->cat_name}}">
+
+                                                                                    @else
+
+                                                                                        <input name="model[]" class="form-control" type="text" value="{{$temp->model}}" readonly>
 
                                                                                     @endif
 
