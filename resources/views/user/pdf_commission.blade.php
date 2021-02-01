@@ -43,7 +43,7 @@
                                 <p class="mb-1 m-rest">{{$request[0]->registration_number}}</p>
 
                                 <br>
-                                <p style="font-size: 20px;" class="font-weight-bold mb-4 m-heading">Commission Invoice</p>
+                                <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">Commission Invoice</p>
                             </div>
 
                             <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
