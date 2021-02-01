@@ -861,6 +861,8 @@
 
             $(".add-desc").click(function(){
                 current_desc = $(this);
+                var d = current_desc.prev('input').val();
+                $('#description-text').val(d);
                 $("#myModal").modal('show');
             });
 
@@ -1112,6 +1114,8 @@
 
                 $(".add-desc").click(function(){
                     current_desc = $(this);
+                    var d = current_desc.prev('input').val();
+                    $('#description-text').val(d);
                     $("#myModal").modal('show');
                 });
 
