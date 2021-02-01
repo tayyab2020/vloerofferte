@@ -21,7 +21,7 @@
 
                             </div>
 
-                            <div class="col-md-6 col-sm-6 col-xs-12 text-right inv-rigth" style="float: right;margin-top: 50px;">
+                            <div class="col-md-6 col-sm-6 col-xs-12 text-right inv-rigth" style="float: right;">
 
                                 <p class="para" style="margin-top: 20px;margin-left: 26px;">{!! $gs->street  !!}<br>TEL: {{$gs->phone}}<br>BTW: NL001973883B94<br>IBAN: NL87ABNA0825957680<br>KvK-nummer: 70462623</p>
 
@@ -43,7 +43,7 @@
                                 <p class="mb-1 m-rest">{{$request[0]->registration_number}}</p>
 
                                 <br>
-                                <p class="font-weight-bold mb-4 m-heading">Commission Invoice</p>
+                                <h1 class="jumbotron-heading">Commission Invoice</h1>
                             </div>
 
                             <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
