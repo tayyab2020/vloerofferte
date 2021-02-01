@@ -581,7 +581,7 @@
         </div>
         <div class="row steps__items row1" style="max-width: 80%;margin-left: auto;margin-right: auto;display: flex;flex-flow: row wrap;margin-top: 35px;">
             <div class="small-12 medium-6 large-3 columns">
-                <div class="step"> <img src="{{asset('assets/images/Location PNG.png')}}" class="ic-img">
+                <div class="step"> <img src="{{asset('assets/images/Profile PNG.png')}}" class="ic-img">
                     <div class="step__header step__header_en @if($language == 'du') hide @endif"> 1. {{$hiw->heading1}}</div>
                     <div class="step__header step__header_de @if($language == 'eng') hide @endif"> 1. {{$hiw->dh1}}</div>
                     <p class="step_description step__description_en ic-p @if($language == 'du') hide @endif"> {{$hiw->desc1}} </p>
@@ -597,7 +597,7 @@
                 </div>
             </div>
             <div class="small-12 medium-6 large-3 columns">
-                <div class="step"> <img src="{{asset('assets/images/Profile PNG.png')}}" class="ic-img">
+                <div class="step"> <img src="{{asset('assets/images/Send Reservation PNG.png')}}" class="ic-img">
                     <div class="step__header step__header_en @if($language == 'du') hide @endif"> 3. {{$hiw->heading3}}</div>
                     <div class="step__header step__header_de @if($language == 'eng') hide @endif"> 3. {{$hiw->dh3}}</div>
                     <p class="step_description step__description_en ic-p @if($language == 'du') hide @endif"> {{$hiw->desc3}} </p>
@@ -605,11 +605,27 @@
                 </div>
             </div>
             <div class="small-12 medium-6 large-3 columns">
-                <div class="step"> <img src="{{asset('assets/images/Send Reservation PNG.png')}}" class="ic-img">
+                <div class="step"> <img src="{{asset('assets/images/Warranty.png')}}" class="ic-img">
                     <div class="step__header step__header_en @if($language == 'du') hide @endif"> 4. {{$hiw->heading4}}</div>
                     <div class="step__header step__header_de @if($language == 'eng') hide @endif"> 4. {{$hiw->dh4}}</div>
                     <p class="step_description step__description_en ic-p @if($language == 'du') hide @endif"> {{$hiw->desc4}} </p>
                     <p class="step_description step__description_de ic-p @if($language == 'eng') hide @endif"> {{$hiw->dd4}}  </p>
+                </div>
+            </div>
+            <div class="small-12 medium-6 large-3 columns">
+                <div class="step"> <img src="{{asset('assets/images/Location PNG.png')}}" class="ic-img">
+                    <div class="step__header step__header_en @if($language == 'du') hide @endif"> 5. {{$hiw->heading5}}</div>
+                    <div class="step__header step__header_de @if($language == 'eng') hide @endif"> 5. {{$hiw->dh5}}</div>
+                    <p class="step_description step__description_en ic-p @if($language == 'du') hide @endif"> {{$hiw->desc5}} </p>
+                    <p class="step_description step__description_de ic-p @if($language == 'eng') hide @endif"> {{$hiw->dd5}}  </p>
+                </div>
+            </div>
+            <div class="small-12 medium-6 large-3 columns">
+                <div class="step"> <img src="{{asset('assets/images/Payment PNG.png')}}" class="ic-img">
+                    <div class="step__header step__header_en @if($language == 'du') hide @endif"> 6. {{$hiw->heading6}}</div>
+                    <div class="step__header step__header_de @if($language == 'eng') hide @endif"> 6. {{$hiw->dh6}}</div>
+                    <p class="step_description step__description_en ic-p @if($language == 'du') hide @endif"> {{$hiw->desc6}} </p>
+                    <p class="step_description step__description_de ic-p @if($language == 'eng') hide @endif"> {{$hiw->dd6}}  </p>
                 </div>
             </div>
         </div>
@@ -1199,7 +1215,7 @@
 
 
 
-            .large-3{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}
+            .large-3{-ms-flex:0 0 30%;flex:0 0 30%;max-width:30%}
 
             @media print, screen and (max-width: 1600px){
 

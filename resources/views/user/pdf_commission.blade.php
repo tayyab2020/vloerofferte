@@ -2,11 +2,11 @@
 
 @section('content')
 
-    <section class="jumbotron text-center">
+    {{--<section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">Commission Invoice</h1>
         </div>
-    </section>
+    </section>--}}
 
     <div class="container" style="width: 100%;">
         <div class="row">
@@ -41,6 +41,8 @@
                                 <p class="mb-1 m-rest">{{$request[0]->postcode}} {{$request[0]->city}}</p>
                                 <p class="mb-1 m-rest">{{$request[0]->tax_number}}</p>
                                 <p class="mb-1 m-rest">{{$request[0]->registration_number}}</p>
+
+                                <p class="font-weight-bold mb-4 m-heading">Commission Invoice</p>
                             </div>
 
                             <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
