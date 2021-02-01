@@ -42,6 +42,7 @@
                                 <p class="mb-1 m-rest">{{$request[0]->tax_number}}</p>
                                 <p class="mb-1 m-rest">{{$request[0]->registration_number}}</p>
 
+                                <br>
                                 <p class="font-weight-bold mb-4 m-heading">Commission Invoice</p>
                             </div>
 
