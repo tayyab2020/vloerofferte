@@ -29,7 +29,7 @@
 
                         </div>
 
-                        <hr class="my-5">
+                        <hr style="margin: 0;" class="my-5">
 
                         <div class="row pb-5 p-5" style="margin-right: 15px !important;">
 
