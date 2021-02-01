@@ -543,7 +543,7 @@ class UserController extends Controller
 
             if (floor($dif / ($day)) >= 3) {
 
-                if ((floor($distance / ($day)) - 2) <= 0 && floor(($distance % ($day)) / ($hour)) <= 0 && floor(($distance % ($hour)) / ($minute)) <= 0 && floor(($distance % ($minute)) / $second) <= 0) {
+                if ((floor($distance / ($day)) - 2) < 0) {
 
                     $check = 1;
 

@@ -90,7 +90,7 @@
 
                                                             <td>{{$key->grand_total}}</td>
 
-                                                            <td>
+                                                            <td class="current-stage">
 
                                                                 @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-custom-quotations')
 
@@ -102,7 +102,15 @@
 
                                                                         @if($key->accepted)
 
-                                                                            <span class="btn btn-success">Quotation Accepted</span>
+                                                                            @if(Route::currentRouteName() == 'client-custom-quotations')
+
+                                                                                <span class="btn btn-success">Quotation Accepted</span>
+
+                                                                            @else
+
+                                                                                <a class="btn btn-success pay_now" onclick="PayNow(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">Pay Now</a>
+
+                                                                            @endif
 
                                                                         @else
 
@@ -118,7 +126,15 @@
 
                                                                         @else
 
-                                                                            <span class="btn btn-primary1">Quotation Received</span>
+                                                                            @if(Route::currentRouteName() == 'client-custom-quotations')
+
+                                                                                <a class="btn btn-primary1" href="{{ url('/handyman/custom-quotation/accept-quotation/'.$key->invoice_id) }}">Accept</a>
+
+                                                                            @else
+
+                                                                                <a class="btn btn-primary1" onclick="accept(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">Accept</a>
+
+                                                                            @endif
 
                                                                         @endif
 
@@ -1030,6 +1046,7 @@
                 day = hour * 24;
 
             var p = $(this);
+            var current_stage = p.parent().find('.current-stage');
             var accept_date = $(this).prev().prev().children('input').val();
             var delivery_date = $(this).prev().children('input').val();
 
@@ -1065,6 +1082,7 @@
                             if ((Math.floor(distance / (day)) - 2) < 0) {
 
                                 p.next().find('.pay_now').css('cursor', 'not-allowed').css('background', 'white');
+                                current_stage.children('a').addClass('disabled');
                                 p.text('Expired');
                                 clearInterval(x);
 
@@ -1084,6 +1102,7 @@
                             if (Math.floor((distance1 % (day)) / (hour)) <= 0 && Math.floor((distance1 % (hour)) / (minute)) <= 0 && Math.floor((distance1 % (minute)) / second) <= 0) {
 
                                 p.next().find('.pay_now').css('cursor', 'not-allowed').css('background', 'white');
+                                current_stage.children('a').addClass('disabled');
                                 p.text('Expired');
                                 clearInterval(x);
 
