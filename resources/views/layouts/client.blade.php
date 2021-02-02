@@ -119,9 +119,9 @@
                             <a href="{{route('client-quotations-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Invoices</a>
                         </li>
 
-                        {{--<li>
+                        <li>
                             <a href="{{route('client-custom-quotations')}}"><i class="fa fa-fw fa-file-text"></i> Handyman Quotations</a>
-                        </li>--}}
+                        </li>
 
                         <li  class="lang-list" style="text-align: center;margin-top: 20px;">
 
