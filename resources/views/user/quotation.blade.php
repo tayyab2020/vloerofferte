@@ -99,12 +99,17 @@
                                                 </div>
                                             </div>
 
-                                                <div class="col-md-4" style="margin: 10px 0px;">
-                                                    <div class="form-group" style="margin: 0;">
-                                                        <label>Delivery Date</label>
-                                                        <input type="text" name="delivery_date" value="{{$quotation[0]->delivery_date}}" class="form-control delivery_date" autocomplete="off" required disabled>
+
+                                                @if(Route::currentRouteName() != 'view-custom-quotation' && Route::currentRouteName() != 'edit-custom-quotation' && Route::currentRouteName() != 'create-custom-invoice')
+
+                                                    <div class="col-md-4" style="margin: 10px 0px;">
+                                                        <div class="form-group" style="margin: 0;">
+                                                            <label>Delivery Date</label>
+                                                            <input type="text" name="delivery_date" value="{{$quotation[0]->delivery_date}}" class="form-control delivery_date" autocomplete="off" required disabled>
+                                                        </div>
                                                     </div>
-                                                </div>
+
+                                                @endif
                                         </div>
 
                                         <div class="row" style="margin: 0;">
@@ -1149,6 +1154,7 @@
                 allowClear: true,
             });
 
+            @if(Route::currentRouteName() != 'view-handyman-quotation' && Route::currentRouteName() != 'view-custom-quotation')
 
             $(".add-row").click(function(){
 
@@ -1197,6 +1203,8 @@
                     '                                                                        </td>\n' +
                     '                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>\n' +
                     '                                                                    </tr>');
+
+                @endif
 
 
                 $('.js-data-example-ajax').change(function(){

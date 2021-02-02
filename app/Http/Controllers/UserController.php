@@ -686,14 +686,22 @@ class UserController extends Controller
         $user_role = $user->role_id;
 
         if ($user_role == 2) {
-            $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate', 'handyman_products.description')->get();
 
-            if (count($services) == 0) {
-                Session::flash('unsuccess', 'No services found, You have to select at least one service');
+            $all_services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*')->get();
+            $all_services = $all_services->unique();
+
+            $all_brands = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
+            $all_brands = $all_brands->unique();
+
+            $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
+            $all_models = $all_models->unique();
+
+            if (count($all_services) == 0 && count($all_brands) == 0 && count($all_models) == 0) {
+                Session::flash('unsuccess', 'No products found, You have to select at least one product');
                 return redirect()->back();
             }
 
-            $items = items::where('user_id', $user_id)->get();
+            $items = items::where('user_id',$user_id)->get();
 
             $settings = Generalsetting::findOrFail(1);
 
@@ -701,7 +709,7 @@ class UserController extends Controller
 
             $customers = User::where('parent_id', $user_id)->get();
 
-            return view('user.create_custom_quote', compact('services', 'items', 'settings', 'vat_percentage', 'customers', 'user'));
+            return view('user.create_custom_quote', compact('all_services', 'all_brands', 'all_models', 'items', 'settings', 'vat_percentage', 'customers', 'user'));
         } else {
             return redirect()->back();
         }
@@ -881,14 +889,29 @@ class UserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quotation = custom_quotations::leftjoin('custom_quotations_data', 'custom_quotations_data.quotation_id', '=', 'custom_quotations.id')->where('custom_quotations.id', $id)->where('custom_quotations.handyman_id', $user_id)->select('custom_quotations.*', 'custom_quotations_data.id as data_id', 'custom_quotations_data.s_i_id', 'custom_quotations_data.item', 'custom_quotations_data.service', 'custom_quotations_data.rate', 'custom_quotations_data.qty', 'custom_quotations_data.description as data_description', 'custom_quotations_data.estimated_date', 'custom_quotations_data.amount')->get();
+        $quotation = custom_quotations::leftjoin('custom_quotations_data', 'custom_quotations_data.quotation_id', '=', 'custom_quotations.id')->where('custom_quotations.id', $id)->where('custom_quotations.handyman_id', $user_id)->select('custom_quotations.*', 'custom_quotations_data.id as data_id', 'custom_quotations_data.s_i_id', 'custom_quotations_data.b_i_id', 'custom_quotations_data.m_i_id', 'custom_quotations_data.item', 'custom_quotations_data.service', 'custom_quotations_data.brand', 'custom_quotations_data.model', 'custom_quotations_data.rate', 'custom_quotations_data.qty', 'custom_quotations_data.description as data_description', 'custom_quotations_data.estimated_date', 'custom_quotations_data.amount')->get();
 
         if (count($quotation) != 0) {
-            $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate', 'handyman_products.description')->get();
+
+            /*$services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate')->get();*/
+
+            $services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*')->get();
+            $services = $services->unique();
+
+            $all_brands = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
+            $all_brands = $all_brands->unique();
+
+            $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
+            $all_models = $all_models->unique();
+
+            if (count($services) == 0 && count($all_brands) == 0 && count($all_models) == 0) {
+                Session::flash('unsuccess', 'No products found, You have to select at least one product');
+                return redirect()->back();
+            }
 
             $items = items::where('user_id', $user_id)->get();
 
-            return view('user.quotation', compact('quotation', 'services', 'vat_percentage', 'items'));
+            return view('user.quotation', compact('quotation', 'services', 'all_brands', 'all_models', 'vat_percentage', 'items', 'user_id'));
         } else {
             return redirect('handyman/dashboard');
         }
@@ -1317,6 +1340,7 @@ class UserController extends Controller
             $invoice->save();
 
             foreach ($services as $i => $key) {
+
                 if (strpos($services[$i], 'I') > -1) {
                     $x = 1;
                 } else {
@@ -1326,8 +1350,12 @@ class UserController extends Controller
                 $invoice_items = new custom_quotations_data;
                 $invoice_items->quotation_id = $invoice->id;
                 $invoice_items->s_i_id = (int)$key;
+                $invoice_items->b_i_id = $request->brand[$i];
+                $invoice_items->m_i_id = $request->model[$i];
                 $invoice_items->item = $x;
                 $invoice_items->service = $request->service_title[$i];
+                $invoice_items->brand = $request->brand_title[$i];
+                $invoice_items->model = $request->model_title[$i];
                 $invoice_items->rate = $request->cost[$i];
                 $invoice_items->qty = $request->qty[$i];
                 $invoice_items->description = $request->description[$i];
@@ -1401,8 +1429,12 @@ class UserController extends Controller
                 $invoice_items = new custom_quotations_data;
                 $invoice_items->quotation_id = $invoice->id;
                 $invoice_items->s_i_id = (int)$key;
+                $invoice_items->b_i_id = $request->brand[$i];
+                $invoice_items->m_i_id = $request->model[$i];
                 $invoice_items->item = $x;
                 $invoice_items->service = $request->service_title[$i];
+                $invoice_items->brand = $request->brand_title[$i];
+                $invoice_items->model = $request->model_title[$i];
                 $invoice_items->rate = $request->cost[$i];
                 $invoice_items->qty = $request->qty[$i];
                 $invoice_items->description = $request->description[$i];
@@ -1490,8 +1522,12 @@ class UserController extends Controller
                 $item = new custom_quotations_data;
                 $item->quotation_id = $quotation->id;
                 $item->s_i_id = (int)$key;
+                $item->b_i_id = $request->brand[$i];
+                $item->m_i_id = $request->model[$i];
                 $item->item = $x;
                 $item->service = $request->service_title[$i];
+                $item->brand = $request->brand_title[$i];
+                $item->model = $request->model_title[$i];
                 $item->rate = $request->cost[$i];
                 $item->qty = $request->qty[$i];
                 $item->description = $request->description[$i];
@@ -1583,8 +1619,12 @@ class UserController extends Controller
                 $item = new custom_quotations_data;
                 $item->quotation_id = $quotation->id;
                 $item->s_i_id = (int)$key;
+                $item->b_i_id = $request->brand[$i];
+                $item->m_i_id = $request->model[$i];
                 $item->item = $x;
                 $item->service = $request->service_title[$i];
+                $item->brand = $request->brand_title[$i];
+                $item->model = $request->model_title[$i];
                 $item->rate = $request->cost[$i];
                 $item->qty = $request->qty[$i];
                 $item->description = $request->description[$i];

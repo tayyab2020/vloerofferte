@@ -106,11 +106,13 @@
                                                                     <thead>
                                                                     <tr>
                                                                         <th style="width: 40px;">#</th>
-                                                                        <th class="col-sm-2">Service/Item</th>
-                                                                        <th class="col-md-6">Description</th>
-                                                                        <th style="width:100px;">Cost</th>
-                                                                        <th style="width:120px;">Qty</th>
-                                                                        <th style="width: 120px;">Amount</th>
+                                                                        <th class="col-sm-2">Category/Item</th>
+                                                                        <th class="col-sm-2">Brand</th>
+                                                                        <th class="col-sm-2">Model</th>
+                                                                        <th class="col-sm-2">Cost</th>
+                                                                        <th class="col-sm-2">Qty</th>
+                                                                        <th class="col-sm-2">Amount</th>
+                                                                        <th style="width: 50px;">Description</th>
                                                                         <th> </th>
                                                                     </tr>
                                                                     </thead>
@@ -121,7 +123,9 @@
                                                                         <td>
                                                                             <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
 
-                                                                                @foreach($services as $key)
+                                                                                <option value="">Select Category/Item</option>
+
+                                                                                @foreach($all_services as $key)
                                                                                     <option value="{{$key->id}}">{{$key->cat_name}}</option>
                                                                                 @endforeach
 
@@ -131,17 +135,39 @@
 
                                                                             </select>
 
-                                                                            <?php $service_title = $services[0]->cat_name; $rate = $services[0]->rate;  ?>
-
-                                                                            <input type="hidden" name="service_title[]" value="{{$service_title}}">
+                                                                            <input type="hidden" name="service_title[]" value="">
                                                                         </td>
 
-                                                                        <td class="td-desc">
-                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>
+                                                                        <td>
+                                                                            <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>
+
+                                                                                <option value="">Select Brand</option>
+
+                                                                                @foreach($all_brands as $key)
+                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
+                                                                                @endforeach
+
+                                                                            </select>
+
+                                                                            <input type="hidden" name="brand_title[]" value="">
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>
+
+                                                                                <option value="">Select Model</option>
+
+                                                                                @foreach($all_models as $key)
+                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
+                                                                                @endforeach
+
+                                                                            </select>
+
+                                                                            <input type="hidden" name="model_title[]" value="">
                                                                         </td>
 
                                                                         <td class="td-rate">
-                                                                            <input name="cost[]" class="form-control" type="text" value="{{$rate}}" required>
+                                                                            <input name="cost[]" class="form-control" type="text" value="" required>
                                                                         </td>
 
                                                                         <td class="td-qty">
@@ -150,6 +176,11 @@
 
                                                                         <td class="td-amount">
                                                                             <input name="amount[]" class="form-control" readonly="" type="text">
+                                                                        </td>
+
+                                                                        <td style="text-align: center;" class="td-desc">
+                                                                            <input type="hidden" name="description[]" id="description" class="form-control">
+                                                                            <a href="javascript:void(0)" class="add-desc" title="Add Description" style="color: black;"><i style="font-size: 20px;" class="fa fa-plus-square"></i></a>
                                                                         </td>
 
                                                                         <td style="text-align: center;"><a href="javascript:void(0)" class="text-success font-18 add-row" title="Add"><i class="fa fa-plus"></i></a></td>
@@ -327,6 +358,28 @@
 
     <div id="cover"></div>
 
+
+    <div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button style="background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 id="myModalLabel">Add Description</h4>
+                </div>
+
+                <div class="modal-body" id="myWizard">
+                    <textarea rows="5" style="resize: vertical;" id="description-text" class="form-control"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button type="button" class="btn btn-success submit-desc">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <style type="text/css">
 
@@ -995,6 +1048,22 @@
 
         $(document).ready(function() {
 
+            var current_desc = '';
+
+            $(".add-desc").click(function(){
+                current_desc = $(this);
+                var d = current_desc.prev('input').val();
+                $('#description-text').val(d);
+                $("#myModal1").modal('show');
+            });
+
+            $(".submit-desc").click(function () {
+                var desc = $('#description-text').val();
+                current_desc.prev('input').val(desc);
+                $('#description-text').val('');
+                $("#myModal1").modal('hide');
+            });
+
             $(".submit-customer").click(function(){
 
                 var name = $('#name').val();
@@ -1141,10 +1210,24 @@
             $(".js-data-example-ajax").select2({
                 width: '100%',
                 height: '200px',
-                // placeholder: "City Name",
-                placeholder: "",
+                placeholder: "Select Category/Item",
                 allowClear: true,
             });
+
+            $(".js-data-example-ajax1").select2({
+                width: '100%',
+                height: '200px',
+                placeholder: "Select Brand",
+                allowClear: true,
+            });
+
+            $(".js-data-example-ajax2").select2({
+                width: '100%',
+                height: '200px',
+                placeholder: "Select Model",
+                allowClear: true,
+            });
+
 
             $(".js-data-example-ajax").change(function(){
 
@@ -1154,7 +1237,7 @@
 
                 $.ajax({
                     type:"GET",
-                    data: "id=" + id ,
+                    data: "id=" + id + "&type=service",
                     url: "<?php echo url('/get-quotation-data')?>",
                     success: function(data) {
 
@@ -1207,6 +1290,45 @@
 
             });
 
+
+            $(".js-data-example-ajax1").change(function(){
+
+                var current = $(this);
+
+                var id = current.val();
+
+                $.ajax({
+                    type:"GET",
+                    data: "id=" + id + "&type=brand",
+                    url: "<?php echo url('/get-quotation-data')?>",
+                    success: function(data) {
+
+                        current.parent().children('input').val(data.cat_name);
+
+                    }
+                });
+
+            });
+
+            $(".js-data-example-ajax2").change(function(){
+
+                var current = $(this);
+
+                var id = current.val();
+
+                $.ajax({
+                    type:"GET",
+                    data: "id=" + id + "&type=model",
+                    url: "<?php echo url('/get-quotation-data')?>",
+                    success: function(data) {
+
+                        current.parent().children('input').val(data.cat_name);
+
+                    }
+                });
+
+            });
+
             $(".add-row").click(function(){
 
                 var rowCount = $('.items-table tr').length;
@@ -1215,17 +1337,33 @@
                     '                                                                        <td>'+rowCount+'</td>\n' +
                     '                                                                        <td>\n' +
                     '                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>\n' +
-                    '                                                                                @foreach($services as $key)\n' +
+                    '                                                                                    <option value="">Select Category/Item</option>\n' +
+                    '                                                                                @foreach($all_services as $key)\n' +
                     '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
                     '                                                                                @endforeach\n' +
                     '                                                                                @foreach($items as $key)\n' +
                     '                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>\n' +
                     '                                                                                @endforeach\n' +
                     '                                                                            </select>\n' +
-                    '                                                                           <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">\n'+
+                    '                                                                           <input type="hidden" name="service_title[]" value="">\n'+
                     '                                                                        </td>\n' +
-                    '                                                                        <td class="td-desc">\n' +
-                    '                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>\n' +
+                    '                                                                        <td>\n' +
+                    '                                                                            <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>\n' +
+                    '                                                                                    <option value="">Select Brand</option>\n' +
+                    '                                                                                @foreach($all_brands as $key)\n' +
+                    '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
+                    '                                                                                @endforeach\n' +
+                    '                                                                            </select>\n' +
+                    '                                                                           <input type="hidden" name="brand_title[]" value="">\n'+
+                    '                                                                        </td>\n' +
+                    '                                                                        <td>\n' +
+                    '                                                                            <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>\n' +
+                    '                                                                                    <option value="">Select Model</option>\n' +
+                    '                                                                                @foreach($all_models as $key)\n' +
+                    '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
+                    '                                                                                @endforeach\n' +
+                    '                                                                            </select>\n' +
+                    '                                                                           <input type="hidden" name="model_title[]" value="">\n'+
                     '                                                                        </td>\n' +
                     '                                                                        <td class="td-rate">\n' +
                     '                                                                            <input name="cost[]" class="form-control" type="text" required>\n' +
@@ -1236,8 +1374,19 @@
                     '                                                                        <td class="td-amount">\n' +
                     '                                                                            <input name="amount[]" class="form-control" readonly="" type="text">\n' +
                     '                                                                        </td>\n' +
+                    '                                                                        <td style="text-align: center;" class="td-desc">\n' +
+                    '                                                                            <input type="hidden" name="description[]" id="description" class="form-control">\n' +
+                    '                                                                            <a href="javascript:void(0)" class="add-desc" title="Add Description" style="color: black;"><i style="font-size: 20px;" class="fa fa-plus-square"></i></a>\n' +
+                    '                                                                        </td>\n' +
                     '                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>\n' +
                     '                                                                    </tr>');
+
+                $(".add-desc").click(function(){
+                    current_desc = $(this);
+                    var d = current_desc.prev('input').val();
+                    $('#description-text').val(d);
+                    $("#myModal1").modal('show');
+                });
 
 
                 $(".js-data-example-ajax").change(function(){
@@ -1248,7 +1397,7 @@
 
                     $.ajax({
                         type:"GET",
-                        data: "id=" + id ,
+                        data: "id=" + id + "&type=service",
                         url: "<?php echo url('/get-quotation-data')?>",
                         success: function(data) {
 
@@ -1301,6 +1450,45 @@
                 });
 
 
+                $(".js-data-example-ajax1").change(function(){
+
+                    var current = $(this);
+
+                    var id = current.val();
+
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + id + "&type=brand",
+                        url: "<?php echo url('/get-quotation-data')?>",
+                        success: function(data) {
+
+                            current.parent().children('input').val(data.cat_name);
+
+                        }
+                    });
+
+                });
+
+
+                $(".js-data-example-ajax2").change(function(){
+
+                    var current = $(this);
+
+                    var id = current.val();
+
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + id + "&type=model",
+                        url: "<?php echo url('/get-quotation-data')?>",
+                        success: function(data) {
+
+                            current.parent().children('input').val(data.cat_name);
+
+                        }
+                    });
+
+                });
+
                 $('.estimate_date').datepicker({
 
                     format: 'dd-mm-yyyy',
@@ -1311,8 +1499,21 @@
                 $(".js-data-example-ajax").select2({
                     width: '100%',
                     height: '200px',
-                    // placeholder: "City Name",
-                    placeholder: "",
+                    placeholder: "Select Category/Item",
+                    allowClear: true,
+                });
+
+                $(".js-data-example-ajax1").select2({
+                    width: '100%',
+                    height: '200px',
+                    placeholder: "Select Brand",
+                    allowClear: true,
+                });
+
+                $(".js-data-example-ajax2").select2({
+                    width: '100%',
+                    height: '200px',
+                    placeholder: "Select Model",
                     allowClear: true,
                 });
 
