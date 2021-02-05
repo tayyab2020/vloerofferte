@@ -27,230 +27,226 @@
 
                     <!-- Starting of Dashboard Top reference + Most Used OS area -->
                     <div class="reference-OS-area">
-<div class="donors-profile-top-bg overlay text-center wow fadeInUp" style="background-image: url({{asset('assets/images/'.$gs->h_dashbg)}}); visibility: visible; animation-name: fadeInUp;z-index: auto;color: black;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>{{$user->name}} {{$user->family_name}}</h2>
-                        <p>{{$lang->bg}} <?php $count = count($services); $i=1; ?>
-                            @foreach($services as $key)
+                        <div class="donors-profile-top-bg overlay text-center wow fadeInUp" style="background-image: url({{asset('assets/images/'.$gs->h_dashbg)}}); visibility: visible; animation-name: fadeInUp;z-index: auto;color: black;">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h2>{{$user->name}} {{$user->family_name}}</h2>
+                                        <p>{{$lang->bg}} <?php $count = count($services); $i=1; ?>
+                                            @foreach($services as $key)
 
-                                @if($i == $count)
+                                                @if($i == $count)
 
-                                    {{$key->cat_name}}
+                                                    {{$key->cat_name}}
 
-                                @else
+                                                @else
 
-                                    {{$key->cat_name}},
+                                                    {{$key->cat_name}},
 
-                                @endif
+                                                @endif
 
-                                <?php $i++; ?>
+                                                <?php $i++; ?>
 
-                            @endforeach</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-<div class="profile-fillup-wrap wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form class="form-horizontal" id="form" action="{{route('user-temp-profile-update',$user->id)}}" method="POST" enctype="multipart/form-data">
-                            @include('includes.form-success')
-                            @include('includes.form-error')
-                            {{csrf_field()}}
-
-                            <input type="hidden" name="email" id="email" value="{{$user->email}}">
-
-                            <div class="profile-filup-description-box margin-bottom-30">
-                              <div class="form-group">
-                                <label for="first_name" class="col-sm-3 control-label">{{$lang->suf}}*</label>
-                                <div class="col-sm-8">
-                                  <input class="form-control" id="name" name="name" placeholder="{{$lang->suf}}" type="text" value="{{$user->name}}" required="">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="family_name" class="col-sm-3 control-label">{{$lang->fn}}*</label>
-                                <div class="col-sm-8">
-                                  <input class="form-control" id="family_name" name="family_name" placeholder="{{$lang->fn}}" type="text" value="{{$user->family_name}}" required="">
-                                </div>
-                              </div>
-
-                              <div class="form-group">
-                                <label for="current_photo" class="col-sm-3 control-label">{{$lang->cup}}*</label>
-                                <div class="col-sm-8">
-
-                                <img width="130px" height="90px" id="adminimg" src="{{ $user->photo ? asset('assets/images/'.$user->photo):asset('assets/default.jpg')}}" alt="" id="adminimg">
-
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="profile_photo" class="col-sm-3 control-label">{{$lang->pp}}*</label>
-                                <div class="col-sm-8">
-                                  <input type="file" id="uploadFile" class="hidden" name="photo" value="">
-                                  <button type="button" id="uploadTrigger" onclick="uploadclick()" class="form-control"><i class="fa fa-download"></i> {{$lang->app}}</button>
-                                  <p>{{$lang->size}}</p>
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="registration_number" class="col-sm-3 control-label">{{$lang->rg}}</label>
-                                <div class="col-sm-8">
-                                  <input class="form-control" id="registration_number" name="registration_number" placeholder="{{$lang->rg}}" type="text" value="{{$user->registration_number}}" >
-                                </div>
-                              </div>
-
-
-
-                              <div class="form-group">
-                                <label for="company_name" class="col-sm-3 control-label">{{$lang->compname}}</label>
-                                <div class="col-sm-8">
-                                  <input class="form-control" id="company_name" name="company_name" placeholder="{{$lang->compname}}" type="text" value="{{$user->company_name}}" >
-                                </div>
-                              </div>
-
-                                <div class="form-group">
-                                    <label for="address" class="col-sm-3 control-label">{{$lang->doad}}*</label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" name="address" id="address" placeholder="{{$lang->doad}}" type="text" value="{{$user->address}}" required="">
+                                            @endforeach</p>
                                     </div>
-                                </div>
-
-                                <div class="form-group" style="display: none;">
-                                    <label for="registration_number" class="col-sm-3 control-label">{{$lang->pct}}</label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" id="postcode" name="postcode" placeholder="{{$lang->pct}}" type="text" value="{{$user->postcode}}" >
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label for="city" class="col-sm-3 control-label">{{$lang->doct}}*</label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" name="city" id="city" placeholder="{{$lang->doct}}" type="text" value="{{$user->city}}" required="">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="phone" class="col-sm-3 control-label">{{$lang->doph}}*</label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" name="phone" id="phone" placeholder="{{$lang->doph}}" type="number" value="{{$user->phone}}" required="">
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label for="phone" class="col-sm-3 control-label">Email*</label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" name="em" id="em" placeholder="Email" type="text" value="{{$user->email}}" readonly>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label for="profile_description" class="col-sm-3 control-label">{{$lang->dopd}}</label>
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" name="description" id="profile_description" rows="5" style="resize: vertical;">{{$user->description}}</textarea>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="special" class="col-sm-3 control-label">{{$lang->doo}} </label>
-                                <div class="col-sm-8">
-                                    @if($user->special != null)
-
-                                        @php
-                                            $specials = explode(',', $user->special);
-                                        @endphp
-                                    @endif
-                                    <ul id="myTags">
-                                        @if(isset($specials))
-                                            @foreach($specials as $parea)
-                                                <li>{{$parea}}</li>
-                                            @endforeach
-                                        @endif
-                                    </ul>
                                 </div>
                             </div>
-
-
-                            <div class="form-group">
-                                <label for="edu" class="col-sm-3 control-label">{{$lang->doe}}</label>
-                                <div class="col-sm-8">
-                                    <input class="form-control" name="education" id="edu" placeholder="{{$lang->doe}}" type="text" value="{{$user->education}}" >
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lang" class="col-sm-3 control-label">{{$lang->dol}}</label>
-                                <div class="col-sm-8">
-                                    <input class="form-control" name="language" id="lang" placeholder="{{$lang->dol}}" type="text" value="{{$user->language}}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="prof" class="col-sm-3 control-label">{{$lang->dopr}}</label>
-                                <div class="col-sm-8">
-                                    <input class="form-control" name="profession" id="prof" placeholder="{{$lang->dopr}}" type="text" value="{{$user->profession}}" >
-                                </div>
-                            </div>
-
-
-                              <div class="form-group">
-                                <label for="tax_number" class="col-sm-3 control-label">{{$lang->tn}}</label>
-                                <div class="col-sm-8">
-                                  <input class="form-control" id="tax_number" name="tax_number" placeholder="{{$lang->tn}}" type="text" value="{{$user->tax_number}}" >
-                                </div>
-                              </div>
-
-
-                              <div class="form-group">
-                                <label for="bank_account" class="col-sm-3 control-label">{{$lang->ba}}</label>
-                                <div class="col-sm-8">
-                                  <input class="form-control" id="bank_account" name="bank_account" placeholder="{{$lang->ba}}" type="text" value="{{$user->bank_account}}" >
-                                </div>
-                              </div>
-
-
-
-
-                            <div class="form-group" style="display: none;">
-                                <label for="age" class="col-sm-3 control-label">{{$lang->doa}}*</label>
-                                <div class="col-sm-8">
-                                  <input class="form-control" name="age" id="age" placeholder="{{$lang->doa}}" type="text" value="{{$user->age}}" value="0" >
-                                </div>
-                              </div>
-
-
-
-
-                              <div class="form-group">
-                                <label for="web" class="col-sm-3 control-label">{{$lang->doeml}}</label>
-                                <div class="col-sm-8">
-                                  <input class="form-control" name="web" id="web" placeholder="{{$lang->doeml}}" type="text" value="{{$user->web}}">
-                                </div>
-                              </div>
-
-
-
-
-
-                         <div class="submit-area margin-bottom-30">
-                           <div class="row">
-                               <div class="col-md-8 col-md-offset-2">
-                                   <div class="form-group text-center">
-                                        <button class="boxed-btn blog" type="submit">{{$lang->doupl}}</button>
-                                    </div>
-                               </div>
-                           </div>
                         </div>
-                    </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+                        <div class="profile-fillup-wrap wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form-horizontal" id="form" action="{{route('user-temp-profile-update',$user->id)}}" method="POST" enctype="multipart/form-data">
+                                            @include('includes.form-success')
+                                            @include('includes.form-error')
+                                            {{csrf_field()}}
+
+                                            <input type="hidden" name="email" id="email" value="{{$user->email}}">
+
+                                            <div class="profile-filup-description-box margin-bottom-30">
+                                                <div class="form-group">
+                                                    <label for="first_name" class="col-sm-3 control-label">{{$lang->suf}}*</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="name" name="name" placeholder="{{$lang->suf}}" type="text" value="{{$user->name}}" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="family_name" class="col-sm-3 control-label">{{$lang->fn}}*</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="family_name" name="family_name" placeholder="{{$lang->fn}}" type="text" value="{{$user->family_name}}" required="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="current_photo" class="col-sm-3 control-label">{{$lang->cup}}*</label>
+                                                    <div class="col-sm-8">
+
+                                                        <img width="130px" height="90px" id="adminimg" src="{{ $user->photo ? asset('assets/images/'.$user->photo):asset('assets/default.jpg')}}" alt="" id="adminimg">
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="profile_photo" class="col-sm-3 control-label">{{$lang->pp}}*</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="file" id="uploadFile" class="hidden" name="photo" value="">
+                                                        <button type="button" id="uploadTrigger" onclick="uploadclick()" class="form-control"><i class="fa fa-download"></i> {{$lang->app}}</button>
+                                                        <p>{{$lang->size}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="registration_number" class="col-sm-3 control-label">{{$lang->rg}}</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="registration_number" name="registration_number" placeholder="{{$lang->rg}}" type="text" value="{{$user->registration_number}}" >
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="form-group">
+                                                    <label for="company_name" class="col-sm-3 control-label">{{$lang->compname}}</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="company_name" name="company_name" placeholder="{{$lang->compname}}" type="text" value="{{$user->company_name}}" >
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="address" class="col-sm-3 control-label">{{$lang->doad}}*</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" name="address" id="address" placeholder="{{$lang->doad}}" type="text" value="{{$user->address}}" required="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="display: none;">
+                                                    <label for="registration_number" class="col-sm-3 control-label">{{$lang->pct}}</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="postcode" name="postcode" placeholder="{{$lang->pct}}" type="text" value="{{$user->postcode}}" >
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="city" class="col-sm-3 control-label">{{$lang->doct}}*</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" name="city" id="city" placeholder="{{$lang->doct}}" type="text" value="{{$user->city}}" required="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="phone" class="col-sm-3 control-label">{{$lang->doph}}*</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" name="phone" id="phone" placeholder="{{$lang->doph}}" type="number" value="{{$user->phone}}" required="">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="phone" class="col-sm-3 control-label">Email*</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" name="em" id="em" placeholder="Email" type="text" value="{{$user->email}}" readonly>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="profile_description" class="col-sm-3 control-label">{{$lang->dopd}}</label>
+                                                    <div class="col-sm-8">
+                                                        <textarea class="form-control" name="description" id="profile_description" rows="5" style="resize: vertical;">{{$user->description}}</textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="special" class="col-sm-3 control-label">{{$lang->doo}} </label>
+                                                <div class="col-sm-8">
+                                                    @if($user->special != null)
+
+                                                        @php
+                                                            $specials = explode(',', $user->special);
+                                                        @endphp
+                                                    @endif
+                                                    <ul id="myTags">
+                                                        @if(isset($specials))
+                                                            @foreach($specials as $parea)
+                                                                <li>{{$parea}}</li>
+                                                            @endforeach
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="edu" class="col-sm-3 control-label">{{$lang->doe}}</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" name="education" id="edu" placeholder="{{$lang->doe}}" type="text" value="{{$user->education}}" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lang" class="col-sm-3 control-label">{{$lang->dol}}</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" name="language" id="lang" placeholder="{{$lang->dol}}" type="text" value="{{$user->language}}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="prof" class="col-sm-3 control-label">{{$lang->dopr}}</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" name="profession" id="prof" placeholder="{{$lang->dopr}}" type="text" value="{{$user->profession}}" >
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="tax_number" class="col-sm-3 control-label">{{$lang->tn}}</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" id="tax_number" name="tax_number" placeholder="{{$lang->tn}}" type="text" value="{{$user->tax_number}}" >
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="bank_account" class="col-sm-3 control-label">{{$lang->ba}}</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" id="bank_account" name="bank_account" placeholder="{{$lang->ba}}" type="text" value="{{$user->bank_account}}" >
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group" style="display: none;">
+                                                <label for="age" class="col-sm-3 control-label">{{$lang->doa}}*</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" name="age" id="age" placeholder="{{$lang->doa}}" type="text" value="{{$user->age}}" value="0" >
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group">
+                                                <label for="web" class="col-sm-3 control-label">Website</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" name="web" id="web" placeholder="Website" type="text" value="{{$user->web}}">
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="submit-area margin-bottom-30">
+                                                <div class="row">
+                                                    <div class="col-md-8 col-md-offset-2">
+                                                        <div class="form-group text-center">
+                                                            <button class="boxed-btn blog" type="submit">{{$lang->doupl}}</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div></div></div></div></div>
 

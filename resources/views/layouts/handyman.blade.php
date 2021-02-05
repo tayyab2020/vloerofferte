@@ -146,7 +146,7 @@
                             </ul>
                         </li>
 
-                        
+
                         <li>
                             <a href="#services" data-toggle="collapse" @if(Route::currentRouteName() == 'user-products' || Route::currentRouteName() == 'product-create') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> My Products</a>
                             <ul class="collapse list-unstyled submenu" id="services">
