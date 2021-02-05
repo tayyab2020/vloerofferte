@@ -2,11 +2,11 @@
 
 @section('content')
 
-    <section class="jumbotron text-center">
+    {{--<section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">@if($type == 'invoice') Quotation Invoice @else Quotation @endif</h1>
         </div>
-    </section>
+    </section>--}}
 
     <div class="container" style="width: 100%;">
         <div class="row">
@@ -18,23 +18,18 @@
                             <div class="col-md-4 col-sm-4 col-xs-12">
 
                                 <img class="img-fluid" src="{{ public_path('assets/images/'.$gs->logo) }}" style="width:50%; height:100%;margin-bottom: 30px;">
-                                <p class="para" style="margin-top: 20px;margin-left: 26px;">{!! $gs->street  !!}<br>TEL: {{$gs->phone}}<br>BTW: NL001973883B94<br>IBAN: NL87ABNA0825957680<br>KvK-nummer: 70462623</p>
 
                             </div>
 
 
-                            <div class="col-md-6 col-sm-6 col-xs-12 text-right inv-rigth" style="float: right;margin-top: 50px;">
+                            <div class="col-md-6 col-sm-6 col-xs-12 text-right inv-rigth" style="float: right;">
 
-                                <p class="font-weight-bold mb-1" style="font-size: 20px;">@if($type == 'invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
-
-                                <?php $date = date('d-m-Y');  ?>
-
-                                <p class="text-muted" style="font-size: 15px;margin-top: 20px;">Created at: {{$date}}</p>
+                                <p class="para" style="margin-top: 20px;margin-left: 26px;">{!! $gs->street  !!}<br>TEL: {{$gs->phone}}<br>BTW: NL001973883B94<br>IBAN: NL87ABNA0825957680<br>KvK-nummer: 70462623</p>
 
                             </div>
                         </div>
 
-                        <hr class="my-5">
+                        <hr style="margin: 0;" class="my-5">
 
                         @if($type == 'invoice')
 
@@ -64,11 +59,16 @@
 
                         <div class="row pb-5 p-5" style="margin-right: 15px !important;">
 
+                            <?php $date = date('d-m-Y');  ?>
+
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <p class="font-weight-bold mb-4 m-heading">Quote Information</p>
+                                {{--<p class="font-weight-bold mb-4 m-heading">Quote Information</p>--}}
+                                <p class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
+                                <p class="mb-1 m-rest">Created at: {{$date}}</p>
                                 <p class="mb-1 m-rest">Requested Quote Number: {{$requested_quote_number}}</p>
-                                <p class="mb-1 m-rest">Requested Service: {{$quote->cat_name}}</p>
                                 <p class="mb-1 m-rest">Zipcode: {{$quote->quote_zipcode}}</p>
+                                <br>
+                                <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') Quotation Invoice @else Quotation @endif</p>
                             </div>
 
                         </div>

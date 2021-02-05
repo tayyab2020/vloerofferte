@@ -159,10 +159,10 @@
                                     </tr>
 
                                     <tr>
-                                        <td style="background-color: gray;font-weight: bold;color: black;">Total to receive</td>
-                                        <td style="background-color: gray;font-weight: bold;color: black;">€ {{number_format((float)$total_receive, 2, ',', '.')}}</td>
-                                        <td style="background-color: gray;font-weight: bold;color: black;"></td>
-                                        <td style="background-color: gray;font-weight: bold;color: black;"></td>
+                                        <td style="background-color: #989898;font-weight: bold;color: black;">Total to receive</td>
+                                        <td style="background-color: #989898;font-weight: bold;color: black;">€ {{number_format((float)$total_receive, 2, ',', '.')}}</td>
+                                        <td style="background-color: #989898;font-weight: bold;color: black;"></td>
+                                        <td style="background-color: #989898;font-weight: bold;color: black;"></td>
                                     </tr>
 
                                     </tbody>

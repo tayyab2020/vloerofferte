@@ -88,15 +88,6 @@
                                             </div>
                                           </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4" for="website_title">Color *<span>(Don't Use RGB)</span></label>
-                                                <div class="col-sm-6">
-                                                    <div id="cp2" class="input-group colorpicker-component">
-                                                        <input id="cp1" type="text" name="colors" value="{{$cat->colors}}"   required="" class="form-control"/>
-                                                        <span class="input-group-addon"><i></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4" for="service_type">Service Type* </label>

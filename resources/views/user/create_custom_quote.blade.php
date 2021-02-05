@@ -120,7 +120,7 @@
 
                                                                     <tr>
                                                                         <td>1</td>
-                                                                        <td>
+                                                                        <td class="service_box">
                                                                             <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
 
                                                                                 <option value="">Select Category/Item</option>
@@ -138,28 +138,20 @@
                                                                             <input type="hidden" name="service_title[]" value="">
                                                                         </td>
 
-                                                                        <td>
+                                                                        <td class="brand_box">
                                                                             <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>
 
                                                                                 <option value="">Select Brand</option>
-
-                                                                                @foreach($all_brands as $key)
-                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
-                                                                                @endforeach
 
                                                                             </select>
 
                                                                             <input type="hidden" name="brand_title[]" value="">
                                                                         </td>
 
-                                                                        <td>
+                                                                        <td class="model_box">
                                                                             <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>
 
                                                                                 <option value="">Select Model</option>
-
-                                                                                @foreach($all_models as $key)
-                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
-                                                                                @endforeach
 
                                                                             </select>
 
@@ -295,7 +287,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </div>
-                                <input id="business_name" name="business_name" class="form-control validation" placeholder="{{$lang->bn}}" type="text">
+                                <input id="business_name" name="business_name" class="form-control" placeholder="{{$lang->bn}}" type="text">
                             </div>
                         </div>
 
@@ -1234,6 +1226,7 @@
                 var current = $(this);
 
                 var id = current.val();
+                var handyman_id = $('#handyman_id').val();
 
                 $.ajax({
                     type:"GET",
@@ -1288,6 +1281,41 @@
                     }
                 });
 
+                var category_id = current.val();
+                var item_check = category_id.includes('I');
+
+                if(!item_check)
+                {
+                    var options = '';
+
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + category_id + "&handyman_id=" + handyman_id,
+                        url: "<?php echo route('products-brands-by-category') ?>",
+                        success: function(data) {
+
+                            $.each(data, function(index, value) {
+
+                                var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
+
+                                options = options + opt;
+
+                            });
+
+                            current.parent().next().children('select').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">Select Brand</option>'+options);
+
+                            current.parent().next().next().children('select').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">Select Model</option>');
+
+                        }
+                    });
+                }
+
             });
 
 
@@ -1295,15 +1323,40 @@
 
                 var current = $(this);
 
-                var id = current.val();
+                var brand_id = current.val();
+                var handyman_id = $('#handyman_id').val();
 
                 $.ajax({
                     type:"GET",
-                    data: "id=" + id + "&type=brand",
+                    data: "id=" + brand_id + "&type=brand",
                     url: "<?php echo url('/get-quotation-data')?>",
                     success: function(data) {
 
                         current.parent().children('input').val(data.cat_name);
+
+                    }
+                });
+
+                var options = '';
+
+                $.ajax({
+                    type:"GET",
+                    data: "id=" + brand_id + "&handyman_id=" + handyman_id,
+                    url: "<?php echo route('products-models-by-brands') ?>",
+                    success: function(data) {
+
+                        $.each(data, function(index, value) {
+
+                            var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
+
+                            options = options + opt;
+
+                        });
+
+                        current.parent().next().children('select').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Model</option>'+options);
 
                     }
                 });
@@ -1314,16 +1367,58 @@
 
                 var current = $(this);
 
-                var id = current.val();
+                var model_id = current.val();
+                var brand_id = current.parent().parent().find('.brand_box').children('select').val();
+                var cat_id = current.parent().parent().find('.service_box').children('select').val();
 
                 $.ajax({
                     type:"GET",
-                    data: "id=" + id + "&type=model",
+                    data: "id=" + model_id + "&cat=" + cat_id + "&brand=" + brand_id + "&type=model",
                     url: "<?php echo url('/get-quotation-data')?>",
                     success: function(data) {
-
                         current.parent().children('input').val(data.cat_name);
+                        current.parent().parent().find('.td-rate').children('input').val(data.rate);
 
+                        var vat_percentage = parseInt($('#vat_percentage').val());
+                        vat_percentage = vat_percentage + 100;
+                        var cost = current.parent().parent().find('.td-rate').children('input').val();
+                        var qty = current.parent().parent().find('.td-qty').children('input').val();
+
+                        var amount = cost * qty;
+
+                        amount = parseFloat(amount).toFixed(2);
+
+                        current.parent().parent().find('.td-amount').children('input').val(amount);
+
+                        var amounts = [];
+                        $("input[name='amount[]']").each(function() {
+                            amounts.push($(this).val());
+                        });
+
+                        var grand_total = 0;
+
+                        for (let i = 0; i < amounts.length; ++i) {
+
+                            if(isNaN(parseInt(amounts[i])))
+                            {
+                                amounts[i] = 0;
+                            }
+
+                            grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
+                        }
+
+                        var vat = grand_total/vat_percentage * 100;
+                        vat = grand_total - vat;
+                        vat = parseFloat(vat).toFixed(2);
+
+                        var sub_total = grand_total - vat;
+                        sub_total = parseFloat(sub_total).toFixed(2);
+
+                        $('#sub_total').val(sub_total);
+                        $('#tax_amount').val(vat);
+                        $('#grand_total').val(grand_total);
+
+                        $('#grand_total_cell').text('€ ' + grand_total);
                     }
                 });
 
@@ -1335,7 +1430,7 @@
 
                 $(".items-table").append('<tr>\n' +
                     '                                                                        <td>'+rowCount+'</td>\n' +
-                    '                                                                        <td>\n' +
+                    '                                                                        <td class="service_box">\n' +
                     '                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>\n' +
                     '                                                                                    <option value="">Select Category/Item</option>\n' +
                     '                                                                                @foreach($all_services as $key)\n' +
@@ -1347,21 +1442,15 @@
                     '                                                                            </select>\n' +
                     '                                                                           <input type="hidden" name="service_title[]" value="">\n'+
                     '                                                                        </td>\n' +
-                    '                                                                        <td>\n' +
+                    '                                                                        <td class="brand_box">\n' +
                     '                                                                            <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>\n' +
                     '                                                                                    <option value="">Select Brand</option>\n' +
-                    '                                                                                @foreach($all_brands as $key)\n' +
-                    '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
-                    '                                                                                @endforeach\n' +
                     '                                                                            </select>\n' +
                     '                                                                           <input type="hidden" name="brand_title[]" value="">\n'+
                     '                                                                        </td>\n' +
-                    '                                                                        <td>\n' +
+                    '                                                                        <td class="model_box">\n' +
                     '                                                                            <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>\n' +
                     '                                                                                    <option value="">Select Model</option>\n' +
-                    '                                                                                @foreach($all_models as $key)\n' +
-                    '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
-                    '                                                                                @endforeach\n' +
                     '                                                                            </select>\n' +
                     '                                                                           <input type="hidden" name="model_title[]" value="">\n'+
                     '                                                                        </td>\n' +
@@ -1394,6 +1483,7 @@
                     var current = $(this);
 
                     var id = current.val();
+                    var handyman_id = $('#handyman_id').val();
 
                     $.ajax({
                         type:"GET",
@@ -1447,6 +1537,41 @@
                         }
                     });
 
+                    var category_id = current.val();
+                    var item_check = category_id.includes('I');
+
+                    if(!item_check)
+                    {
+                        var options = '';
+
+                        $.ajax({
+                            type:"GET",
+                            data: "id=" + category_id + "&handyman_id=" + handyman_id,
+                            url: "<?php echo route('all-products-brands-by-category') ?>",
+                            success: function(data) {
+
+                                $.each(data, function(index, value) {
+
+                                    var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
+
+                                    options = options + opt;
+
+                                });
+
+                                current.parent().next().children('select').find('option')
+                                    .remove()
+                                    .end()
+                                    .append('<option value="">Select Brand</option>'+options);
+
+                                current.parent().next().next().children('select').find('option')
+                                    .remove()
+                                    .end()
+                                    .append('<option value="">Select Model</option>');
+
+                            }
+                        });
+                    }
+
                 });
 
 
@@ -1454,15 +1579,40 @@
 
                     var current = $(this);
 
-                    var id = current.val();
+                    var brand_id = current.val();
+                    var handyman_id = $('#handyman_id').val();
 
                     $.ajax({
                         type:"GET",
-                        data: "id=" + id + "&type=brand",
+                        data: "id=" + brand_id + "&type=brand",
                         url: "<?php echo url('/get-quotation-data')?>",
                         success: function(data) {
 
                             current.parent().children('input').val(data.cat_name);
+
+                        }
+                    });
+
+                    var options = '';
+
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + brand_id + "&handyman_id=" + handyman_id,
+                        url: "<?php echo route('products-models-by-brands') ?>",
+                        success: function(data) {
+
+                            $.each(data, function(index, value) {
+
+                                var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
+
+                                options = options + opt;
+
+                            });
+
+                            current.parent().next().children('select').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">Select Model</option>'+options);
 
                         }
                     });
@@ -1474,16 +1624,58 @@
 
                     var current = $(this);
 
-                    var id = current.val();
+                    var model_id = current.val();
+                    var brand_id = current.parent().parent().find('.brand_box').children('select').val();
+                    var cat_id = current.parent().parent().find('.service_box').children('select').val();
 
                     $.ajax({
                         type:"GET",
-                        data: "id=" + id + "&type=model",
+                        data: "id=" + model_id + "&cat=" + cat_id + "&brand=" + brand_id + "&type=model",
                         url: "<?php echo url('/get-quotation-data')?>",
                         success: function(data) {
-
                             current.parent().children('input').val(data.cat_name);
+                            current.parent().parent().find('.td-rate').children('input').val(data.rate);
 
+                            var vat_percentage = parseInt($('#vat_percentage').val());
+                            vat_percentage = vat_percentage + 100;
+                            var cost = current.parent().parent().find('.td-rate').children('input').val();
+                            var qty = current.parent().parent().find('.td-qty').children('input').val();
+
+                            var amount = cost * qty;
+
+                            amount = parseFloat(amount).toFixed(2);
+
+                            current.parent().parent().find('.td-amount').children('input').val(amount);
+
+                            var amounts = [];
+                            $("input[name='amount[]']").each(function() {
+                                amounts.push($(this).val());
+                            });
+
+                            var grand_total = 0;
+
+                            for (let i = 0; i < amounts.length; ++i) {
+
+                                if(isNaN(parseInt(amounts[i])))
+                                {
+                                    amounts[i] = 0;
+                                }
+
+                                grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
+                            }
+
+                            var vat = grand_total/vat_percentage * 100;
+                            vat = grand_total - vat;
+                            vat = parseFloat(vat).toFixed(2);
+
+                            var sub_total = grand_total - vat;
+                            sub_total = parseFloat(sub_total).toFixed(2);
+
+                            $('#sub_total').val(sub_total);
+                            $('#tax_amount').val(vat);
+                            $('#grand_total').val(grand_total);
+
+                            $('#grand_total_cell').text('€ ' + grand_total);
                         }
                     });
 
