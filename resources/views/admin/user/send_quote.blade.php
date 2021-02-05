@@ -41,7 +41,7 @@
 
                                                 <thead>
                                                 <th>Action</th>
-                                                <th>Name</th>
+                                                <th>Company</th>
                                                 <th>Radius</th>
                                                 <th>Address</th>
                                                 <th>Postcode</th>
@@ -52,7 +52,7 @@
 
                                                 <tr style="background: #ccffcc;">
                                                 <td><input type="checkbox" name="action[]" value="{{$key->id}}" class="action"></td>
-                                                <td>{{$key->name}} {{$key->family_name}} <br> <span class="btn btn-info" style="margin-top: 7px;background-color: #5bc0de !important;border-color: #46b8da !important;">Preferred</span></td>
+                                                <td>{{$key->company_name}} <br> <span class="btn btn-info" style="margin-top: 7px;background-color: #5bc0de !important;border-color: #46b8da !important;">Preferred</span></td>
                                                 <td><?php echo number_format((float)$array1[$i]['handyman_distance'], 2, '.', ''); ?> KM</td>
                                                 <td>{{$key->address}}</td>
                                                 <td>{{$key->postcode}}</td>

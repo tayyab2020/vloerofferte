@@ -3122,8 +3122,8 @@ class UserController extends Controller
     public function TemporaryProfileUpdate(Request $request)
     {
         $input = $request->all();
-
         $user = Auth::guard('user')->user();
+        $user_id = $user->id;
 
         $check = handyman_temporary::where('handyman_id', $user->id)->first();
 
@@ -3144,14 +3144,15 @@ class UserController extends Controller
         if ($check) {
 
             if ($file = $request->file('photo')) {
-                $name = time() . $file->getClientOriginalName();
-                $file->move('assets/temporary_images', $name);
 
                 if ($check->photo) {
-                    unlink(public_path() . '/assets/temporary_images/' . $check->photo);
-
+                    \File::delete(public_path() .'/assets/images/'.$check->photo);
                 }
 
+                $name = time() . $file->getClientOriginalName();
+                $file->move('assets/images', $name);
+
+                $handyman = users::where('id',$user_id)->update(['photo' => $name]);
 
                 $input['photo'] = $name;
             } else {
@@ -3166,8 +3167,9 @@ class UserController extends Controller
 
             if ($file = $request->file('photo')) {
                 $name = time() . $file->getClientOriginalName();
-                $file->move('assets/temporary_images', $name);
+                $file->move('assets/images', $name);
 
+                $handyman = users::where('id',$user_id)->update(['photo' => $name]);
 
                 $input['photo'] = $name;
             } else {
@@ -3201,12 +3203,12 @@ class UserController extends Controller
 
         }
 
-        $headers = 'MIME-Version: 1.0' . "\r\n";
+        /*$headers = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Profile Update Requested!";
         $msg = "Dear Nordin Adoui, Recent activity: A handyman Mr/Mrs. " . $input['name'] . " " . $input['family_name'] . " requested for profile update, kindly visit your admin dashboard in order to take further actions.";
-        mail($this->sl->admin_email, $subject, $msg, $headers);
+        mail($this->sl->admin_email, $subject, $msg, $headers);*/
 
 
         Session::flash('success', $this->lang->pusm);
@@ -3224,7 +3226,7 @@ class UserController extends Controller
             $name = time() . $file->getClientOriginalName();
             $file->move('assets/images', $name);
             if ($user->photo != null) {
-                unlink(public_path() . '/assets/images/' . $user->photo);
+                \File::delete(public_path() .'/assets/images/'.$user->photo);
             }
             $input['photo'] = $name;
         }

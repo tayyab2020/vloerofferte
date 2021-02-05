@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 
-  
+
 @section('content')
 
 
@@ -38,7 +38,7 @@
 
                          <input type="hidden" name="handyman_id" value="{{$user->handyman_id}}">
 
-                           
+
                               <div class="form-group">
                                 <label for="first_name" class="col-sm-3 control-label">First Name*</label>
                                 <div class="col-sm-8">
@@ -51,18 +51,18 @@
                                   <input class="form-control" id="family_name" name="family_name" placeholder="Family Name" type="text" value="{{$user->family_name}}" required="" readonly>
                                 </div>
                               </div>
-                             
+
                               <div class="form-group">
                                 <label for="current_photo" class="col-sm-3 control-label">Current Photo*</label>
                                 <div class="col-sm-8">
-     
-                                <img width="130px" height="90px" id="adminimg" src="{{ $user->photo ? asset('assets/temporary_images/'.$user->photo):asset('assets/default.jpg')}}" alt="" id="adminimg">
+
+                                <img width="130px" height="90px" id="adminimg" src="{{ $user->photo ? asset('assets/images/'.$user->photo):asset('assets/default.jpg')}}" alt="" id="adminimg">
 
                                 <input type="hidden" name="photo" value="{{$user->photo}}">
-                                         
+
                                 </div>
                               </div>
-                              
+
                               <div class="form-group">
                                 <label for="registration_number" class="col-sm-3 control-label">Registration Number</label>
                                 <div class="col-sm-8">
@@ -94,20 +94,20 @@
                                 </div>
                               </div>
 
-                        
+
                               <div class="form-group">
                                 <label for="special" class="col-sm-3 control-label">Specialties</label>
                                 <div class="col-sm-8">
 
                               <input class="form-control" id="special" name="special" placeholder="Specialties" type="text" value="{{$user->special}}" readonly>
-                                
+
                                 </div>
                               </div>
 
 
 
                           <div class="profile-filup-description-box margin-bottom-30" >
-                            
+
                             <div class="form-group">
                                 <label for="edu" class="col-sm-3 control-label">Education*</label>
                                 <div class="col-sm-8">

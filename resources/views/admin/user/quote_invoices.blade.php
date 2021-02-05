@@ -407,7 +407,9 @@
 @section('scripts')
 
     <script type="text/javascript">
-        $('#example').DataTable();
+        $('#example').DataTable({
+            order: []
+        });
 
         $(document).ready(function() {
 
