@@ -114,9 +114,9 @@
                         <li><a href="{{ route('user-profile') }}" id="edit"><i
                                     class="fa fa-fw fa-user"></i> {{$lang->edit}}</a></li>
 
-                        <li>
+                        {{--<li>
                             <a href="{{route('handyman-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->mbt}}</a>
-                        </li>
+                        </li>--}}
 
                         <li>
                             <a href="{{route('handyman-quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i>
@@ -136,22 +136,24 @@
                             <a href="{{route('commission-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Commission Invoices</a>
                         </li>
 
+
                         <li>
-                            <a href="{{route('customer-quotations')}}"><i class="fa fa-fw fa-file-text"></i> Customer
-                                Quotations</a>
+                            <a href="#sales" data-toggle="collapse" @if(Route::currentRouteName() == 'user-products' || Route::currentRouteName() == 'product-create') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> Sales</a>
+                            <ul class="collapse list-unstyled submenu" id="sales">
+                                <li><a href="{{route('customer-quotations')}}"><i class="fa fa-angle-right"></i> Overview</a></li>
+                                <li><a href="{{route('create-custom-quotation')}}"><i class="fa fa-angle-right"></i> Create New Quotation</a></li>
+                                <li><a href="{{route('create-direct-invoice')}}"><i class="fa fa-angle-right"></i> Create New Invoice</a></li>
+                            </ul>
                         </li>
 
+                        
                         <li>
                             <a href="#services" data-toggle="collapse" @if(Route::currentRouteName() == 'user-products' || Route::currentRouteName() == 'product-create') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> My Products</a>
                             <ul class="collapse list-unstyled submenu" id="services">
                                 <li><a href="{{route('user-products')}}"><i class="fa fa-angle-right"></i> Products Overview</a></li>
                                 <li><a href="{{route('product-create')}}"><i class="fa fa-angle-right"></i> Add Products</a></li>
+                                <li><a href="{{route('user-items')}}"><i class="fa fa-angle-right"></i> My Items</a></li>
                             </ul>
-                        </li>
-
-                        <li>
-                            <a href="{{ route('user-items') }}" id="items"><i class="fa fa-fw fa-hospital-o"></i> My
-                                Items</a>
                         </li>
 
                         {{--<li>
