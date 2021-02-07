@@ -106,13 +106,17 @@
                         </li>
                     </ul>
                     <ul class="list-unstyled components">
+
                         <li>
-                            <a href="{{route('user-dashboard')}}" id="dashboard"><i
-                                    class="fa fa-home"></i> {{$lang->dashboard}}</a>
+                            <a href="#dashboard1" data-toggle="collapse" @if(Route::currentRouteName() == 'user-dashboard' || Route::currentRouteName() == 'user-profile' || Route::currentRouteName() == 'radius-management' || Route::currentRouteName() == 'user-complete-profile') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> {{$lang->dashboard}}</a>
+                            <ul class="collapse list-unstyled submenu" id="dashboard1">
+                                <li><a href="{{route('user-dashboard')}}"><i class="fa fa-angle-right"></i> Dashboard</a></li>
+                                <li><a href="{{route('user-profile')}}"><i class="fa fa-angle-right"></i> {{$lang->edit}}</a></li>
+                                <li><a href="{{route('radius-management')}}"><i class="fa fa-angle-right"></i> {{$lang->rm}}</a></li>
+                                <li><a href="{{route('user-complete-profile')}}"><i class="fa fa-angle-right"></i> {{$lang->cmpt}}</a></li>
+                            </ul>
                         </li>
 
-                        <li><a href="{{ route('user-profile') }}" id="edit"><i
-                                    class="fa fa-fw fa-user"></i> {{$lang->edit}}</a></li>
 
                         {{--<li>
                             <a href="{{route('handyman-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->mbt}}</a>
@@ -140,9 +144,8 @@
                         <li>
                             <a href="#sales" data-toggle="collapse" @if(Route::currentRouteName() == 'user-products' || Route::currentRouteName() == 'product-create') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> Sales</a>
                             <ul class="collapse list-unstyled submenu" id="sales">
-                                <li><a href="{{route('customer-quotations')}}"><i class="fa fa-angle-right"></i> Overview</a></li>
-                                <li><a href="{{route('create-custom-quotation')}}"><i class="fa fa-angle-right"></i> Create New Quotation</a></li>
-                                <li><a href="{{route('create-direct-invoice')}}"><i class="fa fa-angle-right"></i> Create New Invoice</a></li>
+                                <li><a href="{{route('customer-quotations')}}"><i class="fa fa-angle-right"></i> Quotations</a></li>
+                                <li><a href="{{route('customer-invoices')}}"><i class="fa fa-angle-right"></i> Invoices</a></li>
                             </ul>
                         </li>
 
@@ -166,20 +169,10 @@
                                     class="fa fa-fw fa-hospital-o"></i> {{$lang->avmt}}</a>
                         </li>--}}
 
-                        <li>
-                            <a href="{{ route('radius-management') }}" id="radius_tab"><i
-                                    class="fa fa-fw fa-hospital-o"></i> {{$lang->rm}}</a>
-                        </li>
-
                         {{--<li>
                             <a href="{{route('purchased-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->pbt}}
                             </a>
                         </li>--}}
-
-                        <li>
-                            <a href="{{ route('user-complete-profile') }}" id="complete"><i
-                                    class="fa fa-fw fa-dashboard"></i> {{$lang->cmpt}}</a>
-                        </li>
 
                         {{--<li>
                             <a href="{{ route('experience-years') }}" id="experience"><i

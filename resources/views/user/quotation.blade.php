@@ -213,15 +213,15 @@
                                                                                 </td>
 
                                                                                 <td class="td-rate">
-                                                                                    <input name="cost[]" class="form-control" type="text" value="{{$temp->rate}}" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
+                                                                                    <input name="cost[]" class="form-control" type="text" value="{{number_format((float)$temp->rate, 2, ',', '.')}}" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
                                                                                 </td>
 
                                                                                 <td class="td-qty">
-                                                                                    <input name="qty[]" class="form-control" type="text" value="{{$temp->qty}}" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
+                                                                                    <input name="qty[]" class="form-control" type="text" value="{{number_format((float)$temp->qty, 2, ',', '.')}}" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
                                                                                 </td>
 
                                                                                 <td class="td-amount">
-                                                                                    <input name="amount[]" class="form-control" readonly="" value="{{$temp->amount}}" type="text" @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
+                                                                                    <input name="amount[]" class="form-control" readonly="" value="{{number_format((float)$temp->amount, 2, ',', '.')}}" type="text" @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
                                                                                 </td>
 
                                                                                 @if(Route::currentRouteName() != 'view-handyman-quotation' && Route::currentRouteName() != 'view-custom-quotation')
@@ -259,14 +259,14 @@
                                                                             <td></td>
                                                                             <td class="text-right">Sub Total</td>
                                                                             <td style="text-align: right; padding-right: 30px;width: 230px">
-                                                                                <input class="form-control text-right" value="{{$temp->subtotal}}" name="sub_total" id="sub_total" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
+                                                                                <input class="form-control text-right" value="{{number_format((float)$temp->subtotal, 2, ',', '.')}}" name="sub_total" id="sub_total" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td colspan="5" class="text-right">Tax ({{$temp->vat_percentage}}%)</td>
                                                                             <td style="text-align: right; padding-right: 30px;width: 230px">
                                                                                 <input type="hidden" name="vat_percentage" id="vat_percentage" value="{{$temp->vat_percentage}}">
-                                                                                <input class="form-control text-right" value="{{$temp->tax}}" name="tax_amount" id="tax_amount" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
+                                                                                <input class="form-control text-right" value="{{number_format((float)$temp->tax, 2, ',', '.')}}" name="tax_amount" id="tax_amount" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -274,7 +274,7 @@
                                                                                 Grand Total
                                                                             </td>
                                                                             <td id="grand_total_cell" style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
-                                                                                € {{$temp->grand_total}}
+                                                                                € {{number_format((float)$temp->grand_total, 2, ',', '.')}}
                                                                             </td>
                                                                             <input class="form-control text-right" value="{{$temp->grand_total}}" name="grand_total" id="grand_total" type="hidden">
                                                                         </tr>

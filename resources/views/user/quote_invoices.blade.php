@@ -22,8 +22,11 @@
 
                                             @if(Route::currentRouteName() == 'customer-quotations')
 
-                                                <a style="float: right;" href="{{url('/handyman/handyman-create-quotation')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Create New Quotation</a>
-                                                <a style="float: right;margin-right: 10px;" href="{{url('/handyman/handyman-create-direct-invoice')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Create New Invoice</a>
+                                                <a style="float: right;" href="{{route('create-custom-quotation')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Create New Quotation</a>
+
+                                            @elseif(Route::currentRouteName() == 'customer-invoices')
+
+                                                <a style="float: right;margin-right: 10px;" href="{{route('create-direct-invoice')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Create New Invoice</a>
 
                                             @endif
                                     </div>
@@ -40,13 +43,13 @@
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">@if(Route::currentRouteName() == 'quotations' || Route::currentRouteName() == 'customer-quotations') Quotation Number @else Invoice Number @endif</th>
 
-                                                        @if(Route::currentRouteName() != 'customer-quotations')
+                                                        @if(Route::currentRouteName() != 'customer-quotations' && Route::currentRouteName() != 'customer-invoices')
 
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
 
                                                         @endif
 
-                                                        @if(Route::currentRouteName() != 'customer-quotations')
+                                                        @if(Route::currentRouteName() != 'customer-quotations' && Route::currentRouteName() != 'customer-invoices')
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending">Tax</th>
 
@@ -86,7 +89,7 @@
 
                                                         <tr role="row" class="odd">
 
-                                                            @if(Route::currentRouteName() == 'customer-quotations')
+                                                            @if(Route::currentRouteName() == 'customer-quotations' || Route::currentRouteName() == 'customer-invoices')
 
                                                                 <td><a href="{{ url('/handyman/view-custom-quotation/'.$key->invoice_id) }}">QUO# {{$key->quotation_invoice_number}}</a></td>
 
@@ -101,10 +104,10 @@
                                                             @endif
 
 
-                                                            @if(Route::currentRouteName() != 'customer-quotations')
+                                                            @if(Route::currentRouteName() != 'customer-quotations' && Route::currentRouteName() != 'customer-invoices')
 
-                                                                    <td>{{$key->tax}}</td>
-                                                                    <td>{{$key->subtotal}}</td>
+                                                                    <td>{{number_format((float)$key->tax, 2, ',', '.')}}</td>
+                                                                    <td>{{number_format((float)$key->subtotal, 2, ',', '.')}}</td>
 
                                                             @else
 
@@ -113,19 +116,19 @@
                                                             @endif
 
 
-                                                                <td>{{$key->grand_total}}</td>
+                                                                <td>{{number_format((float)$key->grand_total, 2, ',', '.')}}</td>
 
                                                                 @if(Route::currentRouteName() == 'commission-invoices')
 
                                                                     <td>{{$key->commission_percentage}}</td>
-                                                                    <td>{{$key->commission}}</td>
-                                                                    <td>{{$key->total_receive}}</td>
+                                                                    <td>{{number_format((float)$key->commission, 2, ',', '.')}}</td>
+                                                                    <td>{{number_format((float)$key->total_receive, 2, ',', '.')}}</td>
 
                                                                 @else
 
                                                                     <td>
 
-                                                                        @if(Route::currentRouteName() == 'quotations' || Route::currentRouteName() == 'customer-quotations')
+                                                                        @if(Route::currentRouteName() == 'quotations' || Route::currentRouteName() == 'customer-quotations' || Route::currentRouteName() == 'customer-invoices')
 
                                                                             @if($key->status == 3)
 
@@ -184,7 +187,7 @@
                                                                             <span class="caret"></span></button>
                                                                         <ul class="dropdown-menu">
 
-                                                                            @if(Route::currentRouteName() == 'customer-quotations')
+                                                                            @if(Route::currentRouteName() == 'customer-quotations' || Route::currentRouteName() == 'customer-invoices')
 
                                                                                 <li><a href="{{ url('/handyman/view-custom-quotation/'.$key->invoice_id) }}">View</a></li>
                                                                                 <li><a href="{{ url('/handyman/download-custom-quotation/'.$key->invoice_id) }}">Download PDF</a></li>

@@ -88,7 +88,7 @@
 
                                                             <td>{{$key->subtotal}}</td>--}}
 
-                                                            <td>{{$key->grand_total}}</td>
+                                                            <td>{{number_format((float)$key->grand_total, 2, ',', '.')}}</td>
 
                                                             <td class="current-stage">
 

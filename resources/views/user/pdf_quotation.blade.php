@@ -99,7 +99,7 @@
                                                 <td>{{$key->model}}</td>
                                                 <td>{{$key->description}}</td>
                                                 <td>{{number_format((float)$key->rate, 2, ',', '.')}}</td>
-                                                <td>{{$key->qty}}</td>
+                                                <td>{{number_format((float)$key->qty, 2, ',', '.')}}</td>
                                                 <td>{{number_format((float)$key->amount, 2, ',', '.')}}</td>
                                             </tr>
 

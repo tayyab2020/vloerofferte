@@ -59,6 +59,7 @@
 
   Route::post('/create-customer','UserController@CreateCustomer');
   Route::get('/customer-quotations/{id?}', 'UserController@CustomerQuotations')->name('customer-quotations');
+  Route::get('/customer-invoices/{id?}', 'UserController@CustomerInvoices')->name('customer-invoices');
   Route::get('/handyman-create-quotation', 'UserController@HandymanCreateQuote')->name('create-custom-quotation');
   Route::get('/handyman-create-direct-invoice', 'UserController@HandymanCreateQuote')->name('create-direct-invoice');
   Route::post('/create-custom-quotation', 'UserController@StoreCustomQuotation')->name('store-custom-quotation');

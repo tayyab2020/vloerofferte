@@ -172,9 +172,24 @@ class UserController extends Controller
         $user_role = $user->role_id;
 
         if ($id) {
-            $invoices = custom_quotations::leftjoin('users', 'users.id', '=', 'custom_quotations.user_id')->where('custom_quotations.handyman_id', $user_id)->orderBy('custom_quotations.created_at', 'desc')->select('custom_quotations.*', 'custom_quotations.id as invoice_id', 'custom_quotations.created_at as invoice_date', 'users.name', 'users.family_name')->get();
+            $invoices = custom_quotations::leftjoin('users', 'users.id', '=', 'custom_quotations.user_id')->where('custom_quotations.handyman_id', $user_id)->where('custom_quotations.id', $id)->where('custom_quotations.status','!=',3)->orderBy('custom_quotations.created_at', 'desc')->select('custom_quotations.*', 'custom_quotations.id as invoice_id', 'custom_quotations.created_at as invoice_date', 'users.name', 'users.family_name')->get();
         } else {
-            $invoices = custom_quotations::leftjoin('users', 'users.id', '=', 'custom_quotations.user_id')->where('custom_quotations.handyman_id', $user_id)->orderBy('custom_quotations.created_at', 'desc')->select('custom_quotations.*', 'custom_quotations.id as invoice_id', 'custom_quotations.created_at as invoice_date', 'users.name', 'users.family_name')->get();
+            $invoices = custom_quotations::leftjoin('users', 'users.id', '=', 'custom_quotations.user_id')->where('custom_quotations.handyman_id', $user_id)->where('custom_quotations.status','!=',3)->orderBy('custom_quotations.created_at', 'desc')->select('custom_quotations.*', 'custom_quotations.id as invoice_id', 'custom_quotations.created_at as invoice_date', 'users.name', 'users.family_name')->get();
+        }
+
+        return view('user.quote_invoices', compact('invoices'));
+    }
+
+    public function CustomerInvoices($id = '')
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $user_role = $user->role_id;
+
+        if ($id) {
+            $invoices = custom_quotations::leftjoin('users', 'users.id', '=', 'custom_quotations.user_id')->where('custom_quotations.handyman_id', $user_id)->where('custom_quotations.id', $id)->where('custom_quotations.status','=',3)->orderBy('custom_quotations.created_at', 'desc')->select('custom_quotations.*', 'custom_quotations.id as invoice_id', 'custom_quotations.created_at as invoice_date', 'users.name', 'users.family_name')->get();
+        } else {
+            $invoices = custom_quotations::leftjoin('users', 'users.id', '=', 'custom_quotations.user_id')->where('custom_quotations.handyman_id', $user_id)->where('custom_quotations.status','=',3)->orderBy('custom_quotations.created_at', 'desc')->select('custom_quotations.*', 'custom_quotations.id as invoice_id', 'custom_quotations.created_at as invoice_date', 'users.name', 'users.family_name')->get();
         }
 
         return view('user.quote_invoices', compact('invoices'));
@@ -1327,9 +1342,9 @@ class UserController extends Controller
             $invoice->handyman_id = $user_id;
             $invoice->user_id = $request->customer;
             $invoice->vat_percentage = $request->vat_percentage;
-            $invoice->tax = $request->tax_amount;
-            $invoice->subtotal = $request->sub_total;
-            $invoice->grand_total = $request->grand_total;
+            $invoice->tax = str_replace(",",".",$request->tax_amount);
+            $invoice->subtotal = str_replace(",",".",$request->sub_total);
+            $invoice->grand_total = str_replace(",",".",$request->grand_total);
             $invoice->description = $request->other_info;
             $invoice->save();
 
@@ -1350,11 +1365,11 @@ class UserController extends Controller
                 $invoice_items->service = $request->service_title[$i];
                 $invoice_items->brand = $request->brand_title[$i];
                 $invoice_items->model = $request->model_title[$i];
-                $invoice_items->rate = $request->cost[$i];
-                $invoice_items->qty = $request->qty[$i];
+                $invoice_items->rate = str_replace(",",".",$request->cost[$i]);
+                $invoice_items->qty = str_replace(",",".",$request->qty[$i]);
                 $invoice_items->description = $request->description[$i];
                 $invoice_items->estimated_date = $request->date;
-                $invoice_items->amount = $request->amount[$i];
+                $invoice_items->amount = str_replace(",",".",$request->amount[$i]);
                 $invoice_items->save();
             }
 
@@ -1407,9 +1422,9 @@ class UserController extends Controller
             $invoice->handyman_id = $user_id;
             $invoice->user_id = $request->customer;
             $invoice->vat_percentage = $request->vat_percentage;
-            $invoice->tax = $request->tax_amount;
-            $invoice->subtotal = $request->sub_total;
-            $invoice->grand_total = $request->grand_total;
+            $invoice->tax = str_replace(",",".",$request->tax_amount);
+            $invoice->subtotal = str_replace(",",".",$request->sub_total);
+            $invoice->grand_total = str_replace(",",".",$request->grand_total);
             $invoice->description = $request->other_info;
             $invoice->save();
 
@@ -1429,11 +1444,11 @@ class UserController extends Controller
                 $invoice_items->service = $request->service_title[$i];
                 $invoice_items->brand = $request->brand_title[$i];
                 $invoice_items->model = $request->model_title[$i];
-                $invoice_items->rate = $request->cost[$i];
-                $invoice_items->qty = $request->qty[$i];
+                $invoice_items->rate = str_replace(",",".",$request->cost[$i]);
+                $invoice_items->qty = str_replace(",",".",$request->qty[$i]);
                 $invoice_items->description = $request->description[$i];
                 $invoice_items->estimated_date = $request->date;
-                $invoice_items->amount = $request->amount[$i];
+                $invoice_items->amount = str_replace(",",".",$request->amount[$i]);
                 $invoice_items->save();
             }
 
@@ -1498,9 +1513,9 @@ class UserController extends Controller
             $quotation = custom_quotations::where('id', $request->quotation_id)->where('handyman_id', $user_id)->first();
             $quotation->ask_customization = 0;
             $quotation->vat_percentage = $request->vat_percentage;
-            $quotation->subtotal = $request->sub_total;
-            $quotation->tax = $request->tax_amount;
-            $quotation->grand_total = $request->grand_total;
+            $quotation->subtotal = str_replace(",",".",$request->sub_total);
+            $quotation->tax = str_replace(",",".",$request->tax_amount);
+            $quotation->grand_total = str_replace(",",".",$request->grand_total);
             $quotation->description = $request->other_info;
             $quotation->save();
 
@@ -1522,11 +1537,11 @@ class UserController extends Controller
                 $item->service = $request->service_title[$i];
                 $item->brand = $request->brand_title[$i];
                 $item->model = $request->model_title[$i];
-                $item->rate = $request->cost[$i];
-                $item->qty = $request->qty[$i];
+                $item->rate = str_replace(",",".",$request->cost[$i]);
+                $item->qty = str_replace(",",".",$request->qty[$i]);
                 $item->description = $request->description[$i];
                 $item->estimated_date = $request->date;
-                $item->amount = $request->amount[$i];
+                $item->amount = str_replace(",",".",$request->amount[$i]);
                 $item->save();
             }
 
@@ -1595,9 +1610,9 @@ class UserController extends Controller
             $quotation->ask_customization = 0;
             $quotation->invoice = 1;
             $quotation->vat_percentage = $request->vat_percentage;
-            $quotation->subtotal = $request->sub_total;
-            $quotation->tax = $request->tax_amount;
-            $quotation->grand_total = $request->grand_total;
+            $quotation->subtotal = str_replace(",",".",$request->sub_total);
+            $quotation->tax = str_replace(",",".",$request->tax_amount);
+            $quotation->grand_total = str_replace(",",".",$request->grand_total);
             $quotation->description = $request->other_info;
             $quotation->save();
 
@@ -1619,11 +1634,11 @@ class UserController extends Controller
                 $item->service = $request->service_title[$i];
                 $item->brand = $request->brand_title[$i];
                 $item->model = $request->model_title[$i];
-                $item->rate = $request->cost[$i];
-                $item->qty = $request->qty[$i];
+                $item->rate = str_replace(",",".",$request->cost[$i]);
+                $item->qty = str_replace(",",".",$request->qty[$i]);
                 $item->description = $request->description[$i];
                 $item->estimated_date = $request->date;
-                $item->amount = $request->amount[$i];
+                $item->amount = str_replace(",",".",$request->amount[$i]);
                 $item->save();
             }
 
