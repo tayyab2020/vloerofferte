@@ -1172,33 +1172,37 @@ class FrontendController extends Controller
 
             $quote->save();
 
-            foreach ($request->questions as $i => $key)
-            {
-                $answer = 'answers'.$i;
-                $predefined = 'predefined'.$i;
 
-                if($request->$predefined)
+            if(isset($request->questions))
+            {
+                foreach ($request->questions as $i => $key)
                 {
-                    if(isset($request->$answer) && count($request->$answer) > 0)
+                    $answer = 'answers'.$i;
+                    $predefined = 'predefined'.$i;
+
+                    if($request->$predefined)
                     {
-                        $answers = implode(',', $request->$answer);
+                        if(isset($request->$answer) && count($request->$answer) > 0)
+                        {
+                            $answers = implode(',', $request->$answer);
+                        }
+                        else
+                        {
+                            $answers = '';
+                        }
+
                     }
                     else
                     {
-                        $answers = '';
+                        $answers = $request->$answer;
                     }
 
+                    $post = new requests_q_a;
+                    $post->request_id = $quote->id;
+                    $post->question = $key;
+                    $post->answer = $answers;
+                    $post->save();
                 }
-                else
-                {
-                    $answers = $request->$answer;
-                }
-
-                $post = new requests_q_a;
-                $post->request_id = $quote->id;
-                $post->question = $key;
-                $post->answer = $answers;
-                $post->save();
             }
 
             $link = url('/') . '/handyman/client-dashboard';

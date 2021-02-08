@@ -131,7 +131,7 @@
                                         <tr>
                                             <td>{{$key->service}} {{$key->brand}} {{$key->model}}</td>
                                             <td>{{number_format((float)$key->amount, 2, ',', '.')}}</td>
-                                            <td>{{$request[0]->qty}}</td>
+                                            <td>{{number_format((float)$request[0]->qty, 2, ',', '.')}}</td>
                                             <td>{{number_format((float)$request[0]->rate, 2, ',', '.')}}</td>
                                         </tr>
 
