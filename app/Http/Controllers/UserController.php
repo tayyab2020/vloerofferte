@@ -1507,7 +1507,7 @@ class UserController extends Controller
 
 
             Session::flash('success', 'Direct invoice has been created successfully!');
-            return redirect()->route('customer-quotations');
+            return redirect()->route('customer-invoices');
         } elseif ($name == 'update-custom-quotation') {
 
             $quotation = custom_quotations::where('id', $request->quotation_id)->where('handyman_id', $user_id)->first();
