@@ -28,14 +28,6 @@
                                     <div>
                                         @include('includes.form-success')
 
-                                        @if(Route::currentRouteName() != 'view-client-quotation' && Route::currentRouteName() != 'view-client-custom-quotation')
-
-                                            <form class="form-horizontal" action="{{route('store-quotation')}}" method="POST" enctype="multipart/form-data">
-                                                {{csrf_field()}}
-
-                                                <input type="hidden" name="quote_id" value="{{$quotation[0]->quote_id}}">
-
-                                        @endif
 
                                                 <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
 
@@ -46,7 +38,7 @@
                                                         <div class="col-md-4" style="margin: 10px 0px;">
                                                             <div class="form-group" style="margin: 0;">
                                                                 <label>Request Number</label>
-                                                                <input type="text" value="{{$requested_quote_number}}" class="form-control" @if(Route::currentRouteName() == 'view-client-quotation') readonly @endif>
+                                                                <input type="text" value="{{$requested_quote_number}}" class="form-control" readonly>
                                                             </div>
                                                         </div>
 
@@ -55,14 +47,14 @@
                                                     <div class="col-md-4" style="margin: 10px 0px;">
                                                         <div class="form-group" style="margin: 0;">
                                                             <label>Quotation Number</label>
-                                                            <input type="text" value="QUO# {{$quotation[0]->quotation_invoice_number}}" class="form-control" @if(Route::currentRouteName() == 'view-client-quotation' || Route::currentRouteName() == 'view-client-custom-quotation') readonly @endif>
+                                                            <input type="text" value="QUO# {{$quotation[0]->quotation_invoice_number}}" class="form-control" readonly>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-4" style="margin: 10px 0px;">
                                                         <div class="form-group" style="margin: 0;">
                                                             <label>Estimated Date</label>
-                                                            <input type="text" name="date" value="{{$quotation[0]->estimated_date}}" class="form-control estimate_date" autocomplete="off" required @if(Route::currentRouteName() == 'view-client-quotation' || Route::currentRouteName() == 'view-client-custom-quotation') disabled @endif>
+                                                            <input type="text" name="date" value="{{$quotation[0]->estimated_date}}" class="form-control estimate_date" autocomplete="off" required disabled>
                                                         </div>
                                                     </div>
 
@@ -107,105 +99,40 @@
 
                                                                             <tr>
                                                                                 <td>{{$i + 1}}</td>
-                                                                                <td>
-                                                                                    @if(Route::currentRouteName() != 'view-client-quotation' && Route::currentRouteName() != 'view-client-custom-quotation')
+                                                                                <td class="service_box">
 
-                                                                                        <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
-
-                                                                                            @foreach($services as $key)
-                                                                                                <option value="{{$key->id}}" @if(!$temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->service; ?> @endif @endif>{{$key->cat_name}}</option>
-                                                                                            @endforeach
-
-                                                                                            @foreach($items as $key)
-                                                                                                <option value="{{$key->id}}I" @if($temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->temp; ?> @endif @endif>{{$key->cat_name}}</option>
-                                                                                            @endforeach
-
-                                                                                        </select>
-
-                                                                                        <input type="hidden" name="service_title[]" value="{{$service_title}}">
-
-                                                                                    @else
-
-                                                                                        <input name="item[]" class="form-control" type="text" value="{{$temp->service}}" readonly>
-
-                                                                                    @endif
+                                                                                    <input name="item[]" class="form-control" type="text" value="{{$temp->service}}" readonly>
 
                                                                                 </td>
 
-                                                                                <td>
+                                                                                <td class="brand_box">
 
-                                                                                    @if(Route::currentRouteName() != 'view-client-quotation' && Route::currentRouteName() != 'view-client-custom-quotation')
-
-                                                                                        <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>
-
-                                                                                            @foreach($all_brands as $key)
-                                                                                                <option value="{{$key->id}}" @if($temp->b_i_id == $key->id) selected <?php $brand_title = $temp->brand; ?> @endif>{{$key->cat_name}}</option>
-                                                                                            @endforeach
-
-                                                                                        </select>
-
-                                                                                        <input type="hidden" name="brand_title[]" value="{{isset($brand_title) ? $brand_title : $all_brands[0]->cat_name}}">
-
-                                                                                    @else
-
-                                                                                        <input name="brand[]" class="form-control" type="text" value="{{$temp->brand}}" readonly>
-
-                                                                                    @endif
-
-                                                                                </td>
-                                                                                <td>
-
-                                                                                    @if(Route::currentRouteName() != 'view-client-quotation' && Route::currentRouteName() != 'view-client-custom-quotation')
-
-                                                                                        <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>
-
-                                                                                            @foreach($all_models as $key)
-                                                                                                <option value="{{$key->id}}" @if($temp->m_i_id == $key->id) selected <?php $model_title = $temp->model; ?> @endif>{{$key->cat_name}}</option>
-                                                                                            @endforeach
-
-                                                                                        </select>
-
-                                                                                        <input type="hidden" name="model_title[]" value="{{isset($model_title) ? $model_title : $all_models[0]->cat_name}}">
-
-                                                                                    @else
-
-                                                                                        <input name="model[]" class="form-control" type="text" value="{{$temp->model}}" readonly>
-
-                                                                                    @endif
+                                                                                    <input name="brand[]" class="form-control" type="text" value="{{$temp->brand}}" readonly>
 
                                                                                 </td>
 
-                                                                                <td>
-                                                                                    <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control" @if(Route::currentRouteName() == 'view-client-quotation' || Route::currentRouteName() == 'view-client-custom-quotation') readonly @endif>{{$temp->data_description}}</textarea>
+                                                                                <td class="model_box">
+
+                                                                                    <input name="model[]" class="form-control" type="text" value="{{$temp->model}}" readonly>
+
                                                                                 </td>
 
-                                                                                <td>
-                                                                                    <input name="cost[]" class="form-control" type="text" value="{{$temp->rate}}" required @if(Route::currentRouteName() == 'view-client-quotation' || Route::currentRouteName() == 'view-client-custom-quotation') readonly @endif>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input name="qty[]" class="form-control" type="text" value="{{$temp->qty}}" required @if(Route::currentRouteName() == 'view-client-quotation' || Route::currentRouteName() == 'view-client-custom-quotation') readonly @endif>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input name="amount[]" class="form-control" readonly="" value="{{$temp->amount}}" type="text" @if(Route::currentRouteName() == 'view-client-quotation' || Route::currentRouteName() == 'view-client-custom-quotation') readonly @endif>
+                                                                                <td class="td-desc">
+                                                                                    <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control" readonly>{{$temp->data_description}}</textarea>
                                                                                 </td>
 
-                                                                                @if(Route::currentRouteName() != 'view-client-quotation' && Route::currentRouteName() != 'view-client-custom-quotation')
+                                                                                <td class="td-rate">
+                                                                                    <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{number_format((float)$temp->rate, 2, ',', '.')}}" required readonly>
+                                                                                </td>
+                                                                                <td class="td-qty">
+                                                                                    <input name="qty[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{number_format((float)$temp->qty, 2, ',', '.')}}" required readonly>
+                                                                                </td>
+                                                                                <td class="td-amount">
+                                                                                    <input name="amount[]" class="form-control" readonly="" value="{{number_format((float)$temp->amount, 2, ',', '.')}}" type="text" readonly>
+                                                                                </td>
 
-                                                                                    @if($i == 0)
+                                                                                <td></td>
 
-                                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-success font-18 add-row" title="Add"><i class="fa fa-plus"></i></a></td>
-
-                                                                                    @else
-
-                                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>
-
-                                                                                    @endif
-
-                                                                                @else
-
-                                                                                    <td></td>
-
-                                                                                @endif
                                                                             </tr>
 
                                                                         @endforeach
@@ -224,14 +151,14 @@
                                                                             <td></td>
                                                                             <td class="text-right">Sub Total</td>
                                                                             <td style="text-align: right; padding-right: 30px;width: 230px">
-                                                                                <input class="form-control text-right" value="{{$temp->subtotal}}" name="sub_total" id="sub_total" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
+                                                                                <input class="form-control text-right" value="{{number_format((float)$temp->subtotal, 2, ',', '.')}}" name="sub_total" id="sub_total" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td colspan="5" class="text-right">Tax ({{$temp->vat_percentage}}%)</td>
                                                                             <td style="text-align: right; padding-right: 30px;width: 230px">
                                                                                 <input type="hidden" name="vat_percentage" id="vat_percentage" value="{{$temp->vat_percentage}}">
-                                                                                <input class="form-control text-right" value="{{$temp->tax}}" name="tax_amount" id="tax_amount" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
+                                                                                <input class="form-control text-right" value="{{number_format((float)$temp->tax, 2, ',', '.')}}" name="tax_amount" id="tax_amount" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -239,7 +166,7 @@
                                                                                 Grand Total
                                                                             </td>
                                                                             <td id="grand_total_cell" style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
-                                                                                € {{$temp->grand_total}}
+                                                                                € {{number_format((float)$temp->grand_total, 2, ',', '.')}}
                                                                             </td>
                                                                             <input class="form-control text-right" value="{{$temp->grand_total}}" name="grand_total" id="grand_total" type="hidden">
                                                                         </tr>
@@ -258,30 +185,16 @@
                                                             </div>
                                                         </div>
 
-                                                        @if(Route::currentRouteName() != 'view-client-quotation' && Route::currentRouteName() != 'view-client-custom-quotation')
-
-                                                            <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
-                                                                <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Update</button>
-                                                            </div>
-
                                                     </div></div>
-
-                                            </form>
-
-                                        @else
-
-                                    </div></div>
-
-                                @endif
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Ending of Dashboard data-table area -->
             </div>
         </div>
-        <!-- Ending of Dashboard data-table area -->
-    </div>
-    </div>
     </div>
 
 
@@ -927,508 +840,6 @@
                 startDate: new Date(),
 
             });
-
-            $(".js-data-example-ajax").select2({
-                width: '100%',
-                height: '200px',
-                // placeholder: "City Name",
-                placeholder: "",
-                allowClear: true,
-            });
-
-            $(".js-data-example-ajax").change(function(){
-
-                var current = $(this);
-
-                var id = current.val();
-
-                $.ajax({
-                    type:"GET",
-                    data: "id=" + id ,
-                    url: "<?php echo url('/get-quotation-data')?>",
-                    success: function(data) {
-
-                        current.parent().children('input').val(data.cat_name);
-                        current.parent().next('td').next('td').next('td').children('input').val(data.rate);
-
-                        var vat_percentage = parseInt($('#vat_percentage').val());
-                        vat_percentage = vat_percentage + 100;
-                        var cost = current.parent().next('td').next('td').next('td').children('input').val();
-                        var qty = current.parent().next('td').next('td').next('td').next('td').children('input').val();
-
-                        var amount = cost * qty;
-
-                        amount = parseFloat(amount).toFixed(2);
-
-                        current.parent().next('td').next('td').next('td').next('td').next('td').children('input').val(amount);
-
-                        var amounts = [];
-                        $("input[name='amount[]']").each(function() {
-                            amounts.push($(this).val());
-                        });
-
-                        var grand_total = 0;
-
-                        for (let i = 0; i < amounts.length; ++i) {
-
-                            if(isNaN(parseInt(amounts[i])))
-                            {
-                                amounts[i] = 0;
-                            }
-
-                            grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
-                        }
-
-                        var vat = grand_total/vat_percentage * 100;
-                        vat = grand_total - vat;
-                        vat = parseFloat(vat).toFixed(2);
-
-                        var sub_total = grand_total - vat;
-                        sub_total = parseFloat(sub_total).toFixed(2);
-
-                        $('#sub_total').val(sub_total);
-                        $('#tax_amount').val(vat);
-                        $('#grand_total').val(grand_total);
-
-                        $('#grand_total_cell').text('€ ' + grand_total);
-                    }
-                });
-
-            });
-
-            $(".add-row").click(function(){
-
-                var rowCount = $('.items-table tr').length;
-
-                $(".items-table").append('<tr>\n' +
-                    '                                                                        <td>'+rowCount+'</td>\n' +
-                    '                                                                        <td>\n' +
-                    '                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>\n' +
-                    '                                                                                @foreach($services as $key)\n' +
-                    '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
-                    '                                                                                @endforeach\n' +
-                    '                                                                                @foreach($items as $key)\n' +
-                    '                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>\n' +
-                    '                                                                                @endforeach\n' +
-                    '                                                                            </select>\n' +
-                    '                                                                           <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">\n'+
-                    '                                                                        </td>\n' +
-                    '                                                                        <td>\n' +
-                    '                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>\n' +
-                    '                                                                        </td>\n' +
-                    '                                                                        <td>\n' +
-                    '                                                                            <input name="cost[]" class="form-control" type="text" required>\n' +
-                    '                                                                        </td>\n' +
-                    '                                                                        <td>\n' +
-                    '                                                                            <input name="qty[]" class="form-control" type="text" required>\n' +
-                    '                                                                        </td>\n' +
-                    '                                                                        <td>\n' +
-                    '                                                                            <input name="amount[]" class="form-control" readonly="" type="text">\n' +
-                    '                                                                        </td>\n' +
-                    '                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>\n' +
-                    '                                                                    </tr>');
-
-
-                $(".js-data-example-ajax").change(function(){
-
-                    var current = $(this);
-
-                    var id = current.val();
-
-                    $.ajax({
-                        type:"GET",
-                        data: "id=" + id ,
-                        url: "<?php echo url('/get-quotation-data')?>",
-                        success: function(data) {
-
-                            current.parent().children('input').val(data.cat_name);
-                            current.parent().next('td').next('td').next('td').children('input').val(data.rate);
-
-                            var vat_percentage = parseInt($('#vat_percentage').val());
-                            vat_percentage = vat_percentage + 100;
-                            var cost = current.parent().next('td').next('td').next('td').children('input').val();
-                            var qty = current.parent().next('td').next('td').next('td').next('td').children('input').val();
-
-                            var amount = cost * qty;
-
-                            amount = parseFloat(amount).toFixed(2);
-
-                            current.parent().next('td').next('td').next('td').next('td').next('td').children('input').val(amount);
-
-                            var amounts = [];
-                            $("input[name='amount[]']").each(function() {
-                                amounts.push($(this).val());
-                            });
-
-                            var grand_total = 0;
-
-                            for (let i = 0; i < amounts.length; ++i) {
-
-                                if(isNaN(parseInt(amounts[i])))
-                                {
-                                    amounts[i] = 0;
-                                }
-
-                                grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
-                            }
-
-                            var vat = grand_total/vat_percentage * 100;
-                            vat = grand_total - vat;
-                            vat = parseFloat(vat).toFixed(2);
-
-                            var sub_total = grand_total - vat;
-                            sub_total = parseFloat(sub_total).toFixed(2);
-
-                            $('#sub_total').val(sub_total);
-                            $('#tax_amount').val(vat);
-                            $('#grand_total').val(grand_total);
-
-                            $('#grand_total_cell').text('€ ' + grand_total);
-                        }
-                    });
-
-                });
-
-
-                $('.estimate_date').datepicker({
-
-                    format: 'dd-mm-yyyy',
-                    startDate: new Date(),
-
-                });
-
-                $(".js-data-example-ajax").select2({
-                    width: '100%',
-                    height: '200px',
-                    // placeholder: "City Name",
-                    placeholder: "",
-                    allowClear: true,
-                });
-
-                $(".remove-row").click(function(){
-
-                    var rowCount = $('.items-table tr').length;
-
-                    $(this).parent().parent().remove();
-
-                    $(".items-table tbody tr").each(function(index) {
-                        $(this).children('td:first-child').text(index+1);
-                    });
-
-                    var vat_percentage = parseInt($('#vat_percentage').val());
-                    vat_percentage = vat_percentage + 100;
-
-                    var amounts = [];
-                    $("input[name='amount[]']").each(function() {
-                        amounts.push($(this).val());
-                    });
-
-                    var grand_total = 0;
-
-                    for (let i = 0; i < amounts.length; ++i) {
-
-                        if(isNaN(parseInt(amounts[i])))
-                        {
-                            amounts[i] = 0;
-                        }
-
-                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
-                    }
-
-                    var vat = grand_total/vat_percentage * 100;
-                    vat = grand_total - vat;
-                    vat = parseFloat(vat).toFixed(2);
-
-                    var sub_total = grand_total - vat;
-                    sub_total = parseFloat(sub_total).toFixed(2);
-
-                    $('#sub_total').val(sub_total);
-                    $('#tax_amount').val(vat);
-                    $('#grand_total').val(grand_total);
-
-                    $('#grand_total_cell').text('€ ' + grand_total);
-
-                });
-
-                $("input[name='cost[]'").keypress(function(e){
-
-                    e = e || window.event;
-                    var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
-                    var val = String.fromCharCode(charCode);
-
-                    if (!val.match(/^[0-9]*\.?[0-9]*$/))  // For characters validation
-                    {
-                        e.preventDefault();
-                    }
-
-                });
-
-                $("input[name='qty[]'").keypress(function(e){
-
-                    e = e || window.event;
-                    var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
-                    var val = String.fromCharCode(charCode);
-
-                    if (!val.match(/^[0-9]*\.?[0-9]*$/))  // For characters validation
-                    {
-                        e.preventDefault();
-                    }
-
-                });
-
-                $("input[name='cost[]'").on('input',function(e){
-
-                    var vat_percentage = parseInt($('#vat_percentage').val());
-                    vat_percentage = vat_percentage + 100;
-                    var cost = $(this).val();
-                    var qty = $(this).parent().next('td').children('input').val();
-
-                    var amount = cost * qty;
-
-                    amount = parseFloat(amount).toFixed(2);
-
-                    $(this).parent().next('td').next('td').children('input').val(amount);
-
-                    var amounts = [];
-                    $("input[name='amount[]']").each(function() {
-                        amounts.push($(this).val());
-                    });
-
-                    var grand_total = 0;
-
-                    for (let i = 0; i < amounts.length; ++i) {
-
-                        if(isNaN(parseInt(amounts[i])))
-                        {
-                            amounts[i] = 0;
-                        }
-
-                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
-                    }
-
-                    var vat = grand_total/vat_percentage * 100;
-                    vat = grand_total - vat;
-                    vat = parseFloat(vat).toFixed(2);
-
-                    var sub_total = grand_total - vat;
-                    sub_total = parseFloat(sub_total).toFixed(2);
-
-                    $('#sub_total').val(sub_total);
-                    $('#tax_amount').val(vat);
-                    $('#grand_total').val(grand_total);
-
-                    $('#grand_total_cell').text('€ ' + grand_total);
-
-                });
-
-                $("input[name='qty[]'").on('input',function(e){
-
-                    var vat_percentage = parseInt($('#vat_percentage').val());
-                    vat_percentage = vat_percentage + 100;
-                    var qty = $(this).val();
-                    var cost = $(this).parent().prev('td').children('input').val();
-
-                    var amount = cost * qty;
-
-                    amount = parseFloat(amount).toFixed(2);
-
-                    $(this).parent().next('td').children('input').val(amount);
-
-                    var amounts = [];
-                    $("input[name='amount[]']").each(function() {
-                        amounts.push($(this).val());
-                    });
-
-                    var grand_total = 0;
-
-                    for (let i = 0; i < amounts.length; ++i) {
-
-                        if(isNaN(parseInt(amounts[i])))
-                        {
-                            amounts[i] = 0;
-                        }
-
-                        grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
-                    }
-
-                    var vat = grand_total/vat_percentage * 100;
-                    vat = grand_total - vat;
-                    vat = parseFloat(vat).toFixed(2);
-
-                    var sub_total = grand_total - vat;
-                    sub_total = parseFloat(sub_total).toFixed(2);
-
-                    $('#sub_total').val(sub_total);
-                    $('#tax_amount').val(vat);
-                    $('#grand_total').val(grand_total);
-
-                    $('#grand_total_cell').text('€ ' + grand_total);
-
-                });
-
-            });
-
-            $(".remove-row").click(function(){
-
-                var rowCount = $('.items-table tr').length;
-
-                $(this).parent().parent().remove();
-
-                $(".items-table tbody tr").each(function(index) {
-                    $(this).children('td:first-child').text(index+1);
-                });
-
-                var vat_percentage = parseInt($('#vat_percentage').val());
-                vat_percentage = vat_percentage + 100;
-
-                var amounts = [];
-                $("input[name='amount[]']").each(function() {
-                    amounts.push($(this).val());
-                });
-
-                var grand_total = 0;
-
-                for (let i = 0; i < amounts.length; ++i) {
-
-                    if(isNaN(parseInt(amounts[i])))
-                    {
-                        amounts[i] = 0;
-                    }
-
-                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
-                }
-
-                var vat = grand_total/vat_percentage * 100;
-                vat = grand_total - vat;
-                vat = parseFloat(vat).toFixed(2);
-
-                var sub_total = grand_total - vat;
-                sub_total = parseFloat(sub_total).toFixed(2);
-
-                $('#sub_total').val(sub_total);
-                $('#tax_amount').val(vat);
-                $('#grand_total').val(grand_total);
-
-                $('#grand_total_cell').text('€ ' + grand_total);
-
-            });
-
-            $("input[name='cost[]'").keypress(function(e){
-
-                e = e || window.event;
-                var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
-                var val = String.fromCharCode(charCode);
-
-                if (!val.match(/^[0-9]*\.?[0-9]*$/))  // For characters validation
-                {
-                    e.preventDefault();
-                }
-
-            });
-
-            $("input[name='qty[]'").keypress(function(e){
-
-                e = e || window.event;
-                var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
-                var val = String.fromCharCode(charCode);
-
-                if (!val.match(/^[0-9]*\.?[0-9]*$/))  // For characters validation
-                {
-                    e.preventDefault();
-                }
-
-            });
-
-            $("input[name='cost[]'").on('input',function(e){
-
-                var vat_percentage = parseInt($('#vat_percentage').val());
-                vat_percentage = vat_percentage + 100;
-                var cost = $(this).val();
-                var qty = $(this).parent().next('td').children('input').val();
-
-                var amount = cost * qty;
-
-                amount = parseFloat(amount).toFixed(2);
-
-                $(this).parent().next('td').next('td').children('input').val(amount);
-
-                var amounts = [];
-                $("input[name='amount[]']").each(function() {
-                    amounts.push($(this).val());
-                });
-
-                var grand_total = 0;
-
-                for (let i = 0; i < amounts.length; ++i) {
-
-                    if(isNaN(parseInt(amounts[i])))
-                    {
-                        amounts[i] = 0;
-                    }
-
-                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
-                }
-
-                var vat = grand_total/vat_percentage * 100;
-                vat = grand_total - vat;
-                vat = parseFloat(vat).toFixed(2);
-
-                var sub_total = grand_total - vat;
-                sub_total = parseFloat(sub_total).toFixed(2);
-
-                $('#sub_total').val(sub_total);
-                $('#tax_amount').val(vat);
-                $('#grand_total').val(grand_total);
-
-                $('#grand_total_cell').text('€ ' + grand_total);
-
-            });
-
-            $("input[name='qty[]'").on('input',function(e){
-
-                var vat_percentage = parseInt($('#vat_percentage').val());
-                vat_percentage = vat_percentage + 100;
-                var qty = $(this).val();
-                var cost = $(this).parent().prev('td').children('input').val();
-
-                var amount = cost * qty;
-
-                amount = parseFloat(amount).toFixed(2);
-
-                $(this).parent().next('td').children('input').val(amount);
-
-                var amounts = [];
-                $("input[name='amount[]']").each(function() {
-                    amounts.push($(this).val());
-                });
-
-                var grand_total = 0;
-
-                for (let i = 0; i < amounts.length; ++i) {
-
-                    if(isNaN(parseInt(amounts[i])))
-                    {
-                        amounts[i] = 0;
-                    }
-
-                    grand_total = parseInt(amounts[i]) + parseInt(grand_total,10);
-                }
-
-                var vat = grand_total/vat_percentage * 100;
-                vat = grand_total - vat;
-                vat = parseFloat(vat).toFixed(2);
-
-                var sub_total = grand_total - vat;
-                sub_total = parseFloat(sub_total).toFixed(2);
-
-                $('#sub_total').val(sub_total);
-                $('#tax_amount').val(vat);
-                $('#grand_total').val(grand_total);
-
-                $('#grand_total_cell').text('€ ' + grand_total);
-
-            });
-
 
         });
     </script>

@@ -1353,9 +1353,7 @@
                     data: "id=" + brand_id + "&type=brand",
                     url: "<?php echo url('/get-quotation-data')?>",
                     success: function(data) {
-
                         current.parent().children('input').val(data.cat_name);
-
                     }
                 });
 
@@ -1388,7 +1386,6 @@
             $(".js-data-example-ajax2").change(function(){
 
                 var current = $(this);
-
                 var model_id = current.val();
                 var brand_id = current.parent().parent().find('.brand_box').children('select').val();
                 var cat_id = current.parent().parent().find('.service_box').children('select').val();
@@ -1603,7 +1600,7 @@
                         $.ajax({
                             type:"GET",
                             data: "id=" + category_id + "&handyman_id=" + handyman_id,
-                            url: "<?php echo route('all-products-brands-by-category') ?>",
+                            url: "<?php echo route('products-brands-by-category') ?>",
                             success: function(data) {
 
                                 $.each(data, function(index, value) {
@@ -1643,9 +1640,7 @@
                         data: "id=" + brand_id + "&type=brand",
                         url: "<?php echo url('/get-quotation-data')?>",
                         success: function(data) {
-
                             current.parent().children('input').val(data.cat_name);
-
                         }
                     });
 
@@ -1679,7 +1674,6 @@
                 $(".js-data-example-ajax2").change(function(){
 
                     var current = $(this);
-
                     var model_id = current.val();
                     var brand_id = current.parent().parent().find('.brand_box').children('select').val();
                     var cat_id = current.parent().parent().find('.service_box').children('select').val();

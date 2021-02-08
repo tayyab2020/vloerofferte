@@ -213,11 +213,11 @@
                                                                                 </td>
 
                                                                                 <td class="td-rate">
-                                                                                    <input name="cost[]" class="form-control" type="text" value="{{number_format((float)$temp->rate, 2, ',', '.')}}" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
+                                                                                    <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{number_format((float)$temp->rate, 2, ',', '.')}}" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
                                                                                 </td>
 
                                                                                 <td class="td-qty">
-                                                                                    <input name="qty[]" class="form-control" type="text" value="{{number_format((float)$temp->qty, 2, ',', '.')}}" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
+                                                                                    <input name="qty[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{number_format((float)$temp->qty, 2, ',', '.')}}" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
                                                                                 </td>
 
                                                                                 <td class="td-amount">
@@ -997,7 +997,11 @@
 
                         if(data.rate)
                         {
-                            current.parent().parent().find('.td-rate').children('input').val(data.rate);
+                            var rate = data.rate;
+                            rate = rate.toString();
+                            rate = rate.replace(/\./g, ',');
+
+                            current.parent().parent().find('.td-rate').children('input').val(rate);
                         }
                         else
                         {
@@ -1007,24 +1011,33 @@
                         var vat_percentage = parseInt($('#vat_percentage').val());
                         vat_percentage = vat_percentage + 100;
                         var cost = current.parent().parent().find('.td-rate').children('input').val();
+                        cost = cost.replace(/\,/g, '.');
                         var qty = current.parent().parent().find('.td-qty').children('input').val();
+                        qty = qty.replace(/\,/g, '.');
 
                         var amount = cost * qty;
 
                         amount = parseFloat(amount).toFixed(2);
 
+                        if(isNaN(amount))
+                        {
+                            amount = 0;
+                        }
+
+                        amount = amount.replace(/\./g, ',');
+
                         current.parent().parent().find('.td-amount').children('input').val(amount);
 
                         var amounts = [];
                         $("input[name='amount[]']").each(function() {
-                            amounts.push($(this).val());
+                            amounts.push($(this).val().replace(/\,/g, '.'));
                         });
 
                         var grand_total = 0;
 
                         for (let i = 0; i < amounts.length; ++i) {
 
-                            if(isNaN(parseInt(amounts[i])))
+                            if(isNaN(parseFloat(amounts[i])))
                             {
                                 amounts[i] = 0;
                             }
@@ -1039,11 +1052,11 @@
                         var sub_total = grand_total - vat;
                         sub_total = parseFloat(sub_total).toFixed(2);
 
-                        $('#sub_total').val(sub_total);
-                        $('#tax_amount').val(vat);
+                        $('#sub_total').val(sub_total.replace(/\./g, ','));
+                        $('#tax_amount').val(vat.replace(/\./g, ','));
                         $('#grand_total').val(grand_total);
 
-                        $('#grand_total_cell').text('€ ' + grand_total);
+                        $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
                     }
                 });
 
@@ -1140,29 +1153,43 @@
                     url: "<?php echo url('/get-quotation-data')?>",
                     success: function(data) {
                         current.parent().children('input').val(data.cat_name);
-                        current.parent().parent().find('.td-rate').children('input').val(data.rate);
+
+                        var rate = data.rate;
+                        rate = rate.toString();
+                        rate = rate.replace(/\./g, ',');
+
+                        current.parent().parent().find('.td-rate').children('input').val(rate);
 
                         var vat_percentage = parseInt($('#vat_percentage').val());
                         vat_percentage = vat_percentage + 100;
                         var cost = current.parent().parent().find('.td-rate').children('input').val();
+                        cost = cost.replace(/\,/g, '.');
                         var qty = current.parent().parent().find('.td-qty').children('input').val();
+                        qty = qty.replace(/\,/g, '.');
 
                         var amount = cost * qty;
 
                         amount = parseFloat(amount).toFixed(2);
 
+                        if(isNaN(amount))
+                        {
+                            amount = 0;
+                        }
+
+                        amount = amount.replace(/\./g, ',');
+
                         current.parent().parent().find('.td-amount').children('input').val(amount);
 
                         var amounts = [];
                         $("input[name='amount[]']").each(function() {
-                            amounts.push($(this).val());
+                            amounts.push($(this).val().replace(/\,/g, '.'));
                         });
 
                         var grand_total = 0;
 
                         for (let i = 0; i < amounts.length; ++i) {
 
-                            if(isNaN(parseInt(amounts[i])))
+                            if(isNaN(parseFloat(amounts[i])))
                             {
                                 amounts[i] = 0;
                             }
@@ -1177,11 +1204,11 @@
                         var sub_total = grand_total - vat;
                         sub_total = parseFloat(sub_total).toFixed(2);
 
-                        $('#sub_total').val(sub_total);
-                        $('#tax_amount').val(vat);
+                        $('#sub_total').val(sub_total.replace(/\./g, ','));
+                        $('#tax_amount').val(vat.replace(/\./g, ','));
                         $('#grand_total').val(grand_total);
 
-                        $('#grand_total_cell').text('€ ' + grand_total);
+                        $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
                     }
                 });
 
@@ -1240,10 +1267,10 @@
                     '                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>\n' +
                     '                                                                        </td>\n' +
                     '                                                                        <td class="td-rate">\n' +
-                    '                                                                            <input name="cost[]" class="form-control" type="text" value="{{$rate}}" required>\n' +
+                    '                                                                            <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{$rate}}" required>\n' +
                     '                                                                        </td>\n' +
                     '                                                                        <td class="td-qty">\n' +
-                    '                                                                            <input name="qty[]" class="form-control" type="text" required>\n' +
+                    '                                                                            <input name="qty[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" required>\n' +
                     '                                                                        </td>\n' +
                     '                                                                        <td class="td-amount">\n' +
                     '                                                                            <input name="amount[]" class="form-control" readonly="" type="text">\n' +
@@ -1271,7 +1298,10 @@
 
                             if(data.rate)
                             {
-                                current.parent().parent().find('.td-rate').children('input').val(data.rate);
+                                var rate = data.rate;
+                                rate = rate.toString();
+                                rate = rate.replace(/\./g, ',');
+                                current.parent().parent().find('.td-rate').children('input').val(rate);
                             }
                             else
                             {
@@ -1281,24 +1311,33 @@
                             var vat_percentage = parseInt($('#vat_percentage').val());
                             vat_percentage = vat_percentage + 100;
                             var cost = current.parent().parent().find('.td-rate').children('input').val();
+                            cost = cost.replace(/\,/g, '.');
                             var qty = current.parent().parent().find('.td-qty').children('input').val();
+                            qty = qty.replace(/\,/g, '.');
 
                             var amount = cost * qty;
 
                             amount = parseFloat(amount).toFixed(2);
 
+                            if(isNaN(amount))
+                            {
+                                amount = 0;
+                            }
+
+                            amount = amount.replace(/\./g, ',');
+
                             current.parent().parent().find('.td-amount').children('input').val(amount);
 
                             var amounts = [];
                             $("input[name='amount[]']").each(function() {
-                                amounts.push($(this).val());
+                                amounts.push($(this).val().replace(/\,/g, '.'));
                             });
 
                             var grand_total = 0;
 
                             for (let i = 0; i < amounts.length; ++i) {
 
-                                if(isNaN(parseInt(amounts[i])))
+                                if(isNaN(parseFloat(amounts[i])))
                                 {
                                     amounts[i] = 0;
                                 }
@@ -1313,11 +1352,11 @@
                             var sub_total = grand_total - vat;
                             sub_total = parseFloat(sub_total).toFixed(2);
 
-                            $('#sub_total').val(sub_total);
-                            $('#tax_amount').val(vat);
+                            $('#sub_total').val(sub_total.replace(/\./g, ','));
+                            $('#tax_amount').val(vat.replace(/\./g, ','));
                             $('#grand_total').val(grand_total);
 
-                            $('#grand_total_cell').text('€ ' + grand_total);
+                            $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
                         }
                     });
 
@@ -1336,7 +1375,7 @@
 
                                 $.each(data, function(index, value) {
 
-                                    var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
+                                    var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
 
                                     options = options + opt;
 
@@ -1415,29 +1454,43 @@
                         url: "<?php echo url('/get-quotation-data')?>",
                         success: function(data) {
                             current.parent().children('input').val(data.cat_name);
-                            current.parent().parent().find('.td-rate').children('input').val(data.rate);
+
+                            var rate = data.rate;
+                            rate = rate.toString();
+                            rate = rate.replace(/\./g, ',');
+
+                            current.parent().parent().find('.td-rate').children('input').val(rate);
 
                             var vat_percentage = parseInt($('#vat_percentage').val());
                             vat_percentage = vat_percentage + 100;
                             var cost = current.parent().parent().find('.td-rate').children('input').val();
+                            cost = cost.replace(/\,/g, '.');
                             var qty = current.parent().parent().find('.td-qty').children('input').val();
+                            qty = qty.replace(/\,/g, '.');
 
                             var amount = cost * qty;
 
                             amount = parseFloat(amount).toFixed(2);
 
+                            if(isNaN(amount))
+                            {
+                                amount = 0;
+                            }
+
+                            amount = amount.replace(/\./g, ',');
+
                             current.parent().parent().find('.td-amount').children('input').val(amount);
 
                             var amounts = [];
                             $("input[name='amount[]']").each(function() {
-                                amounts.push($(this).val());
+                                amounts.push($(this).val().replace(/\,/g, '.'));
                             });
 
                             var grand_total = 0;
 
                             for (let i = 0; i < amounts.length; ++i) {
 
-                                if(isNaN(parseInt(amounts[i])))
+                                if(isNaN(parseFloat(amounts[i])))
                                 {
                                     amounts[i] = 0;
                                 }
@@ -1452,11 +1505,11 @@
                             var sub_total = grand_total - vat;
                             sub_total = parseFloat(sub_total).toFixed(2);
 
-                            $('#sub_total').val(sub_total);
-                            $('#tax_amount').val(vat);
+                            $('#sub_total').val(sub_total.replace(/\./g, ','));
+                            $('#tax_amount').val(vat.replace(/\./g, ','));
                             $('#grand_total').val(grand_total);
 
-                            $('#grand_total_cell').text('€ ' + grand_total);
+                            $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
                         }
                     });
 
@@ -1506,14 +1559,14 @@
 
                     var amounts = [];
                     $("input[name='amount[]']").each(function() {
-                        amounts.push($(this).val());
+                        amounts.push($(this).val().replace(/\,/g, '.'));
                     });
 
                     var grand_total = 0;
 
                     for (let i = 0; i < amounts.length; ++i) {
 
-                        if(isNaN(parseInt(amounts[i])))
+                        if(isNaN(parseFloat(amounts[i])))
                         {
                             amounts[i] = 0;
                         }
@@ -1528,11 +1581,11 @@
                     var sub_total = grand_total - vat;
                     sub_total = parseFloat(sub_total).toFixed(2);
 
-                    $('#sub_total').val(sub_total);
-                    $('#tax_amount').val(vat);
+                    $('#sub_total').val(sub_total.replace(/\./g, ','));
+                    $('#tax_amount').val(vat.replace(/\./g, ','));
                     $('#grand_total').val(grand_total);
 
-                    $('#grand_total_cell').text('€ ' + grand_total);
+                    $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
 
                 });
 
@@ -1542,9 +1595,25 @@
                     var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
                     var val = String.fromCharCode(charCode);
 
-                    if (!val.match(/^[0-9]*\.?[0-9]*$/))  // For characters validation
+                    if (!val.match(/^[0-9]*\,?[0-9]*$/))  // For characters validation
                     {
                         e.preventDefault();
+                        return false;
+                    }
+
+                    if(e.which == 44)
+                    {
+                        if(this.value.indexOf(',') > -1)
+                        {
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+
+                    var num = $(this).attr("maskedFormat").toString().split(',');
+                    var regex = new RegExp("^\\d{0," + num[0] + "}(\\,\\d{0," + num[1] + "})?$");
+                    if (!regex.test(this.value)) {
+                        this.value = this.value.substring(0, this.value.length - 1);
                     }
 
                 });
@@ -1555,11 +1624,36 @@
                     var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
                     var val = String.fromCharCode(charCode);
 
-                    if (!val.match(/^[0-9]*\.?[0-9]*$/))  // For characters validation
+                    if (!val.match(/^[0-9]*\,?[0-9]*$/))  // For characters validation
                     {
                         e.preventDefault();
+                        return false;
                     }
 
+                    if(e.which == 44)
+                    {
+                        if(this.value.indexOf(',') > -1)
+                        {
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+
+                    var num = $(this).attr("maskedFormat").toString().split(',');
+                    var regex = new RegExp("^\\d{0," + num[0] + "}(\\,\\d{0," + num[1] + "})?$");
+                    if (!regex.test(this.value)) {
+                        this.value = this.value.substring(0, this.value.length - 1);
+                    }
+
+                });
+
+                $("input[name='qty[]'").on('focusout',function(e){
+                    if($(this).val().slice($(this).val().length - 1) == ',')
+                    {
+                        var val = $(this).val();
+                        val = val + '00';
+                        $(this).val(val);
+                    }
                 });
 
                 $("input[name='cost[]'").on('input',function(e){
@@ -1567,24 +1661,33 @@
                     var vat_percentage = parseInt($('#vat_percentage').val());
                     vat_percentage = vat_percentage + 100;
                     var cost = $(this).val();
+                    cost = cost.replace(/\,/g, '.');
                     var qty = $(this).parent().parent().find('.td-qty').children('input').val();
+                    qty = qty.replace(/\,/g, '.');
 
                     var amount = cost * qty;
 
                     amount = parseFloat(amount).toFixed(2);
 
+                    if(isNaN(amount))
+                    {
+                        amount = 0;
+                    }
+
+                    amount = amount.replace(/\./g, ',');
+
                     $(this).parent().parent().find('.td-amount').children('input').val(amount);
 
                     var amounts = [];
                     $("input[name='amount[]']").each(function() {
-                        amounts.push($(this).val());
+                        amounts.push($(this).val().replace(/\,/g, '.'));
                     });
 
                     var grand_total = 0;
 
                     for (let i = 0; i < amounts.length; ++i) {
 
-                        if(isNaN(parseInt(amounts[i])))
+                        if(isNaN(parseFloat(amounts[i])))
                         {
                             amounts[i] = 0;
                         }
@@ -1599,11 +1702,11 @@
                     var sub_total = grand_total - vat;
                     sub_total = parseFloat(sub_total).toFixed(2);
 
-                    $('#sub_total').val(sub_total);
-                    $('#tax_amount').val(vat);
+                    $('#sub_total').val(sub_total.replace(/\./g, ','));
+                    $('#tax_amount').val(vat.replace(/\./g, ','));
                     $('#grand_total').val(grand_total);
 
-                    $('#grand_total_cell').text('€ ' + grand_total);
+                    $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
 
                 });
 
@@ -1612,24 +1715,33 @@
                     var vat_percentage = parseInt($('#vat_percentage').val());
                     vat_percentage = vat_percentage + 100;
                     var qty = $(this).val();
+                    qty = qty.replace(/\,/g, '.');
                     var cost = $(this).parent().parent().find('.td-rate').children('input').val();
+                    cost = cost.replace(/\,/g, '.');
 
                     var amount = cost * qty;
 
                     amount = parseFloat(amount).toFixed(2);
 
+                    if(isNaN(amount))
+                    {
+                        amount = 0;
+                    }
+
+                    amount = amount.replace(/\./g, ',');
+
                     $(this).parent().parent().find('.td-amount').children('input').val(amount);
 
                     var amounts = [];
                     $("input[name='amount[]']").each(function() {
-                        amounts.push($(this).val());
+                        amounts.push($(this).val().replace(/\,/g, '.'));
                     });
 
                     var grand_total = 0;
 
                     for (let i = 0; i < amounts.length; ++i) {
 
-                        if(isNaN(parseInt(amounts[i])))
+                        if(isNaN(parseFloat(amounts[i])))
                         {
                             amounts[i] = 0;
                         }
@@ -1644,11 +1756,11 @@
                     var sub_total = grand_total - vat;
                     sub_total = parseFloat(sub_total).toFixed(2);
 
-                    $('#sub_total').val(sub_total);
-                    $('#tax_amount').val(vat);
+                    $('#sub_total').val(sub_total.replace(/\./g, ','));
+                    $('#tax_amount').val(vat.replace(/\./g, ','));
                     $('#grand_total').val(grand_total);
 
-                    $('#grand_total_cell').text('€ ' + grand_total);
+                    $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
 
                 });
 
@@ -1664,19 +1776,19 @@
                     $(this).children('td:first-child').text(index+1);
                 });
 
-                var vat_percentage = parseInt($('#vat_percentage').val());
+                var vat_percentage = parseFloat($('#vat_percentage').val());
                 vat_percentage = vat_percentage + 100;
 
                 var amounts = [];
                 $("input[name='amount[]']").each(function() {
-                    amounts.push($(this).val());
+                    amounts.push($(this).val().replace(/\,/g, '.'));
                 });
 
                 var grand_total = 0;
 
                 for (let i = 0; i < amounts.length; ++i) {
 
-                    if(isNaN(parseInt(amounts[i])))
+                    if(isNaN(parseFloat(amounts[i])))
                     {
                         amounts[i] = 0;
                     }
@@ -1691,11 +1803,11 @@
                 var sub_total = grand_total - vat;
                 sub_total = parseFloat(sub_total).toFixed(2);
 
-                $('#sub_total').val(sub_total);
-                $('#tax_amount').val(vat);
+                $('#sub_total').val(sub_total.replace(/\./g, ','));
+                $('#tax_amount').val(vat.replace(/\./g, ','));
                 $('#grand_total').val(grand_total);
 
-                $('#grand_total_cell').text('€ ' + grand_total);
+                $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
 
             });
 
@@ -1705,9 +1817,25 @@
                 var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
                 var val = String.fromCharCode(charCode);
 
-                if (!val.match(/^[0-9]*\.?[0-9]*$/))  // For characters validation
+                if (!val.match(/^[0-9]*\,?[0-9]*$/))  // For characters validation
                 {
                     e.preventDefault();
+                    return false;
+                }
+
+                if(e.which == 44)
+                {
+                    if(this.value.indexOf(',') > -1)
+                    {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+
+                var num = $(this).attr("maskedFormat").toString().split(',');
+                var regex = new RegExp("^\\d{0," + num[0] + "}(\\,\\d{0," + num[1] + "})?$");
+                if (!regex.test(this.value)) {
+                    this.value = this.value.substring(0, this.value.length - 1);
                 }
 
             });
@@ -1718,11 +1846,36 @@
                 var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
                 var val = String.fromCharCode(charCode);
 
-                if (!val.match(/^[0-9]*\.?[0-9]*$/))  // For characters validation
+                if (!val.match(/^[0-9]*\,?[0-9]*$/))  // For characters validation
                 {
                     e.preventDefault();
+                    return false;
                 }
 
+                if(e.which == 44)
+                {
+                    if(this.value.indexOf(',') > -1)
+                    {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+
+                var num = $(this).attr("maskedFormat").toString().split(',');
+                var regex = new RegExp("^\\d{0," + num[0] + "}(\\,\\d{0," + num[1] + "})?$");
+                if (!regex.test(this.value)) {
+                    this.value = this.value.substring(0, this.value.length - 1);
+                }
+
+            });
+
+            $("input[name='qty[]'").on('focusout',function(e){
+                if($(this).val().slice($(this).val().length - 1) == ',')
+                {
+                    var val = $(this).val();
+                    val = val + '00';
+                    $(this).val(val);
+                }
             });
 
             $("input[name='cost[]'").on('input',function(e){
@@ -1730,17 +1883,26 @@
                 var vat_percentage = parseInt($('#vat_percentage').val());
                 vat_percentage = vat_percentage + 100;
                 var cost = $(this).val();
+                cost = cost.replace(/\,/g, '.');
                 var qty = $(this).parent().parent().find('.td-qty').children('input').val();
+                qty = qty.replace(/\,/g, '.');
 
                 var amount = cost * qty;
 
                 amount = parseFloat(amount).toFixed(2);
 
+                if(isNaN(amount))
+                {
+                    amount = 0;
+                }
+
+                amount = amount.replace(/\./g, ',');
+
                 $(this).parent().parent().find('.td-amount').children('input').val(amount);
 
                 var amounts = [];
                 $("input[name='amount[]']").each(function() {
-                    amounts.push($(this).val());
+                    amounts.push($(this).val().replace(/\,/g, '.'));
                 });
 
                 var grand_total = 0;
@@ -1762,11 +1924,11 @@
                 var sub_total = grand_total - vat;
                 sub_total = parseFloat(sub_total).toFixed(2);
 
-                $('#sub_total').val(sub_total);
-                $('#tax_amount').val(vat);
+                $('#sub_total').val(sub_total.replace(/\./g, ','));
+                $('#tax_amount').val(vat.replace(/\./g, ','));
                 $('#grand_total').val(grand_total);
 
-                $('#grand_total_cell').text('€ ' + grand_total);
+                $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
 
             });
 
@@ -1775,18 +1937,26 @@
                 var vat_percentage = parseInt($('#vat_percentage').val());
                 vat_percentage = vat_percentage + 100;
                 var qty = $(this).val();
+                qty = qty.replace(/\,/g, '.');
                 var cost = $(this).parent().parent().find('.td-rate').children('input').val();
-
+                cost = cost.replace(/\,/g, '.');
 
                 var amount = cost * qty;
 
                 amount = parseFloat(amount).toFixed(2);
 
+                if(isNaN(amount))
+                {
+                    amount = 0;
+                }
+
+                amount = amount.replace(/\./g, ',');
+
                 $(this).parent().parent().find('.td-amount').children('input').val(amount);
 
                 var amounts = [];
                 $("input[name='amount[]']").each(function() {
-                    amounts.push($(this).val());
+                    amounts.push($(this).val().replace(/\,/g, '.'));
                 });
 
                 var grand_total = 0;
@@ -1808,11 +1978,11 @@
                 var sub_total = grand_total - vat;
                 sub_total = parseFloat(sub_total).toFixed(2);
 
-                $('#sub_total').val(sub_total);
-                $('#tax_amount').val(vat);
+                $('#sub_total').val(sub_total.replace(/\./g, ','));
+                $('#tax_amount').val(vat.replace(/\./g, ','));
                 $('#grand_total').val(grand_total);
 
-                $('#grand_total_cell').text('€ ' + grand_total);
+                $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
 
             });
 

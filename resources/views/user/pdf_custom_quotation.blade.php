@@ -80,9 +80,9 @@
                                             <td>{{$request->model_title[$i]}}</td>
                                             {{--<td>{{$request->date}}</td>--}}
                                             {{--<td>{{$request->description[$i]}}</td>--}}
-                                            <td>{{$request->cost[$i]}}</td>
-                                            <td>{{$request->qty[$i]}}</td>
-                                            <td>{{$request->amount[$i]}}</td>
+                                            <td>{{number_format((float)$request->cost[$i], 2, ',', '.')}}</td>
+                                            <td>{{number_format((float)$request->qty[$i], 2, ',', '.')}}</td>
+                                            <td>{{number_format((float)$request->amount[$i], 2, ',', '.')}}</td>
                                         </tr>
 
                                     @endforeach
@@ -129,9 +129,9 @@
                                 <tbody>
 
                                 <tr>
-                                    <td>{{$request->tax_amount}}</td>
-                                    <td>{{$request->sub_total}}</td>
-                                    <td>{{$request->grand_total}}</td>
+                                    <td>{{number_format((float)$request->tax_amount, 2, ',', '.')}}</td>
+                                    <td>{{number_format((float)$request->sub_total, 2, ',', '.')}}</td>
+                                    <td>{{number_format((float)$request->grand_total, 2, ',', '.')}}</td>
                                 </tr>
 
                                 </tbody>
