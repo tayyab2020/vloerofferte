@@ -109,14 +109,14 @@
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4" for="blood_group_slug">Rate*</label>
                                                 <div class="col-sm-6">
-                                                    <input name="product_rate" step="any" value="{{isset($my_product) ? $my_product->rate : null}}" class="form-control product_rate" id="blood_group_slug" placeholder="Enter Product Rate" required="" type="number">
+                                                    <input maskedFormat="9,1" autocomplete="off" name="product_rate" step="any" value="{{isset($my_product) ? number_format((float)$my_product->rate, 2, ',', '.') : null}}" class="form-control product_rate" id="blood_group_slug" placeholder="Enter Product Rate" required="" type="text">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4" for="blood_group_slug">Sell Rate*</label>
                                                 <div class="col-sm-6">
-                                                    <input name="product_sell_rate" step="any" value="{{isset($my_product) ? $my_product->sell_rate : null}}" class="form-control product_sell_rate" id="blood_group_slug" placeholder="" required="" type="number">
+                                                    <input maskedFormat="9,1" autocomplete="off" name="product_sell_rate" step="any" value="{{isset($my_product) ? number_format((float)$my_product->sell_rate, 2, ',', '.') : null}}" class="form-control product_sell_rate" id="blood_group_slug" placeholder="" required="" type="text">
                                                 </div>
                                             </div>
 
@@ -175,30 +175,68 @@
             allowClear: true,
         });
 
+        $('.product_rate,.product_sell_rate').keypress(function(e){
+
+            e = e || window.event;
+            var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+            var val = String.fromCharCode(charCode);
+
+            if (!val.match(/^[0-9]*\,?[0-9]*$/))  // For characters validation
+            {
+                e.preventDefault();
+                return false;
+            }
+
+            if(e.which == 44)
+            {
+                if(this.value.indexOf(',') > -1)
+                {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+
+            var num = $(this).attr("maskedFormat").toString().split(',');
+            var regex = new RegExp("^\\d{0," + num[0] + "}(\\,\\d{0," + num[1] + "})?$");
+            if (!regex.test(this.value)) {
+                this.value = this.value.substring(0, this.value.length - 1);
+            }
+
+        });
+
+        $('.product_rate,.product_sell_rate').on('focusout',function(e){
+            if($(this).val().slice($(this).val().length - 1) == ',')
+            {
+                var val = $(this).val();
+                val = val + '00';
+                $(this).val(val);
+            }
+        });
+
 
         $('.product_rate').on('change keyup', function() {
 
-            var rate = parseInt($(this).val());
+            var rate = $(this).val().replace(/\,/g, '.');
             var vat = parseInt($('.product_vat').val());
             vat = (100 + vat)/100;
 
             var sell_rate = rate * vat;
-            sell_rate = sell_rate.toFixed(2);
+            sell_rate = parseFloat(sell_rate).toFixed(2);
 
-            $('.product_sell_rate').val(sell_rate);
+            $('.product_sell_rate').val(sell_rate.replace(/\./g, ','));
 
         });
 
         $('.product_sell_rate').on('change keyup', function() {
 
-            var sell_rate = parseInt($(this).val());
+            var sell_rate = $(this).val().replace(/\,/g, '.');
             var vat = parseInt($('.product_vat').val());
             vat = (100 + vat)/100;
 
             var rate = sell_rate / vat;
-            rate = rate.toFixed(2);
+            rate = parseFloat(rate).toFixed(2);
 
-            $('.product_rate').val(rate);
+            $('.product_rate').val(rate.replace(/\./g, ','));
 
         });
 

@@ -22,7 +22,7 @@
                                         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
                                         <link rel="stylesheet" href="https://gurayyarar.github.io/AdminBSBMaterialDesign/css/style.css" />
 
-                                        <script src="{{asset('assets/admin/js/editable.js')}}"></script>
+                                        <script src="{{asset('assets/admin/js/editable.js?v=1')}}"></script>
 
                                         @if(Route::currentRouteName() == 'product-create')
 
@@ -90,7 +90,7 @@
                                                                         <td data-editable="false">{{$cat->category}}</td>
                                                                         <td data-editable="false">{{$cat->brand}}</td>
                                                                         <td data-editable="false">{{$cat->model}}</td>
-                                                                        <td></td>
+                                                                        <td data-type="model_number"></td>
                                                                         <td data-type="rate">{{$cat->rate}}</td>
                                                                         <td data-type="sell_rate">{{$cat->sell_rate}}</td>
                                                                         <td data-editable="false">21</td>
@@ -350,6 +350,7 @@
 
         });
 
+
         $('.mainTable td').on('change', function(evt, newValue) {
 
             var type = $(this).data('type');
@@ -359,19 +360,21 @@
             {
                 parent.find('.product_rate').val(newValue);
 
-                var rate = parseInt(newValue);
+                var rate = newValue.replace(/\,/g, '.');
                 var vat = (100 + 21)/100;
 
                 var sell_rate = rate * vat;
-                sell_rate = sell_rate.toFixed(2);
+                sell_rate = parseFloat(sell_rate).toFixed(2);
 
                 if(sell_rate != 'NaN')
                 {
+                    parent.find('.product_rate').val(rate);
                     parent.find('.product_sell_rate').val(sell_rate);
-                    parent.find('td[data-type="sell_rate"]').text(sell_rate);
+                    parent.find('td[data-type="sell_rate"]').text(sell_rate.replace(/\./g, ','));
                 }
                 else
                 {
+                    parent.find('.product_rate').val('');
                     parent.find('.product_sell_rate').val('');
                     parent.find('td[data-type="sell_rate"]').text('');
                 }
@@ -380,20 +383,22 @@
             {
                 parent.find('.product_sell_rate').val(newValue);
 
-                var sell_rate = parseInt(newValue);
+                var sell_rate = newValue.replace(/\,/g, '.');
                 var vat = (100 + 21)/100;
 
                 var rate = sell_rate / vat;
-                rate = rate.toFixed(2);
+                rate = parseFloat(rate).toFixed(2);
 
                 if(rate != 'NaN')
                 {
                     parent.find('.product_rate').val(rate);
-                    parent.find('td[data-type="rate"]').text(rate);
+                    parent.find('.product_sell_rate').val(sell_rate);
+                    parent.find('td[data-type="rate"]').text(rate.replace(/\./g, ','));
                 }
                 else
                 {
                     parent.find('.product_rate').val('');
+                    parent.find('.product_sell_rate').val('');
                     parent.find('td[data-type="rate"]').text('');
                 }
             }

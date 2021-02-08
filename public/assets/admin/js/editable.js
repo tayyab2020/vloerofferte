@@ -15,6 +15,57 @@ $.fn.editableTableWidget = function (options) {
             showEditor = function (select) {
                 active = element.find('td:focus');
                 if (active.length) {
+                    if(active.data().type == "model_number")
+                    {
+                        editor.attr("id","isModel");
+                    }
+                    else
+                    {
+                        editor.attr("id","notModel");
+                    }
+
+                    editor.unbind('keypress');
+                    editor.unbind('focusout');
+
+                    $("#notModel").keypress(function(e){
+
+                        e = e || window.event;
+                        var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+                        var val = String.fromCharCode(charCode);
+
+                        if (!val.match(/^[0-9]*\,?[0-9]*$/))  // For characters validation
+                        {
+                            e.preventDefault();
+                            return false;
+                        }
+
+                        if(e.which == 44)
+                        {
+                            if(this.value.indexOf(',') > -1)
+                            {
+                                e.preventDefault();
+                                return false;
+                            }
+                        }
+
+                        var num = $(this).attr("maskedFormat").toString().split(',');
+                        var regex = new RegExp("^\\d{0," + num[0] + "}(\\,\\d{0," + num[1] + "})?$");
+                        if (!regex.test(this.value)) {
+                            this.value = this.value.substring(0, this.value.length - 1);
+                        }
+
+                    });
+
+                    $("#notModel").on('focusout',function(e){
+                        if($(this).val().slice($(this).val().length - 1) == ',')
+                        {
+                            var val = $(this).val();
+                            val = val + '00';
+                            $(this).val(val);
+                        }
+                    });
+
+
                     editor.val(active.text())
                         .removeClass('error')
                         .show()
@@ -128,5 +179,5 @@ $.fn.editableTableWidget.defaultOptions = {
     cloneProperties: ['padding', 'padding-top', 'padding-bottom', 'padding-left', 'padding-right',
         'text-align', 'font', 'font-size', 'font-family', 'font-weight',
         'border', 'border-top', 'border-bottom', 'border-left', 'border-right'],
-    editor: $('<input type="number">')
+    editor: $('<input type="text" maskedFormat="9,1">')
 };

@@ -1876,6 +1876,15 @@
 
                 });
 
+                $("input[name='cost[]'").on('focusout',function(e){
+                    if($(this).val().slice($(this).val().length - 1) == ',')
+                    {
+                        var val = $(this).val();
+                        val = val + '00';
+                        $(this).val(val);
+                    }
+                });
+
                 $("input[name='qty[]'").on('focusout',function(e){
                     if($(this).val().slice($(this).val().length - 1) == ',')
                     {
@@ -2096,6 +2105,15 @@
                     this.value = this.value.substring(0, this.value.length - 1);
                 }
 
+            });
+
+            $("input[name='cost[]'").on('focusout',function(e){
+                if($(this).val().slice($(this).val().length - 1) == ',')
+                {
+                    var val = $(this).val();
+                    val = val + '00';
+                    $(this).val(val);
+                }
             });
 
             $("input[name='qty[]'").on('focusout',function(e){

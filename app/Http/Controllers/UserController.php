@@ -2858,8 +2858,8 @@ class UserController extends Controller
             $post = handyman_products::where('id',$request->handyman_product_id)->first();
             $post->handyman_id = $user_id;
             $post->product_id = $request->product_id;
-            $post->rate = $request->product_rate;
-            $post->sell_rate = $request->product_sell_rate;
+            $post->rate = str_replace(",",".",$request->product_rate);
+            $post->sell_rate = str_replace(",",".",$request->product_sell_rate);
             $post->vat_percentage = $request->product_vat;
             $post->model_number = $request->model_number;
             $post->save();
