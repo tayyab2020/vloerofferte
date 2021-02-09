@@ -176,7 +176,7 @@
 
                     <div style="background-color: #febb22;border-radius: 10px;box-shadow: 0px 0px 4px 0px #dbdbdb;">
 
-                        <h3 style="text-align: center;padding-top: 25px;color: white;text-shadow: 1px 2px 5px #4f4f4f;font-weight: 400;">Fill information For Quotation</h3>
+                        <h3 style="text-align: center;padding-top: 25px;color: white;text-shadow: 1px 2px 5px #4f4f4f;font-weight: 400;">{{__('text.Fill information for Quotation')}}</h3>
 
                         <div id="quote-box" style="display: flex;justify-content: space-between;width: 100%;padding: 20px;">
 
@@ -184,7 +184,7 @@
 
                                 <select class="js-data-example-ajax1 form-control quote-service" name="group" id="blood_grp">
 
-                                    <option value="">Select Category</option>
+                                    <option value="">{{__('text.Select Category')}}</option>
 
                                     @if($lang->lang == 'eng')
 
@@ -208,7 +208,7 @@
 
                                 <select class="js-data-example-ajax3 form-control quote-brand" name="group" id="blood_grp">
 
-                                    <option value="">Select Brand</option>
+                                    <option value="">{{__('text.Select Brand')}}</option>
 
                                 </select>
 
@@ -218,7 +218,7 @@
 
                                 <select class="js-data-example-ajax4 quote-model form-control" name="group" id="blood_grp">
 
-                                    <option value="">Select Model</option>
+                                    <option value="">{{__('text.Select Model')}}</option>
 
                                 </select>
 
@@ -226,11 +226,11 @@
 
                             <div style="width: 20%;">
 
-                                <input type="text" style="height: 100%;" name="model_number" class="form-control quote-model-number" placeholder="Model Number (Optional)" />
+                                <input type="text" style="height: 100%;" name="model_number" class="form-control quote-model-number" placeholder="{{__('text.Model Number (Optional)')}}" />
 
                             </div>
 
-                            <button href="#myModal" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;" class="btn btn-primary">Search</button>
+                            <button href="#myModal" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;" class="btn btn-primary">{{__('text.Search')}}</button>
 
                         </div>
                     </div>
@@ -245,24 +245,24 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button style="background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        <h3 id="myModalLabel">Ask for Quotation</h3>
+                                        <h3 id="myModalLabel">{{__('text.Ask for Quotation')}}</h3>
                                     </div>
                                     <div class="modal-body" id="myWizard">
 
                                         <div class="progress" style="height: 25px;">
                                             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 20%;line-height: 25px;font-size: 14px;font-weight: 100;">
-                                                Step 1
+                                                {{__('text.Step')}} 1
                                             </div>
                                         </div>
 
                                         <div class="navbar" style="display: none;">
                                             <div class="navbar-inner">
                                                 <ul class="nav nav-pills">
-                                                    <li class="active"><a href="#step1" data-toggle="tab" data-step="1">Step 1</a></li>
-                                                    <li><a href="#step2" data-toggle="tab" data-step="2">Step 2</a></li>
-                                                    <li><a href="#step3" data-toggle="tab" data-step="3">Step 3</a></li>
-                                                    <li><a href="#step4" data-toggle="tab" data-step="4">Step 4</a></li>
-                                                    <li><a href="#step5" data-toggle="tab" data-step="5">Step 5</a></li>
+                                                    <li class="active"><a href="#step1" data-toggle="tab" data-step="1">{{__('text.Step')}} 1</a></li>
+                                                    <li><a href="#step2" data-toggle="tab" data-step="2">{{__('text.Step')}} 2</a></li>
+                                                    <li><a href="#step3" data-toggle="tab" data-step="3">{{__('text.Step')}} 3</a></li>
+                                                    <li><a href="#step4" data-toggle="tab" data-step="4">{{__('text.Step')}} 4</a></li>
+                                                    <li><a href="#step5" data-toggle="tab" data-step="5">{{__('text.Step')}} 5</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -273,13 +273,13 @@
 
                                                 <div class="well">
 
-                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 30px;">Fill information for quotation</h3>
+                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 30px;">{{__('text.Fill information for Quotation')}}</h3>
 
                                                     <div style="margin-bottom: 40px;">
 
                                                         <select class="js-data-example-ajax2 form-control quote-service quote_validation" style="height: 40px;" name="quote_service" id="blood_grp" required>
 
-                                                            <option value="">Select Category</option>
+                                                            <option value="">{{__('text.Select Category')}}</option>
 
                                                             @if($lang->lang == 'eng')
 
@@ -304,7 +304,7 @@
 
                                                         <select class="js-data-example-ajax5 form-control quote-brand quote_validation" style="height: 40px;" name="quote_brand" id="blood_grp" required>
 
-                                                            <option value="">Select Brand</option>
+                                                            <option value="">{{__('text.Select Brand')}}</option>
 
                                                         </select>
 
@@ -315,7 +315,7 @@
 
                                                         <select class="js-data-example-ajax6 form-control quote-model quote_validation" style="height: 40px;" name="quote_model" id="blood_grp" required>
 
-                                                            <option value="">Select Model</option>
+                                                            <option value="">{{__('text.Select Model')}}</option>
 
                                                         </select>
 
@@ -324,7 +324,7 @@
 
                                                     <div>
 
-                                                        <input style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_model_number" placeholder="Model Number (Optional)" class="form-control quote-model-number">
+                                                        <input style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_model_number" placeholder="{{__('text.Model Number (Optional)')}}" class="form-control quote-model-number">
 
                                                     </div>
 
@@ -335,15 +335,15 @@
                                             <div class="tab-pane fade" id="step2">
                                                 <div class="well">
 
-                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Where do you need the job done?</h3>
+                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">{{__('text.Where do you need the job done?')}}</h3>
 
                                                     <input style="height: 40px;margin-bottom: 20px;" type="search" name="quote_zipcode" id="quote-zipcode" class="form-control quote_validation" placeholder="{{$lang->spzc}}" autocomplete="off">
 
                                                     <span style="display: block;margin-bottom: 5px;font-weight: 500;">Street Number <span style="color: red;">*</span></span>
-                                                    <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_street" class="form-control quote_validation" placeholder="Enter Street Number">
+                                                    <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_street" class="form-control quote_validation" placeholder="{{__('text.Enter Street Number')}}">
 
                                                     <span style="display: block;margin-bottom: 5px;font-weight: 500;">House Number <span style="color: red;">*</span></span>
-                                                    <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_house" class="form-control quote_validation" placeholder="Enter House Details">
+                                                    <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_house" class="form-control quote_validation" placeholder="{{__('text.Enter House Details')}}">
 
                                                 </div>
                                             </div>
@@ -361,9 +361,9 @@
 
                                                 <div class="well" style="height: 300px;">
 
-                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Provide a description of your job</h3>
+                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">{{__('text.Provide a description of your job')}}</h3>
 
-                                                    <textarea style="resize: vertical;" rows="7" name="quote_description" class="form-control quote_validation" placeholder="Providing more details increases interest from tradies"></textarea>
+                                                    <textarea style="resize: vertical;" rows="7" name="quote_description" class="form-control quote_validation" placeholder="{{__('text.Providing more details increases interest from tradies')}}"></textarea>
 
                                                 </div>
 
@@ -374,25 +374,25 @@
                                             <div class="tab-pane fade" id="step5">
                                                 <div class="well" style="height: 300px;">
 
-                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">Please provide some contact details.</h3>
+                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">{{__('text.Please provide some contact details.')}}</h3>
 
-                                                    <label>Name <span style="color: red;">*</span></label>
-                                                    <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_name" class="form-control quote_validation" placeholder="Enter Name" autocomplete="off">
+                                                    <label>{{__('text.Name')}} <span style="color: red;">*</span></label>
+                                                    <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_name" class="form-control quote_validation" placeholder="{{__('text.Enter Name')}}" autocomplete="off">
 
-                                                    <label>Family Name <span style="color: red;">*</span></label>
-                                                    <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_familyname" class="form-control quote_validation" placeholder="Enter Family Name" autocomplete="off">
+                                                    <label>{{__('text.Family Name')}} <span style="color: red;">*</span></label>
+                                                    <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_familyname" class="form-control quote_validation" placeholder="{{__('text.Enter Family Name')}}" autocomplete="off">
 
-                                                    <label>Email <span style="color: red;">*</span></label>
-                                                    <input style="height: 45px;margin-bottom: 20px" type="email" name="quote_email" class="form-control quote_validation" placeholder="Enter Email">
+                                                    <label>{{__('text.Email')}} <span style="color: red;">*</span></label>
+                                                    <input style="height: 45px;margin-bottom: 20px" type="email" name="quote_email" class="form-control quote_validation" placeholder="{{__('text.Enter Email')}}">
 
-                                                    <label>Contact Number <span style="color: red;">*</span></label>
-                                                    <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_contact" class="form-control quote_validation" placeholder="Enter Contact Number" autocomplete="off">
+                                                    <label>{{__('text.Contact Number')}} <span style="color: red;">*</span></label>
+                                                    <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_contact" class="form-control quote_validation" placeholder="{{__('text.Enter Contact Number')}}" autocomplete="off">
 
-                                                    <small style="text-align: center;display: block;width: 95%;margin: auto;">Your details will be used to create a job post, so that you can monitor and manage the job you've posted.</small>
+                                                    <small style="text-align: center;display: block;width: 95%;margin: auto;">{{__('text.Your details will be used to create a job post, so that you can monitor and manage the job you\'ve posted.')}}</small>
 
                                                     <br>
 
-                                                    <small style="text-align: center;display: block;width: 80%;margin: auto;">By pressing Get Quotes you agree to the <a href="#">terms and conditions</a> of our website.</small>
+                                                    <small style="text-align: center;display: block;width: 80%;margin: auto;">{{__('text.By pressing Get Quotes you agree to the')}} <a href="#">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}</small>
 
                                                 </div>
                                                 <div style="width: 100%;position: relative;height: 2rem;bottom: 1rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
@@ -404,9 +404,9 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button style="border: 0;display: none;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">Back</button>
-                                        <button style="border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary next">Continue</button>
-                                        <button style="display: none;border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary next-submit">Get Quotes</button>
+                                        <button style="border: 0;display: none;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">{{__('text.Back')}}</button>
+                                        <button style="border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary next">{{__('text.Continue')}}</button>
+                                        <button style="display: none;border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary next-submit">{{__('text.Get Quotes')}}</button>
                                     </div>
 
                                 </div>
@@ -557,7 +557,7 @@
             <div class="small-12 columns" style="padding-top: 20px;">
                 <h2 class="hiw">{{$lang->hiwh}}</h2>
 
-                @if($language == 'eng')
+                {{--@if($language == 'eng')
 
                     <div id="languagePickerContainer">
                         <a class="languageSelector" onclick="changeLanguage(1)" id="dutch" title="dutch">Nederlands</a>
@@ -575,7 +575,7 @@
                     </div>
 
 
-                @endif
+                @endif--}}
 
             </div>
         </div>
@@ -942,7 +942,7 @@
                 var percent = (parseInt(step) / 5) * 100;
 
                 $('.progress-bar').css({width: percent + '%'});
-                $('.progress-bar').text("Step " + step);
+                $('.progress-bar').text("{{__('text.Step')}} " + step);
 
                 //e.relatedTarget // previous tab
 
@@ -1435,7 +1435,7 @@
                      <div class="col-md-12">
                          <div class="owl-carousel blog-area-slider">
                             @foreach($lblogs as $lblog)
-        <a href="{{route('front.blogshow',$lblog->id)}}" class="single-blog-box">
+        <a href="{{route('front.blogshow',$lblog->title)}}" class="single-blog-box">
                                <div class="blog-thumb-wrapper">
                                    <img src="{{asset('assets/images/'.$lblog->photo)}}" alt="Blog Image">
                                </div>
@@ -2011,8 +2011,7 @@
         $(".js-data-example-ajax").select2({
             width: '100%',
             height: '200px',
-            // placeholder: "City Name",
-            placeholder: "<?php echo $lang->sbg; ?>",
+            placeholder: "{{__('text.Select Category')}}",
             allowClear: true,
             dropdownParent: $('#service_box'),
 
@@ -2022,28 +2021,28 @@
         $(".js-data-example-ajax1").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Category",
+            placeholder: "{{__('text.Select Category')}}",
             allowClear: true,
         });
 
         $(".js-data-example-ajax3").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Brand",
+            placeholder: "{{__('text.Select Brand')}}",
             allowClear: true,
         });
 
         $(".js-data-example-ajax4").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Model",
+            placeholder: "{{__('text.Select Model')}}",
             allowClear: true,
         });
 
         $(".js-data-example-ajax2").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Category",
+            placeholder: "{{__('text.Select Category')}}",
             allowClear: true,
             dropdownParent: $('#myModal'),
 
@@ -2052,7 +2051,7 @@
         $(".js-data-example-ajax5").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Brand",
+            placeholder: "{{__('text.Select Brand')}}",
             allowClear: true,
             dropdownParent: $('#myModal'),
 
@@ -2061,7 +2060,7 @@
         $(".js-data-example-ajax6").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Model",
+            placeholder: "{{__('text.Select Model')}}",
             allowClear: true,
             dropdownParent: $('#myModal'),
 

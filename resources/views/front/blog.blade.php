@@ -18,7 +18,7 @@
                 <div class="row">
                 	@foreach($blogs as $blog)
                      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <a href="{{route('front.blogshow',$blog->id)}}" class="single-all-blogs-box">
+                        <a href="{{route('front.blogshow',$blog->title)}}" class="single-all-blogs-box">
                                <div class="blog-thumb-wrapper">
                                    <img src="{{asset('assets/images/'.$blog->photo)}}" alt="Blog Image">
                                </div>
@@ -37,7 +37,7 @@
 
                      </div>
                     <div class="text-center">
-                    {!! $blogs->links() !!}                 
+                    {!! $blogs->links() !!}
                     </div>
                 </div>
             </div>

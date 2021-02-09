@@ -108,19 +108,19 @@
                         </li>--}}
 
                         <li>
-                            <a href="{{route('client-quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Requests</a>
+                            <a href="{{route('client-quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i> {{__('text.Quotation Requests')}}</a>
                         </li>
 
                         <li>
-                            <a href="{{route('client-quotations')}}"><i class="fa fa-fw fa-file-text"></i> Quotations</a>
+                            <a href="{{route('client-quotations')}}"><i class="fa fa-fw fa-file-text"></i> {{__('text.Quotations')}}</a>
                         </li>
 
                         <li>
-                            <a href="{{route('client-quotations-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Invoices</a>
+                            <a href="{{route('client-quotations-invoices')}}"><i class="fa fa-fw fa-file-text"></i> {{__('text.Quotation Invoices')}}</a>
                         </li>
 
                         <li>
-                            <a href="{{route('client-custom-quotations')}}"><i class="fa fa-fw fa-file-text"></i> Handyman Quotations</a>
+                            <a href="{{route('client-custom-quotations')}}"><i class="fa fa-fw fa-file-text"></i> {{__('text.Handyman Quotations')}}</a>
                         </li>
 
                         <li  class="lang-list" style="text-align: center;margin-top: 20px;">

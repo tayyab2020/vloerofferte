@@ -1234,7 +1234,7 @@ class FrontendController extends Controller
 
     public function blogshow($id)
     {
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::where('title',$id)->first();
         $old = $blog->views;
         $new = $old + 1;
         $blog->views = $new;

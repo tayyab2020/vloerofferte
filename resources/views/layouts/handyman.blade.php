@@ -110,7 +110,7 @@
                         <li>
                             <a href="#dashboard1" data-toggle="collapse" @if(Route::currentRouteName() == 'user-dashboard' || Route::currentRouteName() == 'user-profile' || Route::currentRouteName() == 'radius-management' || Route::currentRouteName() == 'user-complete-profile') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> {{$lang->dashboard}}</a>
                             <ul class="collapse list-unstyled submenu" id="dashboard1">
-                                <li><a href="{{route('user-dashboard')}}"><i class="fa fa-angle-right"></i> Dashboard</a></li>
+                                <li><a href="{{route('user-dashboard')}}"><i class="fa fa-angle-right"></i> {{__('text.Dashboard')}}</a></li>
                                 <li><a href="{{route('user-profile')}}"><i class="fa fa-angle-right"></i> {{$lang->edit}}</a></li>
                                 <li><a href="{{route('radius-management')}}"><i class="fa fa-angle-right"></i> {{$lang->rm}}</a></li>
                                 <li><a href="{{route('user-complete-profile')}}"><i class="fa fa-angle-right"></i> {{$lang->cmpt}}</a></li>
@@ -123,39 +123,37 @@
                         </li>--}}
 
                         <li>
-                            <a href="{{route('handyman-quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i>
-                                Quotation Requests</a>
+                            <a href="{{route('handyman-quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i>{{__('text.Quotation Requests')}}</a>
                         </li>
 
                         <li>
-                            <a href="{{route('quotations')}}"><i class="fa fa-fw fa-file-text"></i> Quotations</a>
+                            <a href="{{route('quotations')}}"><i class="fa fa-fw fa-file-text"></i> {{__('text.Quotations')}}</a>
                         </li>
 
                         <li>
-                            <a href="{{route('quotations-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Quotation
-                                Invoices</a>
+                            <a href="{{route('quotations-invoices')}}"><i class="fa fa-fw fa-file-text"></i> {{__('text.Quotation Invoices')}}</a>
                         </li>
 
                         <li>
-                            <a href="{{route('commission-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Commission Invoices</a>
+                            <a href="{{route('commission-invoices')}}"><i class="fa fa-fw fa-file-text"></i> {{__('text.Commission Invoices')}}</a>
                         </li>
 
 
                         <li>
-                            <a href="#sales" data-toggle="collapse" @if(Route::currentRouteName() == 'user-products' || Route::currentRouteName() == 'product-create') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> Sales</a>
+                            <a href="#sales" data-toggle="collapse" @if(Route::currentRouteName() == 'user-products' || Route::currentRouteName() == 'product-create') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> {{__('text.Sales')}}</a>
                             <ul class="collapse list-unstyled submenu" id="sales">
-                                <li><a href="{{route('customer-quotations')}}"><i class="fa fa-angle-right"></i> Quotations</a></li>
-                                <li><a href="{{route('customer-invoices')}}"><i class="fa fa-angle-right"></i> Invoices</a></li>
+                                <li><a href="{{route('customer-quotations')}}"><i class="fa fa-angle-right"></i> {{__('text.Quotations')}}</a></li>
+                                <li><a href="{{route('customer-invoices')}}"><i class="fa fa-angle-right"></i> {{__('text.Invoices')}}</a></li>
                             </ul>
                         </li>
 
 
                         <li>
-                            <a href="#services" data-toggle="collapse" @if(Route::currentRouteName() == 'user-products' || Route::currentRouteName() == 'product-create') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> My Products</a>
+                            <a href="#services" data-toggle="collapse" @if(Route::currentRouteName() == 'user-products' || Route::currentRouteName() == 'product-create') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> {{__('text.My Products')}}</a>
                             <ul class="collapse list-unstyled submenu" id="services">
-                                <li><a href="{{route('user-products')}}"><i class="fa fa-angle-right"></i> Products Overview</a></li>
-                                <li><a href="{{route('product-create')}}"><i class="fa fa-angle-right"></i> Add Products</a></li>
-                                <li><a href="{{route('user-items')}}"><i class="fa fa-angle-right"></i> My Items</a></li>
+                                <li><a href="{{route('user-products')}}"><i class="fa fa-angle-right"></i> {{__('text.Products Overview')}}</a></li>
+                                <li><a href="{{route('product-create')}}"><i class="fa fa-angle-right"></i> {{__('text.Add Products')}}</a></li>
+                                <li><a href="{{route('user-items')}}"><i class="fa fa-angle-right"></i> {{__('text.My Items')}}</a></li>
                             </ul>
                         </li>
 
@@ -185,9 +183,9 @@
                         </li>--}}
 
                         <li>
-                            <a href="{{ route('ratings') }}" id="rating"><i
-                                    class="fa fa-fw fa-book"></i> {{$lang->hpmrt}}</a>
+                            <a href="{{ route('ratings') }}" id="rating"><i class="fa fa-fw fa-book"></i> {{$lang->hpmrt}}</a>
                         </li>
+
 
                         <li class="lang-list" style="text-align: center;margin-top: 20px;">
 

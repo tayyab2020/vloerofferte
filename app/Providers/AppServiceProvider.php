@@ -55,6 +55,19 @@ class AppServiceProvider extends ServiceProvider
                 $language->ip = $ip_address;
                 $language->lang = 'du';
                 $language->save();
+
+                \App::setLocale('du');
+            }
+            else
+            {
+                if($language->lang == 'du')
+                {
+                    \App::setLocale('du');
+                }
+                else
+                {
+                    \App::setLocale('en');
+                }
             }
 
             $user = Auth::guard('user')->user();

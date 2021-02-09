@@ -7,7 +7,7 @@
                         <div class="section-title">
                             <h2>{{$blog->title}}</h2>
                             <ul>
-                                <li><i class="fa fa-clock-o"></i> {{$blog->created_at->diffForHumans()}}</li>
+                                <li style="display: none;"><i class="fa fa-clock-o"></i> {{$blog->created_at->diffForHumans()}}</li>
                                 <li>{{$lang->bs}}: {{$blog->source}}</li>
                                 <li><i class="fa fa-eye"></i>{{$blog->views}}</li>
                             </ul>
@@ -28,7 +28,7 @@
                                    <h2 class="post-heading">Recent Posts</h2>
                                    <ul>
                                     @foreach($lblogs as $lblog)
-                                       <li><i class="fa fa-angle-right"></i> <a href="{{route('front.blogshow',$lblog->id)}}">{{$lblog->title}}</a> <span>{{date('d M Y',(strtotime($lblog->created_at)))}}</span></li>
+                                       <li><i class="fa fa-angle-right"></i> <a href="{{route('front.blogshow',$lblog->title)}}">{{$lblog->title}}</a> <span>{{date('d M Y',(strtotime($lblog->created_at)))}}</span></li>
                                     @endforeach
                                    </ul>
                                </div>
