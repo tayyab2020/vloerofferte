@@ -41,7 +41,7 @@
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="edit_blood_group_slug">Rate*</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" name="rate" id="edit_blood_group_slug" placeholder="Enter Rate" required="" type="number" value="{{$item->rate}}">
+                                                <input maskedFormat="9,1" autocomplete="off" class="form-control rate" name="rate" id="edit_blood_group_slug" placeholder="Enter Rate" required="" type="text" value="{{number_format((float)$item->rate, 2, ',', '.')}}">
                                             </div>
                                         </div>
 
@@ -94,6 +94,44 @@
     </script>
 
     <script type="text/javascript">
+
+        $('.rate').keypress(function(e){
+
+            e = e || window.event;
+            var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+            var val = String.fromCharCode(charCode);
+
+            if (!val.match(/^[0-9]*\,?[0-9]*$/))  // For characters validation
+            {
+                e.preventDefault();
+                return false;
+            }
+
+            if(e.which == 44)
+            {
+                if(this.value.indexOf(',') > -1)
+                {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+
+            var num = $(this).attr("maskedFormat").toString().split(',');
+            var regex = new RegExp("^\\d{0," + num[0] + "}(\\,\\d{0," + num[1] + "})?$");
+            if (!regex.test(this.value)) {
+                this.value = this.value.substring(0, this.value.length - 1);
+            }
+
+        });
+
+        $('.rate').on('focusout',function(e){
+            if($(this).val().slice($(this).val().length - 1) == ',')
+            {
+                var val = $(this).val();
+                val = val + '00';
+                $(this).val(val);
+            }
+        });
 
         function uploadclick(){
             $("#uploadFile").click();

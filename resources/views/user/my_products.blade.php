@@ -60,11 +60,11 @@
                                                                     <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">ID</th>
                                                                     <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Photo</th>
                                                                     <th class="sorting" id="client" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Title</th>
-                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Slug</th>
+                                                                    {{--<th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Slug</th>--}}
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Category</th>
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Brand</th>
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Model</th>
-                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Model Number</th>
+                                                                    {{--<th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Model Number</th>--}}
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Rate</th>
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Sell Rate</th>
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">VAT %</th>
@@ -86,11 +86,11 @@
                                                                             <img src="{{ $cat->photo ? asset('assets/images/'.$cat->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}" alt="Category's Photo" style="max-height: 100px;">
                                                                         </td>
                                                                         <td data-editable="false">{{$cat->title}}</td>
-                                                                        <td data-editable="false">{{$cat->slug}}</td>
+                                                                        {{--<td data-editable="false">{{$cat->slug}}</td>--}}
                                                                         <td data-editable="false">{{$cat->category}}</td>
                                                                         <td data-editable="false">{{$cat->brand}}</td>
                                                                         <td data-editable="false">{{$cat->model}}</td>
-                                                                        <td data-type="model_number"></td>
+                                                                        {{--<td data-type="model_number"></td>--}}
                                                                         <td data-type="rate">{{$cat->rate}}</td>
                                                                         <td data-type="sell_rate">{{$cat->sell_rate}}</td>
                                                                         <td data-editable="false">21</td>
@@ -98,7 +98,7 @@
                                                                         <input type="hidden" name="product_id[]" value="{{$cat->id}}" />
                                                                         <input class="product_rate" name="product_rate[]" step="any" value="" type="hidden">
                                                                         <input class="product_sell_rate" name="product_sell_rate[]" step="any" value="" type="hidden">
-                                                                        <input class="model_number" name="model_number[]" value="" type="hidden">
+                                                                        {{--<input class="model_number" name="model_number[]" value="" type="hidden">--}}
 
                                                                     </tr>
                                                                 @endforeach
@@ -145,7 +145,7 @@
                                                             <tr role="row">
                                                                 <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Photo</th>
                                                                 <th class="sorting" id="client" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Title</th>
-                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Slug</th>
+                                                                {{--<th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Slug</th>--}}
                                                                 <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Category</th>
                                                                 <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Brand</th>
                                                                 <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Model</th>
@@ -164,12 +164,12 @@
                                                                             alt="Category's Photo" style="max-height: 100px;">
                                                                     </td>
                                                                     <td data-editable="false">{{$cat->title}}</td>
-                                                                    <td data-editable="false">{{$cat->slug}}</td>
+                                                                    {{--<td data-editable="false">{{$cat->slug}}</td>--}}
                                                                     <td data-editable="false">{{$cat->category}}</td>
                                                                     <td data-editable="false">{{$cat->brand}}</td>
                                                                     <td data-editable="false">{{$cat->model}}</td>
-                                                                    <td>{{$cat->rate}}</td>
-                                                                    <td>{{$cat->sell_rate}}</td>
+                                                                    <td>{{number_format((float)$cat->rate, 2, ',', '.')}}</td>
+                                                                    <td>{{number_format((float)$cat->sell_rate, 2, ',', '.')}}</td>
                                                                     <td data-editable="false">{{$cat->vat_percentage}}</td>
                                                                     <td data-editable="false">
                                                                         <a href="{{route('product-edit',$cat->id)}}"

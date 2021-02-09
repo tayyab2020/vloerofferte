@@ -2916,7 +2916,6 @@ class UserController extends Controller
 
     public function StoreItem(Request $request)
     {
-
         $user_id = Auth::guard('user')->user()->id;
         $item = new items;
         $photo = '';
@@ -2931,7 +2930,7 @@ class UserController extends Controller
         $item->cat_name = $request->item;
         $item->photo = $photo;
         $item->description = $request->description;
-        $item->rate = $request->rate;
+        $item->rate = str_replace(",",".",$request->rate);
         $item->save();
 
 
@@ -2975,7 +2974,7 @@ class UserController extends Controller
             $input['photo'] = '';
         }
 
-        $item = items::where('id', $id)->update(['cat_name' => $request->item, 'photo' => $input['photo'], 'description' => $request->description, 'rate' => $request->rate]);
+        $item = items::where('id', $id)->update(['cat_name' => $request->item, 'photo' => $input['photo'], 'description' => $request->description, 'rate' => str_replace(",",".",$request->rate)]);
 
         Session::flash('success', 'Item updated successfully.');
         return redirect()->route('user-items');
