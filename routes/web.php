@@ -253,6 +253,9 @@
 
   Route::get('/products', 'ProductController@index')->name('admin-product-index');
   Route::get('/product/create', 'ProductController@create')->name('admin-product-create');
+  Route::get('/product/import', 'ProductController@import')->name('admin-product-import');
+  Route::post('/product/upload', 'ProductController@PostImport')->name('admin-product-upload');
+  Route::get('/product/export', 'ProductController@PostExport')->name('admin-product-export');
   Route::post('/product/create', 'ProductController@store')->name('admin-product-store');
   Route::get('/product/edit/{id}', 'ProductController@edit')->name('admin-product-edit');
   Route::post('/product/update/{id}', 'ProductController@update')->name('admin-product-update');

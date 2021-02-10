@@ -27,7 +27,7 @@ class StoreValidationRequest3 extends FormRequest
 
         return [
             /*'title'=>'unique:products,title,NULL,id,deleted_at,NULL',*/
-            'slug'=>'unique:products,slug,'.$request->cat_id,
+            /*'slug'=>'unique:products,slug,'.$request->cat_id,*/
             'photo' => 'mimes:jpeg,jpg,png',
             'email' => 'unique:users|unique:admins',
             'logo'  => 'mimes:jpeg,jpg,png',
@@ -39,7 +39,7 @@ class StoreValidationRequest3 extends FormRequest
     {
         return [
             'title.unique' => 'This name has already been taken.',
-            'slug.unique' => 'This slug has already been taken.',
+            /*'slug.unique' => 'This slug has already been taken.',*/
         ];
     }
 }

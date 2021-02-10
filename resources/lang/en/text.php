@@ -40,4 +40,6 @@ return [
     'Add Products' => 'Add Products',
     'My Items' => 'My Items',
     'Handyman Quotations' => 'Handyman Quotations',
+    'Street Number' => 'Street Number',
+    'House Number' => 'House Number',
 ];

@@ -10,10 +10,14 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
-                                    <div class="add-product-header products">
-                                        <h2>Products</h2>
-                                        <a href="{{route('admin-product-create')}}" class="btn add-newProduct-btn"><i
-                                                class="fa fa-plus"></i> Add New Product</a>
+                                    <div style="justify-content: flex-end;" class="add-product-header products">
+                                        <h2 style="width: 100%;">Products</h2>
+                                        <a style="margin-right: 10px;" href="{{route('admin-product-create')}}" class="btn add-newProduct-btn">
+                                            <i style="font-size: 12px;" class="fa fa-plus"></i> Add New Product</a>
+                                        <a style="margin-right: 10px;background-color: #5cb85c !important;border-color: #5cb85c !important;" href="{{route('admin-product-import')}}" class="btn add-newProduct-btn">
+                                            <i style="font-size: 12px;" class="fa fa-plus"></i> Import Products</a>
+                                        <a style="background-color: #5bc0de !important;border-color: #5bc0de !important;" href="{{route('admin-product-export')}}" class="btn add-newProduct-btn">
+                                            <i style="font-size: 12px;" class="fa fa-plus"></i> Export Products</a>
                                     </div>
                                     <hr>
                                     <div>

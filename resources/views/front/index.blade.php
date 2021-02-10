@@ -339,10 +339,10 @@
 
                                                     <input style="height: 40px;margin-bottom: 20px;" type="search" name="quote_zipcode" id="quote-zipcode" class="form-control quote_validation" placeholder="{{$lang->spzc}}" autocomplete="off">
 
-                                                    <span style="display: block;margin-bottom: 5px;font-weight: 500;">Street Number <span style="color: red;">*</span></span>
+                                                    <span style="display: block;margin-bottom: 5px;font-weight: 500;">{{__('text.Street Number')}} <span style="color: red;">*</span></span>
                                                     <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_street" class="form-control quote_validation" placeholder="{{__('text.Enter Street Number')}}">
 
-                                                    <span style="display: block;margin-bottom: 5px;font-weight: 500;">House Number <span style="color: red;">*</span></span>
+                                                    <span style="display: block;margin-bottom: 5px;font-weight: 500;">{{__('text.House Number')}} <span style="color: red;">*</span></span>
                                                     <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_house" class="form-control quote_validation" placeholder="{{__('text.Enter House Details')}}">
 
                                                 </div>

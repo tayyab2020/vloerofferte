@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\Exports\ProductsExport;
+use App\Imports\ProductsImport;
 use App\Model1;
 use App\product;
 use App\Products;
@@ -21,6 +23,8 @@ use App\sub_services;
 use App\handyman_products;
 use App\carts;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Excel;
 
 class ProductController extends Controller
 {
@@ -51,30 +55,88 @@ class ProductController extends Controller
         return view('admin.product.create',compact('categories','brands'));
     }
 
+    public function import()
+    {
+        return view('admin.product.import');
+    }
+
+    public function PostImport(Request $request)
+    {
+        ini_set('memory_limit', '-1');
+        $extension = strtolower($request->excel_file->getClientOriginalExtension());
+
+        if(!in_array($extension, ['csv', 'xls', 'xlsx']))
+        {
+            return redirect()->back()->withErrors("File should be of format xlsx, xls or csv")->withInput();
+        }
+
+        Excel::import(new ProductsImport(),request()->file('excel_file'));
+
+        Session::flash('success', 'Task completed successfully.');
+        return redirect()->route('admin-product-index');
+    }
+
+    public function PostExport(Request $request)
+    {
+        return Excel::download(new ProductsExport(),'products.xlsx');
+    }
+
     public function store(StoreValidationRequest3 $request)
     {
+        $input = $request->all();
+
         if($request->cat_id)
         {
             $cat = Products::where('id',$request->cat_id)->first();
+
+            if($file = $request->file('photo'))
+            {
+                \File::delete(public_path() .'/assets/images/'.$cat->photo);
+                $name = time().$file->getClientOriginalName();
+                $file->move('assets/images',$name);
+                $input['photo'] = $name;
+            }
+
+            $cat->fill($input)->save();
+
             Session::flash('success', 'Product edited successfully.');
         }
         else
         {
-            $cat = new Products();
-            Session::flash('success', 'New Product added successfully.');
+            $check = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('products.title', 'LIKE', '%'.$request->title.'%')->where('categories.id',$request->category_id)->where('brands.id',$request->brand_id)->where('models.id',$request->model_id)->select('products.*')->first();
+
+            if(!$check)
+            {
+                $cat = new Products();
+
+                if($file = $request->file('photo'))
+                {
+                    \File::delete(public_path() .'/assets/images/'.$cat->photo);
+                    $name = time().$file->getClientOriginalName();
+                    $file->move('assets/images',$name);
+                    $input['photo'] = $name;
+                }
+
+                $cat->fill($input)->save();
+
+                Session::flash('success', 'New Product added successfully.');
+            }
+            else
+            {
+
+                if($file = $request->file('photo'))
+                {
+                    \File::delete(public_path() .'/assets/images/'.$check->photo);
+                    $name = time().$file->getClientOriginalName();
+                    $file->move('assets/images',$name);
+                    $input['photo'] = $name;
+                }
+
+                $check->fill($input)->save();
+
+                Session::flash('success', 'Product edited successfully.');
+            }
         }
-
-        $input = $request->all();
-
-
-        if($file = $request->file('photo'))
-        {
-            $name = time().$file->getClientOriginalName();
-            $file->move('assets/images',$name);
-            $input['photo'] = $name;
-        }
-
-        $cat->fill($input)->save();
 
         return redirect()->route('admin-product-index');
     }
