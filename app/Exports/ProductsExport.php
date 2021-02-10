@@ -20,6 +20,6 @@ class ProductsExport implements FromCollection,WithHeadings
 
     public function collection()
     {
-        return Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->select('products.excel_id','products.title','products.slug','products.description','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->get();
+        return Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->select('products.id','products.title','products.slug','products.description','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->get();
     }
 }
