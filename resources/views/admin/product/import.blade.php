@@ -27,6 +27,9 @@
                                         <a href="{{route('admin-product-index')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
                                     </div>
                                     <hr>
+
+                                    <h5 style="text-align: center;color: red;font-weight: 500;width: 70%;margin:20px auto 0 auto;">Note: Make sure to export latest products from database and make changes in that file to avoid creating same product twice. Than import that file.</h5>
+
                                     <form class="form-horizontal" action="{{route('admin-product-upload')}}" method="POST" enctype="multipart/form-data">
 
                                         @include('includes.form-error')
