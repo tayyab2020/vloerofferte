@@ -78,6 +78,7 @@ class ProductController extends Controller
 
     public function PostExport(Request $request)
     {
+        ini_set('memory_limit', '-1');
         return Excel::download(new ProductsExport(),'products.xlsx');
     }
 
