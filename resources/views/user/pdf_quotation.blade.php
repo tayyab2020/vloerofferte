@@ -36,8 +36,8 @@
                             <div class="row pb-5 p-5" style="margin-right: 15px !important;">
 
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <p class="font-weight-bold mb-4 m-heading">Client Information</p>
-                                    <p class="mb-1 m-rest">Name: {{$quote->quote_name}} {{$quote->quote_familyname}}</p>
+                                    <p class="font-weight-bold mb-4 m-heading">{{__('text.Client Information')}}</p>
+                                    <p class="mb-1 m-rest">{{__('text.Name')}}: {{$quote->quote_name}} {{$quote->quote_familyname}}</p>
                                     <p class="mb-1 m-rest">{{$quote->quote_zipcode}} {{$quote->quote_house}}</p>
                                     <p class="mb-1 m-rest">{{$quote->postcode}} {{$quote->city}}</p>
                                     <p class="mb-1 m-rest">{{$quote->quote_email}}</p>
@@ -45,7 +45,7 @@
                                 </div>
 
                                 <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
-                                    <p class="font-weight-bold mb-4 m-heading">Handyman Information</p>
+                                    <p class="font-weight-bold mb-4 m-heading">{{__('text.Handyman Information')}}</p>
                                     <p class="mb-1 m-rest">{{$request[0]->company_name}}</p>
                                     <p class="mb-1 m-rest">{{$request[0]->address}}</p>
                                     <p class="mb-1 m-rest">{{$request[0]->postcode}} {{$request[0]->city}}</p>
@@ -64,11 +64,11 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 {{--<p class="font-weight-bold mb-4 m-heading">Quote Information</p>--}}
                                 <p class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
-                                <p class="mb-1 m-rest">Created at: {{$date}}</p>
-                                <p class="mb-1 m-rest">Requested Quote Number: {{$requested_quote_number}}</p>
-                                <p class="mb-1 m-rest">Zipcode: {{$quote->quote_zipcode}}</p>
+                                <p class="mb-1 m-rest">{{__('text.Created at')}}: {{$date}}</p>
+                                <p class="mb-1 m-rest">{{__('text.Requested Quote Number')}}: {{$requested_quote_number}}</p>
+                                <p class="mb-1 m-rest">{{__('text.Zipcode')}}: {{$quote->quote_zipcode}}</p>
                                 <br>
-                                <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') Quotation Invoice @else Quotation @endif</p>
+                                <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @else {{__('text.Quotation')}} @endif</p>
                             </div>
 
                         </div>
@@ -78,13 +78,13 @@
                                 <table class="table" style="border: 1px solid #e5e5e5;">
                                     <thead>
                                     <tr>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Category/Item</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Brand</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Model</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Description</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Cost</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Qty</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Amount</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Category/Item')}}</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Brand')}}</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model')}}</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Description')}}</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Qty')}}</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Cost')}}</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Amount')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -98,8 +98,8 @@
                                                 <td>{{$key->brand}}</td>
                                                 <td>{{$key->model}}</td>
                                                 <td>{{$key->description}}</td>
-                                                <td>{{number_format((float)$key->rate, 2, ',', '.')}}</td>
                                                 <td>{{number_format((float)$key->qty, 2, ',', '.')}}</td>
+                                                <td>{{number_format((float)$key->rate, 2, ',', '.')}}</td>
                                                 <td>{{number_format((float)$key->amount, 2, ',', '.')}}</td>
                                             </tr>
 
@@ -114,8 +114,8 @@
                                                 <td>{{$request->brand_title[$i]}}</td>
                                                 <td>{{$request->model_title[$i]}}</td>
                                                 <td>{{$request->description[$i]}}</td>
-                                                <td>{{$request->cost[$i]}}</td>
                                                 <td>{{$request->qty[$i]}}</td>
+                                                <td>{{$request->cost[$i]}}</td>
                                                 <td>{{$request->amount[$i]}}</td>
                                             </tr>
 
@@ -134,7 +134,7 @@
 
                                 <div class="row pb-5 p-5">
                                     <div class="col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #e3e3e3;padding: 20px;">
-                                        <p class="font-weight-bold mb-4 m-heading">Description</p>
+                                        <p class="font-weight-bold mb-4 m-heading">{{__('text.Description')}}</p>
                                         <p class="mb-1 m-rest">{{$request[0]->other_info}}</p>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
 
                                 <div class="row pb-5 p-5">
                                     <div class="col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #e3e3e3;padding: 20px;">
-                                        <p class="font-weight-bold mb-4 m-heading">Description</p>
+                                        <p class="font-weight-bold mb-4 m-heading">{{__('text.Description')}}</p>
                                         <p class="mb-1 m-rest">{{$request->other_info}}</p>
                                     </div>
                                 </div>
@@ -179,8 +179,8 @@
                                     @else
                                         <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request->vat_percentage}}%)</th>
                                     @endif
-                                    <th class="border-0 text-uppercase small font-weight-bold">Subtotal</th>
-                                    <th class="border-0 text-uppercase small font-weight-bold">Grand Total</th>
+                                    <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Subtotal')}}</th>
+                                    <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Grand Total')}}</th>
                                 </tr>
 
                                 </thead>
