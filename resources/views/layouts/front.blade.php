@@ -97,11 +97,12 @@
     </head>
     <body>
     <div id="cover"></div>
+
         <!-- Starting of Header area -->
         <div class="header-top-area">
             <div class="container" style="width: 80%;">
 
-                <div class="row">
+                <div class="row" style="display: flex;">
                     <div class="col-md-6 col-sm-6">
                         <div class="top-column-left">
                             <ul>
@@ -114,6 +115,8 @@
                             </ul>
                         </div>
                     </div>
+
+
                     <div class="col-md-6 col-sm-6">
                         <div class="top-column-right">
                             <ul class="top-social-links">
@@ -143,6 +146,35 @@
                 </div>
             </div>
         </div>
+
+
+    <div class="header-top-area" style="padding-top: 15px;">
+        <div class="container" style="width: 100%;">
+
+            <div class="row" style="display: flex;">
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="top-column-left">
+                        <ul style="display: flex;justify-content: center;">
+                            <li style="display: flex;align-items: center;">
+                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
+                                <span style="vertical-align: inherit;">Jouw <b>betrouwbare</b> partner</span>
+                            </li>
+                            <li style="display: flex;align-items: center;">
+                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
+                                <span style="vertical-align: inherit;">Wij matchen vraag en aanbod <b>transparant</b></span>
+                            </li>
+                            <li style="display: flex;align-items: center;">
+                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
+                                <span style="vertical-align: inherit;">Wij zijn <b>betrokken</b> bij de groei van jouw bedrijf</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
         <div class="header-area-wrapper">
             <div class="container" style="width: 90%;">
@@ -231,30 +263,30 @@
                          <li style="width: 15%;" class="lang-list">
 
                             <form method="post" action="{{route('lang.change')}}" id="lang-form" class="lang-form">
-{{csrf_field()}}
+
+                                {{csrf_field()}}
 
 
-<input type="hidden" class="lang_select" value="{{$lang->lang}}" name="lang_select">
+                                <input type="hidden" class="lang_select" value="{{$lang->lang}}" name="lang_select">
 
-    <div class="btn-group bootstrap-select fit-width">
+                                <div class="btn-group bootstrap-select fit-width">
 
-                            @if($lang->lang == 'eng')
+                                    @if($lang->lang == 'eng')
 
-                            <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" title="English">
+                                        <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" title="English">
 
-                                <span class="filter-option pull-left"><span class="flag-icon flag-icon-nl"></span> English</span>&nbsp;<span class="caret"></span></button>
+                                            <span class="filter-option pull-left"><span class="flag-icon flag-icon-nl"></span> English</span>&nbsp;<span class="caret"></span></button>
 
-                                <div class="dropdown-menu open">
+                                        <div class="dropdown-menu open">
 
-                                    <ul class="dropdown-menu inner selectpicker" role="menu">
+                                            <ul class="dropdown-menu inner selectpicker" role="menu">
 
-                                        <li rel="0" class="selected"><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="eng"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+                                                <li rel="0" class="selected"><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="eng"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
 
-                                        <li rel="1" ><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
-                                    </ul>
+                                                <li rel="1" ><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+                                            </ul>
 
-                                    </div>
-
+                                        </div>
 
 
                             @elseif($lang->lang == 'du')

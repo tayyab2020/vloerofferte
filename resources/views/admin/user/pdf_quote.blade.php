@@ -4,7 +4,7 @@
 
         <section class="jumbotron text-center">
             <div class="container">
-                <h1 class="jumbotron-heading">Quotation Request</h1>
+                <h1 class="jumbotron-heading">{{__('text.Quotation Request')}}</h1>
             </div>
         </section>
 
@@ -33,7 +33,7 @@
 
                                     <?php  $date = date('d-m-Y',$date);  ?>
 
-                                    <p class="text-muted" style="font-size: 15px;margin-top: 20px;">Created at: {{$date}}</p>
+                                    <p class="text-muted" style="font-size: 15px;margin-top: 20px;">{{__('text.Created at')}}: {{$date}}</p>
 
                                 </div>
                             </div>
@@ -47,10 +47,10 @@
                                     <table class="table" style="border: 1px solid #e5e5e5;">
                                         <thead>
                                         <tr>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Category/Item</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Brand</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Model</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Address</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Category/Item')}}</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Brand')}}</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model')}}</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Address')}}</th>
                                             {{--<th class="border-0 text-uppercase small font-weight-bold">Street</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">House Number</th>--}}
                                         </tr>
@@ -105,7 +105,7 @@
                                         <thead>
 
                                         <tr>
-                                            <th class="border-0 text-uppercase small font-weight-bold">Description</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Description')}}</th>
                                         </tr>
 
                                         </thead>

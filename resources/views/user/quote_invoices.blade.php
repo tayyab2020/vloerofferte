@@ -13,20 +13,20 @@
                                 <div class="add-product-box">
                                     <div class="add-product-header products" style="display: block;">
                                         @if(Route::currentRouteName() == 'quotations' || Route::currentRouteName() == 'customer-quotations')
-                                            <h2 style="display: inline-block;">Quotations</h2>
+                                            <h2 style="display: inline-block;">{{__('text.Description')}}Quotations</h2>
                                         @elseif(Route::currentRouteName() == 'commission-invoices')
-                                            <h2 style="display: inline-block;">Commission Invoices</h2>
+                                            <h2 style="display: inline-block;">{{__('text.Description')}}Commission Invoices</h2>
                                         @else
-                                            <h2 style="display: inline-block;">Quotation Invoices</h2>
+                                            <h2 style="display: inline-block;">{{__('text.Description')}}Quotation Invoices</h2>
                                         @endif
 
                                             @if(Route::currentRouteName() == 'customer-quotations')
 
-                                                <a style="float: right;" href="{{route('create-custom-quotation')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Create New Quotation</a>
+                                                <a style="float: right;" href="{{route('create-custom-quotation')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> {{__('text.Description')}}Create New Quotation</a>
 
                                             @elseif(Route::currentRouteName() == 'customer-invoices')
 
-                                                <a style="float: right;margin-right: 10px;" href="{{route('create-direct-invoice')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Create New Invoice</a>
+                                                <a style="float: right;margin-right: 10px;" href="{{route('create-direct-invoice')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> {{__('text.Description')}}Create New Invoice</a>
 
                                             @endif
                                     </div>
@@ -41,23 +41,23 @@
 
                                                     <tr role="row">
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">@if(Route::currentRouteName() == 'quotations' || Route::currentRouteName() == 'customer-quotations') Quotation Number @else Invoice Number @endif</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">@if(Route::currentRouteName() == 'quotations' || Route::currentRouteName() == 'customer-quotations') {{__('text.Description')}}Quotation Number @else {{__('text.Description')}}Invoice Number @endif</th>
 
                                                         @if(Route::currentRouteName() != 'customer-quotations' && Route::currentRouteName() != 'customer-invoices')
 
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">{{__('text.Description')}}Request Number</th>
 
                                                         @endif
 
                                                         @if(Route::currentRouteName() != 'customer-quotations' && Route::currentRouteName() != 'customer-invoices')
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending">Tax</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Description')}}Tax</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">Subtotal</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">{{__('text.Description')}}Subtotal</th>
 
                                                         @else
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Customer Name</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">{{__('text.Description')}}Customer Name</th>
 
                                                         @endif
 
