@@ -111,8 +111,8 @@
                                                                         <th class="col-sm-2">Category/Item</th>
                                                                         <th class="col-sm-2">Brand</th>
                                                                         <th class="col-sm-2">Model</th>
-                                                                        <th class="col-sm-2">Cost</th>
                                                                         <th class="col-sm-2">Qty</th>
+                                                                        <th class="col-sm-2">Cost</th>
                                                                         <th class="col-sm-2">Amount</th>
                                                                         <th style="width: 50px;">Description</th>
                                                                         <th> </th>
@@ -160,12 +160,12 @@
                                                                             <input type="hidden" name="model_title[]" value="">
                                                                         </td>
 
-                                                                        <td class="td-rate">
-                                                                            <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="" required>
-                                                                        </td>
-
                                                                         <td class="td-qty">
                                                                             <input name="qty[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" required>
+                                                                        </td>
+
+                                                                        <td class="td-rate">
+                                                                            <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="" required>
                                                                         </td>
 
                                                                         <td class="td-amount">
@@ -1487,11 +1487,11 @@
                     '                                                                            </select>\n' +
                     '                                                                           <input type="hidden" name="model_title[]" value="">\n'+
                     '                                                                        </td>\n' +
-                    '                                                                        <td class="td-rate">\n' +
-                    '                                                                            <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" required>\n' +
-                    '                                                                        </td>\n' +
                     '                                                                        <td class="td-qty">\n' +
                     '                                                                            <input name="qty[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" required>\n' +
+                    '                                                                        </td>\n' +
+                    '                                                                        <td class="td-rate">\n' +
+                    '                                                                            <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" required>\n' +
                     '                                                                        </td>\n' +
                     '                                                                        <td class="td-amount">\n' +
                     '                                                                            <input name="amount[]" class="form-control" readonly="" type="text">\n' +

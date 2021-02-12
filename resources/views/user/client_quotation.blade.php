@@ -85,8 +85,8 @@
                                                                             <th class="col-sm-2">Brand</th>
                                                                             <th class="col-sm-2">Model</th>
                                                                             <th class="col-md-2">Description</th>
-                                                                            <th style="width:100px;">Cost</th>
                                                                             <th style="width:120px;">Qty</th>
+                                                                            <th style="width:100px;">Cost</th>
                                                                             <th style="width: 120px;">Amount</th>
                                                                             <th> </th>
                                                                         </tr>
@@ -121,12 +121,14 @@
                                                                                     <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control" readonly>{{$temp->data_description}}</textarea>
                                                                                 </td>
 
-                                                                                <td class="td-rate">
-                                                                                    <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{number_format((float)$temp->rate, 2, ',', '.')}}" required readonly>
-                                                                                </td>
                                                                                 <td class="td-qty">
                                                                                     <input name="qty[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{number_format((float)$temp->qty, 2, ',', '.')}}" required readonly>
                                                                                 </td>
+
+                                                                                <td class="td-rate">
+                                                                                    <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{number_format((float)$temp->rate, 2, ',', '.')}}" required readonly>
+                                                                                </td>
+                                                                                
                                                                                 <td class="td-amount">
                                                                                     <input name="amount[]" class="form-control" readonly="" value="{{number_format((float)$temp->amount, 2, ',', '.')}}" type="text" readonly>
                                                                                 </td>
