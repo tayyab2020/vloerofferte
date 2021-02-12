@@ -128,8 +128,8 @@
                                                                             <th class="col-sm-2">Brand</th>
                                                                             <th class="col-sm-2">Model</th>
                                                                             <th class="col-md-3">Description</th>
-                                                                            <th style="width:100px;">Cost</th>
                                                                             <th style="width:120px;">Qty</th>
+                                                                            <th style="width:100px;">Cost</th>
                                                                             <th style="width: 120px;">Amount</th>
                                                                             <th> </th>
                                                                         </tr>
@@ -212,12 +212,12 @@
                                                                                     <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control" @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>{{$temp->data_description}}</textarea>
                                                                                 </td>
 
-                                                                                <td class="td-rate">
-                                                                                    <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{number_format((float)$temp->rate, 2, ',', '.')}}" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
-                                                                                </td>
-
                                                                                 <td class="td-qty">
                                                                                     <input name="qty[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{number_format((float)$temp->qty, 2, ',', '.')}}" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
+                                                                                </td>
+
+                                                                                <td class="td-rate">
+                                                                                    <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{number_format((float)$temp->rate, 2, ',', '.')}}" required @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
                                                                                 </td>
 
                                                                                 <td class="td-amount">
@@ -1266,11 +1266,11 @@
                     '                                                                        <td class="td-desc">\n' +
                     '                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>\n' +
                     '                                                                        </td>\n' +
-                    '                                                                        <td class="td-rate">\n' +
-                    '                                                                            <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{$rate}}" required>\n' +
-                    '                                                                        </td>\n' +
                     '                                                                        <td class="td-qty">\n' +
                     '                                                                            <input name="qty[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" required>\n' +
+                    '                                                                        </td>\n' +
+                    '                                                                        <td class="td-rate">\n' +
+                    '                                                                            <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{$rate}}" required>\n' +
                     '                                                                        </td>\n' +
                     '                                                                        <td class="td-amount">\n' +
                     '                                                                            <input name="amount[]" class="form-control" readonly="" type="text">\n' +
