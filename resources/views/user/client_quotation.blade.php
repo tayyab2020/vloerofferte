@@ -128,7 +128,7 @@
                                                                                 <td class="td-rate">
                                                                                     <input name="cost[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" value="{{number_format((float)$temp->rate, 2, ',', '.')}}" required readonly>
                                                                                 </td>
-                                                                                
+
                                                                                 <td class="td-amount">
                                                                                     <input name="amount[]" class="form-control" readonly="" value="{{number_format((float)$temp->amount, 2, ',', '.')}}" type="text" readonly>
                                                                                 </td>

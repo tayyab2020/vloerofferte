@@ -77,7 +77,7 @@
 
                                                             <td><a href="{{ url('/logstof/view-quote-request/'.$key->id) }}">{{$requested_quote_number}}</a></td>
 
-                                                            <td>{{$key->name}} {{$key->family_name}}</td>
+                                                            <td>{{$key->company_name}}</td>
 
                                                             <td>{{$key->tax}}</td>
 
