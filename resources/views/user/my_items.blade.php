@@ -11,8 +11,8 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
-                                        <h2>Items</h2>
-                                        <a href="{{route('create-item')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Add New Item</a>
+                                        <h2>{{__('text.Items')}}</h2>
+                                        <a href="{{route('create-item')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> {{__('text.Add New Item')}}</a>
                                     </div>
                                     <hr>
                                     <div>
@@ -25,11 +25,11 @@
                                                 <table id="example" class="table table-striped table-hover products dt-responsive dataTable no-footer dtr-inline" role="grid" aria-describedby="product-table_wrapper_info" style="width: 100%;" width="100%" cellspacing="0">
                                                     <thead>
                                                     <tr role="row">
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 344px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Photo</th>
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Item</th>
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Rate</th>
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Description</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 314px;" aria-label="Actions: activate to sort column ascending">Actions</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 344px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">{{__('text.Photo')}}</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">{{__('text.Item')}}</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">{{__('text.Rate')}}</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 144px;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">{{__('text.Description')}}</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 314px;" aria-label="Actions: activate to sort column ascending">{{__('text.Actions')}}</th>
                                                     </tr>
                                                     </thead>
 
@@ -41,8 +41,8 @@
                                                             <td>{{number_format((float)$item->rate, 2, ',', '.')}}</td>
                                                             <td>{!!$item->description!!}</td>
                                                             <td>
-                                                                <a href="{{route('edit-item',$item->id)}}" class="btn btn-primary product-btn"><i class="fa fa-edit"></i> Edit</a>
-                                                                <a href="{{route('delete-item',$item->id)}}" class="btn btn-danger product-btn"><i class="fa fa-trash"></i> Remove</a>
+                                                                <a href="{{route('edit-item',$item->id)}}" class="btn btn-primary product-btn"><i class="fa fa-edit"></i> {{__('text.Edit')}}</a>
+                                                                <a href="{{route('delete-item',$item->id)}}" class="btn btn-danger product-btn"><i class="fa fa-trash"></i> {{__('text.Remove')}}</a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -66,7 +66,18 @@
 @section('scripts')
 
     <script type="text/javascript">
-        $('#example').DataTable();
+        $('#example').DataTable({
+            "oLanguage": {
+                "sLengthMenu": "<?php echo __('text.Show') . ' _MENU_ ' . __('text.records'); ?>",
+                "sSearch": "<?php echo __('text.Search') . ':' ?>",
+                "sInfo": "<?php echo __('text.Showing') . ' _START_ ' . __('text.to') . ' _END_ ' . __('text.of') . ' _TOTAL_ ' . __('text.items'); ?>",
+                "oPaginate": {
+                    "sPrevious": "<?php echo __('text.Previous'); ?>",
+                    "sNext": "<?php echo __('text.Next'); ?>"
+                },
+                "sEmptyTable": '<?php echo __('text.No data available in table'); ?>'
+            }
+        });
     </script>
 
 @endsection

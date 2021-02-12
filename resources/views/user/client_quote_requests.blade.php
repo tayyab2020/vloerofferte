@@ -12,7 +12,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
-                                        <h2>Quotation Requests</h2>
+                                        <h2>{{__('text.Quotation Requests')}}</h2>
 
                                     </div>
                                     <hr>
@@ -25,21 +25,21 @@
 
                                                     <tr role="row">
 
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request No.</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">{{__('text.Request No.')}}</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">Quotations</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="handyman">{{__('text.Quotations')}}</th>
 
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="rate">Category</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="rate">{{__('text.Category')}}</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="rate">Name</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="rate">{{__('text.Name')}}</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">Postcode</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">{{__('text.Postcode')}}</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Current Stage</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">{{__('text.Current Stage')}}</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">Created At</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">{{__('text.Created At')}}</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="date">Action</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="date">{{__('text.Action')}}</th>
 
 
                                                     </thead>
@@ -66,23 +66,23 @@
                                                             <td>
                                                                 @if($key->status == 3)
 
-                                                                    <span class="btn btn-success">Invoice Generated</span>
+                                                                    <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
 
                                                                 @elseif(count($invoices[$i]) > 0)
 
                                                                     @if($invoices[$i]->contains('accepted', 1))
 
-                                                                        <span class="btn btn-success">Quotation Accepted</span>
+                                                                        <span class="btn btn-success">{{__('text.Quotation Accepted')}}</span>
 
                                                                     @else
 
-                                                                        <span class="btn btn-info">Quotation(s) Received</span>
+                                                                        <span class="btn btn-info">{{__('text.Quotation(s) Received')}}</span>
 
                                                                     @endif
 
                                                                 @else
 
-                                                                    <span class="btn btn-warning">Pending</span>
+                                                                    <span class="btn btn-warning">{{__('text.Pending')}}</span>
 
                                                                 @endif
                                                             </td>
@@ -95,12 +95,12 @@
 
                                                             <td>
                                                                 <div class="dropdown">
-                                                                    <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                                                    <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{__('text.Action')}}
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
-                                                                        <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">View</a></li>
-                                                                        <li><a href="{{ url('/handyman/quotations/'.$key->id) }}">View Quotations</a></li>
-                                                                        <li><a href="{{ url('/handyman/download-quote-request/'.$key->id) }}">Download PDF</a></li>
+                                                                        <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">{{__('text.View')}}</a></li>
+                                                                        <li><a href="{{ url('/handyman/quotations/'.$key->id) }}">{{__('text.View Quotations')}}</a></li>
+                                                                        <li><a href="{{ url('/handyman/download-quote-request/'.$key->id) }}">{{__('text.Download PDF')}}</a></li>
                                                                     </ul>
                                                                 </div>
                                                             </td>
@@ -304,7 +304,18 @@
 @section('scripts')
 
     <script type="text/javascript">
-        $('#example').DataTable();
+        $('#example').DataTable({
+            "oLanguage": {
+                "sLengthMenu": "<?php echo __('text.Show') . ' _MENU_ ' . __('text.records'); ?>",
+                "sSearch": "<?php echo __('text.Search') . ':' ?>",
+                "sInfo": "<?php echo __('text.Showing') . ' _START_ ' . __('text.to') . ' _END_ ' . __('text.of') . ' _TOTAL_ ' . __('text.items'); ?>",
+                "oPaginate": {
+                    "sPrevious": "<?php echo __('text.Previous'); ?>",
+                    "sNext": "<?php echo __('text.Next'); ?>"
+                },
+                "sEmptyTable": '<?php echo __('text.No data available in table'); ?>'
+            }
+        });
     </script>
 
 @endsection

@@ -36,18 +36,18 @@
                                                     <div class="card" style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);margin-bottom: 0;">
                                                         <div class="header">
 
-                                                            <h2 style="font-weight: bold;">Select Products</h2>
+                                                            <h2 style="font-weight: bold;">{{__('text.Select Products')}}</h2>
 
                                                             <ul class="header-dropdown m-r--5">
                                                                 <li class="dropdown">
                                                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">
-                                                                        <i class="material-icons">more_vert</i>
+                                                                        {{--<i class="material-icons">more_vert</i>--}}
                                                                     </a>
-                                                                    <ul class="dropdown-menu pull-right">
+                                                                    {{--<ul class="dropdown-menu pull-right">
                                                                         <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
                                                                         <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
                                                                         <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                                                    </ul>
+                                                                    </ul>--}}
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -58,15 +58,15 @@
                                                                 <tr role="row">
                                                                     <th class="no-sort"></th>
                                                                     <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">ID</th>
-                                                                    <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Photo</th>
-                                                                    <th class="sorting" id="client" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Title</th>
+                                                                    <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Photo')}}</th>
+                                                                    <th class="sorting" id="client" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Title')}}</th>
                                                                     {{--<th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Slug</th>--}}
-                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Category</th>
-                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Brand</th>
-                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Model</th>
+                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Category')}}</th>
+                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Brand')}}</th>
+                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Model')}}</th>
                                                                     {{--<th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Model Number</th>--}}
-                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Rate</th>
-                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Sell Rate</th>
+                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Rate')}}</th>
+                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Sell Rate')}}</th>
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">VAT %</th>
                                                                 </tr>
                                                                 </thead>
@@ -105,7 +105,7 @@
                                                                 </tbody>
                                                             </table>
 
-                                                            <button type="button" style="margin: auto;" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Add Product(s)</button>
+                                                            <button type="button" style="margin: auto;" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> {{__('text.Add Product(s)')}}</button>
 
                                                         </div>
                                                     </div>
@@ -123,18 +123,18 @@
                                                 <div class="card" style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);margin-bottom: 0;">
                                                     <div class="header">
 
-                                                        <h2 style="font-weight: bold;">Products Overview</h2>
+                                                        <h2 style="font-weight: bold;">{{__('text.Products Overview')}}</h2>
 
                                                         <ul class="header-dropdown m-r--5">
                                                             <li class="dropdown">
                                                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">
-                                                                    <i class="material-icons">more_vert</i>
+                                                                    {{--<i class="material-icons">more_vert</i>--}}
                                                                 </a>
-                                                                <ul class="dropdown-menu pull-right">
+                                                                {{--<ul class="dropdown-menu pull-right">
                                                                     <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
                                                                     <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
                                                                     <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                                                </ul>
+                                                                </ul>--}}
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -143,16 +143,16 @@
                                                         <table id="example2" class="table table-striped table-hover products dt-responsive dataTable no-footer dtr-inline" role="grid" aria-describedby="product-table_wrapper_info" style="width: 100%;cursor: pointer;" width="100%" cellspacing="0">
                                                             <thead>
                                                             <tr role="row">
-                                                                <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Photo</th>
-                                                                <th class="sorting" id="client" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Title</th>
+                                                                <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Photo')}}</th>
+                                                                <th class="sorting" id="client" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Title')}}</th>
                                                                 {{--<th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Slug</th>--}}
-                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Category</th>
-                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Brand</th>
-                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Model</th>
-                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Rate</th>
-                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Sell Rate</th>
+                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Category')}}</th>
+                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Brand')}}</th>
+                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Model')}}</th>
+                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Rate')}}</th>
+                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Sell Rate')}}</th>
                                                                 <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">VAT %</th>
-                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Actions</th>
+                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Actions')}}</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -174,10 +174,10 @@
                                                                     <td data-editable="false">
                                                                         <a href="{{route('product-edit',$cat->id)}}"
                                                                            class="btn btn-primary product-btn"><i
-                                                                                class="fa fa-edit"></i> Edit</a>
+                                                                                class="fa fa-edit"></i> {{__('text.Edit')}}</a>
                                                                         <a href="{{route('product-delete',$cat->id)}}"
                                                                            class="btn btn-danger product-btn"><i
-                                                                                class="fa fa-trash"></i> Remove</a>
+                                                                                class="fa fa-trash"></i> {{__('text.Remove')}}</a>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -291,11 +291,32 @@
         var table = $('#example1').DataTable(
             {
                 columnDefs: [ { "orderable": false, "targets": [0] } ],
-                order: [[1, 'desc']]
+                order: [[1, 'desc']],
+                "oLanguage": {
+                    "sLengthMenu": "<?php echo __('text.Show') . ' _MENU_ ' . __('text.records'); ?>",
+                    "sSearch": "<?php echo __('text.Search') . ':' ?>",
+                    "sInfo": "<?php echo __('text.Showing') . ' _START_ ' . __('text.to') . ' _END_ ' . __('text.of') . ' _TOTAL_ ' . __('text.items'); ?>",
+                    "oPaginate": {
+                        "sPrevious": "<?php echo __('text.Previous'); ?>",
+                        "sNext": "<?php echo __('text.Next'); ?>"
+                    },
+                    "sEmptyTable": '<?php echo __('text.No data available in table'); ?>'
+                }
             }
         );
 
-        $('#example2').DataTable();
+        $('#example2').DataTable({
+            "oLanguage": {
+                "sLengthMenu": "<?php echo __('text.Show') . ' _MENU_ ' . __('text.records'); ?>",
+                "sSearch": "<?php echo __('text.Search') . ':' ?>",
+                "sInfo": "<?php echo __('text.Showing') . ' _START_ ' . __('text.to') . ' _END_ ' . __('text.of') . ' _TOTAL_ ' . __('text.items'); ?>",
+                "oPaginate": {
+                    "sPrevious": "<?php echo __('text.Previous'); ?>",
+                    "sNext": "<?php echo __('text.Next'); ?>"
+                },
+                "sEmptyTable": '<?php echo __('text.No data available in table'); ?>'
+            }
+        });
 
         $('.mainTable').editableTableWidget();
 
@@ -336,8 +357,8 @@
                 {
                     Swal.fire({
                         type: 'error',
-                        title: 'Oops...',
-                        text: 'Kindly make sure all selected products rates and sell rates are filled.',
+                        title: '{{__('text.Oops...')}}',
+                        text: '{{__('text.Kindly make sure all selected products rates and sell rates are filled.')}}',
 
                     })
                 }

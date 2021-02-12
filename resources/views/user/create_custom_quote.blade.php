@@ -14,11 +14,11 @@
                                     <div class="add-product-header products">
                                        @if(Route::currentRouteName() == 'create-custom-quotation')
 
-                                            <h2>Create Quotation</h2>
+                                            <h2>{{__('text.Create Quotation')}}</h2>
 
                                         @else
 
-                                           <h2>Create Invoice</h2>
+                                           <h2>{{__('text.Create Invoice')}}</h2>
 
                                         @endif
                                     </div>
@@ -68,8 +68,8 @@
 
                                                 <div class="col-md-4">
                                                     <div class="form-group" style="margin: 0;">
-                                                        <label>Estimated Date</label>
-                                                        <input type="text" name="date" placeholder="Select Estimated Date" class="form-control estimate_date" autocomplete="off" required>
+                                                        <label>{{__('text.Estimated Date')}}</label>
+                                                        <input type="text" name="date" placeholder="{{__('text.Select Estimated Date')}}" class="form-control estimate_date" autocomplete="off" required>
                                                     </div>
                                                 </div>
 
@@ -78,11 +78,11 @@
 
                                                 <div class="col-md-5">
                                                     <div class="form-group" style="margin: 0;">
-                                                        <label>Customer</label>
+                                                        <label>{{__('text.Customer')}}</label>
                                                         <div id="cus-box" style="display: flex;">
                                                             <select class="customer-select form-control" name="customer" required>
 
-                                                                <option value="">Select Customer</option>
+                                                                <option value="">{{__('text.Select Customer')}}</option>
 
                                                                 @foreach($customers as $key)
 
@@ -91,7 +91,7 @@
                                                                 @endforeach
 
                                                             </select>
-                                                            <button type="button" href="#myModal" role="button" data-toggle="modal" style="outline: none;margin-left: 10px;" class="btn btn-primary">Add New Customer</button>
+                                                            <button type="button" href="#myModal" role="button" data-toggle="modal" style="outline: none;margin-left: 10px;" class="btn btn-primary">{{__('text.Add New Customer')}}</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -108,13 +108,13 @@
                                                                     <thead>
                                                                     <tr>
                                                                         <th style="width: 40px;">#</th>
-                                                                        <th class="col-sm-2">Category/Item</th>
-                                                                        <th class="col-sm-2">Brand</th>
-                                                                        <th class="col-sm-2">Model</th>
-                                                                        <th class="col-sm-2">Qty</th>
-                                                                        <th class="col-sm-2">Cost</th>
-                                                                        <th class="col-sm-2">Amount</th>
-                                                                        <th style="width: 50px;">Description</th>
+                                                                        <th class="col-sm-2">{{__('text.Category/Item')}}</th>
+                                                                        <th class="col-sm-2">{{__('text.Brand')}}</th>
+                                                                        <th class="col-sm-2">{{__('text.Model')}}</th>
+                                                                        <th class="col-sm-2">{{__('text.Qty')}}</th>
+                                                                        <th class="col-sm-2">{{__('text.Cost')}}</th>
+                                                                        <th class="col-sm-2">{{__('text.Amount')}}</th>
+                                                                        <th style="width: 50px;">{{__('text.Description')}}</th>
                                                                         <th> </th>
                                                                     </tr>
                                                                     </thead>
@@ -125,7 +125,7 @@
                                                                         <td class="service_box">
                                                                             <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
 
-                                                                                <option value="">Select Category/Item</option>
+                                                                                <option value="">{{__('text.Select Category/Item')}}</option>
 
                                                                                 @foreach($all_services as $key)
                                                                                     <option value="{{$key->id}}">{{$key->cat_name}}</option>
@@ -143,7 +143,7 @@
                                                                         <td class="brand_box">
                                                                             <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>
 
-                                                                                <option value="">Select Brand</option>
+                                                                                <option value="">{{__('text.Select Brand')}}</option>
 
                                                                             </select>
 
@@ -153,7 +153,7 @@
                                                                         <td class="model_box">
                                                                             <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>
 
-                                                                                <option value="">Select Model</option>
+                                                                                <option value="">{{__('text.Select Model')}}</option>
 
                                                                             </select>
 
@@ -174,10 +174,10 @@
 
                                                                         <td style="text-align: center;" class="td-desc">
                                                                             <input type="hidden" name="description[]" id="description" class="form-control">
-                                                                            <a href="javascript:void(0)" class="add-desc" title="Add Description" style="color: black;"><i style="font-size: 20px;" class="fa fa-plus-square"></i></a>
+                                                                            <a href="javascript:void(0)" class="add-desc" title="{{__('text.Add Description')}}" style="color: black;"><i style="font-size: 20px;" class="fa fa-plus-square"></i></a>
                                                                         </td>
 
-                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-success font-18 add-row" title="Add"><i class="fa fa-plus"></i></a></td>
+                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-success font-18 add-row" title="{{__('text.Add')}}"><i class="fa fa-plus"></i></a></td>
                                                                     </tr>
 
                                                                     </tbody>
@@ -192,13 +192,13 @@
                                                                         <td></td>
                                                                         <td></td>
                                                                         <td></td>
-                                                                        <td class="text-right">Sub Total</td>
+                                                                        <td class="text-right">{{__('text.Sub Total')}}</td>
                                                                         <td style="text-align: right; padding-right: 30px;width: 230px">
                                                                             <input class="form-control text-right" value="0" name="sub_total" id="sub_total" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td colspan="5" class="text-right">Tax ({{$vat_percentage}}%)</td>
+                                                                        <td colspan="5" class="text-right">{{__('text.Tax')}} ({{$vat_percentage}}%)</td>
                                                                         <td style="text-align: right; padding-right: 30px;width: 230px">
                                                                             <input type="hidden" name="vat_percentage" id="vat_percentage" value="{{$vat_percentage}}">
                                                                             <input class="form-control text-right" value="0" name="tax_amount" id="tax_amount" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
@@ -206,7 +206,7 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td colspan="5" style="text-align: right; font-weight: bold">
-                                                                            Grand Total
+                                                                            {{__('text.Grand Total')}}
                                                                         </td>
                                                                         <td id="grand_total_cell" style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
                                                                             € 0.00
@@ -222,14 +222,14 @@
                                                     <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
                                                         <div class="col-md-12" style="padding: 0;">
                                                             <div class="form-group" style="margin: 0;">
-                                                                <label>Other Information</label>
+                                                                <label>{{__('text.Other Information')}}</label>
                                                                 <textarea name="other_info" class="form-control" rows="4"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
-                                                        <button type="submit" style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">Create</button>
+                                                        <button type="submit" style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">{{__('text.Create')}}</button>
                                                     </div>
 
                                                 </div></div>
@@ -257,7 +257,7 @@
 
                     <div class="modal-header">
                         <button style="background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3 id="myModalLabel">Create Customer</h3>
+                        <h3 id="myModalLabel">{{__('text.Create Customer')}}</h3>
                     </div>
 
                     <div class="modal-body" id="myWizard" style="display: inline-block;">
@@ -341,7 +341,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" style="border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary submit-customer">Create</button>
+                        <button type="button" style="border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary submit-customer">{{__('text.Create')}}</button>
                     </div>
 
                 </div>
@@ -360,7 +360,7 @@
 
                 <div class="modal-header">
                     <button style="background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                    <h4 id="myModalLabel">Add Description</h4>
+                    <h4 id="myModalLabel">{{__('text.Add Description')}}</h4>
                 </div>
 
                 <div class="modal-body" id="myWizard">
@@ -368,8 +368,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-hidden="true">Close</button>
-                    <button type="button" class="btn btn-success submit-desc">Submit</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" aria-hidden="true">{{__('text.Close')}}</button>
+                    <button type="button" class="btn btn-success submit-desc">{{__('text.Submit')}}</button>
                 </div>
             </div>
         </div>
@@ -1197,28 +1197,28 @@
             $(".customer-select").select2({
                 width: '100%',
                 height: '200px',
-                placeholder: "Select Customer",
+                placeholder: "{{__('text.Select Customer')}}",
                 allowClear: true,
             });
 
             $(".js-data-example-ajax").select2({
                 width: '100%',
                 height: '200px',
-                placeholder: "Select Category/Item",
+                placeholder: "{{__('text.Select Category/Item')}}",
                 allowClear: true,
             });
 
             $(".js-data-example-ajax1").select2({
                 width: '100%',
                 height: '200px',
-                placeholder: "Select Brand",
+                placeholder: "{{__('text.Select Brand')}}",
                 allowClear: true,
             });
 
             $(".js-data-example-ajax2").select2({
                 width: '100%',
                 height: '200px',
-                placeholder: "Select Model",
+                placeholder: "{{__('text.Select Model')}}",
                 allowClear: true,
             });
 
@@ -1498,9 +1498,9 @@
                     '                                                                        </td>\n' +
                     '                                                                        <td style="text-align: center;" class="td-desc">\n' +
                     '                                                                            <input type="hidden" name="description[]" id="description" class="form-control">\n' +
-                    '                                                                            <a href="javascript:void(0)" class="add-desc" title="Add Description" style="color: black;"><i style="font-size: 20px;" class="fa fa-plus-square"></i></a>\n' +
+                    '                                                                            <a href="javascript:void(0)" class="add-desc" title="<?php echo __('text.Add Description') ?>" style="color: black;"><i style="font-size: 20px;" class="fa fa-plus-square"></i></a>\n' +
                     '                                                                        </td>\n' +
-                    '                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="Remove"><i class="fa fa-trash-o"></i></a></td>\n' +
+                    '                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="<?php echo __('text.Remove') ?>"><i class="fa fa-trash-o"></i></a></td>\n' +
                     '                                                                    </tr>');
 
                 $(".add-desc").click(function(){
@@ -1755,21 +1755,21 @@
                 $(".js-data-example-ajax").select2({
                     width: '100%',
                     height: '200px',
-                    placeholder: "Select Category/Item",
+                    placeholder: "{{__('text.Select Category/Item')}}",
                     allowClear: true,
                 });
 
                 $(".js-data-example-ajax1").select2({
                     width: '100%',
                     height: '200px',
-                    placeholder: "Select Brand",
+                    placeholder: "{{__('text.Select Brand')}}",
                     allowClear: true,
                 });
 
                 $(".js-data-example-ajax2").select2({
                     width: '100%',
                     height: '200px',
-                    placeholder: "Select Model",
+                    placeholder: "{{__('text.Select Model')}}",
                     allowClear: true,
                 });
 

@@ -23,8 +23,8 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header">
-                                        <h2>Add Item</h2>
-                                        <a href="{{route('user-items')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
+                                        <h2>{{__('text.Add Item')}}</h2>
+                                        <a href="{{route('user-items')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> {{__('text.Back')}}</a>
                                     </div>
                                     <hr>
                                     <form class="form-horizontal" action="{{route('store-item')}}" method="POST" enctype="multipart/form-data">
@@ -33,30 +33,30 @@
                                         {{csrf_field()}}
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Item* <span>(In Any Language)</span></label>
+                                            <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Item')}}*</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" name="item" id="blood_group_display_name" placeholder="Enter Item Title" required="" type="text">
+                                                <input class="form-control" name="item" id="blood_group_display_name" placeholder="{{__('text.Enter Item Title')}}" required="" type="text">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Rate*</label>
+                                            <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Rate')}}*</label>
                                             <div class="col-sm-6">
-                                                <input maskedFormat="9,1" autocomplete="off" class="form-control rate" name="rate" id="blood_group_display_name" placeholder="Enter Rate" required="" type="text">
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="item_description">Item Description</label>
-                                            <div class="col-sm-6">
-                                                <textarea class="form-control" name="description" id="item_description" rows="5" style="resize: vertical;" placeholder="Enter Description"></textarea>
+                                                <input maskedFormat="9,1" autocomplete="off" class="form-control rate" name="rate" id="blood_group_display_name" placeholder="{{__('text.Enter Rate')}}" required="" type="text">
                                             </div>
                                         </div>
 
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="current_photo">Current Photo</label>
+                                            <label class="control-label col-sm-4" for="item_description">{{__('text.Item Description')}}</label>
+                                            <div class="col-sm-6">
+                                                <textarea class="form-control" name="description" id="item_description" rows="5" style="resize: vertical;" placeholder="{{__('text.Enter Description')}}"></textarea>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="current_photo">{{__('text.Current Photo')}}</label>
                                             <div class="col-sm-6">
                                                 <img width="130px" height="90px" id="adminimg" src="" alt="">
                                             </div>
@@ -64,18 +64,18 @@
 
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="profile_photo">Add Photo</label>
+                                            <label class="control-label col-sm-4" for="profile_photo">{{__('text.Add Photo')}}</label>
                                             <div class="col-sm-6">
                                                 <input type="file" id="uploadFile" class="hidden" name="photo" value="">
-                                                <button type="button" id="uploadTrigger" onclick="uploadclick()" class="form-control"><i class="fa fa-download"></i> Add Item Photo</button>
-                                                <p>Prefered Size: (600x600) or Square Sized Image</p>
+                                                <button type="button" id="uploadTrigger" onclick="uploadclick()" class="form-control"><i class="fa fa-download"></i> {{__('text.Add Item Photo')}}</button>
+                                                <p>{{__('text.Prefered Size: (600x600) or Square Sized Image')}}</p>
                                             </div>
                                         </div>
 
 
                                         <hr>
                                         <div class="add-product-footer">
-                                            <button name="addProduct_btn" type="submit" class="btn add-product_btn">Add Item</button>
+                                            <button name="addProduct_btn" type="submit" class="btn add-product_btn">{{__('text.Add Item')}}</button>
                                         </div>
                                     </form>
                                 </div>

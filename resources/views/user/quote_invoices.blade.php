@@ -443,7 +443,18 @@
 @section('scripts')
 
     <script type="text/javascript">
-        $('#example').DataTable();
+        $('#example').DataTable({
+            "oLanguage": {
+                "sLengthMenu": "<?php echo __('text.Show') . ' _MENU_ ' . __('text.records'); ?>",
+                "sSearch": "<?php echo __('text.Search') . ':' ?>",
+                "sInfo": "<?php echo __('text.Showing') . ' _START_ ' . __('text.to') . ' _END_ ' . __('text.of') . ' _TOTAL_ ' . __('text.items'); ?>",
+                "oPaginate": {
+                    "sPrevious": "<?php echo __('text.Previous'); ?>",
+                    "sNext": "<?php echo __('text.Next'); ?>"
+                },
+                "sEmptyTable": '<?php echo __('text.No data available in table'); ?>'
+            }
+        });
     </script>
 
 @endsection

@@ -15,11 +15,11 @@
 
                                         @if(Route::currentRouteName() == 'view-client-quotation' || Route::currentRouteName() == 'view-client-custom-quotation')
 
-                                            <h2>Quotation</h2>
+                                            <h2>{{__('text.Quotation')}}</h2>
 
                                         @else
 
-                                            <h2>Edit Quotation</h2>
+                                            <h2>{{__('text.Edit Quotation')}}</h2>
 
                                         @endif
 
@@ -37,7 +37,7 @@
 
                                                         <div class="col-md-4" style="margin: 10px 0px;">
                                                             <div class="form-group" style="margin: 0;">
-                                                                <label>Request Number</label>
+                                                                <label>{{__('text.Request Number')}}</label>
                                                                 <input type="text" value="{{$requested_quote_number}}" class="form-control" readonly>
                                                             </div>
                                                         </div>
@@ -46,14 +46,14 @@
 
                                                     <div class="col-md-4" style="margin: 10px 0px;">
                                                         <div class="form-group" style="margin: 0;">
-                                                            <label>Quotation Number</label>
+                                                            <label>{{__('text.Quotation Number')}}</label>
                                                             <input type="text" value="QUO# {{$quotation[0]->quotation_invoice_number}}" class="form-control" readonly>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-4" style="margin: 10px 0px;">
                                                         <div class="form-group" style="margin: 0;">
-                                                            <label>Estimated Date</label>
+                                                            <label>{{__('text.Estimated Date')}}</label>
                                                             <input type="text" name="date" value="{{$quotation[0]->estimated_date}}" class="form-control estimate_date" autocomplete="off" required disabled>
                                                         </div>
                                                     </div>
@@ -62,7 +62,7 @@
 
                                                             <div class="col-md-4" style="margin: 10px 0px;">
                                                                 <div class="form-group" style="margin: 0;">
-                                                                    <label>Delivery Date</label>
+                                                                    <label>{{__('text.Delivery Date')}}</label>
                                                                     <input type="text" name="delivery_date" value="{{$quotation[0]->delivery_date}}" class="form-control delivery_date" autocomplete="off" required disabled>
                                                                 </div>
                                                             </div>
@@ -81,13 +81,13 @@
                                                                         <thead>
                                                                         <tr>
                                                                             <th style="width: 40px;">#</th>
-                                                                            <th class="col-sm-2">Category/Item</th>
-                                                                            <th class="col-sm-2">Brand</th>
-                                                                            <th class="col-sm-2">Model</th>
-                                                                            <th class="col-md-2">Description</th>
-                                                                            <th style="width:120px;">Qty</th>
-                                                                            <th style="width:100px;">Cost</th>
-                                                                            <th style="width: 120px;">Amount</th>
+                                                                            <th class="col-sm-2">{{__('text.Category/Item')}}</th>
+                                                                            <th class="col-sm-2">{{__('text.Brand')}}</th>
+                                                                            <th class="col-sm-2">{{__('text.Model')}}</th>
+                                                                            <th class="col-md-2">{{__('text.Description')}}</th>
+                                                                            <th style="width:120px;">{{__('text.Qty')}}</th>
+                                                                            <th style="width:100px;">{{__('text.Cost')}}</th>
+                                                                            <th style="width: 120px;">{{__('text.Amount')}}</th>
                                                                             <th> </th>
                                                                         </tr>
                                                                         </thead>
@@ -151,13 +151,13 @@
                                                                             <td></td>
                                                                             <td></td>
                                                                             <td></td>
-                                                                            <td class="text-right">Sub Total</td>
+                                                                            <td class="text-right">{{__('text.Sub Total')}}</td>
                                                                             <td style="text-align: right; padding-right: 30px;width: 230px">
                                                                                 <input class="form-control text-right" value="{{number_format((float)$temp->subtotal, 2, ',', '.')}}" name="sub_total" id="sub_total" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td colspan="5" class="text-right">Tax ({{$temp->vat_percentage}}%)</td>
+                                                                            <td colspan="5" class="text-right">{{__('text.Tax')}} ({{$temp->vat_percentage}}%)</td>
                                                                             <td style="text-align: right; padding-right: 30px;width: 230px">
                                                                                 <input type="hidden" name="vat_percentage" id="vat_percentage" value="{{$temp->vat_percentage}}">
                                                                                 <input class="form-control text-right" value="{{number_format((float)$temp->tax, 2, ',', '.')}}" name="tax_amount" id="tax_amount" readonly="" style="border: 0;background: transparent;box-shadow: none;padding: 0;padding-right: 4px;cursor: default;" type="text">
@@ -165,7 +165,7 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td colspan="5" style="text-align: right; font-weight: bold">
-                                                                                Grand Total
+                                                                                {{__('text.Grand Total')}}
                                                                             </td>
                                                                             <td id="grand_total_cell" style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
                                                                                 € {{number_format((float)$temp->grand_total, 2, ',', '.')}}
@@ -181,7 +181,7 @@
                                                         <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
                                                             <div class="col-md-12" style="padding: 0;">
                                                                 <div class="form-group" style="margin: 0;">
-                                                                    <label>Other Information</label>
+                                                                    <label>{{__('text.Other Information')}}</label>
                                                                     <textarea name="other_info" class="form-control" rows="4" @if(Route::currentRouteName() == 'view-client-quotation' || Route::currentRouteName() == 'view-client-custom-quotation') readonly @endif>{{$temp->description}}</textarea>
                                                                 </div>
                                                             </div>

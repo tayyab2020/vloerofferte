@@ -13,46 +13,38 @@
                                   <div class="add-product-box">
                                       <div class="add-product-header products">
                                           <h2>{{$lang->hpmrt}}</h2>
-                                          
+
                                       </div>
                                       <hr>
-                  <div>
-                                 @include('includes.form-success')
-<div class="row">
-  <div class="col-sm-12">
-    <table id="example" class="table table-striped table-hover products dt-responsive dataTable no-footer dtr-inline" role="grid" aria-describedby="product-table_wrapper_info" style="width: 100%;margin-top: 55px !important;" width="100%" cellspacing="0">
-                                              <thead>
+                                      <div>
 
-                                               
-
-                                                  <tr role="row">
-
-                                                  <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" >Sr No</th>
-
-                                                    <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">{{$lang->inht}}</th>
-
-                                                    <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">{{$lang->cnht}}</th>
+                                          @include('includes.form-success')
 
 
+                                          <div class="row">
+                                              <div class="col-sm-12">
+                                                  <table id="example" class="table table-striped table-hover products dt-responsive dataTable no-footer dtr-inline" role="grid" aria-describedby="product-table_wrapper_info" style="width: 100%;margin-top: 55px !important;" width="100%" cellspacing="0">
 
+                                                      <thead>
 
-                                                    <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">{{$lang->ratt}}</th>
+                                                      <tr role="row">
 
+                                                          <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" >Sr No</th>
 
+                                                          <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">{{$lang->inht}}</th>
 
+                                                          <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">{{$lang->cnht}}</th>
 
+                                                          <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">{{$lang->ratt}}</th>
 
-                                                    <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="date">{{$lang->hpbd}}</th>
+                                                          <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="date">{{$lang->hpbd}}</th>
 
+                                                      </tr>
 
+                                                      </thead>
 
-                                                  
+                                                      <tbody>
 
-                                                </tr>
-                                              </thead>
-
-                                              <tbody>
-                                                
 
                                                  <?php $i=1; $avg_rating = 0; ?>
 
@@ -64,21 +56,17 @@
 
                                                         <td><a href="{{ asset('handyman/invoice/' . $key->id ) }}">{{$key->invoice_number}}</a></td>
 
-                                                      <td>{{$key->name}} {{$key->family_name}}</td>
+                                                        <td>{{$key->name}} {{$key->family_name}}</td>
 
-                                                      <td>{{$key->client_rating}}</td>
-                                                      
-                                                
+                                                        <td>{{$key->client_rating}}</td>
 
-                                                <?php $date21 =date_create($key->booking_date);
+                                                        <?php $date21 =date_create($key->booking_date);
 
-                                $date12 = date_format($date21,"d-m-Y H:i:s"); ?>
+                                                        $date12 = date_format($date21,"d-m-Y H:i:s"); ?>
 
-                                            
-                                                      <td>{{$date12}}</td>
+                                                        <td>{{$date12}}</td>
 
-                                                     
-                                                  </tr>
+                                                    </tr>
 
                                                   <?php $avg_rating = $key->client_rating + $avg_rating;  $i = $i + 1; ?>
 
@@ -114,11 +102,9 @@
                                                   </tr>
 
                                                   @endif
-                                                    
+
                                                   </tbody>
                                           </table></div>
-
-                                          
 
                                         </div>
                                         </div>
@@ -143,10 +129,10 @@
 
         font-size: 18px !important;
         text-align: center !important;
-        
+
     }
 
-    
+
 
   table.dataTable thead>tr>th.sorting_asc, table.dataTable thead>tr>th.sorting_desc, table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, table.dataTable thead>tr>td.sorting_desc, table.dataTable thead>tr>td.sorting{
 
@@ -194,13 +180,13 @@
   #amount{
     width: 160px !important;
   }
-  
+
   #status{
     width: 77px !important;
   }
 
   .table.products > tbody > tr > td
-  { 
+  {
 
     text-align: center;
 
@@ -214,7 +200,18 @@
 @section('scripts')
 
 <script type="text/javascript">
-  $('#example').DataTable();
+  $('#example').DataTable({
+      "oLanguage": {
+          "sLengthMenu": "<?php echo __('text.Show') . ' _MENU_ ' . __('text.records'); ?>",
+          "sSearch": "<?php echo __('text.Search') . ':' ?>",
+          "sInfo": "<?php echo __('text.Showing') . ' _START_ ' . __('text.to') . ' _END_ ' . __('text.of') . ' _TOTAL_ ' . __('text.items'); ?>",
+          "oPaginate": {
+              "sPrevious": "<?php echo __('text.Previous'); ?>",
+              "sNext": "<?php echo __('text.Next'); ?>"
+          },
+          "sEmptyTable": '<?php echo __('text.No data available in table'); ?>'
+      }
+  });
 </script>
 
 @endsection

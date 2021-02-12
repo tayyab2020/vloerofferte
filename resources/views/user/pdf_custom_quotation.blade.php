@@ -4,7 +4,7 @@
 
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">@if($type == 'invoice') Quotation Invoice @elseif($type == 'direct-invoice') Direct Invoice @else Quotation @endif</h1>
+            <h1 class="jumbotron-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @elseif($type == 'direct-invoice') {{__('text.Direct Invoice')}} @else {{__('text.Quotation')}} @endif</h1>
         </div>
     </section>
 
@@ -33,7 +33,7 @@
 
                                 <?php $date = date('d-m-Y');  ?>
 
-                                <p class="text-muted" style="font-size: 15px;margin-top: 10px;">Created at: {{$date}}</p>
+                                <p class="text-muted" style="font-size: 15px;margin-top: 10px;">{{__('text.Created at')}}: {{$date}}</p>
 
                                 <p class="mb-1 m-rest">{{$client->name}} {{$client->family_name}}</p>
                                 <p class="mb-1 m-rest">{{$client->address}}</p>
@@ -60,14 +60,14 @@
                                 <table class="table" style="border: 1px solid #e5e5e5;">
                                     <thead>
                                     <tr>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Category/Item</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Brand</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Model</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Category/Item')}}</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Brand')}}</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model')}}</th>
                                         {{--<th class="border-0 text-uppercase small font-weight-bold">Estimated Date</th>--}}
                                         {{--<th class="border-0 text-uppercase small font-weight-bold">Description</th>--}}
-                                        <th class="border-0 text-uppercase small font-weight-bold">Cost</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Qty</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Amount</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Qty')}}</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Cost')}}</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Amount')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -80,8 +80,8 @@
                                             <td>{{$request->model_title[$i]}}</td>
                                             {{--<td>{{$request->date}}</td>--}}
                                             {{--<td>{{$request->description[$i]}}</td>--}}
-                                            <td>{{$request->cost[$i]}}</td>
                                             <td>{{$request->qty[$i]}}</td>
+                                            <td>{{$request->cost[$i]}}</td>
                                             <td>{{$request->amount[$i]}}</td>
                                         </tr>
 
@@ -96,7 +96,7 @@
 
                             <div class="row pb-5 p-5">
                                 <div class="col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #e3e3e3;padding: 20px;">
-                                    <p class="font-weight-bold mb-4 m-heading">Description</p>
+                                    <p class="font-weight-bold mb-4 m-heading">{{__('text.Description')}}</p>
                                     <p class="mb-1 m-rest">{{$request->other_info}}</p>
                                 </div>
                             </div>
@@ -120,8 +120,8 @@
 
                                 <tr>
                                     <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request->vat_percentage}}%)</th>
-                                    <th class="border-0 text-uppercase small font-weight-bold">Subtotal</th>
-                                    <th class="border-0 text-uppercase small font-weight-bold">Grand Total</th>
+                                    <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Subtotal')}}</th>
+                                    <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Grand Total')}}</th>
                                 </tr>
 
                                 </thead>

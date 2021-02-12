@@ -13,9 +13,9 @@
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
                                         @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-custom-quotations')
-                                            <h2>Quotations</h2>
+                                            <h2>{{__('text.Quotations')}}</h2>
                                         @else
-                                            <h2>Quotation Invoices</h2>
+                                            <h2>{{__('text.Quotation Invoices')}}</h2>
                                         @endif
                                     </div>
                                     <hr>
@@ -28,11 +28,11 @@
 
                                                     <tr role="row">
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">@if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-custom-quotations') Quotation Number @else Invoice Number @endif</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">@if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-custom-quotations') {{__('text.Quotation Number')}} @else {{__('text.Invoice Number')}} @endif</th>
 
                                                         @if(Route::currentRouteName() != 'client-custom-quotations')
 
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">{{__('text.Request Number')}}</th>
 
                                                         @endif
 
@@ -42,21 +42,21 @@
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">Subtotal</th>--}}
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="rate">Grand Total</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="rate">{{__('text.Grand Total')}}</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="rate">Current Stage</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="rate">{{__('text.Current Stage')}}</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">Accepted Date</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">{{__('text.Accepted Date')}}</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">Delivery Date</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">{{__('text.Delivery Date')}}</th>
 
                                                         @if(Route::currentRouteName() == 'client-quotations')
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">Time Remaining</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">{{__('text.Time Remaining')}}</th>
 
                                                         @endif
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="date">Action</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="date">{{__('text.Action')}}</th>
 
 
                                                     </thead>
@@ -96,7 +96,7 @@
 
                                                                     @if($key->status == 3)
 
-                                                                        <span class="btn btn-success">Invoice Generated</span>
+                                                                        <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
 
                                                                     @elseif($key->status == 2)
 
@@ -104,17 +104,17 @@
 
                                                                             @if(Route::currentRouteName() == 'client-custom-quotations')
 
-                                                                                <span class="btn btn-success">Quotation Accepted</span>
+                                                                                <span class="btn btn-success">{{__('text.Quotation Accepted')}}</span>
 
                                                                             @else
 
-                                                                                <a class="btn btn-success pay_now" onclick="PayNow(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">Pay Now</a>
+                                                                                <a class="btn btn-success pay_now" onclick="PayNow(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Pay Now')}}</a>
 
                                                                             @endif
 
                                                                         @else
 
-                                                                            <span class="btn btn-primary1">Closed</span>
+                                                                            <span class="btn btn-primary1">{{__('text.Closed')}}</span>
 
                                                                         @endif
 
@@ -122,17 +122,17 @@
 
                                                                         @if($key->ask_customization)
 
-                                                                            <span class="btn btn-info">Asking for Review</span>
+                                                                            <span class="btn btn-info">{{__('text.Asking for Review')}}</span>
 
                                                                         @else
 
                                                                             @if(Route::currentRouteName() == 'client-custom-quotations')
 
-                                                                                <a class="btn btn-primary1" href="{{ url('/handyman/custom-quotation/accept-quotation/'.$key->invoice_id) }}">Accept</a>
+                                                                                <a class="btn btn-primary1" href="{{ url('/handyman/custom-quotation/accept-quotation/'.$key->invoice_id) }}">{{__('text.Accept')}}</a>
 
                                                                             @else
 
-                                                                                <a class="btn btn-primary1" onclick="accept(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">Accept</a>
+                                                                                <a class="btn btn-primary1" onclick="accept(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Accept')}}</a>
 
                                                                             @endif
 
@@ -142,7 +142,7 @@
 
                                                                 @else
 
-                                                                    <span class="btn btn-success">Invoice Generated</span>
+                                                                    <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
 
                                                                 @endif
 
@@ -204,48 +204,48 @@
 
                                                                 <td class="action_td">
                                                                     <div class="dropdown">
-                                                                        <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                                                        <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{__('text.Action')}}
                                                                             <span class="caret"></span></button>
                                                                         <ul class="dropdown-menu">
 
                                                                             @if(Route::currentRouteName() == 'client-custom-quotations')
 
-                                                                                <li><a href="{{ url('/handyman/custom-quotation/'.$key->invoice_id) }}">View</a></li>
-                                                                                <li><a href="{{ url('/handyman/download-client-custom-quotation/'.$key->invoice_id) }}">Download PDF</a></li>
+                                                                                <li><a href="{{ url('/handyman/custom-quotation/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
+                                                                                <li><a href="{{ url('/handyman/download-client-custom-quotation/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
 
                                                                                 @if($key->status != 2 && $key->status != 3)
 
                                                                                     @if(!$key->ask_customization)
 
-                                                                                        <li><a href="{{ url('/handyman/custom-quotation/ask-customization/'.$key->invoice_id) }}">Ask Again</a></li>
+                                                                                        <li><a href="{{ url('/handyman/custom-quotation/ask-customization/'.$key->invoice_id) }}">{{__('text.Ask Again')}}</a></li>
 
                                                                                     @endif
 
-                                                                                    <li><a href="{{ url('/handyman/custom-quotation/accept-quotation/'.$key->invoice_id) }}">Accept</a></li>
+                                                                                    <li><a href="{{ url('/handyman/custom-quotation/accept-quotation/'.$key->invoice_id) }}">{{__('text.Accept')}}</a></li>
 
                                                                                 @endif
 
                                                                             @else
 
-                                                                                <li><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">View</a></li>
-                                                                                <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">View Request</a></li>
-                                                                                <li><a href="{{ url('/handyman/download-client-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
+                                                                                <li><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
+                                                                                <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">{{__('text.View Request')}}</a></li>
+                                                                                <li><a href="{{ url('/handyman/download-client-quote-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
 
                                                                                 @if($key->status != 0 && $key->status != 2 && $key->status != 3)
 
                                                                                     @if(!$key->ask_customization)
 
-                                                                                        <li><a href="{{ url('/handyman/ask-customization/'.$key->invoice_id) }}">Ask Again</a></li>
+                                                                                        <li><a href="{{ url('/handyman/ask-customization/'.$key->invoice_id) }}">{{__('text.Ask Again')}}</a></li>
 
                                                                                     @endif
 
-                                                                                    <li><a onclick="accept(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">Accept</a></li>
+                                                                                    <li><a onclick="accept(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Accept')}}</a></li>
 
                                                                                 @endif
 
                                                                                 @if($key->status == 2)
 
-                                                                                    <li><a class="pay_now" onclick="PayNow(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">Pay Now</a></li>
+                                                                                    <li><a class="pay_now" onclick="PayNow(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Pay Now')}}</a></li>
 
                                                                                 @endif
 
@@ -282,20 +282,20 @@
 
                     <div class="modal-header">
                         <button style="font-size: 32px;background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3 style="margin: 10px 0;" id="myModalLabel">Select Delivery Date</h3>
+                        <h3 style="margin: 10px 0;" id="myModalLabel">{{__('text.Select Delivery Date')}}</h3>
                     </div>
 
                     <div class="modal-body" id="myWizard">
 
                         <input type="hidden" name="invoice_id" id="invoice_id">
-                        <label>Delivery Date <span style="color: red;">*</span></label>
-                        <input style="height: 45px;margin-bottom: 20px" type="text" name="delivery_date" id="delivery_date_picker" class="form-control" placeholder="Select Delivery Date" required autocomplete="off">
+                        <label>{{__('text.Delivery Date')}} <span style="color: red;">*</span></label>
+                        <input style="height: 45px;margin-bottom: 20px" type="text" name="delivery_date" id="delivery_date_picker" class="form-control" placeholder="{{__('text.Select Delivery Date')}}" required autocomplete="off">
 
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" aria-label="Close" style="border: 0;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">Close</button>
-                        <button type="submit" style="border: 0;outline: none;background-color: #5cb85c !important;color: white;" class="btn btn-primary">Continue</button>
+                        <button type="button" data-dismiss="modal" aria-label="Close" style="border: 0;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">{{__('text.Close')}}</button>
+                        <button type="submit" style="border: 0;outline: none;background-color: #5cb85c !important;color: white;" class="btn btn-primary">{{__('text.Continue')}}</button>
                     </div>
 
                 </div>
@@ -1124,7 +1124,18 @@
 
         });
 
-        $('#example').DataTable();
+        $('#example').DataTable({
+            "oLanguage": {
+                "sLengthMenu": "<?php echo __('text.Show') . ' _MENU_ ' . __('text.records'); ?>",
+                "sSearch": "<?php echo __('text.Search') . ':' ?>",
+                "sInfo": "<?php echo __('text.Showing') . ' _START_ ' . __('text.to') . ' _END_ ' . __('text.of') . ' _TOTAL_ ' . __('text.items'); ?>",
+                "oPaginate": {
+                    "sPrevious": "<?php echo __('text.Previous'); ?>",
+                    "sNext": "<?php echo __('text.Next'); ?>"
+                },
+                "sEmptyTable": '<?php echo __('text.No data available in table'); ?>'
+            }
+        });
     </script>
 
 @endsection

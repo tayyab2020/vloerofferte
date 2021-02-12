@@ -43,16 +43,16 @@
                                 <p class="mb-1 m-rest">{{$request[0]->registration_number}}</p>
 
                                 <br>
-                                <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">Commission Invoice</p>
+                                <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">{{__('text.Commission Invoice')}}</p>
                             </div>
 
                             <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
                                 <p class="font-weight-bold mb-4 m-heading">INV# {{$commission_invoice_number}}</p>
-                                <p class="mb-1 m-rest">Created at: {{$date}}</p>
-                                <p class="mb-1 m-rest">Customer Invoice: INV# {{$quotation_invoice_number}}</p>
-                                <p class="mb-1 m-rest">Requested Quote Number: {{$requested_quote_number}}</p>
-                                <p class="mb-1 m-rest">Requested Service: {{$quote->cat_name}}</p>
-                                <p class="mb-1 m-rest">Address: {{$quote->quote_zipcode}}</p>
+                                <p class="mb-1 m-rest">{{__('text.Created at')}}: {{$date}}</p>
+                                <p class="mb-1 m-rest">{{__('text.Customer Invoice')}}: INV# {{$quotation_invoice_number}}</p>
+                                <p class="mb-1 m-rest">{{__('text.Requested Quote Number')}}: {{$requested_quote_number}}</p>
+                                <p class="mb-1 m-rest">{{__('text.Requested Service')}}: {{$quote->cat_name}}</p>
+                                <p class="mb-1 m-rest">{{__('text.Address')}}: {{$quote->quote_zipcode}}</p>
                             </div>
 
                         </div>
@@ -62,8 +62,8 @@
                                 <table class="table" style="border: 1px solid #e5e5e5;">
                                     <thead>
                                     <tr>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Costs</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Amount</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Costs')}}</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Amount')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">VAT %</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">VAT</th>
                                     </tr>
@@ -77,14 +77,14 @@
                                     ?>
 
                                     <tr>
-                                        <td>Commission</td>
+                                        <td>{{__('text.Commission')}}</td>
                                         <td>€ {{number_format((float)$commission, 2, ',', '.')}}</td>
                                         <td>{{$request[0]->vat_percentage}}%</td>
                                         <td>{{number_format((float)$commission_vat, 2, ',', '.')}}</td>
                                     </tr>
 
                                     <tr>
-                                        <td>Subtotal excluding VAT</td>
+                                        <td>{{__('text.Subtotal excluding VAT')}}</td>
                                         <td>€ {{number_format((float)$subtotal, 2, ',', '.')}}</td>
                                         <td></td>
                                         <td></td>
@@ -98,7 +98,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Total including VAT</td>
+                                        <td>{{__('text.Total including VAT')}}</td>
                                         <td>€ {{number_format((float)$commission, 2, ',', '.')}}</td>
                                         <td></td>
                                         <td></td>
@@ -112,17 +112,17 @@
                                     </tr>
 
                                     <tr>
-                                        <td style="font-weight: bold;color: black;">Your Sales</td>
+                                        <td style="font-weight: bold;color: black;">{{__('text.Your Sales')}}</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                     </tr>
 
                                     <tr>
-                                        <td style="border-top: 1px solid black;">Short Description</td>
-                                        <td style="border-top: 1px solid black;">Amount</td>
-                                        <td style="border-top: 1px solid black;">Qty</td>
-                                        <td style="border-top: 1px solid black;">Cost</td>
+                                        <td style="border-top: 1px solid black;">{{__('text.Short Description')}}</td>
+                                        <td style="border-top: 1px solid black;">{{__('text.Amount')}}</td>
+                                        <td style="border-top: 1px solid black;">{{__('text.Qty')}}</td>
+                                        <td style="border-top: 1px solid black;">{{__('text.Cost')}}</td>
                                     </tr>
 
 
@@ -139,7 +139,7 @@
 
                                     <tr>
                                         <td style="border-top: 1px solid black;"></td>
-                                        <td style="border-top: 1px solid black;">Grand Total</td>
+                                        <td style="border-top: 1px solid black;">{{__('text.Grand Total')}}</td>
                                         <td style="border-top: 1px solid black;">VAT %</td>
                                         <td style="border-top: 1px solid black;">VAT</td>
                                     </tr>
@@ -159,7 +159,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td style="background-color: #989898;font-weight: bold;color: black;">Total to receive</td>
+                                        <td style="background-color: #989898;font-weight: bold;color: black;">{{__('text.Total to receive')}}</td>
                                         <td style="background-color: #989898;font-weight: bold;color: black;">€ {{number_format((float)$total_receive, 2, ',', '.')}}</td>
                                         <td style="background-color: #989898;font-weight: bold;color: black;"></td>
                                         <td style="background-color: #989898;font-weight: bold;color: black;"></td>
