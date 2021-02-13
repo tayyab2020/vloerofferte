@@ -114,7 +114,7 @@
                                         <li><a href="{{route('admin-item-index')}}"><i class="fa fa-angle-right"></i> Items</a></li>
                                     </ul>
                                 </li>
-                                
+
 
                                 <li><a href="{{route('admin-adv-index')}}"><i class="fa fa-fw fa-link"></i> Advertisements</a>
                                 </li>

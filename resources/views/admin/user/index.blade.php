@@ -13,7 +13,7 @@
                                   <div class="add-product-box">
                                       <div class="add-product-header products">
                                           <h2>Handymen</h2>
-                                          <a href="{{route('admin-user-create')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Add Handyman</a>  
+                                          <a href="{{route('admin-user-create')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Add Handyman</a>
                                       </div>
                                       <hr>
                   <div>
@@ -32,17 +32,17 @@
                                               <tbody>
                                                 <?php $x = 0; ?>
 
-                                                @foreach($users as $user)                                                  
+                                                @foreach($users as $user)
                                               <tr role="row" class="odd">
 
                                                       <td tabindex="0" class="sorting_1"><img src="{{ $user->photo ? asset('assets/images/'.$user->photo):asset('assets/default.jpg')}}" alt="User's Photo" style="height: 180px; width: 200px;"></td>
-                                                      <td>{{$user->name}} {{$user->family_name}}</td>
+                                                      <td>{{$user->company_name}}</td>
                                                  <td>
                                                     {{$user->email}}
                                                         </td>
 
                                                         <td >
-                                                          
+
                                                           @if($user->experience_years) {{$user->experience_years}} @if($user->experience_years > 1) Years @else Year @endif @else N/A @endif
 
                                                         </td>
@@ -64,17 +64,17 @@
 
 
                                                           <?php if($i == 0){ echo $categories[$x][$i]->cat_name; } else{ echo ','.$categories[$x][$i]->cat_name; } ?>
-                                                          
+
 
                                                         <?php } ?>
 
                                                         </td>
-                                                      
+
                                                       <td>
                                                         @if($user->active == 1)
 
                                                         <a href="{{route('admin-user-st',['id1'=>$user->id,'id2'=>0])}}" class="btn btn-warning product-btn"><i class="fa fa-times"></i> Deactive</a>
-                                                        @else        
+                                                        @else
 
                                                         <a href="{{route('admin-user-st',['id1'=>$user->id,'id2'=>1])}}" class="btn btn-success product-btn"><i class="fa fa-times"></i> Active</a>
                                                         @endif
@@ -105,7 +105,7 @@
         </div>
 
         <style type="text/css">
-          
+
           .product-btn
           {
             margin: 5px;
@@ -133,11 +133,11 @@
 
 <script type="text/javascript">
   $('#example').DataTable({
-    
+
     "aoColumns": [
-      { "sWidth": "" }, // 1st column width 
-      { "sWidth": "200px" }, // 2nd column width 
-      { "sWidth": "" }, // 3rd column width and so on 
+      { "sWidth": "" }, // 1st column width
+      { "sWidth": "200px" }, // 2nd column width
+      { "sWidth": "" }, // 3rd column width and so on
       { "sWidth": "" },
       { "sWidth": "" },
       { "sWidth": "" },
