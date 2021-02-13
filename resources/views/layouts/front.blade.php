@@ -326,6 +326,19 @@
 
         <style type="text/css">
 
+            .slicknav_btn
+            {
+                width: 35px;
+                display: flex;
+                justify-content: center;
+            }
+
+            .slicknav_menu .slicknav_icon
+            {
+                height: auto;
+                width: auto;
+            }
+
             button
             {
                 outline: none !important;

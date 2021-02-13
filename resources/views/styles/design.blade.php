@@ -1,5 +1,5 @@
 <style type="text/css">
-	
+
     #cover {
         background: url({{asset('assets/images/'.$gs->loader)}}) no-repeat scroll center center #FFF;
         position: fixed;
@@ -62,15 +62,15 @@
     border-bottom: 1px solid {{$gs->colors == null ? '#f3bd02':$gs->colors}};
 }
 .slicknav_btn {
-    background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}}; 
+    background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};
 }
 
 .slicknav_nav {
-    background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}}; 
-
+    background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};
+    margin-top: 25px;
 }
 .slicknav_nav .slicknav_row:hover, .slicknav_nav a:hover {
-    background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}}; 
+    background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};
 }
 
 .hero-form {
@@ -85,7 +85,7 @@
     border: 1px solid {{$gs->colors == null ? '#f3bd02':$gs->colors}};
 }
 .team_style2 .member_info .overlay2 {
-    background: {{$gs->colors == null ? '#f3bd02':$gs->colors}} none repeat scroll 0 0; 
+    background: {{$gs->colors == null ? '#f3bd02':$gs->colors}} none repeat scroll 0 0;
 }
 .testimonial-wrapper .section-borders span.black-border {background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};}
 .testimonial-wrapper .owl-prev,
@@ -98,7 +98,7 @@
 }
 .boxed-btn.blog {
     background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};
-    border: 1px solid {{$gs->colors == null ? '#f3bd02':$gs->colors}}; 
+    border: 1px solid {{$gs->colors == null ? '#f3bd02':$gs->colors}};
 }
 .boxed-btn.blog:hover {color: {{$gs->colors == null ? '#f3bd02':$gs->colors}}; border-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};}
 
@@ -113,12 +113,12 @@
 .single-all-blogs-box {
     border: 1px solid {{$gs->colors == null ? '#f3bd02':$gs->colors}};
 }
-.comments-form input[type="submit"], 
+.comments-form input[type="submit"],
 .comments-form button[type="submit"]  {
     background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};
     border: 1px solid {{$gs->colors == null ? '#f3bd02':$gs->colors}};
 }
-.comments-form input[type="submit"]:hover, 
+.comments-form input[type="submit"]:hover,
 button[type="submit"]:hover {
     border: 1px solid {{$gs->colors == null ? '#f3bd02':$gs->colors}};
     color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};
@@ -154,28 +154,28 @@ button[type="submit"]:hover {
     background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};
 }
 
-            .pagination>.disabled>a:focus, 
-            .pagination>.disabled>a:hover, 
-            .pagination>.disabled>span, 
-            .pagination>.disabled>span:focus, 
+            .pagination>.disabled>a:focus,
+            .pagination>.disabled>a:hover,
+            .pagination>.disabled>span,
+            .pagination>.disabled>span:focus,
             .pagination>.disabled>span:hover {
                 color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};
             }
 
-            .pagination>.disabled>a, 
-            .pagination>.disabled>a:focus, 
-            .pagination>.disabled>a:hover, 
-            .pagination>.disabled>span, 
-            .pagination>.disabled>span:focus, 
+            .pagination>.disabled>a,
+            .pagination>.disabled>a:focus,
+            .pagination>.disabled>a:hover,
+            .pagination>.disabled>span,
+            .pagination>.disabled>span:focus,
             .pagination>.disabled>span:hover {
                 border-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};
             }
 
-            .pagination>.active>a, 
-            .pagination>.active>a:focus, 
-            .pagination>.active>a:hover, 
-            .pagination>.active>span, 
-            .pagination>.active>span:focus, 
+            .pagination>.active>a,
+            .pagination>.active>a:focus,
+            .pagination>.active>a:hover,
+            .pagination>.active>span,
+            .pagination>.active>span:focus,
             .pagination>.active>span:hover {
                 background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};
                 border-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};
