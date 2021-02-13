@@ -569,6 +569,7 @@
                             {
                                 width: 100% !important;
                                 margin: 5px;
+                                height: 45px;
                             }
 
                             #quote-box button
