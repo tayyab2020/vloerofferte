@@ -148,34 +148,6 @@
         </div>
 
 
-    <div class="header-top-area" style="padding-top: 15px;">
-        <div class="container" style="width: 100%;">
-
-            <div class="row" style="display: flex;">
-
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="top-column-left">
-                        <ul style="display: flex;justify-content: center;">
-                            <li style="display: flex;align-items: center;">
-                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
-                                <span style="vertical-align: inherit;">Jouw <b>betrouwbare</b> partner</span>
-                            </li>
-                            <li style="display: flex;align-items: center;">
-                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
-                                <span style="vertical-align: inherit;">Wij matchen vraag en aanbod <b>transparant</b></span>
-                            </li>
-                            <li style="display: flex;align-items: center;">
-                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
-                                <span style="vertical-align: inherit;">Wij zijn <b>betrokken</b> bij de groei van jouw bedrijf</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
         <div class="header-area-wrapper">
             <div class="container" style="width: 90%;">
                 <div class="row">

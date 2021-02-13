@@ -171,6 +171,34 @@
 
                 <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12" id="quote-con">
 
+                    <div class="header-top-area" style="border-radius: 10px;margin-bottom: 10px;">
+                        <div class="container" style="width: 100%;">
+
+                            <div class="row" style="display: flex;">
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div>
+                                        <ul style="display: flex;justify-content: center;">
+                                            <li style="display: flex;align-items: center;">
+                                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
+                                                <span style="vertical-align: inherit;">Jouw <b>betrouwbare</b> partner</span>
+                                            </li>
+                                            <li style="display: flex;align-items: center;">
+                                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
+                                                <span style="vertical-align: inherit;">Wij matchen vraag en aanbod <b>transparant</b></span>
+                                            </li>
+                                            <li style="display: flex;align-items: center;">
+                                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
+                                                <span style="vertical-align: inherit;">Wij zijn <b>betrokken</b> bij de groei van jouw bedrijf</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                     {{--<h1 style="color: black;">{{$gs->bg_title}}</h1>
                     <p>{!!$gs->bg_text!!}</p>--}}
 
