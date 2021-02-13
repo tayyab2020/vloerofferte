@@ -176,18 +176,18 @@
 
                             <div class="row" style="display: flex;">
 
-                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div style="width: 100%;">
                                     <div>
                                         <ul style="display: flex;justify-content: center;">
-                                            <li style="display: flex;align-items: center;">
+                                            <li class="t-h" style="display: flex;align-items: center;">
                                                 <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
                                                 <span style="vertical-align: inherit;">Jouw <b>betrouwbare</b> partner</span>
                                             </li>
-                                            <li style="display: flex;align-items: center;">
+                                            <li class="c-h" style="display: flex;align-items: center;">
                                                 <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
                                                 <span style="vertical-align: inherit;">Wij matchen vraag en aanbod <b>transparant</b></span>
                                             </li>
-                                            <li style="display: flex;align-items: center;">
+                                            <li class="t-h" style="display: flex;align-items: center;">
                                                 <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
                                                 <span style="vertical-align: inherit;">Wij zijn <b>betrokken</b> bij de groei van jouw bedrijf</span>
                                             </li>
@@ -202,9 +202,18 @@
                     {{--<h1 style="color: black;">{{$gs->bg_title}}</h1>
                     <p>{!!$gs->bg_text!!}</p>--}}
 
-                    <div style="background-color: #febb22;border-radius: 10px;box-shadow: 0px 0px 4px 0px #dbdbdb;">
+                    <style>
+                        .main-form
+                        {
+                            background-color: {{($gs->form_bg == null) ? (($gs->colors == null) ? '#f3bd02 !important;' : $gs->colors.' !important;') : $gs->form_bg. ' !important;' }};
+                            color: {{($gs->form_col != null) ? $gs->form_col. ' !important;' : 'black !important;' }};
+                            border: 1px solid {{($gs->form_ic == null) ? (($gs->colors == null) ? '#f3bd02 !important;' : $gs->colors.' !important;') : $gs->form_ic. ' !important;' }};
+                        }
+                    </style>
 
-                        <h3 style="text-align: center;padding-top: 25px;color: white;text-shadow: 1px 2px 5px #4f4f4f;font-weight: 400;">{{__('text.Fill information for Quotation')}}</h3>
+                    <div class="main-form" style="border-radius: 10px;box-shadow: 0px 0px 4px 0px #dbdbdb;">
+
+                        <h3 class="box-heading" style="text-align: center;padding-top: 25px;color: white;text-shadow: 1px 2px 5px #4f4f4f;font-weight: 400;">{{__('text.Fill information for Quotation')}}</h3>
 
                         <div id="quote-box" style="display: flex;justify-content: space-between;width: 100%;padding: 20px;">
 
@@ -530,8 +539,27 @@
                             border: 1px solid lightgrey;
                         }
 
+                        @media (max-width: 1020px)
+                        {
+                            .t-h
+                            {
+                                display: none !important;
+                            }
+
+                            .c-h
+                            {
+                                border: 0 !important;
+                            }
+                        }
+
                         @media (max-width: 500px)
                         {
+
+                            .box-heading
+                            {
+                                font-size: 20px;
+                            }
+
                             #quote-box
                             {
                                 flex-wrap: wrap;
@@ -539,7 +567,8 @@
 
                             #quote-box div
                             {
-                                width: 30% !important;
+                                width: 100% !important;
+                                margin: 5px;
                             }
 
                             #quote-box button
