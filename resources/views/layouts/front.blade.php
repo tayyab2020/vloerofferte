@@ -190,41 +190,40 @@
                                     <li class="border-line"><a href="{{route('handyman-register')}}">{{$lang->signup_handyman}}</a></li>
                                 @endif
 
-                         @if(Auth::guard('user')->check())
+
+                                @if(Auth::guard('user')->check())
 
                                     @if(Auth::guard('user')->user()->role_id == 2)
 
-                                <li class="menuLi border-line"><a  style="cursor: pointer;">PROFILE <i class="fa fa-angle-down"></i></a>
-                                    <ul class="menuUl">
+                                        <li class="menuLi border-line"><a  style="cursor: pointer;">PROFILE <i class="fa fa-angle-down"></i></a>
+                                            <ul class="menuUl">
 
 
-                                        <li><a href="{{route('user-dashboard')}}">{{$lang->hpt}}</a></li>
+                                                <li><a href="{{route('user-dashboard')}}">{{$lang->hpt}}</a></li>
 
-                                        <li><a href="{{route('user-logout')}}">{{$lang->logout}}</a></li>
-                                    </ul>
-                                </li>
+                                                <li><a href="{{route('user-logout')}}">{{$lang->logout}}</a></li>
+                                            </ul>
+                                        </li>
 
-                                @elseif(Auth::guard('user')->user()->role_id == 3)
+                                    @elseif(Auth::guard('user')->user()->role_id == 3)
 
-                                <li class="menuLi border-line"><a  style="cursor: pointer;">PROFILE <i class="fa fa-angle-down"></i></a>
-                                    <ul class="menuUl">
+                                        <li class="menuLi border-line"><a  style="cursor: pointer;">PROFILE <i class="fa fa-angle-down"></i></a>
+                                            <ul class="menuUl">
 
+                                                <li><a href="{{route('client-dashboard')}}">{{$lang->cpt}}</a></li>
 
-                                        <li><a href="{{route('client-dashboard')}}">{{$lang->cpt}}</a></li>
+                                                <li><a href="{{route('user-logout')}}">{{$lang->logout}}</a></li>
 
-                                        <li><a href="{{route('user-logout')}}">{{$lang->logout}}</a></li>
-
-
-                                    </ul>
-                                </li>
+                                            </ul>
+                                        </li>
 
                                     @endif
-                         @endif
 
-                         <li class="cart-logo border-line" style="height: 35px;padding-top: 0;width: 7%;bottom: 4px;">
+                                @endif
+
+                         {{--<li class="cart-logo border-line" style="height: 35px;padding-top: 0;width: 7%;bottom: 4px;">
 
                          <div class="pulse" id="ex4" style="height: 100%;">
-
 
                          <span class="p1 fa-stack fa-2x has-badge" data-count="{{App\Http\Controllers\FrontendController::getCartCount()}}" style="height: 100%;">
 
@@ -242,7 +241,7 @@
 
                          </div>
 
-                         </li>
+                         </li>--}}
 
 
                          <li style="width: 15%;" class="lang-list">
