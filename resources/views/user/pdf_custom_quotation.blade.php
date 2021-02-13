@@ -2,11 +2,11 @@
 
 @section('content')
 
-    <section class="jumbotron text-center">
+    {{--<section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @elseif($type == 'direct-invoice') {{__('text.Direct Invoice')}} @else {{__('text.Quotation')}} @endif</h1>
         </div>
-    </section>
+    </section>--}}
 
     <div class="container" style="width: 100%;">
         <div class="row">
@@ -23,6 +23,8 @@
                                 <p style="margin: 0">{{$user->address}}<?php if($user->city){ echo ', '.$user->city; } ?></p>
                                 <p style="margin: 0">TEL: {{$user->phone}}</p>
                                 <p style="margin: 0">{{$user->email}}</p>
+                                <br>
+                                <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @elseif($type == 'direct-invoice') {{__('text.Direct Invoice')}} @else {{__('text.Quotation')}} @endif</p>
 
                             </div>
 
