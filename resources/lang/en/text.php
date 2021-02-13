@@ -167,4 +167,7 @@ return [
     'Edit Photo' => 'Edit Photo',
     'Edit Item Photo' => 'Edit Item Photo',
     'Update Item' => 'Update Item',
+    'Your reliable partner' => 'Your reliable partner',
+    'We match supply and demand transparently' => 'We match supply and demand transparently',
+    'We are involved in the growth of your company' => 'We are involved in the growth of your company',
 ];

@@ -99,7 +99,7 @@
     <div id="cover"></div>
 
         <!-- Starting of Header area -->
-        <div class="header-top-area">
+        {{--<div class="header-top-area">
             <div class="container" style="width: 80%;">
 
                 <div class="row" style="display: flex;">
@@ -145,7 +145,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--}}
 
 
         <div class="header-area-wrapper">
@@ -163,20 +163,33 @@
                         <div class="mainmenu">
 
                             <ul id="menuResponsive">
-                                <li class="border-line"><a href="{{route('front.index')}}">{{$lang->home}}</a></li>
-                                <!-- <li class="border-line"><a href="{{route('front.featured')}}">{{$lang->fh}}</a></li> -->
-                                <li class="border-line"><a href="{{route('front.users')}}">{{$lang->h}}</a></li>
+                                <li class="menuLi border-line"><a  style="cursor: pointer;">Menu <i class="fa fa-angle-down"></i></a>
+                                    <ul class="menuUl">
+                                        <li><a href="{{route('front.index')}}">{{$lang->home}}</a></li>
 
-                                @if($ps->a_status == 1)
-                                <li class="border-line"><a href="{{route('front.about')}}">{{$lang->about}}</a></li>
+                                        <li><a href="{{route('front.users')}}">{{$lang->h}}</a></li>
+
+                                        @if($ps->a_status == 1)
+                                            <li><a href="{{route('front.about')}}">{{$lang->about}}</a></li>
+                                        @endif
+
+                                        @if($ps->f_status == 1)
+                                            <li><a href="{{route('front.faq')}}">{{$lang->faq}}</a></li>
+                                        @endif
+
+                                        @if($ps->c_status == 1)
+                                            <li><a href="{{route('front.contact')}}">{{$lang->contact}}</a></li>
+                                        @endif
+                                    </ul>
+                                </li>
+
+                                @if(Auth::guard('user')->check())
+                                @else
+                                    <li class="border-line"><a href="{{route('user-login')}}">{{$lang->signin}}</a></li>
+                                    <li class="border-line"><a href="{{route('user-register')}}">{{$lang->signup}}</a></li>
+                                    <li class="border-line"><a href="{{route('handyman-register')}}">{{$lang->signup_handyman}}</a></li>
                                 @endif
 
-                                @if($ps->f_status == 1)
-                                <li class="border-line"><a href="{{route('front.faq')}}">{{$lang->faq}}</a></li>
-                                @endif
-                                @if($ps->c_status == 1)
-                                <li class="border-line"><a href="{{route('front.contact')}}">{{$lang->contact}}</a></li>
-                                @endif
                          @if(Auth::guard('user')->check())
 
                                     @if(Auth::guard('user')->user()->role_id == 2)

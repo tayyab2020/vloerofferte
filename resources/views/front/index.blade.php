@@ -15,7 +15,7 @@
 @section('content')
 
 
-    <div class="hero-area overlay" style="background-image: url({{asset('assets/images/'.$gs->bgimg)}});z-index: auto;color: black;">
+    <div class="hero-area overlay" style="background-image: url({{asset('assets/images/'.$gs->bgimg)}});z-index: auto;color: black;padding-top: 20px;background-color: #ebebeb;">
 
         @if(Session::has('unsuccess'))
 
@@ -171,33 +171,7 @@
 
                 <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12" id="quote-con">
 
-                    <div class="header-top-area" style="border-radius: 10px;margin-bottom: 10px;">
-                        <div class="container" style="width: 100%;">
-
-                            <div class="row" style="display: flex;">
-
-                                <div style="width: 100%;">
-                                    <div>
-                                        <ul style="display: flex;justify-content: center;">
-                                            <li class="t-h" style="display: flex;align-items: center;">
-                                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
-                                                <span style="vertical-align: inherit;">Jouw <b>betrouwbare</b> partner</span>
-                                            </li>
-                                            <li class="c-h" style="display: flex;align-items: center;">
-                                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
-                                                <span style="vertical-align: inherit;">Wij matchen vraag en aanbod <b>transparant</b></span>
-                                            </li>
-                                            <li class="t-h" style="display: flex;align-items: center;">
-                                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
-                                                <span style="vertical-align: inherit;">Wij zijn <b>betrokken</b> bij de groei van jouw bedrijf</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    <h3 class="box-heading" style="text-align: center;padding-top: 25px;color: black;text-shadow: 1px 2px 5px #4f4f4f;font-weight: 400;">{{__('text.Fill information for Quotation')}}</h3>
 
                     {{--<h1 style="color: black;">{{$gs->bg_title}}</h1>
                     <p>{!!$gs->bg_text!!}</p>--}}
@@ -212,8 +186,6 @@
                     </style>
 
                     <div class="main-form" style="border-radius: 10px;box-shadow: 0px 0px 4px 0px #dbdbdb;">
-
-                        <h3 class="box-heading" style="text-align: center;padding-top: 25px;color: white;text-shadow: 1px 2px 5px #4f4f4f;font-weight: 400;">{{__('text.Fill information for Quotation')}}</h3>
 
                         <div id="quote-box" style="display: flex;justify-content: space-between;width: 100%;padding: 20px;">
 
@@ -269,6 +241,34 @@
 
                             <button href="#myModal" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;" class="btn btn-primary">{{__('text.Search')}}</button>
 
+                        </div>
+                    </div>
+
+                    <div class="header-top-area" style="border-radius: 10px;margin-top: 10px;">
+                        <div class="container" style="width: 100%;">
+
+                            <div class="row" style="display: flex;">
+
+                                <div style="width: 100%;">
+                                    <div>
+                                        <ul style="display: flex;justify-content: center;">
+                                            <li class="t-h" style="display: flex;align-items: center;">
+                                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
+                                                <span style="vertical-align: inherit;">{!! __('text.Your reliable partner') !!}</span>
+                                            </li>
+                                            <li class="c-h" style="display: flex;align-items: center;">
+                                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
+                                                <span style="vertical-align: inherit;">{!! __('text.We match supply and demand transparently') !!}</span>
+                                            </li>
+                                            <li class="t-h" style="display: flex;align-items: center;">
+                                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
+                                                <span style="vertical-align: inherit;">{!! __('text.We are involved in the growth of your company') !!}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 

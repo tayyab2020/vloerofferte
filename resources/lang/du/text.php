@@ -165,4 +165,7 @@ return [
     'Edit Photo' => 'Edit Photo',
     'Edit Item Photo' => 'Edit Item Photo',
     'Update Item' => 'Update Item',
+    'Your reliable partner' => 'Jouw <b>betrouwbare</b> partner',
+    'We match supply and demand transparently' => 'Wij matchen vraag en aanbod <b>transparant</b>',
+    'We are involved in the growth of your company' => 'Wij zijn <b>betrokken</b> bij de groei van jouw bedrijf',
 ];
