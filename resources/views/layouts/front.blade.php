@@ -864,56 +864,52 @@
 
     }
 
-                        .team_style2 .team_common:hover .member_info .next1
-                        {
 
-                            background-color: #f7f7f7;
-
-
-                        }
-
-                        .team_style2 .team_common:hover .member_info .next1 span
-                        {
-
-                            color: black;
+    .team_style2 .team_common:hover .member_info .next1
+    {
+        background-color: #f7f7f7;
+    }
 
 
-                        }
+    .team_style2 .team_common:hover .member_info .next1 span
+    {
+        color: black;
+    }
 
-                        .content1
-                        {
-                            color: black;
-                        }
+    .content1
+    {
+        color: black;
+    }
 
-                        .change1
-                        {
-                            color: black;
-                        }
+    .change1
+    {
+        color: black;
+    }
 
-                        .link1
-                        {
-                            color: black !important;
-                        }
+    .link1
+    {
+        color: black !important;
+    }
 
-                        .mainmenu li a
-                        {
-                            color: <?php if($gs->menu_tx == null) { echo 'black;'; } else { echo $gs->menu_tx. ' !important;'; } ?>;
+    .mainmenu li li a{
+        font-size: 15px;
+    }
 
-                        }
-
-                        .slicknav_nav li a
-                        {
-                            color: <?php if($gs->menu_mobile_tx == null) { echo 'black;'; } else { echo $gs->menu_mobile_tx. ' !important;'; } ?>;
-
-                        }
-
-                        .cl-btn
-                        {
-                            background-color: transparent !important;
-                        }
+    .mainmenu li a
+    {
+        color: <?php if($gs->menu_tx == null) { echo 'black;'; } else { echo $gs->menu_tx. ' !important;'; } ?>;
+    }
 
 
+    .slicknav_nav li a
+    {
+        color: <?php if($gs->menu_mobile_tx == null) { echo 'black;'; } else { echo $gs->menu_mobile_tx. ' !important;'; } ?>;
+    }
 
+    .cl-btn
+    {
+        background-color: transparent !important;
+    }
 
 </style>
 
