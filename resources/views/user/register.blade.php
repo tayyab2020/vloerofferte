@@ -163,6 +163,8 @@
 
         autocomplete.addListener('place_changed', function() {
 
+            var flag = 0;
+
             var place = autocomplete.getPlace();
 
             if (!place.geometry) {
@@ -174,11 +176,21 @@
             }
             else
             {
-                $('#check_address').val(1);
+                var string = $('#address').val().substring(0, $('#address').val().indexOf(',')); //first string before comma
+
+                if(string)
+                {
+                    var is_number = $('#address').val().match(/\d+/);
+
+                    if(is_number === null)
+                    {
+                        flag = 1;
+                    }
+                }
             }
 
             var city = '';
-            var postal_code = ''
+            var postal_code = '';
 
             for(var i=0; i < place.address_components.length; i++)
             {
@@ -209,24 +221,34 @@
 
             if(postal_code == '' || city == '')
             {
+                flag = 1;
+            }
+
+            if(!flag)
+            {
+                $('#check_address').val(1);
+                $("#address-error").remove();
+                $('#postcode').val(postal_code);
+                $("#city").val(city);
+            }
+            else
+            {
                 $('#address').val('');
                 $('#postcode').val('');
                 $("#city").val('');
 
                 $("#address-error").remove();
-                $('#address').parent().parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">Kindly write your full address so system can detect postal code and city from it!</small>');
-            }
-            else
-            {
-                $("#address-error").remove();
-                $('#postcode').val(postal_code);
-                $("#city").val(city);
+                $('#address').parent().parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">Kindly write your full address with house number so system can detect postal code and city from it!</small>');
             }
 
         });
     }
 
     $("#address").on('input',function(e){
+
+        /*var string = $(this).val().substr(0, $(this).val().indexOf(','));
+        console.log(/\d/.test(string));
+        console.log(/^\d/.test(string));*/
         $(this).next('input').val(0);
     });
 

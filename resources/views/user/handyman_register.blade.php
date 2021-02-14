@@ -201,7 +201,7 @@
                 $('#check_address').val(1);
             }
 
-            var postal_code = ''
+            var postal_code = '';
 
             for(var i=0; i < place.address_components.length; i++)
             {
