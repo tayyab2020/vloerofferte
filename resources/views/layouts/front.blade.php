@@ -163,8 +163,8 @@
                         <div class="mainmenu">
 
                             <ul id="menuResponsive">
-                                <li class="menuLi border-line"><a  style="cursor: pointer;">Menu <i class="fa fa-angle-down"></i></a>
-                                    <ul class="menuUl">
+                                <li class="menuLi1 border-line"><a  style="cursor: pointer;">Menu <i class="fa fa-angle-down"></i></a>
+                                    <ul class="menuUl1">
                                         <li><a href="{{route('front.index')}}">{{$lang->home}}</a></li>
 
                                         <li><a href="{{route('front.users')}}">{{$lang->h}}</a></li>
@@ -180,6 +180,7 @@
                                         @if($ps->c_status == 1)
                                             <li><a href="{{route('front.contact')}}">{{$lang->contact}}</a></li>
                                         @endif
+                                        
 
                                         <li style="width: 15%;" class="lang-list">
 
@@ -916,7 +917,7 @@
         <script src="{{ asset('assets/front/js/owl.carousel.min.js') }}"></script>
         <script src="{{ asset('assets/front/js/wow.js') }}"></script>
         <script src="{{ asset('assets/front/js/jquery.slicknav.min.js') }}"></script>
-        <script src="{{ asset('assets/front/js/main.js') }}"></script>
+        <script src="{{ asset('assets/front/js/main.js?v=1') }}"></script>
         {!! $seo->google_analytics !!}
         <script type="text/javascript">
         $(window).load(function(){

@@ -7,9 +7,9 @@
 	   $('#menuResponsive').slicknav({
 		   prependTo: "#mobile-menu-wrap",
 		   allowParentLinks : false,
-		   label: ''	
+		   label: ''
 	   });
-	   
+
 		$(".slicknav_btn").on('click', function() {
 		  if ( $(this).hasClass("slicknav_collapsed")) {
 			$(".slicknav_icon").html('<i class="fa fa-bars"></i>');
@@ -28,11 +28,16 @@
         $('.menuLi').click(function(){
             $('.menuUl').toggle();
         });
-		
+
+        $('.menuUl1').hide();
+        $('.menuLi1').click(function(){
+            $('.menuUl1').toggle();
+        });
+
 
        //-----------Wow js-----------
        new WOW().init();
-		
+
        //-----------testimonial style-10-----------
 	    $(".t_carousel10").owlCarousel({
 	        items: 1,
@@ -66,15 +71,15 @@
 				}
 			}
 		});
-		
+
 
     });
 
 
     jQuery(window).load(function(){
 
-        
+
     });
 
 
-}(jQuery));	
+}(jQuery));
