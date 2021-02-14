@@ -28,6 +28,8 @@
 
                                                     <tr role="row">
 
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending">ID</th>
+
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">@if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-custom-quotations') {{__('text.Quotation Number')}} @else {{__('text.Invoice Number')}} @endif</th>
 
                                                         @if(Route::currentRouteName() != 'client-custom-quotations')
@@ -67,6 +69,8 @@
                                                     @foreach($invoices as $key)
 
                                                         <tr role="row" class="odd">
+
+                                                            <td>{{$key->invoice_id}}</td>
 
                                                             @if(Route::currentRouteName() == 'client-custom-quotations')
 
@@ -1125,6 +1129,7 @@
         });
 
         $('#example').DataTable({
+            order: [[0, 'desc']],
             "oLanguage": {
                 "sLengthMenu": "<?php echo __('text.Show') . ' _MENU_ ' . __('text.records'); ?>",
                 "sSearch": "<?php echo __('text.Search') . ':' ?>",

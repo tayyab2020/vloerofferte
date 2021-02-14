@@ -305,6 +305,7 @@
 
     <script type="text/javascript">
         $('#example').DataTable({
+            order: [[0, 'desc']],
             "oLanguage": {
                 "sLengthMenu": "<?php echo __('text.Show') . ' _MENU_ ' . __('text.records'); ?>",
                 "sSearch": "<?php echo __('text.Search') . ':' ?>",
