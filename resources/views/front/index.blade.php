@@ -55,7 +55,7 @@
 
                 function initMap() {
 
-                    var input = document.getElementById('zipcode');
+                    var input = document.getElementById('quote-zipcode');
 
                     var options = {
                         componentRestrictions: {country: "nl"}
@@ -63,13 +63,12 @@
 
                     var autocomplete = new google.maps.places.Autocomplete(input,options);
 
-
                     // Set the data fields to return when the user selects a place.
-                    autocomplete.setFields(
-                        ['address_components', 'geometry', 'icon', 'name']);
+                    autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
 
 
                     autocomplete.addListener('place_changed', function() {
+
 
                         var place = autocomplete.getPlace();
 
@@ -101,60 +100,7 @@
                             {
                                 if(place.address_components[i].types[0] == 'administrative_area_level_2')
                                 {
-                                    var city = place.address_components[i].long_name;
-                                }
-                            }
-                        }
-
-                    });
-
-                    var input1 = document.getElementById('quote-zipcode');
-
-                    var options1 = {
-                        componentRestrictions: {country: "nl"}
-                    };
-
-                    var autocomplete1 = new google.maps.places.Autocomplete(input1,options1);
-
-                    // Set the data fields to return when the user selects a place.
-                    autocomplete1.setFields(
-                        ['address_components', 'geometry', 'icon', 'name']);
-
-
-                    autocomplete1.addListener('place_changed', function() {
-
-
-                        var place1 = autocomplete1.getPlace();
-
-
-                        if (!place1.geometry) {
-
-                            // User entered the name of a Place that was not suggested and
-                            // pressed the Enter key, or the Place Details request failed.
-                            window.alert("No details available for input: '" + place1.name + "'");
-                            return;
-                        }
-
-                        var city1 = '';
-
-                        for(var i=0; i < place1.address_components.length; i++)
-                        {
-
-                            if(place1.address_components[i].types[0] == 'locality')
-                            {
-                                city1 = place1.address_components[i].long_name;
-                            }
-
-                        }
-
-
-                        if(city1 == '')
-                        {
-                            for(var i=0; i < place1.address_components.length; i++)
-                            {
-                                if(place1.address_components[i].types[0] == 'administrative_area_level_2')
-                                {
-                                    var city1 = place1.address_components[i].long_name;
+                                    city = place.address_components[i].long_name;
 
                                 }
                             }

@@ -24,57 +24,64 @@
                             <form action="{{route('user-register-submit')}}" method="POST">
                               {{csrf_field()}}
                               @include('includes.form-error')
-                              <div class="form-group">
-                                <div class="input-group">
-                                  <div class="input-group-addon">
-                                      <i class="fa fa-user"></i>
-                                  </div>
-                                  <input name="name" class="form-control" placeholder="{{$lang->suf}}" type="text" value="{{ old('name') }}">
+
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        <input name="name" class="form-control" placeholder="{{$lang->suf}}" type="text" value="{{ old('name') }}">
+                                    </div>
                                 </div>
-                              </div>
+
+
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        <input name="family_name" class="form-control" placeholder="{{$lang->fn}}" type="text" value="{{ old('family_name') }}">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        <input name="business_name" class="form-control" placeholder="{{$lang->bn}}" type="text" value="{{ old('business_name') }}">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        <input name="address" id="address" class="form-control" placeholder="{{$lang->ad}}" type="text" value="{{ old('address') }}">
+                                        <input type="hidden" id="check_address" value="0">
+                                    </div>
+                                </div>
+
 
                               <div class="form-group">
                                 <div class="input-group">
                                   <div class="input-group-addon">
                                       <i class="fa fa-user"></i>
                                   </div>
-                                  <input name="family_name" class="form-control" placeholder="{{$lang->fn}}" type="text" value="{{ old('family_name') }}">
+                                  <input name="postcode" id="postcode" readonly class="form-control" placeholder="{{$lang->pc}}" type="text" value="{{ old('postcode') }}">
                                 </div>
                               </div>
+
 
                               <div class="form-group">
                                 <div class="input-group">
                                   <div class="input-group-addon">
                                       <i class="fa fa-user"></i>
                                   </div>
-                                  <input name="business_name" class="form-control" placeholder="{{$lang->bn}}" type="text" value="{{ old('business_name') }}">
-                                </div>
-                              </div>
-
-                              <div class="form-group">
-                                <div class="input-group">
-                                  <div class="input-group-addon">
-                                      <i class="fa fa-user"></i>
-                                  </div>
-                                  <input name="postcode" class="form-control" placeholder="{{$lang->pc}}" type="text" value="{{ old('postcode') }}">
-                                </div>
-                              </div>
-
-                              <div class="form-group">
-                                <div class="input-group">
-                                  <div class="input-group-addon">
-                                      <i class="fa fa-user"></i>
-                                  </div>
-                                  <input name="address" class="form-control" placeholder="{{$lang->ad}}" type="text" value="{{ old('address') }}">
-                                </div>
-                              </div>
-
-                              <div class="form-group">
-                                <div class="input-group">
-                                  <div class="input-group-addon">
-                                      <i class="fa fa-user"></i>
-                                  </div>
-                                  <input name="city" class="form-control" placeholder="{{$lang->ct}}" type="text" value="{{ old('city') }}">
+                                  <input name="city" id="city" class="form-control" placeholder="{{$lang->ct}}" readonly type="text" value="{{ old('city') }}">
                                 </div>
                               </div>
 
@@ -136,4 +143,104 @@
                 </div>
             </div>
         </section>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
+
+<script type="text/javascript">
+
+    function initMap() {
+
+        var input = document.getElementById('address');
+
+        var options = {
+            componentRestrictions: {country: "nl"}
+        };
+
+        var autocomplete = new google.maps.places.Autocomplete(input,options);
+
+        // Set the data fields to return when the user selects a place.
+        autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
+
+        autocomplete.addListener('place_changed', function() {
+
+            var place = autocomplete.getPlace();
+
+            if (!place.geometry) {
+
+                // User entered the name of a Place that was not suggested and
+                // pressed the Enter key, or the Place Details request failed.
+                window.alert("No details available for input: '" + place.name + "'");
+                return;
+            }
+            else
+            {
+                $('#check_address').val(1);
+            }
+
+            var city = '';
+            var postal_code = ''
+
+            for(var i=0; i < place.address_components.length; i++)
+            {
+                if(place.address_components[i].types[0] == 'postal_code')
+                {
+                    postal_code = place.address_components[i].long_name;
+                }
+
+                if(place.address_components[i].types[0] == 'locality')
+                {
+                    city = place.address_components[i].long_name;
+                }
+
+            }
+
+
+            if(city == '')
+            {
+                for(var i=0; i < place.address_components.length; i++)
+                {
+                    if(place.address_components[i].types[0] == 'administrative_area_level_2')
+                    {
+                        city = place.address_components[i].long_name;
+
+                    }
+                }
+            }
+
+            if(postal_code == '' || city == '')
+            {
+                $('#address').val('');
+                $('#postcode').val('');
+                $("#city").val('');
+
+                $("#address-error").remove();
+                $('#address').parent().parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">Kindly write your full address so system can detect postal code and city from it!</small>');
+            }
+            else
+            {
+                $("#address-error").remove();
+                $('#postcode').val(postal_code);
+                $("#city").val(city);
+            }
+
+        });
+    }
+
+    $("#address").on('input',function(e){
+        $(this).next('input').val(0);
+    });
+
+    $("#address").focusout(function(){
+
+        var check = $(this).next('input').val();
+
+        if(check == 0)
+        {
+            $(this).val('');
+            $('#postcode').val('');
+            $("#city").val('');
+        }
+    });
+
+</script>
 @endsection
