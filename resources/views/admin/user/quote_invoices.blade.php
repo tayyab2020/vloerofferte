@@ -37,6 +37,8 @@
 
                                                     <tr role="row">
 
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending">ID</th>
+
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">@if(Route::currentRouteName() == 'handyman-quotations') Quotation Number @else Invoice Number @endif</th>
 
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">Request Number</th>
@@ -70,6 +72,8 @@
                                                     @foreach($invoices as $key)
 
                                                         <tr role="row" class="odd">
+
+                                                            <td>{{$key->invoice_id}}</td>
 
                                                             <td style="outline: none;">@if(Route::currentRouteName() == 'handyman-quotations') <input @if($key->approved || $key->status >= 2) disabled @endif style="margin: 10px 10px;position: relative;top: 2px;" type="checkbox" name="action[]" value="{{$key->invoice_id}}" class="action"> @endif <a href="{{ url('/logstof/view-quotation/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'handyman-quotations') QUO# @else INV# @endif {{$key->quotation_invoice_number}}</a></td>
 
@@ -408,7 +412,7 @@
 
     <script type="text/javascript">
         $('#example').DataTable({
-            order: []
+            order: [[0, 'desc']],
         });
 
         $(document).ready(function() {
