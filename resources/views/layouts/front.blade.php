@@ -202,9 +202,9 @@
 
                                                             <ul class="dropdown-menu inner selectpicker" role="menu">
 
-                                                                <li rel="0" class="selected"><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="eng"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+                                                                <li rel="0" class="selected"><a href="#" tabindex="0" class="" style="color: black !important;" onclick="formSubmit(this)" data-value="eng"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
 
-                                                                <li rel="1" ><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+                                                                <li rel="1" ><a href="#" tabindex="0" class="" style="color: black !important;" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
                                                             </ul>
 
                                                         </div>
@@ -220,9 +220,9 @@
 
                                                             <ul class="dropdown-menu inner selectpicker" role="menu">
 
-                                                                <li rel="0"><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="eng"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+                                                                <li rel="0"><a href="#" tabindex="0" class="" style="color: black !important;" onclick="formSubmit(this)" data-value="eng"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
 
-                                                                <li rel="1" class="selected"><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+                                                                <li rel="1" class="selected"><a href="#" tabindex="0" class="color: black !important;" style="" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
                                                             </ul>
 
                                                         </div>
@@ -309,9 +309,11 @@
 
 <script type="text/javascript">
 
-    $(".lang-list").mouseover(function(){
+    $(document).on( 'mouseover', '.lang-list', function(){
         $(this).find('.bootstrap-select').addClass('open');
-    });
+    } );
+
+
 
     function formSubmit(e)
     {
