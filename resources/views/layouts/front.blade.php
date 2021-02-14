@@ -202,7 +202,7 @@
 
                                 @endif
 
-                                    <li class="menuLi1 border-line"><a  style="cursor: pointer;">Menu <i class="fa fa-angle-down"></i></a>
+                                    <li class="menuLi1 border-line"><a style="cursor: pointer;">Menu <i class="fa fa-angle-down"></i></a>
                                         <ul class="menuUl1" style="left: -100px;">
                                             <li><a href="{{route('front.index')}}">{{$lang->home}}</a></li>
 
@@ -326,220 +326,217 @@
     }
 </script>
 
+    <!-- Ending of Header area -->
 
-        <!-- Ending of Header area -->
+    <style type="text/css">
 
-        <style type="text/css">
+        .slicknav_btn
+        {
+            width: 35px;
+            display: flex;
+            justify-content: center;
+        }
 
-            .slicknav_btn
-            {
-                width: 35px;
-                display: flex;
-                justify-content: center;
+        .slicknav_menu .slicknav_icon
+        {
+            height: auto;
+            width: auto;
+        }
+
+        button
+        {
+            outline: none !important;
+        }
+
+        .bootstrap-select .dropdown-menu
+        {
+            padding: 0 !important;
+            min-width: auto !important;
+            margin: 0;
+        }
+
+        .selected
+        {
+            background-color: #ececec;
+            padding: 10px !important;
+        }
+
+        @media only screen and (max-width: 1390px){
+
+            .container{
+
+                width: 100% !important;
+
+
+            }
+        }
+
+        @media only screen and (max-width: 1225px){
+
+            .lang-list{
+
+                width: 98% !important;
             }
 
-            .slicknav_menu .slicknav_icon
-            {
-                height: auto;
-                width: auto;
+            .mainmenu{
+
+                display: none;
+
+
             }
 
-            button
+            .new_cart
             {
-                outline: none !important;
+                display: inline-block !important;
+            }
+
+
+            .logo
+            {
+                position: absolute;
+                color: #fff;
+                top: -20px;
+                right: 17px;
+            }
+
+            .logo img
+            {
+                height: 50px !important;
+            }
+
+            #logo-div
+            {
+                width: 100%;
+            }
+
+            .border-line
+            {
+                width: 98% !important;
+            }
+
+            .cart-logo div span a i
+            {
+                font-size: 24px !important;
+                line-height: 0.7 !important;
+            }
+
+            .header-area-wrapper{
+
+                padding: 30px 0;
+            }
+
+            .slicknav_menu{
+
+                display: block;
+                background-color: transparent;
+                position: absolute;
+                left: 0;
+                top: -12px;
+                z-index: 99;
+                width: 100%;
+            }
+
+
+
+            .language-select
+            {
+
+                width: 100% !important;
+                text-align: center;
+                margin-top: 25px !important;
+            }
+
+            .bootstrap-select.fit-width
+            {
+                width: auto !important;
             }
 
             .bootstrap-select .dropdown-menu
             {
-                padding: 0 !important;
-                min-width: auto !important;
-                margin: 0;
+                position: relative;
             }
 
-            .selected
+
+        }
+
+
+        @media only screen and (max-width: 1100px){
+
+            .top-social-links li
             {
-                background-color: #ececec;
-                padding: 10px !important;
+                padding-top: 8px !important;
+                padding-bottom: 8px !important;
             }
 
-            @media only screen and (max-width: 1390px){
+        }
 
-                .container{
+        .bootstrap-select
+        {
+            margin-bottom: 0px !important;
+        }
 
-                    width: 100% !important;
+        .lang-form .bootstrap-select .selectpicker
+        {
+            background-color: white !important;
+            color: inherit !important;
+            margin: 0;
+            text-transform: inherit;
+            white-space: nowrap;
+            border: 1px solid;
+            box-shadow: none;
+            border-color: #ccc !important;
+            font-size: 14px;
+            padding: 6px 12px;
+            padding-right: 25px;
+            border-radius: 4px;
+            width: auto;
+        }
 
+        @media (min-width: 1200px){
 
-                }
+            .col-lg-4
+            {
+                width: 25%;
             }
+        }
 
-            @media only screen and (max-width: 1225px){
+        @media (min-width: 1200px){
 
-                .lang-list{
-
-                    width: 98% !important;
-                }
-
-                .mainmenu{
-
-                    display: none;
-
-
-                }
-
-                .new_cart
-                {
-                    display: inline-block !important;
-                }
-
-
-                .logo
-                {
-                    position: absolute;
-                    color: #fff;
-                    top: -20px;
-                    right: 17px;
-                }
-
-                .logo img
-                {
-                    height: 50px !important;
-                }
-
-                #logo-div
-                {
-                    width: 100%;
-                }
-
-                .border-line
-                {
-                    width: 98% !important;
-                }
-
-                .cart-logo div span a i
-                {
-                    font-size: 24px !important;
-                    line-height: 0.7 !important;
-                }
-
-                .header-area-wrapper{
-
-                    padding: 30px 0;
-                }
-
-                .slicknav_menu{
-
-                    display: block;
-                    background-color: transparent;
-                    position: absolute;
-                    left: 0;
-                    top: -12px;
-                    z-index: 99;
-                    width: 100%;
-                }
-
-
-
-                .language-select
-                {
-
-                    width: 100% !important;
-                    text-align: center;
-                    margin-top: 25px !important;
-                }
-
-                .bootstrap-select.fit-width
-                {
-                    width: auto !important;
-                }
-
-                .bootstrap-select .dropdown-menu
-                {
-                    position: relative;
-                }
-
-
+            .col-lg-8
+            {
+                width: 75%;
             }
+        }
 
 
-            @media only screen and (max-width: 1100px){
+        .pulse .p1[data-count]:after{
+            position:absolute;
+            right:5%;
+            top:-25%;
+            content: attr(data-count);
+            font-size:40%;
+            padding:.2em;
+            border-radius:50%;
+            line-height:1em;
+            color: white;
+            background:rgba(255,0,0,.85);
+            text-align:center;
+            min-width: 1.5em;
+        //font-weight:bold;
+        }
 
-                .top-social-links li
-                {
-                    padding-top: 8px !important;
-                    padding-bottom: 8px !important;
-                }
+        /***** Pulse *****/
 
+        .pulse span:hover{
+            animation: pulse 1s;
+            animation-timing-function: linear;
+        }
 
-            }
-
-            .bootstrap-select
-    {
-        margin-bottom: 0px !important;
-    }
-
-    .lang-form .bootstrap-select .selectpicker
-    {
-        background-color: white !important;
-        color: inherit !important;
-        margin: 0;
-        text-transform: inherit;
-        white-space: nowrap;
-        border: 1px solid;
-        box-shadow: none;
-        border-color: #ccc !important;
-        font-size: 14px;
-        padding: 6px 12px;
-        padding-right: 25px;
-        border-radius: 4px;
-        width: auto;
-    }
-
-            @media (min-width: 1200px){
-
-                    .col-lg-4
-                    {
-                        width: 25%;
-                    }
-                }
-
-                @media (min-width: 1200px){
-
-                    .col-lg-8
-                    {
-                        width: 75%;
-                    }
-                }
-
-
-            .pulse .p1[data-count]:after{
-  position:absolute;
-  right:5%;
-  top:-25%;
-  content: attr(data-count);
-  font-size:40%;
-  padding:.2em;
-  border-radius:50%;
-  line-height:1em;
-  color: white;
-  background:rgba(255,0,0,.85);
-  text-align:center;
-  min-width: 1.5em;
-  //font-weight:bold;
-}
-
-/***** Pulse *****/
-
-.pulse span:hover{
-  animation: pulse 1s;
-  animation-timing-function: linear;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(2.1);
-  100% { transform: scale(2); }
-  }
-}
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(2.1); }
+            100% { transform: scale(2); }
+        }
 
         </style>
 

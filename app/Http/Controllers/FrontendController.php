@@ -1215,7 +1215,7 @@ class FrontendController extends Controller
                     ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
             });
 
-            Session::flash('success', __('text.Your Quotation request has been created successfully!'));
+            /*Session::flash('success', __('text.Your Quotation request has been created successfully!'));*/
             return redirect()->back();
         }
 

@@ -171,7 +171,7 @@
 
                 <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12" id="quote-con">
 
-                    <h3 class="box-heading" style="text-align: center;padding-top: 25px;color: black;text-shadow: 1px 2px 5px #4f4f4f;font-weight: 400;">{{__('text.Fill information for Quotation')}}</h3>
+                    <h3 class="box-heading" style="text-align: center;padding-top: 25px;color: black;/*text-shadow: 1px 2px 5px #4f4f4f;*/font-weight: 500;">{{__('text.Fill information for Quotation')}}</h3>
 
                     {{--<h1 style="color: black;">{{$gs->bg_title}}</h1>
                     <p>{!!$gs->bg_text!!}</p>--}}
@@ -425,11 +425,18 @@
                                                     <label>{{__('text.Contact Number')}} <span style="color: red;">*</span></label>
                                                     <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_contact" class="form-control quote_validation" placeholder="{{__('text.Enter Contact Number')}}" autocomplete="off">
 
-                                                    <small style="text-align: center;display: block;width: 95%;margin: auto;">{{__('text.Your details will be used to create a job post, so that you can monitor and manage the job you\'ve posted.')}}</small>
+                                                    <div>
+
+                                                        <label style="align-items: flex-start;font-size: 12px;padding-left: 25px;margin-bottom: 0;" class="container-checkbox terms">{{__('text.Your details will be used to create a job post, so that you can monitor and manage the job you\'ve posted.')}}
+                                                            <input name="permission" class="permission_validation" type="checkbox" value="1">
+                                                            <span style="top: 7px;width: 15px;height: 15px;border: 1px solid #8d8d8d;" class="checkmark-checkbox permission-checkbox"></span>
+                                                        </label>
+
+                                                    </div>
 
                                                     <br>
 
-                                                    <small style="text-align: center;display: block;width: 80%;margin: auto;">{{__('text.By pressing Get Quotes you agree to the')}} <a href="#">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}</small>
+                                                    <small style="text-align: center;display: block;width: 80%;margin: auto;margin-bottom: 10px;">{{__('text.By pressing Get Quotes you agree to the')}} <a href="#">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}</small>
 
                                                 </div>
                                                 <div style="width: 100%;position: relative;height: 2rem;bottom: 1rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
@@ -453,6 +460,12 @@
                     </div>
 
                     <style>
+
+                        .terms .checkmark-checkbox:after
+                        {
+                            left: 4px !important;
+                            top: 1.5px !important;
+                        }
 
                         .container-checkbox {
                             display: flex;
@@ -903,6 +916,19 @@
                 var validation = $('.tab-content').find('.active').find('.quote_validation');
 
                 var flag = 0;
+
+                if($('.tab-content').find('.active').find('.permission_validation').length > 0)
+                {
+                    if($('.tab-content').find('.active').find('.permission_validation:checked').length < 1)
+                    {
+                        $('.permission-checkbox').css('border','1px solid red');
+                        flag = 1;
+                    }
+                    else
+                    {
+                        $('.permission-checkbox').css('border','');
+                    }
+                }
 
                 $(validation).each(function(){
 

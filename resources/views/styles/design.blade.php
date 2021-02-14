@@ -56,6 +56,7 @@
 }
 
 .mainmenu li ul {
+    border: 1px solid #e1e1e1;
     border-top: 3px solid {{$gs->colors == null ? '#f3bd02':$gs->colors}};
 }
 .mainmenu li ul li {
