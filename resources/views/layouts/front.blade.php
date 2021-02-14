@@ -180,14 +180,13 @@
                                         @if($ps->c_status == 1)
                                             <li><a href="{{route('front.contact')}}">{{$lang->contact}}</a></li>
                                         @endif
-                                        
+
 
                                         <li style="width: 15%;" class="lang-list">
 
                                             <form method="post" action="{{route('lang.change')}}" id="lang-form" class="lang-form">
 
                                                 {{csrf_field()}}
-
 
                                                 <input type="hidden" class="lang_select" value="{{$lang->lang}}" name="lang_select">
 
@@ -309,6 +308,10 @@
 
 
 <script type="text/javascript">
+
+    $(".lang-list").mouseover(function(){
+        $(this).find('.bootstrap-select').addClass('open');
+    });
 
     function formSubmit(e)
     {
