@@ -180,6 +180,60 @@
                                         @if($ps->c_status == 1)
                                             <li><a href="{{route('front.contact')}}">{{$lang->contact}}</a></li>
                                         @endif
+
+                                        <li style="width: 15%;" class="lang-list">
+
+                                            <form method="post" action="{{route('lang.change')}}" id="lang-form" class="lang-form">
+
+                                                {{csrf_field()}}
+
+
+                                                <input type="hidden" class="lang_select" value="{{$lang->lang}}" name="lang_select">
+
+                                                <div class="btn-group bootstrap-select fit-width">
+
+                                                    @if($lang->lang == 'eng')
+
+                                                        <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" title="English">
+
+                                                            <span class="filter-option pull-left"><span class="flag-icon flag-icon-nl"></span> English</span>&nbsp;<span class="caret"></span></button>
+
+                                                        <div class="dropdown-menu open">
+
+                                                            <ul class="dropdown-menu inner selectpicker" role="menu">
+
+                                                                <li rel="0" class="selected"><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="eng"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+
+                                                                <li rel="1" ><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+                                                            </ul>
+
+                                                        </div>
+
+
+                                                    @elseif($lang->lang == 'du')
+
+                                                        <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" title="Nederlands">
+
+                                                            <span class="filter-option pull-left"><span class="flag-icon flag-icon-nl"></span> Nederlands</span>&nbsp;<span class="caret"></span></button>
+
+                                                        <div class="dropdown-menu open">
+
+                                                            <ul class="dropdown-menu inner selectpicker" role="menu">
+
+                                                                <li rel="0"><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="eng"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+
+                                                                <li rel="1" class="selected"><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
+                                                            </ul>
+
+                                                        </div>
+
+                                                    @endif
+
+                                                </div>
+
+                                            </form>
+
+                                        </li>
                                     </ul>
                                 </li>
 
@@ -243,60 +297,6 @@
 
                          </li>--}}
 
-
-                         <li style="width: 15%;" class="lang-list">
-
-                            <form method="post" action="{{route('lang.change')}}" id="lang-form" class="lang-form">
-
-                                {{csrf_field()}}
-
-
-                                <input type="hidden" class="lang_select" value="{{$lang->lang}}" name="lang_select">
-
-                                <div class="btn-group bootstrap-select fit-width">
-
-                                    @if($lang->lang == 'eng')
-
-                                        <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" title="English">
-
-                                            <span class="filter-option pull-left"><span class="flag-icon flag-icon-nl"></span> English</span>&nbsp;<span class="caret"></span></button>
-
-                                        <div class="dropdown-menu open">
-
-                                            <ul class="dropdown-menu inner selectpicker" role="menu">
-
-                                                <li rel="0" class="selected"><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="eng"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
-
-                                                <li rel="1" ><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
-                                            </ul>
-
-                                        </div>
-
-
-                            @elseif($lang->lang == 'du')
-
-                            <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" title="Nederlands">
-
-                                <span class="filter-option pull-left"><span class="flag-icon flag-icon-nl"></span> Nederlands</span>&nbsp;<span class="caret"></span></button>
-
-                                <div class="dropdown-menu open">
-
-                                    <ul class="dropdown-menu inner selectpicker" role="menu">
-
-                                        <li rel="0"><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="eng"><span class="flag-icon flag-icon-us"></span> English<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
-
-                                        <li rel="1" class="selected"><a href="#" tabindex="0" class="" style="" onclick="formSubmit(this)" data-value="du"><span class="flag-icon flag-icon-nl"></span> Nederlands<i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a></li>
-                                    </ul>
-
-                                    </div>
-
-                            @endif
-
-                            </div>
-
-                        </form>
-
-                                </li>
 
                             </ul>
 

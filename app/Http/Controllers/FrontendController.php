@@ -821,6 +821,7 @@ class FrontendController extends Controller
 
     public function users()
     {
+        exit();
         $cats = Category::all();
         $users = User::where('active', '=', 1)->orderBy('created_at', 'desc')->paginate(8);
         $userss = User::all();
@@ -1094,7 +1095,7 @@ class FrontendController extends Controller
         if ($request->quote_id) {
             $quote = quotes::where('id', $request->quote_id)->update(['quote_service' => $request->quote_service, 'quote_zipcode' => $request->quote_zipcode, 'quote_work' => $request->quote_work, 'quote_when' => $request->quote_when, 'quote_budget' => $request->quote_budget, 'quote_job' => $request->quote_job, 'quote_status' => $request->quote_status, 'quote_description' => $request->quote_description, 'quote_name' => $request->quote_name, 'quote_familyname' => $request->quote_familyname, 'quote_email' => $request->quote_email, 'quote_contact' => $request->quote_contact]);
 
-            Session::flash('success', 'Your Quotation request has been updated successfully!');
+            Session::flash('success', __('text.Your Quotation request has been updated successfully!'));
             return redirect()->back();
         } else {
 
@@ -1121,7 +1122,7 @@ class FrontendController extends Controller
 
             if ($check) {
                 if ($check->role_id == 2) {
-                    Session::flash('unsuccess', 'Email address is already in use for a handyman account!');
+                    Session::flash('unsuccess', __('text.Email address is already in use for a handyman account!'));
                     return redirect()->back();
                 }
 
@@ -1214,7 +1215,7 @@ class FrontendController extends Controller
                     ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
             });
 
-            Session::flash('success', 'Your Quotation request has been created successfully!');
+            Session::flash('success', __('text.Your Quotation request has been created successfully!'));
             return redirect()->back();
         }
 

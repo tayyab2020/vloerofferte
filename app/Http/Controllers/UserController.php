@@ -157,9 +157,9 @@ class UserController extends Controller
         $user_role = $user->role_id;
 
         if ($id) {
-            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotation_invoices.handyman_id', $user_id)->where('quotation_invoices.quote_id', $id)->where('quotation_invoices.invoice', 0)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.id as invoice_id', 'quotation_invoices.invoice', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'users.name', 'users.family_name')->get();
+            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotation_invoices.handyman_id', $user_id)->where('quotation_invoices.quote_id', $id)->where('quotation_invoices.invoice', 0)->orderBy('quotation_invoices.id', 'desc')->select('quotes.*', 'quotation_invoices.id as invoice_id', 'quotation_invoices.invoice', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'users.name', 'users.family_name')->get();
         } else {
-            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotation_invoices.handyman_id', $user_id)->where('quotation_invoices.invoice', 0)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.id as invoice_id', 'quotation_invoices.invoice', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'users.name', 'users.family_name')->get();
+            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotation_invoices.handyman_id', $user_id)->where('quotation_invoices.invoice', 0)->orderBy('quotation_invoices.id', 'desc')->select('quotes.*', 'quotation_invoices.id as invoice_id', 'quotation_invoices.invoice', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'users.name', 'users.family_name')->get();
         }
 
         return view('user.quote_invoices', compact('invoices'));
@@ -1066,7 +1066,7 @@ class UserController extends Controller
                 });
 
 
-            Session::flash('success', 'Quotation has been created successfully!');
+            Session::flash('success', __('text.Quotation has been created successfully!'));
             return redirect()->route('handyman-quotation-requests');
         } elseif ($name == 'update-quotation') {
             $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.id', $request->quote_id)->select('quotes.*', 'categories.cat_name')->first();
@@ -1168,7 +1168,7 @@ class UserController extends Controller
                 });
 
 
-            Session::flash('success', 'Quotation has been edited and sent to client successfully!');
+            Session::flash('success', __('text.Quotation has been edited and sent to client successfully!'));
             return redirect()->route('handyman-quotation-requests');
 
         } else {
@@ -1317,7 +1317,7 @@ class UserController extends Controller
             });
 
 
-        Session::flash('success', 'Quotation has been sent to customer');
+        Session::flash('success', __('text.Quotation has been sent to customer'));
         return redirect()->route('customer-quotations');
 
     }
@@ -1407,7 +1407,7 @@ class UserController extends Controller
                 });*/
 
 
-            Session::flash('success', 'Quotation has been created successfully!');
+            Session::flash('success', __('text.Quotation has been created successfully!'));
             return redirect()->route('customer-quotations');
         } elseif ($name == 'store-direct-invoice') {
 
@@ -1506,7 +1506,7 @@ class UserController extends Controller
                 });
 
 
-            Session::flash('success', 'Direct invoice has been created successfully!');
+            Session::flash('success', __('text.Direct invoice has been created successfully!'));
             return redirect()->route('customer-invoices');
         } elseif ($name == 'update-custom-quotation') {
 
@@ -1601,7 +1601,7 @@ class UserController extends Controller
                 });*/
 
 
-            Session::flash('success', 'Quotation has been edited and sent to client successfully!');
+            Session::flash('success', __('text.Quotation has been edited and sent to client successfully!'));
             return redirect()->route('customer-quotations');
 
         } else {
@@ -2864,7 +2864,7 @@ class UserController extends Controller
             $post->model_number = $request->model_number;
             $post->save();
 
-            Session::flash('success', 'Product edited successfully.');
+            Session::flash('success', __('text.Product edited successfully.'));
         }
         else
         {
@@ -2880,7 +2880,7 @@ class UserController extends Controller
                 $post->save();
             }
 
-            Session::flash('success', 'New Product(s) added successfully.');
+            Session::flash('success', __('text.New Product(s) added successfully.'));
         }
 
         return redirect()->route('user-products');
@@ -2891,7 +2891,7 @@ class UserController extends Controller
         $my_product = handyman_products::findOrFail($id);
 
         $my_product->delete();
-        Session::flash('success', 'Product deleted successfully.');
+        Session::flash('success', __('text.Product deleted successfully.'));
         return redirect()->back();
     }
 
@@ -2934,7 +2934,7 @@ class UserController extends Controller
         $item->save();
 
 
-        Session::flash('success', 'Item added successfully.');
+        Session::flash('success', __('text.Item added successfully.'));
         return redirect()->route('user-items');
     }
 
@@ -2976,7 +2976,7 @@ class UserController extends Controller
 
         $item = items::where('id', $id)->update(['cat_name' => $request->item, 'photo' => $input['photo'], 'description' => $request->description, 'rate' => str_replace(",",".",$request->rate)]);
 
-        Session::flash('success', 'Item updated successfully.');
+        Session::flash('success', __('text.Item updated successfully.'));
         return redirect()->route('user-items');
     }
 
@@ -2992,7 +2992,7 @@ class UserController extends Controller
 
         unlink(public_path() . '/assets/item_images/' . $item->photo);
         $item->delete();
-        Session::flash('success', 'Item deleted successfully.');
+        Session::flash('success', __('text.Item deleted successfully.'));
         return redirect()->route('user-items');
     }
 
