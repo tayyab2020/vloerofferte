@@ -71,7 +71,7 @@
                                 <p class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
                                 <p class="mb-1 m-rest">{{__('text.Created at')}}: {{$date}}</p>
                                 <p class="mb-1 m-rest">{{__('text.Requested Quote Number')}}: {{$requested_quote_number}}</p>
-                                <p class="mb-1 m-rest">{{__('text.Zipcode')}}: {{$quote->quote_zipcode}}</p>
+                                <p class="mb-1 m-rest">{{__('text.Delivery Address')}}: {{$quote->quote_zipcode}}</p>
                                 <br>
                                 <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @else {{__('text.Quotation')}} @endif</p>
                             </div>

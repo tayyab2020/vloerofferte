@@ -186,4 +186,5 @@ return [
     'Quotation has been edited and sent to client successfully!' => 'Quotation has been edited and sent to client successfully!',
     'Quotation has been sent to customer' => 'Quotation has been sent to customer',
     'Direct invoice has been created successfully!' => 'Direct invoice has been created successfully!',
+    'Delivery Address' => 'Delivery Address',
 ];
