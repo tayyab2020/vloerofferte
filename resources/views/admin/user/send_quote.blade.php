@@ -33,7 +33,7 @@
                                             </div>
                                         </div>
 
-                                        @if($handymen_array)
+                                        @if($handymen)
 
                                         <div class="form-group" style="margin: 30px 0px;overflow-y: auto;">
 
