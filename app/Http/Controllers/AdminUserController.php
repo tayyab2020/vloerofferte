@@ -355,6 +355,8 @@ class AdminUserController extends Controller
 
             }
 
+            $handymen = $handymen->sortBy('distance');
+
         }
 
         else
