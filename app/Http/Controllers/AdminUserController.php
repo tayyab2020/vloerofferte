@@ -363,7 +363,7 @@ class AdminUserController extends Controller
             return redirect()->back();
         }
 
-        return view('admin.user.send_quote',compact('request','handymen','array1','history'));
+        return view('admin.user.send_quote',compact('request','handymen','history'));
     }
 
 
