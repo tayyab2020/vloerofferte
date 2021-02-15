@@ -565,31 +565,13 @@ class AdminUserController extends Controller
 
         $user = users::where('id',$user_id)->first();
 
-        /*if($input['photo'])
-        {
-            $old_path =  public_path().'/assets/temporary_images/'. $input['photo'];
-
-            $new_path =  public_path().'/assets/images/'. $input['photo'];
-
-            $move = File::move($old_path, $new_path);
-
-            if($user->photo != null)
-                {
-                    \File::delete(public_path() .'/assets/images/'.$user->photo);
-                }
-        }
-        else
-        {
-
-            $input['photo'] = $user->photo;
-
-        }*/
-
         $input['photo'] = $user->photo;
 
-        $update = users::where('id',$user_id)->update(['name' => $input['name'], 'family_name' => $input['family_name'], 'photo' => $input['photo'], 'description' => $input['description'], 'language' => $input['language'], 'education' => $input['education'], 'profession' => $input['profession'], 'city' => $input['city'], 'address' => $input['address'], 'phone' => $input['phone'],  'web' => $input['web'], 'special' => $input['special'], 'registration_number' => $input['registration_number'], 'company_name' => $input['company_name'], 'tax_number' => $input['tax_number'], 'bank_account' => $input['bank_account'], 'postcode' => $input['postcode'] ]);
+        users::where('id',$user_id)->update(['name' => $input['name'], 'family_name' => $input['family_name'], 'photo' => $input['photo'], 'description' => $input['description'], 'language' => $input['language'], 'education' => $input['education'], 'profession' => $input['profession'], 'city' => $input['city'], 'address' => $input['address'], 'phone' => $input['phone'],  'web' => $input['web'], 'special' => $input['special'], 'registration_number' => $input['registration_number'], 'company_name' => $input['company_name'], 'tax_number' => $input['tax_number'], 'bank_account' => $input['bank_account'], 'postcode' => $input['postcode'] ]);
 
-        $delete = handyman_temporary::where('handyman_id',$user_id)->delete();
+        handyman_terminals::where('handyman_id',$user_id)->update(['latitude' => $input['latitude'], 'longitude' => $input['longitude'], 'zipcode' => $input['postcode'], 'city' => $input['city']]);
+
+        handyman_temporary::where('handyman_id',$user_id)->delete();
 
         $user = User::findOrFail($user_id);
 

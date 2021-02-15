@@ -238,17 +238,13 @@
                 $("#city").val('');
 
                 $("#address-error").remove();
-                $('#address').parent().parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">Kindly write your full address with house number so system can detect postal code and city from it!</small>');
+                $('#address').parent().parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">Kindly write your full address with house/building number so system can detect postal code and city from it!</small>');
             }
 
         });
     }
 
     $("#address").on('input',function(e){
-
-        /*var string = $(this).val().substr(0, $(this).val().indexOf(','));
-        console.log(/\d/.test(string));
-        console.log(/^\d/.test(string));*/
         $(this).next('input').val(0);
     });
 

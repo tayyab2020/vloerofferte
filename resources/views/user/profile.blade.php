@@ -63,8 +63,15 @@
                                             {{csrf_field()}}
 
                                             <input type="hidden" name="email" id="email" value="{{$user->email}}">
+                                            <input type="hidden" name="latitude" id="latitude">
+                                            <input type="hidden" name="longitude" id="longitude">
 
                                             <div class="profile-filup-description-box margin-bottom-30">
+
+                                                <div style="margin-bottom: 40px;" class="form-group">
+                                                    <h4 style="color: red;text-align: center;font-weight: 400;" class="col-sm-12 control-label">Note: Radius management postcode will also be updated after approval of your profile information changes.</h4>
+                                                </div>
+
                                                 <div class="form-group">
                                                     <label for="first_name" class="col-sm-3 control-label">{{$lang->suf}}*</label>
                                                     <div class="col-sm-8">
@@ -114,13 +121,14 @@
                                                     <label for="address" class="col-sm-3 control-label">{{$lang->doad}}*</label>
                                                     <div class="col-sm-8">
                                                         <input class="form-control" name="address" id="address" placeholder="{{$lang->doad}}" type="text" value="{{$user->address}}" required="">
+                                                        <input type="hidden" id="check_address" value="0">
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group" style="display: none;">
+                                                <div class="form-group">
                                                     <label for="registration_number" class="col-sm-3 control-label">{{$lang->pct}}</label>
                                                     <div class="col-sm-8">
-                                                        <input class="form-control" id="postcode" name="postcode" placeholder="{{$lang->pct}}" type="text" value="{{$user->postcode}}" >
+                                                        <input class="form-control" id="postcode" readonly name="postcode" placeholder="{{$lang->pct}}" type="text" value="{{$user->postcode}}" >
                                                     </div>
                                                 </div>
 
@@ -128,7 +136,7 @@
                                                 <div class="form-group">
                                                     <label for="city" class="col-sm-3 control-label">{{$lang->doct}}*</label>
                                                     <div class="col-sm-8">
-                                                        <input class="form-control" name="city" id="city" placeholder="{{$lang->doct}}" type="text" value="{{$user->city}}" required="">
+                                                        <input class="form-control" name="city" id="city" readonly placeholder="{{$lang->doct}}" type="text" value="{{$user->city}}" required="">
                                                     </div>
                                                 </div>
 
@@ -251,7 +259,7 @@
                     </div></div></div></div></div>
 
 
-<style type="text/css">
+    <style type="text/css">
             /*!
  * Datepicker for Bootstrap v1.5.0 (https://github.com/eternicode/bootstrap-datepicker)
  *
@@ -751,9 +759,6 @@
         </style>
 
 
-
-
-
     <style>
 
         #edit{
@@ -765,67 +770,177 @@
 
     </style>
 
+    <style>
+
+        .swal2-show{
+            font-size: 17px;
+        }
+    </style>
+
 @endsection
 
 
 
 @section('scripts')
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
+
+    <script type="text/javascript">
+
+        function initMap() {
+
+            var input = document.getElementById('address');
+
+            var options = {
+                componentRestrictions: {country: "nl"}
+            };
+
+            var autocomplete = new google.maps.places.Autocomplete(input,options);
+
+            // Set the data fields to return when the user selects a place.
+            autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
+
+            autocomplete.addListener('place_changed', function() {
+
+                var flag = 0;
+
+                var place = autocomplete.getPlace();
+
+                if (!place.geometry) {
+
+                    // User entered the name of a Place that was not suggested and
+                    // pressed the Enter key, or the Place Details request failed.
+                    window.alert("No details available for input: '" + place.name + "'");
+                    return;
+                }
+                else
+                {
+                    var string = $('#address').val().substring(0, $('#address').val().indexOf(',')); //first string before comma
+
+                    if(string)
+                    {
+                        var is_number = $('#address').val().match(/\d+/);
+
+                        if(is_number === null)
+                        {
+                            flag = 1;
+                        }
+                    }
+                }
+
+                var city = '';
+                var postal_code = '';
+
+                for(var i=0; i < place.address_components.length; i++)
+                {
+                    if(place.address_components[i].types[0] == 'postal_code')
+                    {
+                        postal_code = place.address_components[i].long_name;
+                    }
+
+                    if(place.address_components[i].types[0] == 'locality')
+                    {
+                        city = place.address_components[i].long_name;
+                    }
+
+                }
 
 
+                if(city == '')
+                {
+                    for(var i=0; i < place.address_components.length; i++)
+                    {
+                        if(place.address_components[i].types[0] == 'administrative_area_level_2')
+                        {
+                            city = place.address_components[i].long_name;
 
+                        }
+                    }
+                }
 
-<script type="text/javascript">
+                if(postal_code == '' || city == '')
+                {
+                    flag = 1;
+                }
 
+                if(!flag)
+                {
+                    $('#check_address').val(1);
+                    $("#address-error").remove();
+                    $('#latitude').val(place.geometry.location.lat());
+                    $('#longitude').val(place.geometry.location.lng());
+                    $('#postcode').val(postal_code);
+                    $("#city").val(city);
+                }
+                else
+                {
+                    $('#address').val('');
+                    $('#latitude').val('');
+                    $('#longitude').val('');
+                    $('#postcode').val('');
+                    $("#city").val('');
 
+                    $("#address-error").remove();
+                    $('#address').parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">Kindly write your full address with house/building number so system can detect postal code and city from it!</small>');
+                }
 
-
-
-
-  function uploadclick(){
-    $("#uploadFile").click();
-    $("#uploadFile").change(function(event) {
-          readURL(this);
-        $("#uploadTrigger").html($("#uploadFile").val());
-    });
-
-}
-
-
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#adminimg').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
+            });
         }
-    }
 
-</script>
-
-
-
-<script src="{{asset('assets/admin/js/tag-it.js')}}" type="text/javascript" charset="utf-8"></script>
-
-
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#myTags").tagit({
-          fieldName: "special[]",
-          allowSpaces: true
+        $("#address").on('input',function(e){
+            $(this).next('input').val(0);
         });
-    });
-</script>
+
+        $("#address").focusout(function(){
+
+            var check = $(this).next('input').val();
+
+            if(check == 0)
+            {
+                $(this).val('');
+                $('#latitude').val('');
+                $('#longitude').val('');
+                $('#postcode').val('');
+                $("#city").val('');
+            }
+        });
+
+        function uploadclick(){
+            $("#uploadFile").click();
+            $("#uploadFile").change(function(event) {
+                readURL(this);
+                $("#uploadTrigger").html($("#uploadFile").val());
+            });
+
+        }
 
 
-<style>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#adminimg').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
-    .swal2-show{
-        font-size: 17px;
-    }
-</style>
+    </script>
+
+
+
+    <script src="{{asset('assets/admin/js/tag-it.js')}}" type="text/javascript" charset="utf-8"></script>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#myTags").tagit({
+                fieldName: "special[]",
+                allowSpaces: true
+            });
+        });
+    </script>
 
 
 @endsection

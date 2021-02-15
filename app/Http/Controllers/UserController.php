@@ -1174,6 +1174,9 @@ class UserController extends Controller
         } else {
             $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.id', $request->quote_id)->select('quotes.*', 'categories.cat_name')->first();
 
+            var_dump($quote);
+            exit();
+            
             $quote->status = 3;
             $quote->save();
 
@@ -3139,6 +3142,18 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
 
+        if($input['longitude'] && $input['latitude'])
+        {
+            $latitude = $input['latitude'];
+            $longitude = $input['longitude'];
+        }
+        else
+        {
+            $terminal = handyman_terminals::where('handyman_id',$user_id)->first();
+            $latitude = $terminal->latitude;
+            $longitude = $terminal->longitude;
+        }
+
         $check = handyman_temporary::where('handyman_id', $user->id)->first();
 
 
@@ -3175,7 +3190,7 @@ class UserController extends Controller
 
             }
 
-            $temp = handyman_temporary::where('handyman_id', $user->id)->update(['handyman_id' => $user->id, 'email' => $user->email, 'name' => $input['name'], 'family_name' => $input['family_name'], 'photo' => $input['photo'], 'description' => $input['description'], 'language' => $input['language'], 'education' => $input['education'], 'profession' => $input['profession'], 'city' => $input['city'], 'address' => $input['address'], 'phone' => $input['phone'], 'web' => $input['web'], 'special' => $input['special'], 'registration_number' => $input['registration_number'], 'company_name' => $input['company_name'], 'tax_number' => $input['tax_number'], 'bank_account' => $input['bank_account'], 'postcode' => $input['postcode']]);
+            $temp = handyman_temporary::where('handyman_id', $user->id)->update(['handyman_id' => $user->id, 'email' => $user->email, 'name' => $input['name'], 'family_name' => $input['family_name'], 'photo' => $input['photo'], 'description' => $input['description'], 'language' => $input['language'], 'education' => $input['education'], 'profession' => $input['profession'], 'city' => $input['city'], 'address' => $input['address'], 'phone' => $input['phone'], 'web' => $input['web'], 'special' => $input['special'], 'registration_number' => $input['registration_number'], 'company_name' => $input['company_name'], 'tax_number' => $input['tax_number'], 'bank_account' => $input['bank_account'], 'postcode' => $input['postcode'], 'longitude' => $longitude, 'latitude' => $latitude ]);
 
         } else {
 
@@ -3212,17 +3227,19 @@ class UserController extends Controller
             $post->tax_number = $input['tax_number'];
             $post->bank_account = $input['bank_account'];
             $post->postcode = $input['postcode'];
+            $post->longitude = $longitude;
+            $post->latitude = $latitude;
 
             $post->save();
 
         }
 
-        /*$headers = 'MIME-Version: 1.0' . "\r\n";
+        $headers = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Profile Update Requested!";
         $msg = "Dear Nordin Adoui, Recent activity: A handyman Mr/Mrs. " . $input['name'] . " " . $input['family_name'] . " requested for profile update, kindly visit your admin dashboard in order to take further actions.";
-        mail($this->sl->admin_email, $subject, $msg, $headers);*/
+        mail($this->sl->admin_email, $subject, $msg, $headers);
 
 
         Session::flash('success', $this->lang->pusm);
@@ -3323,6 +3340,7 @@ class UserController extends Controller
         $post = handyman_terminals::where('handyman_id', '=', $user->id)->first();
 
         if ($post == '') {
+
             $post = new handyman_terminals();
             $post->handyman_id = $user->id;
             $post->zipcode = $input['postal_code'];
@@ -3331,13 +3349,14 @@ class UserController extends Controller
             $post->radius = $input['radius'];
             $post->city = $input['terminal_city'];
             $post->save();
+
         } else {
 
-            $post = handyman_terminals::where('handyman_id', '=', $user->id)->update(['zipcode' => $input['postal_code'], 'longitude' => $input['longitude'], 'latitude' => $input['latitude'], 'radius' => $input['radius'], 'city' => $input['terminal_city']]);
+            handyman_terminals::where('handyman_id', '=', $user->id)->update(['zipcode' => $input['postal_code'], 'longitude' => $input['longitude'], 'latitude' => $input['latitude'], 'radius' => $input['radius'], 'city' => $input['terminal_city']]);
 
         }
 
-        $user_update = users::where('id', '=', $user->id)->update(['postcode' => $input['postal_code']]);
+        /*users::where('id', '=', $user->id)->update(['postcode' => $input['postal_code']]);*/
 
 
         Session::flash('success', $this->lang->success);
