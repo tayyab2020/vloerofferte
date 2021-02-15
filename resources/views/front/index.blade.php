@@ -380,7 +380,7 @@
 
                                                     <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">{{__('text.Where do you need the job done?')}}</h3>
 
-                                                    <input style="height: 40px;margin-bottom: 20px;" type="search" name="quote_zipcode" id="quote-zipcode" class="form-control quote_validation" placeholder="{{$lang->spzc}}" autocomplete="off">
+                                                    <input style="height: 40px;" type="search" name="quote_zipcode" id="quote-zipcode" class="form-control quote_validation" placeholder="{{$lang->spzc}}" autocomplete="off">
                                                     <input type="hidden" id="check_address" value="0">
                                                     <input id="postcode" name="postcode" type="hidden">
                                                     <input name="city" id="city" type="hidden">
