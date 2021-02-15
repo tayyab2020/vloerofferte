@@ -33,7 +33,7 @@
                                             </div>
                                         </div>
 
-                                        @if($handymen)
+                                        @if(count($handymen) > 0)
 
                                         <div class="form-group" style="margin: 30px 0px;overflow-y: auto;">
 
