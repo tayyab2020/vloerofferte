@@ -319,7 +319,7 @@ class AdminUserController extends Controller
             $user_latitude = $result['results'][0]['geometry']['location']['lat'];
             $user_longitude = $result['results'][0]['geometry']['location']['lng'];
 
-            $array[] = "";
+            $handymen_array[] = "";
             $array1[] = "";
             $i = 0;
 
@@ -348,7 +348,7 @@ class AdminUserController extends Controller
 
                 if($distance <= $radius)
                 {
-                    $array[$i] = array('handyman_id'=>$key->id);
+                    $handymen_array[$i] = array($key);
                     $array1[$i] = array('handyman_distance'=>$distance);
                     $i = $i + 1;
                 }
@@ -363,7 +363,7 @@ class AdminUserController extends Controller
             return redirect()->back();
         }
 
-        return view('admin.user.send_quote',compact('request','handymen','array1','history'));
+        return view('admin.user.send_quote',compact('request','handymen_array','array1','history'));
     }
 
 

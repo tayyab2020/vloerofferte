@@ -48,7 +48,7 @@
                                                 </thead>
 
                                                 <tbody>
-                                                @foreach($handymen as $i => $key)
+                                                @foreach($handymen_array as $i => $key)
 
                                                 <tr style="background: #ccffcc;">
                                                 <td><input type="checkbox" name="action[]" value="{{$key->id}}" class="action"></td>
