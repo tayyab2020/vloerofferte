@@ -323,12 +323,13 @@ class AdminUserController extends Controller
             $array1[] = "";
             $i = 0;
 
-            $handymen = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('users','users.id','=','handyman_products.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('products.category_id','=', $request->quote_service)->where('products.brand_id','=', $request->quote_brand)->where('products.model_id','=', $request->quote_model)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();
+            $handymen = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('users','users.id','=','handyman_products.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('products.category_id','=', $request->quote_service)->where('products.brand_id','=', $request->quote_brand)->where('products.model_id','=', $request->quote_model)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude','handyman_terminals.radius')->get();
 
             foreach ($handymen as $key) {
 
                 $lat = $key->latitude;
                 $lng = $key->longitude;
+                $radius = $key->radius;
 
                 $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=".$lat.",".$lng."&destinations=".$user_latitude.",".$user_longitude."&mode=driving&key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q";
                 $ch = curl_init();
@@ -340,26 +341,17 @@ class AdminUserController extends Controller
                 $response = curl_exec($ch);
                 curl_close($ch);
                 $response_a = json_decode($response, true);
-                $dist = $response_a['rows'][0]['elements'][0]['distance']['text'];
-                var_dump($response);
-                var_dump($dist);
-                exit();
-                $time = $response_a['rows'][0]['elements'][0]['duration']['text'];
+                $dist = $response_a['rows'][0]['elements'][0]['distance']['value'];
+                /*$time = $response_a['rows'][0]['elements'][0]['duration']['text'];*/
 
-                return array('distance' => $dist, 'time' => $time);
+                $distance = $dist/1000;
 
-
-
-                $theta = $lng - $user_longitude;
-                $dist = sin(deg2rad($lat)) * sin(deg2rad($user_latitude)) +  cos(deg2rad($lat)) * cos(deg2rad($user_latitude)) * cos(deg2rad($theta));
-                $dist = acos($dist);
-                $dist = rad2deg($dist);
-                $miles = $dist * 60 * 1.1515;
-                $distance = $miles * 1.609344;
-
-                $array[$i] = array('handyman_id'=>$key->id);
-                $array1[$i] = array('handyman_distance'=>$distance);
-                $i = $i + 1;
+                if($radius <= $distance)
+                {
+                    $array[$i] = array('handyman_id'=>$key->id);
+                    $array1[$i] = array('handyman_distance'=>$distance);
+                    $i = $i + 1;
+                }
 
             }
 
