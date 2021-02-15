@@ -346,7 +346,7 @@ class AdminUserController extends Controller
 
                 $distance = $dist/1000;
 
-                if($radius <= $distance)
+                if($distance <= $radius)
                 {
                     $array[$i] = array('handyman_id'=>$key->id);
                     $array1[$i] = array('handyman_distance'=>$distance);
