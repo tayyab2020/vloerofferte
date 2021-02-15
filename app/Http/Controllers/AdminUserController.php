@@ -330,6 +330,26 @@ class AdminUserController extends Controller
                 $lat = $key->latitude;
                 $lng = $key->longitude;
 
+                $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=".$lat.",".$lng."&destinations=".$user_latitude.",".$user_longitude."&mode=driving&key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q";
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+                $response = curl_exec($ch);
+                curl_close($ch);
+                $response_a = json_decode($response, true);
+                $dist = $response_a['rows'][0]['elements'][0]['distance']['text'];
+                var_dump($response);
+                var_dump($dist);
+                exit();
+                $time = $response_a['rows'][0]['elements'][0]['duration']['text'];
+
+                return array('distance' => $dist, 'time' => $time);
+
+
+
                 $theta = $lng - $user_longitude;
                 $dist = sin(deg2rad($lat)) * sin(deg2rad($user_latitude)) +  cos(deg2rad($lat)) * cos(deg2rad($user_latitude)) * cos(deg2rad($theta));
                 $dist = acos($dist);
