@@ -1174,9 +1174,6 @@ class UserController extends Controller
         } else {
             $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.id', $request->quote_id)->select('quotes.*', 'categories.cat_name')->first();
 
-            var_dump($quote);
-            exit();
-
             $quote->status = 3;
             $quote->save();
 
