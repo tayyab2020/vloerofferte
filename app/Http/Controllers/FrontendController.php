@@ -1139,7 +1139,9 @@ class FrontendController extends Controller
                 $user->role_id = 3;
                 $user->email = $request->quote_email;
                 $user->phone = $request->quote_contact;
-                $user->postcode = $request->quote_zipcode;
+                $user->address = $request->quote_zipcode;
+                $user->postcode = $request->postcode;
+                $user->city = $request->city;
                 $user->password = $hashed_random_password;
                 $user->save();
 

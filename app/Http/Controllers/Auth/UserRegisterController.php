@@ -102,97 +102,76 @@ class UserRegisterController extends Controller
         $response = json_decode($response);
 
 
-        if ($response->success)
+        if($response->success)
         {
 
              // Validate the form data
 
+            $this->validate($request, [
+                'email'   => 'required|string|email|unique:users',
+                'name'   => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
+                'family_name' => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
+                'postcode' => 'required',
+                'address' => 'required',
+                'city' => 'required',
+                'phone' => 'required',
+                'password' => 'required|min:8|confirmed',
+                'g-recaptcha-response' => 'required',
+            ],
 
-                $this->validate($request, [
-                    'email'   => 'required|string|email|unique:users',
-                    'name'   => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
-                    'family_name' => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
-                    'postcode' => 'required',
-                    'address' => 'required',
-                    'city' => 'required',
-                    'phone' => 'required',
-                    'password' => 'required|min:8|confirmed',
-                    'g-recaptcha-response' => 'required',
-                ],
+                [
+                    'email.required' => $this->lang->erv,
+                    'email.unique' => $this->lang->euv,
+                    'name.required' => $this->lang->nrv,
+                    'name.max' => $this->lang->nmv,
+                    'name.regex' => $this->lang->niv,
+                    'family_name.required' => $this->lang->fnrv,
+                    'family_name.max' => $this->lang->fnmrv,
+                    'family_name.regex' => $this->lang->fniv,
+                    'postcode.required' => $this->lang->pcrv,
+                    'address.required' => $this->lang->arv,
+                    'city.required' => $this->lang->crv,
+                    'phone.required' => $this->lang->prv,
+                    'password.required' => $this->lang->parv,
+                    'password.min' => $this->lang->pamv,
+                    'password.confirmed' => $this->lang->pacv,
+                    'g-recaptcha-response.required' => $this->lang->grv,
+                ]);
 
-                    [
-
-                        'email.required' => $this->lang->erv,
-                        'email.unique' => $this->lang->euv,
-                        'name.required' => $this->lang->nrv,
-                        'name.max' => $this->lang->nmv,
-                        'name.regex' => $this->lang->niv,
-                        'family_name.required' => $this->lang->fnrv,
-                        'family_name.max' => $this->lang->fnmrv,
-                        'family_name.regex' => $this->lang->fniv,
-                        'postcode.required' => $this->lang->pcrv,
-                        'address.required' => $this->lang->arv,
-                        'city.required' => $this->lang->crv,
-                        'phone.required' => $this->lang->prv,
-                        'password.required' => $this->lang->parv,
-                        'password.min' => $this->lang->pamv,
-                        'password.confirmed' => $this->lang->pacv,
-                        'g-recaptcha-response.required' => $this->lang->grv,
-
-                    ]);
-
-
-
-
-        $user = new User;
-        $input = $request->all();
-
-        $user_name = $input['name'] . ' ' . $input['family_name'];
-
-        $user_email = $input['email'];
-
-        $input['password'] = bcrypt($request['password']);
-
-        $user->fill($input)->save();
-
-        Auth::guard('user')->login($user);
-
-        $link = url('/').'/handyman/client-dashboard';
+            $user = new User;
+            $input = $request->all();
+            $user_name = $input['name'] . ' ' . $input['family_name'];
+            $user_email = $input['email'];
+            $input['password'] = bcrypt($request['password']);
+            $user->fill($input)->save();
+            Auth::guard('user')->login($user);
+            $link = url('/').'/handyman/client-dashboard';
 
 
             $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-        $subject = "Account Created!";
+            $subject = "Account Created!";
             $msg = "Dear Mr/Mrs ".$user_name.",<br><br>Your account has been created. You can go to your dashboard through <a href='".$link."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
             mail($user_email,$subject,$msg,$headers);
 
 
-
             $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-        $subject = "Welkom bij Vloerofferteonline!";
+            $subject = "Welkom bij Vloerofferteonline!";
             $msg = "Beste ".$user_name.",<br><br>je account is succesvol aangemaakt. Je kan vanaf nu binnen paar klikken een stoffeerder reserveren. Klik op account om je profiel te bezoeken <a href='".$link."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
             mail($user_email,$subject,$msg,$headers);
 
-
-          return redirect()->route('client-dashboard');
-
+            return redirect()->route('client-dashboard');
 
         }
+        else {
 
-        else
-        {
-
-             Session::flash('message', "Google Recaptcha validation failed!");
+            Session::flash('message', "Google Recaptcha validation failed!");
             return redirect()->back();
 
         }
-
-
-
-
     }
 
     public function HandymanRegister(Request $request)
