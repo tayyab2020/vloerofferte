@@ -49,127 +49,6 @@
 
             @include('includes.form-error')
 
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
-
-            <script type="text/javascript">
-
-                function initMap() {
-
-                    var input = document.getElementById('quote-zipcode');
-
-                    var options = {
-                        componentRestrictions: {country: "nl"}
-                    };
-
-                    var autocomplete = new google.maps.places.Autocomplete(input,options);
-
-                    // Set the data fields to return when the user selects a place.
-                    autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
-
-
-                    autocomplete.addListener('place_changed', function() {
-
-                        var flag = 0;
-
-                        var place = autocomplete.getPlace();
-
-
-                        if (!place.geometry) {
-
-                            // User entered the name of a Place that was not suggested and
-                            // pressed the Enter key, or the Place Details request failed.
-                            window.alert("No details available for input: '" + place.name + "'");
-                            return;
-                        }
-                        else
-                        {
-                            var string = $('#quote-zipcode').val().substring(0, $('#quote-zipcode').val().indexOf(',')); //first string before comma
-
-                            if(string)
-                            {
-                                var is_number = $('#quote-zipcode').val().match(/\d+/);
-
-                                if(is_number === null)
-                                {
-                                    flag = 1;
-                                }
-                            }
-                        }
-
-                        var city = '';
-                        var postal_code = '';
-
-
-                        for(var i=0; i < place.address_components.length; i++)
-                        {
-                            if(place.address_components[i].types[0] == 'postal_code')
-                            {
-                                postal_code = place.address_components[i].long_name;
-                            }
-
-                            if(place.address_components[i].types[0] == 'locality')
-                            {
-                                city = place.address_components[i].long_name;
-                            }
-
-                        }
-
-
-                        if(city == '')
-                        {
-                            for(var i=0; i < place.address_components.length; i++)
-                            {
-                                if(place.address_components[i].types[0] == 'administrative_area_level_2')
-                                {
-                                    city = place.address_components[i].long_name;
-
-                                }
-                            }
-                        }
-
-
-                        if(postal_code == '' || city == '')
-                        {
-                            flag = 1;
-                        }
-
-                        if(!flag)
-                        {
-                            $('#check_address').val(1);
-                            $("#address-error").remove();
-                            $('#postcode').val(postal_code);
-                            $("#city").val(city);
-                        }
-                        else
-                        {
-                            $('#quote-zipcode').val('');
-                            $('#postcode').val('');
-                            $("#city").val('');
-
-                            $("#address-error").remove();
-                            $('#quote-zipcode').parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">Kindly write your full address with house/building number so system can detect postal code and city from it!</small>');
-                        }
-
-                    });
-                }
-
-                $("#quote-zipcode").on('input',function(e){
-                    $(this).next('input').val(0);
-                });
-
-                $("#quote-zipcode").focusout(function(){
-
-                    var check = $(this).next('input').val();
-
-                    if(check == 0)
-                    {
-                        $(this).val('');
-                        $('#postcode').val('');
-                        $("#city").val('');
-                    }
-                });
-
-            </script>
 
         <div class="container" style="width: 100%;">
 
@@ -752,6 +631,127 @@
             </div>
         </section>
 
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
+
+        <script type="text/javascript">
+
+            function initMap() {
+
+                var input = document.getElementById('quote-zipcode');
+
+                var options = {
+                    componentRestrictions: {country: "nl"}
+                };
+
+                var autocomplete = new google.maps.places.Autocomplete(input,options);
+
+                // Set the data fields to return when the user selects a place.
+                autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
+
+
+                autocomplete.addListener('place_changed', function() {
+
+                    var flag = 0;
+
+                    var place = autocomplete.getPlace();
+
+
+                    if (!place.geometry) {
+
+                        // User entered the name of a Place that was not suggested and
+                        // pressed the Enter key, or the Place Details request failed.
+                        window.alert("No details available for input: '" + place.name + "'");
+                        return;
+                    }
+                    else
+                    {
+                        var string = $('#quote-zipcode').val().substring(0, $('#quote-zipcode').val().indexOf(',')); //first string before comma
+
+                        if(string)
+                        {
+                            var is_number = $('#quote-zipcode').val().match(/\d+/);
+
+                            if(is_number === null)
+                            {
+                                flag = 1;
+                            }
+                        }
+                    }
+
+                    var city = '';
+                    var postal_code = '';
+
+
+                    for(var i=0; i < place.address_components.length; i++)
+                    {
+                        if(place.address_components[i].types[0] == 'postal_code')
+                        {
+                            postal_code = place.address_components[i].long_name;
+                        }
+
+                        if(place.address_components[i].types[0] == 'locality')
+                        {
+                            city = place.address_components[i].long_name;
+                        }
+
+                    }
+
+
+                    if(city == '')
+                    {
+                        for(var i=0; i < place.address_components.length; i++)
+                        {
+                            if(place.address_components[i].types[0] == 'administrative_area_level_2')
+                            {
+                                city = place.address_components[i].long_name;
+
+                            }
+                        }
+                    }
+
+
+                    if(postal_code == '' || city == '')
+                    {
+                        flag = 1;
+                    }
+
+                    if(!flag)
+                    {
+                        $('#check_address').val(1);
+                        $("#address-error").remove();
+                        $('#postcode').val(postal_code);
+                        $("#city").val(city);
+                    }
+                    else
+                    {
+                        $('#quote-zipcode').val('');
+                        $('#postcode').val('');
+                        $("#city").val('');
+
+                        $("#address-error").remove();
+                        $('#quote-zipcode').parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">Kindly write your full address with house/building number so system can detect postal code and city from it!</small>');
+                    }
+
+                });
+            }
+
+            $("#quote-zipcode").on('input',function(e){
+                $(this).next('input').val(0);
+            });
+
+            $("#quote-zipcode").focusout(function(){
+
+                var check = $(this).next('input').val();
+
+                if(check == 0)
+                {
+                    $(this).val('');
+                    $('#postcode').val('');
+                    $("#city").val('');
+                }
+            });
+
+        </script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
