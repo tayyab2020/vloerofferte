@@ -35,23 +35,28 @@
 
                             <div class="row pb-5 p-5" style="margin-right: 15px !important;">
 
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <p class="font-weight-bold mb-4 m-heading">{{__('text.Client Information')}}</p>
-                                    <p class="mb-1 m-rest">{{__('text.Name')}}: {{$quote->quote_name}} {{$quote->quote_familyname}}</p>
-                                    <p class="mb-1 m-rest">{{$quote->address}}</p>
-                                    <p class="mb-1 m-rest">{{$quote->postcode}} {{$quote->city}}</p>
-                                    <p class="mb-1 m-rest">{{$quote->quote_email}}</p>
-                                    <p class="mb-1 m-rest">{{$quote->quote_contact}}</p>
-                                </div>
+                                <?php $client_address = explode(',', $quote->address); array_pop($client_address); array_pop($client_address); $client_address = implode(",",$client_address); ?>
 
-                                <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
-                                    <p class="font-weight-bold mb-4 m-heading">{{__('text.Handyman Information')}}</p>
-                                    <p class="mb-1 m-rest">{{$request[0]->company_name}}</p>
-                                    <p class="mb-1 m-rest">{{$request[0]->address}}</p>
-                                    <p class="mb-1 m-rest">{{$request[0]->postcode}} {{$request[0]->city}}</p>
-                                    <p class="mb-1 m-rest">{{$request[0]->tax_number}}</p>
-                                    <p class="mb-1 m-rest">{{$request[0]->registration_number}}</p>
-                                </div>
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="font-weight-bold mb-4 m-heading">{{__('text.Client Information')}}</p>
+                                        <p class="mb-1 m-rest">{{__('text.Name')}}: {{$quote->quote_name}} {{$quote->quote_familyname}}</p>
+                                        <p class="mb-1 m-rest">{{$client_address}}</p>
+                                        <p class="mb-1 m-rest">{{$quote->postcode}} {{$quote->city}}</p>
+                                        <p class="mb-1 m-rest">{{$quote->quote_email}}</p>
+                                        <p class="mb-1 m-rest">{{$quote->quote_contact}}</p>
+                                    </div>
+
+                                    <?php $handyman_address = explode(',', $request[0]->address); array_pop($handyman_address); array_pop($handyman_address); $handyman_address = implode(",",$handyman_address); ?>
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
+                                        <p class="font-weight-bold mb-4 m-heading">{{__('text.Handyman Information')}}</p>
+                                        <p class="mb-1 m-rest">{{$request[0]->company_name}}</p>
+                                        <p class="mb-1 m-rest">{{$handyman_address}}</p>
+                                        <p class="mb-1 m-rest">{{$request[0]->postcode}} {{$request[0]->city}}</p>
+                                        <p class="mb-1 m-rest">{{$request[0]->tax_number}}</p>
+                                        <p class="mb-1 m-rest">{{$request[0]->registration_number}}</p>
+                                    </div>
 
                             </div>
 

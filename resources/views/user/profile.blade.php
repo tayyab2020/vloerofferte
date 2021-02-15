@@ -78,6 +78,8 @@
                                                         <input class="form-control" id="name" name="name" placeholder="{{$lang->suf}}" type="text" value="{{$user->name}}" required="">
                                                     </div>
                                                 </div>
+
+
                                                 <div class="form-group">
                                                     <label for="family_name" class="col-sm-3 control-label">{{$lang->fn}}*</label>
                                                     <div class="col-sm-8">
@@ -93,6 +95,8 @@
 
                                                     </div>
                                                 </div>
+
+
                                                 <div class="form-group">
                                                     <label for="profile_photo" class="col-sm-3 control-label">{{$lang->pp}}*</label>
                                                     <div class="col-sm-8">
@@ -101,13 +105,14 @@
                                                         <p>{{$lang->size}}</p>
                                                     </div>
                                                 </div>
+
+
                                                 <div class="form-group">
                                                     <label for="registration_number" class="col-sm-3 control-label">{{$lang->rg}}</label>
                                                     <div class="col-sm-8">
                                                         <input class="form-control" id="registration_number" name="registration_number" placeholder="{{$lang->rg}}" type="text" value="{{$user->registration_number}}" >
                                                     </div>
                                                 </div>
-
 
 
                                                 <div class="form-group">
@@ -117,11 +122,12 @@
                                                     </div>
                                                 </div>
 
+
                                                 <div class="form-group">
                                                     <label for="address" class="col-sm-3 control-label">{{$lang->doad}}*</label>
                                                     <div class="col-sm-8">
                                                         <input class="form-control" name="address" id="address" placeholder="{{$lang->doad}}" type="text" value="{{$user->address}}" required="">
-                                                        <input type="hidden" id="check_address" value="0">
+                                                        <input type="hidden" id="check_address" value="1">
                                                     </div>
                                                 </div>
 

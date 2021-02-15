@@ -101,7 +101,7 @@
                                                         <input class="form-control" name="address" id="address"
                                                                placeholder="{{$lang->doad}}" type="text"
                                                                value="{{$user->address}}" required="">
-                                                        <input type="hidden" id="check_address" value="0">
+                                                        <input type="hidden" id="check_address" value="1">
                                                     </div>
                                                 </div>
 
