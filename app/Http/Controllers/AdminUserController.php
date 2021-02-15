@@ -323,8 +323,6 @@ class AdminUserController extends Controller
             $array1[] = "";
             $i = 0;
 
-            /*$handymen = handyman_products::leftjoin('users','users.id','=','handyman_products.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('handyman_products.product_id','=', $request->quote_service)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();*/
-
             $handymen = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('users','users.id','=','handyman_products.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('products.category_id','=', $request->quote_service)->where('products.brand_id','=', $request->quote_brand)->where('products.model_id','=', $request->quote_model)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();
 
             foreach ($handymen as $key) {
@@ -344,28 +342,6 @@ class AdminUserController extends Controller
                 $i = $i + 1;
 
             }
-
-            /*$other_handymen = handyman_terminals::leftjoin('users','users.id','=','handyman_terminals.handyman_id')->whereNotIn('users.id',$array)->where('users.active',1)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude')->get();
-
-            $array2[] = "";
-            $x = 0;
-
-            foreach ($other_handymen as $key) {
-
-                $lat = $key->latitude;
-                $lng = $key->longitude;
-
-                $theta = $lng - $user_longitude;
-                $dist = sin(deg2rad($lat)) * sin(deg2rad($user_latitude)) +  cos(deg2rad($lat)) * cos(deg2rad($user_latitude)) * cos(deg2rad($theta));
-                $dist = acos($dist);
-                $dist = rad2deg($dist);
-                $miles = $dist * 60 * 1.1515;
-                $distance = $miles * 1.609344;
-
-                $array2[$x] = array('handyman_distance'=>$distance);
-                $x = $x + 1;
-
-            }*/
 
         }
 
