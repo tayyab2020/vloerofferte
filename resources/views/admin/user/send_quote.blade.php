@@ -9,7 +9,7 @@
                     <div class="section-padding add-product-1">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="add-product-box">
+                                <div style="box-shadow: none;" class="add-product-box">
                                     <div class="add-product-header">
                                         <h2>Send Quote Request</h2>
                                         <a href="{{route('quotation-requests')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
