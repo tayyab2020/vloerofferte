@@ -858,6 +858,7 @@
                     }
                 }
 
+
                 if(postal_code == '' || city == '')
                 {
                     flag = 1;

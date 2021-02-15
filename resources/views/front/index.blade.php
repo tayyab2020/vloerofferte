@@ -69,6 +69,7 @@
 
                     autocomplete.addListener('place_changed', function() {
 
+                        var flag = 0;
 
                         var place = autocomplete.getPlace();
 
@@ -80,11 +81,31 @@
                             window.alert("No details available for input: '" + place.name + "'");
                             return;
                         }
+                        else
+                        {
+                            var string = $('#quote-zipcode').val().substring(0, $('#quote-zipcode').val().indexOf(',')); //first string before comma
+
+                            if(string)
+                            {
+                                var is_number = $('#quote-zipcode').val().match(/\d+/);
+
+                                if(is_number === null)
+                                {
+                                    flag = 1;
+                                }
+                            }
+                        }
 
                         var city = '';
+                        var postal_code = '';
+
 
                         for(var i=0; i < place.address_components.length; i++)
                         {
+                            if(place.address_components[i].types[0] == 'postal_code')
+                            {
+                                postal_code = place.address_components[i].long_name;
+                            }
 
                             if(place.address_components[i].types[0] == 'locality')
                             {
@@ -106,8 +127,47 @@
                             }
                         }
 
+
+                        if(postal_code == '' || city == '')
+                        {
+                            flag = 1;
+                        }
+
+                        if(!flag)
+                        {
+                            $('#check_address').val(1);
+                            $("#address-error").remove();
+                            $('#postcode').val(postal_code);
+                            $("#city").val(city);
+                        }
+                        else
+                        {
+                            $('#quote-zipcode').val('');
+                            $('#postcode').val('');
+                            $("#city").val('');
+
+                            $("#address-error").remove();
+                            $('#quote-zipcode').parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">Kindly write your full address with house/building number so system can detect postal code and city from it!</small>');
+                        }
+
                     });
                 }
+
+                $("#quote-zipcode").on('input',function(e){
+                    $(this).next('input').val(0);
+                });
+
+                $("#quote-zipcode").focusout(function(){
+
+                    var check = $(this).next('input').val();
+
+                    if(check == 0)
+                    {
+                        $(this).val('');
+                        $('#postcode').val('');
+                        $("#city").val('');
+                    }
+                });
 
             </script>
 
@@ -321,12 +381,9 @@
                                                     <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">{{__('text.Where do you need the job done?')}}</h3>
 
                                                     <input style="height: 40px;margin-bottom: 20px;" type="search" name="quote_zipcode" id="quote-zipcode" class="form-control quote_validation" placeholder="{{$lang->spzc}}" autocomplete="off">
-
-                                                    <span style="display: block;margin-bottom: 5px;font-weight: 500;">{{__('text.Street Number')}} <span style="color: red;">*</span></span>
-                                                    <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_street" class="form-control quote_validation" placeholder="{{__('text.Enter Street Number')}}">
-
-                                                    <span style="display: block;margin-bottom: 5px;font-weight: 500;">{{__('text.House Number')}} <span style="color: red;">*</span></span>
-                                                    <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_house" class="form-control quote_validation" placeholder="{{__('text.Enter House Details')}}">
+                                                    <input type="hidden" id="check_address" value="0">
+                                                    <input id="postcode" name="postcode" type="hidden">
+                                                    <input name="city" id="city" type="hidden">
 
                                                 </div>
                                             </div>

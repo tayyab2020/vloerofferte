@@ -1176,7 +1176,7 @@ class UserController extends Controller
 
             var_dump($quote);
             exit();
-            
+
             $quote->status = 3;
             $quote->save();
 
