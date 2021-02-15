@@ -319,10 +319,6 @@ class AdminUserController extends Controller
             $user_latitude = $result['results'][0]['geometry']['location']['lat'];
             $user_longitude = $result['results'][0]['geometry']['location']['lng'];
 
-            $array[] = "";
-            $array1[] = "";
-            $i = 0;
-
             $handymen = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('users','users.id','=','handyman_products.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('products.category_id','=', $request->quote_service)->where('products.brand_id','=', $request->quote_brand)->where('products.model_id','=', $request->quote_model)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude','handyman_terminals.radius')->get();
 
             foreach ($handymen as $key) {
@@ -351,9 +347,6 @@ class AdminUserController extends Controller
                 if($distance <= $radius)
                 {
                     $key->preferred = 1;
-                    /*$array[$i] = array('handyman_id'=>$key->id);
-                    $array1[$i] = array('handyman_distance'=>$distance);
-                    $i = $i + 1;*/
                 }
                 else
                 {
@@ -361,9 +354,6 @@ class AdminUserController extends Controller
                 }
 
             }
-
-            var_dump($handymen);
-            exit();
 
         }
 
