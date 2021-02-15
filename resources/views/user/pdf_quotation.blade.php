@@ -40,7 +40,7 @@
 
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <p class="font-weight-bold mb-4 m-heading">{{__('text.Client Information')}}</p>
-                                        <p class="mb-1 m-rest">{{__('text.Name')}}: {{$quote->quote_name}} {{$quote->quote_familyname}}</p>
+                                        <p class="mb-1 m-rest">{{$quote->quote_name}} {{$quote->quote_familyname}}</p>
                                         <p class="mb-1 m-rest">{{$client_address}}</p>
                                         <p class="mb-1 m-rest">{{$quote->postcode}} {{$quote->city}}</p>
                                         <p class="mb-1 m-rest">{{$quote->quote_email}}</p>
