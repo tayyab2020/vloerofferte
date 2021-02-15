@@ -99,7 +99,7 @@
 
                                                 <tr>
                                                     <td>{{$i+1}}</td>
-                                                    <td>{{$key->name}} {{$key->family_name}}</td>
+                                                    <td>{{$key->company_name}}</td>
                                                     <td>{{$date}}</td>
                                                 </tr>
 
