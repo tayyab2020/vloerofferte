@@ -86,11 +86,21 @@ class MollieQuotationPaymentController extends Controller {
             $pdf->save($file);
 
 
-            \Mail::send(array(), array(), function ($message) use ($file, $filename, $email, $name, $handyman_dash, $paid_amount, $quotation_invoice_number) {
+            if(Config::get('app.locale') == 'du')
+            {
+                $msg = "Beste ". $name .",<br><br>De klant heeft de factuur betaald QUO# " . $quotation_invoice_number . ", Wij betalen het bedrag minus commissiekosten aan je uit, zodra de klant de goederen heeft ontvangen en de status van de levering heeft gewijzigd naar ontvangen. <a href='".$handyman_dash."'>Klik hier</a> om naar je dashboard te gaan.<br><br><b>Wat als?</b><br><br>Geen melding dat het pakket is ontvangen? Wees gerust, na zeven dagen gaan we hier vanuit. Als verkoper ontvang je uiterlijk de volgende werkdag om 18.00 uur het aankoopbedrag op je rekening.<br><br>Met vriendelijke groet,<br><br>Vloerofferte";
+            }
+            else
+            {
+                $msg = "Dear Mr/Mrs ". $name .",<br><br>We have received a total amount of € " . $paid_amount ." for your quotation # " . $quotation_invoice_number . ". This amount will soon be transferred to your account. Below attached is your invoice along with our commission. For further details visit your panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
+            }
+
+
+            \Mail::send(array(), array(), function ($message) use ($msg, $file, $filename, $email, $name, $handyman_dash, $paid_amount, $quotation_invoice_number) {
                 $message->to($email)
                     ->from('info@vloerofferteonline.nl')
-                    ->subject('Payment Received!')
-                    ->setBody("Dear Mr/Mrs ". $name .",<br><br>We have received a total amount of € " . $paid_amount ." for your quotation # " . $quotation_invoice_number . ". This amount will soon be transferred to your account. Below attached is your invoice along with our commission. For further details visit your panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                    ->subject(__('text.Payment Received!'))
+                    ->setBody($msg, 'text/html');
 
                 $message->attach($file, [
                     'as' => $filename,

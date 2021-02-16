@@ -410,7 +410,7 @@ class AdminUserController extends Controller
                     'link' => $link,
                 ), function ($message) use($email){
                     $message->from('info@vloerofferteonline.nl');
-                    $message->to($email)->subject('Your Quotation has been Approved!');
+                    $message->to($email)->subject(__('text.Your Quotation has been Approved!'));
 
                 });
 
@@ -499,7 +499,7 @@ class AdminUserController extends Controller
                     'link' => $link,
                 ), function ($message) use($file,$email,$filename){
                 $message->from('info@vloerofferteonline.nl');
-                $message->to($email)->subject('Quotation Request!');
+                $message->to($email)->subject(__('text.Quotation Request!'));
 
                         $message->attach($file, [
                             'as' => $filename,

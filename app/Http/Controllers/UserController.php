@@ -552,11 +552,22 @@ class UserController extends Controller
         $handyman_email = $invoice[0]->email;
         $user_name = $invoice[0]->name . ' ' . $invoice[0]->family_name;
 
-        \Mail::send(array(), array(), function ($message) use ($handyman_email, $user_name, $invoice, $user) {
+        $link = url('/') . '/handyman/handyman-dashboard';
+
+        if(Config::get('app.locale') == 'du')
+        {
+            $msg = "Beste " . $user_name . ",<br><br>Gefeliciteerd de klant heeft je offerte geaccepteerd QUO# " . $invoice[0]->quotation_invoice_number . "<br>Zodra, de klant het volledig bedrag heeft voldaan ontvang je de contactgegevens, bezorgadres en bezorgmoment. Je ontvang van ons een mail als de klant heeft betaald, tot die tijd adviseren we je de goederen nog niet te leveren. <a href='" . $link . "'>Klik hier</a> om naar je dashboard te gaan.<br><br>Met vriendelijke groet,<br><br>Vloerofferte";
+        }
+        else
+        {
+            $msg = "Congratulations! Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . ' ' . $user->family_name . " has accepted your quotation QUO# " . $invoice[0]->quotation_invoice_number . "<br>You can convert your quotation into invoice once job is completed,<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
+        }
+
+        \Mail::send(array(), array(), function ($message) use ($msg, $handyman_email, $user_name, $invoice, $user) {
             $message->to($handyman_email)
                 ->from('info@vloerofferteonline.nl')
-                ->subject('Quotation Accepted!')
-                ->setBody("Congratulations! Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . ' ' . $user->family_name . " has accepted your quotation QUO# " . $invoice[0]->quotation_invoice_number . "<br>You can convert your quotation into invoice once job is completed,<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->subject(__('text.Quotation Accepted!'))
+                ->setBody($msg, 'text/html');
         });
 
 
