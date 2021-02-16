@@ -191,4 +191,7 @@ return [
     'Your Quotation has been Approved!' => 'Offerte is bij de klant',
     'Quotation Accepted!' => 'Offerte geaccepteerd',
     'Payment Received!' => 'Payment Received!',
+    'Quotation Request Submitted!' => 'Offerte aanvraag ontvangen!',
+    'New Quotation Received!' => 'New Quotation Received!',
+    'Account Created!' => 'Account Created!',
 ];

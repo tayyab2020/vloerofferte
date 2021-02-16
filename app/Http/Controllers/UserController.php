@@ -554,7 +554,7 @@ class UserController extends Controller
 
         $link = url('/') . '/handyman/handyman-dashboard';
 
-        if(Config::get('app.locale') == 'du')
+        if($this->lang == 'du')
         {
             $msg = "Beste " . $user_name . ",<br><br>Gefeliciteerd de klant heeft je offerte geaccepteerd QUO# " . $invoice[0]->quotation_invoice_number . "<br>Zodra, de klant het volledig bedrag heeft voldaan ontvang je de contactgegevens, bezorgadres en bezorgmoment. Je ontvang van ons een mail als de klant heeft betaald, tot die tijd adviseren we je de goederen nog niet te leveren. <a href='" . $link . "'>Klik hier</a> om naar je dashboard te gaan.<br><br>Met vriendelijke groet,<br><br>Vloerofferte";
         }
@@ -664,6 +664,7 @@ class UserController extends Controller
             $date = strtotime($data->created_at);
             $commission_invoice_number = date("Y", $date) . "-" . str_pad(rand(0, pow(10, 4) - 1), 4, '0', STR_PAD_LEFT) . "-0001";
 
+            $language = $this->lang->lang;
 
             $mollie = new \Mollie\Api\MollieApiClient();
             $mollie->setApiKey($api_key->mollie);
@@ -685,6 +686,7 @@ class UserController extends Controller
                     "commission_percentage" => $commission_percentage,
                     "commission" => $commission,
                     "total_receive" => $total_receive,
+                    "language" => $language
                 ],
             ]);
 

@@ -191,4 +191,7 @@ return [
     'Your Quotation has been Approved!' => 'Your Quotation has been Approved!',
     'Quotation Accepted!' => 'Quotation Accepted!',
     'Payment Received!' => 'Payment Received!',
+    'Quotation Request Submitted!' => 'Quotation Request Submitted!',
+    'New Quotation Received!' => 'New Quotation Received!',
+    'Account Created!' => 'Account Created!',
 ];

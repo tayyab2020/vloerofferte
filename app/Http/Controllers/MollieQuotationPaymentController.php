@@ -49,6 +49,7 @@ class MollieQuotationPaymentController extends Controller {
             $commission_percentage = $data->commission_percentage;
             $commission = $data->commission;
             $total_receive = $data->total_receive;
+            $language = $data->language;
 
             quotation_invoices::where('id','=',$data->invoice_id)->update(['invoice' => 1, 'ask_customization' => 0, 'commission_percentage' => $commission_percentage, 'commission' => $commission, 'total_receive' => $total_receive, 'payment_date' => $now, 'payment_id' => $payment_id, 'commission_invoice_number' => $commission_invoice_number]);
             quotes::where('id','=',$data->quote_id)->update(['status' => 3]);
@@ -86,7 +87,7 @@ class MollieQuotationPaymentController extends Controller {
             $pdf->save($file);
 
 
-            if(Config::get('app.locale') == 'du')
+            if($language == 'du')
             {
                 $msg = "Beste ". $name .",<br><br>De klant heeft de factuur betaald QUO# " . $quotation_invoice_number . ", Wij betalen het bedrag minus commissiekosten aan je uit, zodra de klant de goederen heeft ontvangen en de status van de levering heeft gewijzigd naar ontvangen. <a href='".$handyman_dash."'>Klik hier</a> om naar je dashboard te gaan.<br><br><b>Wat als?</b><br><br>Geen melding dat het pakket is ontvangen? Wees gerust, na zeven dagen gaan we hier vanuit. Als verkoper ontvang je uiterlijk de volgende werkdag om 18.00 uur het aankoopbedrag op je rekening.<br><br>Met vriendelijke groet,<br><br>Vloerofferte";
             }

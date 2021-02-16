@@ -425,7 +425,7 @@ class AdminUserController extends Controller
                     'client_link' => $client_link,
                 ), function ($message) use($file,$client_email,$filename) {
                     $message->from('info@vloerofferteonline.nl');
-                    $message->to($client_email)->subject('New Quotation Received!');
+                    $message->to($client_email)->subject(__('text.New Quotation Received!'));
 
                     $message->attach($file, [
                         'as' => $filename,
