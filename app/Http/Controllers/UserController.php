@@ -889,10 +889,10 @@ class UserController extends Controller
         $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('products.brand_id',$quote->quote_brand)->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
         $all_models = $all_models->unique();
 
-        /*if (!$matched_data) {
-            Session::flash('unsuccess', 'No product found, You have to select at least one product');
+        if (!$matched_data) {
+            Session::flash('unsuccess', 'None of your product(s) matched with details asked in this quotation');
             return redirect()->back();
-        }*/
+        }
 
         $items = items::where('user_id',$user_id)->get();
 
