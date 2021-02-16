@@ -758,7 +758,7 @@ class UserController extends Controller
             $all_services = $all_services->unique();
 
             if (count($all_services) == 0) {
-                Session::flash('unsuccess', 'No category found, You have to select at least one category');
+                Session::flash('unsuccess', 'No product found, You have to insert at least one product in your portfolio');
                 return redirect()->back();
             }
 
