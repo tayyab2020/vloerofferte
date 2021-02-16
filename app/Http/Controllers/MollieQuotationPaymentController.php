@@ -58,7 +58,7 @@ class MollieQuotationPaymentController extends Controller {
             $email = $handyman->email;
 
             $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->leftjoin('users','users.id','=','quotes.user_id')->where('quotes.id', $data->quote_id)->select('quotes.*', 'categories.cat_name', 'users.postcode', 'users.city', 'users.address')->first();
-            $request = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotation_invoices.quote_id', $data->quote_id)->select('quotation_invoices_data.*','quotation_invoices.description as other_info', 'quotation_invoices.vat_percentage', 'quotation_invoices.tax', 'quotation_invoices.subtotal as sub_total', 'quotation_invoices.grand_total','users.company_name','users.address','users.postcode','users.city','users.tax_number','users.registration_number','users.email','users.phone')->get();
+            $invoice = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotation_invoices.quote_id', $data->quote_id)->select('quotation_invoices_data.*','quotation_invoices.description as other_info', 'quotation_invoices.vat_percentage', 'quotation_invoices.tax', 'quotation_invoices.subtotal as sub_total', 'quotation_invoices.grand_total','users.company_name','users.address','users.postcode','users.city','users.tax_number','users.registration_number','users.email','users.phone')->get();
 
             $date = strtotime($quote->created_at);
             $requested_quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
@@ -71,7 +71,7 @@ class MollieQuotationPaymentController extends Controller {
 
             ini_set('max_execution_time', 180);
 
-            $pdf = PDF::loadView('user.pdf_quotation', compact('quote', 'type', 'request', 'quotation_invoice_number', 'requested_quote_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+            $pdf = PDF::loadView('user.pdf_quotation', compact('quote', 'type', 'invoice', 'quotation_invoice_number', 'requested_quote_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
             $pdf->save($file);
 
 

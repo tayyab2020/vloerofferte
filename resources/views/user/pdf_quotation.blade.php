@@ -37,7 +37,7 @@
 
                                 <?php
                                 $client_address = explode(',', $quote->address); array_pop($client_address); array_pop($client_address); $client_address = implode(",",$client_address);
-                                $handyman_address = explode(',', $request[0]->address); array_pop($handyman_address); array_pop($handyman_address); $handyman_address = implode(",",$handyman_address);
+                                $handyman_address = explode(',', $invoice[0]->address); array_pop($handyman_address); array_pop($handyman_address); $handyman_address = implode(",",$handyman_address);
                                 ?>
 
                                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -51,11 +51,11 @@
 
                                     <div class="col-md-6 col-sm-6 col-xs-12 text-right m2-heading" style="float: right;">
                                         <p class="font-weight-bold mb-4 m-heading">{{__('text.Handyman Information')}}</p>
-                                        <p class="mb-1 m-rest">{{$request[0]->company_name}}</p>
+                                        <p class="mb-1 m-rest">{{$invoice[0]->company_name}}</p>
                                         <p class="mb-1 m-rest">{{$handyman_address}}</p>
-                                        <p class="mb-1 m-rest">{{$request[0]->postcode}} {{$request[0]->city}}</p>
-                                        <p class="mb-1 m-rest">{{$request[0]->tax_number}}</p>
-                                        <p class="mb-1 m-rest">{{$request[0]->registration_number}}</p>
+                                        <p class="mb-1 m-rest">{{$invoice[0]->postcode}} {{$invoice[0]->city}}</p>
+                                        <p class="mb-1 m-rest">{{$invoice[0]->tax_number}}</p>
+                                        <p class="mb-1 m-rest">{{$invoice[0]->registration_number}}</p>
                                     </div>
 
                             </div>
@@ -64,14 +64,15 @@
 
                         <div class="row pb-5 p-5" style="margin-right: 15px !important;">
 
-                            <?php $date = date('d-m-Y');  ?>
+                            <?php $date = date('d-m-Y'); $delivery_address = explode(',', $quote->quote_zipcode); array_pop($delivery_address); array_pop($delivery_address); $delivery_address = implode(",",$delivery_address); ?>
 
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 {{--<p class="font-weight-bold mb-4 m-heading">Quote Information</p>--}}
                                 <p class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
                                 <p class="mb-1 m-rest">{{__('text.Created at')}}: {{$date}}</p>
                                 <p class="mb-1 m-rest">{{__('text.Requested Quote Number')}}: {{$requested_quote_number}}</p>
-                                <p class="mb-1 m-rest">{{__('text.Delivery Address')}}: {{$quote->quote_zipcode}}</p>
+                                <p class="mb-1 m-rest">{{__('text.Delivery Address')}}: {{$delivery_address}}</p>
+                                <p class="mb-1 m-rest">{{$quote->quote_postcode}} {{$quote->quote_city}}</p>
                                 <br>
                                 <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @else {{__('text.Quotation')}} @endif</p>
                             </div>
@@ -94,9 +95,9 @@
                                     </thead>
                                     <tbody>
 
-                                    @if($type == 'invoice')
+                                    @if($type == 'invoice' || $type == 'delivery-address-edit')
 
-                                        @foreach($request as $key)
+                                        @foreach($invoice as $key)
 
                                             <tr>
                                                 <td>{{$key->service}}</td>
@@ -133,14 +134,14 @@
                             </div>
                         </div>
 
-                        @if($type == 'invoice')
+                        @if($type == 'invoice' || $type == 'delivery-address-edit')
 
-                            @if($request[0]->other_info)
+                            @if($invoice[0]->other_info)
 
                                 <div class="row pb-5 p-5">
                                     <div class="col-md-12 col-sm-12 col-xs-12" style="border: 1px solid #e3e3e3;padding: 20px;">
                                         <p class="font-weight-bold mb-4 m-heading">{{__('text.Description')}}</p>
-                                        <p class="mb-1 m-rest">{{$request[0]->other_info}}</p>
+                                        <p class="mb-1 m-rest">{{$invoice[0]->other_info}}</p>
                                     </div>
                                 </div>
 
@@ -179,8 +180,8 @@
                                 <thead>
 
                                 <tr>
-                                    @if($type == 'invoice')
-                                        <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request[0]->vat_percentage}}%)</th>
+                                    @if($type == 'invoice' || $type == 'delivery-address-edit')
+                                        <th class="border-0 text-uppercase small font-weight-bold">VAT({{$invoice[0]->vat_percentage}}%)</th>
                                     @else
                                         <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request->vat_percentage}}%)</th>
                                     @endif
@@ -192,12 +193,12 @@
 
                                 <tbody>
 
-                                @if($type == 'invoice')
+                                @if($type == 'invoice' || $type == 'delivery-address-edit')
 
                                     <tr>
-                                        <td>{{number_format((float)$request[0]->tax, 2, ',', '.')}}</td>
-                                        <td>{{number_format((float)$request[0]->sub_total, 2, ',', '.')}}</td>
-                                        <td>{{number_format((float)$request[0]->grand_total, 2, ',', '.')}}</td>
+                                        <td>{{number_format((float)$invoice[0]->tax, 2, ',', '.')}}</td>
+                                        <td>{{number_format((float)$invoice[0]->sub_total, 2, ',', '.')}}</td>
+                                        <td>{{number_format((float)$invoice[0]->grand_total, 2, ',', '.')}}</td>
                                     </tr>
 
                                 @else

@@ -2,6 +2,7 @@
 
 @section('content')
 
+
     <div class="right-side">
         <div class="container-fluid">
             <div class="row">
@@ -278,7 +279,7 @@
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
 
-            <form method="post" action="{{url('/handyman/accept-quotation/')}}">
+            <form id="accept-form" method="post" action="{{url('/handyman/accept-quotation/')}}">
 
                 <input type="hidden" name="_token" value="{{@csrf_token()}}">
 
@@ -295,11 +296,79 @@
                         <label>{{__('text.Delivery Date')}} <span style="color: red;">*</span></label>
                         <input style="height: 45px;margin-bottom: 20px" type="text" name="delivery_date" id="delivery_date_picker" class="form-control" placeholder="{{__('text.Select Delivery Date')}}" required autocomplete="off">
 
+                        <div id="main" style="display: inline-block;width: 100%;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="section over-hide z-bigger">
+
+                                        <div class="section over-hide z-bigger" style="margin-top: 20px;">
+                                            <div class="container pb-5">
+                                                <div class="row justify-content-center pb-5">
+
+                                                    <div class="col-12 pt-5">
+                                                        <h4 style="color: black;text-align: center;" class="mb-4 pb-2">Do you want to change your delivery address?</h4>
+                                                    </div>
+
+
+                                                    <div class="col-12 pb-5" style="display: flex;justify-content: space-around;margin-top: 20px;">
+
+                                                        <input class="checkbox-tools change-delivery" type="radio" name="change_address" id="tool-1" value="0" checked>
+                                                        <label class="for-checkbox-tools" for="tool-1">
+                                                            No
+                                                        </label>
+
+                                                        <input class="checkbox-tools change-delivery" type="radio" name="change_address" id="tool-4" value="1">
+                                                        <label class="for-checkbox-tools" for="tool-4">
+                                                            Yes
+                                                        </label>
+
+                                                    </div>
+
+
+                                                    <div style="display: none;margin-top: 30px;" id="delivery_box">
+
+                                                        <div class="col-12 pt-5">
+                                                            <h4 style="color: black;text-align: center;" class="mb-4 pb-2">Do you want this address to be updated in your profile?</h4>
+                                                        </div>
+
+                                                        <div class="col-12 pb-5" style="display: flex;justify-content: space-around;margin-top: 20px;">
+
+                                                            <input class="checkbox-tools" type="radio" name="update" id="tool-2" value="0" checked>
+                                                            <label class="for-checkbox-tools" for="tool-2">
+                                                                No
+                                                            </label>
+
+                                                            <input class="checkbox-tools" type="radio" name="update" id="tool-3" value="1">
+                                                            <label class="for-checkbox-tools" for="tool-3">
+                                                                Yes
+                                                            </label>
+
+                                                        </div>
+
+                                                        <div style="text-align: left;">
+                                                            <label>{{__('text.Delivery Address')}} <span style="color: red;">*</span></label>
+                                                            <input style="height: 45px;margin-bottom: 20px" type="search" name="delivery_address" id="delivery_address" class="form-control" placeholder="" required autocomplete="off">
+                                                            <input type="hidden" id="check_address" value="0">
+                                                            <input id="postcode" name="postcode" type="hidden">
+                                                            <input name="city" id="city" type="hidden">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" data-dismiss="modal" aria-label="Close" style="border: 0;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">{{__('text.Close')}}</button>
-                        <button type="submit" style="border: 0;outline: none;background-color: #5cb85c !important;color: white;" class="btn btn-primary">{{__('text.Continue')}}</button>
+                        <button type="button" style="border: 0;outline: none;background-color: #5cb85c !important;color: white;" class="btn btn-primary submit-btn">{{__('text.Continue')}}</button>
                     </div>
 
                 </div>
@@ -996,16 +1065,618 @@
 
     </style>
 
+    <style>
+
+        .pac-container
+        {
+            z-index: 1000000;
+        }
+
+        @media (min-width: 1200px)
+        {
+            .container
+            {
+                width: 100%;
+            }
+        }
+
+        .for-checkbox-tools
+        {
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (max-width: 800px)
+        {
+            .pb-5
+            {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .for-checkbox-tools
+            {
+                margin: 15px 0px !important;
+            }
+        }
+
+
+        @import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=devanagari,latin-ext');
+
+
+        :root {
+            --white: #ffffff;
+            --light: #f0eff3;
+            --black: #000000;
+            --dark-blue: #1f2029;
+            --dark-light: #353746;
+            --red: #da2c4d;
+            --yellow: #f8ab37;
+            --grey: #ecedf3;
+        }
+
+        /* #Primary
+        ================================================== */
+
+        .over-hide {
+            overflow: hidden;
+        }
+        .z-bigger {
+            z-index: 100 !important;
+        }
+
+        ::selection {
+            color: var(--white);
+            background-color: var(--black);
+        }
+        ::-moz-selection {
+            color: var(--white);
+            background-color: var(--black);
+        }
+        mark{
+            color: var(--white);
+            background-color: var(--black);
+        }
+        .section {
+            position: relative;
+            width: 100%;
+            display: block;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .background-color{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--dark-blue);
+            z-index: 1;
+            -webkit-transition: all 300ms linear;
+            transition: all 300ms linear;
+        }
+        .checkbox:checked ~ .background-color{
+            background-color: var(--white);
+        }
+
+
+        [type="checkbox"]:checked,
+        [type="checkbox"]:not(:checked),
+        [type="radio"]:checked,
+        [type="radio"]:not(:checked){
+            position: absolute;
+            left: -9999px;
+            width: 0;
+            height: 0;
+            visibility: hidden;
+        }
+        .checkbox:checked + label,
+        .checkbox:not(:checked) + label{
+            position: relative;
+            width: 70px;
+            display: inline-block;
+            padding: 0;
+            margin: 0 auto;
+            text-align: center;
+            margin: 17px 0;
+            margin-top: 100px;
+            height: 6px;
+            border-radius: 4px;
+            background-image: linear-gradient(298deg, var(--red), var(--yellow));
+            z-index: 100 !important;
+        }
+        .checkbox:checked + label:before,
+        .checkbox:not(:checked) + label:before {
+            position: absolute;
+            font-family: 'unicons';
+            cursor: pointer;
+            top: -17px;
+            z-index: 2;
+            font-size: 20px;
+            line-height: 40px;
+            text-align: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            -webkit-transition: all 300ms linear;
+            transition: all 300ms linear;
+        }
+        .checkbox:not(:checked) + label:before {
+            content: '\eac1';
+            left: 0;
+            color: var(--grey);
+            background-color: var(--dark-light);
+            box-shadow: 0 4px 4px rgba(0,0,0,0.15), 0 0 0 1px rgba(26,53,71,0.07);
+        }
+        .checkbox:checked + label:before {
+            content: '\eb8f';
+            left: 30px;
+            color: var(--yellow);
+            background-color: var(--dark-blue);
+            box-shadow: 0 4px 4px rgba(26,53,71,0.25), 0 0 0 1px rgba(26,53,71,0.07);
+        }
+
+        .checkbox:checked ~ .section .container .row .col-12 p{
+            color: var(--dark-blue);
+        }
+
+
+        .checkbox-tools:checked + label,
+        .checkbox-tools:not(:checked) + label{
+            position: relative;
+            display: inline-block;
+            padding: 20px;
+            width: 300px;
+            font-size: 14px;
+            line-height: 2;
+            letter-spacing: 1px;
+            margin: 0 auto;
+            margin-left: 5px;
+            margin-right: 5px;
+            margin-bottom: 25px;
+            text-align: center;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            text-transform: uppercase;
+            color: var(--white);
+            -webkit-transition: all 300ms linear;
+            transition: all 300ms linear;
+        }
+        .checkbox-tools:not(:checked) + label{
+            background-color: var(--dark-light);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        }
+        .checkbox-tools:checked + label{
+            background-color: transparent;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+        .checkbox-tools:not(:checked) + label:hover{
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+        .checkbox-tools:checked + label::before,
+        .checkbox-tools:not(:checked) + label::before{
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            background-image: linear-gradient(298deg, var(--red), var(--yellow));
+            z-index: -1;
+        }
+        .checkbox-tools:checked + label .uil,
+        .checkbox-tools:not(:checked) + label .uil{
+            font-size: 24px;
+            line-height: 24px;
+            display: block;
+            padding-bottom: 10px;
+        }
+
+        .checkbox:checked ~ .section .container .row .col-12 .checkbox-tools:not(:checked) + label{
+            background-color: var(--light);
+            color: var(--dark-blue);
+            box-shadow: 0 1x 4px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .checkbox-budget:checked + label,
+        .checkbox-budget:not(:checked) + label{
+            position: relative;
+            display: inline-block;
+            padding: 0;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            width: 260px;
+            font-size: 52px;
+            line-height: 52px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 0 auto;
+            margin-left: 5px;
+            margin-right: 5px;
+            margin-bottom: 10px;
+            text-align: center;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            text-transform: uppercase;
+            -webkit-transition: all 300ms linear;
+            transition: all 300ms linear;
+            -webkit-text-stroke: 1px var(--white);
+            text-stroke: 1px var(--white);
+            -webkit-text-fill-color: transparent;
+            text-fill-color: transparent;
+            color: transparent;
+        }
+        .checkbox-budget:not(:checked) + label{
+            background-color: var(--dark-light);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        }
+        .checkbox-budget:checked + label{
+            background-color: transparent;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+        .checkbox-budget:not(:checked) + label:hover{
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+        .checkbox-budget:checked + label::before,
+        .checkbox-budget:not(:checked) + label::before{
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            background-image: linear-gradient(138deg, var(--red), var(--yellow));
+            z-index: -1;
+        }
+        .checkbox-budget:checked + label span,
+        .checkbox-budget:not(:checked) + label span{
+            position: relative;
+            display: block;
+        }
+        .checkbox-budget:checked + label span::before,
+        .checkbox-budget:not(:checked) + label span::before{
+            position: absolute;
+            content: attr(data-hover);
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            -webkit-text-stroke: transparent;
+            text-stroke: transparent;
+            -webkit-text-fill-color: var(--white);
+            text-fill-color: var(--white);
+            color: var(--white);
+            -webkit-transition: max-height 0.3s;
+            -moz-transition: max-height 0.3s;
+            transition: max-height 0.3s;
+        }
+        .checkbox-budget:not(:checked) + label span::before{
+            max-height: 0;
+        }
+        .checkbox-budget:checked + label span::before{
+            max-height: 100%;
+        }
+
+        .checkbox:checked ~ .section .container .row .col-xl-10 .checkbox-budget:not(:checked) + label{
+            background-color: var(--light);
+            -webkit-text-stroke: 1px var(--dark-blue);
+            text-stroke: 1px var(--dark-blue);
+            box-shadow: 0 1x 4px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .checkbox-booking:checked + label,
+        .checkbox-booking:not(:checked) + label{
+            position: relative;
+            display: -webkit-inline-flex;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            -webkit-align-items: center;
+            -moz-align-items: center;
+            -ms-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            -moz-justify-content: center;
+            -ms-justify-content: center;
+            justify-content: center;
+            -ms-flex-pack: center;
+            text-align: center;
+            padding: 0;
+            padding: 6px 25px;
+            font-size: 14px;
+            line-height: 30px;
+            letter-spacing: 1px;
+            margin: 0 auto;
+            margin-left: 6px;
+            margin-right: 6px;
+            margin-bottom: 16px;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            color: var(--white);
+            text-transform: uppercase;
+            background-color: var(--dark-light);
+            -webkit-transition: all 300ms linear;
+            transition: all 300ms linear;
+        }
+        .checkbox-booking:not(:checked) + label::before{
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        }
+        .checkbox-booking:checked + label::before{
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+        .checkbox-booking:not(:checked) + label:hover::before{
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+        .checkbox-booking:checked + label::before,
+        .checkbox-booking:not(:checked) + label::before{
+            position: absolute;
+            content: '';
+            top: -2px;
+            left: -2px;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            border-radius: 4px;
+            z-index: -2;
+            background-image: linear-gradient(138deg, var(--red), var(--yellow));
+            -webkit-transition: all 300ms linear;
+            transition: all 300ms linear;
+        }
+        .checkbox-booking:not(:checked) + label::before{
+            top: -1px;
+            left: -1px;
+            width: calc(100% + 2px);
+            height: calc(100% + 2px);
+        }
+        .checkbox-booking:checked + label::after,
+        .checkbox-booking:not(:checked) + label::after{
+            position: absolute;
+            content: '';
+            top: -2px;
+            left: -2px;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            border-radius: 4px;
+            z-index: -2;
+            background-color: var(--dark-light);
+            -webkit-transition: all 300ms linear;
+            transition: all 300ms linear;
+        }
+        .checkbox-booking:checked + label::after{
+            opacity: 0;
+        }
+        .checkbox-booking:checked + label .uil,
+        .checkbox-booking:not(:checked) + label .uil{
+            font-size: 20px;
+        }
+        .checkbox-booking:checked + label .text,
+        .checkbox-booking:not(:checked) + label .text{
+            position: relative;
+            display: inline-block;
+            -webkit-transition: opacity 300ms linear;
+            transition: opacity 300ms linear;
+        }
+        .checkbox-booking:checked + label .text{
+            opacity: 0.6;
+        }
+        .checkbox-booking:checked + label .text::after,
+        .checkbox-booking:not(:checked) + label .text::after{
+            position: absolute;
+            content: '';
+            width: 0;
+            left: 0;
+            top: 50%;
+            margin-top: -1px;
+            height: 2px;
+            background-image: linear-gradient(138deg, var(--red), var(--yellow));
+            z-index: 1;
+            -webkit-transition: all 300ms linear;
+            transition: all 300ms linear;
+        }
+        .checkbox-booking:not(:checked) + label .text::after{
+            width: 0;
+        }
+        .checkbox-booking:checked + label .text::after{
+            width: 100%;
+        }
+
+        .checkbox:checked ~ .section .container .row .col-12 .checkbox-booking:not(:checked) + label,
+        .checkbox:checked ~ .section .container .row .col-12 .checkbox-booking:checked + label{
+            background-color: var(--light);
+            color: var(--dark-blue);
+        }
+        .checkbox:checked ~ .section .container .row .col-12 .checkbox-booking:checked + label::after,
+        .checkbox:checked ~ .section .container .row .col-12 .checkbox-booking:not(:checked) + label::after{
+            background-color: var(--light);
+        }
+    </style>
+
 @endsection
 
 
 @section('scripts')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
 
     <script type="text/javascript">
 
+        function initMap() {
+
+            var input = document.getElementById('delivery_address');
+
+            var options = {
+                componentRestrictions: {country: "nl"}
+            };
+
+            var autocomplete = new google.maps.places.Autocomplete(input,options);
+
+            // Set the data fields to return when the user selects a place.
+            autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
+
+
+            autocomplete.addListener('place_changed', function() {
+
+                var flag = 0;
+
+                var place = autocomplete.getPlace();
+
+
+                if (!place.geometry) {
+
+                    // User entered the name of a Place that was not suggested and
+                    // pressed the Enter key, or the Place Details request failed.
+                    window.alert("No details available for input: '" + place.name + "'");
+                    return;
+                }
+                else
+                {
+                    var string = $('#delivery_address').val().substring(0, $('#delivery_address').val().indexOf(',')); //first string before comma
+
+                    if(string)
+                    {
+                        var is_number = $('#delivery_address').val().match(/\d+/);
+
+                        if(is_number === null)
+                        {
+                            flag = 1;
+                        }
+                    }
+                }
+
+                var city = '';
+                var postal_code = '';
+
+
+                for(var i=0; i < place.address_components.length; i++)
+                {
+                    if(place.address_components[i].types[0] == 'postal_code')
+                    {
+                        postal_code = place.address_components[i].long_name;
+                    }
+
+                    if(place.address_components[i].types[0] == 'locality')
+                    {
+                        city = place.address_components[i].long_name;
+                    }
+
+                }
+
+
+                if(city == '')
+                {
+                    for(var i=0; i < place.address_components.length; i++)
+                    {
+                        if(place.address_components[i].types[0] == 'administrative_area_level_2')
+                        {
+                            city = place.address_components[i].long_name;
+
+                        }
+                    }
+                }
+
+
+                if(postal_code == '' || city == '')
+                {
+                    flag = 1;
+                }
+
+                if(!flag)
+                {
+                    $('#check_address').val(1);
+                    $("#address-error").remove();
+                    $('#postcode').val(postal_code);
+                    $("#city").val(city);
+                }
+                else
+                {
+                    $('#delivery_address').val('');
+                    $('#postcode').val('');
+                    $("#city").val('');
+
+                    $("#address-error").remove();
+                    $('#delivery_address').parent().append('<small id="address-error" style="color: red;display: block;padding-right: 30px;">Kindly write your full address with house/building number so system can detect postal code and city from it!</small>');
+                }
+
+            });
+        }
+
         $(document).ready(function() {
+
+            $('.submit-btn').click(function(){
+                var date = $('#delivery_date_picker').val();
+                var delivery_address = $('#delivery_address').val();
+                var change_delivery = $('.change-delivery:checked').val();
+                var flag = 0;
+
+                if(!date)
+                {
+                    $('#delivery_date_picker').css('border','1px solid red');
+                    flag = 1;
+                }
+                else
+                {
+                    $('#delivery_date_picker').css('border','');
+                }
+
+                if(change_delivery == 1)
+                {
+                    if(!delivery_address)
+                    {
+                        $('#delivery_address').css('border','1px solid red');
+                        flag = 1;
+                    }
+                    else
+                    {
+                        $('#delivery_address').css('border','');
+                    }
+                }
+                else
+                {
+                    $('#delivery_address').css('border','');
+                }
+
+                if(flag == 0)
+                {
+                    $('#accept-form').submit();
+                }
+            });
+
+            $("#delivery_address").on('input',function(e){
+                $(this).next('input').val(0);
+            });
+
+            $("#delivery_address").focusout(function(){
+
+                var check = $(this).next('input').val();
+
+                if(check == 0)
+                {
+                    $(this).val('');
+                    $('#postcode').val('');
+                    $("#city").val('');
+                }
+            });
+
+            $(".change-delivery").change(function() {
+
+                var value = $(this).val();
+
+                if(value == 1)
+                {
+                    $('#delivery_box').show();
+                }
+                else
+                {
+                    $('#delivery_box').hide();
+                }
+
+            });
 
             var todayDate = new Date().getDate();
             var endD = new Date(new Date().setDate(todayDate + 1));
@@ -1024,6 +1695,15 @@
             var invoice_id = $(e).data('id');
 
             $('#invoice_id').val(invoice_id);
+            $('#delivery_box').hide();
+
+            $("#delivery_date_picker").val('');
+            $("#tool-1").prop("checked", true);
+            $("#tool-2").prop("checked", true);
+
+            $("#delivery_address").val('');
+            $('#postcode').val('');
+            $("#city").val('');
 
             $('#myModal').modal('toggle');
         }

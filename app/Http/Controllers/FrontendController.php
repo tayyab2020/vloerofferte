@@ -1149,12 +1149,16 @@ class FrontendController extends Controller
 
                 $link = url('/') . '/handyman/client-dashboard';
 
-                \Mail::send(array(), array(), function ($message) use ($user_email, $user_name, $link, $password) {
-                    $message->to($user_email)
-                        ->from('info@vloerofferteonline.nl')
-                        ->subject('Account Created!')
-                        ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Your account has been created and your quotation request has been submitted successfully. Kindly complete your profile and change your password. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Your Password: " . $password . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
-                });
+                try{
+                    \Mail::send(array(), array(), function ($message) use ($user_email, $user_name, $link, $password) {
+                        $message->to($user_email)
+                            ->from('info@vloerofferteonline.nl')
+                            ->subject('Account Created!')
+                            ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Your account has been created and your quotation request has been submitted successfully. Kindly complete your profile and change your password. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Your Password: " . $password . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                    });
+                }
+                catch(\Exception $e){
+                }
 
             }
 
@@ -1211,12 +1215,17 @@ class FrontendController extends Controller
 
             $link = url('/') . '/handyman/client-dashboard';
 
-            \Mail::send(array(), array(), function ($message) use ($user_email, $user_name, $link) {
-                $message->to($user_email)
-                    ->from('info@vloerofferteonline.nl')
-                    ->subject('Quotation Request Submitted!')
-                    ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
-            });
+            try{
+                \Mail::send(array(), array(), function ($message) use ($user_email, $user_name, $link) {
+                    $message->to($user_email)
+                        ->from('info@vloerofferteonline.nl')
+                        ->subject('Quotation Request Submitted!')
+                        ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                });
+            }
+            catch(\Exception $e){
+                return redirect()->back();
+            }
 
             /*Session::flash('success', __('text.Your Quotation request has been created successfully!'));*/
             return redirect()->back();
