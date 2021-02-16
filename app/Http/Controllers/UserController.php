@@ -270,30 +270,54 @@ class UserController extends Controller
     {
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
+        $role = $user->role_id;
 
         $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->where('quotes.id', $id)->where('quotes.user_id', $user_id)->select('quotes.*', 'categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->first();
 
         $q_a = requests_q_a::where('request_id', $id)->get();
 
         if ($quote) {
+
             $date = strtotime($quote->created_at);
 
             $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
 
             $filename = $quote_number . '.pdf';
 
-            $file = public_path() . '/assets/quotesPDF/' . $filename;
+            if($role == 3)
+            {
+                $file = public_path() . '/assets/adminQuotesPDF/' . $filename;
+            }
+            else
+            {
+                $file = public_path() . '/assets/quotesPDF/' . $filename;
+            }
 
             if (!file_exists($file)) {
 
                 ini_set('max_execution_time', 180);
 
-                $pdf = PDF::loadView('admin.user.pdf_quote', compact('quote', 'q_a'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+                $pdf = PDF::loadView('admin.user.pdf_quote', compact('quote', 'q_a','role'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
-                $pdf->save(public_path() . '/assets/quotesPDF/' . $filename);
+                if($role == 3)
+                {
+                    $pdf->save(public_path() . '/assets/adminQuotesPDF/' . $filename);
+                }
+                else
+                {
+                    $pdf->save(public_path() . '/assets/quotesPDF/' . $filename);
+                }
             }
 
-            return response()->download(public_path("assets/quotesPDF/{$filename}"));
+            if($role == 3)
+            {
+                return response()->download(public_path("assets/adminQuotesPDF/{$filename}"));
+            }
+            else
+            {
+                return response()->download(public_path("assets/quotesPDF/{$filename}"));
+            }
+
         } else {
             return redirect('handyman/client-dashboard');
         }

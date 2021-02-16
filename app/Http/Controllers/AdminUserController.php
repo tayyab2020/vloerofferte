@@ -234,18 +234,20 @@ class AdminUserController extends Controller
 
         $filename = $quote_number.'.pdf';
 
-        $file = public_path().'/assets/quotesPDF/'.$filename;
+        $file = public_path().'/assets/adminQuotesPDF/'.$filename;
 
         if (!file_exists($file)){
 
+            $role = 1;
+
             ini_set('max_execution_time', 180);
 
-            $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote','q_a'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+            $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote','q_a','role'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
-            $pdf->save(public_path().'/assets/quotesPDF/'.$filename);
+            $pdf->save(public_path().'/assets/adminQuotesPDF/'.$filename);
         }
 
-        return response()->download(public_path("assets/quotesPDF/{$filename}"));
+        return response()->download(public_path("assets/adminQuotesPDF/{$filename}"));
     }
 
     public function ViewQuotation($id)
@@ -458,9 +460,11 @@ class AdminUserController extends Controller
 
         if (!file_exists($file)){
 
+            $role = 2;
+
             ini_set('max_execution_time', 180);
 
-            $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote','q_a'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+            $pdf = PDF::loadView('admin.user.pdf_quote',compact('quote','q_a','role'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
             $pdf->save(public_path().'/assets/quotesPDF/'.$filename);
         }

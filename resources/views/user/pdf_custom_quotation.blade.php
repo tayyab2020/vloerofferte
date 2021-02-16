@@ -15,12 +15,17 @@
                     <div class="card-body p-0">
                         <div class="row p-5" style="margin-right: 15px !important;">
 
+                            <?php
+                            $address = explode(',', $user->address); array_pop($address); array_pop($address); $address = implode(",",$address);
+                            ?>
+
                             <div class="col-md-4 col-sm-4 col-xs-12">
 
                                 <img class="img-fluid" src="{{ public_path('assets/images/'.$user->photo) }}" style="width:30%; height:100%;margin-bottom: 30px;">
                                 <p style="margin: 0"><b>{{$user->name}} {{$user->family_name}}</b></p>
                                 <p style="margin: 0">{{$user->company_name}}</p>
-                                <p style="margin: 0">{{$user->address}}<?php if($user->city){ echo ', '.$user->city; } ?></p>
+                                <p style="margin: 0">{{$address}}</p>
+                                <p style="margin: 0">{{$user->postcode}} {{$user->city}}</p>
                                 <p style="margin: 0">TEL: {{$user->phone}}</p>
                                 <p style="margin: 0">{{$user->email}}</p>
                                 <br>
@@ -33,14 +38,16 @@
 
                                 <p class="font-weight-bold mb-1" style="font-size: 20px;">@if($type == 'invoice' || $type == 'direct-invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
 
-                                <?php $date = date('d-m-Y');  ?>
+                                <?php
+                                $date = date('d-m-Y');
+                                $client_address = explode(',', $client->address); array_pop($client_address); array_pop($client_address); $client_address = implode(",",$client_address);
+                                ?>
 
                                 <p class="text-muted" style="font-size: 15px;margin-top: 10px;">{{__('text.Created at')}}: {{$date}}</p>
 
                                 <p class="mb-1 m-rest">{{$client->name}} {{$client->family_name}}</p>
-                                <p class="mb-1 m-rest">{{$client->address}}</p>
-                                <p class="mb-1 m-rest">{{$client->city}}</p>
-                                <p class="mb-1 m-rest">{{$client->postcode}}</p>
+                                <p class="mb-1 m-rest">{{$client_address}}</p>
+                                <p class="mb-1 m-rest">{{$client->postcode}} {{$client->city}}</p>
                                 <p class="mb-1 m-rest">{{$client->email}}</p>
 
                             </div>

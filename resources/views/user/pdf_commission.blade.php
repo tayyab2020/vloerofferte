@@ -33,15 +33,17 @@
 
                         <div class="row pb-5 p-5" style="margin-right: 15px !important;">
 
-                            <?php $date = date('d-m-Y');  ?>
+                            <?php
+                            $date = date('d-m-Y');
+                            $address = explode(',', $request[0]->address); array_pop($address); array_pop($address); $address = implode(",",$address);
+                            ?>
 
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <p class="mb-1 m-rest">{{$request[0]->company_name}}</p>
-                                <p class="mb-1 m-rest">{{$request[0]->address}}</p>
+                                <p class="mb-1 m-rest">{{$address}}</p>
                                 <p class="mb-1 m-rest">{{$request[0]->postcode}} {{$request[0]->city}}</p>
                                 <p class="mb-1 m-rest">{{$request[0]->tax_number}}</p>
                                 <p class="mb-1 m-rest">{{$request[0]->registration_number}}</p>
-
                                 <br>
                                 <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">{{__('text.Commission Invoice')}}</p>
                             </div>
@@ -52,7 +54,7 @@
                                 <p class="mb-1 m-rest">{{__('text.Customer Invoice')}}: INV# {{$quotation_invoice_number}}</p>
                                 <p class="mb-1 m-rest">{{__('text.Requested Quote Number')}}: {{$requested_quote_number}}</p>
                                 <p class="mb-1 m-rest">{{__('text.Requested Service')}}: {{$quote->cat_name}}</p>
-                                <p class="mb-1 m-rest">{{__('text.Address')}}: {{$quote->quote_zipcode}}</p>
+                                <p class="mb-1 m-rest">{{__('text.Delivery Address')}}: {{$quote->quote_zipcode}}</p>
                             </div>
 
                         </div>

@@ -50,7 +50,9 @@
                                             <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Category/Item')}}</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Brand')}}</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model')}}</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Address')}}</th>
+                                            @if($role != 2)
+                                                <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Address')}}</th>
+                                            @endif
                                             {{--<th class="border-0 text-uppercase small font-weight-bold">Street</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">House Number</th>--}}
                                         </tr>
@@ -62,7 +64,9 @@
                                                 <td>{{$quote->cat_name}}</td>
                                                 <td>{{$quote->brand_name}}</td>
                                                 <td>{{$quote->model_name}}</td>
-                                                <td>{{$quote->quote_zipcode}}</td>
+                                                @if($role != 2)
+                                                    <td>{{$quote->quote_zipcode}}</td>
+                                                @endif
                                                 {{--<td>{{$quote->quote_street}}</td>
                                                 <td>{{$quote->quote_house}}</td>--}}
                                             </tr>
