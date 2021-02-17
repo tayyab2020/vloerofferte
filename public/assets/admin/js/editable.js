@@ -2,6 +2,8 @@
 $.fn.editableTableWidget = function (options) {
     'use strict';
     return $(this).each(function () {
+        $('#notModel').remove();
+        $('#isModel').remove();
         var buildDefaultOptions = function () {
                 var opts = $.extend({}, $.fn.editableTableWidget.defaultOptions);
                 opts.editor = opts.editor.clone();

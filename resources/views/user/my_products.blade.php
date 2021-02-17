@@ -22,7 +22,7 @@
                                         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
                                         <link rel="stylesheet" href="https://gurayyarar.github.io/AdminBSBMaterialDesign/css/style.css" />
 
-                                        <script src="{{asset('assets/admin/js/editable.js?v=1')}}"></script>
+                                        <script src="{{asset('assets/admin/js/editable.js?v=1.1')}}"></script>
 
                                         @if(Route::currentRouteName() == 'product-create')
 
@@ -290,6 +290,67 @@
 
         var table = $('#example1').DataTable(
             {
+                "fnDrawCallback": function(settings, json) {
+                    $('.mainTable').editableTableWidget();
+                    $('.mainTable td').on('change', function(evt, newValue) {
+
+                        var type = $(this).data('type');
+                        var parent = $(this).parent();
+
+                        if(type == 'rate')
+                        {
+                            parent.find('.product_rate').val(newValue);
+
+                            var rate = newValue.replace(/\,/g, '.');
+                            var vat = (100 + 21)/100;
+
+                            var sell_rate = rate * vat;
+                            sell_rate = parseFloat(sell_rate).toFixed(2);
+
+                            if(sell_rate != 'NaN')
+                            {
+                                parent.find('.product_rate').val(rate);
+                                parent.find('.product_sell_rate').val(sell_rate);
+                                parent.find('td[data-type="sell_rate"]').text(sell_rate.replace(/\./g, ','));
+                            }
+                            else
+                            {
+                                parent.find('.product_rate').val('');
+                                parent.find('.product_sell_rate').val('');
+                                parent.find('td[data-type="sell_rate"]').text('');
+                            }
+                        }
+                        else if(type == 'sell_rate')
+                        {
+                            parent.find('.product_sell_rate').val(newValue);
+
+                            var sell_rate = newValue.replace(/\,/g, '.');
+                            var vat = (100 + 21)/100;
+
+                            var rate = sell_rate / vat;
+                            rate = parseFloat(rate).toFixed(2);
+
+                            if(rate != 'NaN')
+                            {
+                                parent.find('.product_rate').val(rate);
+                                parent.find('.product_sell_rate').val(sell_rate);
+                                parent.find('td[data-type="rate"]').text(rate.replace(/\./g, ','));
+                            }
+                            else
+                            {
+                                parent.find('.product_rate').val('');
+                                parent.find('.product_sell_rate').val('');
+                                parent.find('td[data-type="rate"]').text('');
+                            }
+                        }
+                        else
+                        {
+                            parent.find('.model_number').val(newValue);
+                        }
+
+                        table.rows().invalidate();
+                    });
+                },
                 columnDefs: [ { "orderable": false, "targets": [0] } ],
                 order: [[1, 'desc']],
                 "oLanguage": {
@@ -305,6 +366,8 @@
             }
         );
 
+
+
         $('#example2').DataTable({
             "oLanguage": {
                 "sLengthMenu": "<?php echo __('text.Show') . ' _MENU_ ' . __('text.records'); ?>",
@@ -318,7 +381,6 @@
             }
         });
 
-        $('.mainTable').editableTableWidget();
 
         /*$('.mainTable').on('validate', function(evt, newValue) {
             table.ajax.reload();
@@ -372,64 +434,7 @@
         });
 
 
-        $('.mainTable td').on('change', function(evt, newValue) {
 
-            var type = $(this).data('type');
-            var parent = $(this).parent();
-
-            if(type == 'rate')
-            {
-                parent.find('.product_rate').val(newValue);
-
-                var rate = newValue.replace(/\,/g, '.');
-                var vat = (100 + 21)/100;
-
-                var sell_rate = rate * vat;
-                sell_rate = parseFloat(sell_rate).toFixed(2);
-
-                if(sell_rate != 'NaN')
-                {
-                    parent.find('.product_rate').val(rate);
-                    parent.find('.product_sell_rate').val(sell_rate);
-                    parent.find('td[data-type="sell_rate"]').text(sell_rate.replace(/\./g, ','));
-                }
-                else
-                {
-                    parent.find('.product_rate').val('');
-                    parent.find('.product_sell_rate').val('');
-                    parent.find('td[data-type="sell_rate"]').text('');
-                }
-            }
-            else if(type == 'sell_rate')
-            {
-                parent.find('.product_sell_rate').val(newValue);
-
-                var sell_rate = newValue.replace(/\,/g, '.');
-                var vat = (100 + 21)/100;
-
-                var rate = sell_rate / vat;
-                rate = parseFloat(rate).toFixed(2);
-
-                if(rate != 'NaN')
-                {
-                    parent.find('.product_rate').val(rate);
-                    parent.find('.product_sell_rate').val(sell_rate);
-                    parent.find('td[data-type="rate"]').text(rate.replace(/\./g, ','));
-                }
-                else
-                {
-                    parent.find('.product_rate').val('');
-                    parent.find('.product_sell_rate').val('');
-                    parent.find('td[data-type="rate"]').text('');
-                }
-            }
-            else
-            {
-                parent.find('.model_number').val(newValue);
-            }
-
-            table.rows().invalidate();
-        });
 
     </script>
 
