@@ -128,7 +128,7 @@
                                     </tr>
 
 
-                                    @foreach($request as $key)
+                                    @foreach($invoice as $key)
 
                                         <tr>
                                             <td>{{$key->service}} {{$key->brand}} {{$key->model}}</td>
