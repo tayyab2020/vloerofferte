@@ -1128,6 +1128,7 @@ class FrontendController extends Controller
                 }
 
                 $user_id = $check->id;
+                $counter = $check->counter;
 
             } else {
                 $password = Str::random(8);
@@ -1146,11 +1147,15 @@ class FrontendController extends Controller
                 $user->save();
 
                 $user_id = $user->id;
+                $counter = $user->counter;
                 $account_create = 1;
             }
 
+            $quote_number = date("Y") . "-" . sprintf('%04u', $user_id) . '-' . sprintf('%04u', $counter);
+
             $quote = new quotes;
             $quote->user_id = $user_id;
+            $quote->quote_number = $quote_number;
             $quote->quote_service = $request->quote_service;
             $quote->quote_brand = $request->quote_brand;
             $quote->quote_model = $request->quote_model;
@@ -1166,6 +1171,9 @@ class FrontendController extends Controller
             $quote->quote_contact = $request->quote_contact;
 
             $quote->save();
+
+            $counter = $counter + 1;
+            User::where('id',$user_id)->update(['counter' => $counter]);
 
 
             if(isset($request->questions))
@@ -1199,9 +1207,6 @@ class FrontendController extends Controller
                     $post->save();
                 }
             }
-
-            $date = strtotime($quote->created_at);
-            $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
 
             if($account_create)
             {

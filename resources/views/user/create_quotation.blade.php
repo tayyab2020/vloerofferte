@@ -22,7 +22,7 @@
                                         <form class="form-horizontal" action="{{route('store-quotation')}}" method="POST" enctype="multipart/form-data">
                                             {{csrf_field()}}
 
-                                        <?php $requested_quote_number = date("Y", strtotime($quote->created_at)) . "-" . sprintf('%04u', $quote->id); ?>
+                                        <?php $requested_quote_number = $quote->quote_number; ?>
 
                                         <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
 

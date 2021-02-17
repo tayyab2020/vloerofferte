@@ -37,7 +37,7 @@
 
                                         @endif
 
-                                        <?php $requested_quote_number = date("Y", strtotime($quotation[0]->quote_date)) . "-" . sprintf('%04u', $quotation[0]->quote_id); ?>
+                                        <?php $requested_quote_number = $quotation[0]->quote_number; ?>
 
                                         <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
                                             <div class="col-md-4" style="margin: 10px 0px;">

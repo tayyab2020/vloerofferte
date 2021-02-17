@@ -64,40 +64,30 @@
                                 </li>
                             </ul>
                             <ul class="list-unstyled components">
+
                                 <li>
                                     <a href="{{route('admin-dashboard')}}"><i class="fa fa-home"></i> Dashboard</a>
                                 </li>
 
                                 <li>
-                                    <a href="{{route('quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Requests</a>
+                                    <a href="#leads" data-toggle="collapse" @if(Route::currentRouteName() == 'quotation-requests' || Route::currentRouteName() == 'handyman-quotations' || Route::currentRouteName() == 'handyman-quotations-invoices' || Route::currentRouteName() == 'handyman-commission-invoices' || Route::currentRouteName() == 'quotation-questions') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> Leads for admin</a>
+                                    <ul class="collapse list-unstyled submenu" id="leads">
+                                        <li><a href="{{route('quotation-requests')}}"><i class="fa fa-angle-right"></i> Quotation Requests</a></li>
+                                        <li><a href="{{route('handyman-quotations')}}"><i class="fa fa-angle-right"></i> Handyman Quotations</a></li>
+                                        <li><a href="{{route('handyman-quotations-invoices')}}"><i class="fa fa-angle-right"></i> Quotation Invoices</a></li>
+                                        <li><a href="{{route('handyman-commission-invoices')}}"><i class="fa fa-angle-right"></i> Commission Invoices</a></li>
+                                        <li><a href="{{route('quotation-questions')}}"><i class="fa fa-angle-right"></i> Quotation Questions</a></li>
+                                    </ul>
                                 </li>
 
-                                <li>
-                                    <a href="{{route('handyman-quotations')}}"><i class="fa fa-fw fa-file-text"></i> Handyman Quotations</a>
-                                </li>
 
                                 <li>
-                                    <a href="{{route('handyman-quotations-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Invoices</a>
-                                </li>
-
-                                <li>
-                                    <a href="{{route('handyman-commission-invoices')}}"><i class="fa fa-fw fa-file-text"></i> Commission Invoices</a>
-                                </li>
-
-                                <li>
-                                    <a href="{{route('quotation-questions')}}"><i class="fa fa-fw fa-file-text"></i> Quotation Questions</a>
-                                </li>
-
-                                <li>
-                                    <a href="{{route('admin-user-index')}}"><i class="fa fa-fw fa-user-md"></i> Handymen</a>
-                                </li>
-
-                                <li>
-                                    <a href="{{route('admin-user-client')}}"><i class="fa fa-fw fa-user-md"></i> Clients</a>
-                                </li>
-
-                                <li>
-                                    <a href="{{route('admin-user-requests')}}"><i class="fa fa-fw fa-user-md"></i> Update Requests</a>
+                                    <a href="#profiles" data-toggle="collapse" @if(Route::currentRouteName() == 'admin-user-index' || Route::currentRouteName() == 'admin-user-client' || Route::currentRouteName() == 'admin-user-requests') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> Profiles</a>
+                                    <ul class="collapse list-unstyled submenu" id="profiles">
+                                        <li><a href="{{route('admin-user-index')}}"><i class="fa fa-angle-right"></i> Handymen</a></li>
+                                        <li><a href="{{route('admin-user-client')}}"><i class="fa fa-angle-right"></i> Clients</a></li>
+                                        <li><a href="{{route('admin-user-requests')}}"><i class="fa fa-angle-right"></i> Update Requests</a></li>
+                                    </ul>
                                 </li>
 
                                 <li>

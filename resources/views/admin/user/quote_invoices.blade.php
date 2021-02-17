@@ -77,7 +77,7 @@
 
                                                             <td style="outline: none;">@if(Route::currentRouteName() == 'handyman-quotations') <input @if($key->approved || $key->status >= 2) disabled @endif style="margin: 10px 10px;position: relative;top: 2px;" type="checkbox" name="action[]" value="{{$key->invoice_id}}" class="action"> @endif <a href="{{ url('/logstof/view-quotation/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'handyman-quotations') QUO# @else INV# @endif {{$key->quotation_invoice_number}}</a></td>
 
-                                                            <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
+                                                            <?php $requested_quote_number = $key->quote_number; ?>
 
                                                             <td><a href="{{ url('/logstof/view-quote-request/'.$key->id) }}">{{$requested_quote_number}}</a></td>
 

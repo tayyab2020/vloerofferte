@@ -18,9 +18,7 @@
 
                                     <div class="form-horizontal">
 
-                                        <?php $date = strtotime($request->created_at);
-
-                                        $quote_number = date("Y", $date) . "-" . sprintf('%04u', $request->id); ?>
+                                        <?php $quote_number = $request->quote_number; ?>
 
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Request Number')}} </label>

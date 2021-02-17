@@ -81,7 +81,7 @@
 
                                                                 <td><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'client-quotations') QUO# @else INV# @endif{{$key->quotation_invoice_number}}</a></td>
 
-                                                                <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
+                                                                <?php $requested_quote_number = $key->quote_number; ?>
 
                                                                 <td><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">{{$requested_quote_number}}</a></td>
 

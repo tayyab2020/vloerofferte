@@ -228,9 +228,7 @@ class AdminUserController extends Controller
 
         $q_a = requests_q_a::where('request_id',$id)->get();
 
-        $date = strtotime($quote->created_at);
-
-        $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
+        $quote_number = $quote->quote_number;
 
         $filename = $quote_number.'.pdf';
 
@@ -256,7 +254,7 @@ class AdminUserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quotation = quotation_invoices::leftjoin('quotation_invoices_data','quotation_invoices_data.quotation_id','=','quotation_invoices.id')->leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->where('quotation_invoices.id',$id)->select('quotation_invoices.*','quotes.id as quote_id','quotes.created_at as quote_date','quotation_invoices_data.id as data_id','quotation_invoices_data.s_i_id','quotation_invoices_data.b_i_id','quotation_invoices_data.m_i_id','quotation_invoices_data.item','quotation_invoices_data.rate','quotation_invoices_data.qty','quotation_invoices_data.description as data_description','quotation_invoices_data.estimated_date','quotation_invoices_data.amount')->get();
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data','quotation_invoices_data.quotation_id','=','quotation_invoices.id')->leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->where('quotation_invoices.id',$id)->select('quotation_invoices.*','quotes.id as quote_id','quotes.quote_number','quotes.created_at as quote_date','quotation_invoices_data.id as data_id','quotation_invoices_data.s_i_id','quotation_invoices_data.b_i_id','quotation_invoices_data.m_i_id','quotation_invoices_data.item','quotation_invoices_data.rate','quotation_invoices_data.qty','quotation_invoices_data.description as data_description','quotation_invoices_data.estimated_date','quotation_invoices_data.amount')->get();
 
 
         if(count($quotation) != 0)
@@ -381,14 +379,12 @@ class AdminUserController extends Controller
             $quotation->approved = 1;
             $quotation->save();
 
-            $user = quotes::leftjoin('quotation_invoices','quotation_invoices.quote_id','=','quotes.id')->leftjoin('users','users.id','=','quotes.user_id')->where('quotation_invoices.id',$key)->select('users.*','quotes.created_at')->first();
+            $user = quotes::leftjoin('quotation_invoices','quotation_invoices.quote_id','=','quotes.id')->leftjoin('users','users.id','=','quotes.user_id')->where('quotation_invoices.id',$key)->select('users.*','quotes.quote_number','quotes.created_at')->first();
 
             $client_name = $user->name . ' ' . $user->family_name;
             $client_email = $user->email;
 
-            $date = strtotime($user->created_at);
-
-            $requested_quote_number = date("Y", $date) . "-" . sprintf('%04u', $user->quote_id);
+            $requested_quote_number = $user->quote_number;
 
             $quotation_invoice_number = $quotation->quotation_invoice_number;
 
@@ -450,9 +446,7 @@ class AdminUserController extends Controller
 
         $q_a = requests_q_a::where('request_id',$request->quote_id)->get();
 
-        $date = strtotime($quote->created_at);
-
-        $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
+        $quote_number = $quote->quote_number;
 
         $filename = $quote_number.'.pdf';
 

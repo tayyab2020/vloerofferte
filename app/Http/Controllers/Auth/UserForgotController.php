@@ -86,35 +86,28 @@ $language = user_languages::where('ip','=',$ip_address)->first();
             $name = $user->name. ' ' .$user->family_name;
 
 
-
             if($this->lang->lang == 'eng') // English Email Template
             {
 
-                $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            $subject = "Reset Password Request";
-            $msg = "Dear Mr/Mrs ". $name .",<br><br>Your New Password is : ".$autopass."<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
-            mail($request->email,$subject,$msg,$headers);
-
-
+                \Mail::send(array(), array(), function ($message) use ($name, $autopass, $request) {
+                    $message->to($request->email)
+                        ->from('info@vloerofferteonline.nl')
+                        ->subject('Reset Password Request')
+                        ->setBody("Dear Mr/Mrs ". $name .",<br><br>Your New Password is : ".$autopass."<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                });
 
             }
             else // Dutch Email Template
             {
 
-                $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            $subject = "Wachtwoord wijzigen";
-            $msg = "Beste ". $name .",<br><br>Je hebt zojuist een nieuw wachtwoord aangevraagd, indien jij niet de aanvrager bent neem contact met ons. Hierbij je nieuw wachtwoord : ".$autopass."<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
-            mail($request->email,$subject,$msg,$headers);
-
-
+                \Mail::send(array(), array(), function ($message) use ($name, $autopass, $request) {
+                    $message->to($request->email)
+                        ->from('info@vloerofferteonline.nl')
+                        ->subject('Wachtwoord wijzigen')
+                        ->setBody("Beste ". $name .",<br><br>Je hebt zojuist een nieuw wachtwoord aangevraagd, indien jij niet de aanvrager bent neem contact met ons. Hierbij je nieuw wachtwoord : ".$autopass."<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                });
 
             }
-
-
 
 
             Session::flash('success', $this->lang->prst);

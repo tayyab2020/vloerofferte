@@ -33,7 +33,7 @@
 
                                                     @if(Route::currentRouteName() != 'view-client-custom-quotation')
 
-                                                        <?php $requested_quote_number = date("Y", strtotime($quotation[0]->quote_date)) . "-" . sprintf('%04u', $quotation[0]->quote_id); ?>
+                                                        <?php $requested_quote_number = $quotation[0]->quote_number; ?>
 
                                                         <div class="col-md-4" style="margin: 10px 0px;">
                                                             <div class="form-group" style="margin: 0;">

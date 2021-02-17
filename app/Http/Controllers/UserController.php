@@ -278,9 +278,7 @@ class UserController extends Controller
 
         if ($quote) {
 
-            $date = strtotime($quote->created_at);
-
-            $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
+            $quote_number = $quote->quote_number;
 
             $filename = $quote_number . '.pdf';
 
@@ -554,7 +552,7 @@ class UserController extends Controller
 
         $link = url('/') . '/handyman/handyman-dashboard';
 
-        if($this->lang == 'du')
+        if($this->lang->lang == 'du')
         {
             $msg = "Beste " . $user_name . ",<br><br>Gefeliciteerd de klant heeft je offerte geaccepteerd QUO# " . $invoice[0]->quotation_invoice_number . "<br>Zodra, de klant het volledig bedrag heeft voldaan ontvang je de contactgegevens, bezorgadres en bezorgmoment. Je ontvang van ons een mail als de klant heeft betaald, tot die tijd adviseren we je de goederen nog niet te leveren. <a href='" . $link . "'>Klik hier</a> om naar je dashboard te gaan.<br><br>Met vriendelijke groet,<br><br>Vloerofferte";
         }
@@ -930,7 +928,7 @@ class UserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotation_invoices.handyman_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.b_i_id', 'quotation_invoices_data.m_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotation_invoices.handyman_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.quote_number', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.b_i_id', 'quotation_invoices_data.m_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
 
         if (count($quotation) != 0) {
 
@@ -1002,7 +1000,7 @@ class UserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotes.user_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotes.user_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.quote_number', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
 
         if (count($quotation) != 0) {
             $services = Category::all();
@@ -1043,11 +1041,11 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
         $user_name = $user->name . $user->family_name;
+        $counter = $user->counter;
 
         $name = \Route::currentRouteName();
 
         $services = $request->item;
-
 
         if ($name == 'store-quotation') {
 
@@ -1055,11 +1053,8 @@ class UserController extends Controller
             $quote->status = 1;
             $quote->save();
 
-            $date = strtotime($quote->created_at);
-
-            $requested_quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
-
-            $quotation_invoice_number = date("Y", $date) . "-" . str_pad(rand(0, pow(10, 4) - 1), 4, '0', STR_PAD_LEFT) . "-0001";
+            $requested_quote_number = $quote->quote_number;
+            $quotation_invoice_number = date("Y") . "-" . sprintf('%04u', $user_id) . '-' . sprintf('%04u', $counter);
 
             $invoice = new quotation_invoices;
             $invoice->quote_id = $request->quote_id;
@@ -1095,6 +1090,9 @@ class UserController extends Controller
                 $invoice_items->amount = str_replace(",",".",$request->amount[$i]);
                 $invoice_items->save();
             }
+
+            $counter = $counter + 1;
+            User::where('id',$user_id)->update(['counter' => $counter]);
 
             $filename = $quotation_invoice_number . '.pdf';
 
@@ -1134,6 +1132,7 @@ class UserController extends Controller
             Session::flash('success', __('text.Quotation has been created successfully!'));
             return redirect()->route('handyman-quotation-requests');
         } elseif ($name == 'update-quotation') {
+
             $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.id', $request->quote_id)->select('quotes.*', 'categories.cat_name')->first();
 
             $quotation = quotation_invoices::where('quote_id', $request->quote_id)->where('handyman_id', $user_id)->first();
@@ -1145,7 +1144,7 @@ class UserController extends Controller
             $quotation->description = $request->other_info;
             $quotation->save();
 
-            $items = quotation_invoices_data::where('quotation_id', $quotation->id)->delete();
+            quotation_invoices_data::where('quotation_id', $quotation->id)->delete();
 
             foreach ($services as $i => $key) {
                 if (strpos($services[$i], 'I') > -1) {
@@ -1171,9 +1170,7 @@ class UserController extends Controller
                 $item->save();
             }
 
-            $date = strtotime($quote->created_at);
-
-            $requested_quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
+            $requested_quote_number = $quote->quote_number;
 
             $quotation_invoice_number = $quotation->quotation_invoice_number;
 
@@ -1237,6 +1234,7 @@ class UserController extends Controller
             return redirect()->route('handyman-quotation-requests');
 
         } else {
+
             $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.id', $request->quote_id)->select('quotes.*', 'categories.cat_name')->first();
 
             $quote->status = 3;
@@ -1252,7 +1250,7 @@ class UserController extends Controller
             $quotation->description = $request->other_info;
             $quotation->save();
 
-            $items = quotation_invoices_data::where('quotation_id', $quotation->id)->delete();
+            quotation_invoices_data::where('quotation_id', $quotation->id)->delete();
 
             foreach ($services as $i => $key) {
                 if (strpos($services[$i], 'I') > -1) {
@@ -1274,9 +1272,7 @@ class UserController extends Controller
                 $item->save();
             }
 
-            $date = strtotime($quote->created_at);
-
-            $requested_quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
+            $requested_quote_number = $quote->quote_number;
 
             $quotation_invoice_number = $quotation->quotation_invoice_number;
 
@@ -2933,15 +2929,15 @@ class UserController extends Controller
         }
         else
         {
-            foreach ($request->product_checkboxes as $key)
+            foreach ($request->product_checkboxes as $x => $key)
             {
                 $post = new handyman_products;
                 $post->handyman_id = $user_id;
-                $post->product_id = $request->product_id[$key];
-                $post->rate = $request->product_rate[$key];
-                $post->sell_rate = $request->product_sell_rate[$key];
+                $post->product_id = $request->product_id[$x];
+                $post->rate = $request->product_rate[$x];
+                $post->sell_rate = $request->product_sell_rate[$x];
                 $post->vat_percentage = 21;
-                $post->model_number = $request->model_number[$key];
+                /*$post->model_number = $request->model_number[$x];*/
                 $post->save();
             }
 

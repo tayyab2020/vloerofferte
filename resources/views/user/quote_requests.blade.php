@@ -49,7 +49,7 @@
 
                                                         <tr role="row" class="odd">
 
-                                                            <?php $requested_quote_number = date("Y", strtotime($key->created_at)) . "-" . sprintf('%04u', $key->id); ?>
+                                                            <?php $requested_quote_number = $key->quote_number; ?>
 
                                                             <td><a href="{{ url('/handyman/handyman-quotations/'.$key->id) }}">{{$requested_quote_number}}</a></td>
 

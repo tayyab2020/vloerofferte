@@ -74,7 +74,7 @@
 
                                             @if(Route::currentRouteName() != 'view-custom-quotation' && Route::currentRouteName() != 'edit-custom-quotation' && Route::currentRouteName() != 'create-custom-invoice')
 
-                                                <?php $requested_quote_number = date("Y", strtotime($quotation[0]->quote_date)) . "-" . sprintf('%04u', $quotation[0]->quote_id); ?>
+                                                <?php $requested_quote_number = $quotation[0]->quote_number; ?>
 
                                                     <div class="col-md-4" style="margin: 10px 0px;">
                                                         <div class="form-group" style="margin: 0;">
@@ -295,7 +295,7 @@
                                                 @if(Route::currentRouteName() == 'edit-handyman-quotation' || Route::currentRouteName() == 'edit-custom-quotation')
 
                                                 <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
-                                                    <button style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">{{__('text.Update')}}</button>
+                                                    <button style="width: auto;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">{{__('text.Update')}}</button>
                                                 </div>
 
                                                 </div></div>

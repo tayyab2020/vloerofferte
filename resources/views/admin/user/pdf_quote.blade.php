@@ -27,7 +27,7 @@
 
                                     <?php $date = strtotime($quote->created_at);
 
-                                    $quote_number =  'ID# ' .  date("Y",$date) . "-" .  sprintf('%04u', $quote->id); ?>
+                                    $quote_number =  'ID# ' .  $quote->quote_number; ?>
 
                                     <p class="font-weight-bold mb-1" style="font-size: 20px;">{{$quote_number}}</p>
 
