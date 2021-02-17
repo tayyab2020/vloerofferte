@@ -194,4 +194,5 @@ return [
     'Quotation Request Submitted!' => 'Offerte aanvraag ontvangen!',
     'New Quotation Received!' => 'New Quotation Received!',
     'Account Created!' => 'Account Created!',
+    'Select' => 'Select',
 ];

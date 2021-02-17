@@ -56,7 +56,7 @@
                                                             <table id="example1" class="mainTable table table-striped table-hover products dt-responsive dataTable no-footer dtr-inline" role="grid" aria-describedby="product-table_wrapper_info" style="width: 100%;cursor: pointer;" width="100%" cellspacing="0">
                                                                 <thead>
                                                                 <tr role="row">
-                                                                    <th class="no-sort"></th>
+                                                                    <th class="no-sort">{{__('text.Select')}}</th>
                                                                     <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">ID</th>
                                                                     <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Photo')}}</th>
                                                                     <th class="sorting" id="client" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Title')}}</th>
@@ -76,10 +76,13 @@
 
                                                                     <tr role="row" class="odd">
 
-                                                                        <td data-editable="false">
-                                                                            <input value="{{$i}}" class="products-checkboxes" name="product_checkboxes[]" style="position: relative;left: 0;opacity: 1;" type="checkbox" />
+                                                                        <td style="outline: none;" data-editable="false">
+                                                                            <label class="container-checkbox">
+                                                                                <input value="{{$i}}" class="products-checkboxes" name="product_checkboxes[]" type="checkbox">
+                                                                                <span class="checkmark-checkbox"></span>
+                                                                            </label>
                                                                         </td>
-                                                                        <td data-editable="false" tabindex="0" class="sorting_1">
+                                                                        <td data-editable="false" class="sorting_1">
                                                                             {{$cat->id}}
                                                                         </td>
                                                                         <td data-editable="false">
@@ -203,6 +206,80 @@
     </div>
 
     <style>
+
+        .container-checkbox {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            /*padding-left: 30px;*/
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 22px;
+            font-weight: 300;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            align-items: center;
+            font-family: sans-serif;
+            color: #353535;
+        }
+
+        /* Hide the browser's default radio button */
+        .container-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        /* Create a custom radio button */
+        .checkmark-checkbox {
+            position: relative;
+            /*top: 6.5px;*/
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: transparent;
+            border: 1px solid #979797;
+            border-radius: 2px;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .container-checkbox:hover input ~ .checkmark-checkbox {
+            background-color: #ccc;
+        }
+
+        /* When the radio button is checked, add a blue background */
+        .container-checkbox input:checked ~ .checkmark-checkbox {
+            background-color: #2196F3;
+        }
+
+        /* Create the indicator (the dot/circle - hidden when not checked) */
+        .checkmark-checkbox:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the indicator (dot/circle) when checked */
+        .container-checkbox input:checked ~ .checkmark-checkbox:after {
+            display: block;
+        }
+
+        /* Style the indicator (dot/circle) */
+        .container-checkbox .checkmark-checkbox:after {
+            left: 7px;
+            top: 3.5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
 
         .hide-col
         {
