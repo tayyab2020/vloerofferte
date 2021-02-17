@@ -70,7 +70,23 @@ class ProductController extends Controller
             return redirect()->back()->withErrors("File should be of format xlsx, xls or csv")->withInput();
         }
 
-        Excel::import(new ProductsImport(),request()->file('excel_file'));
+        $import = new ProductsImport;
+        Excel::import($import,request()->file('excel_file'));
+
+
+        if(count($import->data) > 0)
+        {
+            $product = Products::where('excel',1)->whereNotIn('id', $import->data)->get();
+
+            foreach ($product as $key)
+            {
+                if($key->photo != null){
+                    unlink(public_path().'/assets/images/'.$key->photo);
+                }
+                handyman_products::where('product_id',$key->id)->delete();
+                $key->delete();
+            }
+        }
 
         Session::flash('success', 'Task completed successfully.');
         return redirect()->route('admin-product-index');

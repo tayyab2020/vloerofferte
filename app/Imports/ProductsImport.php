@@ -19,6 +19,8 @@ class ProductsImport implements ToModel, WithStartRow
      *
     */
 
+    public $data = array();
+
     public function startRow(): int
     {
         return 2;
@@ -126,13 +128,19 @@ class ProductsImport implements ToModel, WithStartRow
                     $check->category_id = $category->id;
                     $check->brand_id = $brand->id;
                     $check->model_id = $model->id;
+                    $check->excel = 1;
                     $check->save();
+
+                    $this->data[] = $check->id;
                 }
                 else
                 {
                     $check1->slug = $row[2];
                     $check1->description = $row[3];
+                    $check1->excel = 1;
                     $check1->save();
+
+                    $this->data[] = $check1->id;
                 }
             }
             else
@@ -143,7 +151,10 @@ class ProductsImport implements ToModel, WithStartRow
                 $check->category_id = $category->id;
                 $check->brand_id = $brand->id;
                 $check->model_id = $model->id;
+                $check->excel = 1;
                 $check->save();
+
+                $this->data[] = $check->id;
             }
 
         }
@@ -155,6 +166,7 @@ class ProductsImport implements ToModel, WithStartRow
 
                 $check->slug = $row[2];
                 $check->description = $row[3];
+                $check->excel = 1;
                 $check->save();
 
             } else {
@@ -212,6 +224,7 @@ class ProductsImport implements ToModel, WithStartRow
                 $product->brand_id = $brand->id;
                 $product->model_id = $model->id;
                 $product->description = $row[3];
+                $product->excel = 1;
                 $product->save();
 
                 /*return new Products([
