@@ -62,7 +62,7 @@ class ProductsImport implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        if($row[0])
+        if($row[7])
         {
             $category = Category::where('cat_name',$row[4])->first();
 
@@ -113,7 +113,7 @@ class ProductsImport implements ToModel, WithStartRow
                 $model->save();
             }
 
-            $check = Products::where('id',$row[0])->first();
+            $check = Products::where('id',$row[7])->first();
 
             if(!$check)
             {
@@ -122,6 +122,7 @@ class ProductsImport implements ToModel, WithStartRow
                 if(!$check1)
                 {
                     $check = new Products;
+                    $check->article_code = $row[0];
                     $check->title = $row[1];
                     $check->slug = $row[2];
                     $check->description = $row[3];
@@ -135,6 +136,7 @@ class ProductsImport implements ToModel, WithStartRow
                 }
                 else
                 {
+                    $check1->article_code = $row[0];
                     $check1->slug = $row[2];
                     $check1->description = $row[3];
                     $check1->excel = 1;
@@ -145,6 +147,7 @@ class ProductsImport implements ToModel, WithStartRow
             }
             else
             {
+                $check->article_code = $row[0];
                 $check->title = $row[1];
                 $check->slug = $row[2];
                 $check->description = $row[3];
@@ -164,6 +167,7 @@ class ProductsImport implements ToModel, WithStartRow
 
             if ($check) {
 
+                $check->article_code = $row[0];
                 $check->slug = $row[2];
                 $check->description = $row[3];
                 $check->excel = 1;
@@ -218,6 +222,7 @@ class ProductsImport implements ToModel, WithStartRow
                 }
 
                 $product = new Products;
+                $product->article_code = $row[0];
                 $product->title = $row[1];
                 $product->slug = $row[2];
                 $product->category_id = $category->id;
