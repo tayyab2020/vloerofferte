@@ -1390,6 +1390,7 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
         $user_name = $user->name . $user->family_name;
+        $counter = $user->counter;
 
         $name = \Route::currentRouteName();
 
@@ -1398,7 +1399,8 @@ class UserController extends Controller
         $client = User::where('id', $request->customer)->first();
 
         if ($name == 'store-custom-quotation') {
-            $quotation_invoice_number = date("Y") . "-" . str_pad(rand(0, pow(10, 4) - 1), 4, '0', STR_PAD_LEFT) . "-0001";
+
+            $quotation_invoice_number = date("Y") . "-" . sprintf('%04u', $user_id) . '-' . sprintf('%04u', $counter);
 
             $invoice = new custom_quotations;
             $invoice->quotation_invoice_number = $quotation_invoice_number;
@@ -1435,6 +1437,10 @@ class UserController extends Controller
                 $invoice_items->amount = str_replace(",",".",$request->amount[$i]);
                 $invoice_items->save();
             }
+
+            $counter = $counter + 1;
+
+            User::where('id',$user_id)->update(['counter' => $counter]);
 
             $filename = $quotation_invoice_number . '.pdf';
 
@@ -1474,7 +1480,7 @@ class UserController extends Controller
             return redirect()->route('customer-quotations');
         } elseif ($name == 'store-direct-invoice') {
 
-            $quotation_invoice_number = date("Y") . "-" . str_pad(rand(0, pow(10, 4) - 1), 4, '0', STR_PAD_LEFT) . "-0001";
+            $quotation_invoice_number = date("Y") . "-" . sprintf('%04u', $user_id) . '-' . sprintf('%04u', $counter);
 
             $invoice = new custom_quotations;
             $invoice->quotation_invoice_number = $quotation_invoice_number;
@@ -1514,6 +1520,10 @@ class UserController extends Controller
                 $invoice_items->amount = str_replace(",",".",$request->amount[$i]);
                 $invoice_items->save();
             }
+
+            $counter = $counter + 1;
+
+            User::where('id',$user_id)->update(['counter' => $counter]);
 
             $filename = $quotation_invoice_number . '.pdf';
 
