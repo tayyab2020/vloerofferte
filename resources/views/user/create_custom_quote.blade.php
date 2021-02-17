@@ -229,7 +229,7 @@
                                                     </div>
 
                                                     <div class="submit-section" style="text-align: center;margin-bottom: 20px;">
-                                                        <button type="submit" style="width: 100px;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">{{__('text.Create')}}</button>
+                                                        <button type="submit" style="width: auto;font-size: 20px;border-radius: 25px;" class="btn btn-primary submit-btn">{{__('text.Create')}}</button>
                                                     </div>
 
                                                 </div></div>
