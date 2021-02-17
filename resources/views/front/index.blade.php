@@ -856,7 +856,7 @@
                             if(val.predefined == 1)
                             {
 
-                                last.append('<div><input name="predefined'+index+'" type="hidden" value="1"></div>');
+                                last.append('<div class="checkbox_validation"><input name="predefined'+index+'" type="hidden" value="1"></div>');
 
                                 $.each(val.answers, function (index1, val1) {
 
@@ -871,7 +871,7 @@
                             else
                             {
                                 last.append('<input name="predefined'+index+'" type="hidden" value="0">\n'+
-                                    '<textarea name="answers'+index+'" style="resize: vertical;" rows="1" class="form-control" placeholder=""></textarea>');
+                                    '<textarea name="answers'+index+'" style="resize: vertical;" rows="1" class="form-control quote_validation" placeholder=""></textarea>');
                             }
 
                             index_count = index;
@@ -958,8 +958,24 @@
             $('.next').click(function(){
 
                 var validation = $('.tab-content').find('.active').find('.quote_validation');
+                var checkbox_validation = $('.tab-content').find('.active').find('.checkbox_validation');
 
                 var flag = 0;
+                var flag1 = 0;
+
+                $(checkbox_validation).each(function(){
+
+                    if($(this).children().find('input:checkbox:checked').length < 1)
+                    {
+                        flag1 = 1;
+                    }
+
+                });
+
+                if(flag1)
+                {
+                    alert('Je hebt nog niet alle vragen beantwoord. Scroll naar beneden om de overige vragen te beantwoorden.');
+                }
 
                 $(validation).each(function(){
 
@@ -985,7 +1001,7 @@
 
                 });
 
-                if(!flag)
+                if(flag == 0 && flag1 == 0)
                 {
                     var nextId = $('.tab-content').find('.active').next().attr("id");
                     $('.nav-pills a[href="#' + nextId + '"]').tab('show');
