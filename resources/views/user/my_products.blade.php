@@ -367,7 +367,6 @@
         );
 
 
-
         $('#example2').DataTable({
             "oLanguage": {
                 "sLengthMenu": "<?php echo __('text.Show') . ' _MENU_ ' . __('text.records'); ?>",
@@ -432,9 +431,6 @@
             });
 
         });
-
-
-
 
     </script>
 
