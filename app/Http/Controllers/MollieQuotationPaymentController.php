@@ -60,7 +60,7 @@ class MollieQuotationPaymentController extends Controller {
 
             $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->leftjoin('users','users.id','=','quotes.user_id')->where('quotes.id', $data->quote_id)->select('quotes.*', 'categories.cat_name', 'users.postcode', 'users.city', 'users.address')->first();
             $invoice = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotation_invoices.quote_id', $data->quote_id)->select('quotation_invoices_data.*','quotation_invoices.description as other_info', 'quotation_invoices.vat_percentage', 'quotation_invoices.tax', 'quotation_invoices.subtotal as sub_total', 'quotation_invoices.grand_total','users.company_name','users.address','users.postcode','users.city','users.tax_number','users.registration_number','users.email','users.phone')->get();
-            
+
             $requested_quote_number = $quote->quote_number;
 
             $filename = $quotation_invoice_number . '.pdf';
@@ -81,7 +81,7 @@ class MollieQuotationPaymentController extends Controller {
 
             $type = 'commission_invoice';
 
-            $pdf = PDF::loadView('user.pdf_commission', compact('quote', 'type', 'request', 'commission_invoice_number', 'quotation_invoice_number', 'requested_quote_number', 'commission_percentage', 'commission', 'total_receive'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+            $pdf = PDF::loadView('user.pdf_commission', compact('quote', 'type', 'invoice', 'commission_invoice_number', 'quotation_invoice_number', 'requested_quote_number', 'commission_percentage', 'commission', 'total_receive'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
             $pdf->save($file);
 

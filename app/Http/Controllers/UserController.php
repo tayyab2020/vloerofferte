@@ -527,8 +527,7 @@ class UserController extends Controller
             $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->leftjoin('users','users.id','=','quotes.user_id')->where('quotes.id', $invoice[0]->quote_id)->select('quotes.*', 'categories.cat_name', 'users.postcode', 'users.city', 'users.address')->first();
 
             $quotation_invoice_number = $invoice[0]->quotation_invoice_number;
-            $date = strtotime($quote->created_at);
-            $requested_quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
+            $requested_quote_number = $quote->quote_number;
 
             $filename = $quotation_invoice_number . '.pdf';
 
