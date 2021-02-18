@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\custom_quotations;
 use App\quotation_invoices;
 use Illuminate\Console\Command;
 use DateTime;
@@ -55,7 +56,27 @@ class CheckReceived extends Command
             }
         }
 
-        
+        $custom_quotation_invoices = custom_quotations::where('delivered',1)->where('received',0)->get();
+
+        foreach ($custom_quotation_invoices as $key)
+        {
+            $delivered_date = $key->delivered_date;
+            $now = date('d-m-Y H:i:s');
+
+            $datetime1 = new DateTime($delivered_date);
+            $datetime2 = new DateTime($now);
+            $interval = $datetime1->diff($datetime2);
+            $days = $interval->format('%a');
+
+            if($days >= 7)
+            {
+                $key->received = 1;
+                $key->received_date = $now;
+                $key->save();
+            }
+        }
+
+
         \Log::info("Cron Job is working fine!");
     }
 }
