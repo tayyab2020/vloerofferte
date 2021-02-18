@@ -212,4 +212,5 @@ return [
     'Yes' => 'Yes',
     'Do you want this address to be updated in your profile?' => 'Do you want this address to be updated in your profile?',
     'No details available for input: ' => 'No details available for input: ',
+    'Kindly write your full address with house/building number so system can detect postal code and city from it!' => 'Kindly write your full address with house/building number so system can detect postal code and city from it!',
 ];
