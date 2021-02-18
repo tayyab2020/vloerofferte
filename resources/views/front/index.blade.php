@@ -831,7 +831,7 @@
 
                             $.each(data, function(index, value) {
 
-                                var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
+                                var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
 
                                 options = options + opt;
 
@@ -926,7 +926,7 @@
 
                             $.each(data, function(index, value) {
 
-                                var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
+                                var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
 
                                 options = options + opt;
 
