@@ -73,7 +73,19 @@
 
                                                                     @if($key->status == 3)
 
-                                                                        <span class="btn btn-success">Invoice Generated</span>
+                                                                        @if($key->received)
+
+                                                                            <span class="btn btn-success">Goods Received</span>
+
+                                                                        @elseif($key->delivered)
+
+                                                                            <span class="btn btn-success">Goods Delivered</span>
+
+                                                                        @else
+
+                                                                            <span class="btn btn-success">Invoice Generated</span>
+
+                                                                        @endif
 
                                                                     @elseif($key->status == 2)
 

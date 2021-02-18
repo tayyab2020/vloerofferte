@@ -136,7 +136,18 @@
 
                                                                             @if($key->status == 3)
 
-                                                                                <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+                                                                                @if($key->received)
+
+                                                                                    <span class="btn btn-success">{{__('text.Goods Received')}}</span>
+
+                                                                                @elseif($key->delivered)
+
+                                                                                    <span class="btn btn-success">{{__('text.Goods Delivered')}}</span>
+                                                                                @else
+
+                                                                                    <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+
+                                                                                @endif
 
                                                                             @elseif($key->status == 2)
 
@@ -170,7 +181,19 @@
 
                                                                         @else
 
-                                                                            <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+                                                                            @if($key->received)
+
+                                                                                <span class="btn btn-success">{{__('text.Goods Received')}}</span>
+
+                                                                            @elseif($key->delivered)
+
+                                                                                <span class="btn btn-success">{{__('text.Goods Delivered')}}</span>
+
+                                                                            @else
+
+                                                                                <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+
+                                                                            @endif
 
                                                                         @endif
 
@@ -212,6 +235,12 @@
                                                                                     <li><a href="{{ url('/handyman/edit-custom-quotation/'.$key->invoice_id) }}">{{__('text.Edit Quotation')}}</a></li>
                                                                                 @endif
 
+                                                                                @if($key->status == 3 && $key->delivered == 0)
+
+                                                                                    <li><a href="{{ url('/handyman/custom-mark-delivered/'.$key->invoice_id) }}">{{__('text.Mark as delivered')}}</a></li>
+
+                                                                                @endif
+
                                                                             @else
 
                                                                                 <li><a href="{{ url('/handyman/view-quotation/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
@@ -235,7 +264,14 @@
 
                                                                                 @endif
 
+                                                                                @if($key->status == 3 && $key->delivered == 0)
+
+                                                                                    <li><a href="{{ url('/handyman/mark-delivered/'.$key->invoice_id) }}">{{__('text.Mark as delivered')}}</a></li>
+
+                                                                                @endif
+
                                                                             @endif
+
 
                                                                         </ul>
                                                                     </div>

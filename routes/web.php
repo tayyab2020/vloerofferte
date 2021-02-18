@@ -170,6 +170,12 @@
 
   Route::get('/publish', 'UserController@publish')->name('user-publish');
   Route::get('/feature', 'UserController@feature')->name('user-feature');
+  Route::get('/mark-delivered/{id}', 'UserController@MarkDelivered');
+  Route::get('/mark-received/{id}', 'UserController@MarkReceived');
+
+
+  Route::get('/custom-mark-delivered/{id}', 'UserController@CustomMarkDelivered');
+  Route::get('/custom-mark-received/{id}', 'UserController@CustomMarkReceived');
   });
 
   Route::get('finalize', 'FrontendController@finalize');
@@ -180,6 +186,8 @@
 
   Route::prefix('logstof')->group(function() {
 
+  Route::get('/mark-delivered/{id}', 'AdminUserController@MarkDelivered');
+  Route::get('/mark-received/{id}', 'AdminUserController@MarkReceived');
   Route::get('/dashboard', 'AdminController@index')->name('admin-dashboard');
   Route::get('/invoice/{id}', 'AdminController@Invoice')->name('admin-hi');
   Route::get('/cancelled-invoice/{id}', 'AdminController@CancelledInvoice')->name('admin-chi');

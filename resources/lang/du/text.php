@@ -195,4 +195,8 @@ return [
     'New Quotation Received!' => 'New Quotation Received!',
     'Account Created!' => 'Account Created!',
     'Select' => 'Select',
+    'Goods Delivered' => 'Goods Delivered',
+    'Goods Received' => 'Goods Received',
+    'Mark as delivered' => 'Mark as delivered',
+    'Mark as received' => 'Mark as received',
 ];

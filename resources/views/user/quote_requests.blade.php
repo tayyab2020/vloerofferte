@@ -63,7 +63,15 @@
 
                                                                 @if($key->status == 3)
 
-                                                                    @if($invoices[$i] && $invoices[$i]->invoice)
+                                                                    @if($invoices[$i] && $invoices[$i]->received)
+
+                                                                        <span class="btn btn-success">{{__('text.Goods Received')}}</span>
+
+                                                                    @elseif($invoices[$i] && $invoices[$i]->delivered)
+
+                                                                        <span class="btn btn-success">{{__('text.Goods Delivered')}}</span>
+
+                                                                    @elseif($invoices[$i] && $invoices[$i]->invoice)
 
                                                                         <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
 

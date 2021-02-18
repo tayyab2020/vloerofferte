@@ -66,7 +66,19 @@
                                                             <td>
                                                                 @if($key->status == 3)
 
-                                                                    <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+                                                                    @if($invoices[$i]->contains('received', 1))
+
+                                                                        <span class="btn btn-success">{{__('text.Goods Received')}}</span>
+
+                                                                    @elseif($invoices[$i]->contains('delivered', 1))
+
+                                                                        <span class="btn btn-success">{{__('text.Goods Delivered')}}</span>
+
+                                                                    @else
+
+                                                                        <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+
+                                                                    @endif
 
                                                                 @elseif(count($invoices[$i]) > 0)
 

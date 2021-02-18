@@ -103,7 +103,15 @@
 
                                                                         @if($key->status == 3)
 
-                                                                            @if($key->invoice)
+                                                                            @if($key->received)
+
+                                                                                <span class="btn btn-success">Goods Received</span>
+
+                                                                            @elseif($key->delivered)
+
+                                                                                <span class="btn btn-success">Goods Delivered</span>
+
+                                                                            @elseif($key->invoice)
 
                                                                                 <span class="btn btn-success">Invoice Generated</span>
 
@@ -145,7 +153,19 @@
 
                                                                     @else
 
-                                                                        <span class="btn btn-success">Invoice Generated</span>
+                                                                        @if($key->received)
+
+                                                                            <span class="btn btn-success">Goods Received</span>
+
+                                                                        @elseif($key->delivered)
+
+                                                                            <span class="btn btn-success">Goods Delivered</span>
+
+                                                                        @else
+
+                                                                            <span class="btn btn-success">Invoice Generated</span>
+
+                                                                        @endif
 
                                                                     @endif
 
@@ -170,6 +190,12 @@
                                                                             <li><a href="{{ url('/logstof/download-commission-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
                                                                         @else
                                                                             <li><a href="{{ url('/logstof/download-quote-invoice/'.$key->invoice_id) }}">Download PDF</a></li>
+                                                                        @endif
+                                                                        @if($key->status == 3 && $key->delivered == 0)
+                                                                            <li><a href="{{ url('/logstof/mark-delivered/'.$key->invoice_id) }}">Mark as delivered</a></li>
+                                                                        @endif
+                                                                        @if($key->status == 3 && $key->delivered == 1 && $key->received == 0)
+                                                                            <li><a href="{{ url('/logstof/mark-received/'.$key->invoice_id) }}">Mark as received</a></li>
                                                                         @endif
                                                                     </ul>
                                                                 </div>

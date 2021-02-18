@@ -202,9 +202,9 @@ class UserController extends Controller
         $user_role = $user->role_id;
 
         if ($id) {
-            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotation_invoices.handyman_id', $user_id)->where('quotation_invoices.quote_id', $id)->where('quotation_invoices.invoice', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.commission_percentage', 'quotation_invoices.commission', 'quotation_invoices.total_receive', 'quotation_invoices.id as invoice_id', 'quotation_invoices.invoice', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'users.name', 'users.family_name')->get();
+            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotation_invoices.handyman_id', $user_id)->where('quotation_invoices.quote_id', $id)->where('quotation_invoices.invoice', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.delivered', 'quotation_invoices.received', 'quotation_invoices.commission_percentage', 'quotation_invoices.commission', 'quotation_invoices.total_receive', 'quotation_invoices.id as invoice_id', 'quotation_invoices.invoice', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'users.name', 'users.family_name')->get();
         } else {
-            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotation_invoices.handyman_id', $user_id)->where('quotation_invoices.invoice', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.commission_percentage', 'quotation_invoices.commission', 'quotation_invoices.total_receive', 'quotation_invoices.id as invoice_id', 'quotation_invoices.invoice', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'users.name', 'users.family_name')->get();
+            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotation_invoices.handyman_id', $user_id)->where('quotation_invoices.invoice', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.delivered', 'quotation_invoices.received', 'quotation_invoices.commission_percentage', 'quotation_invoices.commission', 'quotation_invoices.total_receive', 'quotation_invoices.id as invoice_id', 'quotation_invoices.invoice', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'users.name', 'users.family_name')->get();
         }
 
         return view('user.quote_invoices', compact('invoices'));
@@ -247,9 +247,9 @@ class UserController extends Controller
         $user_role = $user->role_id;
 
         if ($id) {
-            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('quotation_invoices.quote_id', $id)->where('quotation_invoices.invoice', 1)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'quotation_invoices.accept_date', 'quotation_invoices.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
+            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('quotation_invoices.quote_id', $id)->where('quotation_invoices.invoice', 1)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.delivered', 'quotation_invoices.received', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'quotation_invoices.accept_date', 'quotation_invoices.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
         } else {
-            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('quotation_invoices.invoice', 1)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'quotation_invoices.accept_date', 'quotation_invoices.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
+            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('quotation_invoices.invoice', 1)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.delivered', 'quotation_invoices.received', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'quotation_invoices.accept_date', 'quotation_invoices.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
         }
 
         return view('user.client_quote_invoices', compact('invoices'));
@@ -3702,6 +3702,145 @@ class UserController extends Controller
 
 
         return view('user.ratings', compact('ratings'));
+    }
+
+    public function MarkDelivered($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $now = date('d-m-Y H:i:s');
+        $check = quotation_invoices::where('id',$id)->where('handyman_id',$user_id)->where('invoice',1)->update(['delivered' => 1,'delivered_date' => $now]);
+
+        iF($check)
+        {
+            $client = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->leftjoin('users','users.id','=','quotes.user_id')->where('quotation_invoices.id',$id)->select('users.*','quotation_invoices.quotation_invoice_number')->first();
+
+            $admin_email = $this->sl->admin_email;
+
+            \Mail::send(array(), array(), function ($message) use ($client) {
+                $message->to($client->email)
+                    ->from('info@vloerofferteonline.nl')
+                    ->subject('Invoice Status Changed')
+                    ->setBody("Dear <b>Mr/Mrs " . $client->name .' '. $client->family_name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+            });
+
+            \Mail::send(array(), array(), function ($message) use ($admin_email, $client) {
+                $message->to($admin_email)
+                    ->from('info@vloerofferteonline.nl')
+                    ->subject('Invoice Status Changed')
+                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+            });
+
+            Session::flash('success', 'Status Updated Successfully!');
+        }
+
+        return redirect()->back();
+    }
+
+
+    public function MarkReceived($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $now = date('d-m-Y H:i:s');
+        $check = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->where('quotation_invoices.id',$id)->where('quotes.user_id',$user_id)->where('quotation_invoices.invoice',1)->update(['quotation_invoices.received' => 1,'quotation_invoices.received_date' => $now]);
+
+        iF($check)
+        {
+            $handyman = quotation_invoices::leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotation_invoices.id',$id)->select('users.*','quotation_invoices.quotation_invoice_number')->first();
+
+            $admin_email = $this->sl->admin_email;
+
+            \Mail::send(array(), array(), function ($message) use ($handyman) {
+                $message->to($handyman->email)
+                    ->from('info@vloerofferteonline.nl')
+                    ->subject('Invoice Status Changed')
+                    ->setBody("Dear <b>Mr/Mrs " . $handyman->name .' '. $handyman->family_name . "</b>,<br><br>Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+            });
+
+            \Mail::send(array(), array(), function ($message) use ($admin_email, $handyman) {
+                $message->to($admin_email)
+                    ->from('info@vloerofferteonline.nl')
+                    ->subject('Invoice Status Changed')
+                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+            });
+
+            Session::flash('success', 'Status Updated Successfully!');
+        }
+
+        return redirect()->back();
+    }
+
+
+    public function CustomMarkDelivered($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $now = date('d-m-Y H:i:s');
+        $check = custom_quotations::where('id',$id)->where('handyman_id',$user_id)->where('invoice',1)->update(['delivered' => 1,'delivered_date' => $now]);
+
+        iF($check)
+        {
+            $client = custom_quotations::leftjoin('users','users.id','=','custom_quotations.user_id')->where('custom_quotations.id',$id)->select('users.*','custom_quotations.quotation_invoice_number')->first();
+
+            $admin_email = $this->sl->admin_email;
+
+            \Mail::send(array(), array(), function ($message) use ($client) {
+                $message->to($client->email)
+                    ->from('info@vloerofferteonline.nl')
+                    ->subject('Invoice Status Changed')
+                    ->setBody("Dear <b>Mr/Mrs " . $client->name .' '. $client->family_name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+            });
+
+            \Mail::send(array(), array(), function ($message) use ($admin_email, $client) {
+                $message->to($admin_email)
+                    ->from('info@vloerofferteonline.nl')
+                    ->subject('Invoice Status Changed')
+                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+            });
+
+            Session::flash('success', 'Status Updated Successfully!');
+        }
+
+        return redirect()->back();
+    }
+
+
+    public function CustomMarkReceived($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $now = date('d-m-Y H:i:s');
+        $check = custom_quotations::where('id',$id)->where('user_id',$user_id)->where('invoice',1)->update(['received' => 1,'received_date' => $now]);
+
+        iF($check)
+        {
+            $handyman = custom_quotations::leftjoin('users','users.id','=','custom_quotations.handyman_id')->where('custom_quotations.id',$id)->select('users.*','custom_quotations.quotation_invoice_number')->first();
+
+            $admin_email = $this->sl->admin_email;
+
+            \Mail::send(array(), array(), function ($message) use ($handyman) {
+                $message->to($handyman->email)
+                    ->from('info@vloerofferteonline.nl')
+                    ->subject('Invoice Status Changed')
+                    ->setBody("Dear <b>Mr/Mrs " . $handyman->name .' '. $handyman->family_name . "</b>,<br><br>Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+            });
+
+            \Mail::send(array(), array(), function ($message) use ($admin_email, $handyman) {
+                $message->to($admin_email)
+                    ->from('info@vloerofferteonline.nl')
+                    ->subject('Invoice Status Changed')
+                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+            });
+
+            Session::flash('success', 'Status Updated Successfully!');
+        }
+
+        return redirect()->back();
     }
 
 }

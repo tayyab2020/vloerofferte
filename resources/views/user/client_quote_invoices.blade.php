@@ -101,7 +101,19 @@
 
                                                                     @if($key->status == 3)
 
-                                                                        <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+                                                                        @if($key->received)
+
+                                                                            <span class="btn btn-success">{{__('text.Goods Received')}}</span>
+
+                                                                        @elseif($key->delivered)
+
+                                                                            <span class="btn btn-success">{{__('text.Goods Delivered')}}</span>
+
+                                                                        @else
+
+                                                                            <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+
+                                                                        @endif
 
                                                                     @elseif($key->status == 2)
 
@@ -147,7 +159,19 @@
 
                                                                 @else
 
-                                                                    <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+                                                                    @if($key->received)
+
+                                                                        <span class="btn btn-success">{{__('text.Goods Received')}}</span>
+
+                                                                    @elseif($key->delivered)
+
+                                                                        <span class="btn btn-success">{{__('text.Goods Delivered')}}</span>
+
+                                                                    @else
+
+                                                                        <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+
+                                                                    @endif
 
                                                                 @endif
 
@@ -230,6 +254,12 @@
 
                                                                                 @endif
 
+                                                                                @if($key->delivered == 1 && $key->received == 0)
+
+                                                                                    <li><a href="{{ url('/handyman/custom-mark-received/'.$key->invoice_id) }}">{{__('text.Mark as received')}}</a></li>
+
+                                                                                @endif
+
                                                                             @else
 
                                                                                 <li><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
@@ -251,6 +281,12 @@
                                                                                 @if($key->status == 2)
 
                                                                                     <li><a class="pay_now" onclick="PayNow(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Pay Now')}}</a></li>
+
+                                                                                @endif
+
+                                                                                @if($key->delivered == 1 && $key->received == 0)
+
+                                                                                    <li><a href="{{ url('/handyman/mark-received/'.$key->invoice_id) }}">{{__('text.Mark as received')}}</a></li>
 
                                                                                 @endif
 
