@@ -16,7 +16,9 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <p><img src="{{asset('assets/images/'.$blog->photo)}}" alt=""></p>
+                        @if($blog->photo)
+                            <p><img style="height: 300px;" src="{{asset('assets/images/'.$blog->photo)}}" alt=""></p>
+                        @endif
                        <div class="row">
                            <div class="col-md-8">
                                <div class="entry-content">
