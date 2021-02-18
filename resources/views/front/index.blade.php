@@ -1628,8 +1628,8 @@
                                 <div class="blog-text">
                                     <p class="blog-meta">{{date('d M Y H:i a',strtotime($lblog->created_at))}}
                                     </p>
-                                    <h4>{{$lblog->title}}</h4>
-                                    <p class="blog-meta-text">{{substr(strip_tags($lblog->details),0,250)}}</p>
+                                    <h4 style="height: auto;margin-bottom: 10px;">{{$lblog->title}}</h4>
+                                    <p style="text-overflow: ellipsis;display: -webkit-box;width: 100%;visibility: visible;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;line-height: 2;font-size: 15px;">{{substr(strip_tags($lblog->details),0,250)}}</p>
                                     <span class="boxed-btn blog">{{$lang->vd}}</span>
                                 </div>
                             </a>
