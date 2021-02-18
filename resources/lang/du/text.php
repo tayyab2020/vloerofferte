@@ -48,7 +48,7 @@ return [
     'Created At' => 'Datum',
     'Action' => 'Actie',
     'Invoice Generated' => 'Factuur gereed',
-    'Closed' => 'Sluiten',
+    'Closed' => 'Gesloten',
     'Quotation Accepted' => 'Offerte geaccepteerd',
     'Asking for Review' => 'Verzoek aanpassen offerte',
     'Quotation Approved' => 'Ter goedkeuring bij klant',
