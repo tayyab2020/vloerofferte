@@ -75,14 +75,22 @@
             <div class="sidebar-menu-body">
                 <nav id="sidebar-menu">
                     <div class="sidebar-header">
-                       <a href="{{route('front.index')}}" > <img src="{{asset('assets/images/'.$gs->logo)}}" alt="Sidebar header logo" class="sidebar-header-logo" style="height: 55px;"></a>
+
+                       <a href="{{route('front.index')}}">
+                               <img src="{{asset('assets/images/'.$gs->logo)}}" alt="Sidebar header logo" class="sidebar-header-logo" style="height: 55px;">
+                       </a>
+
                     </div>
                     <ul class="list-unstyled profile">
                         <li class="active">
                             <div class="row" style="margin-left: 0px;margin-right: 0px;">
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <img src="{{ Auth::guard('user')->user()->photo ? asset('assets/images/'.Auth::guard('user')->user()->photo):asset('assets/default.jpg')}}" alt="profile image">
-                                </div>
+                                @if(Auth::guard('user')->user()->photo)
+
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <img src="{{asset('assets/images/'.Auth::guard('user')->user()->photo)}}" alt="profile image">
+                                    </div>
+
+                                @endif
                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">{{ Auth::guard('user')->user()->name}} {{Auth::guard('user')->user()->family_name}} <span>{{$lang->cmt}}</span></a>
                                 </div>

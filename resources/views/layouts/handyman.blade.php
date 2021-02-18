@@ -87,7 +87,7 @@
                             <div class="row" style="margin-left: 0px;margin-right: 0px;">
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                     <img
-                                        src="{{ Auth::guard('user')->user()->photo ? asset('assets/images/'.Auth::guard('user')->user()->photo):asset('assets/default.jpg')}}"
+                                        src="{{ Auth::guard('user')->user()->photo ? asset('assets/images/'.Auth::guard('user')->user()->photo):"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG"}}"
                                         alt="profile image">
                                 </div>
                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">

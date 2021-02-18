@@ -1007,7 +1007,7 @@
 
                     if(flag1)
                     {
-                        alert('Je hebt nog niet alle vragen beantwoord. Scroll naar beneden om de overige vragen te beantwoorden.');
+                        alert('{{__("text.You haven't answered all the questions yet. Scroll down to answer the other questions.")}}');
                     }
 
                     $(validation).each(function(){

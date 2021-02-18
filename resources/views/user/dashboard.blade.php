@@ -16,7 +16,8 @@
 
                     <!-- Starting of Dashboard Top reference + Most Used OS area -->
                     <div class="reference-OS-area">
-                        <div class="donors-profile-top-bg overlay text-center wow fadeInUp" style="background-image: url({{asset('assets/images/'.$gs->h_dashbg)}}); visibility: visible; animation-name: fadeInUp;z-index: auto;color: black;">
+                        <div class="donors-profile-top-bg overlay text-center wow fadeInUp"
+                             style="background-image: url({{asset('assets/images/'.$gs->h_dashbg)}}); visibility: visible; animation-name: fadeInUp;z-index: auto;color: black;">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -27,14 +28,16 @@
                             </div>
                         </div>
 
-                        <div class="donors-profile-wrap wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                        <div class="donors-profile-wrap wow fadeInUp"
+                             style="visibility: visible; animation-name: fadeInUp;">
                             <div class="container">
 
                                 <div class="row">
                                     @include('includes.form-success')
                                     @if(count($errors) > 0)
                                         <div class="alert alert-danger validation">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span></button>
                                             <ul class="text-left">
                                                 @foreach($errors->all() as $error)
                                                     <li>{{$error}}</li>
@@ -49,13 +52,18 @@
                                                 @if($user->featured != 1)
                                                     @if($gs->np == 0)
 
-                                                        <div class="profile-description-box margin-bottom-30 text-center">
-                                                            <a href="{{route('user-publish')}}" class="boxed-btn blog" style="width: 160px;">{{$lang->ppr}}</a>
+                                                        <div
+                                                            class="profile-description-box margin-bottom-30 text-center">
+                                                            <a href="{{route('user-publish')}}" class="boxed-btn blog"
+                                                               style="width: 160px;">{{$lang->ppr}}</a>
                                                         </div>
 
                                                     @else
-                                                        <div class="profile-description-box margin-bottom-30 text-center">
-                                                            <button class="boxed-btn blog" type="button" data-toggle="modal" data-target="#ModalAll" style="width: 160px;">{{$lang->ppr}}</button>
+                                                        <div
+                                                            class="profile-description-box margin-bottom-30 text-center">
+                                                            <button class="boxed-btn blog" type="button"
+                                                                    data-toggle="modal" data-target="#ModalAll"
+                                                                    style="width: 160px;">{{$lang->ppr}}</button>
                                                         </div>
                                                     @endif
                                                 @endif
@@ -65,13 +73,16 @@
                                             @if($user->featured != 1)
                                                 @if($gs->fp == 0)
                                                     <div class="profile-description-box margin-bottom-30 text-center">
-                                                        <a href="{{route('user-feature')}}" class="boxed-btn blog" style="width: 160px;">{{$lang->fpr}}</a>
+                                                        <a href="{{route('user-feature')}}" class="boxed-btn blog"
+                                                           style="width: 160px;">{{$lang->fpr}}</a>
                                                     </div>
 
                                                 @else
 
                                                     <div class="profile-description-box margin-bottom-30 text-center">
-                                                        <button class="boxed-btn blog" type="button" data-toggle="modal" data-target="#ModalFeature" style="width: 160px;">{{$lang->fpr}}</button>
+                                                        <button class="boxed-btn blog" type="button" data-toggle="modal"
+                                                                data-target="#ModalFeature"
+                                                                style="width: 160px;">{{$lang->fpr}}</button>
                                                     </div>
                                                 @endif
                                             @endif
@@ -136,31 +147,34 @@
 
                                                     <tr>
                                                         <th>{{$lang->ratt}}</th>
-                                                        <td>{{$user->rating}} <span class="fa fa-star checked" style="margin-left: 5px;"></span></td>
+                                                        <td>{{$user->rating}} <span class="fa fa-star checked"
+                                                                                    style="margin-left: 5px;"></span>
+                                                        </td>
                                                     </tr>
 
                                                     <tr>
                                                         <th>{{$lang->et}}</th>
-                                                        <td>@if($user->experience_years) {{$user->experience_years}} @if($user->experience_years > 1) Years @else Year @endif @else N/A @endif</td>
+                                                        <td>@if($user->experience_years) {{$user->experience_years}} @if($user->experience_years > 1)
+                                                                Years @else Year @endif @else N/A @endif</td>
                                                     </tr>
 
 
-                                                    </tbody></table>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
 
                                         <style type="text/css">
 
-                                .checked {
-  color: orange !important;
-}
+                                            .checked {
+                                                color: orange !important;
+                                            }
 
-.container
-                {
-                    width: 100% !important;
-                }
+                                            .container {
+                                                width: 100% !important;
+                                            }
 
-        </style>
+                                        </style>
 
                                         <!--                         <div class="add-area margin-bottom-30">
                                                                     <img src="assets/img/add.jpg" alt="Ad. Image">
@@ -169,8 +183,11 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="profile-right-side">
+
                                             <div class="profile-img">
-                                                <img width="130px" height="90px" id="adminimg" src="{{ $user->photo ? asset('assets/images/'.$user->photo):asset('assets/default.jpg')}}" alt="" id="adminimg">
+                                                <img width="130px" height="90px" id="adminimg"
+                                                     src="{{ $user->photo ? asset('assets/images/'.$user->photo):"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG"}}"
+                                                     alt="" id="adminimg">
                                             </div>
 
                                             <div class="profile-contact-info" style="margin-top: 40px;">
@@ -203,10 +220,11 @@
                                             <hr>
                                             <div class="add-area margin-bottom-30">
                                                 <iframe
-                                                        width="340"
-                                                        height="350"
-                                                        frameborder="0" style="border:0"
-                                                        src="https://www.google.com/maps/embed/v1/place?key={{$gs->map_key}}&q={{$user->address == null ? '@':$user->address}}" allowfullscreen>
+                                                    width="340"
+                                                    height="350"
+                                                    frameborder="0" style="border:0"
+                                                    src="https://www.google.com/maps/embed/v1/place?key={{$gs->map_key}}&q={{$user->address == null ? '@':$user->address}}"
+                                                    allowfullscreen>
                                                 </iframe>
                                             </div>
                                             <!--                             <div class="add-area">
@@ -234,13 +252,15 @@
                                             <div class="col-md-12 text-center">
                                                 <h4 id="cost" class="cost"></h4>
                                                 <h4>Select Premium Features</h4>
-                                                <form class="paypal" action="{{route('payment.submit')}}" method="post" id="payment_form">
+                                                <form class="paypal" action="{{route('payment.submit')}}" method="post"
+                                                      id="payment_form">
                                                     {{csrf_field()}}
-                                                    <input type="hidden" name="cmd" value="_xclick" />
-                                                    <input type="hidden" name="no_note" value="1" />
-                                                    <input type="hidden" name="lc" value="UK" />
-                                                    <input type="hidden" name="currency_code" value="USD" />
-                                                    <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
+                                                    <input type="hidden" name="cmd" value="_xclick"/>
+                                                    <input type="hidden" name="no_note" value="1"/>
+                                                    <input type="hidden" name="lc" value="UK"/>
+                                                    <input type="hidden" name="currency_code" value="USD"/>
+                                                    <input type="hidden" name="bn"
+                                                           value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest"/>
                                                     <div class="form-group col-md-8 col-md-offset-2">
                                                         <select name="featured" class="form-control" id="opt" required>
                                                             <option value="">Select Option</option>
@@ -249,37 +269,46 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-8 col-md-offset-2">
-                                                        <select class="form-control" onChange="meThods(this)" id="formac" name="method" required>
+                                                        <select class="form-control" onChange="meThods(this)"
+                                                                id="formac" name="method" required>
                                                             <option value="Paypal" selected>Paypal</option>
                                                             <option value="Stripe">Credit Card</option>
                                                         </select>
                                                     </div>
-                                                    <input type="hidden" name="userid" value="{{$user->id}}" />
+                                                    <input type="hidden" name="userid" value="{{$user->id}}"/>
 
-                                                    <div id="stripes" class="col-md-8 col-md-offset-2" style="display: none;">
-                                                        <img class="pull-right" src="{{url('/assets/images')}}/creditcards.png">
+                                                    <div id="stripes" class="col-md-8 col-md-offset-2"
+                                                         style="display: none;">
+                                                        <img class="pull-right"
+                                                             src="{{url('/assets/images')}}/creditcards.png">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="card" placeholder="Card">
+                                                            <input type="text" class="form-control" name="card"
+                                                                   placeholder="Card">
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="cvv" placeholder="Cvv">
+                                                            <input type="text" class="form-control" name="cvv"
+                                                                   placeholder="Cvv">
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="month" placeholder="Month">
+                                                            <input type="text" class="form-control" name="month"
+                                                                   placeholder="Month">
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="year" placeholder="Year">
+                                                            <input type="text" class="form-control" name="year"
+                                                                   placeholder="Year">
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        <input type="submit" name="submit" id="pay" class="boxed-btn blog" value="Pay Now"/>
+                                                        <input type="submit" name="submit" id="pay"
+                                                               class="boxed-btn blog" value="Pay Now"/>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
                                     </div>
                                 </div>
 
@@ -302,47 +331,58 @@
                                             <div class="col-md-12 text-center">
                                                 <h4>Make Your Profile Featured</h4>
                                                 <h4 class="cost">Total Cost: {{$gs->fp}}$</h4>
-                                                <form class="paypal" action="{{route('payment.submit')}}" method="post" id="payment_form2">
+                                                <form class="paypal" action="{{route('payment.submit')}}" method="post"
+                                                      id="payment_form2">
                                                     {{csrf_field()}}
 
                                                     <div class="form-group col-md-8 col-md-offset-2">
-                                                        <select class="form-control" onChange="meThods2(this)" id="formac" name="method" required>
+                                                        <select class="form-control" onChange="meThods2(this)"
+                                                                id="formac" name="method" required>
                                                             <option value="Paypal" selected>Paypal</option>
                                                             <option value="Stripe">Credit Card</option>
                                                         </select>
                                                     </div>
-                                                    <input type="hidden" name="cmd" value="_xclick" />
-                                                    <input type="hidden" name="no_note" value="1" />
-                                                    <input type="hidden" name="lc" value="UK" />
-                                                    <input type="hidden" name="currency_code" value="USD" />
-                                                    <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
-                                                    <input type="hidden" name="featured" value="yes" />
-                                                    <input type="hidden" name="userid" value="{{$user->id}}" />
+                                                    <input type="hidden" name="cmd" value="_xclick"/>
+                                                    <input type="hidden" name="no_note" value="1"/>
+                                                    <input type="hidden" name="lc" value="UK"/>
+                                                    <input type="hidden" name="currency_code" value="USD"/>
+                                                    <input type="hidden" name="bn"
+                                                           value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest"/>
+                                                    <input type="hidden" name="featured" value="yes"/>
+                                                    <input type="hidden" name="userid" value="{{$user->id}}"/>
 
-                                                    <div id="stripes2" class="col-md-8 col-md-offset-2" style="display: none;">
-                                                        <img class="pull-right" src="{{url('/assets/images')}}/creditcards.png">
+                                                    <div id="stripes2" class="col-md-8 col-md-offset-2"
+                                                         style="display: none;">
+                                                        <img class="pull-right"
+                                                             src="{{url('/assets/images')}}/creditcards.png">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="card" placeholder="Card">
+                                                            <input type="text" class="form-control" name="card"
+                                                                   placeholder="Card">
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="cvv" placeholder="Cvv">
+                                                            <input type="text" class="form-control" name="cvv"
+                                                                   placeholder="Cvv">
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="month" placeholder="Month">
+                                                            <input type="text" class="form-control" name="month"
+                                                                   placeholder="Month">
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="year" placeholder="Year">
+                                                            <input type="text" class="form-control" name="year"
+                                                                   placeholder="Year">
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        <input type="submit" name="submit" id="pay2" class="boxed-btn blog" value="Pay Now"/>
+                                                        <input type="submit" name="submit" id="pay2"
+                                                               class="boxed-btn blog" value="Pay Now"/>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
                                     </div>
                                 </div>
 
@@ -359,7 +399,7 @@
 
     <style>
 
-        #dashboard{
+        #dashboard {
             color: #fff;
             background: {{$gs->colors == null ? 'rgba(207, 55, 58, 0.70)':$gs->colors.'c2'}};
 
@@ -375,13 +415,13 @@
 
     <script>
 
-        $("#opt").change(function(){
+        $("#opt").change(function () {
 
             var opt = $("#opt").val();
 
-            if(opt=="yes"){
+            if (opt == "yes") {
                 $("#cost").html("Total Cost: {{$gs->fp+$gs->np}}$");
-            }else{
+            } else {
                 $("#cost").html("Total Cost: {{$gs->np}}$");
             }
 
@@ -404,26 +444,27 @@
             if (val.value == "Paypal") {
                 $("#payment_form").attr("action", action1);
                 $("#stripes").hide();
-                $("#stripes").find("input").attr('required',false);
+                $("#stripes").find("input").attr('required', false);
             }
             if (val.value == "Stripe") {
                 $("#payment_form").attr("action", action2);
                 $("#stripes").show();
-                $("#stripes").find("input").attr('required',true);
+                $("#stripes").find("input").attr('required', true);
             }
         }
+
         function meThods2(val) {
             var action1 = "{{route('payment.submit')}}";
             var action2 = "{{route('stripe.submit')}}";
             if (val.value == "Paypal") {
                 $("#payment_form2").attr("action", action1);
                 $("#stripes2").hide();
-                $("#stripes2").find("input").attr('required',false);
+                $("#stripes2").find("input").attr('required', false);
             }
             if (val.value == "Stripe") {
                 $("#payment_form2").attr("action", action2);
                 $("#stripes2").show();
-                $("#stripes2").find("input").attr('required',true);
+                $("#stripes2").find("input").attr('required', true);
             }
         }
 

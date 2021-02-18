@@ -21,7 +21,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h2 class="ut">{{$user->name}} {{$user->family_name}}</h2>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                                     @endif
 
                                     <div class="col-md-8">
-                                       
+
                                         <div class="profile-description-box margin-bottom-30">
                                             <h2 class="ut">{{$lang->dopd}}</h2>
                                             <hr>
@@ -110,9 +110,14 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="profile-right-side">
-                                            <div class="profile-img">
-                                                <img width="130px" height="90px" id="adminimg" src="{{ $user->photo ? asset('assets/images/'.$user->photo):asset('assets/default.jpg')}}" alt="" id="adminimg">
-                                            </div>
+
+                                            @if($user->photo)
+
+                                                <div class="profile-img">
+                                                    <img width="130px" height="90px" id="adminimg" src="{{asset('assets/images/'.$user->photo)}}" alt="" id="adminimg">
+                                                </div>
+
+                                            @endif
 
                                             <div class="profile-contact-info" style="margin-top: 40px;">
                                                 <h2>{{$lang->doci}}</h2>
@@ -159,10 +164,10 @@
                             </div>
                         </div>
 
-                        
 
 
-                    
+
+
                     </div>
                     <!-- Ending of Dashboard Top reference + Most Used OS area -->
 

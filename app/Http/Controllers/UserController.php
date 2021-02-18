@@ -3718,11 +3718,20 @@ class UserController extends Controller
 
             $admin_email = $this->sl->admin_email;
 
-            \Mail::send(array(), array(), function ($message) use ($client) {
+            if($this->lang->lang == 'du')
+            {
+                $msg = "Beste <b> . $client->name . </b>,<br><br>De status van je bestelling met factuur INV# <b>" . $client->quotation_invoice_number . "</b> is zojuist gewijzigd naar afgeleverd. Je kan de status naar ontvangen wijzigen in je dashboard. Doe dit alleen als je de goederen hebt ontvangen. Mocht, je de goederen op bezorgdatum niet hebben ontvangen neem dan contact met ons op.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
+            }
+            else
+            {
+                $msg = "Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
+            }
+
+            \Mail::send(array(), array(), function ($message) use ($msg,$client) {
                 $message->to($client->email)
                     ->from('info@vloerofferteonline.nl')
                     ->subject('Invoice Status Changed')
-                    ->setBody("Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                    ->setBody($msg, 'text/html');
             });
 
             \Mail::send(array(), array(), function ($message) use ($admin_email, $client) {
@@ -3753,11 +3762,20 @@ class UserController extends Controller
 
             $admin_email = $this->sl->admin_email;
 
-            \Mail::send(array(), array(), function ($message) use ($handyman) {
+            if($this->lang->lang == 'du')
+            {
+                $msg = "Beste <b> . $handyman->name . </b>,<br><br>Je klant heeft de status voor factuur INV# <b>" . $handyman->quotation_invoice_number . "</b> gewijzigd naar goederen ontvangen.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
+            }
+            else
+            {
+                $msg = "Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
+            }
+
+            \Mail::send(array(), array(), function ($message) use ($msg,$handyman) {
                 $message->to($handyman->email)
                     ->from('info@vloerofferteonline.nl')
                     ->subject('Invoice Status Changed')
-                    ->setBody("Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                    ->setBody($msg, 'text/html');
             });
 
             \Mail::send(array(), array(), function ($message) use ($admin_email, $handyman) {
@@ -3788,11 +3806,20 @@ class UserController extends Controller
 
             $admin_email = $this->sl->admin_email;
 
-            \Mail::send(array(), array(), function ($message) use ($client) {
+            if($this->lang->lang == 'du')
+            {
+                $msg = "Beste <b> . $client->name . </b>,<br><br>De status van je bestelling met factuur INV# <b>" . $client->quotation_invoice_number . "</b> is zojuist gewijzigd naar afgeleverd. Je kan de status naar ontvangen wijzigen in je dashboard. Doe dit alleen als je de goederen hebt ontvangen. Mocht, je de goederen op bezorgdatum niet hebben ontvangen neem dan contact met ons op.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
+            }
+            else
+            {
+                $msg = "Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
+            }
+
+            \Mail::send(array(), array(), function ($message) use ($msg,$client) {
                 $message->to($client->email)
                     ->from('info@vloerofferteonline.nl')
                     ->subject('Invoice Status Changed')
-                    ->setBody("Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                    ->setBody($msg, 'text/html');
             });
 
             \Mail::send(array(), array(), function ($message) use ($admin_email, $client) {
@@ -3823,11 +3850,20 @@ class UserController extends Controller
 
             $admin_email = $this->sl->admin_email;
 
-            \Mail::send(array(), array(), function ($message) use ($handyman) {
+            if($this->lang->lang == 'du')
+            {
+                $msg = "Beste <b> . $handyman->name . </b>,<br><br>Je klant heeft de status voor factuur INV# <b>" . $handyman->quotation_invoice_number . "</b> gewijzigd naar goederen ontvangen.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
+            }
+            else
+            {
+                $msg = "Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
+            }
+
+            \Mail::send(array(), array(), function ($message) use ($msg,$handyman) {
                 $message->to($handyman->email)
                     ->from('info@vloerofferteonline.nl')
                     ->subject('Invoice Status Changed')
-                    ->setBody("Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                    ->setBody($msg, 'text/html');
             });
 
             \Mail::send(array(), array(), function ($message) use ($admin_email, $handyman) {
