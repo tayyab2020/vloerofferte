@@ -582,6 +582,7 @@
                 </div>
             </div>
         </div>
+
     </section>
 
 
@@ -630,6 +631,7 @@
                 </div>
             </div>
         </section>
+
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
 
@@ -757,306 +759,338 @@
 
         <script type="text/javascript">
 
-            $('.quote-model-number').keyup(function() {
-
-                $('.quote-model-number').val($(this).val());
-
-            });
-
-            $('.quote-model').change(function() {
-
-                var id = $(this).val();
-
-                $('.quote-model').val($(this).val());
-
-                $(".quote-model").trigger('change.select2');
-
-                $('.navbar a[href="#step1"]').trigger('click');
-
-                $('.back').hide();
-
-            });
-
-            $('.quote-brand').change(function() {
-
-                $('.quote-brand').val($(this).val());
-
-                $(".quote-brand").trigger('change.select2');
-
-                $('.navbar a[href="#step1"]').trigger('click');
-
-                $('.back').hide();
-
-                var brand_id = $(this).val();
-                var options = '';
-
-                $.ajax({
-                    type:"GET",
-                    data: "id=" + brand_id ,
-                    url: "<?php echo url('/products-models-by-brands')?>",
-                    success: function(data) {
-
-                        $.each(data, function(index, value) {
-
-                            var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
-
-                            options = options + opt;
-
-                        });
-
-                        $('.quote-model').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">Select Model</option>'+options);
-
-                    }
-                });
-
-            });
-
-            $('.quote-service').change(function(){
-
-                $('.quote-service').val($(this).val());
-
-                $(".quote-service").trigger('change.select2');
-
-                $('.navbar a[href="#step1"]').trigger('click');
-
-                $('.back').hide();
-
-                var category_id = $(this).val();
-                var options = '';
-
-                $.ajax({
-                    type:"GET",
-                    data: "id=" + category_id,
-                    url: "<?php echo url('get-questions')?>",
-
-                    success: function(data) {
-
-                        $('#step3').children('.well').empty();
-
-                        var index_count = 0;
-
-                        $.each(data, function (index, val) {
-
-                            if(data.length == index + 1)
-                            {
-                                $('#step3').children('.well').append('<div style="margin-bottom: 20px;"></div>');
-                            }
-                            else
-                            {
-                                $('#step3').children('.well').append('<div style="margin-bottom: 40px;"></div>');
-                            }
-
-                            var last = $('#step3').children('.well').children().last('div');
-
-                            last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">'+val.title+'</h3><input type="hidden" name="questions[]" value="'+val.title+'">');
-
-                            if(val.predefined == 1)
-                            {
-
-                                last.append('<div class="checkbox_validation"><input name="predefined'+index+'" type="hidden" value="1"></div>');
-
-                                $.each(val.answers, function (index1, val1) {
-
-                                    last.children('div').append('<hr>\n' +
-                                        '                                        <label class="container-checkbox">'+val1.title+'\n' +
-                                        '                                        <input name="answers'+index+'[]" type="checkbox" value="'+val1.title+'">\n' +
-                                        '                                        <span class="checkmark-checkbox"></span>\n' +
-                                        '                                        </label>');
-
-                                });
-                            }
-                            else
-                            {
-                                last.append('<input name="predefined'+index+'" type="hidden" value="0">\n'+
-                                    '<textarea name="answers'+index+'" style="resize: vertical;" rows="1" class="form-control quote_validation" placeholder=""></textarea>');
-                            }
-
-                            index_count = index;
-
-                        });
-
-                        $('#step3').children('.well').append('<input type="hidden" name="index_count" value="'+index_count+'">');
-
-                        /*$('#step3').children('div').children('h3').
-                        console.log(data);*/
-                    }
-                });
-
-                $.ajax({
-                    type:"GET",
-                    data: "id=" + category_id ,
-                    url: "<?php echo url('/products-brands-by-category')?>",
-                    success: function(data) {
-
-                        $.each(data, function(index, value) {
-
-                            var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
-
-                            options = options + opt;
-
-                        });
-
-                        $('.quote-model').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">Select Model</option>');
-
-                        $('.quote-brand').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">Select Brand</option>'+options);
-
-                    }
-                });
-
-            });
-
-            $('.next-submit').click(function(){
-
-                var validation = $('.tab-content').find('.active').find('.quote_validation');
-
-                var flag = 0;
-
-                if($('.tab-content').find('.active').find('.permission_validation').length > 0)
-                {
-                    if($('.tab-content').find('.active').find('.permission_validation:checked').length < 1)
-                    {
-                        $('.permission-checkbox').css('border','1px solid red');
-                        flag = 1;
-                    }
-                    else
-                    {
-                        $('.permission-checkbox').css('border','');
-                    }
-                }
-
-                $(validation).each(function(){
-
-                    if(!$(this).val())
-                    {
-                        $(this).css('border','1px solid red');
-                        flag = 1;
-                    }
-                    else
-                    {
-                        $(this).css('border','');
-                    }
-
-                });
-
-                if(!flag)
-                {
-                    $('#quote_form').submit();
-                }
-
-                return false;
-            });
-
-            $('.next').click(function(){
-
-                var validation = $('.tab-content').find('.active').find('.quote_validation');
-                var checkbox_validation = $('.tab-content').find('.active').find('.checkbox_validation');
-
-                var flag = 0;
-                var flag1 = 0;
-
-                $(checkbox_validation).each(function(){
-
-                    if($(this).children().find('input:checkbox:checked').length < 1)
-                    {
-                        flag1 = 1;
-                    }
-
-                });
-
-                if(flag1)
-                {
-                    alert('Je hebt nog niet alle vragen beantwoord. Scroll naar beneden om de overige vragen te beantwoorden.');
-                }
-
-                $(validation).each(function(){
-
-                    if(!$(this).val())
-                    {
-                        if($(this).hasClass('select2-hidden-accessible'))
+            $(document).ready(function() {
+
+                $('.topMembers').slick({
+                    dots: false,
+                    arrows: true,
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    responsive: [
                         {
-                            $(this).next().css('border','1px solid red');
+                            breakpoint: 768,
+                            settings: {
+                                arrows: true,
+                                centerMode: false,
+                                centerPadding: '0px',
+                                slidesToShow: 2
+                            }
+                        },
+                        {
+                            breakpoint: 480,
+                            settings: {
+                                arrows: false,
+                                centerMode: true,
+                                centerPadding: '40px',
+                                slidesToShow: 1
+                            }
+                        }
+                    ],
+                    prevArrow: "<button class='slick-arrow slick-prev' data-role='none' type='button' style='display: block;'><svg class='domain-icon css-oee40j' viewBox='0 0 24 24' aria-hidden='true'><path fill='none' stroke='currentColor' stroke-width='2' d='M15 5l-7 7 7 7'></path></svg><span class='css-16q9xmc'>Prev</span></button>",
+                    nextArrow: "<button class='slick-arrow slick-next' data-role='none' type='button' style='display: block;'><svg class='domain-icon css-oee40j' viewBox='0 0 24 24' aria-hidden='true'><path fill='none' stroke='currentColor' stroke-width='2' d='M9 5l7 7-7 7'></path></svg><span class='css-16q9xmc'>Next</span></button>"
+                });
+
+                $('.quote-model-number').keyup(function() {
+
+                    $('.quote-model-number').val($(this).val());
+
+                });
+
+                $('.quote-model').change(function() {
+
+                    var id = $(this).val();
+
+                    $('.quote-model').val($(this).val());
+
+                    $(".quote-model").trigger('change.select2');
+
+                    $('.navbar a[href="#step1"]').trigger('click');
+
+                    $('.back').hide();
+
+                });
+
+                $('.quote-brand').change(function() {
+
+                    $('.quote-brand').val($(this).val());
+
+                    $(".quote-brand").trigger('change.select2');
+
+                    $('.navbar a[href="#step1"]').trigger('click');
+
+                    $('.back').hide();
+
+                    var brand_id = $(this).val();
+                    var options = '';
+
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + brand_id ,
+                        url: "<?php echo url('/products-models-by-brands')?>",
+                        success: function(data) {
+
+                            $.each(data, function(index, value) {
+
+                                var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
+
+                                options = options + opt;
+
+                            });
+
+                            $('.quote-model').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">Select Model</option>'+options);
+
+                        }
+                    });
+
+                });
+
+                $('.quote-service').change(function(){
+
+                    $('.quote-service').val($(this).val());
+
+                    $(".quote-service").trigger('change.select2');
+
+                    $('.navbar a[href="#step1"]').trigger('click');
+
+                    $('.back').hide();
+
+                    var category_id = $(this).val();
+                    var options = '';
+
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + category_id,
+                        url: "<?php echo url('get-questions')?>",
+
+                        success: function(data) {
+
+                            $('#step3').children('.well').empty();
+
+                            var index_count = 0;
+
+                            $.each(data, function (index, val) {
+
+                                if(data.length == index + 1)
+                                {
+                                    $('#step3').children('.well').append('<div style="margin-bottom: 20px;"></div>');
+                                }
+                                else
+                                {
+                                    $('#step3').children('.well').append('<div style="margin-bottom: 40px;"></div>');
+                                }
+
+                                var last = $('#step3').children('.well').children().last('div');
+
+                                last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">'+val.title+'</h3><input type="hidden" name="questions[]" value="'+val.title+'">');
+
+                                if(val.predefined == 1)
+                                {
+
+                                    last.append('<div class="checkbox_validation"><input name="predefined'+index+'" type="hidden" value="1"></div>');
+
+                                    $.each(val.answers, function (index1, val1) {
+
+                                        last.children('div').append('<hr>\n' +
+                                            '                                        <label class="container-checkbox">'+val1.title+'\n' +
+                                            '                                        <input name="answers'+index+'[]" type="checkbox" value="'+val1.title+'">\n' +
+                                            '                                        <span class="checkmark-checkbox"></span>\n' +
+                                            '                                        </label>');
+
+                                    });
+                                }
+                                else
+                                {
+                                    last.append('<input name="predefined'+index+'" type="hidden" value="0">\n'+
+                                        '<textarea name="answers'+index+'" style="resize: vertical;" rows="1" class="form-control quote_validation" placeholder=""></textarea>');
+                                }
+
+                                index_count = index;
+
+                            });
+
+                            $('#step3').children('.well').append('<input type="hidden" name="index_count" value="'+index_count+'">');
+
+                            /*$('#step3').children('div').children('h3').
+                            console.log(data);*/
+                        }
+                    });
+
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + category_id ,
+                        url: "<?php echo url('/products-brands-by-category')?>",
+                        success: function(data) {
+
+                            $.each(data, function(index, value) {
+
+                                var opt = '<option value="'+value.id+'" >'+value.cat_slug+'</option>';
+
+                                options = options + opt;
+
+                            });
+
+                            $('.quote-model').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">Select Model</option>');
+
+                            $('.quote-brand').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">Select Brand</option>'+options);
+
+                        }
+                    });
+
+                });
+
+                $('.next-submit').click(function(){
+
+                    var validation = $('.tab-content').find('.active').find('.quote_validation');
+
+                    var flag = 0;
+
+                    if($('.tab-content').find('.active').find('.permission_validation').length > 0)
+                    {
+                        if($('.tab-content').find('.active').find('.permission_validation:checked').length < 1)
+                        {
+                            $('.permission-checkbox').css('border','1px solid red');
+                            flag = 1;
                         }
                         else
                         {
+                            $('.permission-checkbox').css('border','');
+                        }
+                    }
+
+                    $(validation).each(function(){
+
+                        if(!$(this).val())
+                        {
                             $(this).css('border','1px solid red');
+                            flag = 1;
+                        }
+                        else
+                        {
+                            $(this).css('border','');
                         }
 
-                        flag = 1;
-                    }
-                    else
-                    {
-                        $(this).next().css('border','');
-                        $(this).css('border','');
+                    });
 
+                    if(!flag)
+                    {
+                        $('#quote_form').submit();
                     }
+
+                    return false;
+                });
+
+                $('.next').click(function(){
+
+                    var validation = $('.tab-content').find('.active').find('.quote_validation');
+                    var checkbox_validation = $('.tab-content').find('.active').find('.checkbox_validation');
+
+                    var flag = 0;
+                    var flag1 = 0;
+
+                    $(checkbox_validation).each(function(){
+
+                        if($(this).children().find('input:checkbox:checked').length < 1)
+                        {
+                            flag1 = 1;
+                        }
+
+                    });
+
+                    if(flag1)
+                    {
+                        alert('Je hebt nog niet alle vragen beantwoord. Scroll naar beneden om de overige vragen te beantwoorden.');
+                    }
+
+                    $(validation).each(function(){
+
+                        if(!$(this).val())
+                        {
+                            if($(this).hasClass('select2-hidden-accessible'))
+                            {
+                                $(this).next().css('border','1px solid red');
+                            }
+                            else
+                            {
+                                $(this).css('border','1px solid red');
+                            }
+
+                            flag = 1;
+                        }
+                        else
+                        {
+                            $(this).next().css('border','');
+                            $(this).css('border','');
+
+                        }
+
+                    });
+
+                    if(flag == 0 && flag1 == 0)
+                    {
+                        var nextId = $('.tab-content').find('.active').next().attr("id");
+                        $('.nav-pills a[href="#' + nextId + '"]').tab('show');
+
+                        $('.back').show();
+
+                        if(nextId == 'step5')
+                        {
+                            $('.next').hide();
+                            $('.next-submit').show();
+
+                        }
+                    }
+
+                    return false;
 
                 });
 
-                if(flag == 0 && flag1 == 0)
-                {
-                    var nextId = $('.tab-content').find('.active').next().attr("id");
-                    $('.nav-pills a[href="#' + nextId + '"]').tab('show');
+                $('.back').click(function(){
 
-                    $('.back').show();
+                    $('.next').show();
+                    $('.next-submit').hide();
 
-                    if(nextId == 'step5')
+                    var backId = $('.tab-content').find('.active').prev().attr("id");
+                    $('.nav-pills a[href="#' + backId + '"]').tab('show');
+
+                    if(backId == 'step1')
                     {
-                        $('.next').hide();
-                        $('.next-submit').show();
-
+                        $('.back').hide();
                     }
-                }
-
-                return false;
-
-            });
-
-            $('.back').click(function(){
-
-                $('.next').show();
-                $('.next-submit').hide();
-
-                var backId = $('.tab-content').find('.active').prev().attr("id");
-                $('.nav-pills a[href="#' + backId + '"]').tab('show');
-
-                if(backId == 'step1')
-                {
-                    $('.back').hide();
-                }
 
 
-                return false;
+                    return false;
 
-            });
+                });
 
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
-                //update progress
-                var step = $(e.target).data('step');
-                var percent = (parseInt(step) / 5) * 100;
+                    //update progress
+                    var step = $(e.target).data('step');
+                    var percent = (parseInt(step) / 5) * 100;
 
-                $('.progress-bar').css({width: percent + '%'});
-                $('.progress-bar').text("{{__('text.Step')}} " + step);
+                    $('.progress-bar').css({width: percent + '%'});
+                    $('.progress-bar').text("{{__('text.Step')}} " + step);
 
-                //e.relatedTarget // previous tab
+                    //e.relatedTarget // previous tab
 
-            })
+                });
 
-            $('.first').click(function(){
+                $('.first').click(function(){
 
-                $('#myWizard a:first').tab('show')
+                    $('#myWizard a:first').tab('show')
+
+                });
 
             });
-
 
             function changeLanguage(id)
             {
@@ -1091,6 +1125,47 @@
         </script>
 
         <style type="text/css">
+
+            .slick-slide
+            {
+                outline: none;
+            }
+
+            @media (min-width: 1200px){
+
+                .slick-slide
+                {
+                    padding: 0 20px;
+                }
+
+            }
+
+            @media (min-width: 1250px){
+
+                .slick-slide
+                {
+                    padding: 0 30px;
+                }
+
+            }
+
+            .slick-arrow{position:absolute;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);background:rgba(#fff,0.8);text-align:center;cursor:pointer;z-index:1;width:48px;height:48px;background:#fff;color:#3c475b;border:0;border-radius:50%;box-shadow:0 1px 3px 0 rgba(30,41,61,0.1),0 1px 2px 0 rgba(30,41,61,0.2);opacity:0.9;}
+
+            .slick-arrow:before
+            {
+                display: none;
+            }
+
+            .slick-arrow:hover , .slick-arrow:focus
+            {
+                outline: none;
+                background: #fff;
+            }
+
+            .slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus
+            {
+                color: #0ea800;
+            }
 
             .form-control:focus
             {
@@ -1520,41 +1595,50 @@
 
         </style>
 
-    <!-- <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="section-title pb_50 text-center">
-                            <h2>{{$lang->lns}}</h2>
 
-                            <div class="section-borders">
-                                <span></span>
-                                <span class="black-border"></span>
-                                <span></span>
-                            </div>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title pb_50 text-center">
+                        <h2>{{$lang->lns}}</h2>
+                        <div class="section-borders">
+                            <span></span>
+                            <span class="black-border"></span>
+                            <span></span>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                     <div class="col-md-12">
-                         <div class="owl-carousel blog-area-slider">
-                            @foreach($lblogs as $lblog)
-        <a href="{{route('front.blogshow',$lblog->title)}}" class="single-blog-box">
-                               <div class="blog-thumb-wrapper">
-                                   <img src="{{asset('assets/images/'.$lblog->photo)}}" alt="Blog Image">
-                               </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="owl-carousel blog-area-slider">
+                        @foreach($lblogs as $lblog)
+                            <a href="{{route('front.blogshow',$lblog->title)}}" class="single-blog-box">
+
+                                <div class="blog-thumb-wrapper">
+                                    @if($lblog->photo)
+                                        <img src="{{asset('assets/images/'.$lblog->photo)}}" alt="Blog Image">
+                                    @else
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG" alt="Blog Image">
+                                    @endif
+                                </div>
+
                                 <div class="blog-text">
-                                    <p class="blog-meta">{{date('d M, Y , H:i a',strtotime($lblog->created_at))}}
-                </p>
-                <h4>{{$lblog->title}}</h4>
+                                    <p class="blog-meta">{{date('d M Y H:i a',strtotime($lblog->created_at))}}
+                                    </p>
+                                    <h4>{{$lblog->title}}</h4>
                                     <p class="blog-meta-text">{{substr(strip_tags($lblog->details),0,250)}}</p>
                                     <span class="boxed-btn blog">{{$lang->vd}}</span>
                                 </div>
                             </a>
-                            @endforeach
+                        @endforeach
+                    </div>
+                </div>
             </div>
+
         </div>
-   </div>
-</div> -->
     </div>
     <!-- Ending of blog area -->
 

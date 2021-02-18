@@ -66,8 +66,8 @@
                                     <tr>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Costs')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Amount')}}</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">VAT %</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">VAT</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.VAT')}} %</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.VAT')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -93,7 +93,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td>VAT</td>
+                                        <td>{{__('text.VAT')}}</td>
                                         <td>€ {{number_format((float)$commission_vat, 2, ',', '.')}}</td>
                                         <td></td>
                                         <td></td>
@@ -142,8 +142,8 @@
                                     <tr>
                                         <td style="border-top: 1px solid black;"></td>
                                         <td style="border-top: 1px solid black;">{{__('text.Grand Total')}}</td>
-                                        <td style="border-top: 1px solid black;">VAT %</td>
-                                        <td style="border-top: 1px solid black;">VAT</td>
+                                        <td style="border-top: 1px solid black;">{{__('text.VAT')}} %</td>
+                                        <td style="border-top: 1px solid black;">{{__('text.VAT')}}</td>
                                     </tr>
 
                                     <tr>

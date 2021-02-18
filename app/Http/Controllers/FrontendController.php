@@ -369,9 +369,9 @@ class FrontendController extends Controller
         }
 
         $language = $this->lang->lang;
+        $blogs = Blog::all();
 
-
-        return view('front.index', compact('ads', 'cats', 'rusers', 'cities', 'jobs', 'language'));
+        return view('front.index', compact('blogs','ads', 'cats', 'rusers', 'cities', 'jobs', 'language'));
 
     }
 

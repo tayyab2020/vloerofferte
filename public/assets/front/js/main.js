@@ -55,7 +55,7 @@
 		    items: 3,
 		    autoplay: false,
 		    margin: 30,
-			loop: true,
+			loop: false,
 			nav: true,
 			navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
 		    smartSpeed: 800,

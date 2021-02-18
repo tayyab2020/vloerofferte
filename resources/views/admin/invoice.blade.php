@@ -28,7 +28,7 @@
 
     $('.alert').fadeIn().delay(3000).fadeOut();
 
-</script> 
+</script>
 
     <div class="container" style="width: 100%;">
         <div class="row">
@@ -55,7 +55,7 @@
 
                                 <?php  $date = date('d-m-Y',$date);  ?>
 
-                                
+
                                 <p class="text-muted" style="font-size: 15px;">Invoiced at: {{$date}}</p>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
 
                                                           $date = date('d-m-Y',$date);  ?>
 
-                                        
+
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td>{{$key->cat_name}}</td>
@@ -119,25 +119,25 @@
                                             <td>€ {{$key->service_rate}}</td>
                                             <td>{{$date}}</td>
                                             <td>€ <?php echo str_replace('.', ',', number_format($key->total,2)); ?></td>
-                                            
+
                                         </tr>
 
                                         <?php $i++; ?>
-                                        
+
                                         @endforeach
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
                         <style type="text/css">
-                            
+
                             .table td, .table th{
                                 text-align: center;
                                 vertical-align: middle;
                             }
-                            
+
                         </style>
 
 
@@ -161,7 +161,7 @@
                                         <th class="border-0 text-uppercase small font-weight-bold">Status</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Subtotal</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Commission<small style="font-size: 11px;"> (<?php echo $invoice[0]->commission_percentage; ?>%)</small></th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">VAT<small style="font-size: 11px;"> (<?php echo $invoice[0]->vat_percentage; ?>%)</small></th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.VAT')}}<small style="font-size: 11px;"> (<?php echo $invoice[0]->vat_percentage; ?>%)</small></th>
                                         <th class="border-0 text-uppercase small font-weight-bold">Grand Total</th>
 
                                     </tr>
@@ -290,7 +290,7 @@
 </div>
 
 <style type="text/css">
-    
+
     @media (max-width: 768px) {
 
         .inv-rigth{

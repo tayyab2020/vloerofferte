@@ -128,7 +128,7 @@
                                 <thead>
 
                                 <tr>
-                                    <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request->vat_percentage}}%)</th>
+                                    <th class="border-0 text-uppercase small font-weight-bold">{{__('text.VAT')}}({{$request->vat_percentage}}%)</th>
                                     <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Subtotal')}}</th>
                                     <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Grand Total')}}</th>
                                 </tr>

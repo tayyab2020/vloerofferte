@@ -19,9 +19,13 @@
         <link href="{{ asset('assets/front/css/style.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/front/css/responsive.css') }}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{asset('assets/images/'.$gs->favicon)}}">
-        <link href="{{ asset('assets/front/select2/select2.min.css') }}" rel="stylesheet" >
+        <link href="{{ asset('assets/front/select2/select2.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/front/css/slick.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/front/css/slick-theme.css') }}"/>
         <script src="{{ asset('assets/front/js/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/front/select2/select2.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/front/js/slick.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/front/js/slick.min.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.18.6/dist/sweetalert2.all.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/sweetalert2@8/dist/sweetalert2.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css">
@@ -914,7 +918,7 @@
         <script src="{{ asset('assets/front/js/owl.carousel.min.js') }}"></script>
         <script src="{{ asset('assets/front/js/wow.js') }}"></script>
         <script src="{{ asset('assets/front/js/jquery.slicknav.min.js') }}"></script>
-        <script src="{{ asset('assets/front/js/main.js?v=1') }}"></script>
+        <script src="{{ asset('assets/front/js/main.js?v=1.1') }}"></script>
         {!! $seo->google_analytics !!}
         <script type="text/javascript">
         $(window).load(function(){

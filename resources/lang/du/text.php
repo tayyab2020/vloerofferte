@@ -199,4 +199,12 @@ return [
     'Goods Received' => 'Goods Received',
     'Mark as delivered' => 'Mark as delivered',
     'Mark as received' => 'Mark as received',
+    'Something went wrong!' => 'Something went wrong!',
+    'Kindly visit your dashboard panel and change the booking status for this invoice to get fresh checkout url to complete your remaining transaction. This could be server side error or your checkout url has expired.' => 'Kindly visit your dashboard panel and change the booking status for this invoice to get fresh checkout url to complete your remaining transaction. This could be server side error or your checkout url has expired.',
+    'Having trouble?' => 'Having trouble?',
+    'Contact Us' => 'Contact Us',
+    'Continue to homepage' => 'Continue to homepage',
+    'This could be server side error or your checkout url has expired.' => 'This could be server side error or your checkout url has expired.',
+    'Blogs' => 'Blogs',
+    'VAT' => 'VAT',
 ];

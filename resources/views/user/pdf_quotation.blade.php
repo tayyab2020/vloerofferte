@@ -181,9 +181,9 @@
 
                                 <tr>
                                     @if($type == 'invoice' || $type == 'delivery-address-edit')
-                                        <th class="border-0 text-uppercase small font-weight-bold">VAT({{$invoice[0]->vat_percentage}}%)</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.VAT')}}({{$invoice[0]->vat_percentage}}%)</th>
                                     @else
-                                        <th class="border-0 text-uppercase small font-weight-bold">VAT({{$request->vat_percentage}}%)</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.VAT')}}({{$request->vat_percentage}}%)</th>
                                     @endif
                                     <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Subtotal')}}</th>
                                     <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Grand Total')}}</th>
