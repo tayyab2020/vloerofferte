@@ -39,7 +39,7 @@ input::-webkit-calendar-picker-indicator {
                                               </div>
                                       <input type="search" name="zipcode" id="zipcode" class="form-control" placeholder="{{$lang->spzc}}" autocomplete="off" required >
 
-                                       
+
                                             </div>
                                           </div>
 
@@ -48,14 +48,14 @@ input::-webkit-calendar-picker-indicator {
                                         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
 
                                       <script type="text/javascript">
-                                          
-                                        
+
+
 
                                           function initMap() {
 
- 
+
   var input = document.getElementById('zipcode');
-  
+
 
    var options = {
   componentRestrictions: {country: "nl"}
@@ -70,10 +70,10 @@ input::-webkit-calendar-picker-indicator {
   autocomplete.setFields(
       ['address_components', 'geometry', 'icon', 'name']);
 
-  
+
   autocomplete.addListener('place_changed', function() {
 
-    
+
     var place = autocomplete.getPlace();
 
 
@@ -84,7 +84,7 @@ input::-webkit-calendar-picker-indicator {
 
       // User entered the name of a Place that was not suggested and
       // pressed the Enter key, or the Place Details request failed.
-      window.alert("No details available for input: '" + place.name + "'");
+      window.alert("{{__('text.No details available for input: ')}}" + place.name);
       return;
     }
 
@@ -101,8 +101,8 @@ input::-webkit-calendar-picker-indicator {
            city = place.address_components[i].long_name;
 
         }
-        
-        
+
+
     }
 
 
@@ -119,17 +119,17 @@ input::-webkit-calendar-picker-indicator {
             var city = place.address_components[i].long_name;
 
         }
-        
-        
+
+
     }
 
     }
- 
+
 
 
     });
 
- 
+
 }
 
 </script>
@@ -177,8 +177,8 @@ input::-webkit-calendar-picker-indicator {
                                       </div>
 
                                          </div>
-                                        
-                                        
+
+
 
                                         <div class="col-md-6" style="margin-top: 10px;">
 
@@ -190,11 +190,11 @@ input::-webkit-calendar-picker-indicator {
 
                                          <input  type="text" name="from_date" id="from_date" class="form-control" placeholder="{{$lang->spdf}}" autocomplete="off"  required >
 
-                                   
+
                                         </div>
                                       </div>
 
-                                            
+
 
                                         </div>
 
@@ -209,7 +209,7 @@ input::-webkit-calendar-picker-indicator {
 
                                          <input  type="text" name="to_date" id="to_date" class="form-control" placeholder="{{$lang->spdt}}" autocomplete="off"  required >
 
-                                   
+
                                         </div>
                                       </div>
 
@@ -239,7 +239,7 @@ input::-webkit-calendar-picker-indicator {
 
             $(document).ready(function() {
 
-                
+
 $('#from_date').datepicker({
 
   format: 'dd-mm-yyyy',
@@ -255,7 +255,7 @@ $('#to_date').datepicker({
 });
 
 });
-                                          
+
 
                                           $(".js-data-example-ajax").select2({
                width: '100%',
@@ -284,21 +284,21 @@ $('#to_date').datepicker({
                             <a href="{{route('front.user',$ruser->id)}}">
                                 <div style="width: 100%;background-color: white;">
                             <div class="member_img" style="width: 50%;border: 0;display: inline-block;height: 210px;">
-                                
+
                                     <img src="{{ $ruser->photo ? asset('assets/images/'.$ruser->photo):asset('assets/default.jpg')}}" alt="member image" style="width: 65%;height: 180px;padding: 0px;border-radius: 100%;border:1px solid lightgrey;margin: auto;display: block;margin-top: 20px;">
                             </div>
 
                             <div style="display: inline-block;max-width: 45%;position: absolute;top: 80px;">
                             <p style="font-size: 18px;font-weight: bold;color: black;">{{$ruser->name}} {{$ruser->family_name}}</p>
 
-                            
+
                         </div>
                     </div>
                     </a>
 
 
                             <div class="member_info text-center pos_relative" style="height: 190px;">
-                                
+
                                 <div class="overlay1" style="transform: rotate(0deg);top: 0px;"></div>
                                 <div class="overlay2" style="top: 0px;transform: rotate(0deg);"></div>
 
@@ -307,7 +307,7 @@ $('#to_date').datepicker({
 
                                     <div style="width: 33%;float: left;border-right: 1px solid #c7c0c0;margin-top: 20px;">
 
-                                    
+
                                     <div style="font-size: 15px;font-weight: bold;">{{$lang->ratt}}</div>
                                     <div class="change1" style="padding: 10px;font-size: 17px;">{{$ruser->rating}} <span class="fa fa-star checked" style="margin-left: 7px;"></span></div>
 
@@ -368,7 +368,7 @@ $('#to_date').datepicker({
                     @endforeach
 
                     <style type="text/css">
-                        
+
                         @media (max-width: 890px)
                         {
                             .next1
@@ -394,13 +394,13 @@ $('#to_date').datepicker({
                         }
 
                     </style>
-                	
+
 
                 </div>
         @endforeach
             </div>
                     <div class="text-center">
-                    {!! $users->links() !!}                 
+                    {!! $users->links() !!}
                     </div>
         </div>
 
@@ -451,7 +451,7 @@ $('#to_date').datepicker({
 
                display: none;
            }
-            
+
 
                 [type="radio"]:checked,
 [type="radio"]:not(:checked) {
@@ -582,11 +582,11 @@ $('#to_date').datepicker({
   right: 7px;
 }
 .datepicker-dropdown.datepicker-orient-bottom:before {
-  display: none;  
+  display: none;
   top: -7px;
 }
 .datepicker-dropdown.datepicker-orient-bottom:after {
-  display: none;  
+  display: none;
   top: -6px;
 }
 .datepicker-dropdown.datepicker-orient-top:before {

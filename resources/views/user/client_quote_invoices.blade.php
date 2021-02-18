@@ -342,7 +342,7 @@
                                                 <div class="row justify-content-center pb-5">
 
                                                     <div class="col-12 pt-5">
-                                                        <h4 style="color: black;text-align: center;" class="mb-4 pb-2">Do you want to change your delivery address?</h4>
+                                                        <h4 style="color: black;text-align: center;" class="mb-4 pb-2">{{__('text.Do you want to change your delivery address?')}}</h4>
                                                     </div>
 
 
@@ -350,12 +350,12 @@
 
                                                         <input class="checkbox-tools change-delivery" type="radio" name="change_address" id="tool-1" value="0" checked>
                                                         <label class="for-checkbox-tools" for="tool-1">
-                                                            No
+                                                            {{__('text.No')}}
                                                         </label>
 
                                                         <input class="checkbox-tools change-delivery" type="radio" name="change_address" id="tool-4" value="1">
                                                         <label class="for-checkbox-tools" for="tool-4">
-                                                            Yes
+                                                            {{__('text.Yes')}}
                                                         </label>
 
                                                     </div>
@@ -364,19 +364,19 @@
                                                     <div style="display: none;margin-top: 30px;" id="delivery_box">
 
                                                         <div class="col-12 pt-5">
-                                                            <h4 style="color: black;text-align: center;" class="mb-4 pb-2">Do you want this address to be updated in your profile?</h4>
+                                                            <h4 style="color: black;text-align: center;" class="mb-4 pb-2">{{__('text.Do you want this address to be updated in your profile?')}}</h4>
                                                         </div>
 
                                                         <div class="col-12 pb-5" style="display: flex;justify-content: space-around;margin-top: 20px;">
 
                                                             <input class="checkbox-tools" type="radio" name="update" id="tool-2" value="0" checked>
                                                             <label class="for-checkbox-tools" for="tool-2">
-                                                                No
+                                                                {{__('text.No')}}
                                                             </label>
 
                                                             <input class="checkbox-tools" type="radio" name="update" id="tool-3" value="1">
                                                             <label class="for-checkbox-tools" for="tool-3">
-                                                                Yes
+                                                                {{__('text.Yes')}}
                                                             </label>
 
                                                         </div>
@@ -1567,7 +1567,7 @@
 
                     // User entered the name of a Place that was not suggested and
                     // pressed the Enter key, or the Place Details request failed.
-                    window.alert("No details available for input: '" + place.name + "'");
+                    window.alert("{{__('text.No details available for input: ')}}" + place.name);
                     return;
                 }
                 else
@@ -1636,7 +1636,7 @@
                     $("#city").val('');
 
                     $("#address-error").remove();
-                    $('#delivery_address').parent().append('<small id="address-error" style="color: red;display: block;padding-right: 30px;">Kindly write your full address with house/building number so system can detect postal code and city from it!</small>');
+                    $('#delivery_address').parent().append('<small id="address-error" style="color: red;display: block;padding-right: 30px;">{{__('text.Kindly write your full address with house/building number so system can detect postal code and city from it!')}}</small>');
                 }
 
             });

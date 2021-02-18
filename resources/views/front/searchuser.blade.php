@@ -92,7 +92,7 @@ input::-webkit-calendar-picker-indicator {
                                                       // User entered the name of a Place that was not suggested and
                                                       // pressed the Enter key, or the Place Details request failed.
 
-                                                      window.alert("No details available for input: '" + place.name + "'");
+                                                      window.alert("{{__('text.No details available for input: ')}}" + place.name);
                                                       return;
                                                   }
 

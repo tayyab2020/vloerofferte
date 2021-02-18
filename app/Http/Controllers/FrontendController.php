@@ -1118,7 +1118,7 @@ class FrontendController extends Controller
 
             $check = users::where('email', $request->quote_email)->first();
 
-            $user_name = $request->quote_name . " " . $request->quote_familyname;
+            $user_name = $request->quote_name;
             $user_email = $request->quote_email;
 
             if ($check) {

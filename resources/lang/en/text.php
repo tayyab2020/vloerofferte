@@ -207,4 +207,9 @@ return [
     'This could be server side error or your checkout url has expired.' => 'This could be server side error or your checkout url has expired.',
     'Blogs' => 'Blogs',
     'VAT' => 'VAT',
+    'Do you want to change your delivery address?' => 'Do you want to change your delivery address?',
+    'No' => 'No',
+    'Yes' => 'Yes',
+    'Do you want this address to be updated in your profile?' => 'Do you want this address to be updated in your profile?',
+    'No details available for input: ' => 'No details available for input: ',
 ];

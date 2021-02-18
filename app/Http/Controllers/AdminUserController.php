@@ -381,7 +381,7 @@ class AdminUserController extends Controller
 
             $user = quotes::leftjoin('quotation_invoices','quotation_invoices.quote_id','=','quotes.id')->leftjoin('users','users.id','=','quotes.user_id')->where('quotation_invoices.id',$key)->select('users.*','quotes.quote_number','quotes.created_at')->first();
 
-            $client_name = $user->name . ' ' . $user->family_name;
+            $client_name = $user->name;
             $client_email = $user->email;
 
             $requested_quote_number = $user->quote_number;
@@ -393,7 +393,7 @@ class AdminUserController extends Controller
             $file = public_path().'/assets/quotationsPDF/'.$filename;
 
             $user = users::where('id',$quotation->handyman_id)->first();
-            $user_name = $user->name. ' ' .$user->family_name;
+            $user_name = $user->name;
             $email = $user->email;
 
             $link = url('/').'/handyman/dashboard';
@@ -469,7 +469,7 @@ class AdminUserController extends Controller
             $user = users::where('id',$key)->first();
             $email = $user->email;
 
-            $user_name = $user->name. ' ' .$user->family_name;
+            $user_name = $user->name;
 
             $save = handyman_quotes::where('handyman_id',$key)->where('quote_id',$request->quote_id)->first();
 
@@ -834,14 +834,14 @@ class AdminUserController extends Controller
             $message->to($handyman->email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject('Invoice Status Changed')
-                ->setBody("Dear <b>Mr/Mrs " . $handyman->name .' '. $handyman->family_name . "</b>,<br><br>Goods for your quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as delivered.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for your quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as delivered.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
         \Mail::send(array(), array(), function ($message) use ($client) {
             $message->to($client->email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject('Invoice Status Changed')
-                ->setBody("Dear <b>Mr/Mrs " . $client->name .' '. $client->family_name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
         Session::flash('success', 'Status Updated Successfully!');
@@ -860,14 +860,14 @@ class AdminUserController extends Controller
             $message->to($handyman->email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject('Invoice Status Changed')
-                ->setBody("Dear <b>Mr/Mrs " . $handyman->name .' '. $handyman->family_name . "</b>,<br><br>Goods for your quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> has been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for your quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> has been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
         \Mail::send(array(), array(), function ($message) use ($client) {
             $message->to($client->email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject('Invoice Status Changed')
-                ->setBody("Dear <b>Mr/Mrs " . $client->name .' '. $client->family_name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> has been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> has been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
         Session::flash('success', 'Status Updated Successfully!');

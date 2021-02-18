@@ -195,7 +195,7 @@
 
                 // User entered the name of a Place that was not suggested and
                 // pressed the Enter key, or the Place Details request failed.
-                window.alert("No details available for input: '" + place.name + "'");
+                window.alert("{{__('text.No details available for input: ')}}" + place.name);
                 return;
             }
             else
@@ -240,7 +240,7 @@
                 $('#postcode').val('');
 
                 $("#address-error").remove();
-                $('#address').parent().parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">Kindly write your full address with house/building number so system can detect postal code and city from it!</small>');
+                $('#address').parent().parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">{{__('text.Kindly write your full address with house/building number so system can detect postal code and city from it!')}}</small>');
             }
 
         });

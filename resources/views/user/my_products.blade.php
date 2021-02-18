@@ -471,24 +471,30 @@
 
             checked.map(function() {
 
-                if(!$(this).parent().parent().find('.product_rate').val())
+                console.log($(this).parent().parent().parent().find('.product_rate'));
+                console.log($(this).parent().parent().parent().find('.product_rate').val());
+
+                console.log($(this).parent().parent().parent().find('.product_sell_rate'));
+                console.log($(this).parent().parent().parent().find('.product_sell_rate').val());
+
+                if(!$(this).parent().parent().parent().find('.product_rate').val())
                 {
-                    $(this).parent().parent().find('td[data-type="rate"]').css('border','1px solid red');
+                    $(this).parent().parent().parent().find('td[data-type="rate"]').css('border','1px solid red');
                     check = 1;
                 }
                 else
                 {
-                    $(this).parent().parent().find('td[data-type="rate"]').css('border','');
+                    $(this).parent().parent().parent().find('td[data-type="rate"]').css('border','');
                 }
 
-                if(!$(this).parent().parent().find('.product_sell_rate').val())
+                if(!$(this).parent().parent().parent().find('.product_sell_rate').val())
                 {
-                    $(this).parent().parent().find('td[data-type="sell_rate"]').css('border','1px solid red');
+                    $(this).parent().parent().parent().find('td[data-type="sell_rate"]').css('border','1px solid red');
                     check = 1;
                 }
                 else
                 {
-                    $(this).parent().parent().find('td[data-type="sell_rate"]').css('border','');
+                    $(this).parent().parent().parent().find('td[data-type="sell_rate"]').css('border','');
                 }
 
                 if(check == 1)

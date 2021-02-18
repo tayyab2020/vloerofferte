@@ -90,9 +90,9 @@
                                     </ul>
                                 </li>
 
-                                <li>
+                                {{--<li>
                                     <a href="{{route('admin-user-bookings')}}"><i class="fa fa-fw fa-user-md"></i> Bookings</a>
-                                </li>
+                                </li>--}}
 
                                 <li>
                                     <a href="#products" data-toggle="collapse" @if(Route::currentRouteName() == 'admin-product-index' || Route::currentRouteName() == 'admin-cat-index' || Route::currentRouteName() == 'admin-brand-index' || Route::currentRouteName() == 'admin-model-index' || Route::currentRouteName() == 'admin-item-index') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> Products</a>
@@ -106,12 +106,6 @@
                                 </li>
 
 
-                                <li><a href="{{route('admin-adv-index')}}"><i class="fa fa-fw fa-link"></i> Advertisements</a>
-                                </li>
-                                <li><a href="{{route('admin-ad-index')}}"><i class="fa fa-fw fa-file-image-o"></i> Testimonials</a>
-                                </li>
-                                <li><a href="{{route('admin-blog-index')}}"><i class="fa fa-fw fa-file-text"></i> Blog Section</a>
-                                </li>
                                 <li>
                                     <a href="#seoTools" data-toggle="collapse" aria-expanded="false"><i class="fa fa-fw fa-wrench"></i> SEO Tools</a>
                                     <ul class="collapse list-unstyled submenu" id="seoTools">
@@ -119,34 +113,33 @@
                                         <li><a href="{{route('admin-seotool-keywords')}}"><i class="fa fa-angle-right"></i> Meta Keys</a></li>
                                     </ul>
                                 </li>
+
                                 <li>
                                     <a href="#pageSettings" data-toggle="collapse" aria-expanded="false"><i class="fa fa-fw fa-file-code-o"></i> Page Settings</a>
                                     <ul class="collapse list-unstyled submenu" id="pageSettings">
                                         <li><a href="{{route('admin-ps-about')}}"><i class="fa fa-angle-right"></i> About us page</a></li>
                                         <li><a href="{{route('admin-fq-index')}}"><i class="fa fa-angle-right"></i> FAQ page</a></li>
                                         <li><a href="{{route('admin-ps-contact')}}"><i class="fa fa-angle-right"></i> Contact us page</a></li>
+                                        <li><a href="{{route('admin-adv-index')}}"><i class="fa fa-fw fa-link"></i> Advertisements</a></li>
+                                        <li><a href="{{route('admin-ad-index')}}"><i class="fa fa-fw fa-file-image-o"></i> Testimonials</a></li>
+                                        <li><a href="{{route('admin-blog-index')}}"><i class="fa fa-fw fa-file-text"></i> Blog Section</a></li>
+                                        <li><a href="{{route('admin-how-it-works')}}"><i class="fa fa-fw fa-question"></i>  How It Works</a></li>
+                                        <li><a href="{{route('admin-reasons-to-book')}}"><i class="fa fa-fw fa-language"></i>  Reasons To Book</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="{{route('admin-lang-index')}}"><i class="fa fa-fw fa-language"></i>  Language Settings</a></li>
-
-                                <li><a href="{{route('admin-how-it-works')}}"><i class="fa fa-fw fa-question"></i>  How It Works</a></li>
-
-                                <li><a href="{{route('admin-reasons-to-book')}}"><i class="fa fa-fw fa-language"></i>  Reasons To Book</a></li>
 
 
                                 <li><a href="{{route('admin-social-index')}}"><i class="fa fa-fw fa-paper-plane"></i> Social settings</a></li>
-                                <li><a href="{{route('admin-filter-settings')}}"><i class="fa fa-fw fa-cogs"></i> Filter settings</a></li>
+
                                 <li>
                                     <a href="#themeSettings" data-toggle="collapse" aria-expanded="false"><i class="fa fa-fw fa-cogs"></i> Theme Settings</a>
                                     <ul class="collapse list-unstyled submenu" id="themeSettings">
                                         <li><a href="{{route('admin-gs-logo')}}"><i class="fa fa-angle-right"></i> Logo</a></li>
                                         <li><a href="{{route('admin-gs-fav')}}"><i class="fa fa-angle-right"></i> Favicon</a></li>
                                         <li><a href="{{route('admin-gs-load')}}"><i class="fa fa-angle-right"></i> Loader</a></li>
-
                                         <li><a href="{{route('admin-gs-contents')}}"><i class="fa fa-angle-right"></i> Website Contents</a></li>
                                         <li><a href="{{route('admin-gs-bginfo')}}"><i class="fa fa-angle-right"></i> Welcome Contents</a></li>
                                         <li><a href="{{route('admin-gs-bgimg')}}"><i class="fa fa-angle-right"></i> Background Image</a></li>
-
                                         <li><a href="{{route('admin-gs-footer')}}"><i class="fa fa-angle-right"></i> Footer</a></li>
                                     </ul>
                                 </li>
@@ -155,17 +148,17 @@
                                     <a href="#generalSettings" data-toggle="collapse" aria-expanded="false"><i class="fa fa-fw fa-cogs"></i> General Settings</a>
                                     <ul class="collapse list-unstyled submenu" id="generalSettings">
 
+                                        <li><a href="{{route('admin-lang-index')}}"><i class="fa fa-fw fa-language"></i>  Language Settings</a></li>
+
+                                        <li><a href="{{route('admin-filter-settings')}}"><i class="fa fa-fw fa-cogs"></i> Filter settings</a></li>
+
                                         <li><a href="{{route('admin-gs-payments')}}"><i class="fa fa-angle-right"></i> Payment Informations</a></li>
 
                                         <li><a href="{{route('admin-gs-vats')}}"><i class="fa fa-angle-right"></i> VAT Settings</a></li>
 
-                                        <li>
-                                    <a href="{{route('admin-handyman-terms')}}"><i class="fa fa-angle-right"></i> Handyman Terms & Conditions</a>
-                                </li>
+                                        <li><a href="{{route('admin-handyman-terms')}}"><i class="fa fa-angle-right"></i> Handyman Terms & Conditions</a></li>
 
-                                <li>
-                                    <a href="{{route('admin-client-terms')}}"><i class="fa fa-angle-right"></i> Client Terms & Conditions</a>
-                                </li>
+                                        <li><a href="{{route('admin-client-terms')}}"><i class="fa fa-angle-right"></i> Client Terms & Conditions</a></li>
 
                                         <li><a href="{{route('admin-gs-about')}}"><i class="fa fa-angle-right"></i> About Us</a></li>
                                         <li><a href="{{route('admin-gs-address')}}"><i class="fa fa-angle-right"></i> Office Address</a></li>

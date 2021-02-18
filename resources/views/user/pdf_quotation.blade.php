@@ -74,7 +74,7 @@
                                 <p class="mb-1 m-rest">{{__('text.Delivery Address')}}: {{$delivery_address}}</p>
                                 <p class="mb-1 m-rest">{{$quote->quote_postcode}} {{$quote->quote_city}}</p>
                                 <br>
-                                <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @else {{__('text.Quotation')}} @endif</p>
+                                <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @else {{__('text.Quotation')}} @endif @if($type == 'invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
                             </div>
 
                         </div>
