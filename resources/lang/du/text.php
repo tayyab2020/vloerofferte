@@ -70,7 +70,7 @@ return [
     'Next' => 'Volgende',
     'No data available in table' => 'Geen data beschikbaar',
     'Quote Request' => 'Offerte verzoek',
-    'Request Number' => 'Offerte nummer',
+    'Request Number' => 'Aanvraagnummer',
     'Contact' => 'Contact',
     'Zip Code' => 'Postcode',
     'Model Number' => 'Model Nummer',
