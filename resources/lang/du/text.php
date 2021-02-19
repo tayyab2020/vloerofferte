@@ -216,8 +216,8 @@ return [
     'You haven\'t answered all the questions yet. Scroll down to answer the other questions.' => 'Je hebt nog niet alle vragen beantwoord. Scroll naar beneden om de overige vragen te beantwoorden.',
     'Note: Radius management postcode will also be updated after approval of your profile information changes.' => 'Note: Radius management postcode will also be updated after approval of your profile information changes.',
     'Thank You!' => 'Thank You!',
-    'Congratulations!' => 'Congratulations!',
-    'Your payment was successful and your order has been confirmed.' => 'Your payment was successful and your order has been confirmed.',
-    'Having Trouble!' => 'Having Trouble!',
+    'Congratulations!' => 'Gefeliciteerd!',
+    'Your payment was successful and your order has been confirmed.' => 'Je betaling is geslaagd, je kan de status van je order volgen in je dashboard.',
+    'Having Trouble!' => 'Oeps, ervaar je een probleem. Neem contact met ons op!',
     'Quotation accepted successfully!' => 'Quotation accepted successfully!',
 ];
