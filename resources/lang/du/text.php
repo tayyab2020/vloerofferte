@@ -219,4 +219,5 @@ return [
     'Congratulations!' => 'Congratulations!',
     'Your payment was successful and your order has been confirmed.' => 'Your payment was successful and your order has been confirmed.',
     'Having Trouble!' => 'Having Trouble!',
+    'Quotation accepted successfully!' => 'Quotation accepted successfully!',
 ];

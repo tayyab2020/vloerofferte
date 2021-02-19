@@ -577,7 +577,7 @@ class UserController extends Controller
                 ->setBody("A quotation QUO# " . $invoice[0]->quotation_invoice_number . " has been accepted by Mr/Mrs " . $user->name . "<br>Handyman: " . $user_name . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
-        Session::flash('success', 'Quotation accepted successfully!');
+        Session::flash('success', __('text.Quotation accepted successfully!'));
 
         return redirect()->back();
     }
@@ -735,7 +735,7 @@ class UserController extends Controller
                 ->setBody("A quotation QUO# ".$invoice->quotation_invoice_number." has been accepted by Mr/Mrs ".$user->name.' '.$user->family_name."<br>Handyman: ".$user_name."<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });*/
 
-        Session::flash('success', 'Quotation accepted successfully!');
+        Session::flash('success', __('text.Quotation accepted successfully!'));
 
         return redirect()->back();
     }
