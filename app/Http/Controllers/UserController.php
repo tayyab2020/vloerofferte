@@ -857,9 +857,10 @@ class UserController extends Controller
         $q_a = requests_q_a::where('request_id', $id)->get();
 
         if ($quote) {
+
             $date = strtotime($quote->created_at);
 
-            $quote_number = date("Y", $date) . "-" . sprintf('%04u', $quote->id);
+            $quote_number = $quote->quote_number;
 
             $filename = $quote_number . '.pdf';
 

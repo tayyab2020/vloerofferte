@@ -69,7 +69,7 @@
                                             <div class="profile-filup-description-box margin-bottom-30">
 
                                                 <div style="margin-bottom: 40px;" class="form-group">
-                                                    <h4 style="color: red;text-align: center;font-weight: 400;" class="col-sm-12 control-label">Note: Radius management postcode will also be updated after approval of your profile information changes.</h4>
+                                                    <h4 style="color: red;text-align: center;font-weight: 400;" class="col-sm-12 control-label">{{__('text.Note: Radius management postcode will also be updated after approval of your profile information changes.')}}</h4>
                                                 </div>
 
                                                 <div class="form-group">

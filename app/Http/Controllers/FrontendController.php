@@ -1230,30 +1230,33 @@ class FrontendController extends Controller
                     });
                 }
                 catch(\Exception $e){
+                    return redirect()->back();
                 }
-            }
-
-            $link = url('/') . '/handyman/client-dashboard';
-
-            if($this->lang->lang == 'du')
-            {
-                $msg = "Beste " . $user_name . ",<br><br>We hebben je offerte aanvraag ontvangen en doorgestuurd naar de aanbieders. Je kan je aanvraag volgen in je account, <a href='" . $link . "'>klik hier</a> om naar je account te gaan.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferte";
             }
             else
             {
-                $msg = "Dear Mr/Mrs " . $user_name . ",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
-            }
+                $link = url('/') . '/handyman/client-dashboard';
 
-            try{
-                \Mail::send(array(), array(), function ($message) use ($msg, $user_email, $user_name, $link) {
-                    $message->to($user_email)
-                        ->from('info@vloerofferteonline.nl')
-                        ->subject(__('text.Quotation Request Submitted!'))
-                        ->setBody($msg, 'text/html');
-                });
-            }
-            catch(\Exception $e){
-                return redirect()->back();
+                if($this->lang->lang == 'du')
+                {
+                    $msg = "Beste " . $user_name . ",<br><br>We hebben je offerte aanvraag ontvangen en doorgestuurd naar de aanbieders. Je kan je aanvraag volgen in je account, <a href='" . $link . "'>klik hier</a> om naar je account te gaan.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferte";
+                }
+                else
+                {
+                    $msg = "Dear Mr/Mrs " . $user_name . ",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
+                }
+
+                try{
+                    \Mail::send(array(), array(), function ($message) use ($msg, $user_email, $user_name, $link) {
+                        $message->to($user_email)
+                            ->from('info@vloerofferteonline.nl')
+                            ->subject(__('text.Quotation Request Submitted!'))
+                            ->setBody($msg, 'text/html');
+                    });
+                }
+                catch(\Exception $e){
+                    return redirect()->back();
+                }
             }
 
             /*Session::flash('success', __('text.Your Quotation request has been created successfully!'));*/
