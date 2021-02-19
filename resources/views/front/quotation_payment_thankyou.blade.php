@@ -3,14 +3,14 @@
 @section('content')
 
     <div class="jumbotron text-center" style="font-family: inherit;height: 470px;background-color: #e9ecef;padding-top: 100px;">
-        <h1 class="display-3" style="font-weight: 300;">Thank You!</h1>
-        <p class="lead" style="font-size: 18px;width: 80%;margin: auto;padding-top: 55px;"><strong>Congratulations!</strong> Your payment was successful and your order has been confirmed.</p>
+        <h1 class="display-3" style="font-weight: 300;">{{__('text.Thank You!')}}</h1>
+        <p class="lead" style="font-size: 18px;width: 80%;margin: auto;padding-top: 55px;"><strong>{{__('text.Congratulations!')}}</strong> {{__('text.Your payment was successful and your order has been confirmed.')}}</p>
         <hr>
         <p style="font-size: 18px;font-weight: 500;">
-            Having Trouble! <a href="{{route('front.contact')}}">Contact Us</a>
+            {{__('text.Having Trouble!')}} <a href="{{route('front.contact')}}">{{__('text.Contact Us')}}</a>
         </p>
         <p class="lead">
-            <a class="btn btn-primary btn-sm" href="{{route('front.index')}}" role="button" style="font-size: 14px;background-color: #0069d9;border-color: #0062cc">Continue to homepage</a>
+            <a class="btn btn-primary btn-sm" href="{{route('front.index')}}" role="button" style="font-size: 14px;background-color: #0069d9;border-color: #0062cc">{{__('text.Continue to homepage')}}</a>
         </p>
 
         <svg id="successAnimation" class="animated" xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70">
