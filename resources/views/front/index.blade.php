@@ -172,7 +172,7 @@
                                     <div class="modal-body" id="myWizard">
 
                                         <div class="progress" style="height: 25px;">
-                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 20%;line-height: 25px;font-size: 14px;font-weight: 100;">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 20%;line-height: 25px;font-size: 14px;font-weight: 100;background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};">
                                                 {{__('text.Step')}} 1
                                             </div>
                                         </div>
@@ -331,8 +331,8 @@
 
                                     <div class="modal-footer">
                                         <button style="border: 0;display: none;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">{{__('text.Back')}}</button>
-                                        <button style="border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary next">{{__('text.Continue')}}</button>
-                                        <button style="display: none;border: 0;outline: none;background-color: #5cb85c !important;" class="btn btn-primary next-submit">{{__('text.Get Quotes')}}</button>
+                                        <button style="border: 0;outline: none;background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}} !important;" class="btn btn-primary next">{{__('text.Continue')}}</button>
+                                        <button style="display: none;border: 0;outline: none;background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}} !important;" class="btn btn-primary next-submit">{{__('text.Get Quotes')}}</button>
                                     </div>
 
                                 </div>

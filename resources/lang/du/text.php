@@ -221,4 +221,6 @@ return [
     'Having Trouble!' => 'Oeps, ervaar je een probleem. Neem contact met ons op!',
     'Quotation accepted successfully!' => 'Quotation accepted successfully!',
     'Specialties' => 'Specialties',
+    'User already created' => 'User already created',
+    'New customer created successfully' => 'New customer created successfully',
 ];

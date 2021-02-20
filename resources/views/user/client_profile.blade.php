@@ -70,17 +70,22 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <label for="current_photo"
-                                                           class="col-sm-3 control-label">{{$lang->cup}}*</label>
-                                                    <div class="col-sm-8">
+                                                @if($user->photo)
 
-                                                        <img width="130px" height="90px" id="adminimg"
-                                                             src="{{ $user->photo ? asset('assets/images/'.$user->photo):asset('assets/default.jpg')}}"
-                                                             alt="" id="adminimg">
+                                                    <div class="form-group">
+                                                        <label for="current_photo"
+                                                               class="col-sm-3 control-label">{{$lang->cup}}*</label>
+                                                        <div class="col-sm-8">
 
+                                                            <img width="130px" height="90px" id="adminimg"
+                                                                 src="{{asset('assets/images/'.$user->photo)}}"
+                                                                 alt="" id="adminimg">
+
+                                                        </div>
                                                     </div>
-                                                </div>
+
+                                                @endif
+
                                                 <div class="form-group">
                                                     <label for="profile_photo"
                                                            class="col-sm-3 control-label">{{$lang->pp}}*</label>

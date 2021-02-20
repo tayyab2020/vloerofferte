@@ -102,19 +102,25 @@
 
                                                 @if(Route::currentRouteName() != 'view-custom-quotation' && Route::currentRouteName() != 'edit-custom-quotation' && Route::currentRouteName() != 'create-custom-invoice')
 
+                                                    <?php if($quotation[0]->delivery_date){ $delivery_date = date("d-m-Y",strtotime($quotation[0]->delivery_date)); }else{ $delivery_date = ''; } ?>
+
                                                     <div class="col-md-4" style="margin: 10px 0px;">
                                                         <div class="form-group" style="margin: 0;">
                                                             <label>{{__('text.Delivery Date')}}</label>
-                                                            <input type="text" name="delivery_date" value="{{$quotation[0]->delivery_date}}" class="form-control delivery_date" autocomplete="off" required disabled>
+                                                            <input type="text" name="delivery_date" value="{{$delivery_date}}" class="form-control delivery_date" autocomplete="off" required disabled>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-8" style="margin: 10px 0px;">
-                                                        <div class="form-group" style="margin: 0;">
-                                                            <label>{{__('text.Delivery Address')}}</label>
-                                                            <input type="text" name="delivery_address" value="{{$quotation[0]->quote_zipcode}}" class="form-control" autocomplete="off" required disabled>
-                                                        </div>
-                                                    </div>
+                                                        @if($quotation[0]->invoice)
+
+                                                            <div class="col-md-8" style="margin: 10px 0px;">
+                                                                <div class="form-group" style="margin: 0;">
+                                                                    <label>{{__('text.Delivery Address')}}</label>
+                                                                    <input type="text" name="delivery_address" value="{{$quotation[0]->quote_zipcode}}" class="form-control" autocomplete="off" required disabled>
+                                                                </div>
+                                                            </div>
+
+                                                        @endif
 
                                                 @endif
                                         </div>

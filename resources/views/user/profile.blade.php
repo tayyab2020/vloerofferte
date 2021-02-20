@@ -91,7 +91,7 @@
                                                     <label for="current_photo" class="col-sm-3 control-label">{{$lang->cup}}*</label>
                                                     <div class="col-sm-8">
 
-                                                        <img width="130px" height="90px" id="adminimg" src="{{ $user->photo ? asset('assets/images/'.$user->photo):asset('assets/default.jpg')}}" alt="" id="adminimg">
+                                                        <img width="130px" height="90px" id="adminimg" src="{{ $user->photo ? asset('assets/images/'.$user->photo):"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG"}}" alt="" id="adminimg">
 
                                                     </div>
                                                 </div>

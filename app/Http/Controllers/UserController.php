@@ -803,16 +803,19 @@ class UserController extends Controller
         $check = User::where('email', $request->email)->first();
 
         if ($check) {
-            $response = array('data' => $check, 'message' => 'User already created');
+            $response = array('data' => $check, 'message' => __('text.User already created'));
             return $response;
         } else {
             $user = new User;
             $input = $request->all();
 
-            $user_name = $input['name'] . ' ' . $input['family_name'];
+            $user_name = $input['name'];
             $user_email = $request->email;
 
-            $handyman_name = $request->handyman_name;
+            $handyman = Auth::guard('user')->user();
+            $handyman_id = $handyman->id;
+            $handyman_name = $handyman->name;
+            $company_name = $handyman->company_name;
 
             $org_password = Str::random(8);
             $password = Hash::make($org_password);
@@ -828,21 +831,30 @@ class UserController extends Controller
             $user->phone = $request->phone;
             $user->email = $request->email;
             $user->password = $password;
-            $user->parent_id = $request->handyman_id;
+            $user->parent_id = $handyman_id;
             $user->save();
 
             $input['id'] = $user->id;
 
             $link = url('/') . '/handyman/client-dashboard';
 
-            \Mail::send(array(), array(), function ($message) use ($user_email, $user_name, $handyman_name, $link, $org_password) {
+            if($this->lang->lang == 'du')
+            {
+                $msg = "Beste <b>$user_name</b>,<br><br>Er is een account voor je gecreëerd door <b>" . $handyman_name . "</b>. Hier kan je offertes bekijken, verzoek tot aanpassen of de offerte accepteren. <a href='" . $link . "'>Klik hier</a>, om je naar je persoonlijke dashboard te gaan.<br><br><b>Wachtwoord:</b><br><br>Je wachtwoord is: " . $org_password . "<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br>$company_name";
+            }
+            else
+            {
+                $msg = "Dear <b>Mr/Mrs " . $user_name . "</b>,<br><br>Your account has been created by handyman <b>" . $handyman_name . "</b> for quotations. Kindly complete your profile and change your password. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Your Password: " . $org_password . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline<br><br>$company_name";
+            }
+
+            \Mail::send(array(), array(), function ($message) use ($msg, $user_email, $user_name, $handyman_name, $link, $org_password) {
                 $message->to($user_email)
                     ->from('info@vloerofferteonline.nl')
                     ->subject('Account Created!')
-                    ->setBody("Dear <b>Mr/Mrs " . $user_name . "</b>,<br><br>Your account has been created by handyman <b>" . $handyman_name . "</b> for quotations. Kindly complete your profile and change your password. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Your Password: " . $org_password . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                    ->setBody($msg, 'text/html');
             });
 
-            $response = array('data' => $input, 'message' => 'New customer created successfully');
+            $response = array('data' => $input, 'message' => __('text.New customer created successfully'));
             return $response;
         }
 
@@ -1004,7 +1016,7 @@ class UserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotes.user_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.quote_number', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotes.user_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.quote_zipcode', 'quotes.quote_postcode', 'quotes.quote_city', 'quotes.quote_number', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
 
         if (count($quotation) != 0) {
             $services = Category::all();

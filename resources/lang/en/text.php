@@ -221,4 +221,6 @@ return [
     'Having Trouble!' => 'Having Trouble!',
     'Quotation accepted successfully!' => 'Quotation accepted successfully!',
     'Specialties' => 'Specialties',
+    'User already created' => 'User already created',
+    'New customer created successfully' => 'New customer created successfully',
 ];

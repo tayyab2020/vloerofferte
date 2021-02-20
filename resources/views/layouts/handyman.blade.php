@@ -357,7 +357,7 @@
     }
 
     .bootstrap-select.fit-width {
-        width: 50% !important;
+        width: 70% !important;
     }
 
     #sidebar-menu ul.components ul li a {

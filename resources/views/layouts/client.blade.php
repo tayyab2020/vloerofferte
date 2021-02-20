@@ -90,26 +90,32 @@
                                         <img src="{{asset('assets/images/'.Auth::guard('user')->user()->photo)}}" alt="profile image">
                                     </div>
 
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">{{ Auth::guard('user')->user()->name}} {{Auth::guard('user')->user()->family_name}} <span>{{$lang->cmt}}</span></a>
+                                    </div>
+
+                                @else
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">{{ Auth::guard('user')->user()->name}} {{Auth::guard('user')->user()->family_name}} <span>{{$lang->cmt}}</span></a>
+                                    </div>
+
                                 @endif
-                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">{{ Auth::guard('user')->user()->name}} {{Auth::guard('user')->user()->family_name}} <span>{{$lang->cmt}}</span></a>
-                                </div>
+
                             </div>
                             <ul class="collapse list-unstyled profile-submenu" id="homeSubmenu">
-
+                                <li><a href="{{ route('client-profile') }}" id="edit"><i class="fa fa-fw fa-user"></i> {{$lang->edit}}</a></li>
                                 <li><a href=" {{ route('user-reset') }} "><i class="fa fa-fw fa-cog"></i> {{$lang->chnp}}</a></li>
                                 <li><a href="{{ route('user-logout') }}"><i class="fa fa-fw fa-power-off"></i> {{$lang->logout}}</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="list-unstyled components">
-                        <li>
-                            <a href="{{route('client-dashboard')}}"  id="dashboard"><i class="fa fa-home"></i> {{$lang->dashboard}}</a>
-                        </li>
 
-                        <li>
-                            <a href="{{ route('client-profile') }}" id="edit"><i class="fa fa-fw fa-user"></i> {{$lang->edit}}</a>
-                        </li>
+                        {{--<li>
+                            <a href="{{route('client-dashboard')}}"  id="dashboard"><i class="fa fa-home"></i> {{$lang->dashboard}}</a>
+                        </li>--}}
+
 
                         {{--<li>
                             <a href="{{route('client-bookings')}}"><i class="fa fa-fw fa-book"></i> {{$lang->mbt1}}</a>
@@ -280,7 +286,7 @@
 
                 .bootstrap-select.fit-width
                 {
-                    width: 50% !important;
+                    width: 70% !important;
                 }
 
                 #sidebar-menu ul.components ul li a
