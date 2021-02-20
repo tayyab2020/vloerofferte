@@ -223,4 +223,10 @@ return [
     'Specialties' => 'Specialties',
     'User already created' => 'User already created',
     'New customer created successfully' => 'New customer created successfully',
+    'Quotation Review Request!' => 'Quotation Review Request!',
+    'Quotation Created!' => 'Quotation Created!',
+    'Quotation Edited!' => 'Quotation Edited!',
+    'Invoice Generated!' => 'Invoice Generated!',
+    'Direct Invoice Created!' => 'Direct Invoice Created!',
+    'Invoice Status Changed' => 'Invoice Status Changed',
 ];

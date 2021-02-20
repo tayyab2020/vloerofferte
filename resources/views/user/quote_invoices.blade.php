@@ -53,9 +53,9 @@
 
                                                         @if(Route::currentRouteName() != 'customer-quotations' && Route::currentRouteName() != 'customer-invoices')
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Tax')}}</th>
-
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending" id="serv">{{__('text.Subtotal')}}</th>
+
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Tax')}}</th>
 
                                                         @else
 
@@ -113,8 +113,8 @@
 
                                                             @if(Route::currentRouteName() != 'customer-quotations' && Route::currentRouteName() != 'customer-invoices')
 
-                                                                    <td>{{number_format((float)$key->tax, 2, ',', '.')}}</td>
                                                                     <td>{{number_format((float)$key->subtotal, 2, ',', '.')}}</td>
+                                                                    <td>{{number_format((float)$key->tax, 2, ',', '.')}}</td>
 
                                                             @else
 

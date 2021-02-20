@@ -67,7 +67,7 @@
                                                                     {{--<th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Model Number</th>--}}
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Rate')}}</th>
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Sell Rate')}}</th>
-                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">VAT %</th>
+                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.VAT')}} %</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -94,8 +94,8 @@
                                                                         <td data-editable="false">{{$cat->brand}}</td>
                                                                         <td data-editable="false">{{$cat->model}}</td>
                                                                         {{--<td data-type="model_number"></td>--}}
-                                                                        <td style="border: 1px solid #8d8de3;" data-type="rate">{{$cat->rate}}</td>
-                                                                        <td style="border: 1px solid #8d8de3;" data-type="sell_rate">{{$cat->sell_rate}}</td>
+                                                                        <td data-type="rate"><span style="border: 2px solid;display: block;width: 100%;">€</span></td>
+                                                                        <td data-type="sell_rate"><span style="border: 2px solid;display: block;width: 100%;">€</span></td>
                                                                         <td data-editable="false">21</td>
 
                                                                         <input type="hidden" name="product_id[]" value="{{$cat->id}}" />

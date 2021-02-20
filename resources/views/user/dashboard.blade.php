@@ -165,7 +165,7 @@
 
                                             <div style="margin-top: 10px;">
                                                 <h2>Leadprijs</h2>
-                                                <p style="color: #e75656;">De huidige commissie is {{$commission_percentage->commission_percentage}}% per afgesloten deal.</p>
+                                                <p>De huidige commissie is {{$commission_percentage->commission_percentage}}% per afgesloten deal.</p>
                                             </div>
                                         </div>
 

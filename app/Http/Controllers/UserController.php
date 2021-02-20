@@ -437,7 +437,7 @@ class UserController extends Controller
         \Mail::send(array(), array(), function ($message) use ($handyman_email, $user_name, $invoice, $user) {
             $message->to($handyman_email)
                 ->from('info@vloerofferteonline.nl')
-                ->subject('Quotation Review Request!')
+                ->subject(__('text.Quotation Review Request!'))
                 ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . " submitted review request against your quotation QUO# " . $invoice->quotation_invoice_number . "<br>Kindly take further action on this request.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
@@ -473,13 +473,13 @@ class UserController extends Controller
         custom_quotations::where('id', $id)->update(['ask_customization' => 1]);
 
         $handyman_email = $invoice->email;
-        $user_name = $invoice->name . ' ' . $invoice->family_name;
+        $user_name = $invoice->name;
 
         \Mail::send(array(), array(), function ($message) use ($handyman_email, $user_name, $invoice, $user) {
             $message->to($handyman_email)
                 ->from('info@vloerofferteonline.nl')
-                ->subject('Quotation Review Request!')
-                ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . ' ' . $user->family_name . " submitted review request against your quotation QUO# " . $invoice->quotation_invoice_number . "<br>Kindly take further action on this request.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->subject(__('text.Quotation Review Request!'))
+                ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . " submitted review request against your quotation QUO# " . $invoice->quotation_invoice_number . "<br>Kindly take further action on this request.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
 
@@ -722,7 +722,7 @@ class UserController extends Controller
         \Mail::send(array(), array(), function ($message) use ($handyman_email, $user_name, $invoice, $user) {
             $message->to($handyman_email)
                 ->from('info@vloerofferteonline.nl')
-                ->subject('Quotation Accepted!')
+                ->subject(__('text.Quotation Accepted!'))
                 ->setBody("Congratulations! Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . " has accepted your quotation QUO# " . $invoice->quotation_invoice_number . "<br>You can convert your quotation into invoice once job is completed,<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
         });
 
@@ -850,7 +850,7 @@ class UserController extends Controller
             \Mail::send(array(), array(), function ($message) use ($msg, $user_email, $user_name, $handyman_name, $link, $org_password) {
                 $message->to($user_email)
                     ->from('info@vloerofferteonline.nl')
-                    ->subject('Account Created!')
+                    ->subject(__('text.Account Created!'))
                     ->setBody($msg, 'text/html');
             });
 
@@ -1135,7 +1135,7 @@ class UserController extends Controller
                     'type' => $type
                 ), function ($message) use ($file, $admin_email, $filename) {
                     $message->from('info@vloerofferteonline.nl');
-                    $message->to($admin_email)->subject('Quotation Created!');
+                    $message->to($admin_email)->subject(__('text.Quotation Created!'));
 
                     $message->attach($file, [
                         'as' => $filename,
@@ -1216,7 +1216,7 @@ class UserController extends Controller
                     'type' => $type
                 ), function ($message) use ($file, $client_email, $filename) {
                     $message->from('info@vloerofferteonline.nl');
-                    $message->to($client_email)->subject('Quotation Edited!');
+                    $message->to($client_email)->subject(__('text.Quotation Edited!'));
 
                     $message->attach($file, [
                         'as' => $filename,
@@ -1236,7 +1236,7 @@ class UserController extends Controller
                     'type' => $type
                 ), function ($message) use ($file, $admin_email, $filename) {
                     $message->from('info@vloerofferteonline.nl');
-                    $message->to($admin_email)->subject('Quotation Edited!');
+                    $message->to($admin_email)->subject(__('text.Quotation Edited!'));
 
                     $message->attach($file, [
                         'as' => $filename,
@@ -1338,7 +1338,7 @@ class UserController extends Controller
                     'type' => $type
                 ), function ($message) use ($file, $admin_email, $filename) {
                     $message->from('info@vloerofferteonline.nl');
-                    $message->to($admin_email)->subject('Invoice Generated!');
+                    $message->to($admin_email)->subject(__('text.Invoice Generated!'));
 
                     $message->attach($file, [
                         'as' => $filename,
@@ -1384,7 +1384,7 @@ class UserController extends Controller
                 'type' => $type
             ), function ($message) use ($file, $client_email, $filename) {
                 $message->from('info@vloerofferteonline.nl');
-                $message->to($client_email)->subject('Quotation Created!');
+                $message->to($client_email)->subject(__('text.Quotation Created!'));
 
                 $message->attach($file, [
                     'as' => $filename,
@@ -1404,6 +1404,7 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
         $user_name = $user->name;
+        $company_name = $user->company_name;
         $counter = $user->counter;
 
         $name = \Route::currentRouteName();
@@ -1581,9 +1582,9 @@ class UserController extends Controller
                     'client' => $client_name,
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
-                ), function ($message) use ($file, $client_email, $filename) {
+                ), function ($message) use ($file, $client_email, $filename, $company_name) {
                     $message->from('info@vloerofferteonline.nl');
-                    $message->to($client_email)->subject('Direct Invoice Created!');
+                    $message->to($client_email)->subject(__('text.Direct Invoice Created!').$company_name);
 
                     $message->attach($file, [
                         'as' => $filename,
@@ -1659,7 +1660,7 @@ class UserController extends Controller
                     'type' => $type
                 ), function ($message) use ($file, $client_email, $filename) {
                     $message->from('info@vloerofferteonline.nl');
-                    $message->to($client_email)->subject('Quotation Edited!');
+                    $message->to($client_email)->subject(__('text.Quotation Edited!'));
 
                     $message->attach($file, [
                         'as' => $filename,
@@ -1756,7 +1757,7 @@ class UserController extends Controller
                     'type' => $type
                 ), function ($message) use ($file, $client_email, $filename) {
                     $message->from('info@vloerofferteonline.nl');
-                    $message->to($client_email)->subject('Invoice Generated!');
+                    $message->to($client_email)->subject(__('text.Invoice Generated!'));
 
                     $message->attach($file, [
                         'as' => $filename,
@@ -3744,7 +3745,7 @@ class UserController extends Controller
             \Mail::send(array(), array(), function ($message) use ($msg,$client) {
                 $message->to($client->email)
                     ->from('info@vloerofferteonline.nl')
-                    ->subject('Invoice Status Changed')
+                    ->subject(__('text.Invoice Status Changed'))
                     ->setBody($msg, 'text/html');
             });
 
@@ -3788,7 +3789,7 @@ class UserController extends Controller
             \Mail::send(array(), array(), function ($message) use ($msg,$handyman) {
                 $message->to($handyman->email)
                     ->from('info@vloerofferteonline.nl')
-                    ->subject('Invoice Status Changed')
+                    ->subject(__('text.Invoice Status Changed'))
                     ->setBody($msg, 'text/html');
             });
 
@@ -3832,7 +3833,7 @@ class UserController extends Controller
             \Mail::send(array(), array(), function ($message) use ($msg,$client) {
                 $message->to($client->email)
                     ->from('info@vloerofferteonline.nl')
-                    ->subject('Invoice Status Changed')
+                    ->subject(__('text.Invoice Status Changed'))
                     ->setBody($msg, 'text/html');
             });
 
@@ -3876,7 +3877,7 @@ class UserController extends Controller
             \Mail::send(array(), array(), function ($message) use ($msg,$handyman) {
                 $message->to($handyman->email)
                     ->from('info@vloerofferteonline.nl')
-                    ->subject('Invoice Status Changed')
+                    ->subject(__('text.Invoice Status Changed'))
                     ->setBody($msg, 'text/html');
             });
 
