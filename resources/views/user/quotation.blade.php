@@ -109,6 +109,13 @@
                                                         </div>
                                                     </div>
 
+                                                    <div class="col-md-8" style="margin: 10px 0px;">
+                                                        <div class="form-group" style="margin: 0;">
+                                                            <label>{{__('text.Delivery Address')}}</label>
+                                                            <input type="text" name="delivery_address" value="{{$quotation[0]->quote_zipcode}}" class="form-control" autocomplete="off" required disabled>
+                                                        </div>
+                                                    </div>
+
                                                 @endif
                                         </div>
 

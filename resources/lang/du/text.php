@@ -220,4 +220,5 @@ return [
     'Your payment was successful and your order has been confirmed.' => 'Je betaling is geslaagd, je kan de status van je order volgen in je dashboard.',
     'Having Trouble!' => 'Oeps, ervaar je een probleem. Neem contact met ons op!',
     'Quotation accepted successfully!' => 'Quotation accepted successfully!',
+    'Specialties' => 'Specialties',
 ];

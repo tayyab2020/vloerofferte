@@ -47,7 +47,7 @@
 
                                                         @if(Route::currentRouteName() != 'customer-quotations' && Route::currentRouteName() != 'customer-invoices')
 
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">{{__('text.Request Number')}}</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">{{__('text.Delivery Date')}}</th>
 
                                                         @endif
 
@@ -101,9 +101,12 @@
 
                                                                 <td><a href="{{ url('/handyman/view-quotation/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'quotations') QUO# @else INV# @endif {{$key->quotation_invoice_number}}</a></td>
 
-                                                                <?php $requested_quote_number = $key->quote_number; ?>
+                                                                <?php
+                                                                $requested_quote_number = $key->quote_number;
+                                                                if($key->delivery_date){ $delivery_date = date("d-m-Y",strtotime($key->delivery_date)); }else{ $delivery_date = ''; }
+                                                                ?>
 
-                                                                <td><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">{{$requested_quote_number}}</a></td>
+                                                                <td><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">{{$delivery_date}}</a></td>
 
                                                             @endif
 

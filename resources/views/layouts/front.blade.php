@@ -617,7 +617,7 @@
                                 <ul class="latest-tweet">
                                     @foreach($lblogs as $lblog)
                                     <li>
-                                        <img src="{{asset('assets/images/'.$lblog->photo)}}" alt="">
+                                        <img style="height: 30px;" src="{{asset('assets/images/'.$lblog->photo)}}" alt="">
                                         <span><a href="{{route('front.blogshow',$lblog->title)}}">{{$lblog->title}}</a></span>
                                     </li>
                                     @endforeach

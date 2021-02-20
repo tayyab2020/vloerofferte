@@ -123,10 +123,10 @@
                                                         <th>{{$lang->dol}}</th>
                                                         <td>{{$user->language}}</td>
                                                     </tr>
-                                                    <tr>
+                                                    {{--<tr>
                                                         <th>{{$lang->doa}}</th>
                                                         <td>{{$user->age}}</td>
-                                                    </tr>
+                                                    </tr>--}}
                                                     <tr>
                                                         <th>{{$lang->doe}}</th>
                                                         <td>{{$user->education}}</td>
@@ -140,10 +140,10 @@
                                                         <td>{{$user->profession}}</td>
                                                     </tr>
 
-                                                    <tr>
+                                                    {{--<tr>
                                                         <th>{{$lang->jct}}</th>
                                                         <td>{{$no}}</td>
-                                                    </tr>
+                                                    </tr>--}}
 
                                                     <tr>
                                                         <th>{{$lang->ratt}}</th>
@@ -152,15 +152,20 @@
                                                         </td>
                                                     </tr>
 
-                                                    <tr>
+                                                    {{--<tr>
                                                         <th>{{$lang->et}}</th>
                                                         <td>@if($user->experience_years) {{$user->experience_years}} @if($user->experience_years > 1)
                                                                 Years @else Year @endif @else N/A @endif</td>
-                                                    </tr>
+                                                    </tr>--}}
 
 
                                                     </tbody>
                                                 </table>
+                                            </div>
+
+                                            <div style="margin-top: 10px;">
+                                                <h2>Leadprijs</h2>
+                                                <p style="color: #e75656;">De huidige commissie is {{$commission_percentage->commission_percentage}}% per afgesloten deal.</p>
                                             </div>
                                         </div>
 

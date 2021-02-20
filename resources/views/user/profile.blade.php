@@ -173,7 +173,7 @@
 
 
                                             <div class="form-group">
-                                                <label for="special" class="col-sm-3 control-label">{{$lang->doo}} </label>
+                                                <label for="special" class="col-sm-3 control-label">{{__('text.Specialties')}} </label>
                                                 <div class="col-sm-8">
                                                     @if($user->special != null)
 
