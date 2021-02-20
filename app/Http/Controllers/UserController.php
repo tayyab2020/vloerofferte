@@ -124,7 +124,7 @@ class UserController extends Controller
         $user_role = $user->role_id;
         $invoices = array();
 
-        $requests = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->leftjoin('brands', 'brands.id', '=', 'quotes.quote_brand')->leftjoin('models', 'models.id', '=', 'quotes.quote_model')->where('quotes.user_id', $user_id)->select('quotes.*', 'categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->orderBy('quotes.id','desc')->get();
+        $requests = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->leftjoin('brands', 'brands.id', '=', 'quotes.quote_brand')->leftjoin('models', 'models.id', '=', 'quotes.quote_model')->where('quotes.user_id', $user_id)->select('quotes.*', 'categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->orderBy('quotes.created_at','desc')->get();
 
         foreach ($requests as $key) {
             $invoices[] = quotation_invoices::where('quote_id', $key->id)->where('approved', 1)->get();
@@ -142,7 +142,7 @@ class UserController extends Controller
 
         $invoices = array();
 
-        $requests = handyman_quotes::leftjoin('quotes', 'quotes.id', '=', 'handyman_quotes.quote_id')->leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->leftjoin('brands', 'brands.id', '=', 'quotes.quote_brand')->leftjoin('models', 'models.id', '=', 'quotes.quote_model')->where('handyman_quotes.handyman_id', $user_id)->select('quotes.*', 'categories.cat_name', 'handyman_quotes.quote_id', 'handyman_quotes.handyman_id','brands.cat_name as brand_name','models.cat_name as model_name')->orderBy('quotes.id','desc')->get();
+        $requests = handyman_quotes::leftjoin('quotes', 'quotes.id', '=', 'handyman_quotes.quote_id')->leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->leftjoin('brands', 'brands.id', '=', 'quotes.quote_brand')->leftjoin('models', 'models.id', '=', 'quotes.quote_model')->where('handyman_quotes.handyman_id', $user_id)->select('quotes.*', 'categories.cat_name', 'handyman_quotes.quote_id', 'handyman_quotes.handyman_id','brands.cat_name as brand_name','models.cat_name as model_name')->orderBy('quotes.created_at','desc')->get();
 
         foreach ($requests as $key) {
             $invoices[] = quotation_invoices::where('quote_id', $key->quote_id)->where('handyman_id', $key->handyman_id)->first();
