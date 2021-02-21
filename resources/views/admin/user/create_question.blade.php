@@ -130,6 +130,13 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_display_name">Placeholder</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" name="placeholder" id="blood_group_display_name" placeholder="Enter Question Placeholder" @if(isset($data)) value="{{$data->placeholder}}" @endif type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <label class="control-label col-sm-4" for="">Predefined Answers* </label>
                                             <div class="col-sm-3">
                                                 <label class="switch">

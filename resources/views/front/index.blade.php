@@ -903,8 +903,17 @@
                                 }
                                 else
                                 {
+                                    if(val.placeholder)
+                                    {
+                                        var placeholder = val.placeholder;
+                                    }
+                                    else
+                                    {
+                                        var placeholder = '';
+                                    }
+
                                     last.append('<input name="predefined'+index+'" type="hidden" value="0">\n'+
-                                        '<textarea name="answers'+index+'" style="resize: vertical;" rows="1" class="form-control quote_validation" placeholder=""></textarea>');
+                                        '<textarea name="answers'+index+'" style="resize: vertical;" rows="1" class="form-control quote_validation" placeholder="'+placeholder+'"></textarea>');
                                 }
 
                                 index_count = index;

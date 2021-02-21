@@ -25,6 +25,7 @@
                                                     <thead>
                                                     <tr role="row">
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 20%;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Title</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 20%;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Placeholder</th>
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 20%;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Service(s)</th>
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" style="width: 50%;" colspan="1" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Predefined Answer(s)</th>
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" style="width: 50%;" colspan="1" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Sequence No</th>
@@ -36,6 +37,8 @@
                                                     @foreach($data as $key)
                                                         <tr role="row" class="odd">
                                                             <td style="padding-left: 10px;">{{$key->title}}</td>
+
+                                                            <td>{{$key->placeholder}}</td>
 
                                                             <td>
                                                             @foreach($key->services as $x => $service)
