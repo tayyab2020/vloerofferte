@@ -331,7 +331,7 @@
 
     <script type="text/javascript">
         $('#example').DataTable({
-            order: [[0, 'desc']]
+            order: [[6, 'desc']]
         });
     </script>
 
