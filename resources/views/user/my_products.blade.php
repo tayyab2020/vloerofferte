@@ -53,7 +53,7 @@
                                                         </div>
 
                                                         <div class="body">
-                                                            <table id="example1" class="mainTable table table-striped table-hover products dt-responsive dataTable no-footer dtr-inline" role="grid" aria-describedby="product-table_wrapper_info" style="width: 100%;cursor: pointer;" width="100%" cellspacing="0">
+                                                            <table id="example1" class="mainTable table table-striped table-hover products dt-responsive dataTable no-footer dtr-inline" role="grid" aria-describedby="product-table_wrapper_info" style="width: 100%;cursor: pointer;display: block;overflow-y: auto;" width="100%" cellspacing="0">
                                                                 <thead>
                                                                 <tr role="row">
                                                                     <th class="no-sort">{{__('text.Select')}}</th>
@@ -206,6 +206,15 @@
     </div>
 
     <style>
+
+        @media (max-width: 768px)
+        {
+            .card .body
+            {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
 
         .container-checkbox {
             display: flex;
@@ -367,6 +376,7 @@
 
         var table = $('#example1').DataTable(
             {
+                responsive: false,
                 "fnDrawCallback": function(settings, json) {
                     $('.mainTable').editableTableWidget();
                     $('.mainTable td').on('change', function(evt, newValue) {
@@ -465,37 +475,34 @@
 
         $('.add-newProduct-btn').on('click', function()
         {
-            var checked = $('.products-checkboxes:checkbox:checked');
-
+            var checked = table.$('.products-checkboxes:checkbox:checked');
             var check = 0;
 
-            checked.map(function() {
+            if(checked.length > 0)
+            {
+                checked.map(function() {
 
-                console.log($(this).parent().parent().parent().find('.product_rate'));
-                console.log($(this).parent().parent().parent().find('.product_rate').val());
+                    if(!$(this).parent().parent().parent().find('.product_rate').val())
+                    {
+                        $(this).parent().parent().parent().find('td[data-type="rate"]').css('border','1px solid red');
+                        check = 1;
+                    }
+                    else
+                    {
+                        $(this).parent().parent().parent().find('td[data-type="rate"]').css('border','');
+                    }
 
-                console.log($(this).parent().parent().parent().find('.product_sell_rate'));
-                console.log($(this).parent().parent().parent().find('.product_sell_rate').val());
+                    if(!$(this).parent().parent().parent().find('.product_sell_rate').val())
+                    {
+                        $(this).parent().parent().parent().find('td[data-type="sell_rate"]').css('border','1px solid red');
+                        check = 1;
+                    }
+                    else
+                    {
+                        $(this).parent().parent().parent().find('td[data-type="sell_rate"]').css('border','');
+                    }
 
-                if(!$(this).parent().parent().parent().find('.product_rate').val())
-                {
-                    $(this).parent().parent().parent().find('td[data-type="rate"]').css('border','1px solid red');
-                    check = 1;
-                }
-                else
-                {
-                    $(this).parent().parent().parent().find('td[data-type="rate"]').css('border','');
-                }
-
-                if(!$(this).parent().parent().parent().find('.product_sell_rate').val())
-                {
-                    $(this).parent().parent().parent().find('td[data-type="sell_rate"]').css('border','1px solid red');
-                    check = 1;
-                }
-                else
-                {
-                    $(this).parent().parent().parent().find('td[data-type="sell_rate"]').css('border','');
-                }
+                });
 
                 if(check == 1)
                 {
@@ -510,8 +517,7 @@
                 {
                     $('form').submit();
                 }
-
-            });
+            }
 
         });
 

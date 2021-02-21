@@ -41,9 +41,9 @@
 
                                                 <?php $delivery_address = explode(',', $quote->quote_zipcode); array_pop($delivery_address); array_pop($delivery_address); $delivery_address = implode(",",$delivery_address); ?>
 
-                                                <p style="font-size: 20px;" class="font-weight-bold mb-1 m-rest">{{$quote->quote_name}} {{$quote->quote_familyname}}</p>
-                                                <p style="font-size: 20px;" class="mb-1 m-rest">{{$delivery_address}}</p>
-                                                <p style="font-size: 20px;" class="mb-1 m-rest">{{$quote->quote_city}}</p>
+                                                <p class="mb-1 m-rest">{{$quote->quote_name}} {{$quote->quote_familyname}}</p>
+                                                <p class="mb-1 m-rest">{{$delivery_address}}</p>
+                                                <p class="mb-1 m-rest">{{$quote->quote_city}}</p>
 
                                             @endif
 
