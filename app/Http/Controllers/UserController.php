@@ -83,10 +83,12 @@ class UserController extends Controller
         if ($language->lang == 'eng') {
 
             $this->lang = Language::where('lang', '=', 'eng')->first();
+            \App::setLocale('en');
 
         } else {
 
             $this->lang = Language::where('lang', '=', 'du')->first();
+            \App::setLocale('du');
 
         }
 
@@ -2951,6 +2953,7 @@ class UserController extends Controller
             $post->vat_percentage = $request->product_vat;
             $post->model_number = $request->model_number;
             $post->save();
+
 
             Session::flash('success', __('text.Product edited successfully.'));
         }

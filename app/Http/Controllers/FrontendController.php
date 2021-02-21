@@ -121,10 +121,12 @@ class FrontendController extends Controller
         if ($language->lang == 'eng') {
 
             $this->lang = Language::where('lang', '=', 'eng')->first();
+            \App::setLocale('en');
 
         } else {
 
             $this->lang = Language::where('lang', '=', 'du')->first();
+            \App::setLocale('du');
 
         }
     }
@@ -1096,14 +1098,8 @@ class FrontendController extends Controller
         if ($request->quote_id) {
             $quote = quotes::where('id', $request->quote_id)->update(['quote_service' => $request->quote_service, 'quote_zipcode' => $request->quote_zipcode, 'quote_work' => $request->quote_work, 'quote_when' => $request->quote_when, 'quote_budget' => $request->quote_budget, 'quote_job' => $request->quote_job, 'quote_status' => $request->quote_status, 'quote_description' => $request->quote_description, 'quote_name' => $request->quote_name, 'quote_familyname' => $request->quote_familyname, 'quote_email' => $request->quote_email, 'quote_contact' => $request->quote_contact]);
 
-            if($this->lang->lang == 'du')
-            {
-                Session::flash('success', 'Je aanvraag is succesvol bijgewerkt');
-            }
-            else
-            {
-                Session::flash('success', 'Your Quotation request has been updated successfully!');
-            }
+
+            Session::flash('success', __('text.Your Quotation request has been updated successfully!'));
             return redirect()->back();
 
         } else {
@@ -1132,14 +1128,8 @@ class FrontendController extends Controller
             if ($check) {
                 if ($check->role_id == 2) {
 
-                    if($this->lang->lang == 'du')
-                    {
-                        Session::flash('unsuccess', 'Dit emailadres is al in gebruik!');
-                    }
-                    else
-                    {
-                        Session::flash('unsuccess', 'Email address is already in use for a handyman account!');
-                    }
+
+                    Session::flash('unsuccess', __('text.Email address is already in use for a handyman account!'));
                     return redirect()->back();
                 }
 
@@ -1231,19 +1221,17 @@ class FrontendController extends Controller
                 if($this->lang->lang == 'du')
                 {
                     $msg = "Beste " . $user_name . ",<br><br>De offerte aanvraag, die je via Vloerofferte hebt ingestuurd, is zojuist bij ons binnen gekomen en heeft als referentienummer gekregen: ".$quote_number.".<br><br><b>Hoe nu verder?</b><br><br>1. De aanvraag is bij ons binnen gekomen<br>2. We hebben je aanvraag doorgestuurd naar de aanbieders<br>3. Je krijgt reacties en offertes van de aanbieders<br><br><b>Persoonlijk dashboard</b><br><br>Ook hebben we een handig dashboard voor je ingericht waar je altijd en overal de status van jouw klus kan inzien. <a href='" . $link . "'>Klik hier</a> om naar je persoonlijke dashboard te gaan.<br><br>Je wachtwoord: " . $password . "<br><br><b>Vragen?</b><br><br>Dat kan heel eenvoudig door deze mail te beantwoorden.<br><br>Met vriendelijke groet,<br><br>Vloerofferte";
-                    $subject = 'Account is aangemaakt!';
                 }
                 else
                 {
                     $msg = "Dear Mr/Mrs " . $user_name . ",<br><br>Your account has been created and your quotation request has been submitted successfully. Kindly complete your profile and change your password. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Your Password: " . $password . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
-                    $subject = 'Account Created!';
                 }
 
                 try{
-                    \Mail::send(array(), array(), function ($message) use ($subject, $msg, $user_email, $user_name, $link, $password) {
+                    \Mail::send(array(), array(), function ($message) use ($msg, $user_email, $user_name, $link, $password) {
                         $message->to($user_email)
                             ->from('info@vloerofferteonline.nl')
-                            ->subject($subject)
+                            ->subject(__('text.Account Created!'))
                             ->setBody($msg, 'text/html');
                     });
                 }
@@ -1258,19 +1246,17 @@ class FrontendController extends Controller
                 if($this->lang->lang == 'du')
                 {
                     $msg = "Beste " . $user_name . ",<br><br>We hebben je offerte aanvraag ontvangen en doorgestuurd naar de aanbieders. Je kan je aanvraag volgen in je account, <a href='" . $link . "'>klik hier</a> om naar je account te gaan.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferte";
-                    $subject = 'Bevestiging offerte aanvraag';
                 }
                 else
                 {
                     $msg = "Dear Mr/Mrs " . $user_name . ",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
-                    $subject = 'Quotation Request Submitted!';
                 }
 
                 try{
-                    \Mail::send(array(), array(), function ($message) use ($subject, $msg, $user_email, $user_name, $link) {
+                    \Mail::send(array(), array(), function ($message) use ($msg, $user_email, $user_name, $link) {
                         $message->to($user_email)
                             ->from('info@vloerofferteonline.nl')
-                            ->subject($subject)
+                            ->subject(__('text.Quotation Request Submitted!'))
                             ->setBody($msg, 'text/html');
                     });
                 }
@@ -1279,15 +1265,8 @@ class FrontendController extends Controller
                 }
             }
 
-            if($this->lang->lang == 'du')
-            {
-                Session::flash('success', 'Je offerteaanvraag is succesvol aangemaakt!');
-            }
-            else
-            {
-                Session::flash('success', 'Your Quotation request has been created successfully!');
-            }
 
+            Session::flash('success', __('text.Your Quotation request has been created successfully!'));
             return redirect()->back();
         }
 
