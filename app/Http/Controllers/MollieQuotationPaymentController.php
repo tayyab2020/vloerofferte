@@ -92,7 +92,7 @@ class MollieQuotationPaymentController extends Controller {
             }
             else
             {
-                $msg = "Dear Mr/Mrs ". $name .",<br><br>We have received a total amount of € " . $paid_amount ." for your quotation # " . $quotation_invoice_number . ". This amount will soon be transferred to your account. Below attached is your invoice along with our commission. For further details visit your panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Dear Mr/Mrs ". $name .",<br><br>We have received a total amount of € " . $paid_amount ." for your quotation # " . $quotation_invoice_number . ". This amount will soon be transferred to your account. Below attached is your invoice along with our commission. For further details visit your panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
             }
 
 
@@ -115,7 +115,7 @@ class MollieQuotationPaymentController extends Controller {
                 $message->to($admin_email)
                     ->from('info@vloerofferteonline.nl')
                     ->subject('Payment Received!')
-                    ->setBody("Payment received for quotation # " . $quotation_invoice_number . "<br>Total amount : €" . $paid_amount . "<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline", 'text/html');
+                    ->setBody("Payment received for quotation # " . $quotation_invoice_number . "<br>Total amount : €" . $paid_amount . "<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte", 'text/html');
 
                 $message->attach($file, [
                     'as' => $filename,

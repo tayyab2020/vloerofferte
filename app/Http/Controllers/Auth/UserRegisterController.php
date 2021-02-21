@@ -160,7 +160,7 @@ class UserRegisterController extends Controller
             $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $subject = "Welkom bij Vloerofferteonline!";
-            $msg = "Beste ".$user_name.",<br><br>je account is succesvol aangemaakt. Je kan vanaf nu binnen paar klikken een stoffeerder reserveren. Klik op account om je profiel te bezoeken <a href='".$link."'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
+            $msg = "Beste ".$user_name.",<br><br>Je account is succesvol aangemaakt. Je kan vanaf nu binnen paar klikken een stoffeerder reserveren. Klik op account om je profiel te bezoeken <a href='".$link."'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
             mail($user_email,$subject,$msg,$headers);
 
             return redirect()->route('client-dashboard');
@@ -258,7 +258,7 @@ class UserRegisterController extends Controller
             $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Welkom bij Vloerofferteonline";
-            $msg = "Beste ".$user_name.",<br><br> je profiel is succesvol aangemaakt. Om je profiel te activeren klik op de volgende link <a href='".$link."'>link</a>. Opdrachtgevers, kunnen je pas reserveren als je profiel is geactiveerd, dus doe dit snel.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
+            $msg = "Beste ".$user_name.",<br><br>Je profiel is succesvol aangemaakt. Om je profiel te activeren klik op de volgende link <a href='".$link."'>link</a>.  Je kan offerte aanvragen ontvangen pas als je je profiel hebt geactiveerd, dus doe dit snel.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
             mail($user_email,$subject,$msg,$headers);
 
           return redirect()->route('user-complete-profile');
