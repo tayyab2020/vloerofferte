@@ -40,7 +40,7 @@ return [
     'Add Products' => 'Producten toevoegen',
     'My Items' => 'Accessories toevoegen',
     'Handyman Quotations' => 'Offertes',
-    'Request No.' => 'Aanvraagnummer.',
+    'Request No.' => 'Aanvraagnummer',
     'Category' => 'Categorie',
     'Brand' => 'Merk',
     'Model' => 'Model',

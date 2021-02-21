@@ -3733,9 +3733,11 @@ class UserController extends Controller
 
             $admin_email = $this->sl->admin_email;
 
+            $link = url('/') . '/handyman/client-dashboard';
+
             if($this->lang->lang == 'du')
             {
-                $msg = "Beste <b> . $client->name . </b>,<br><br>De status van je bestelling met factuur INV# <b>" . $client->quotation_invoice_number . "</b> is zojuist gewijzigd naar afgeleverd. Je kan de status naar ontvangen wijzigen in je dashboard. Doe dit alleen als je de goederen hebt ontvangen. Mocht, je de goederen op bezorgdatum niet hebben ontvangen neem dan contact met ons op.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
+                $msg = "Beste $client->name,<br><br>De status van je bestelling met factuur INV# <b>" . $client->quotation_invoice_number . "</b> is zojuist gewijzigd naar afgeleverd. Je kan de status naar ontvangen wijzigen in je <a href='$link'>dashboard</a>. Doe dit alleen als je de goederen hebt ontvangen. Mocht, je de goederen op de bezorgdatum niet hebben ontvangen neem dan contact met ons op.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
             }
             else
             {
@@ -3779,7 +3781,7 @@ class UserController extends Controller
 
             if($this->lang->lang == 'du')
             {
-                $msg = "Beste <b> . $handyman->name . </b>,<br><br>Je klant heeft de status voor factuur INV# <b>" . $handyman->quotation_invoice_number . "</b> gewijzigd naar goederen ontvangen.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
+                $msg = "Beste $handyman->name,<br><br>Je klant heeft de status voor factuur INV# <b>" . $handyman->quotation_invoice_number . "</b> gewijzigd naar goederen ontvangen.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
             }
             else
             {
@@ -3821,9 +3823,11 @@ class UserController extends Controller
 
             $admin_email = $this->sl->admin_email;
 
+            $link = url('/') . '/handyman/client-dashboard';
+
             if($this->lang->lang == 'du')
             {
-                $msg = "Beste <b> . $client->name . </b>,<br><br>De status van je bestelling met factuur INV# <b>" . $client->quotation_invoice_number . "</b> is zojuist gewijzigd naar afgeleverd. Je kan de status naar ontvangen wijzigen in je dashboard. Doe dit alleen als je de goederen hebt ontvangen. Mocht, je de goederen op bezorgdatum niet hebben ontvangen neem dan contact met ons op.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
+                $msg = "Beste $client->name,<br><br>De status van je bestelling met factuur INV# <b>" . $client->quotation_invoice_number . "</b> is zojuist gewijzigd naar afgeleverd. Je kan de status naar ontvangen wijzigen in je <a href='$link'>dashboard</a>. Doe dit alleen als je de goederen hebt ontvangen. Mocht, je de goederen op de bezorgdatum niet hebben ontvangen neem dan contact met ons op.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
             }
             else
             {
@@ -3867,7 +3871,7 @@ class UserController extends Controller
 
             if($this->lang->lang == 'du')
             {
-                $msg = "Beste <b> . $handyman->name . </b>,<br><br>Je klant heeft de status voor factuur INV# <b>" . $handyman->quotation_invoice_number . "</b> gewijzigd naar goederen ontvangen.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
+                $msg = "Beste $handyman->name,<br><br>Je klant heeft de status voor factuur INV# <b>" . $handyman->quotation_invoice_number . "</b> gewijzigd naar goederen ontvangen.<br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
             }
             else
             {
