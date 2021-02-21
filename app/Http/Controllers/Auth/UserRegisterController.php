@@ -168,7 +168,7 @@ class UserRegisterController extends Controller
         }
         else {
 
-            Session::flash('message', "Google Recaptcha validation failed!");
+            Session::flash('message', $this->lang->grv);
             return redirect()->back();
 
         }
@@ -268,7 +268,7 @@ class UserRegisterController extends Controller
         else
         {
 
-             Session::flash('message', "Google Recaptcha validation failed!");
+             Session::flash('message', $this->lang->grv);
             return redirect()->back();
 
         }
