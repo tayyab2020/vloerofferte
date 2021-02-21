@@ -1166,7 +1166,6 @@ class FrontendController extends Controller
             $quote->quote_brand = $request->quote_brand;
             $quote->quote_model = $request->quote_model;
             $quote->quote_model_number = $request->quote_model_number;
-            $quote->model_number = $request->model_number;
             $quote->quote_zipcode = $request->quote_zipcode;
             $quote->quote_postcode = $request->postcode;
             $quote->quote_city = $request->city;
