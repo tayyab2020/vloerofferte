@@ -229,4 +229,7 @@ return [
     'Invoice Generated!' => 'Invoice Generated!',
     'Direct Invoice Created!' => 'Direct Invoice Created!',
     'Invoice Status Changed' => 'Invoice Status Changed',
+    'Status Updated Successfully!' => 'Status Updated Successfully!',
+    'PROFILE' => 'PROFILE',
+    'MENU' => 'MENU',
 ];

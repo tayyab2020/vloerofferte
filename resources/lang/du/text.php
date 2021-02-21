@@ -229,4 +229,7 @@ return [
     'Invoice Generated!' => 'Factuur is aangemaakt!',
     'Direct Invoice Created!' => 'Verkoopfactuur van ',
     'Invoice Status Changed' => 'Status is gewijzigd',
+    'Status Updated Successfully!' => 'Status Updated Successfully!',
+    'PROFILE' => 'PROFILE',
+    'MENU' => 'MENU',
 ];

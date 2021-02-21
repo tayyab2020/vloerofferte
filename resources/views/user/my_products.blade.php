@@ -59,7 +59,7 @@
                                                                     <th class="no-sort">{{__('text.Select')}}</th>
                                                                     <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">ID</th>
                                                                     <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Photo')}}</th>
-                                                                    <th class="sorting" id="client" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Title')}}</th>
+                                                                    {{--<th class="sorting" id="client" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Title')}}</th>--}}
                                                                     {{--<th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Slug</th>--}}
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Category')}}</th>
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Brand')}}</th>
@@ -88,7 +88,7 @@
                                                                         <td data-editable="false">
                                                                             <img src="{{ $cat->photo ? asset('assets/images/'.$cat->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}" alt="Category's Photo" style="max-height: 100px;">
                                                                         </td>
-                                                                        <td data-editable="false">{{$cat->title}}</td>
+                                                                        {{--<td data-editable="false">{{$cat->title}}</td>--}}
                                                                         {{--<td data-editable="false">{{$cat->slug}}</td>--}}
                                                                         <td data-editable="false">{{$cat->category}}</td>
                                                                         <td data-editable="false">{{$cat->brand}}</td>
@@ -147,7 +147,7 @@
                                                             <thead>
                                                             <tr role="row">
                                                                 <th class="sorting" id="photo" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Photo')}}</th>
-                                                                <th class="sorting" id="client" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Title')}}</th>
+                                                                {{--<th class="sorting" id="client" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Title')}}</th>--}}
                                                                 {{--<th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Slug</th>--}}
                                                                 <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Category')}}</th>
                                                                 <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Brand')}}</th>
@@ -166,7 +166,7 @@
                                                                             src="{{ $cat->photo ? asset('assets/images/'.$cat->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}"
                                                                             alt="Category's Photo" style="max-height: 100px;">
                                                                     </td>
-                                                                    <td data-editable="false">{{$cat->title}}</td>
+                                                                    {{--<td data-editable="false">{{$cat->title}}</td>--}}
                                                                     {{--<td data-editable="false">{{$cat->slug}}</td>--}}
                                                                     <td data-editable="false">{{$cat->category}}</td>
                                                                     <td data-editable="false">{{$cat->brand}}</td>

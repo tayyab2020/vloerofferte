@@ -575,7 +575,7 @@ class AdminUserController extends Controller
         $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Profile Information Updated Successfully!";
-        $msg = "Dear Mr/Mrs ". $user_name .",<br><br>Your profile information update request has been approved. For further details visit your handyman panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
+        $msg = "Dear Mr/Mrs ". $user_name .",<br><br>Your profile information update request has been approved. For further details visit your handyman panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
         mail($email,$subject,$msg,$headers);
 
 
@@ -583,7 +583,7 @@ class AdminUserController extends Controller
         $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Profiel informatie is geupdate";
-        $msg = "Beste". $user_name .",<br><br>je wijziging in je profiel is goeggekeurd. Klik op account om de status van je klus te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
+        $msg = "Beste". $user_name .",<br><br>je wijziging in je profiel is goeggekeurd. Klik op account om de status van je klus te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
         mail($email,$subject,$msg,$headers);
 
         Session::flash('success', 'Profile Updated Successfully');
@@ -759,7 +759,7 @@ class AdminUserController extends Controller
         $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Insurance POD Approved!";
-        $msg = "Dear Mr/Mrs ". $user_name .",<br><br>Your insurance pod has been approved. For further details visit your handyman panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
+        $msg = "Dear Mr/Mrs ". $user_name .",<br><br>Your insurance pod has been approved. For further details visit your handyman panel through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
         mail($email,$subject,$msg,$headers);
 
 
@@ -768,7 +768,7 @@ class AdminUserController extends Controller
         $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Verzekering!";
-        $msg = "Beste". $user_name .",<br><br>je verzekering status is goedgekeurd. Klik op account om de status van je wijziging te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groet,<br><br>Klantenservice Vloerofferteonline";
+        $msg = "Beste". $user_name .",<br><br>je verzekering status is goedgekeurd. Klik op account om de status van je wijziging te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
         mail($email,$subject,$msg,$headers);
 
         Session::flash('success', 'Successfully updated the User');
@@ -835,14 +835,14 @@ class AdminUserController extends Controller
             $message->to($handyman->email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject('Invoice Status Changed')
-                ->setBody("Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for your quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as delivered.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for your quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as delivered.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline", 'text/html');
         });
 
         \Mail::send(array(), array(), function ($message) use ($client) {
             $message->to($client->email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject('Invoice Status Changed')
-                ->setBody("Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline", 'text/html');
         });
 
         Session::flash('success', 'Status Updated Successfully!');
@@ -861,14 +861,14 @@ class AdminUserController extends Controller
             $message->to($handyman->email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject('Invoice Status Changed')
-                ->setBody("Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for your quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> has been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for your quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> has been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline", 'text/html');
         });
 
         \Mail::send(array(), array(), function ($message) use ($client) {
             $message->to($client->email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject('Invoice Status Changed')
-                ->setBody("Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> has been marked as received.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> has been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline", 'text/html');
         });
 
         Session::flash('success', 'Status Updated Successfully!');

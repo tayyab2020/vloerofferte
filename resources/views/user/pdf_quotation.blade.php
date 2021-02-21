@@ -90,7 +90,8 @@
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Category/Item')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Brand')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model')}}</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Description')}}</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model Number')}}</th>
+                                        {{--<th class="border-0 text-uppercase small font-weight-bold">{{__('text.Description')}}</th>--}}
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Qty')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Cost')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Amount')}}</th>
@@ -106,7 +107,8 @@
                                                 <td>{{$key->service}}</td>
                                                 <td>{{$key->brand}}</td>
                                                 <td>{{$key->model}}</td>
-                                                <td>{{$key->description}}</td>
+                                                <td>{{$quote->quote_model_number}}</td>
+                                                {{--<td>{{$key->description}}</td>--}}
                                                 <td>{{number_format((float)$key->qty, 2, ',', '.')}}</td>
                                                 <td>{{number_format((float)$key->rate, 2, ',', '.')}}</td>
                                                 <td>{{number_format((float)$key->amount, 2, ',', '.')}}</td>
@@ -122,7 +124,8 @@
                                                 <td>{{$request->service_title[$i]}}</td>
                                                 <td>{{$request->brand_title[$i]}}</td>
                                                 <td>{{$request->model_title[$i]}}</td>
-                                                <td>{{$request->description[$i]}}</td>
+                                                <td>{{$quote->quote_model_number}}</td>
+                                                {{--<td>{{$request->description[$i]}}</td>--}}
                                                 <td>{{$request->qty[$i]}}</td>
                                                 <td>{{$request->cost[$i]}}</td>
                                                 <td>{{$request->amount[$i]}}</td>

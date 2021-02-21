@@ -180,9 +180,10 @@
 
                                     @if(Auth::guard('user')->user()->role_id == 2)
 
-                                        <li class="menuLi border-line"><a  style="cursor: pointer;">PROFILE <i class="fa fa-angle-down"></i></a>
+                                        <li class="menuLi border-line"><a  style="cursor: pointer;">{{__('text.PROFILE')}} <i class="fa fa-angle-down"></i></a>
                                             <ul class="menuUl">
 
+                                                <button style="background-color: white !important;color: black !important;position: relative;right: 5px;" type="button" class="close dropdown-close" aria-hidden="true">×</button>
 
                                                 <li><a href="{{route('user-dashboard')}}">{{$lang->hpt}}</a></li>
 
@@ -192,8 +193,10 @@
 
                                     @elseif(Auth::guard('user')->user()->role_id == 3)
 
-                                        <li class="menuLi border-line"><a  style="cursor: pointer;">PROFILE <i class="fa fa-angle-down"></i></a>
+                                        <li class="menuLi border-line"><a  style="cursor: pointer;">{{__('text.PROFILE')}} <i class="fa fa-angle-down"></i></a>
                                             <ul class="menuUl">
+
+                                                <button style="background-color: white !important;color: black !important;position: relative;right: 5px;" type="button" class="close dropdown-close" aria-hidden="true">×</button>
 
                                                 <li><a href="{{route('client-dashboard')}}">{{$lang->cpt}}</a></li>
 
@@ -206,8 +209,11 @@
 
                                 @endif
 
-                                    <li class="menuLi1 border-line"><a style="cursor: pointer;">Menu <i class="fa fa-angle-down"></i></a>
+                                    <li class="menuLi1 border-line"><a style="cursor: pointer;">{{__('text.MENU')}} <i class="fa fa-angle-down"></i></a>
                                         <ul class="menuUl1" style="left: -100px;">
+
+                                            <button style="background-color: white !important;color: black !important;position: relative;right: 5px;" type="button" class="close dropdown-close" aria-hidden="true">×</button>
+
                                             <li><a href="{{route('front.index')}}">{{$lang->home}}</a></li>
 
                                             <li><a href="{{route('front.users')}}">{{$lang->h}}</a></li>
@@ -314,6 +320,17 @@
 
 <script type="text/javascript">
 
+    $(document).ready(function () {
+
+        $('.menuLi1').click(function () {
+            $(".menuUl").css("display",'none');
+        });
+
+        $('.menuLi').click(function () {
+            $(".menuUl1").css("display",'none');
+        });
+    });
+
     $(document).on( 'mouseover', '.lang-list', function(){
         $(this).find('.bootstrap-select').addClass('open');
     } );
@@ -376,6 +393,11 @@
         }
 
         @media only screen and (max-width: 1225px){
+
+            .dropdown-close
+            {
+                display: none;
+            }
 
             .lang-list{
 
