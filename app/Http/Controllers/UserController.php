@@ -438,7 +438,7 @@ class UserController extends Controller
             $message->to($handyman_email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject(__('text.Quotation Review Request!'))
-                ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . " submitted review request against your quotation QUO# " . $invoice->quotation_invoice_number . "<br>Kindly take further action on this request.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . " submitted review request against your quotation QUO# " . $invoice->quotation_invoice_number . "<br>Kindly take further action on this request.<br><br>Kind regards,<br><br>Klantenservice Vloerofferte", 'text/html');
         });
 
 
@@ -448,7 +448,7 @@ class UserController extends Controller
             $message->to($admin_email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject('Quotation Review Request!')
-                ->setBody("A quotation review request has been submitted by Mr/Mrs " . $user->name . " against quotation QUO# " . $invoice->quotation_invoice_number . "<br>Handyman: " . $user_name . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("A quotation review request has been submitted by Mr/Mrs " . $user->name . " against quotation QUO# " . $invoice->quotation_invoice_number . "<br>Handyman: " . $user_name . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferte", 'text/html');
         });
 
 
@@ -479,7 +479,7 @@ class UserController extends Controller
             $message->to($handyman_email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject(__('text.Quotation Review Request!'))
-                ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . " submitted review request against your quotation QUO# " . $invoice->quotation_invoice_number . "<br>Kindly take further action on this request.<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . " submitted review request against your quotation QUO# " . $invoice->quotation_invoice_number . "<br>Kindly take further action on this request.<br><br>Kind regards,<br><br>Klantenservice Vloerofferte", 'text/html');
         });
 
 
@@ -489,7 +489,7 @@ class UserController extends Controller
             $message->to($admin_email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject('Quotation Review Request!')
-                ->setBody("A quotation review request has been submitted by Mr/Mrs ".$user->name.' '.$user->family_name." against quotation QUO# ".$invoice->quotation_invoice_number."<br>Handyman: ".$user_name."<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("A quotation review request has been submitted by Mr/Mrs ".$user->name.' '.$user->family_name." against quotation QUO# ".$invoice->quotation_invoice_number."<br>Handyman: ".$user_name."<br><br>Kind regards,<br><br>Klantenservice Vloerofferte", 'text/html');
         });*/
 
 
@@ -558,7 +558,7 @@ class UserController extends Controller
         }
         else
         {
-            $msg = "Congratulations! Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . " has accepted your quotation QUO# " . $invoice[0]->quotation_invoice_number . "<br>You can convert your quotation into invoice once job is completed,<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline";
+            $msg = "Congratulations! Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . " has accepted your quotation QUO# " . $invoice[0]->quotation_invoice_number . "<br>You can convert your quotation into invoice once job is completed,<br><br>Kind regards,<br><br>Klantenservice Vloerofferte";
         }
 
         \Mail::send(array(), array(), function ($message) use ($msg, $handyman_email, $user_name, $invoice, $user) {
@@ -575,7 +575,7 @@ class UserController extends Controller
             $message->to($admin_email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject('Quotation Accepted!')
-                ->setBody("A quotation QUO# " . $invoice[0]->quotation_invoice_number . " has been accepted by Mr/Mrs " . $user->name . "<br>Handyman: " . $user_name . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("A quotation QUO# " . $invoice[0]->quotation_invoice_number . " has been accepted by Mr/Mrs " . $user->name . "<br>Handyman: " . $user_name . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferte", 'text/html');
         });
 
         Session::flash('success', __('text.Quotation accepted successfully!'));
@@ -723,7 +723,7 @@ class UserController extends Controller
             $message->to($handyman_email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject(__('text.Quotation Accepted!'))
-                ->setBody("Congratulations! Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . " has accepted your quotation QUO# " . $invoice->quotation_invoice_number . "<br>You can convert your quotation into invoice once job is completed,<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("Congratulations! Dear Mr/Mrs " . $user_name . ",<br><br>Mr/Mrs " . $user->name . " has accepted your quotation QUO# " . $invoice->quotation_invoice_number . "<br>You can convert your quotation into invoice once job is completed,<br><br>Kind regards,<br><br>Klantenservice Vloerofferte", 'text/html');
         });
 
 
@@ -733,7 +733,7 @@ class UserController extends Controller
             $message->to($admin_email)
                 ->from('info@vloerofferteonline.nl')
                 ->subject('Quotation Accepted!')
-                ->setBody("A quotation QUO# ".$invoice->quotation_invoice_number." has been accepted by Mr/Mrs ".$user->name.' '.$user->family_name."<br>Handyman: ".$user_name."<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline", 'text/html');
+                ->setBody("A quotation QUO# ".$invoice->quotation_invoice_number." has been accepted by Mr/Mrs ".$user->name.' '.$user->family_name."<br>Handyman: ".$user_name."<br><br>Kind regards,<br><br>Klantenservice Vloerofferte", 'text/html');
         });*/
 
         Session::flash('success', __('text.Quotation accepted successfully!'));
@@ -844,7 +844,7 @@ class UserController extends Controller
             }
             else
             {
-                $msg = "Dear <b>Mr/Mrs " . $user_name . "</b>,<br><br>Your account has been created by handyman <b>" . $handyman_name . "</b> for quotations. Kindly complete your profile and change your password. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Your Password: " . $org_password . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferteonline<br><br>$company_name";
+                $msg = "Dear <b>Mr/Mrs " . $user_name . "</b>,<br><br>Your account has been created by handyman <b>" . $handyman_name . "</b> for quotations. Kindly complete your profile and change your password. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Your Password: " . $org_password . "<br><br>Kind regards,<br><br>Klantenservice Vloerofferte<br><br>$company_name";
             }
 
             \Mail::send(array(), array(), function ($message) use ($msg, $user_email, $user_name, $handyman_name, $link, $org_password) {
