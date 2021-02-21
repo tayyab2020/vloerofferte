@@ -339,7 +339,6 @@ class AdminUserController extends Controller
                 curl_close($ch);
                 $response_a = json_decode($response, true);
                 var_dump($response_a);
-                exit();
                 $dist = $response_a['rows'][0]['elements'][0]['distance']['value'];
                 /*$time = $response_a['rows'][0]['elements'][0]['duration']['text'];*/
 
