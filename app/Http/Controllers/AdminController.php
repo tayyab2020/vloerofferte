@@ -464,7 +464,7 @@ $payment = $mollie->customers->get($handyman->mollie_customer_id)->createPayment
             $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Betaling!";
-            $msg = "Beste Mr/Mrs ".$user->name. " ".$user->family_name.",<br><br>we hebben de stoffeerder uitbetaald Mr/Mrs. ".$handyman->name. " ".$handyman->family_name."'s account. Klik op account om de status van je klus te bekijken <a href='".$client_dash."'>account.</a><br><br>Met vriendeijke groet,<br><br>Klantenservice<br><br> Vloerofferteonline";
+            $msg = "Beste ".$user->name.",<br><br>we hebben de stoffeerder uitbetaald Mr/Mrs. ".$handyman->name. " ".$handyman->family_name."'s account. Klik op account om de status van je klus te bekijken <a href='".$client_dash."'>account.</a><br><br>Met vriendeijke groet,<br><br>Klantenservice<br><br> Vloerofferteonline";
             mail($user_email,$subject,$msg,$headers);
 
 

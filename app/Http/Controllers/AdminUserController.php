@@ -315,7 +315,7 @@ class AdminUserController extends Controller
 
         $history = handyman_quotes::leftjoin('users','users.id','=','handyman_quotes.handyman_id')->where('handyman_quotes.quote_id',$id)->select('users.*','handyman_quotes.created_at as quote_date')->get();
 
-        if(($result['status']) != 'ZERO_RESULTS' )
+        if(($result['status']) != 'ZERO_RESULTS')
         {
             $user_latitude = $result['results'][0]['geometry']['location']['lat'];
             $user_longitude = $result['results'][0]['geometry']['location']['lng'];
@@ -338,11 +338,12 @@ class AdminUserController extends Controller
                 $response = curl_exec($ch);
                 curl_close($ch);
                 $response_a = json_decode($response, true);
+
                 try{
                     $dist = $response_a['rows'][0]['elements'][0]['distance']['value'];
                 }
                 catch(\Exception $e){
-                    var_dump($response_a);
+                    var_dump($url);
                     exit();
                 }
                 $dist = $response_a['rows'][0]['elements'][0]['distance']['value'];

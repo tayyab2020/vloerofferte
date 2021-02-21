@@ -231,7 +231,7 @@ class UserRegisterController extends Controller
         $user = new User;
         $input = $request->all();
 
-        $user_name = $input['name'] . ' ' . $input['family_name'];
+        $user_name = $input['name'];
 
         $user_email = $input['email'];
 
@@ -258,7 +258,7 @@ class UserRegisterController extends Controller
             $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Welkom bij Vloerofferteonline";
-            $msg = "Beste Mr/Mrs ".$user_name.",<br><br> je profiel is succesvol aangemaakt. Om je profiel te activeren klik op de volgende link <a href='".$link."'>link</a>. Opdrachtgevers, kunnen je pas reserveren als je profiel is geactiveerd, dus doe dit snel.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
+            $msg = "Beste ".$user_name.",<br><br> je profiel is succesvol aangemaakt. Om je profiel te activeren klik op de volgende link <a href='".$link."'>link</a>. Opdrachtgevers, kunnen je pas reserveren als je profiel is geactiveerd, dus doe dit snel.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
             mail($user_email,$subject,$msg,$headers);
 
           return redirect()->route('user-complete-profile');
