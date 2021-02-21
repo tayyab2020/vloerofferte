@@ -1260,7 +1260,7 @@ class FrontendController extends Controller
                 }
             }
 
-            /*Session::flash('success', __('text.Your Quotation request has been created successfully!'));*/
+            Session::flash('success', __('text.Your Quotation request has been created successfully!'));
             return redirect()->back();
         }
 
