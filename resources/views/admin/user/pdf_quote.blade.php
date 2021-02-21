@@ -2,11 +2,11 @@
 
 @section('content')
 
-        <section class="jumbotron text-center">
+        {{--<section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">{{__('text.Quotation Request')}}</h1>
             </div>
-        </section>
+        </section>--}}
 
         <div class="container" style="width: 100%;">
             <div class="row">
@@ -15,33 +15,55 @@
                         <div class="card-body p-0">
                             <div class="row p-5" style="margin-right: 15px !important;">
 
-                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                <?php
+
+                                $date = date('d-m-Y',strtotime($quote->created_at));
+
+                                $quote_number =  'ID# ' .  $quote->quote_number;
+
+                                ?>
+
+                                <div class="col-md-12 col-sm-12 col-xs-12">
 
                                     <img class="img-fluid" src="{{ public_path('assets/images/'.$gs->logo) }}" style="width:50%; height:100%;margin-bottom: 30px;">
-                                    <p class="para" style="margin-top: 20px;margin-left: 26px;">{!! $gs->street  !!}<br>TEL: {{$gs->phone}}<br>BTW: NL001973883B94<br>IBAN: NL87ABNA0825957680<br>KvK-nummer: 70462623</p>
+
+                                    <p class="para" style="margin-top: 20px;margin-left: 26px;">{!! $gs->street !!}</p>
+
+                                    <div style="margin-top: 20px;">
+
+                                        <div style="float: left;">
+                                            <p class="para">TEL: {{$gs->phone}}<br>BTW: NL001973883B94<br>IBAN: NL87ABNA0825957680<br>KvK-nummer: 70462623</p>
+                                        </div>
+
+                                        <div style="float: right;">
+
+                                            @if($role != 2)
+
+                                                <?php $delivery_address = explode(',', $quote->quote_zipcode); array_pop($delivery_address); array_pop($delivery_address); $delivery_address = implode(",",$delivery_address); ?>
+
+                                                <p style="font-size: 20px;" class="font-weight-bold mb-1 m-rest">{{$quote->quote_name}} {{$quote->quote_familyname}}</p>
+                                                <p style="font-size: 20px;" class="mb-1 m-rest">{{$delivery_address}}</p>
+                                                <p style="font-size: 20px;" class="mb-1 m-rest">{{$quote->quote_city}}</p>
+
+                                            @endif
+
+                                        </div>
+                                    </div>
+
+                                    <br><br><br><br><br><br>
+                                    <div>
+                                        <p style="font-size: 25px;float: left;" class="font-weight-bold mb-4 m-heading">{{__('text.Quotation Request')}} {{$quote_number}}</p>
+                                        <p style="float: right;" class="mb-1 m-rest">{{__('text.Created at')}}: {{$date}}</p>
+                                    </div>
 
                                 </div>
 
-
-                                <div class="col-md-6 col-sm-6 col-xs-12 text-right inv-rigth" style="float: right;margin-top: 50px;">
-
-                                    <?php $date = strtotime($quote->created_at);
-
-                                    $quote_number =  'ID# ' .  $quote->quote_number; ?>
-
-                                    <p class="font-weight-bold mb-1" style="font-size: 20px;">{{$quote_number}}</p>
-
-                                    <?php  $date = date('d-m-Y',$date);  ?>
-
-                                    <p class="text-muted" style="font-size: 15px;margin-top: 20px;">{{__('text.Created at')}}: {{$date}}</p>
-
-                                </div>
                             </div>
 
                             <hr class="my-5">
 
                             <div class="row p-5" style="font-size: 15px;padding: 2rem !important;">
-                                <div class="col-md-12" style="padding: 0px !important;padding-top: 50px;">
+                                <div class="col-md-12" style="padding: 0px !important;padding-top: 0px;">
 
 
                                     <table class="table" style="border: 1px solid #e5e5e5;">
@@ -50,9 +72,7 @@
                                             <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Category/Item')}}</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Brand')}}</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model')}}</th>
-                                            @if($role != 2)
-                                                <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Address')}}</th>
-                                            @endif
+                                            <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model Number')}}</th>
                                             {{--<th class="border-0 text-uppercase small font-weight-bold">Street</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">House Number</th>--}}
                                         </tr>
@@ -64,9 +84,7 @@
                                                 <td>{{$quote->cat_name}}</td>
                                                 <td>{{$quote->brand_name}}</td>
                                                 <td>{{$quote->model_name}}</td>
-                                                @if($role != 2)
-                                                    <td>{{$quote->quote_zipcode}}</td>
-                                                @endif
+                                                <td>{{$quote->quote_model_number}}</td>
                                                 {{--<td>{{$quote->quote_street}}</td>
                                                 <td>{{$quote->quote_house}}</td>--}}
                                             </tr>
