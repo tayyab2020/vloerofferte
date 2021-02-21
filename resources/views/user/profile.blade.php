@@ -192,19 +192,19 @@
                                             </div>
 
 
-                                            <div class="form-group">
+                                            <div class="form-group" style="display: none;">
                                                 <label for="edu" class="col-sm-3 control-label">{{$lang->doe}}</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control" name="education" id="edu" placeholder="{{$lang->doe}}" type="text" value="{{$user->education}}" >
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" style="display: none;">
                                                 <label for="lang" class="col-sm-3 control-label">{{$lang->dol}}</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control" name="language" id="lang" placeholder="{{$lang->dol}}" type="text" value="{{$user->language}}">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" style="display: none;">
                                                 <label for="prof" class="col-sm-3 control-label">{{$lang->dopr}}</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control" name="profession" id="prof" placeholder="{{$lang->dopr}}" type="text" value="{{$user->profession}}" >
