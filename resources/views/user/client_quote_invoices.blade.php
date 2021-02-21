@@ -1220,7 +1220,7 @@
             margin-top: 100px;
             height: 6px;
             border-radius: 4px;
-            background-image: linear-gradient(298deg, var(--red), var(--yellow));
+            background-image: linear-gradient(298deg, #5CB85C, #5CB85C);
             z-index: 100 !important;
         }
         .checkbox:checked + label:before,
@@ -1301,7 +1301,7 @@
             width: 100%;
             height: 100%;
             border-radius: 4px;
-            background-image: linear-gradient(298deg, var(--red), var(--yellow));
+            background-image: linear-gradient(298deg, #5CB85C, #5CB85C);
             z-index: -1;
         }
         .checkbox-tools:checked + label .uil,
@@ -1367,7 +1367,7 @@
             width: 100%;
             height: 100%;
             border-radius: 4px;
-            background-image: linear-gradient(138deg, var(--red), var(--yellow));
+            background-image: linear-gradient(138deg, #5CB85C, #5CB85C);
             z-index: -1;
         }
         .checkbox-budget:checked + label span,
@@ -1459,7 +1459,7 @@
             height: calc(100% + 4px);
             border-radius: 4px;
             z-index: -2;
-            background-image: linear-gradient(138deg, var(--red), var(--yellow));
+            background-image: linear-gradient(138deg, #5CB85C, #5CB85C);
             -webkit-transition: all 300ms linear;
             transition: all 300ms linear;
         }
@@ -1509,7 +1509,7 @@
             top: 50%;
             margin-top: -1px;
             height: 2px;
-            background-image: linear-gradient(138deg, var(--red), var(--yellow));
+            background-image: linear-gradient(138deg, #5CB85C, #5CB85C);
             z-index: 1;
             -webkit-transition: all 300ms linear;
             transition: all 300ms linear;
