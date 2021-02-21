@@ -22,7 +22,7 @@ class UserLoginController extends Controller
     public function login(Request $request)
     {
 
-      
+
       // Validate the form data
 
 		$this->validate($request,[
@@ -44,11 +44,11 @@ class UserLoginController extends Controller
         {
 
           // if successful, then redirect to their intended location
-        return redirect()->intended(route('client-dashboard'));
+        return redirect()->intended(route('client-quotation-requests'));
 
         }
-      
-        
+
+
       }
 
       // if unsuccessful, then redirect back to the login with the form data
@@ -60,5 +60,5 @@ class UserLoginController extends Controller
     {
         Auth::guard('user')->logout();
         return redirect('/');
-    }    
+    }
 }

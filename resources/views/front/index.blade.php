@@ -318,7 +318,7 @@
 
                                                     <br>
 
-                                                    <small style="text-align: center;display: block;width: 80%;margin: auto;margin-bottom: 10px;">{{__('text.By pressing Get Quotes you agree to the')}} <a href="#">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}</small>
+                                                    <small style="text-align: center;display: block;width: 80%;margin: auto;margin-bottom: 10px;">{{__('text.By pressing Get Quotes you agree to the')}} <a target="_blank" href="{{asset('assets/'.$data->file)}}">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}</small>
 
                                                 </div>
                                                 <div style="width: 100%;position: relative;height: 2rem;bottom: 1rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
