@@ -339,20 +339,27 @@ class AdminUserController extends Controller
                 curl_close($ch);
                 $response_a = json_decode($response, true);
 
-                
-                $dist = $response_a['rows'][0]['elements'][0]['distance']['value'];
-                /*$time = $response_a['rows'][0]['elements'][0]['duration']['text'];*/
-
-                $distance = $dist/1000;
-
-                $key->distance = $distance;
-
-                if($distance <= $radius)
+                if(($response_a['rows'][0]['elements'][0]['status']) != 'ZERO_RESULTS')
                 {
-                    $key->preferred = 1;
+                    $dist = $response_a['rows'][0]['elements'][0]['distance']['value'];
+                    /*$time = $response_a['rows'][0]['elements'][0]['duration']['text'];*/
+
+                    $distance = $dist/1000;
+
+                    $key->distance = $distance;
+
+                    if($distance <= $radius)
+                    {
+                        $key->preferred = 1;
+                    }
+                    else
+                    {
+                        $key->preferred = 0;
+                    }
                 }
                 else
                 {
+                    $key->distance = 'N/A';
                     $key->preferred = 0;
                 }
 
