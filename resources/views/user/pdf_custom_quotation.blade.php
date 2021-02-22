@@ -65,7 +65,7 @@
                         </div>--}}
 
                         <div class="row p-5" style="font-size: 15px;padding: 2rem !important;">
-                            <div class="col-md-12" style="padding: 0px !important;padding-top: 50px;">
+                            <div class="col-md-12" style="padding: 0px !important;padding-top: 0px;">
                                 <table class="table" style="border: 1px solid #e5e5e5;">
                                     <thead>
                                     <tr>
