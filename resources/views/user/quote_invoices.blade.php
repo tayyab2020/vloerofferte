@@ -524,7 +524,7 @@
         function ask(e)
         {
             var text = $(e).data('text');
-            
+
             $('#review_text').val(text);
 
             $('#myModal1').modal('toggle');

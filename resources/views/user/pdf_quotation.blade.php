@@ -64,20 +64,30 @@
 
                         <div class="row pb-5 p-5" style="margin-right: 15px !important;">
 
-                            <?php $date = date('d-m-Y'); $delivery_address = explode(',', $quote->quote_zipcode); array_pop($delivery_address); array_pop($delivery_address); $delivery_address = implode(",",$delivery_address); ?>
+                            <?php $date = date('d-m-Y',strtotime($quote->created_at)); $delivery_address = explode(',', $quote->quote_zipcode); array_pop($delivery_address); array_pop($delivery_address); $delivery_address = implode(",",$delivery_address); ?>
 
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     {{--<p class="font-weight-bold mb-4 m-heading">Quote Information</p>--}}
-                                    <p class="font-weight-bold mb-4 m-heading">{{__('text.Delivery Address')}}</p>
-                                    <p class="mb-1 m-rest">{{$delivery_address}}</p>
-                                    <p class="mb-1 m-rest">{{$quote->quote_postcode}} {{$quote->quote_city}}</p>
-                                    <br>
+
+                                    @if(!isset($handyman_role))
+
+                                        <p class="font-weight-bold mb-4 m-heading">{{__('text.Delivery Address')}}</p>
+                                        <p class="mb-1 m-rest">{{$delivery_address}}</p>
+                                        <p class="mb-1 m-rest">{{$quote->quote_postcode}} {{$quote->quote_city}}</p>
+                                        <br>
+
+                                    @endif
+
                                     <div>
                                         <p style="font-size: 25px;float: left;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @else {{__('text.Quotation')}} @endif @if($type == 'invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
                                         <p style="float: right;" class="mb-1 m-rest">{{__('text.Created at')}}: {{$date}}</p>
                                     </div>
                                     <br><br>
                                     <p class="mb-1 m-rest">{{__('text.Requested Quote Number')}}: {{$requested_quote_number}}</p>
+                                    @if(isset($delivery_date))
+                                        <?php $delivery_date = date('d-m-Y',strtotime($delivery_date)); ?>
+                                        <p class="mb-1 m-rest">{{__('text.Delivery Date')}}: {{$delivery_date}}</p>
+                                    @endif
                                 </div>
 
                         </div>

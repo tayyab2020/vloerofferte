@@ -340,7 +340,14 @@ class UserController extends Controller
 
         $filename = $quotation_invoice_number . '.pdf';
 
-        return response()->download(public_path("assets/quotationsPDF/{$filename}"));
+        if($user_role == 2 && $invoice->invoice != 1)
+        {
+            return response()->download(public_path("assets/quotationsPDF/HandymanQuotations/{$filename}"));
+        }
+        else
+        {
+            return response()->download(public_path("assets/quotationsPDF/{$filename}"));
+        }
     }
 
     public function DownloadCommissionInvoice($id)
@@ -532,28 +539,56 @@ class UserController extends Controller
             {
                 users::where('id',$user_id)->update(['address' => $request->delivery_address,'postcode' => $request->postcode,'city' => $request->city]);
             }
-
-            $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->leftjoin('users','users.id','=','quotes.user_id')->where('quotes.id', $invoice[0]->quote_id)->select('quotes.*', 'categories.cat_name', 'users.postcode', 'users.city', 'users.address')->first();
-
-            $quotation_invoice_number = $invoice[0]->quotation_invoice_number;
-            $requested_quote_number = $quote->quote_number;
-
-            $filename = $quotation_invoice_number . '.pdf';
-
-            $file = public_path() . '/assets/quotationsPDF/' . $filename;
-
-            $type = 'delivery-address-edit';
-
-            ini_set('max_execution_time', 180);
-
-            $pdf = PDF::loadView('user.pdf_quotation', compact('quote', 'type', 'invoice', 'quotation_invoice_number', 'requested_quote_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
-            $pdf->save($file);
         }
         else
         {
             quotes::where('id', $invoice[0]->quote_id)->update(['status' => 2]);
         }
+
+        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->leftjoin('users','users.id','=','quotes.user_id')->where('quotes.id',$invoice[0]->quote_id)->select('quotes.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name','users.postcode','users.city','users.address')->first();
+
+        $quotation_invoice_number = $invoice[0]->quotation_invoice_number;
+        $requested_quote_number = $quote->quote_number;
+
+        $filename = $quotation_invoice_number . '.pdf';
+
+        $file = public_path() . '/assets/quotationsPDF/' . $filename;
+
+        $type = 'delivery-address-edit';
+
+        ini_set('max_execution_time', 180);
+
+        $pdf = PDF::loadView('user.pdf_quotation', compact('delivery_date','quote', 'type', 'invoice', 'quotation_invoice_number', 'requested_quote_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+        $pdf->save($file);
+
+        $handyman_role = 1;
+
+        $file1 = public_path() . '/assets/quotationsPDF/HandymanQuotations/' . $filename;
+
+        $pdf = PDF::loadView('user.pdf_quotation', compact('handyman_role','delivery_date','quote', 'type', 'invoice', 'quotation_invoice_number', 'requested_quote_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+        $pdf->save($file1);
+
         quotation_invoices::where('id', $request->invoice_id)->update(['ask_customization' => 0, 'accepted' => 1, 'accept_date' => $now, 'delivery_date' => $delivery_date]);
+
+        $q_a = requests_q_a::where('request_id',$quote->id)->get();
+
+        $quote_number = $quote->quote_number;
+
+        $filename = $quote_number.'.pdf';
+
+        $role = 3;
+
+        ini_set('max_execution_time', 180);
+
+        $pdf = PDF::loadView('admin.user.pdf_quote',compact('delivery_date','quote','q_a','role'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+
+        $pdf->save(public_path().'/assets/adminQuotesPDF/'.$filename);
+
+        $role = 2;
+
+        $pdf = PDF::loadView('admin.user.pdf_quote',compact('delivery_date','quote','q_a','role'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+
+        $pdf->save(public_path().'/assets/quotesPDF/'.$filename);
 
         $handyman_email = $invoice[0]->email;
         $user_name = $invoice[0]->name;
@@ -1124,6 +1159,8 @@ class UserController extends Controller
 
             $type = 'new';
 
+            $handyman_role = 1;
+
             if (!file_exists($file)) {
 
                 ini_set('max_execution_time', 180);
@@ -1131,6 +1168,15 @@ class UserController extends Controller
                 $pdf = PDF::loadView('user.pdf_quotation', compact('quote', 'type', 'request', 'quotation_invoice_number', 'requested_quote_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
                 $pdf->save(public_path() . '/assets/quotationsPDF/' . $filename);
+            }
+
+            $file1 = public_path() . '/assets/quotationsPDF/HandymanQuotations/' . $filename;
+
+            if (!file_exists($file1)) {
+
+                $pdf = PDF::loadView('user.pdf_quotation', compact('handyman_role','quote', 'type', 'request', 'quotation_invoice_number', 'requested_quote_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+
+                $pdf->save(public_path() . '/assets/quotationsPDF/HandymanQuotations/' . $filename);
             }
 
             $admin_email = $this->sl->admin_email;
@@ -1204,11 +1250,19 @@ class UserController extends Controller
 
             $type = 'edit';
 
+            $handyman_role = 1;
+
             ini_set('max_execution_time', 180);
 
             $pdf = PDF::loadView('user.pdf_quotation', compact('quote', 'type', 'request', 'quotation_invoice_number', 'requested_quote_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
             $pdf->save(public_path() . '/assets/quotationsPDF/' . $filename);
+
+            $file1 = public_path() . '/assets/quotationsPDF/HandymanQuotations/' . $filename;
+
+            $pdf = PDF::loadView('user.pdf_quotation', compact('handyman_role','quote', 'type', 'request', 'quotation_invoice_number', 'requested_quote_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+
+            $pdf->save(public_path() . '/assets/quotationsPDF/HandymanQuotations/' . $filename);
 
             $client_name = $quote->quote_name;
             $client_email = $quote->quote_email;
@@ -1306,11 +1360,19 @@ class UserController extends Controller
 
             $type = 'invoice';
 
+            $handyman_role = 1;
+
             ini_set('max_execution_time', 180);
 
             $pdf = PDF::loadView('user.pdf_quotation', compact('quote', 'type', 'request', 'quotation_invoice_number', 'requested_quote_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
             $pdf->save(public_path() . '/assets/quotationsPDF/' . $filename);
+
+            $file1 = public_path() . '/assets/quotationsPDF/HandymanQuotations/' . $filename;
+
+            $pdf = PDF::loadView('user.pdf_quotation', compact('handyman_role','quote', 'type', 'request', 'quotation_invoice_number', 'requested_quote_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+
+            $pdf->save(public_path() . '/assets/quotationsPDF/HandymanQuotations/' . $filename);
 
             $client_name = $quote->quote_name;
             $client_email = $quote->quote_email;
