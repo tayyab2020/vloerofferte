@@ -233,4 +233,6 @@ return [
     'PROFILE' => 'PROFIEL',
     'MENU' => 'MENU',
     'Request submitted successfully!' => 'Request submitted successfully!',
+    'Mention Review Reason' => 'Mention Review Reason',
+    'Review Reason' => 'Review Reason',
 ];

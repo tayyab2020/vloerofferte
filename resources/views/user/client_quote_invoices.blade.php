@@ -244,11 +244,7 @@
 
                                                                                 @if($key->status != 2 && $key->status != 3)
 
-                                                                                    @if(!$key->ask_customization)
-
-                                                                                        <li><a href="{{ url('/handyman/custom-quotation/ask-customization/'.$key->invoice_id) }}">{{__('text.Ask Again')}}</a></li>
-
-                                                                                    @endif
+                                                                                    <li><a onclick="ask(this)" data-id="{{$key->invoice_id}}" data-text="{{$key->review_text}}" data-url="{{ url('/handyman/custom-quotation/ask-customization/') }}" href="javascript:void(0)">{{__('text.Ask Again')}}</a></li>
 
                                                                                     <li><a href="{{ url('/handyman/custom-quotation/accept-quotation/'.$key->invoice_id) }}">{{__('text.Accept')}}</a></li>
 
@@ -268,11 +264,7 @@
 
                                                                                 @if($key->status != 0 && $key->status != 2 && $key->status != 3)
 
-                                                                                    @if(!$key->ask_customization)
-
-                                                                                        <li><a href="{{ url('/handyman/ask-customization/'.$key->invoice_id) }}">{{__('text.Ask Again')}}</a></li>
-
-                                                                                    @endif
+                                                                                    <li><a onclick="ask(this)" data-id="{{$key->invoice_id}}" data-text="{{$key->review_text}}" data-url="{{ url('/handyman/ask-customization/') }}" href="javascript:void(0)">{{__('text.Ask Again')}}</a></li>
 
                                                                                     <li><a onclick="accept(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Accept')}}</a></li>
 
@@ -405,6 +397,43 @@
                     <div class="modal-footer">
                         <button type="button" data-dismiss="modal" aria-label="Close" style="border: 0;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">{{__('text.Close')}}</button>
                         <button type="button" style="border: 0;outline: none;background-color: #5cb85c !important;color: white;" class="btn btn-primary submit-btn">{{__('text.Continue')}}</button>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+    <div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <form id="ask-form" method="post" action="">
+
+                <input type="hidden" name="_token" value="{{@csrf_token()}}">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button style="font-size: 32px;background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 style="margin: 10px 0;" id="myModalLabel">{{__('text.Mention Review Reason')}}</h3>
+                    </div>
+
+                    <div class="modal-body" id="myWizard">
+
+                        <input type="hidden" name="invoice_id" id="invoice_id1">
+
+                        <label>{{__('text.Review Reason')}} <span style="color: red;">*</span></label>
+
+                        <textarea rows="5" style="resize: vertical;" type="text" name="review_text" id="review_text" class="form-control" required autocomplete="off"></textarea>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" aria-label="Close" style="border: 0;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">{{__('text.Close')}}</button>
+                        <button type="submit" style="border: 0;outline: none;background-color: #5cb85c !important;color: white;" class="btn btn-primary">{{__('text.Continue')}}</button>
                     </div>
 
                 </div>
@@ -1725,6 +1754,19 @@
             });
 
         });
+
+        function ask(e)
+        {
+            var invoice_id = $(e).data('id');
+            var url = $(e).data('url');
+            var text = $(e).data('text');
+
+            $('#invoice_id1').val(invoice_id);
+            $('#ask-form').attr('action', url);
+            $('#review_text').val(text);
+
+            $('#myModal1').modal('toggle');
+        }
 
         function accept(e)
         {

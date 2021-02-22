@@ -197,6 +197,9 @@
                                                                         @if($key->status == 3 && $key->delivered == 1 && $key->received == 0)
                                                                             <li><a href="{{ url('/logstof/mark-received/'.$key->invoice_id) }}">Mark as received</a></li>
                                                                         @endif
+                                                                        @if($key->ask_customization)
+                                                                            <li><a onclick="ask(this)" data-text="{{ $key->review_text }}" href="javascript:void(0)">Review Text</a></li>
+                                                                        @endif
                                                                     </ul>
                                                                 </div>
                                                             </td>
@@ -225,6 +228,31 @@
                 </div>
                 <!-- Ending of Dashboard data-table area -->
             </div>
+        </div>
+    </div>
+
+    <div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button style="font-size: 32px;background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 style="margin: 10px 0;" id="myModalLabel">Review Reason</h3>
+                    </div>
+
+                    <div class="modal-body" id="myWizard">
+
+                        <textarea readonly rows="5" style="resize: vertical;" type="text" name="review_text" id="review_text" class="form-control" autocomplete="off"></textarea>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" aria-label="Close" style="border: 0;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">{{__('text.Close')}}</button>
+                    </div>
+
+                </div>
+
         </div>
     </div>
 
@@ -437,6 +465,17 @@
 @section('scripts')
 
     <script type="text/javascript">
+
+        function ask(e)
+        {
+            var text = $(e).data('text');
+
+            $('#review_text').val(text);
+
+            $('#myModal1').modal('toggle');
+        }
+
+
         $('#example').DataTable({
             order: [[0, 'desc']],
         });

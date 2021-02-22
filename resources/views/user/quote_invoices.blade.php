@@ -235,7 +235,15 @@
                                                                                 @endif
 
                                                                                 @if($key->status != 2 && $key->status != 3)
-                                                                                    <li><a href="{{ url('/handyman/edit-custom-quotation/'.$key->invoice_id) }}">{{__('text.Edit Quotation')}}</a></li>
+
+                                                                                    @if($key->ask_customization)
+
+                                                                                        <li><a onclick="ask(this)" data-text="{{$key->review_text}}" href="javascript:void(0)">{{__('text.Review Reason')}}</a></li>
+
+                                                                                    @endif
+
+                                                                                        <li><a href="{{ url('/handyman/edit-custom-quotation/'.$key->invoice_id) }}">{{__('text.Edit Quotation')}}</a></li>
+
                                                                                 @endif
 
                                                                                 @if($key->status == 3 && $key->delivered == 0)
@@ -262,6 +270,7 @@
                                                                                 @elseif($key->status == 1)
 
                                                                                     @if($key->ask_customization)
+                                                                                        <li><a onclick="ask(this)" data-text="{{$key->review_text}}" href="javascript:void(0)">{{__('text.Review Reason')}}</a></li>
                                                                                         <li><a href="{{ url('/handyman/edit-quotation/'.$key->invoice_id) }}">{{__('text.Edit Quotation')}}</a></li>
                                                                                     @endif
 
@@ -292,6 +301,31 @@
                 </div>
                 <!-- Ending of Dashboard data-table area -->
             </div>
+        </div>
+    </div>
+
+    <div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button style="font-size: 32px;background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 style="margin: 10px 0;" id="myModalLabel">{{__('text.Review Reason')}}</h3>
+                    </div>
+
+                    <div class="modal-body" id="myWizard">
+
+                        <textarea rows="5" style="resize: vertical;" type="text" name="review_text" id="review_text" class="form-control" readonly autocomplete="off"></textarea>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" aria-label="Close" style="border: 0;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">{{__('text.Close')}}</button>
+                    </div>
+
+                </div>
+
         </div>
     </div>
 
@@ -486,6 +520,16 @@
 @section('scripts')
 
     <script type="text/javascript">
+
+        function ask(e)
+        {
+            var text = $(e).data('text');
+            
+            $('#review_text').val(text);
+
+            $('#myModal1').modal('toggle');
+        }
+
         $('#example').DataTable({
             order: [[0, 'desc']],
             "oLanguage": {

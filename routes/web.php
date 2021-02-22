@@ -79,12 +79,12 @@
   Route::get('/download-custom-quotation/{id}', 'UserController@DownloadCustomQuotation');
   Route::get('/download-client-quote-invoice/{id}', 'UserController@DownloadClientQuoteInvoice');
   Route::get('/download-client-custom-quotation/{id}', 'UserController@DownloadClientCustomQuoteInvoice');
-  Route::get('/ask-customization/{id}', 'UserController@AskCustomization');
+  Route::post('/ask-customization', 'UserController@AskCustomization');
   Route::post('/accept-quotation', 'UserController@AcceptQuotation');
   Route::post('/pay-quotation', 'UserController@PayQuotation');
   Route::get('/quotation-payment-redirect-page/{id}', 'FrontendController@QuotationPaymentRedirectPage');
   Route::get('/send-custom-quotation/{id}', 'UserController@SendCustomQuotation');
-  Route::get('/custom-quotation/ask-customization/{id}', 'UserController@CustomQuotationAskCustomization');
+  Route::post('/custom-quotation/ask-customization', 'UserController@CustomQuotationAskCustomization');
   Route::get('/custom-quotation/accept-quotation/{id}', 'UserController@CustomQuotationAcceptQuotation');
   Route::get('/view-handyman-quote-request/{id}', 'UserController@HandymanQuoteRequest');
   Route::get('/download-handyman-quote-request/{id}', 'UserController@DownloadHandymanQuoteRequest');
