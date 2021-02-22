@@ -176,7 +176,7 @@ return [
     'Your Quotation request has been updated successfully!' => 'Je aanvraag is succesvol bijgewerkt',
     'Email address is already in use for a handyman account!' => 'Dit emailadres is al in gebruik!',
     'Your Quotation request has been created successfully!' => 'Je offerteaanvraag is succesvol aangemaakt!',
-    'New Product(s) added successfully.' => 'Je product is met succes aangemaakt.',
+    'New Product(s) added successfully.' => 'Je product(en) is met succes aangemaakt.',
     'Product deleted successfully.' => 'Product is succesvol verwijderd.',
     'Product edited successfully.' => 'Product is bijgewerkt.',
     'Item updated successfully.' => 'Accessoire is bijgewerkt',
@@ -230,6 +230,6 @@ return [
     'Direct Invoice Created!' => 'Verkoopfactuur van ',
     'Invoice Status Changed' => 'Status is gewijzigd',
     'Status Updated Successfully!' => 'Status Updated Successfully!',
-    'PROFILE' => 'PROFILE',
+    'PROFILE' => 'PROFIEL',
     'MENU' => 'MENU',
 ];

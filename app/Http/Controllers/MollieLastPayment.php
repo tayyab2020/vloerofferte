@@ -56,18 +56,18 @@ $client_dash = url('/').'/handyman/client-dashboard';
         {
 
             $headers =  'MIME-Version: 1.0' . "\r\n";
-$headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+$headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 $subject = "Remaining Payment Received!";
-$msg = "Dear Mr/Mrs ". $client_name .",<br><br>Your full payment for your booking has been received. For further details visit your client panel through <a href='".$client_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline.";
+$msg = "Dear Mr/Mrs ". $client_name .",<br><br>Your full payment for your booking has been received. For further details visit your client panel through <a href='".$client_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
 
 mail($data->user_email,$subject,$msg,$headers);
 
 $headers =  'MIME-Version: 1.0' . "\r\n";
-$headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+$headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 $subject = "Remaining Payment Submitted!";
-$msg = "Dear Mr/Mrs ". $handyman_name .",<br><br>Payment status for one of your bookings has been changed from partial to full. Kindly review your bookings before it get expired. You can visit your profile dashboard through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline.";
+$msg = "Dear Mr/Mrs ". $handyman_name .",<br><br>Payment status for one of your bookings has been changed from partial to full. Kindly review your bookings before it get expired. You can visit your profile dashboard through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
 
 mail($data->handyman_email,$subject,$msg,$headers);
 
@@ -76,18 +76,18 @@ mail($data->handyman_email,$subject,$msg,$headers);
         {
 
             $headers =  'MIME-Version: 1.0' . "\r\n";
-$headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+$headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 $subject = "Restant factuurbedrag voldaan!";
-$msg = "Beste ". $client_name .",<br><br>Wij hebben het resterende bedrag op je reservering ontvangen. Klik op account om de status van je klus te bekijken <a href='".$client_dash."'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline.";
+$msg = "Beste ". $client_name .",<br><br>Wij hebben het resterende bedrag op je reservering ontvangen. Klik op account om de status van je klus te bekijken <a href='".$client_dash."'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
 
 mail($data->user_email,$subject,$msg,$headers);
 
 $headers =  'MIME-Version: 1.0' . "\r\n";
-$headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+$headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 $subject = "Restant factuurbedrag voldaan!";
-$msg = "Beste ". $handyman_name .",<br><br>wij hebben het resterende bedrag op je reservering ontvangen van de oprachtgever. Zodra, de klus is afgerond maken wij het geld over op je rekening. Klik op account om de status van je klus te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline.";
+$msg = "Beste ". $handyman_name .",<br><br>wij hebben het resterende bedrag op je reservering ontvangen van de oprachtgever. Zodra, de klus is afgerond maken wij het geld over op je rekening. Klik op account om de status van je klus te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
 
 mail($data->handyman_email,$subject,$msg,$headers);
 
@@ -97,7 +97,7 @@ mail($data->handyman_email,$subject,$msg,$headers);
 
 
  $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Remaining Payment Received!";
             $msg = "Dear Nordin Adoui, Payment received for a booking. Payment status for this booking has been changed from partial to full. You can visit your admin panel to view all bookings.";

@@ -1223,13 +1223,13 @@ class FrontendController extends Controller
                 }
                 else
                 {
-                    $msg = "Dear Mr/Mrs " . $user_name . ",<br><br>Your account has been created and your quotation request has been submitted successfully. Kindly complete your profile and change your password. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Your Password: " . $password . "<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                    $msg = "Dear Mr/Mrs " . $user_name . ",<br><br>Your account has been created and your quotation request has been submitted successfully. Kindly complete your profile and change your password. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Your Password: " . $password . "<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
                 }
 
                 try{
                     \Mail::send(array(), array(), function ($message) use ($msg, $user_email, $user_name, $link, $password) {
                         $message->to($user_email)
-                            ->from('info@vloerofferteonline.nl')
+                            ->from('info@vloerofferte.nl')
                             ->subject(__('text.Account Created!'))
                             ->setBody($msg, 'text/html');
                     });
@@ -1248,13 +1248,13 @@ class FrontendController extends Controller
                 }
                 else
                 {
-                    $msg = "Dear Mr/Mrs " . $user_name . ",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                    $msg = "Dear Mr/Mrs " . $user_name . ",<br><br>Your quotation request has been submitted successfully. You can go to your dashboard through <a href='" . $link . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
                 }
 
                 try{
                     \Mail::send(array(), array(), function ($message) use ($msg, $user_email, $user_name, $link) {
                         $message->to($user_email)
-                            ->from('info@vloerofferteonline.nl')
+                            ->from('info@vloerofferte.nl')
                             ->subject(__('text.Quotation Request Submitted!'))
                             ->setBody($msg, 'text/html');
                     });

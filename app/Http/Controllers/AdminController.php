@@ -453,35 +453,35 @@ $payment = $mollie->customers->get($handyman->mollie_customer_id)->createPayment
 
 
         $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking Payment!";
-            $msg = "Dear Mr/Mrs ".$user->name. " ".$user->family_name.",<br><br>We have transferred your payment into Mr/Mrs. ".$handyman->name. " ".$handyman->family_name."'s account. You can visit your profile dashboard through <a href='".$client_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
+            $msg = "Dear Mr/Mrs ".$user->name. " ".$user->family_name.",<br><br>We have transferred your payment into Mr/Mrs. ".$handyman->name. " ".$handyman->family_name."'s account. You can visit your profile dashboard through <a href='".$client_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
             mail($user_email,$subject,$msg,$headers);
 
 
             $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Betaling!";
-            $msg = "Beste ".$user->name.",<br><br>we hebben de stoffeerder uitbetaald Mr/Mrs. ".$handyman->name. " ".$handyman->family_name."'s account. Klik op account om de status van je klus te bekijken <a href='".$client_dash."'>account.</a><br><br>Met vriendeijke groet,<br><br>Klantenservice<br><br> Vloerofferteonline";
+            $msg = "Beste ".$user->name.",<br><br>we hebben de stoffeerder uitbetaald Mr/Mrs. ".$handyman->name. " ".$handyman->family_name."'s account. Klik op account om de status van je klus te bekijken <a href='".$client_dash."'>account.</a><br><br>Met vriendeijke groet,<br><br>Klantenservice<br><br> Vloerofferte";
             mail($user_email,$subject,$msg,$headers);
 
 
 
             $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking Payment!";
-            $msg = "Dear Mr/Mrs ".$handyman->name. " ".$handyman->family_name.",<br><br>We have transferred payment from your client Mr/Mrs. ".$user->name. " ".$user->family_name." into your account. You can visit your profile dashboard through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
+            $msg = "Dear Mr/Mrs ".$handyman->name. " ".$handyman->family_name.",<br><br>We have transferred payment from your client Mr/Mrs. ".$user->name. " ".$user->family_name." into your account. You can visit your profile dashboard through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
             mail($handyman_email,$subject,$msg,$headers);
 
 
             $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Uitbetaling";
-            $msg = "Beste ".$handyman->name. " ".$handyman->family_name.",<br><br>we hebben je factuur van klus Mr/Mrs. ".$user->name . " ".$user->family_name." uitbetaald. Klik op account om de status van je klus te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
+            $msg = "Beste ".$handyman->name. " ".$handyman->family_name.",<br><br>we hebben je factuur van klus Mr/Mrs. ".$user->name . " ".$user->family_name." uitbetaald. Klik op account om de status van je klus te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
             mail($handyman_email,$subject,$msg,$headers);
 
             Session::flash('success', 'Status has been updated successfully, your client has been notified through mail.');
@@ -625,7 +625,7 @@ $amount_refund = $thirty_amount;
 
 
         $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking Cancelled!";
             $msg = $request->reply;
@@ -634,19 +634,19 @@ $amount_refund = $thirty_amount;
 
 
             $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Booking Cancelled!";
-            $msg = "Dear Mr/Mrs ".$handyman->name. " ".$handyman->family_name.",<br><br>Your booking has been cancelled from your client Mr/Mrs. ".$user->name. ' '.$user->family_name.". You can visit your profile dashboard through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
+            $msg = "Dear Mr/Mrs ".$handyman->name. " ".$handyman->family_name.",<br><br>Your booking has been cancelled from your client Mr/Mrs. ".$user->name. ' '.$user->family_name.". You can visit your profile dashboard through <a href='".$handyman_dash."'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
             mail($handyman_email,$subject,$msg,$headers);
 
 
 
             $headers =  'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Klus geannuleerd!";
-            $msg = "Beste ".$handyman->name. " ".$handyman->family_name.",<br><br>de klant heeft de reservering geannuleerd Mr/Mrs. ".$user->name. ' '.$user->family_name.". Klik op account om de status van je klus te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
+            $msg = "Beste ".$handyman->name. " ".$handyman->family_name.",<br><br>de klant heeft de reservering geannuleerd Mr/Mrs. ".$user->name. ' '.$user->family_name.". Klik op account om de status van je klus te bekijken <a href='".$handyman_dash."'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
             mail($handyman_email,$subject,$msg,$headers);
 
             Session::flash('success', 'Booking has been cancelled successfully, Amount has been refunded into customer account.');

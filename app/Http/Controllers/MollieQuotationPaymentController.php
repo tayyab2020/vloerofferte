@@ -98,7 +98,7 @@ class MollieQuotationPaymentController extends Controller {
 
             \Mail::send(array(), array(), function ($message) use ($msg, $file, $filename, $email, $name, $handyman_dash, $paid_amount, $quotation_invoice_number) {
                 $message->to($email)
-                    ->from('info@vloerofferteonline.nl')
+                    ->from('info@vloerofferte.nl')
                     ->subject(__('text.Payment Received!'))
                     ->setBody($msg, 'text/html');
 
@@ -113,7 +113,7 @@ class MollieQuotationPaymentController extends Controller {
 
             \Mail::send(array(), array(), function ($message) use ($file, $filename, $admin_email, $quotation_invoice_number, $paid_amount) {
                 $message->to($admin_email)
-                    ->from('info@vloerofferteonline.nl')
+                    ->from('info@vloerofferte.nl')
                     ->subject('Payment Received!')
                     ->setBody("Payment received for quotation # " . $quotation_invoice_number . "<br>Total amount : €" . $paid_amount . "<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte", 'text/html');
 

@@ -23,13 +23,13 @@
 @elseif($type == 'invoice client')
 
     <p>
-        Hi {{$client}},<br><br>Recent activity: An Invoice <b>(INV# {{$quotation_invoice_number}})</b> has been generated against your quotation request # <b>({{$quote_number}})</b> by Mr./Mrs. <b>{{$username}}</b>. PDF file is attached below.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline
+        Hi {{$client}},<br><br>Recent activity: An Invoice <b>(INV# {{$quotation_invoice_number}})</b> has been generated against your quotation request # <b>({{$quote_number}})</b> by Mr./Mrs. <b>{{$username}}</b>. PDF file is attached below.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte
     </p>
 
 @elseif($type == 'invoice')
 
     <p>
-        Hi Nordin Adoui,<br><br>Recent activity: An Invoice <b>(INV# {{$quotation_invoice_number}})</b> has been generated against quotation request # <b>({{$quote_number}})</b> by Mr./Mrs. <b>{{$username}}</b>. PDF file is attached below.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline
+        Hi Nordin Adoui,<br><br>Recent activity: An Invoice <b>(INV# {{$quotation_invoice_number}})</b> has been generated against quotation request # <b>({{$quote_number}})</b> by Mr./Mrs. <b>{{$username}}</b>. PDF file is attached below.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte
     </p>
 
 @endif
