@@ -171,7 +171,7 @@
                                 @if(Auth::guard('user')->check())
                                 @else
                                     <li class="border-line"><a href="{{route('user-login')}}">{{$lang->signin}}</a></li>
-                                    <li class="border-line"><a href="{{route('user-register')}}">{{$lang->signup}}</a></li>
+                                    {{--<li class="border-line"><a href="{{route('user-register')}}">{{$lang->signup}}</a></li>--}}
                                     <li class="border-line"><a href="{{route('handyman-register')}}">{{$lang->signup_handyman}}</a></li>
                                 @endif
 
@@ -216,7 +216,7 @@
 
                                             <li><a href="{{route('front.index')}}">{{$lang->home}}</a></li>
 
-                                            <li><a href="{{route('front.users')}}">{{$lang->h}}</a></li>
+                                            {{--<li><a href="{{route('front.users')}}">{{$lang->h}}</a></li>--}}
 
                                             @if($ps->a_status == 1)
                                                 <li><a href="{{route('front.about')}}">{{$lang->about}}</a></li>

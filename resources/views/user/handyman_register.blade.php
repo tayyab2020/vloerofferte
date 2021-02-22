@@ -82,6 +82,15 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        <input name="city" id="city" class="form-control" placeholder="{{$lang->ct}}" readonly type="text" value="{{ old('city') }}">
+                                    </div>
+                                </div>
+
                               <div class="form-group">
                                 <div class="input-group">
                                   <div class="input-group-addon">
@@ -213,6 +222,7 @@
                 }
             }
 
+            var city = '';
             var postal_code = '';
 
             for(var i=0; i < place.address_components.length; i++)
@@ -221,9 +231,26 @@
                 {
                     postal_code = place.address_components[i].long_name;
                 }
+
+                if(place.address_components[i].types[0] == 'locality')
+                {
+                    city = place.address_components[i].long_name;
+                }
             }
 
-            if(postal_code == '')
+            if(city == '')
+            {
+                for(var i=0; i < place.address_components.length; i++)
+                {
+                    if(place.address_components[i].types[0] == 'administrative_area_level_2')
+                    {
+                        city = place.address_components[i].long_name;
+
+                    }
+                }
+            }
+
+            if(postal_code == '' || city == '')
             {
                 flag = 1;
             }
@@ -233,11 +260,13 @@
                 $('#check_address').val(1);
                 $("#address-error").remove();
                 $('#postcode').val(postal_code);
+                $("#city").val(city);
             }
             else
             {
                 $('#address').val('');
                 $('#postcode').val('');
+                $("#city").val('');
 
                 $("#address-error").remove();
                 $('#address').parent().parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">{{__('text.Kindly write your full address with house/building number so system can detect postal code and city from it!')}}</small>');
@@ -258,6 +287,7 @@
         {
             $(this).val('');
             $('#postcode').val('');
+            $("#city").val('');
         }
     });
 

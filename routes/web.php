@@ -53,6 +53,9 @@
   Route::post('/subscribe','FrontendController@subscribe')->name('front.subscribe.submit');
   Route::post('/handyman/contact','FrontendController@useremail')->name('front.user.submit');
   Route::get('/handyman/refresh_code','FrontendController@refresh_code');
+  Route::get('/login', 'Auth\UserLoginController@showLoginForm')->name('user-login');
+  Route::post('/login', 'Auth\UserLoginController@login')->name('user-login-submit');
+  Route::get('/logout', 'Auth\UserLoginController@logout')->name('user-logout');
 
 
   Route::prefix('handyman')->group(function() {
@@ -146,8 +149,6 @@
   Route::post('/complete-profile', 'UserController@CompleteProfileUpdate')->name('user-complete-profile-update');
   Route::get('/forgot', 'Auth\UserForgotController@showforgotform')->name('user-forgot');
   Route::post('/forgot', 'Auth\UserForgotController@forgot')->name('user-forgot-submit');
-  Route::get('/login', 'Auth\UserLoginController@showLoginForm')->name('user-login');
-  Route::post('/login', 'Auth\UserLoginController@login')->name('user-login-submit');
   Route::get('/register', 'Auth\UserRegisterController@showRegisterForm')->name('user-register');
   Route::get('/complete-profile', 'UserController@CompleteProfile')->name('user-complete-profile');
   Route::get('/register-handyman', 'Auth\UserRegisterController@showHandymanRegisterForm')->name('handyman-register');
@@ -155,7 +156,6 @@
   Route::post('/handyman-register', 'Auth\UserRegisterController@HandymanRegister')->name('handyman-register-submit');
   Route::post('/handyman-status-update', 'UserController@HandymanStatusUpdate')->name('handyman-status-update');
   Route::post('/client-status-update', 'UserController@ClientStatusUpdate')->name('client-status-update');
-  Route::get('/logout', 'Auth\UserLoginController@logout')->name('user-logout');
   Route::post('/add-cart', 'UserController@AddCart')->name('add-cart');
   Route::post('/book-handyman', 'UserController@BookHandyman')->name('book-handyman');
 

@@ -27,7 +27,7 @@
                            </div>
                            <div class="col-md-3 col-md-offset-1">
                                <div class="post-sidebar-area">
-                                   <h2 class="post-heading">Recent Posts</h2>
+                                   <h2 class="post-heading">{{__('text.Recent Posts')}}</h2>
                                    <ul>
                                     @foreach($lblogs as $lblog)
                                        <li><i class="fa fa-angle-right"></i> <a href="{{route('front.blogshow',$lblog->title)}}">{{$lblog->title}}</a> <span>{{date('d M Y',(strtotime($lblog->created_at)))}}</span></li>

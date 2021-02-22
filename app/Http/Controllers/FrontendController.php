@@ -210,7 +210,7 @@ class FrontendController extends Controller
 
         $language = user_languages::where('ip', '=', $ip_address)->update(['lang' => $request->lang_select]);
 
-        return redirect()->route('client-dashboard');
+        return redirect()->route('client-quotation-requests');
 
     }
 

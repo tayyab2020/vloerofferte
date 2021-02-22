@@ -875,9 +875,9 @@ class AdminUserController extends Controller
 
         \Mail::send(array(), array(), function ($message) use ($client) {
             $message->to($client->email)
-                ->from('info@vloerofferteonline.nl')
+                ->from('info@vloerofferte.nl')
                 ->subject('Invoice Status Changed')
-                ->setBody("Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> has been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline", 'text/html');
+                ->setBody("Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> has been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte", 'text/html');
         });
 
         Session::flash('success', 'Status Updated Successfully!');

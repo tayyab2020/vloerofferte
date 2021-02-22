@@ -2068,14 +2068,14 @@ class UserController extends Controller
                 $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                 $subject = "Klus status gewijzigd!";
-                $msg = "Beste " . $client_name . ",<br><br>Je stoffeerder " . $name . " heeft de status van je klus gewijzigd. Klik op account om de status van je klus te bekijken <a href='" . $client_dash . "'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Beste " . $client_name . ",<br><br>Je stoffeerder " . $name . " heeft de status van je klus gewijzigd. Klik op account om de status van je klus te bekijken <a href='" . $client_dash . "'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
                 mail($client_email, $subject, $msg, $headers);
 
             }
 
 
             $headers = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $subject = "Booking status changed!";
             $msg = "Dear Nordin Adoui, Recent Activity: Status changed for handyman Mr/Mrs " . $name . ". Kindly visit your admin dashboard to view all bookings statuses.";
@@ -2090,27 +2090,27 @@ class UserController extends Controller
             {
 
                 $headers = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+                $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                 $subject = "Booking status changed!";
-                $msg = "Dear Mr/Mrs " . $client_name . ",<br><br>Your handyman Mr/Mrs " . $name . " recently changed the status regarding your booking. Current status for the ongoing job is updated as completed by the handyman, If the job has been completed by this handyman than kindly change the status for this job so that we can transfer funds to handyman account. You can see your current booking status by visiting your profile through <a href='" . $client_dash . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Dear Mr/Mrs " . $client_name . ",<br><br>Your handyman Mr/Mrs " . $name . " recently changed the status regarding your booking. Current status for the ongoing job is updated as completed by the handyman, If the job has been completed by this handyman than kindly change the status for this job so that we can transfer funds to handyman account. You can see your current booking status by visiting your profile through <a href='" . $client_dash . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
                 mail($client_email, $subject, $msg, $headers);
 
             } else // Dutch Email Template
             {
 
                 $headers = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+                $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                 $subject = "Klus status gewijzigd!";
-                $msg = "Beste " . $client_name . ",<br><br>Je stoffeerder " . $name . " heeft de status van je klus gewijzigd. De status is gewijzigd naar afgerond, als je akkoord bent graag ook de status wijzigen naar klus voldaan. Indien, je niet tevreden bent laat dit ons graag binnen 48 uur weten zodat wij contact op kunnen nemen met de stoffeerder. Om de status van je klus te bekijken klik op account <a href='" . $client_dash . "'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Beste " . $client_name . ",<br><br>Je stoffeerder " . $name . " heeft de status van je klus gewijzigd. De status is gewijzigd naar afgerond, als je akkoord bent graag ook de status wijzigen naar klus voldaan. Indien, je niet tevreden bent laat dit ons graag binnen 48 uur weten zodat wij contact op kunnen nemen met de stoffeerder. Om de status van je klus te bekijken klik op account <a href='" . $client_dash . "'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
                 mail($client_email, $subject, $msg, $headers);
 
             }
 
 
             $headers = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $subject = "Booking status changed!";
             $msg = "Dear Nordin Adoui, Recent activity: Status changed for handyman Mr/Mrs " . $name . ". Kindly visit your admin dashboard to view all bookings statuses.";
@@ -2179,27 +2179,27 @@ class UserController extends Controller
             {
 
                 $headers = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+                $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                 $subject = "Booking status changed!";
-                $msg = "Dear Mr/Mrs " . $handyman_name . ",<br><br>Your client Mr/Mrs. " . $name . " has changed an ongoing job status to Finished. You will get your payment in your account after approval from backoffice in next 48 hours. You can visit your profile dashboard to view your booking status. You can see your current booking status by visiting your profile through <a href='" . $handyman_dash . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Dear Mr/Mrs " . $handyman_name . ",<br><br>Your client Mr/Mrs. " . $name . " has changed an ongoing job status to Finished. You will get your payment in your account after approval from backoffice in next 48 hours. You can visit your profile dashboard to view your booking status. You can see your current booking status by visiting your profile through <a href='" . $handyman_dash . "'>here.</a><br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
                 mail($handyman_email, $subject, $msg, $headers);
 
             } else // Dutch Email Template
             {
 
                 $headers = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+                $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                 $subject = "Klus status gewijzigd!";
-                $msg = "Beste " . $handyman_name . ",<br><br>Je opdrachtgever " . $name . " heeft de status van je klus gewijzigd naar klus voldaan. Je factuur wordt binnen 5 werkdagen uitbetaald. Klik op account om de status van je reservering te bekijken <a href='" . $handyman_dash . "'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Beste " . $handyman_name . ",<br><br>Je opdrachtgever " . $name . " heeft de status van je klus gewijzigd naar klus voldaan. Je factuur wordt binnen 5 werkdagen uitbetaald. Klik op account om de status van je reservering te bekijken <a href='" . $handyman_dash . "'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
                 mail($handyman_email, $subject, $msg, $headers);
 
             }
 
 
             $headers = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $subject = "Booking status changed!";
             $msg = "Dear Nordin Adoui, Recent activity: Status changed for handyman Mr/Mrs. " . $name . ". Kindly visit your admin dashboard to view all bookings statuses.";
@@ -2272,7 +2272,7 @@ class UserController extends Controller
 
 
             $headers = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+            $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $subject = "Booking cancellation request!";
             $msg = "Dear Nordin Adoui, Recent activity: Job cancellation request has been posted for handyman Mr/Mrs. " . $name . " due to following reason: ' " . $request->reason . " '. Kindly visit your admin dashboard to take further actions.";
@@ -3391,7 +3391,7 @@ class UserController extends Controller
         }
 
         $headers = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+        $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Profile Update Requested!";
         $msg = "Dear Nordin Adoui, Recent activity: A handyman Mr/Mrs. " . $input['name'] . " " . $input['family_name'] . " requested for profile update, kindly visit your admin dashboard in order to take further actions.";
@@ -3545,7 +3545,7 @@ class UserController extends Controller
 
 
         $headers = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'From: Vloerofferteonline <info@vloerofferteonline.nl>' . "\r\n";
+        $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Insurance POD Uploaded!";
         $msg = "Dear Nordin Adoui, Recent activity: A handyman Mr/Mrs. " . $name . " uploaded a pod for his/her insurance, kindly visit your admin dashboard in order to take further actions.";
@@ -3808,25 +3808,25 @@ class UserController extends Controller
 
             if($this->lang->lang == 'du')
             {
-                $msg = "Beste $client->name,<br><br>De status van je bestelling met factuur INV# <b>" . $client->quotation_invoice_number . "</b> is zojuist gewijzigd naar afgeleverd. Je kan de status naar ontvangen wijzigen in je <a href='$link'>dashboard</a>. Doe dit alleen als je de goederen hebt ontvangen. Mocht, je de goederen op de bezorgdatum niet hebben ontvangen neem dan contact met ons op.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Beste $client->name,<br><br>De status van je bestelling met factuur INV# <b>" . $client->quotation_invoice_number . "</b> is zojuist gewijzigd naar afgeleverd. Je kan de status naar ontvangen wijzigen in je <a href='$link'>dashboard</a>. Doe dit alleen als je de goederen hebt ontvangen. Mocht, je de goederen op de bezorgdatum niet hebben ontvangen neem dan contact met ons op.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
             }
             else
             {
-                $msg = "Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
             }
 
             \Mail::send(array(), array(), function ($message) use ($msg,$client) {
                 $message->to($client->email)
-                    ->from('info@vloerofferteonline.nl')
+                    ->from('info@vloerofferte.nl')
                     ->subject(__('text.Invoice Status Changed'))
                     ->setBody($msg, 'text/html');
             });
 
             \Mail::send(array(), array(), function ($message) use ($admin_email, $client) {
                 $message->to($admin_email)
-                    ->from('info@vloerofferteonline.nl')
+                    ->from('info@vloerofferte.nl')
                     ->subject('Invoice Status Changed')
-                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline", 'text/html');
+                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte", 'text/html');
             });
 
             Session::flash('success', __('text.Status Updated Successfully!'));
@@ -3852,25 +3852,25 @@ class UserController extends Controller
 
             if($this->lang->lang == 'du')
             {
-                $msg = "Beste $handyman->name,<br><br>Je klant heeft de status voor factuur INV# <b>" . $handyman->quotation_invoice_number . "</b> gewijzigd naar goederen ontvangen.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Beste $handyman->name,<br><br>Je klant heeft de status voor factuur INV# <b>" . $handyman->quotation_invoice_number . "</b> gewijzigd naar goederen ontvangen.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
             }
             else
             {
-                $msg = "Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
             }
 
             \Mail::send(array(), array(), function ($message) use ($msg,$handyman) {
                 $message->to($handyman->email)
-                    ->from('info@vloerofferteonline.nl')
+                    ->from('info@vloerofferte.nl')
                     ->subject(__('text.Invoice Status Changed'))
                     ->setBody($msg, 'text/html');
             });
 
             \Mail::send(array(), array(), function ($message) use ($admin_email, $handyman) {
                 $message->to($admin_email)
-                    ->from('info@vloerofferteonline.nl')
+                    ->from('info@vloerofferte.nl')
                     ->subject('Invoice Status Changed')
-                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline", 'text/html');
+                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte", 'text/html');
             });
 
             Session::flash('success', __('text.Status Updated Successfully!'));
@@ -3898,25 +3898,25 @@ class UserController extends Controller
 
             if($this->lang->lang == 'du')
             {
-                $msg = "Beste $client->name,<br><br>De status van je bestelling met factuur INV# <b>" . $client->quotation_invoice_number . "</b> is zojuist gewijzigd naar afgeleverd. Je kan de status naar ontvangen wijzigen in je <a href='$link'>dashboard</a>. Doe dit alleen als je de goederen hebt ontvangen. Mocht, je de goederen op de bezorgdatum niet hebben ontvangen neem dan contact met ons op.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Beste $client->name,<br><br>De status van je bestelling met factuur INV# <b>" . $client->quotation_invoice_number . "</b> is zojuist gewijzigd naar afgeleverd. Je kan de status naar ontvangen wijzigen in je <a href='$link'>dashboard</a>. Doe dit alleen als je de goederen hebt ontvangen. Mocht, je de goederen op de bezorgdatum niet hebben ontvangen neem dan contact met ons op.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
             }
             else
             {
-                $msg = "Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Dear <b>Mr/Mrs " . $client->name . "</b>,<br><br>Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered. You can change this quotation status to 'Received' if goods have been delivered to you. After 7 days from now on it will automatically be marked as 'Received'.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
             }
 
             \Mail::send(array(), array(), function ($message) use ($msg,$client) {
                 $message->to($client->email)
-                    ->from('info@vloerofferteonline.nl')
+                    ->from('info@vloerofferte.nl')
                     ->subject(__('text.Invoice Status Changed'))
                     ->setBody($msg, 'text/html');
             });
 
             \Mail::send(array(), array(), function ($message) use ($admin_email, $client) {
                 $message->to($admin_email)
-                    ->from('info@vloerofferteonline.nl')
+                    ->from('info@vloerofferte.nl')
                     ->subject('Invoice Status Changed')
-                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline", 'text/html');
+                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $client->quotation_invoice_number . "</b> have been marked as delivered.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte", 'text/html');
             });
 
             Session::flash('success', __('text.Status Updated Successfully!'));
@@ -3942,25 +3942,25 @@ class UserController extends Controller
 
             if($this->lang->lang == 'du')
             {
-                $msg = "Beste $handyman->name,<br><br>Je klant heeft de status voor factuur INV# <b>" . $handyman->quotation_invoice_number . "</b> gewijzigd naar goederen ontvangen.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Beste $handyman->name,<br><br>Je klant heeft de status voor factuur INV# <b>" . $handyman->quotation_invoice_number . "</b> gewijzigd naar goederen ontvangen.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
             }
             else
             {
-                $msg = "Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline";
+                $msg = "Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
             }
 
             \Mail::send(array(), array(), function ($message) use ($msg,$handyman) {
                 $message->to($handyman->email)
-                    ->from('info@vloerofferteonline.nl')
+                    ->from('info@vloerofferte.nl')
                     ->subject(__('text.Invoice Status Changed'))
                     ->setBody($msg, 'text/html');
             });
 
             \Mail::send(array(), array(), function ($message) use ($admin_email, $handyman) {
                 $message->to($admin_email)
-                    ->from('info@vloerofferteonline.nl')
+                    ->from('info@vloerofferte.nl')
                     ->subject('Invoice Status Changed')
-                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferteonline", 'text/html');
+                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte", 'text/html');
             });
 
             Session::flash('success', __('text.Status Updated Successfully!'));
