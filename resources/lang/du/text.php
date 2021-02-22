@@ -232,4 +232,5 @@ return [
     'Status Updated Successfully!' => 'Status Updated Successfully!',
     'PROFILE' => 'PROFIEL',
     'MENU' => 'MENU',
+    'Request submitted successfully!' => 'Request submitted successfully!',
 ];

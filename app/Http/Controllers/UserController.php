@@ -454,7 +454,7 @@ class UserController extends Controller
         });
 
 
-        Session::flash('success', 'Request submitted successfully!');
+        Session::flash('success', __('text.Request submitted successfully!'));
 
         return redirect()->back();
     }
@@ -495,7 +495,7 @@ class UserController extends Controller
         });*/
 
 
-        Session::flash('success', 'Request submitted successfully!');
+        Session::flash('success', __('text.Request submitted successfully!'));
 
         return redirect()->back();
     }
