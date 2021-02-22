@@ -55,6 +55,7 @@
                                         <p style="font-size: 25px;float: left;" class="font-weight-bold mb-4 m-heading">{{__('text.Quotation Request')}} {{$quote_number}}</p>
                                         <p style="float: right;" class="mb-1 m-rest">{{__('text.Created at')}}: {{$date}}</p>
                                     </div>
+
                                     @if(isset($delivery_date))
                                         <?php $delivery_date = date('d-m-Y',strtotime($delivery_date)); ?>
                                         <br><br>
