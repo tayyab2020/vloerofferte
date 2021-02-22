@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'info@vloerofferteonline.nl'),
-        'name' => env('MAIL_FROM_NAME', 'vloerofferteonline.nl'),
+        'address' => env('MAIL_FROM_ADDRESS', 'info@vloerofferte.nl'),
+        'name' => env('MAIL_FROM_NAME', 'vloerofferte.nl'),
     ],
 
     /*
