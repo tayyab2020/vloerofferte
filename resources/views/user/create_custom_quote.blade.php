@@ -1843,7 +1843,7 @@
                     startDate: new Date(),
 
                 });
-                
+
 
                 $(".remove-row").click(function(){
 

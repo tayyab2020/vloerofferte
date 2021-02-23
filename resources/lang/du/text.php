@@ -235,7 +235,7 @@ return [
     'Request submitted successfully!' => 'Verzoek is ingediend!',
     'Mention Review Reason' => 'Verzoek tot aanpassing.',
     'Review Reason' => 'Reden voor aanpassing?',
-    'Recent Posts' => 'Recent Posts',
+    'Recent Posts' => 'Laatste blogs',
     'Enter Code' => 'Enter Code',
     'Send Message' => 'Send Message',
 ];
