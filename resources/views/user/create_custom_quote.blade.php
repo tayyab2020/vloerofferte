@@ -123,6 +123,7 @@
                                                                     <tr>
                                                                         <td>1</td>
                                                                         <td class="service_box">
+
                                                                             <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
 
                                                                                 <option value="">{{__('text.Select Category/Item')}}</option>
@@ -141,6 +142,7 @@
                                                                         </td>
 
                                                                         <td class="brand_box">
+
                                                                             <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>
 
                                                                                 <option value="">{{__('text.Select Brand')}}</option>
@@ -148,9 +150,11 @@
                                                                             </select>
 
                                                                             <input type="hidden" name="brand_title[]" value="">
+                                                                            <input style="display: none;" class="form-control" type="text" name="item_brand[]" id="item_brand">
                                                                         </td>
 
                                                                         <td class="model_box">
+
                                                                             <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>
 
                                                                                 <option value="">{{__('text.Select Model')}}</option>
@@ -158,6 +162,7 @@
                                                                             </select>
 
                                                                             <input type="hidden" name="model_title[]" value="">
+                                                                            <input style="display: none;" class="form-control" type="text" name="item_model[]" id="item_model">
                                                                         </td>
 
                                                                         <td class="td-qty">
@@ -1334,8 +1339,39 @@
                                 .end()
                                 .append('<option value="">Select Model</option>');
 
+                            current.parent().next().children('select').attr('required', true);
+                            current.parent().next().next().children('select').attr('required', true);
+
+                            current.parent().next().children('#item_brand').hide();
+                            current.parent().next().children('.select2').show();
+
+                            current.parent().next().next().children('#item_model').hide();
+                            current.parent().next().next().children('.select2').show();
+
                         }
                     });
+                }
+                else
+                {
+
+                    current.parent().next().children('select').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Brand</option>');
+
+                    current.parent().next().next().children('select').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Model</option>');
+
+                    current.parent().next().children('select').attr('required', false);
+                    current.parent().next().next().children('select').attr('required', false);
+
+                    current.parent().next().children('.select2').hide();
+                    current.parent().next().children('#item_brand').show();
+
+                    current.parent().next().next().children('.select2').hide();
+                    current.parent().next().next().children('#item_model').show();
                 }
 
             });
@@ -1480,12 +1516,14 @@
                     '                                                                                    <option value="">Select Brand</option>\n' +
                     '                                                                            </select>\n' +
                     '                                                                           <input type="hidden" name="brand_title[]" value="">\n'+
+                    '                                                                           <input style="display: none;" class="form-control" type="text" name="item_brand[]" id="item_brand">\n'+
                     '                                                                        </td>\n' +
                     '                                                                        <td class="model_box">\n' +
                     '                                                                            <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>\n' +
                     '                                                                                    <option value="">Select Model</option>\n' +
                     '                                                                            </select>\n' +
                     '                                                                           <input type="hidden" name="model_title[]" value="">\n'+
+                    '                                                                           <input style="display: none;" class="form-control" type="text" name="item_model[]" id="item_model">\n'+
                     '                                                                        </td>\n' +
                     '                                                                        <td class="td-qty">\n' +
                     '                                                                            <input name="qty[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" required>\n' +
@@ -1621,8 +1659,39 @@
                                     .end()
                                     .append('<option value="">Select Model</option>');
 
+                                current.parent().next().children('select').attr('required', true);
+                                current.parent().next().next().children('select').attr('required', true);
+
+                                current.parent().next().children('#item_brand').hide();
+                                current.parent().next().children('.select2').show();
+
+                                current.parent().next().next().children('#item_model').hide();
+                                current.parent().next().next().children('.select2').show();
+
                             }
                         });
+                    }
+                    else
+                    {
+
+                        current.parent().next().children('select').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Brand</option>');
+
+                        current.parent().next().next().children('select').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Model</option>');
+
+                        current.parent().next().children('select').attr('required', false);
+                        current.parent().next().next().children('select').attr('required', false);
+
+                        current.parent().next().children('.select2').hide();
+                        current.parent().next().children('#item_brand').show();
+
+                        current.parent().next().next().children('.select2').hide();
+                        current.parent().next().next().children('#item_model').show();
                     }
 
                 });

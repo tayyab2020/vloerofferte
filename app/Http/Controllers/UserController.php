@@ -1534,16 +1534,31 @@ class UserController extends Controller
             foreach ($services as $i => $key) {
 
                 if (strpos($services[$i], 'I') > -1) {
+
                     $x = 1;
+                    $brand_id = 0;
+                    $model_id = 0;
+
+                    $brand_title = $request->brand_title;
+
+                    $brand_title[$i] = $request->item_brand[$i];
+                    $request->merge(['brand_title' => $brand_title]);
+
+                    $model_title = $request->model_title;
+                    $model_title[$i] = $request->item_model[$i];
+                    $request->merge(['model_title' => $model_title]);
+
                 } else {
                     $x = 0;
+                    $brand_id = (int)$request->brand[$i];
+                    $model_id = (int)$request->model[$i];
                 }
 
                 $invoice_items = new custom_quotations_data;
                 $invoice_items->quotation_id = $invoice->id;
                 $invoice_items->s_i_id = (int)$key;
-                $invoice_items->b_i_id = $request->brand[$i];
-                $invoice_items->m_i_id = $request->model[$i];
+                $invoice_items->b_i_id = $brand_id;
+                $invoice_items->m_i_id = $model_id;
                 $invoice_items->item = $x;
                 $invoice_items->service = $request->service_title[$i];
                 $invoice_items->brand = $request->brand_title[$i];
@@ -1596,6 +1611,7 @@ class UserController extends Controller
 
             Session::flash('success', __('text.Quotation has been created successfully!'));
             return redirect()->route('customer-quotations');
+
         } elseif ($name == 'store-direct-invoice') {
 
             $quotation_invoice_number = date("Y") . "-" . sprintf('%04u', $user_id) . '-' . sprintf('%04u', $counter);
@@ -1616,17 +1632,33 @@ class UserController extends Controller
             $invoice->save();
 
             foreach ($services as $i => $key) {
+
                 if (strpos($services[$i], 'I') > -1) {
+
                     $x = 1;
+                    $brand_id = 0;
+                    $model_id = 0;
+
+                    $brand_title = $request->brand_title;
+
+                    $brand_title[$i] = $request->item_brand[$i];
+                    $request->merge(['brand_title' => $brand_title]);
+
+                    $model_title = $request->model_title;
+                    $model_title[$i] = $request->item_model[$i];
+                    $request->merge(['model_title' => $model_title]);
+
                 } else {
                     $x = 0;
+                    $brand_id = (int)$request->brand[$i];
+                    $model_id = (int)$request->model[$i];
                 }
 
                 $invoice_items = new custom_quotations_data;
                 $invoice_items->quotation_id = $invoice->id;
                 $invoice_items->s_i_id = (int)$key;
-                $invoice_items->b_i_id = $request->brand[$i];
-                $invoice_items->m_i_id = $request->model[$i];
+                $invoice_items->b_i_id = $brand_id;
+                $invoice_items->m_i_id = $model_id;
                 $invoice_items->item = $x;
                 $invoice_items->service = $request->service_title[$i];
                 $invoice_items->brand = $request->brand_title[$i];
@@ -1699,6 +1731,7 @@ class UserController extends Controller
 
             Session::flash('success', __('text.Direct invoice has been created successfully!'));
             return redirect()->route('customer-invoices');
+
         } elseif ($name == 'update-custom-quotation') {
 
             $quotation = custom_quotations::where('id', $request->quotation_id)->where('handyman_id', $user_id)->first();
@@ -1713,17 +1746,33 @@ class UserController extends Controller
             $items = custom_quotations_data::where('quotation_id', $quotation->id)->delete();
 
             foreach ($services as $i => $key) {
+
                 if (strpos($services[$i], 'I') > -1) {
+
                     $x = 1;
+                    $brand_id = 0;
+                    $model_id = 0;
+
+                    $brand_title = $request->brand_title;
+
+                    $brand_title[$i] = $request->item_brand[$i];
+                    $request->merge(['brand_title' => $brand_title]);
+
+                    $model_title = $request->model_title;
+                    $model_title[$i] = $request->item_model[$i];
+                    $request->merge(['model_title' => $model_title]);
+
                 } else {
                     $x = 0;
+                    $brand_id = (int)$request->brand[$i];
+                    $model_id = (int)$request->model[$i];
                 }
 
                 $item = new custom_quotations_data;
                 $item->quotation_id = $quotation->id;
                 $item->s_i_id = (int)$key;
-                $item->b_i_id = $request->brand[$i];
-                $item->m_i_id = $request->model[$i];
+                $item->b_i_id = $brand_id;
+                $item->m_i_id = $model_id;
                 $item->item = $x;
                 $item->service = $request->service_title[$i];
                 $item->brand = $request->brand_title[$i];
@@ -1810,17 +1859,33 @@ class UserController extends Controller
             $items = custom_quotations_data::where('quotation_id', $quotation->id)->delete();
 
             foreach ($services as $i => $key) {
+
                 if (strpos($services[$i], 'I') > -1) {
+
                     $x = 1;
+                    $brand_id = 0;
+                    $model_id = 0;
+
+                    $brand_title = $request->brand_title;
+
+                    $brand_title[$i] = $request->item_brand[$i];
+                    $request->merge(['brand_title' => $brand_title]);
+
+                    $model_title = $request->model_title;
+                    $model_title[$i] = $request->item_model[$i];
+                    $request->merge(['model_title' => $model_title]);
+
                 } else {
                     $x = 0;
+                    $brand_id = (int)$request->brand[$i];
+                    $model_id = (int)$request->model[$i];
                 }
 
                 $item = new custom_quotations_data;
                 $item->quotation_id = $quotation->id;
                 $item->s_i_id = (int)$key;
-                $item->b_i_id = $request->brand[$i];
-                $item->m_i_id = $request->model[$i];
+                $item->b_i_id = $brand_id;
+                $item->m_i_id = $model_id;
                 $item->item = $x;
                 $item->service = $request->service_title[$i];
                 $item->brand = $request->brand_title[$i];
