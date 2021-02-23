@@ -55,7 +55,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        
+
                                         <form class="form-horizontal"  action="{{route('insurance-upload')}}" method="POST" enctype="multipart/form-data" id="myForm">
 
 
@@ -64,11 +64,11 @@
                                             {{csrf_field()}}
 
                                             <div class="profile-filup-description-box margin-bottom-30">
-                                               
+
 
                                                 <div class="form-group" >
 
-                                                  
+
 
 
 
@@ -86,7 +86,7 @@
 
                                             </div>
 
-                                            
+
 
                                             @if($user->insurance == 0)
 
@@ -121,7 +121,7 @@
 @endif
 
 
-                                            
+
                                         </form>
                                     </div>
                                 </div>
@@ -247,7 +247,7 @@
                 $.ajax({
                     type:"GET",
                     data: "id=" + id ,
-                    url: "<?php echo url('/handyman/services')?>",
+                    url: "<?php echo url('/aanbieder/services')?>",
                     success: function(data) {
 
                         $(selector).parent().parent().children('#rate').children("input").attr("placeholder", data);
@@ -278,7 +278,7 @@
             $.ajax({
                 type:"GET",
                 data: "id=" + id ,
-                url: "<?php echo url('/handyman/delete-services')?>",
+                url: "<?php echo url('/aanbieder/delete-services')?>",
                 success: function(data) {
 
                     $(parent).children().children().children('select').val('');
@@ -340,7 +340,7 @@
                             $.ajax({
                                 type:"GET",
                                 data: "id=" + id ,
-                                url: "<?php echo url('/handyman/services')?>",
+                                url: "<?php echo url('/aanbieder/services')?>",
                                 success: function(data) {
 
                                     $(selector).parent().parent().children('#rate').children("input").attr("placeholder", data);
@@ -421,7 +421,7 @@
                     $.ajax({
                         type:"GET",
                         data: "id=" + id ,
-                        url: "<?php echo url('/handyman/services')?>",
+                        url: "<?php echo url('/aanbieder/services')?>",
                         success: function(data) {
 
                             $(selector).parent().parent().children('#rate').children("input").attr("placeholder", data);

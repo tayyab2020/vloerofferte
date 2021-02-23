@@ -320,7 +320,7 @@ class UserController extends Controller
             }
 
         } else {
-            return redirect('handyman/client-dashboard');
+            return redirect('aanbieder/client-dashboard');
         }
     }
 
@@ -935,7 +935,7 @@ class UserController extends Controller
 
             return response()->download(public_path("assets/quotesPDF/{$filename}"));
         } else {
-            return redirect('handyman/dashboard');
+            return redirect('aanbieder/dashboard');
         }
     }
 
@@ -973,7 +973,7 @@ class UserController extends Controller
         if ($quote) {
             return view('user.create_quotation', compact('quote', 'matched_data', 'vat_percentage', 'items', 'all_services', 'all_brands', 'all_models', 'user_id'));
         } else {
-            return redirect('handyman/dashboard');
+            return redirect('aanbieder/dashboard');
         }
     }
 
@@ -1005,7 +1005,7 @@ class UserController extends Controller
             return view('user.quotation', compact('quotation', 'services', 'vat_percentage', 'items', 'all_brands', 'all_models', 'user_id'));
 
         } else {
-            return redirect('handyman/dashboard');
+            return redirect('aanbieder/dashboard');
         }
 
     }
@@ -1044,7 +1044,7 @@ class UserController extends Controller
 
             return view('user.quotation', compact('quotation', 'services', 'all_brands', 'all_models', 'vat_percentage', 'items', 'user_id'));
         } else {
-            return redirect('handyman/dashboard');
+            return redirect('aanbieder/dashboard');
         }
 
     }
@@ -1068,7 +1068,7 @@ class UserController extends Controller
 
             return view('user.client_quotation', compact('quotation', 'services', 'vat_percentage', 'items'));
         } else {
-            return redirect('handyman/client-dashboard');
+            return redirect('aanbieder/client-dashboard');
         }
     }
 
@@ -1091,7 +1091,7 @@ class UserController extends Controller
 
             return view('user.client_quotation', compact('quotation', 'services', 'vat_percentage', 'items'));
         } else {
-            return redirect('handyman/client-dashboard');
+            return redirect('aanbieder/client-dashboard');
         }
     }
 
@@ -2139,9 +2139,9 @@ class UserController extends Controller
 
         $name = $user_name . ' ' . $user_familyname;
 
-        $handyman_dash = url('/') . '/handyman/dashboard';
+        $handyman_dash = url('/') . '/aanbieder/dashboard';
 
-        $client_dash = url('/') . '/handyman/client-dashboard';
+        $client_dash = url('/') . '/aanbieder/client-dashboard';
 
 
         if ($request->statusSelect == 1) {
@@ -2244,9 +2244,9 @@ class UserController extends Controller
 
         $handyman_name = $handyman->name . " " . $handyman->family_name;
 
-        $handyman_dash = url('/') . '/handyman/dashboard';
+        $handyman_dash = url('/') . '/aanbieder/dashboard';
 
-        $client_dash = url('/') . '/handyman/client-dashboard';
+        $client_dash = url('/') . '/aanbieder/client-dashboard';
 
 
         if ($request->statusSelect == 1) {
@@ -3902,7 +3902,7 @@ class UserController extends Controller
 
             $admin_email = $this->sl->admin_email;
 
-            $link = url('/') . '/handyman/client-dashboard';
+            $link = url('/') . '/aanbieder/client-dashboard';
 
             if($this->lang->lang == 'du')
             {
@@ -3992,7 +3992,7 @@ class UserController extends Controller
 
             $admin_email = $this->sl->admin_email;
 
-            $link = url('/') . '/handyman/client-dashboard';
+            $link = url('/') . '/aanbieder/client-dashboard';
 
             if($this->lang->lang == 'du')
             {

@@ -264,7 +264,7 @@
 
                                                                                 @if($key->status != 0 && $key->status != 2 && $key->status != 3)
 
-                                                                                    <li><a onclick="ask(this)" data-id="{{$key->invoice_id}}" data-text="{{$key->review_text}}" data-url="{{ url('/handyman/ask-customization/') }}" href="javascript:void(0)">{{__('text.Ask Again')}}</a></li>
+                                                                                    <li><a onclick="ask(this)" data-id="{{$key->invoice_id}}" data-text="{{$key->review_text}}" data-url="{{ url('/aanbieder/ask-customization/') }}" href="javascript:void(0)">{{__('text.Ask Again')}}</a></li>
 
                                                                                     <li><a onclick="accept(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Accept')}}</a></li>
 

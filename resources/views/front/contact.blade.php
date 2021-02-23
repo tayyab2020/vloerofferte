@@ -111,7 +111,7 @@
 @section('scripts')
     <script>
         $('.refresh_code').click(function () {
-            $.get('{{url('handyman/refresh_code')}}', function(data, status){
+            $.get('{{url('aanbieder/refresh_code')}}', function(data, status){
                 $('#codeimg').attr("src","{{url('assets/images')}}/capcha_code.png?time="+ Math.random());
             });
         })

@@ -55,7 +55,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        
+
                                         <form class="form-horizontal"  action="{{route('post-experience-years')}}" method="POST" enctype="multipart/form-data" id="myForm">
 
 
@@ -64,11 +64,11 @@
                                             {{csrf_field()}}
 
                                             <div class="profile-filup-description-box margin-bottom-30">
-                                               
+
 
                                                 <div class="form-group" >
 
-                                                  
+
 
 
 
@@ -131,9 +131,9 @@
 
 
 <script type="text/javascript">
-    
+
     function myFunction(event) {
-    
+
     var value = $('#years').val();
 
     var before = parseFloat(value.toString().split(".")[0]);
@@ -155,17 +155,17 @@
   else
   {
 
-    
+
     $('#myForm').submit();
 
 
   }
 
-    
+
 }
 
 </script>
-                                            
+
                                         </form>
                                     </div>
                                 </div>
@@ -274,7 +274,7 @@
                 $.ajax({
                     type:"GET",
                     data: "id=" + id ,
-                    url: "<?php echo url('/handyman/services')?>",
+                    url: "<?php echo url('/aanbieder/services')?>",
                     success: function(data) {
 
                         $(selector).parent().parent().children('#rate').children("input").attr("placeholder", data);
@@ -305,7 +305,7 @@
             $.ajax({
                 type:"GET",
                 data: "id=" + id ,
-                url: "<?php echo url('/handyman/delete-services')?>",
+                url: "<?php echo url('/aanbieder/delete-services')?>",
                 success: function(data) {
 
                     $(parent).children().children().children('select').val('');
@@ -367,7 +367,7 @@
                             $.ajax({
                                 type:"GET",
                                 data: "id=" + id ,
-                                url: "<?php echo url('/handyman/services')?>",
+                                url: "<?php echo url('/aanbieder/services')?>",
                                 success: function(data) {
 
                                     $(selector).parent().parent().children('#rate').children("input").attr("placeholder", data);
@@ -448,7 +448,7 @@
                     $.ajax({
                         type:"GET",
                         data: "id=" + id ,
-                        url: "<?php echo url('/handyman/services')?>",
+                        url: "<?php echo url('/aanbieder/services')?>",
                         success: function(data) {
 
                             $(selector).parent().parent().children('#rate').children("input").attr("placeholder", data);

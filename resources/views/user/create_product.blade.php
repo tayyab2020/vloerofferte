@@ -247,7 +247,7 @@
             $.ajax({
                 type:"GET",
                 data: "id=" + product_id ,
-                url: "<?php echo url('/handyman/product-details')?>",
+                url: "<?php echo url('/aanbieder/product-details')?>",
                 success: function(data) {
 
                     $('.product_title').val(data.title);

@@ -53,7 +53,7 @@
 
                                                             <?php $requested_quote_number = $key->quote_number; ?>
 
-                                                            <td><a href="{{ url('/handyman/quotations/'.$key->id) }}">{{$requested_quote_number}}</a></td>
+                                                            <td><a href="{{ url('/aanbieder/offertes/'.$key->id) }}">{{$requested_quote_number}}</a></td>
 
                                                             <td>{{count($invoices[$i])}}</td>
 

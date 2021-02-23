@@ -655,7 +655,7 @@
             $.ajax({
                 type:"GET",
                 data: "id=" + id ,
-                url: "<?php echo url('/handyman/delete-services')?>",
+                url: "<?php echo url('/aanbieder/delete-services')?>",
                 success: function(data) {
 
                     $(parent).children().children().children('select').val('');
