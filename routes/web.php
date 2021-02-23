@@ -43,7 +43,7 @@
   Route::get('/handymans/search/','FrontendController@search')->name('user.search');
   Route::post('/handymans/quote/','FrontendController@quote')->name('user.quote');
   Route::post('/handymans/filter/','FrontendController@FilterHandymans')->name('filter-handymans');
-  Route::get('/faq','FrontendController@faq')->name('front.faq');
+  Route::get('/veel-gestelde-vragen','FrontendController@faq')->name('front.faq');
   Route::get('/ads/{id}','FrontendController@ads')->name('front.ads');
   Route::get('/over-ons','FrontendController@about')->name('front.about');
   Route::get('/contact','FrontendController@contact')->name('front.contact');
