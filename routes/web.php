@@ -45,7 +45,7 @@
   Route::post('/handymans/filter/','FrontendController@FilterHandymans')->name('filter-handymans');
   Route::get('/faq','FrontendController@faq')->name('front.faq');
   Route::get('/ads/{id}','FrontendController@ads')->name('front.ads');
-  Route::get('/about','FrontendController@about')->name('front.about');
+  Route::get('/over-ons','FrontendController@about')->name('front.about');
   Route::get('/contact','FrontendController@contact')->name('front.contact');
   Route::get('/blog','FrontendController@blog')->name('front.blog');
   Route::get('/blog/{id}','FrontendController@blogshow')->name('front.blogshow');
