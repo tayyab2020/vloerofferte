@@ -75,15 +75,15 @@
 
                                                             @if(Route::currentRouteName() == 'client-custom-quotations')
 
-                                                                <td><a href="{{ url('/handyman/custom-quotation/'.$key->invoice_id) }}">QUO# {{$key->quotation_invoice_number}}</a></td>
+                                                                <td><a href="{{ url('/aanbieder/bewerk-offerte/'.$key->invoice_id) }}">QUO# {{$key->quotation_invoice_number}}</a></td>
 
                                                             @else
 
-                                                                <td><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'client-quotations') QUO# @else INV# @endif{{$key->quotation_invoice_number}}</a></td>
+                                                                <td><a href="{{ url('/aanbieder/offerte/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'client-quotations') QUO# @else INV# @endif{{$key->quotation_invoice_number}}</a></td>
 
                                                                 <?php $requested_quote_number = $key->quote_number; ?>
 
-                                                                <td><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">{{$requested_quote_number}}</a></td>
+                                                                <td><a href="{{ url('/aanbieder/bekijk-offerte-aanvraag/'.$key->id) }}">{{$requested_quote_number}}</a></td>
 
                                                             @endif
 
@@ -145,7 +145,7 @@
 
                                                                             @if(Route::currentRouteName() == 'client-custom-quotations')
 
-                                                                                <a class="btn btn-primary1" href="{{ url('/handyman/custom-quotation/accept-quotation/'.$key->invoice_id) }}">{{__('text.Accept')}}</a>
+                                                                                <a class="btn btn-primary1" href="{{ url('/aanbieder/eigen-offerte/accepteren-offerte/'.$key->invoice_id) }}">{{__('text.Accept')}}</a>
 
                                                                             @else
 
@@ -239,28 +239,28 @@
 
                                                                             @if(Route::currentRouteName() == 'client-custom-quotations')
 
-                                                                                <li><a href="{{ url('/handyman/custom-quotation/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
-                                                                                <li><a href="{{ url('/handyman/download-client-custom-quotation/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
+                                                                                <li><a href="{{ url('/aanbieder/bewerk-offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
+                                                                                <li><a href="{{ url('/aanbieder/download-client-custom-quotation/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
 
                                                                                 @if($key->status != 2 && $key->status != 3)
 
-                                                                                    <li><a onclick="ask(this)" data-id="{{$key->invoice_id}}" data-text="{{$key->review_text}}" data-url="{{ url('/handyman/custom-quotation/ask-customization/') }}" href="javascript:void(0)">{{__('text.Ask Again')}}</a></li>
+                                                                                    <li><a onclick="ask(this)" data-id="{{$key->invoice_id}}" data-text="{{$key->review_text}}" data-url="{{ url('/aanbieder/bewerk-offerte/ask-customization/') }}" href="javascript:void(0)">{{__('text.Ask Again')}}</a></li>
 
-                                                                                    <li><a href="{{ url('/handyman/custom-quotation/accept-quotation/'.$key->invoice_id) }}">{{__('text.Accept')}}</a></li>
+                                                                                    <li><a href="{{ url('/aanbieder/eigen-offerte/accepteren-offerte/'.$key->invoice_id) }}">{{__('text.Accept')}}</a></li>
 
                                                                                 @endif
 
                                                                                 @if($key->delivered == 1 && $key->received == 0)
 
-                                                                                    <li><a href="{{ url('/handyman/custom-mark-received/'.$key->invoice_id) }}">{{__('text.Mark as received')}}</a></li>
+                                                                                    <li><a href="{{ url('/aanbieder/custom-mark-received/'.$key->invoice_id) }}">{{__('text.Mark as received')}}</a></li>
 
                                                                                 @endif
 
                                                                             @else
 
-                                                                                <li><a href="{{ url('/handyman/quotation/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
-                                                                                <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">{{__('text.View Request')}}</a></li>
-                                                                                <li><a href="{{ url('/handyman/download-client-quote-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
+                                                                                <li><a href="{{ url('/aanbieder/offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
+                                                                                <li><a href="{{ url('/aanbieder/bekijk-offerte-aanvraag/'.$key->id) }}">{{__('text.View Request')}}</a></li>
+                                                                                <li><a href="{{ url('/aanbieder/download-client-quote-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
 
                                                                                 @if($key->status != 0 && $key->status != 2 && $key->status != 3)
 
@@ -278,7 +278,7 @@
 
                                                                                 @if($key->delivered == 1 && $key->received == 0)
 
-                                                                                    <li><a href="{{ url('/handyman/mark-received/'.$key->invoice_id) }}">{{__('text.Mark as received')}}</a></li>
+                                                                                    <li><a href="{{ url('/aanbieder/mark-received/'.$key->invoice_id) }}">{{__('text.Mark as received')}}</a></li>
 
                                                                                 @endif
 
@@ -307,7 +307,7 @@
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
 
-            <form id="accept-form" method="post" action="{{url('/handyman/accept-quotation/')}}">
+            <form id="accept-form" method="post" action="{{url('/aanbieder/accept-quotation/')}}">
 
                 <input type="hidden" name="_token" value="{{@csrf_token()}}">
 
@@ -444,7 +444,7 @@
     </div>
 
 
-    <form id="pay_form" method="post" action="{{url('/handyman/pay-quotation/')}}">
+    <form id="pay_form" method="post" action="{{url('/aanbieder/pay-quotation/')}}">
 
         <input type="hidden" name="_token" value="{{@csrf_token()}}">
 

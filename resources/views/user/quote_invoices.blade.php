@@ -95,18 +95,18 @@
 
                                                             @if(Route::currentRouteName() == 'customer-quotations' || Route::currentRouteName() == 'customer-invoices')
 
-                                                                <td><a href="{{ url('/handyman/view-custom-quotation/'.$key->invoice_id) }}">QUO# {{$key->quotation_invoice_number}}</a></td>
+                                                                <td><a href="{{ url('/aanbieder/bekijk-eigen-offerte/'.$key->invoice_id) }}">QUO# {{$key->quotation_invoice_number}}</a></td>
 
                                                             @else
 
-                                                                <td><a href="{{ url('/handyman/view-quotation/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'quotations') QUO# @else INV# @endif {{$key->quotation_invoice_number}}</a></td>
+                                                                <td><a href="{{ url('/aanbieder/bekijk-offerte/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'quotations') QUO# @else INV# @endif {{$key->quotation_invoice_number}}</a></td>
 
                                                                 <?php
                                                                 $requested_quote_number = $key->quote_number;
                                                                 if($key->delivery_date){ $delivery_date = date("d-m-Y",strtotime($key->delivery_date)); }else{ $delivery_date = ''; }
                                                                 ?>
 
-                                                                <td><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">{{$delivery_date}}</a></td>
+                                                                <td><a href="{{ url('/aanbieder/bekijk-offerteaanvraag-aanbieder/'.$key->id) }}">{{$delivery_date}}</a></td>
 
                                                             @endif
 
@@ -219,18 +219,18 @@
 
                                                                             @if(Route::currentRouteName() == 'customer-quotations' || Route::currentRouteName() == 'customer-invoices')
 
-                                                                                <li><a href="{{ url('/handyman/view-custom-quotation/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
-                                                                                <li><a href="{{ url('/handyman/download-custom-quotation/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
+                                                                                <li><a href="{{ url('/aanbieder/bekijk-eigen-offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
+                                                                                <li><a href="{{ url('/aanbieder/download-custom-quotation/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
 
                                                                                 @if(!$key->approved)
 
-                                                                                    <li><a href="{{ url('/handyman/send-custom-quotation/'.$key->invoice_id) }}">{{__('text.Send Quotation')}}</a></li>
+                                                                                    <li><a href="{{ url('/aanbieder/versturen-eigen-offerte/'.$key->invoice_id) }}">{{__('text.Send Quotation')}}</a></li>
 
                                                                                 @endif
 
                                                                                 @if($key->status == 2 && $key->accepted)
 
-                                                                                    <li><a href="{{ url('/handyman/create-custom-invoice/'.$key->invoice_id) }}">{{__('text.Create Invoice')}}</a></li>
+                                                                                    <li><a href="{{ url('/aanbieder/opstellen-eigen-factuur/'.$key->invoice_id) }}">{{__('text.Create Invoice')}}</a></li>
 
                                                                                 @endif
 
@@ -242,43 +242,43 @@
 
                                                                                     @endif
 
-                                                                                        <li><a href="{{ url('/handyman/edit-custom-quotation/'.$key->invoice_id) }}">{{__('text.Edit Quotation')}}</a></li>
+                                                                                        <li><a href="{{ url('/aanbieder/bewerk-eigen-offerte/'.$key->invoice_id) }}">{{__('text.Edit Quotation')}}</a></li>
 
                                                                                 @endif
 
                                                                                 @if($key->status == 3 && $key->delivered == 0)
 
-                                                                                    <li><a href="{{ url('/handyman/custom-mark-delivered/'.$key->invoice_id) }}">{{__('text.Mark as delivered')}}</a></li>
+                                                                                    <li><a href="{{ url('/aanbieder/custom-mark-delivered/'.$key->invoice_id) }}">{{__('text.Mark as delivered')}}</a></li>
 
                                                                                 @endif
 
                                                                             @else
 
-                                                                                <li><a href="{{ url('/handyman/view-quotation/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
-                                                                                <li><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">{{__('text.View Request')}}</a></li>
+                                                                                <li><a href="{{ url('/aanbieder/bekijk-offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
+                                                                                <li><a href="{{ url('/aanbieder/bekijk-offerteaanvraag-aanbieder/'.$key->id) }}">{{__('text.View Request')}}</a></li>
                                                                                 @if(Route::currentRouteName() == 'commission-invoices')
-                                                                                    <li><a href="{{ url('/handyman/download-commission-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
+                                                                                    <li><a href="{{ url('/aanbieder/download-commission-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
                                                                                 @else
-                                                                                    <li><a href="{{ url('/handyman/download-quote-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
+                                                                                    <li><a href="{{ url('/aanbieder/download-quote-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
                                                                                 @endif
 
 
                                                                                 @if($key->status == 2 && $key->accepted)
 
-                                                                                    <li><a href="{{ url('/handyman/create-invoice/'.$key->invoice_id) }}">{{__('text.Create Invoice')}}</a></li>
+                                                                                    <li><a href="{{ url('/aanbieder/opstellen-factuur/'.$key->invoice_id) }}">{{__('text.Create Invoice')}}</a></li>
 
                                                                                 @elseif($key->status == 1)
 
                                                                                     @if($key->ask_customization)
                                                                                         <li><a onclick="ask(this)" data-text="{{$key->review_text}}" href="javascript:void(0)">{{__('text.Review Reason')}}</a></li>
-                                                                                        <li><a href="{{ url('/handyman/edit-quotation/'.$key->invoice_id) }}">{{__('text.Edit Quotation')}}</a></li>
+                                                                                        <li><a href="{{ url('/aanbieder/bewerk-offerte/'.$key->invoice_id) }}">{{__('text.Edit Quotation')}}</a></li>
                                                                                     @endif
 
                                                                                 @endif
 
                                                                                 @if($key->status == 3 && $key->delivered == 0)
 
-                                                                                    <li><a href="{{ url('/handyman/mark-delivered/'.$key->invoice_id) }}">{{__('text.Mark as delivered')}}</a></li>
+                                                                                    <li><a href="{{ url('/aanbieder/mark-delivered/'.$key->invoice_id) }}">{{__('text.Mark as delivered')}}</a></li>
 
                                                                                 @endif
 

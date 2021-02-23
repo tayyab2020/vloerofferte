@@ -110,9 +110,9 @@
                                                                     <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{__('text.Action')}}
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
-                                                                        <li><a href="{{ url('/handyman/view-quote-request/'.$key->id) }}">{{__('text.View')}}</a></li>
-                                                                        <li><a href="{{ url('/handyman/quotations/'.$key->id) }}">{{__('text.View Quotations')}}</a></li>
-                                                                        <li><a href="{{ url('/handyman/download-quote-request/'.$key->id) }}">{{__('text.Download PDF')}}</a></li>
+                                                                        <li><a href="{{ url('/aanbieder/bekijk-offerte-aanvraag/'.$key->id) }}">{{__('text.View')}}</a></li>
+                                                                        <li><a href="{{ url('/aanbieder/quotations/'.$key->id) }}">{{__('text.View Quotations')}}</a></li>
+                                                                        <li><a href="{{ url('/aanbieder/download-quote-request/'.$key->id) }}">{{__('text.Download PDF')}}</a></li>
                                                                     </ul>
                                                                 </div>
                                                             </td>

@@ -51,7 +51,7 @@
 
                                                             <?php $requested_quote_number = $key->quote_number; ?>
 
-                                                            <td><a href="{{ url('/handyman/handyman-quotations/'.$key->id) }}">{{$requested_quote_number}}</a></td>
+                                                            <td><a href="{{ url('/aanbieder/aanbieder-offertes/'.$key->id) }}">{{$requested_quote_number}}</a></td>
 
                                                             <td>{{$key->cat_name}}</td>
 
@@ -131,15 +131,15 @@
                                                                     <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{__('text.Action')}}
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
-                                                                        <li><a href="{{ url('/handyman/view-handyman-quote-request/'.$key->id) }}">{{__('text.View')}}</a></li>
+                                                                        <li><a href="{{ url('/aanbieder/bekijk-offerteaanvraag-aanbieder/'.$key->id) }}">{{__('text.View')}}</a></li>
                                                                         @if($invoices[$i])
-                                                                        <li><a href="{{ url('/handyman/view-quotation/'.$invoices[$i]->id) }}">{{__('text.View Quotation')}}</a></li>
+                                                                        <li><a href="{{ url('/aanbieder/bekijk-offerte/'.$invoices[$i]->id) }}">{{__('text.View Quotation')}}</a></li>
                                                                         @endif
-                                                                        <li><a href="{{ url('/handyman/download-handyman-quote-request/'.$key->id) }}">{{__('text.Download PDF')}}</a></li>
+                                                                        <li><a href="{{ url('/aanbieder/download-handyman-quote-request/'.$key->id) }}">{{__('text.Download PDF')}}</a></li>
 
                                                                         @if($key->status == 2 && $invoices[$i] && $invoices[$i]->accepted)
 
-                                                                            <li><a href="{{ url('/handyman/create-invoice/'.$invoices[$i]->id) }}">{{__('text.Create Invoice')}}</a></li>
+                                                                            <li><a href="{{ url('/aanbieder/opstellen-factuur/'.$invoices[$i]->id) }}">{{__('text.Create Invoice')}}</a></li>
 
                                                                         @elseif($key->status != 2 && $key->status != 3)
 
@@ -147,13 +147,13 @@
 
                                                                                 @if($invoices[$i]->ask_customization)
 
-                                                                                    <li><a href="{{ url('/handyman/edit-quotation/'.$invoices[$i]->id) }}">{{__('text.Edit Quotation')}}</a></li>
+                                                                                    <li><a href="{{ url('/aanbieder/bewerk-offerte/'.$invoices[$i]->id) }}">{{__('text.Edit Quotation')}}</a></li>
 
                                                                                 @endif
 
                                                                             @else
 
-                                                                                <li><a href="{{ url('/handyman/create-quotation/'.$key->id) }}">{{__('text.Create Quotation')}}</a></li>
+                                                                                <li><a href="{{ url('/aanbieder/opstellen-offerte/'.$key->id) }}">{{__('text.Create Quotation')}}</a></li>
 
                                                                             @endif
 

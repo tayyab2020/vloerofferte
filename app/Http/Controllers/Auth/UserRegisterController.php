@@ -255,12 +255,12 @@ class UserRegisterController extends Controller
         mail($user_email,$subject,$msg,$headers);*/
 
 
-        /*$headers =  'MIME-Version: 1.0' . "\r\n";
+        $headers =  'MIME-Version: 1.0' . "\r\n";
         $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $subject = "Welkom bij Vloerofferte";
         $msg = "Beste ".$user_name.",<br><br>Welkom bij vloerofferte.nl<br><br>Je profiel is succesvol aangemaakt, bedankt! Je kan pas offerte aanvragen ontvangen, nadat je je profiel hebt geactiveerd. Klik dus snel op deze <a href='".$link."'>link</a> om je profiel te activeren.<br><br>Veel succes met jouw aanvraag!<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte<br><br>Voor de beste prijs.";
-        mail($user_email,$subject,$msg,$headers);*/
+        mail($user_email,$subject,$msg,$headers);
 
           return redirect()->route('user-complete-profile');
 
