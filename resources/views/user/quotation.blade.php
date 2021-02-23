@@ -183,15 +183,25 @@
                                                                                 <td class="brand_box">
                                                                                     @if(Route::currentRouteName() != 'view-handyman-quotation' && Route::currentRouteName() != 'view-custom-quotation')
 
-                                                                                        <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>
 
-                                                                                            @foreach($all_brands as $key)
-                                                                                                <option value="{{$key->id}}" @if($temp->b_i_id == $key->id) selected <?php $brand_title = $temp->brand; ?> @endif>{{$key->cat_name}}</option>
-                                                                                            @endforeach
+                                                                                        <div id="brand_container" @if($temp->b_i_id == 0) style="display: none;" @endif>
 
-                                                                                            <input type="hidden" name="brand_title[]" value="{{isset($brand_title) ? $brand_title : $all_brands[0]->cat_name}}">
+                                                                                            <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" @if($temp->b_i_id != 0) required @endif>
 
-                                                                                        </select>
+                                                                                                @if($temp->b_i_id != 0)
+
+                                                                                                    @foreach($all_brands as $key)
+                                                                                                        <option value="{{$key->id}}" @if($temp->b_i_id == $key->id) selected <?php $brand_title = $temp->brand; ?> @endif>{{$key->cat_name}}</option>
+                                                                                                    @endforeach
+
+                                                                                                @endif
+
+                                                                                            </select>
+
+                                                                                        </div>
+
+                                                                                        <input type="hidden" id="brand_title" name="brand_title[]" value="{{isset($brand_title) ? $brand_title : $all_brands[0]->cat_name}}">
+                                                                                        <input @if($temp->b_i_id != 0) style="display: none;" @else value="{{$temp->brand}}" @endif class="form-control" type="text" name="item_brand[]" id="item_brand">
 
                                                                                     @else
 
@@ -203,15 +213,24 @@
                                                                                 <td class="model_box">
                                                                                     @if(Route::currentRouteName() != 'view-handyman-quotation' && Route::currentRouteName() != 'view-custom-quotation')
 
-                                                                                        <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>
+                                                                                        <div id="model_container" @if($temp->m_i_id == 0) style="display: none;" @endif>
 
-                                                                                            @foreach($all_models as $key)
-                                                                                                <option value="{{$key->id}}" @if($temp->m_i_id == $key->id) selected <?php $model_title = $temp->model; ?> @endif>{{$key->cat_name}}</option>
-                                                                                            @endforeach
+                                                                                            <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" @if($temp->m_i_id != 0) required @endif>
 
-                                                                                            <input type="hidden" name="model_title[]" value="{{isset($model_title) ? $model_title : $all_models[0]->cat_name}}">
+                                                                                                @if($temp->m_i_id != 0)
 
-                                                                                        </select>
+                                                                                                    @foreach($all_models as $key)
+                                                                                                        <option value="{{$key->id}}" @if($temp->m_i_id == $key->id) selected <?php $model_title = $temp->model; ?> @endif>{{$key->cat_name}}</option>
+                                                                                                    @endforeach
+
+                                                                                                @endif
+
+                                                                                            </select>
+
+                                                                                        </div>
+
+                                                                                        <input type="hidden" id="model_title" name="model_title[]" value="{{isset($model_title) ? $model_title : $all_models[0]->cat_name}}">
+                                                                                        <input @if($temp->m_i_id != 0) style="display: none;" @else value="{{$temp->model}}" @endif class="form-control" type="text" name="item_model[]" id="item_model">
 
                                                                                     @else
 
@@ -1093,18 +1112,55 @@
 
                             });
 
-                            current.parent().next().children('select').find('option')
+                            current.parent().next().find('#brand_container').show();
+                            current.parent().next().next().find('#model_container').show();
+
+                            current.parent().next().find('select').find('option')
                                 .remove()
                                 .end()
                                 .append('<option value="">Select Brand</option>'+options);
 
-                            current.parent().next().next().children('select').find('option')
+                            current.parent().next().next().find('select').find('option')
                                 .remove()
                                 .end()
                                 .append('<option value="">Select Model</option>');
 
+                            current.parent().next().find('select').attr('required', true);
+                            current.parent().next().next().find('select').attr('required', true);
+
+                            current.parent().next().children('#item_brand').hide();
+                            current.parent().next().find('.select2').show();
+
+                            current.parent().next().next().children('#item_model').hide();
+                            current.parent().next().next().find('.select2').show();
+
                         }
                     });
+                }
+                else
+                {
+
+                    current.parent().next().find('#brand_container').hide();
+                    current.parent().next().next().find('#model_container').hide();
+
+                    current.parent().next().find('select').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Brand</option>');
+
+                    current.parent().next().next().find('select').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Model</option>');
+
+                    current.parent().next().find('select').attr('required', false);
+                    current.parent().next().next().find('select').attr('required', false);
+
+                    current.parent().next().find('.select2').hide();
+                    current.parent().next().children('#item_brand').show();
+
+                    current.parent().next().next().find('.select2').hide();
+                    current.parent().next().next().children('#item_model').show();
                 }
 
             });
@@ -1122,7 +1178,7 @@
                     data: "id=" + brand_id + "&type=brand",
                     url: "<?php echo url('/get-quotation-data')?>",
                     success: function(data) {
-                        current.parent().children('input').val(data.cat_name);
+                        current.parent().parent().find('#brand_title').val(data.cat_name);
                     }
                 });
 
@@ -1142,7 +1198,7 @@
 
                         });
 
-                        current.parent().next().children('select').find('option')
+                        current.parent().parent().next().find('select').find('option')
                             .remove()
                             .end()
                             .append('<option value="">Select Model</option>'+options);
@@ -1156,27 +1212,27 @@
 
                 var current = $(this);
                 var model_id = current.val();
-                var brand_id = current.parent().parent().find('.brand_box').children('select').val();
-                var cat_id = current.parent().parent().find('.service_box').children('select').val();
+                var brand_id = current.parent().parent().parent().find('.brand_box').find('select').val();
+                var cat_id = current.parent().parent().parent().find('.service_box').find('select').val();
 
                 $.ajax({
                     type:"GET",
                     data: "id=" + model_id + "&cat=" + cat_id + "&brand=" + brand_id + "&type=model",
                     url: "<?php echo url('/get-quotation-data')?>",
                     success: function(data) {
-                        current.parent().children('input').val(data.cat_name);
+                        current.parent().parent().find('#model_title').val(data.cat_name);
 
                         var rate = data.rate;
                         rate = rate.toString();
                         rate = rate.replace(/\./g, ',');
 
-                        current.parent().parent().find('.td-rate').children('input').val(rate);
+                        current.parent().parent().parent().find('.td-rate').children('input').val(rate);
 
                         var vat_percentage = parseInt($('#vat_percentage').val());
                         vat_percentage = vat_percentage + 100;
-                        var cost = current.parent().parent().find('.td-rate').children('input').val();
+                        var cost = current.parent().parent().parent().find('.td-rate').children('input').val();
                         cost = cost.replace(/\,/g, '.');
-                        var qty = current.parent().parent().find('.td-qty').children('input').val();
+                        var qty = current.parent().parent().parent().find('.td-qty').children('input').val();
                         qty = qty.replace(/\,/g, '.');
 
                         var amount = cost * qty;
@@ -1190,7 +1246,7 @@
 
                         amount = amount.replace(/\./g, ',');
 
-                        current.parent().parent().find('.td-amount').children('input').val(amount);
+                        current.parent().parent().parent().find('.td-amount').children('input').val(amount);
 
                         var amounts = [];
                         $("input[name='amount[]']").each(function() {
@@ -1226,6 +1282,7 @@
 
             });
 
+
             $(".js-data-example-ajax1").select2({
                 width: '100%',
                 height: '200px',
@@ -1260,20 +1317,26 @@
                     '                                                                           <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">\n'+
                     '                                                                        </td>\n' +
                     '                                                                        <td class="brand_box">\n'+
+                    '                                                                           <div id="brand_container">\n'+
                     '                                                                            <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>\n' +
                     '                                                                                @foreach($all_brands as $key)\n' +
                     '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
                     '                                                                                @endforeach\n' +
                     '                                                                            </select>\n' +
-                    '                                                                            <input type="hidden" name="brand_title[]" value="{{$all_brands[0]->cat_name}}">\n' +
+                    '                                                                           </div>\n'+
+                    '                                                                            <input type="hidden" id="brand_title" name="brand_title[]" value="{{$all_brands[0]->cat_name}}">\n' +
+                    '                                                                            <input style="display: none;" class="form-control" type="text" name="item_brand[]" id="item_brand">\n'+
                     '                                                                        </td>'+
                     '                                                                        <td class="model_box">\n'+
+                    '                                                                           <div id="model_container">\n'+
                     '                                                                            <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>\n' +
                     '                                                                                @foreach($all_models as $key)\n' +
                     '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
                     '                                                                                @endforeach\n' +
                     '                                                                            </select>\n' +
-                    '                                                                            <input type="hidden" name="model_title[]" value="{{$all_models[0]->cat_name}}">\n' +
+                    '                                                                           </div>\n'+
+                    '                                                                            <input type="hidden" id="model_title" name="model_title[]" value="{{$all_models[0]->cat_name}}">\n' +
+                    '                                                                            <input style="display: none;" class="form-control" type="text" name="item_model[]" id="item_model">\n'+
                     '                                                                        </td>'+
                     '                                                                        <td class="td-desc">\n' +
                     '                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>\n' +
@@ -1393,18 +1456,55 @@
 
                                 });
 
-                                current.parent().next().children('select').find('option')
+                                current.parent().next().find('#brand_container').show();
+                                current.parent().next().next().find('#model_container').show();
+
+                                current.parent().next().find('select').find('option')
                                     .remove()
                                     .end()
                                     .append('<option value="">Select Brand</option>'+options);
 
-                                current.parent().next().next().children('select').find('option')
+                                current.parent().next().next().find('select').find('option')
                                     .remove()
                                     .end()
                                     .append('<option value="">Select Model</option>');
 
+                                current.parent().next().find('select').attr('required', true);
+                                current.parent().next().next().find('select').attr('required', true);
+
+                                current.parent().next().children('#item_brand').hide();
+                                current.parent().next().find('.select2').show();
+
+                                current.parent().next().next().children('#item_model').hide();
+                                current.parent().next().next().find('.select2').show();
+
                             }
                         });
+                    }
+                    else
+                    {
+
+                        current.parent().next().find('#brand_container').hide();
+                        current.parent().next().next().find('#model_container').hide();
+
+                        current.parent().next().find('select').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Brand</option>');
+
+                        current.parent().next().next().find('select').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Model</option>');
+
+                        current.parent().next().find('select').attr('required', false);
+                        current.parent().next().next().find('select').attr('required', false);
+
+                        current.parent().next().find('.select2').hide();
+                        current.parent().next().children('#item_brand').show();
+
+                        current.parent().next().next().find('.select2').hide();
+                        current.parent().next().next().children('#item_model').show();
                     }
 
                 });
@@ -1422,7 +1522,7 @@
                         data: "id=" + brand_id + "&type=brand",
                         url: "<?php echo url('/get-quotation-data')?>",
                         success: function(data) {
-                            current.parent().children('input').val(data.cat_name);
+                            current.parent().parent().find('#brand_title').val(data.cat_name);
                         }
                     });
 
@@ -1442,7 +1542,7 @@
 
                             });
 
-                            current.parent().next().children('select').find('option')
+                            current.parent().parent().next().find('select').find('option')
                                 .remove()
                                 .end()
                                 .append('<option value="">Select Model</option>'+options);
@@ -1457,27 +1557,28 @@
 
                     var current = $(this);
                     var model_id = current.val();
-                    var brand_id = current.parent().parent().find('.brand_box').children('select').val();
-                    var cat_id = current.parent().parent().find('.service_box').children('select').val();
+                    var brand_id = current.parent().parent().parent().find('.brand_box').find('select').val();
+                    var cat_id = current.parent().parent().parent().find('.service_box').find('select').val();
 
                     $.ajax({
                         type:"GET",
                         data: "id=" + model_id + "&cat=" + cat_id + "&brand=" + brand_id + "&type=model",
                         url: "<?php echo url('/get-quotation-data')?>",
                         success: function(data) {
-                            current.parent().children('input').val(data.cat_name);
+                            current.parent().parent().find('#model_title').val(data.cat_name);
+                            console.log(current.parent().parent().find('#model_title').val());
 
                             var rate = data.rate;
                             rate = rate.toString();
                             rate = rate.replace(/\./g, ',');
 
-                            current.parent().parent().find('.td-rate').children('input').val(rate);
+                            current.parent().parent().parent().find('.td-rate').children('input').val(rate);
 
                             var vat_percentage = parseInt($('#vat_percentage').val());
                             vat_percentage = vat_percentage + 100;
-                            var cost = current.parent().parent().find('.td-rate').children('input').val();
+                            var cost = current.parent().parent().parent().find('.td-rate').children('input').val();
                             cost = cost.replace(/\,/g, '.');
-                            var qty = current.parent().parent().find('.td-qty').children('input').val();
+                            var qty = current.parent().parent().parent().find('.td-qty').children('input').val();
                             qty = qty.replace(/\,/g, '.');
 
                             var amount = cost * qty;
@@ -1491,7 +1592,7 @@
 
                             amount = amount.replace(/\./g, ',');
 
-                            current.parent().parent().find('.td-amount').children('input').val(amount);
+                            current.parent().parent().parent().find('.td-amount').children('input').val(amount);
 
                             var amounts = [];
                             $("input[name='amount[]']").each(function() {

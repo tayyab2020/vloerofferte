@@ -98,6 +98,8 @@
                                                                             <?php if(!isset($brand_title)){ $brand_title = $all_brands[0]->cat_name; } ?>
 
                                                                             <input type="hidden" name="brand_title[]" value="{{$brand_title}}">
+
+                                                                            <input style="display: none;" class="form-control" type="text" name="item_brand[]" id="item_brand">
                                                                         </td>
 
                                                                         <td class="model_box">
@@ -112,6 +114,7 @@
                                                                             <?php if(!isset($model_title)){ $model_title = $all_models[0]->cat_name; } ?>
 
                                                                             <input type="hidden" name="model_title[]" value="{{$model_title}}">
+                                                                            <input style="display: none;" class="form-control" type="text" name="item_model[]" id="item_model">
                                                                         </td>
 
 
@@ -999,8 +1002,39 @@
                                 .end()
                                 .append('<option value="">Select Model</option>');
 
+                            current.parent().next().children('select').attr('required', true);
+                            current.parent().next().next().children('select').attr('required', true);
+
+                            current.parent().next().children('#item_brand').hide();
+                            current.parent().next().children('.select2').show();
+
+                            current.parent().next().next().children('#item_model').hide();
+                            current.parent().next().next().children('.select2').show();
+
                         }
                     });
+                }
+                else
+                {
+
+                    current.parent().next().children('select').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Brand</option>');
+
+                    current.parent().next().next().children('select').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Model</option>');
+
+                    current.parent().next().children('select').attr('required', false);
+                    current.parent().next().next().children('select').attr('required', false);
+
+                    current.parent().next().children('.select2').hide();
+                    current.parent().next().children('#item_brand').show();
+
+                    current.parent().next().next().children('.select2').hide();
+                    current.parent().next().next().children('#item_model').show();
                 }
 
             });
@@ -1160,12 +1194,14 @@
                     '                                                                                    <option value="">Select Brand</option>\n' +
                     '                                                                            </select>\n' +
                     '                                                                            <input type="hidden" name="brand_title[]" value="">\n' +
+                    '                                                                            <input style="display: none;" class="form-control" type="text" name="item_brand[]" id="item_brand">\n' +
                     '                                                                        </td>'+
                     '                                                                        <td class="model_box">\n'+
                     '                                                                            <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>\n' +
                     '                                                                                    <option value="">Select Model</option>\n' +
                     '                                                                            </select>\n' +
                     '                                                                            <input type="hidden" name="model_title[]" value="">\n' +
+                    '                                                                            <input style="display: none;" class="form-control" type="text" name="item_model[]" id="item_model">\n' +
                     '                                                                        </td>'+
                     '                                                                        <td class="td-qty">\n' +
                     '                                                                            <input name="qty[]" class="form-control" type="text" required>\n' +
@@ -1301,8 +1337,39 @@
                                     .end()
                                     .append('<option value="">Select Model</option>');
 
+                                current.parent().next().children('select').attr('required', true);
+                                current.parent().next().next().children('select').attr('required', true);
+
+                                current.parent().next().children('#item_brand').hide();
+                                current.parent().next().children('.select2').show();
+
+                                current.parent().next().next().children('#item_model').hide();
+                                current.parent().next().next().children('.select2').show();
+
                             }
                         });
+                    }
+                    else
+                    {
+
+                        current.parent().next().children('select').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Brand</option>');
+
+                        current.parent().next().next().children('select').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Model</option>');
+
+                        current.parent().next().children('select').attr('required', false);
+                        current.parent().next().next().children('select').attr('required', false);
+
+                        current.parent().next().children('.select2').hide();
+                        current.parent().next().children('#item_brand').show();
+
+                        current.parent().next().next().children('.select2').hide();
+                        current.parent().next().next().children('#item_model').show();
                     }
 
                 });

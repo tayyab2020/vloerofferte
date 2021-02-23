@@ -1127,17 +1127,32 @@ class UserController extends Controller
             $invoice->save();
 
             foreach ($services as $i => $key) {
+
                 if (strpos($services[$i], 'I') > -1) {
                     $x = 1;
+                    $brand_id = 0;
+                    $model_id = 0;
+
+                    $brand_title = $request->brand_title;
+
+                    $brand_title[$i] = $request->item_brand[$i];
+                    $request->merge(['brand_title' => $brand_title]);
+
+                    $model_title = $request->model_title;
+                    $model_title[$i] = $request->item_model[$i];
+                    $request->merge(['model_title' => $model_title]);
+
                 } else {
                     $x = 0;
+                    $brand_id = (int)$request->brand[$i];
+                    $model_id = (int)$request->model[$i];
                 }
 
                 $invoice_items = new quotation_invoices_data;
                 $invoice_items->quotation_id = $invoice->id;
                 $invoice_items->s_i_id = (int)$key;
-                $invoice_items->b_i_id = (int)$request->brand[$i];
-                $invoice_items->m_i_id = (int)$request->model[$i];
+                $invoice_items->b_i_id = $brand_id;
+                $invoice_items->m_i_id = $model_id;
                 $invoice_items->item = $x;
                 $invoice_items->service = $request->service_title[$i];
                 $invoice_items->brand = $request->brand_title[$i];
@@ -1149,6 +1164,7 @@ class UserController extends Controller
                 $invoice_items->amount = str_replace(",",".",$request->amount[$i]);
                 $invoice_items->save();
             }
+
 
             $counter = $counter + 1;
             User::where('id',$user_id)->update(['counter' => $counter]);
@@ -1217,17 +1233,33 @@ class UserController extends Controller
             quotation_invoices_data::where('quotation_id', $quotation->id)->delete();
 
             foreach ($services as $i => $key) {
+
                 if (strpos($services[$i], 'I') > -1) {
+
                     $x = 1;
+                    $brand_id = 0;
+                    $model_id = 0;
+
+                    $brand_title = $request->brand_title;
+
+                    $brand_title[$i] = $request->item_brand[$i];
+                    $request->merge(['brand_title' => $brand_title]);
+
+                    $model_title = $request->model_title;
+                    $model_title[$i] = $request->item_model[$i];
+                    $request->merge(['model_title' => $model_title]);
+
                 } else {
                     $x = 0;
+                    $brand_id = (int)$request->brand[$i];
+                    $model_id = (int)$request->model[$i];
                 }
 
                 $item = new quotation_invoices_data;
                 $item->quotation_id = $quotation->id;
                 $item->s_i_id = (int)$key;
-                $item->b_i_id = (int)$request->brand[$i];
-                $item->m_i_id = (int)$request->model[$i];
+                $item->b_i_id = $brand_id;
+                $item->m_i_id = $model_id;
                 $item->item = $x;
                 $item->service = $request->service_title[$i];
                 $item->brand = $request->brand_title[$i];
@@ -1331,6 +1363,7 @@ class UserController extends Controller
             quotation_invoices_data::where('quotation_id', $quotation->id)->delete();
 
             foreach ($services as $i => $key) {
+
                 if (strpos($services[$i], 'I') > -1) {
                     $x = 1;
                 } else {
