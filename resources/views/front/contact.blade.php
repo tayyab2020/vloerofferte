@@ -52,10 +52,10 @@
                                     <div class="row">
                                         <div class="col-md-4 col-sm-6 col-xs-8">
 
-                                            <input name="codes" placeholder="Enter Code" required="" type="text">
+                                            <input name="codes" placeholder="{{__('text.Enter Code')}}" required="" type="text">
                                         </div>
                                     </div>
-                                    <input name="contact_btn" value="Send Message" type="submit">
+                                    <input name="contact_btn" value="{{__('text.Send Message')}}" type="submit">
                                 </form>
                             </div>
                         </div>

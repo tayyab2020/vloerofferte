@@ -1355,6 +1355,29 @@
 
                 @endif
 
+                var last_row = $('.items-table tr:last');
+
+                last_row.find(".js-data-example-ajax").select2({
+                    width: '100%',
+                    height: '200px',
+                    placeholder: "{{__('text.Select Category/Item')}}",
+                    allowClear: true,
+                });
+
+                last_row.find(".js-data-example-ajax1").select2({
+                    width: '100%',
+                    height: '200px',
+                    placeholder: "{{__('text.Select Brand')}}",
+                    allowClear: true,
+                });
+
+                last_row.find(".js-data-example-ajax2").select2({
+                    width: '100%',
+                    height: '200px',
+                    placeholder: "{{__('text.Select Model')}}",
+                    allowClear: true,
+                });
+
 
                 $('.js-data-example-ajax').change(function(){
 
@@ -1634,27 +1657,6 @@
                     format: 'dd-mm-yyyy',
                     startDate: new Date(),
 
-                });
-
-                $(".js-data-example-ajax").select2({
-                    width: '100%',
-                    height: '200px',
-                    placeholder: "{{__('text.Select Category/Item')}}",
-                    allowClear: true,
-                });
-
-                $(".js-data-example-ajax1").select2({
-                    width: '100%',
-                    height: '200px',
-                    placeholder: "{{__('text.Select Brand')}}",
-                    allowClear: true,
-                });
-
-                $(".js-data-example-ajax2").select2({
-                    width: '100%',
-                    height: '200px',
-                    placeholder: "{{__('text.Select Model')}}",
-                    allowClear: true,
                 });
 
                 $(".remove-row").click(function(){

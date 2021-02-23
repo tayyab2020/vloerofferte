@@ -236,4 +236,6 @@ return [
     'Mention Review Reason' => 'Mention Review Reason',
     'Review Reason' => 'Review Reason',
     'Recent Posts' => 'Recent Posts',
+    'Enter Code' => 'Enter Code',
+    'Send Message' => 'Send Message',
 ];

@@ -379,8 +379,6 @@ if(id)
 
   $(document).on('click', '.remove-ui1' ,function() {
 
-
-
             var parent = this.parentNode.parentNode;
 
             $(parent).children().children().children('select').val('');

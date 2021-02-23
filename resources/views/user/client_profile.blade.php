@@ -135,7 +135,7 @@
                                                         *</label>
                                                     <div class="col-sm-8">
                                                         <input class="form-control" name="phone" id="phone"
-                                                               placeholder="{{$lang->doph}}" type="number"
+                                                               placeholder="{{$lang->doph}}" type="text"
                                                                value="{{$user->phone}}" required="">
                                                     </div>
                                                 </div>
@@ -150,32 +150,6 @@
                                                     </div>
                                                 </div>
 
-
-                                                <div class="form-group">
-                                                    <label for="profile_description"
-                                                           class="col-sm-3 control-label">{{$lang->dopd}}*</label>
-                                                    <div class="col-sm-8">
-                                                        <textarea class="form-control" name="description"
-                                                                  id="profile_description" rows="5"
-                                                                  style="resize: vertical;">{{$user->description}}</textarea>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-
-
-                                            <div class="profile-filup-description-box margin-bottom-30">
-                                                <div class="form-group" style="display: none;">
-                                                    <label for="age" class="col-sm-3 control-label">{{$lang->doa}}
-                                                        *</label>
-                                                    <div class="col-sm-8">
-                                                        <input class="form-control" name="age" id="age"
-                                                               placeholder="{{$lang->doa}}" type="text"
-                                                               value="{{$user->age}}" value="0">
-                                                    </div>
-                                                </div>
-
                                                 <div class="form-group">
                                                     <label for="business_name"
                                                            class="col-sm-3 control-label">{{$lang->bn}}</label>
@@ -183,6 +157,32 @@
                                                         <input class="form-control" id="business_name"
                                                                name="business_name" placeholder="{{$lang->bn}}"
                                                                type="text" value="{{$user->business_name}}">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group" style="display: none;">
+                                                    <label for="profile_description"
+                                                           class="col-sm-3 control-label">{{$lang->dopd}}</label>
+                                                    <div class="col-sm-8">
+                                                        <textarea class="form-control" name="description"
+                                                                  id="profile_description" rows="5"
+                                                                  style="resize: vertical;">{{$user->description}}</textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="profile-filup-description-box margin-bottom-30" style="display: none;">
+
+                                                <div class="form-group" style="display: none;">
+                                                    <label for="age" class="col-sm-3 control-label">{{$lang->doa}}
+                                                        *</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" name="age" id="age"
+                                                               placeholder="{{$lang->doa}}" type="text"
+                                                               value="{{$user->age}}" value="0">
                                                     </div>
                                                 </div>
 
@@ -220,8 +220,8 @@
                                                     <label for="email"
                                                            class="col-sm-3 control-label">{{$lang->doeml}}</label>
                                                     <div class="col-sm-8">
-                                                        <input class="form-control" name="web" id="email"
-                                                               placeholder="{{$lang->doeml}}" type="text"
+                                                        <input class="form-control" name="web" id="web"
+                                                               placeholder="Website" type="text"
                                                                value="{{$user->web}}">
                                                     </div>
                                                 </div>

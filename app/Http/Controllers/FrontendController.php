@@ -1273,9 +1273,12 @@ class FrontendController extends Controller
 
     public function subscribe(Request $request)
     {
-        $this->validate($request, array(
+        $this->validate($request, [
             'email' => 'unique:subscribers',
-        ));
+        ],
+            [
+                'email.unique' => $this->lang->euv,
+            ]);
         $subscribe = new Subscriber;
         $subscribe->fill($request->all());
         $subscribe->save();

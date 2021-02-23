@@ -236,4 +236,6 @@ return [
     'Mention Review Reason' => 'Verzoek tot aanpassing.',
     'Review Reason' => 'Reden voor aanpassing?',
     'Recent Posts' => 'Recent Posts',
+    'Enter Code' => 'Enter Code',
+    'Send Message' => 'Send Message',
 ];

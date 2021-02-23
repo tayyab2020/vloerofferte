@@ -621,8 +621,6 @@
 
  $(document).on('click', '.remove-ui1' ,function() {
 
-
-
             var parent = this.parentNode;
 
             $(parent).children().children().children('select').val('');
