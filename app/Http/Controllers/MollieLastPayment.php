@@ -47,9 +47,9 @@ $booking = bookings::where('invoice_id','=',$data->invoice_id)->update(['is_part
 $handyman_name = $data->handyman_name;
 $client_name = $data->client_name;
 
-$handyman_dash = url('/').'/handyman/dashboard';
+$handyman_dash = url('/').'/aanbieder/dashboard';
 
-$client_dash = url('/').'/handyman/client-dashboard';
+$client_dash = url('/').'/aanbieder/client-dashboard';
 
 
         if($data->language == 'eng')

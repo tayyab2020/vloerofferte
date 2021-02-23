@@ -1120,7 +1120,7 @@
 
                             type: "POST",
                             data: "handyman_id=" + handyman_id + "&handyman_name=" + handyman_name + "&name=" + name + "&family_name=" + family_name + "&business_name=" + business_name + "&postcode=" + postcode + "&address=" + address + "&city=" + city + "&phone=" + phone + "&email=" + email + "&_token=" + token,
-                            url: "<?php echo url('/handyman/create-customer')?>",
+                            url: "<?php echo url('/aanbieder/create-customer')?>",
 
                             success: function(data) {
 

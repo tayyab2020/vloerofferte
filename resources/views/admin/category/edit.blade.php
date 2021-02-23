@@ -409,7 +409,7 @@ if(id)
             $.ajax({
                 type:"GET",
                 data: "id=" + id ,
-                url: "<?php echo url('/handyman/delete-subservices')?>",
+                url: "<?php echo url('/aanbieder/delete-subservices')?>",
                 success: function(data) {
 
                     $(parent).children().children().children('select').val('');

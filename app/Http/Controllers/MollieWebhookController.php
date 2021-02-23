@@ -121,8 +121,8 @@ class MollieWebhookController extends Controller {
 
                 $handyman_name = $post->name. ' ' .$post->family_name;
                 $client_name = $post1->name. ' ' .$post1->family_name;
-                $handyman_dash = url('/').'/handyman/dashboard';
-                $client_dash = url('/').'/handyman/client-dashboard';
+                $handyman_dash = url('/').'/aanbieder/dashboard';
+                $client_dash = url('/').'/aanbieder/client-dashboard';
                 $paid_amount = $data->paid_amount;
 
 

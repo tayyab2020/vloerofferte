@@ -41,7 +41,7 @@
   Route::get('/handyman-profile/{id}','FrontendController@user')->name('front.user');
   Route::get('/category/{slug}','FrontendController@types')->name('front.types');
   Route::get('/handymans/search/','FrontendController@search')->name('user.search');
-  Route::post('/handymans/quote/','FrontendController@quote')->name('user.quote');
+  Route::post('/quote','FrontendController@quote')->name('user.quote');
   Route::post('/handymans/filter/','FrontendController@FilterHandymans')->name('filter-handymans');
   Route::get('/veel-gestelde-vragen','FrontendController@faq')->name('front.faq');
   Route::get('/ads/{id}','FrontendController@ads')->name('front.ads');
@@ -51,14 +51,14 @@
   Route::get('/blog/{id}','FrontendController@blogshow')->name('front.blogshow');
   Route::post('/contact','FrontendController@contactemail')->name('front.contact.submit');
   Route::post('/subscribe','FrontendController@subscribe')->name('front.subscribe.submit');
-  Route::post('/handyman/contact','FrontendController@useremail')->name('front.user.submit');
-  Route::get('/handyman/refresh_code','FrontendController@refresh_code');
+  Route::post('/aanbieder/contact','FrontendController@useremail')->name('front.user.submit');
+  Route::get('/aanbieder/refresh_code','FrontendController@refresh_code');
   Route::get('/login', 'Auth\UserLoginController@showLoginForm')->name('user-login');
   Route::post('/login', 'Auth\UserLoginController@login')->name('user-login-submit');
   Route::get('/logout', 'Auth\UserLoginController@logout')->name('user-logout');
 
 
-  Route::prefix('handyman')->group(function() {
+  Route::prefix('aanbieder')->group(function() {
 
   Route::post('/create-customer','UserController@CreateCustomer');
   Route::get('/customer-quotations/{id?}', 'UserController@CustomerQuotations')->name('customer-quotations');
@@ -151,9 +151,9 @@
   Route::post('/forgot', 'Auth\UserForgotController@forgot')->name('user-forgot-submit');
   Route::get('/register', 'Auth\UserRegisterController@showRegisterForm')->name('user-register');
   Route::get('/complete-profile', 'UserController@CompleteProfile')->name('user-complete-profile');
-  Route::get('/register-handyman', 'Auth\UserRegisterController@showHandymanRegisterForm')->name('handyman-register');
+  Route::get('/registreren-aanbieder', 'Auth\UserRegisterController@showHandymanRegisterForm')->name('handyman-register');
   Route::post('/register', 'Auth\UserRegisterController@register')->name('user-register-submit');
-  Route::post('/handyman-register', 'Auth\UserRegisterController@HandymanRegister')->name('handyman-register-submit');
+  Route::post('/aanbieder-registreren', 'Auth\UserRegisterController@HandymanRegister')->name('handyman-register-submit');
   Route::post('/handyman-status-update', 'UserController@HandymanStatusUpdate')->name('handyman-status-update');
   Route::post('/client-status-update', 'UserController@ClientStatusUpdate')->name('client-status-update');
   Route::post('/add-cart', 'UserController@AddCart')->name('add-cart');

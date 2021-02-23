@@ -403,9 +403,9 @@ $amount = invoices::where('id','=',$request->item_id)->first();
 
 $amount = $amount->total;
 
-$handyman_dash = url('/').'/handyman/dashboard';
+$handyman_dash = url('/').'/aanbieder/dashboard';
 
-$client_dash = url('/').'/handyman/client-dashboard';
+$client_dash = url('/').'/aanbieder/client-dashboard';
 
 
 if( $handyman->featured == 0)

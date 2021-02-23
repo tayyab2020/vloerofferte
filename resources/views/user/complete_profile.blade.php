@@ -61,7 +61,7 @@
                                             {{csrf_field()}}
 
                                             <div class="profile-filup-description-box margin-bottom-30">
-                                               
+
 
                                                 <div class="form-group" >
 
@@ -81,7 +81,7 @@
 
 
 
-                                                
+
 
                                                                 </div>
 
@@ -96,7 +96,7 @@
 <span style="font-size: 22px;display: block;margin-top: 20px;"><strong>{{$lang->rft}}:</strong>&nbsp;&nbsp;€ <?php echo str_replace('.', ',', number_format($gs->registration_fee,2)); ?></span>
 
 <?php $without_vat = $gs->registration_fee/1.21;
-$without_vat = number_format($without_vat,2) 
+$without_vat = number_format($without_vat,2)
 ?>
 
 <span style="font-size: 22px;display: block;margin-top: 20px;"><strong>{{$lang->rft}} <small>{{$lang->rfevat}}</small>:</strong>&nbsp;&nbsp;€ <?php echo str_replace('.', ',', number_format($without_vat,2)); ?> </span>
@@ -126,7 +126,7 @@ $without_vat = number_format($without_vat,2)
 @endif
 
 
-                                            
+
                                         </form>
                                     </div>
                                 </div>
@@ -182,7 +182,7 @@ $without_vat = number_format($without_vat,2)
                 $.ajax({
                     type:"GET",
                     data: "id=" + id ,
-                    url: "<?php echo url('/handyman/services')?>",
+                    url: "<?php echo url('/aanbieder/services')?>",
                     success: function(data) {
 
                         $(selector).parent().parent().children('#rate').children("input").attr("placeholder", data);
@@ -334,7 +334,7 @@ $without_vat = number_format($without_vat,2)
                 $.ajax({
                     type:"GET",
                     data: "id=" + id ,
-                    url: "<?php echo url('/handyman/services')?>",
+                    url: "<?php echo url('/aanbieder/services')?>",
                     success: function(data) {
 
                         $(selector).parent().parent().children('#rate').children("input").attr("placeholder", data);
@@ -365,7 +365,7 @@ $without_vat = number_format($without_vat,2)
             $.ajax({
                 type:"GET",
                 data: "id=" + id ,
-                url: "<?php echo url('/handyman/delete-services')?>",
+                url: "<?php echo url('/aanbieder/delete-services')?>",
                 success: function(data) {
 
                     $(parent).children().children().children('select').val('');
@@ -427,7 +427,7 @@ $without_vat = number_format($without_vat,2)
                             $.ajax({
                                 type:"GET",
                                 data: "id=" + id ,
-                                url: "<?php echo url('/handyman/services')?>",
+                                url: "<?php echo url('/aanbieder/services')?>",
                                 success: function(data) {
 
                                     $(selector).parent().parent().children('#rate').children("input").attr("placeholder", data);
@@ -508,7 +508,7 @@ $without_vat = number_format($without_vat,2)
                     $.ajax({
                         type:"GET",
                         data: "id=" + id ,
-                        url: "<?php echo url('/handyman/services')?>",
+                        url: "<?php echo url('/aanbieder/services')?>",
                         success: function(data) {
 
                             $(selector).parent().parent().children('#rate').children("input").attr("placeholder", data);

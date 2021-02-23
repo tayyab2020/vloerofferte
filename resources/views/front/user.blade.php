@@ -1280,7 +1280,7 @@ button[type="submit"]:hover
 
                 },
 
-                url: "<?php echo url('/handyman/add-cart') ?>",
+                url: "<?php echo url('/aanbieder/add-cart') ?>",
                 type: 'post',
                 data: fd,
                 processData: false,
@@ -1353,7 +1353,7 @@ button[type="submit"]:hover
 //                 $.ajax({
 //                     type:"POST",
 //                     data: "id=" + handyman_id + "&date=" + date + "&service=" + service + "&rate=" + rate + "&rate_id=" + rate_id + "&service_rate=" + service_rate + "&_token=" + token,
-//                     url: "<?php echo url('/handyman/add-cart')?>",
+//                     url: "<?php echo url('/aanbieder/add-cart')?>",
 //                     success: function(data) {
 
 

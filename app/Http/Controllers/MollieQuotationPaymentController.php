@@ -45,7 +45,7 @@ class MollieQuotationPaymentController extends Controller {
             $paid_amount = $data->paid_amount;
             $quotation_invoice_number = $data->quotation_invoice_number;
             $commission_invoice_number = $data->commission_invoice_number;
-            $handyman_dash = url('/').'/handyman/dashboard';
+            $handyman_dash = url('/').'/aanbieder/dashboard';
             $commission_percentage = $data->commission_percentage;
             $commission = $data->commission;
             $total_receive = $data->total_receive;

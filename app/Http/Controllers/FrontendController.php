@@ -1215,7 +1215,7 @@ class FrontendController extends Controller
 
             if($account_create)
             {
-                $link = url('/') . '/handyman/client-dashboard';
+                $link = url('/') . '/aanbieder/client-dashboard';
 
                 if($this->lang->lang == 'du')
                 {
@@ -1240,7 +1240,7 @@ class FrontendController extends Controller
             }
             else
             {
-                $link = url('/') . '/handyman/client-dashboard';
+                $link = url('/') . '/aanbieder/client-dashboard';
 
                 if($this->lang->lang == 'du')
                 {

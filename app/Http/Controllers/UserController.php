@@ -593,7 +593,7 @@ class UserController extends Controller
         $handyman_email = $invoice[0]->email;
         $user_name = $invoice[0]->name;
 
-        $link = url('/') . '/handyman/handyman-dashboard';
+        $link = url('/') . '/aanbieder/dashboard';
 
         if($this->lang->lang == 'du')
         {
@@ -717,7 +717,7 @@ class UserController extends Controller
                 ],
                 'description' => $description,
                 'webhookUrl' => route('webhooks.quotation_payment'),
-                'redirectUrl' => url('/handyman/quotation-payment-redirect-page/' . $inv_encrypt),
+                'redirectUrl' => url('/aanbieder/quotation-payment-redirect-page/' . $inv_encrypt),
                 "metadata" => [
                     "invoice_id" => $pay_invoice_id,
                     "quote_id" => $quote_id,
@@ -879,7 +879,7 @@ class UserController extends Controller
 
             $input['id'] = $user->id;
 
-            $link = url('/') . '/handyman/client-dashboard';
+            $link = url('/') . '/aanbieder/client-dashboard';
 
             if($this->lang->lang == 'du')
             {

@@ -406,7 +406,7 @@ class AdminUserController extends Controller
             $user_name = $user->name;
             $email = $user->email;
 
-            $link = url('/').'/handyman/dashboard';
+            $link = url('/').'/aanbieder/dashboard';
 
             \Mail::send('admin.user.quotation_approved_mail',
                 array(
