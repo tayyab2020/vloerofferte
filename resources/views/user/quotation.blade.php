@@ -1327,9 +1327,6 @@
                     '                                                                           <div id="brand_container">\n'+
                     '                                                                            <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>\n' +
                     '                                                                                    <option value="">Select Brand</option>\n' +
-                    '                                                                                @foreach($all_brands as $key)\n' +
-                    '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
-                    '                                                                                @endforeach\n' +
                     '                                                                            </select>\n' +
                     '                                                                           </div>\n'+
                     '                                                                            <input type="hidden" id="brand_title" name="brand_title[]" value="{{isset($all_brands[0]) ? $all_brands[0]->cat_name : null}}">\n' +
@@ -1339,9 +1336,6 @@
                     '                                                                           <div id="model_container">\n'+
                     '                                                                            <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>\n' +
                     '                                                                                    <option value="">Select Model</option>\n' +
-                    '                                                                                @foreach($all_models as $key)\n' +
-                    '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
-                    '                                                                                @endforeach\n' +
                     '                                                                            </select>\n' +
                     '                                                                           </div>\n'+
                     '                                                                            <input type="hidden" id="model_title" name="model_title[]" value="{{isset($all_models[0]) ? $all_models[0]->cat_name : null}}">\n' +
