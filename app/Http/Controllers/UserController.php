@@ -833,6 +833,81 @@ class UserController extends Controller
 
     }
 
+    public function Customers()
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $customers = User::where('role_id',3)->where('parent_id',$user_id)->where('allowed',0)->get();
+
+        return view('user.customers',compact('customers'));
+    }
+
+    public function CreateCustomerForm()
+    {
+        return view('user.create_customer');
+    }
+
+    public function EditCustomer($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $customer = User::where('id',$id)->where('parent_id',$user_id)->first();
+
+        return view('user.create_customer',compact('customer'));
+    }
+
+    public function DeleteCustomer($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        User::where('id',$id)->where('parent_id',$user_id)->delete();
+
+        Session::flash('success', __('text.Customer deleted successfully'));
+        return redirect()->route('customers');
+    }
+
+    public function PostCustomer(Request $request)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $check = User::where('parent_id',$user_id)->where('email',$request->org_email)->where('allowed',0)->first();
+
+        if($check)
+        {
+            User::where('parent_id',$user_id)->where('email',$request->org_email)->where('allowed',0)->update(['name' => $request->name, 'family_name' => $request->family_name, 'business_name' => $request->business_name, 'address' => $request->address, 'postcode' => $request->postcode, 'city' => $request->city, 'phone' => $request->phone, 'email' => $request->email]);
+            Session::flash('success', __('text.Customer updated successfully'));
+            return redirect()->route('customers');
+        }
+        else
+        {
+            $org_password = Str::random(8);
+            $password = Hash::make($org_password);
+
+            $user = new User;
+            $user->category_id = 20;
+            $user->role_id = 3;
+            $user->password = $password;
+            $user->name = $request->name;
+            $user->family_name = $request->family_name;
+            $user->business_name = $request->business_name;
+            $user->address = $request->address;
+            $user->postcode = $request->postcode;
+            $user->city = $request->city;
+            $user->phone = $request->phone;
+            $user->email = $request->email;
+            $user->parent_id = $user_id;
+            $user->allowed = 0;
+            $user->save();
+
+            Session::flash('success', __('text.Customer created successfully'));
+            return redirect()->route('customers');
+        }
+    }
+
     public function InstructionManual()
     {
         $data = instruction_manual::first();

@@ -60,6 +60,11 @@
 
   Route::prefix('aanbieder')->group(function() {
 
+  Route::get('/klanten', 'UserController@Customers')->name('customers');
+  Route::get('/klant-bewerken/{id}', 'UserController@EditCustomer')->name('edit-customer');
+  Route::get('/klant-verwijderen/{id}', 'UserController@DeleteCustomer')->name('delete-customer');
+  Route::post('/klanten','UserController@PostCustomer')->name('post-create-customer');
+  Route::get('/klant-aanmaken', 'UserController@CreateCustomerForm')->name('handyman-user-create');
   Route::get('/handleiding','UserController@InstructionManual')->name('instruction-manual');
   Route::post('/create-customer','UserController@CreateCustomer');
   Route::get('/aanvrager-offerte/{id?}', 'UserController@CustomerQuotations')->name('customer-quotations');

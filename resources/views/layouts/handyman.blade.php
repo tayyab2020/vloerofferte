@@ -139,6 +139,10 @@
                             <a href="{{route('commission-invoices')}}"><i class="fa fa-fw fa-file-text"></i> {{__('text.Commission Invoices')}}</a>
                         </li>
 
+                        <li>
+                            <a href="{{route('customers')}}"><i class="fa fa-fw fa-file-text"></i> {{__('text.Customers')}}</a>
+                        </li>
+
 
                         <li>
                             <a href="#sales" data-toggle="collapse" @if(Route::currentRouteName() == 'user-products' || Route::currentRouteName() == 'product-create') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> {{__('text.Sales')}}</a>
