@@ -3147,13 +3147,14 @@ class UserController extends Controller
         }
         else
         {
+
             foreach ($request->product_checkboxes as $x => $key)
             {
                 $post = new handyman_products;
                 $post->handyman_id = $user_id;
-                $post->product_id = $request->product_id[$x];
-                $post->rate = $request->product_rate[$x];
-                $post->sell_rate = $request->product_sell_rate[$x];
+                $post->product_id = $request->product_id[$key];
+                $post->rate = $request->product_rate[$key];
+                $post->sell_rate = $request->product_sell_rate[$key];
                 $post->vat_percentage = 21;
                 /*$post->model_number = $request->model_number[$x];*/
                 $post->save();
