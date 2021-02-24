@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\instruction_manual;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -43,11 +44,56 @@ class AdminController extends Controller
 
     public function HowItWorks()
     {
-
-
         $data = how_it_works::findOrFail(1);
 
         return view('admin.how_it_works',compact('data'));
+    }
+
+    public function InstructionManual()
+    {
+        $data = instruction_manual::first();
+
+        return view('admin.instruction_manual',compact('data'));
+    }
+
+    public function InstructionManualPost(Request $request)
+    {
+
+        $this->validate($request, [
+            'file' => 'mimes:pdf',
+        ],
+            [
+                'file.mimes' => __('text.File type should be pdf'),
+            ]);
+
+
+        $data = instruction_manual::first();
+        $file = $request->file('file');
+
+        if($data)
+        {
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/assets/InstructionManual',$name);
+
+            if($data->file != null)
+            {
+                \File::delete(public_path().'/assets/InstructionManual/'.$data->file);
+            }
+
+            instruction_manual::first()->update(['file' => $name]);
+        }
+        else
+        {
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/assets/InstructionManual',$name);
+
+            $instruction_manual = new instruction_manual;
+            $instruction_manual->file = $name;
+            $instruction_manual->save();
+        }
+
+        Session::flash('success','Successfully updated the instruction manual file');
+        return redirect()->back();
     }
 
      public function HandymanTerms()
@@ -73,15 +119,12 @@ class AdminController extends Controller
 
                 if($terms->file != null)
                 {
-                    unlink(public_path().'/assets/'.$terms->file);
+                    \File::delete(public_path().'/assets/'.$terms->file);
                 }
-            $input['file'] = $name;
+                $input['file'] = $name;
             }
 
-
-        $terms->update($input);
-
-
+            $terms->update($input);
         }
 
         else
@@ -91,9 +134,7 @@ class AdminController extends Controller
             {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets',$name);
-
-
-            $input['file'] = $name;
+                $input['file'] = $name;
             }
 
 
@@ -108,7 +149,6 @@ class AdminController extends Controller
         Session::flash('success', 'Successfully updated the terms and conditions file for handyman');
         return redirect()->route('admin-handyman-terms');
     }
-
 
 
      public function ClientTerms()
@@ -127,7 +167,6 @@ class AdminController extends Controller
 
         if($terms)
         {
-
             if ($file = $request->file('file'))
             {
                 $name = time().$file->getClientOriginalName();
@@ -135,15 +174,12 @@ class AdminController extends Controller
 
                 if($terms->file != null)
                 {
-                    unlink(public_path().'/assets/'.$terms->file);
+                    \File::delete(public_path().'/assets/'.$terms->file);
                 }
-            $input['file'] = $name;
+                $input['file'] = $name;
             }
 
-
-        $terms->update($input);
-
-
+            $terms->update($input);
         }
 
         else
@@ -153,9 +189,7 @@ class AdminController extends Controller
             {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets',$name);
-
-
-            $input['file'] = $name;
+                $input['file'] = $name;
             }
 
 
@@ -163,7 +197,6 @@ class AdminController extends Controller
             $terms->role = 2;
             $terms->file = $name;
             $terms->save();
-
 
         }
 

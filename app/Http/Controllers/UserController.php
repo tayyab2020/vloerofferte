@@ -6,6 +6,7 @@ use App\Brand;
 use App\custom_quotations;
 use App\custom_quotations_data;
 use App\handyman_quotes;
+use App\instruction_manual;
 use App\items;
 use App\Model1;
 use App\product;
@@ -830,6 +831,13 @@ class UserController extends Controller
             return redirect()->back();
         }
 
+    }
+
+    public function InstructionManual()
+    {
+        $data = instruction_manual::first();
+
+        return view('user.instruction_manual',compact('data'));
     }
 
     public function CreateCustomer(Request $request)

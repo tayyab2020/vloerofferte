@@ -197,29 +197,28 @@ class UserRegisterController extends Controller
 
         if ($response->success)
         {
-
-      $this->validate($request, [
-          'email' => [
-              'required',
-              'string',
-              'email',
-              Rule::unique('users')->where(function($query) {
-                  $query->where('allowed', '=', '1');
-              })
-          ],
-          'name'   => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
-          'family_name' => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
-          'company_name' => 'required',
-          'registration_number' => 'required',
-          'postcode' => 'required',
-          'city' => 'required',
-          'bank_account' => 'required',
-          'address' => 'required',
-          'tax_number' => 'required',
-          'phone' => 'required',
-          'password' => 'required|min:8|confirmed',
-          'g-recaptcha-response' => 'required',
-      ],
+            $this->validate($request, [
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    Rule::unique('users')->where(function($query) {
+                        $query->where('allowed', '=', '1');
+                    })
+                ],
+                'name'   => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
+                'family_name' => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
+                'company_name' => 'required',
+                'registration_number' => 'required',
+                'postcode' => 'required',
+                'city' => 'required',
+                'bank_account' => 'required',
+                'address' => 'required',
+                'tax_number' => 'required',
+                'phone' => 'required',
+                'password' => 'required|min:8|confirmed',
+                'g-recaptcha-response' => 'required',
+            ],
 
           [
               'email.required' => $this->lang->erv,

@@ -11,20 +11,20 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="add-product-box">
                                         <div class="add-product-header">
-                                            <h2>Upload Terms & Condtions For Client</h2> 
+                                            <h2>Upload Terms & Conditions For Client</h2>
                                         </div>
                                         <hr>
                                         <form class="form-horizontal" action="{{route('admin-client-terms-post')}}" method="POST" enctype="multipart/form-data">
                                          @include('includes.form-error')
-                                            @include('includes.form-success')      
+                                            @include('includes.form-success')
                                           {{csrf_field()}}
                                           <div class="form-group">
                                             <label class="control-label col-sm-4" for="">Current PDF File </label>
                                             <div class="col-sm-7">
-                                                
-                                                <embed src="{{   $data ? asset('assets/'.$data->file) : asset('assets/terms-and-conditions-template.pdf')  }}" width="100%" height="800px" />
 
-                                           
+                                                <embed src="{{ $data->file ? asset('assets/'.$data->file) : asset('assets/terms-and-conditions-template.pdf')  }}" width="100%" height="800px" />
+
+
                                             </div>
                                           </div>
                                           <div class="form-group">

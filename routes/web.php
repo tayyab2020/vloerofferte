@@ -60,6 +60,7 @@
 
   Route::prefix('aanbieder')->group(function() {
 
+  Route::get('/handleiding','UserController@InstructionManual')->name('instruction-manual');
   Route::post('/create-customer','UserController@CreateCustomer');
   Route::get('/aanvrager-offerte/{id?}', 'UserController@CustomerQuotations')->name('customer-quotations');
   Route::get('/aanvrager-facturen/{id?}', 'UserController@CustomerInvoices')->name('customer-invoices');
@@ -211,7 +212,8 @@
   Route::get('/client-terms', 'AdminController@ClientTerms')->name('admin-client-terms');
   Route::post('/handyman-terms-post', 'AdminController@HandymanTermsPost')->name('admin-handyman-terms-post');
   Route::post('/client-terms-post', 'AdminController@ClientTermsPost')->name('admin-client-terms-post');
-
+  Route::get('/instruction-manual', 'AdminController@InstructionManual')->name('admin-instruction-manual');
+  Route::post('/instruction-manual-post', 'AdminController@InstructionManualPost')->name('admin-instruction-manual-post');
 
   Route::get('/quotation-questions', 'AdminUserController@QuotationQuestions')->name('quotation-questions');
   Route::get('/create-question', 'AdminUserController@CreateQuestion')->name('create-question');

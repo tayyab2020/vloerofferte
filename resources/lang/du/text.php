@@ -238,4 +238,7 @@ return [
     'Recent Posts' => 'Laatste blogs',
     'Enter Code' => 'Enter Code',
     'Send Message' => 'Send Message',
+    'Instruction Manual' => 'Handleiding',
+    'File type should be pdf' => 'File type should be pdf',
+    'Successfully updated the instruction manual file' => 'Successfully updated the instruction manual file',
 ];

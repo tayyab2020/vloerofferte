@@ -187,6 +187,9 @@
                             <a href="{{ route('ratings') }}" id="rating"><i class="fa fa-fw fa-book"></i> {{$lang->hpmrt}}</a>
                         </li>
 
+                        <li>
+                            <a href="{{ route('instruction-manual') }}" id="instruction"><i class="fa fa-fw fa-book"></i> {{__('text.Instruction Manual')}}</a>
+                        </li>
 
                         <li class="lang-list" style="text-align: center;margin-top: 20px;">
 
