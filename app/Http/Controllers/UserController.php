@@ -1034,7 +1034,7 @@ class UserController extends Controller
                 if(!$key->item)
                 {
                     $all_brands[$i] = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('products.category_id',$key->s_i_id)->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
-                    $all_brands = $all_brands->unique();
+                    $all_brands = array_unique($all_brands);
 
                     $all_models[$i] = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('products.brand_id',$key->b_i_id)->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
                     /*$all_models = $all_models->unique();*/
