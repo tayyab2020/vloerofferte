@@ -159,6 +159,8 @@
 
                                                                                     <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
 
+                                                                                        <option value="">Select Category</option>
+
                                                                                         @foreach($services as $key)
                                                                                             <option value="{{$key->id}}" @if(!$temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->service; $rate = $temp->rate; ?> @endif @endif>{{$key->cat_name}}</option>
                                                                                         @endforeach
@@ -169,7 +171,7 @@
 
                                                                                     </select>
 
-                                                                                        <?php if(!isset($service_title)){ $service_title = $services[0]->cat_name; $rate = 0; } ?>
+                                                                                        <?php if(!isset($service_title)){ $service_title = isset($services[0]) ? $services[0]->cat_name : null; $rate = 0; } ?>
 
                                                                                         <input type="hidden" name="service_title[]" value="{{$service_title}}">
 
@@ -188,6 +190,8 @@
 
                                                                                             <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" @if($temp->b_i_id != 0) required @endif>
 
+                                                                                                <option value="">Select Brand</option>
+
                                                                                                 @if($temp->b_i_id != 0)
 
                                                                                                     @foreach($all_brands as $key)
@@ -200,7 +204,7 @@
 
                                                                                         </div>
 
-                                                                                        <input type="hidden" id="brand_title" name="brand_title[]" value="{{isset($brand_title) ? $brand_title : $all_brands[0]->cat_name}}">
+                                                                                        <input type="hidden" id="brand_title" name="brand_title[]" value="{{isset($brand_title) ? $brand_title : (isset($all_brands[0]) ? $all_brands[0]->cat_name : null)}}">
                                                                                         <input @if($temp->b_i_id != 0) style="display: none;" @else value="{{$temp->brand}}" @endif class="form-control" type="text" name="item_brand[]" id="item_brand">
 
                                                                                     @else
@@ -217,6 +221,8 @@
 
                                                                                             <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" @if($temp->m_i_id != 0) required @endif>
 
+                                                                                                <option value="">Select Model</option>
+
                                                                                                 @if($temp->m_i_id != 0)
 
                                                                                                     @foreach($all_models as $key)
@@ -229,7 +235,7 @@
 
                                                                                         </div>
 
-                                                                                        <input type="hidden" id="model_title" name="model_title[]" value="{{isset($model_title) ? $model_title : $all_models[0]->cat_name}}">
+                                                                                        <input type="hidden" id="model_title" name="model_title[]" value="{{isset($model_title) ? $model_title : isset($all_models[0]) ? $all_models[0]->cat_name : null}}">
                                                                                         <input @if($temp->m_i_id != 0) style="display: none;" @else value="{{$temp->model}}" @endif class="form-control" type="text" name="item_model[]" id="item_model">
 
                                                                                     @else
