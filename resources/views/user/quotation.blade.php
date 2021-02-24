@@ -171,9 +171,7 @@
 
                                                                                     </select>
 
-                                                                                        <?php if(!isset($service_title)){ $service_title = isset($services[0]) ? $services[0]->cat_name : null; $rate = 0; } ?>
-
-                                                                                        <input type="hidden" name="service_title[]" value="{{$service_title}}">
+                                                                                        
 
                                                                                     @else
 
@@ -204,7 +202,7 @@
 
                                                                                         </div>
 
-                                                                                        
+
                                                                                         <input @if($temp->b_i_id != 0) style="display: none;" @else value="{{$temp->brand}}" @endif class="form-control" type="text" name="item_brand[]" id="item_brand">
 
                                                                                     @else
