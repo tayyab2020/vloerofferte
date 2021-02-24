@@ -140,7 +140,7 @@
                                                                             <th class="col-sm-2">{{__('text.Category/Item')}}</th>
                                                                             <th class="col-sm-2">{{__('text.Brand')}}</th>
                                                                             <th class="col-sm-2">{{__('text.Model')}}</th>
-                                                                            <th class="col-md-3">{{__('text.Description')}}</th>
+                                                                            <th class="col-md-2">{{__('text.Description')}}</th>
                                                                             <th style="width:120px;">{{__('text.Qty')}}</th>
                                                                             <th style="width:100px;">{{__('text.Cost')}}</th>
                                                                             <th style="width: 120px;">{{__('text.Amount')}}</th>

@@ -87,7 +87,7 @@
   Route::post('/pay-quotation', 'UserController@PayQuotation');
   Route::get('/quotation-payment-redirect-page/{id}', 'FrontendController@QuotationPaymentRedirectPage');
   Route::get('/versturen-eigen-offerte/{id}', 'UserController@SendCustomQuotation');
-  Route::post('/bewerk-offerte/ask-customization', 'UserController@CustomQuotationAskCustomization');
+  Route::post('/aangepaste-offerte/ask-customization', 'UserController@CustomQuotationAskCustomization');
   Route::get('/eigen-offerte/accepteren-offerte/{id}', 'UserController@CustomQuotationAcceptQuotation');
   Route::get('/bekijk-offerteaanvraag-aanbieder/{id}', 'UserController@HandymanQuoteRequest');
   Route::get('/download-handyman-quote-request/{id}', 'UserController@DownloadHandymanQuoteRequest');
@@ -104,7 +104,7 @@
   Route::get('/opstellen-factuur/{id}', 'UserController@ViewQuotation')->name('create-handyman-invoice');
   Route::get('/opstellen-eigen-factuur/{id}', 'UserController@ViewCustomQuotation')->name('create-custom-invoice');
   Route::get('/offerte/{id}', 'UserController@ViewClientQuotation')->name('view-client-quotation');
-  Route::get('/bewerk-offerte/{id}', 'UserController@ViewClientCustomQuotation')->name('view-client-custom-quotation');
+  Route::get('/aangepaste-offerte/{id}', 'UserController@ViewClientCustomQuotation')->name('view-client-custom-quotation');
   Route::get('/handyman-panel', 'UserController@HandymanPanel')->name('handyman-panel');
   Route::get('/dashboard', 'UserController@index')->name('user-dashboard');
   Route::get('/experience-years', 'UserController@ExperienceYears')->name('experience-years');

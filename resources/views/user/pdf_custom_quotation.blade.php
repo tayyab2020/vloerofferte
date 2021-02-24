@@ -21,7 +21,7 @@
 
                             <div class="col-md-4 col-sm-4 col-xs-12">
 
-                                <img class="img-fluid" src="{{ public_path('assets/images/'.$user->photo) }}" style="width:30%; height:100%;margin-bottom: 30px;">
+                                <img class="img-fluid" src="{{ $user->photo ? public_path('assets/images/'.$user->photo) : public_path('assets/images/LOGO-page-001.jpg') }}" style="width:30%; height:100%;margin-bottom: 30px;">
                                 <p style="margin: 0"><b>{{$user->name}} {{$user->family_name}}</b></p>
                                 <p style="margin: 0">{{$user->company_name}}</p>
                                 <p style="margin: 0">{{$address}}</p>

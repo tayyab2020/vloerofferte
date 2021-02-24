@@ -75,7 +75,7 @@
 
                                                             @if(Route::currentRouteName() == 'client-custom-quotations')
 
-                                                                <td><a href="{{ url('/aanbieder/bewerk-offerte/'.$key->invoice_id) }}">QUO# {{$key->quotation_invoice_number}}</a></td>
+                                                                <td><a href="{{ url('/aanbieder/aangepaste-offerte/'.$key->invoice_id) }}">QUO# {{$key->quotation_invoice_number}}</a></td>
 
                                                             @else
 
@@ -239,12 +239,12 @@
 
                                                                             @if(Route::currentRouteName() == 'client-custom-quotations')
 
-                                                                                <li><a href="{{ url('/aanbieder/bewerk-offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
+                                                                                <li><a href="{{ url('/aanbieder/aangepaste-offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
                                                                                 <li><a href="{{ url('/aanbieder/download-client-custom-quotation/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
 
                                                                                 @if($key->status != 2 && $key->status != 3)
 
-                                                                                    <li><a onclick="ask(this)" data-id="{{$key->invoice_id}}" data-text="{{$key->review_text}}" data-url="{{ url('/aanbieder/bewerk-offerte/ask-customization/') }}" href="javascript:void(0)">{{__('text.Ask Again')}}</a></li>
+                                                                                    <li><a onclick="ask(this)" data-id="{{$key->invoice_id}}" data-text="{{$key->review_text}}" data-url="{{ url('/aanbieder/aangepaste-offerte/ask-customization/') }}" href="javascript:void(0)">{{__('text.Ask Again')}}</a></li>
 
                                                                                     <li><a href="{{ url('/aanbieder/eigen-offerte/accepteren-offerte/'.$key->invoice_id) }}">{{__('text.Accept')}}</a></li>
 

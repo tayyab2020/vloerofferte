@@ -111,13 +111,13 @@
 
                                     @if($type == 'invoice' || $type == 'delivery-address-edit')
 
-                                        @foreach($invoice as $key)
+                                        @foreach($invoice as $x => $key)
 
                                             <tr>
                                                 <td>{{$key->service}}</td>
                                                 <td>{{$key->brand}}</td>
                                                 <td>{{$key->model}}</td>
-                                                <td>{{$quote->quote_model_number}}</td>
+                                                <td>{{(isset($invoice->b_i_id[$i]) && isset($invoice->m_i_id[$i])) ? ($quote->quote_service == $invoice->s_i_id[$i] && $quote->quote_brand == $invoice->b_i_id[$i] && $quote->quote_model == $invoice->m_i_id[$i] ? $quote->quote_model_number : null) : null}}</td>
                                                 {{--<td>{{$key->description}}</td>--}}
                                                 <td>{{number_format((float)$key->qty, 2, ',', '.')}}</td>
                                                 <td>{{number_format((float)$key->rate, 2, ',', '.')}}</td>
@@ -134,7 +134,7 @@
                                                 <td>{{$request->service_title[$i]}}</td>
                                                 <td>{{$request->brand_title[$i]}}</td>
                                                 <td>{{$request->model_title[$i]}}</td>
-                                                <td>{{$quote->quote_model_number}}</td>
+                                                <td>{{(isset($request->brand[$i]) && isset($request->model[$i])) ? ($quote->quote_service == $request->item[$i] && $quote->quote_brand == $request->brand[$i] && $quote->quote_model == $request->model[$i] ? $quote->quote_model_number : null) : null}}</td>
                                                 {{--<td>{{$request->description[$i]}}</td>--}}
                                                 <td>{{$request->qty[$i]}}</td>
                                                 <td>{{$request->cost[$i]}}</td>
