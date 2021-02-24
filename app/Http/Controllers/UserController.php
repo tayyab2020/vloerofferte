@@ -1046,6 +1046,9 @@ class UserController extends Controller
                 }
             }
 
+            var_dump($all_brands);
+            exit();
+
             if (count($services) == 0 && count($all_brands) == 0 && count($all_models) == 0) {
                 Session::flash('unsuccess', 'No products found, You have to select at least one product');
                 return redirect()->back();
