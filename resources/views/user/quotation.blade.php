@@ -194,7 +194,7 @@
 
                                                                                                 @if($temp->b_i_id != 0)
 
-                                                                                                    @foreach($all_brands as $key)
+                                                                                                    @foreach($all_brands[$i] as $key)
                                                                                                         <option value="{{$key->id}}" @if($temp->b_i_id == $key->id) selected <?php $brand_title = $temp->brand; ?> @endif>{{$key->cat_name}}</option>
                                                                                                     @endforeach
 
@@ -225,7 +225,7 @@
 
                                                                                                 @if($temp->m_i_id != 0)
 
-                                                                                                    @foreach($all_models as $key)
+                                                                                                    @foreach($all_models[$i] as $key)
                                                                                                         <option value="{{$key->id}}" @if($temp->m_i_id == $key->id) selected <?php $model_title = $temp->model; ?> @endif>{{$key->cat_name}}</option>
                                                                                                     @endforeach
 
