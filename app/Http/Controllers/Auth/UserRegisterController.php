@@ -14,6 +14,7 @@ use App\Category;
 use App\User;
 use App\terms_conditions;
 use APP\Rules\Captcha;
+use Illuminate\Validation\Rule;
 
 class UserRegisterController extends Controller
 {
@@ -104,11 +105,16 @@ class UserRegisterController extends Controller
 
         if($response->success)
         {
-
-             // Validate the form data
-
+            // Validate the form data
             $this->validate($request, [
-                'email'   => 'required|string|email|unique:users',
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    Rule::unique('users')->where(function($query) {
+                        $query->where('allowed', '=', '1');
+                    })
+                ],
                 'name'   => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
                 'family_name' => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
                 'postcode' => 'required',
@@ -118,7 +124,6 @@ class UserRegisterController extends Controller
                 'password' => 'required|min:8|confirmed',
                 'g-recaptcha-response' => 'required',
             ],
-
                 [
                     'email.required' => $this->lang->erv,
                     'email.unique' => $this->lang->euv,
@@ -194,41 +199,50 @@ class UserRegisterController extends Controller
         {
 
       $this->validate($request, [
-        'email'   => 'required|string|email|unique:users',
-        'name'   => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
-        'family_name' => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
-        'company_name' => 'required',
-        'registration_number' => 'required',
-        'postcode' => 'required',
-        'city' => 'required',
-        'bank_account' => 'required',
-        'address' => 'required',
-        'tax_number' => 'required',
-        'phone' => 'required',
-        'password' => 'required|min:8|confirmed',
-        'g-recaptcha-response' => 'required',
+          'email' => [
+              'required',
+              'string',
+              'email',
+              Rule::unique('users')->where(function($query) {
+                  $query->where('allowed', '=', '1');
+              })
+          ],
+          'name'   => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
+          'family_name' => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
+          'company_name' => 'required',
+          'registration_number' => 'required',
+          'postcode' => 'required',
+          'city' => 'required',
+          'bank_account' => 'required',
+          'address' => 'required',
+          'tax_number' => 'required',
+          'phone' => 'required',
+          'password' => 'required|min:8|confirmed',
+          'g-recaptcha-response' => 'required',
       ],
-    [
-        'email.required' => $this->lang->erv,
-        'name.required' => $this->lang->nrv,
-        'name.max' => $this->lang->nmv,
-        'name.regex' => $this->lang->niv,
-        'family_name.required' => $this->lang->fnrv,
-        'family_name.max' => $this->lang->fnmrv,
-        'family_name.regex' => $this->lang->fniv,
-        'company_name.required' => $this->lang->cnrv,
-        'registration_number.required' => $this->lang->rnrv,
-        'bank_account.required' => $this->lang->barv,
-        'tax_number.required' => $this->lang->tnrv,
-        'postcode.required' => $this->lang->pcrv,
-        'city.required' => $this->lang->crv,
-        'address.required' => $this->lang->arv,
-        'phone.required' => $this->lang->prv,
-        'password.required' => $this->lang->parv,
-        'password.min' => $this->lang->pamv,
-        'password.confirmed' => $this->lang->pacv,
-        'g-recaptcha-response.required' => $this->lang->grv,
-    ]);
+
+          [
+              'email.required' => $this->lang->erv,
+              'email.unique' => $this->lang->euv,
+              'name.required' => $this->lang->nrv,
+              'name.max' => $this->lang->nmv,
+              'name.regex' => $this->lang->niv,
+              'family_name.required' => $this->lang->fnrv,
+              'family_name.max' => $this->lang->fnmrv,
+              'family_name.regex' => $this->lang->fniv,
+              'company_name.required' => $this->lang->cnrv,
+              'registration_number.required' => $this->lang->rnrv,
+              'bank_account.required' => $this->lang->barv,
+              'tax_number.required' => $this->lang->tnrv,
+              'postcode.required' => $this->lang->pcrv,
+              'city.required' => $this->lang->crv,
+              'address.required' => $this->lang->arv,
+              'phone.required' => $this->lang->prv,
+              'password.required' => $this->lang->parv,
+              'password.min' => $this->lang->pamv,
+              'password.confirmed' => $this->lang->pacv,
+              'g-recaptcha-response.required' => $this->lang->grv,
+          ]);
 
         $user = new User;
         $input = $request->all();

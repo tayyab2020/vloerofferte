@@ -31,7 +31,7 @@ class UserLoginController extends Controller
 		]);
 
       // Attempt to log the user in
-      if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password])) {
+      if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'allowed' => 1])) {
 
         if( Auth::guard('user')->user()->role_id == 2)
         {

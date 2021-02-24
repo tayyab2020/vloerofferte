@@ -1120,17 +1120,18 @@ class FrontendController extends Controller
                     'quote_familyname.regex' => 'Family Name format is invalid.',
                 ]);
 
-            $check = users::where('email', $request->quote_email)->first();
+            $check = users::where('email', $request->quote_email)->where('allowed',1)->first();
 
             $user_name = $request->quote_name;
             $user_email = $request->quote_email;
 
             if ($check) {
-                if ($check->role_id == 2) {
 
+                if ($check->role_id == 2) {
 
                     Session::flash('unsuccess', __('text.Email address is already in use for a handyman account!'));
                     return redirect()->back();
+
                 }
 
                 $user_id = $check->id;

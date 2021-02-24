@@ -843,7 +843,10 @@ class UserController extends Controller
 
             ]);*/
 
-        $check = User::where('email', $request->email)->first();
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $check = User::where('email', $request->email)->where('parent_id',$user_id)->where('allowed',0)->first();
 
         if ($check) {
             $response = array('data' => $check, 'message' => __('text.User already created'));
@@ -875,6 +878,7 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->password = $password;
             $user->parent_id = $handyman_id;
+            $user->allowed = 0;
             $user->save();
 
             $input['id'] = $user->id;
