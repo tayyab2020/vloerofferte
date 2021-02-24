@@ -1044,7 +1044,7 @@ class UserController extends Controller
                 }
             }
 
-            $all_brands = array_unique($all_brands);
+            $all_brands = array_unique($all_brands,SORT_REGULAR);
             $all_models = array_unique($all_models);
 
             if (count($services) == 0 && count($all_brands) == 0 && count($all_models) == 0) {
