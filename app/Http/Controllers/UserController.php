@@ -883,7 +883,7 @@ class UserController extends Controller
 
             $input['id'] = $user->id;
 
-            $link = url('/') . '/aanbieder/client-dashboard';
+            /*$link = url('/') . '/aanbieder/client-dashboard';
 
             if($this->lang->lang == 'du')
             {
@@ -899,7 +899,7 @@ class UserController extends Controller
                     ->from('info@vloerofferte.nl')
                     ->subject(__('text.Account Created!'))
                     ->setBody($msg, 'text/html');
-            });
+            });*/
 
             $response = array('data' => $input, 'message' => __('text.New customer created successfully'));
             return $response;

@@ -520,7 +520,7 @@ class AdminUserController extends Controller
 
     public function Clients()
     {
-        $users = User::where('role_id','=',3)->orderBy('created_at','desc')->get();
+        $users = User::where('role_id','=',3)->where('allowed',1)->orderBy('created_at','desc')->get();
 
         foreach ($users as $key) {
 
