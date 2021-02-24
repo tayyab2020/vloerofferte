@@ -1034,8 +1034,10 @@ class UserController extends Controller
                 if(!$key->item)
                 {
                     $all_brands[$i] = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('products.category_id',$key->s_i_id)->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
+                    $all_brands[$i] = array_unique($all_brands[$i]);
 
                     $all_models[$i] = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('products.brand_id',$key->b_i_id)->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
+                    $all_models[$i] = array_unique($all_models[$i]);
                 }
                 else
                 {
@@ -1043,9 +1045,6 @@ class UserController extends Controller
                     $all_models[$i] = '';
                 }
             }
-
-            $all_brands = array_unique($all_brands,SORT_REGULAR);
-            $all_models = array_unique($all_models);
 
             if (count($services) == 0 && count($all_brands) == 0 && count($all_models) == 0) {
                 Session::flash('unsuccess', 'No products found, You have to select at least one product');
