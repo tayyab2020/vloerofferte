@@ -1171,7 +1171,7 @@
             });
 
 
-            $(".add-row").click(function(){
+            $(document).on('click', '.add-row', function(){
 
                 var rowCount = $('.items-table tr').length;
 
@@ -1216,7 +1216,7 @@
                     '                                                                            <input type="hidden" name="description[]" id="description" class="form-control">\n' +
                     '                                                                            <a href="javascript:void(0)" class="add-desc" title="<?php echo __('text.Add Description') ?>" style="color: black;"><i style="font-size: 20px;" class="fa fa-plus-square"></i></a>\n'+
                     '                                                                        </td>\n' +
-                    '                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="<?php echo __('text.Remove') ?>"><i class="fa fa-trash-o"></i></a></td>\n' +
+                    '                                                                        <td style="text-align: center;"><a href="javascript:void(0)" class="text-success font-18 add-row" title=""><i class="fa fa-plus"></i></a><a href="javascript:void(0)" class="text-danger font-18 remove-row" title="<?php echo __('text.Remove') ?>"><i class="fa fa-trash-o"></i></a></td>\n' +
                     '                                                                    </tr>');
 
 
