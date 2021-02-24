@@ -1030,7 +1030,7 @@ class UserController extends Controller
             $services = $services->unique();
 
             $all_brands = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('products.category_id',$quotation[0]->s_i_id)->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
-            var_dump($all_brands);
+            var_dump($quotation[0]->s_i_id);
             exit();
             $all_brands = $all_brands->unique();
 
