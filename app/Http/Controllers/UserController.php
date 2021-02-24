@@ -989,16 +989,27 @@ class UserController extends Controller
 
         $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotation_invoices.handyman_id', $user_id)->select('quotation_invoices.*', 'quotes.quote_zipcode', 'quotes.quote_postcode', 'quotes.quote_city', 'quotes.id as quote_id', 'quotes.quote_number', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.b_i_id', 'quotation_invoices_data.m_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
 
+        $services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*')->get();
+        $services = $services->unique();
+
         if (count($quotation) != 0) {
 
-            $services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*')->get();
-            $services = $services->unique();
+            foreach ($quotation as $i => $key)
+            {
+                if(!$key->item)
+                {
+                    $all_brands = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('products.category_id',$key->s_i_id)->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
+                    $all_brands[$i] = $all_brands->unique();
 
-            $all_brands = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('products.category_id',$quotation[0]->s_i_id)->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
-            $all_brands = $all_brands->unique();
-
-            $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('products.brand_id',$quotation[0]->b_i_id)->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
-            $all_models = $all_models->unique();
+                    $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('products.brand_id',$key->b_i_id)->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
+                    $all_models[$i] = $all_models->unique();
+                }
+                else
+                {
+                    $all_brands[$i] = '';
+                    $all_models[$i] = '';
+                }
+            }
 
             $items = items::where('user_id', $user_id)->get();
 
