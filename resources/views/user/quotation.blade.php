@@ -1329,7 +1329,7 @@
                     '                                                                                    <option value="">Select Brand</option>\n' +
                     '                                                                            </select>\n' +
                     '                                                                           </div>\n'+
-                    '                                                                            <input type="hidden" id="brand_title" name="brand_title[]" value="{{isset($all_brands[0]) ? $all_brands[0]->cat_name : null}}">\n' +
+                    '                                                                            <input type="hidden" id="brand_title" name="brand_title[]" value="">\n' +
                     '                                                                            <input style="display: none;" class="form-control" type="text" name="item_brand[]" id="item_brand">\n'+
                     '                                                                        </td>'+
                     '                                                                        <td class="model_box">\n'+
@@ -1338,7 +1338,7 @@
                     '                                                                                    <option value="">Select Model</option>\n' +
                     '                                                                            </select>\n' +
                     '                                                                           </div>\n'+
-                    '                                                                            <input type="hidden" id="model_title" name="model_title[]" value="{{isset($all_models[0]) ? $all_models[0]->cat_name : null}}">\n' +
+                    '                                                                            <input type="hidden" id="model_title" name="model_title[]" value="">\n' +
                     '                                                                            <input style="display: none;" class="form-control" type="text" name="item_model[]" id="item_model">\n'+
                     '                                                                        </td>'+
                     '                                                                        <td class="td-desc">\n' +
