@@ -1029,12 +1029,10 @@ class UserController extends Controller
             $services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*')->get();
             $services = $services->unique();
 
-            $all_brands = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('products.category_id',$quotation[0]->s_i_id)->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
-            var_dump($quotation[0]->s_i_id);
-            exit();
+            $all_brands = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
             $all_brands = $all_brands->unique();
 
-            $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('products.brand_id',$quotation[0]->b_i_id)->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
+            $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
             $all_models = $all_models->unique();
 
             if (count($services) == 0 && count($all_brands) == 0 && count($all_models) == 0) {
