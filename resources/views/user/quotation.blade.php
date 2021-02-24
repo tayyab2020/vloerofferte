@@ -171,7 +171,9 @@
 
                                                                                     </select>
 
-                                                                                        
+                                                                                        <?php if(!isset($service_title)){ $service_title = isset($services[0]) ? $services[0]->cat_name : null; $rate = 0; } ?>
+
+                                                                                        <input type="hidden" name="service_title[]" value="{{$service_title}}">
 
                                                                                     @else
 
@@ -202,7 +204,7 @@
 
                                                                                         </div>
 
-
+                                                                                        <input type="hidden" id="brand_title" name="brand_title[]" value="{{isset($brand_title) ? $brand_title : (isset($all_brands[0]) ? $all_brands[0]->cat_name : null)}}">
                                                                                         <input @if($temp->b_i_id != 0) style="display: none;" @else value="{{$temp->brand}}" @endif class="form-control" type="text" name="item_brand[]" id="item_brand">
 
                                                                                     @else
@@ -233,7 +235,7 @@
 
                                                                                         </div>
 
-
+                                                                                        <input type="hidden" id="model_title" name="model_title[]" value="{{isset($model_title) ? $model_title : isset($all_models[0]) ? $all_models[0]->cat_name : null}}">
                                                                                         <input @if($temp->m_i_id != 0) style="display: none;" @else value="{{$temp->model}}" @endif class="form-control" type="text" name="item_model[]" id="item_model">
 
                                                                                     @else
@@ -1311,6 +1313,7 @@
                     '                                                                        <td>'+rowCount+'</td>\n' +
                     '                                                                        <td class="service_box">\n' +
                     '                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>\n' +
+                    '                                                                                    <option value="">Select Category</option>\n' +
                     '                                                                                @foreach($services as $key)\n' +
                     '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
                     '                                                                                @endforeach\n' +
@@ -1318,28 +1321,30 @@
                     '                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>\n' +
                     '                                                                                @endforeach'+
                     '                                                                            </select>\n' +
-                    '                                                                           <input type="hidden" name="service_title[]" value="{{$services[0]->cat_name}}">\n'+
+                    '                                                                           <input type="hidden" name="service_title[]" value="{{isset($services[0]) ? $services[0]->cat_name : null}}">\n'+
                     '                                                                        </td>\n' +
                     '                                                                        <td class="brand_box">\n'+
                     '                                                                           <div id="brand_container">\n'+
                     '                                                                            <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>\n' +
+                    '                                                                                    <option value="">Select Brand</option>\n' +
                     '                                                                                @foreach($all_brands as $key)\n' +
                     '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
                     '                                                                                @endforeach\n' +
                     '                                                                            </select>\n' +
                     '                                                                           </div>\n'+
-                    '                                                                            <input type="hidden" id="brand_title" name="brand_title[]" value="{{$all_brands[0]->cat_name}}">\n' +
+                    '                                                                            <input type="hidden" id="brand_title" name="brand_title[]" value="{{isset($all_brands[0]) ? $all_brands[0]->cat_name : null}}">\n' +
                     '                                                                            <input style="display: none;" class="form-control" type="text" name="item_brand[]" id="item_brand">\n'+
                     '                                                                        </td>'+
                     '                                                                        <td class="model_box">\n'+
                     '                                                                           <div id="model_container">\n'+
                     '                                                                            <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>\n' +
+                    '                                                                                    <option value="">Select Model</option>\n' +
                     '                                                                                @foreach($all_models as $key)\n' +
                     '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
                     '                                                                                @endforeach\n' +
                     '                                                                            </select>\n' +
                     '                                                                           </div>\n'+
-                    '                                                                            <input type="hidden" id="model_title" name="model_title[]" value="{{$all_models[0]->cat_name}}">\n' +
+                    '                                                                            <input type="hidden" id="model_title" name="model_title[]" value="{{isset($all_models[0]) ? $all_models[0]->cat_name : null}}">\n' +
                     '                                                                            <input style="display: none;" class="form-control" type="text" name="item_model[]" id="item_model">\n'+
                     '                                                                        </td>'+
                     '                                                                        <td class="td-desc">\n' +
