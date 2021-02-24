@@ -204,7 +204,7 @@
 
                                                                                         </div>
 
-                                                                                        <input type="hidden" id="brand_title" name="brand_title[]" value="{{isset($brand_title) ? $brand_title : (isset($all_brands[0]) ? $all_brands[0]->cat_name : null)}}">
+                                                                                        
                                                                                         <input @if($temp->b_i_id != 0) style="display: none;" @else value="{{$temp->brand}}" @endif class="form-control" type="text" name="item_brand[]" id="item_brand">
 
                                                                                     @else
@@ -235,7 +235,7 @@
 
                                                                                         </div>
 
-                                                                                        <input type="hidden" id="model_title" name="model_title[]" value="{{isset($model_title) ? $model_title : isset($all_models[0]) ? $all_models[0]->cat_name : null}}">
+
                                                                                         <input @if($temp->m_i_id != 0) style="display: none;" @else value="{{$temp->model}}" @endif class="form-control" type="text" name="item_model[]" id="item_model">
 
                                                                                     @else
