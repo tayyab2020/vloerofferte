@@ -303,16 +303,28 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </div>
-                                <input id="postcode" name="postcode" class="form-control validation" placeholder="{{$lang->pc}}" type="text">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6">
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-user"></i>
-                                </div>
                                 <input id="address" name="address" class="form-control validation" placeholder="{{$lang->ad}}" type="text">
+                                <input type="hidden" id="check_address" value="0">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <input id="postcode" name="postcode" class="form-control validation" readonly placeholder="{{$lang->pc}}" type="text">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <input id="city" name="city" class="form-control validation" placeholder="{{$lang->ct}}" readonly type="text">
                             </div>
                         </div>
 
@@ -321,16 +333,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </div>
-                                <input id="city" name="city" class="form-control validation" placeholder="{{$lang->ct}}" type="text">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-6">
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-user"></i>
-                                </div>
-                                <input id="phone" name="phone" class="form-control validation" placeholder="{{$lang->pn}}" type="number">
+                                <input id="phone" name="phone" class="form-control validation" placeholder="{{$lang->pn}}" type="text">
                             </div>
                         </div>
 
@@ -381,6 +384,11 @@
     </div>
 
     <style type="text/css">
+
+        .pac-container
+        {
+            z-index: 1000000;
+        }
 
         #cover {
             background: url(<?php echo asset('assets/images/page-loader.gif'); ?>) no-repeat scroll center center #ffffff78;
@@ -1036,14 +1044,124 @@
     </style>
 
 
-
 @endsection
 
 @section('scripts')
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
     <script type="text/javascript">
+
+            function initMap() {
+
+            var input = document.getElementById('address');
+
+            var options = {
+                componentRestrictions: {country: "nl"}
+            };
+
+            var autocomplete = new google.maps.places.Autocomplete(input,options);
+
+            // Set the data fields to return when the user selects a place.
+            autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
+
+            autocomplete.addListener('place_changed', function() {
+
+                var flag = 0;
+
+                var place = autocomplete.getPlace();
+
+                if (!place.geometry) {
+
+                    // User entered the name of a Place that was not suggested and
+                    // pressed the Enter key, or the Place Details request failed.
+                    window.alert("{{__('text.No details available for input: ')}}" + place.name);
+                    return;
+                }
+                else
+                {
+                    var string = $('#address').val().substring(0, $('#address').val().indexOf(',')); //first string before comma
+
+                    if(string)
+                    {
+                        var is_number = $('#address').val().match(/\d+/);
+
+                        if(is_number === null)
+                        {
+                            flag = 1;
+                        }
+                    }
+                }
+
+                var city = '';
+                var postal_code = '';
+
+                for(var i=0; i < place.address_components.length; i++)
+                {
+                    if(place.address_components[i].types[0] == 'postal_code')
+                    {
+                        postal_code = place.address_components[i].long_name;
+                    }
+
+                    if(place.address_components[i].types[0] == 'locality')
+                    {
+                        city = place.address_components[i].long_name;
+                    }
+                }
+
+                if(city == '')
+                {
+                    for(var i=0; i < place.address_components.length; i++)
+                    {
+                        if(place.address_components[i].types[0] == 'administrative_area_level_2')
+                        {
+                            city = place.address_components[i].long_name;
+
+                        }
+                    }
+                }
+
+                if(postal_code == '' || city == '')
+                {
+                    flag = 1;
+                }
+
+                if(!flag)
+                {
+                    $('#check_address').val(1);
+                    $("#address-error").remove();
+                    $('#postcode').val(postal_code);
+                    $("#city").val(city);
+                }
+                else
+                {
+                    $('#address').val('');
+                    $('#postcode').val('');
+                    $("#city").val('');
+
+                    $("#address-error").remove();
+                    $('#address').parent().parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">{{__('text.Kindly write your full address with house/building number so system can detect postal code and city from it!')}}</small>');
+                }
+
+            });
+        }
+
+        $("#address").on('input',function(e){
+            $(this).next('input').val(0);
+        });
+
+        $("#address").focusout(function(){
+
+            var check = $(this).next('input').val();
+
+            if(check == 0)
+            {
+                $(this).val('');
+                $('#postcode').val('');
+                $("#city").val('');
+            }
+        });
 
         $(document).ready(function() {
 
