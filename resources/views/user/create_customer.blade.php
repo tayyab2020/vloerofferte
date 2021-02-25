@@ -37,26 +37,26 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="">{{__('text.Business Name')}}*</label>
+                                            <label class="control-label col-sm-4" for="">{{__('text.Business Name')}}</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" value="{{isset($customer->business_name) ? $customer->business_name : null}}" name="business_name" id="business_name" placeholder="" required="" type="text">
+                                                <input class="form-control" value="{{isset($customer->business_name) ? $customer->business_name : null}}" name="business_name" id="business_name" placeholder="" type="text">
                                             </div>
                                         </div>
 
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="address">{{__('text.Address')}}*</label>
+                                            <label class="control-label col-sm-4" for="address">{{__('text.Address')}}</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" value="{{isset($customer->address) ? $customer->address : null}}" name="address" id="address" placeholder="" required="" type="text">
+                                                <input class="form-control" value="{{isset($customer->address) ? $customer->address : null}}" name="address" id="address" placeholder="" type="text">
                                                 <input type="hidden" id="check_address" value="0">
                                             </div>
                                         </div>
 
 
                                         <div class="form-group">
-                                            <label class="control-label col-sm-4" for="address">{{__('text.Postcode')}}*</label>
+                                            <label class="control-label col-sm-4" for="address">{{__('text.Postcode')}}</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" value="{{isset($customer->postcode) ? $customer->postcode : null}}" name="postcode" id="postcode" placeholder="" required="" readonly type="text">
+                                                <input class="form-control" value="{{isset($customer->postcode) ? $customer->postcode : null}}" name="postcode" id="postcode" placeholder="" readonly type="text">
                                             </div>
                                         </div>
 
@@ -64,7 +64,7 @@
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="city">{{__('text.City')}}</label>
                                             <div class="col-sm-6">
-                                                <input class="form-control" value="{{isset($customer->city) ? $customer->city : null}}" name="city" id="city" placeholder="" required="" readonly type="text">
+                                                <input class="form-control" value="{{isset($customer->city) ? $customer->city : null}}" name="city" id="city" placeholder="" readonly type="text">
                                             </div>
                                         </div>
 
