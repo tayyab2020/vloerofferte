@@ -134,7 +134,7 @@ class ModelController extends Controller
             $file->move('assets/images',$name);
             if($cat->photo != null)
             {
-                unlink(public_path().'/assets/images/'.$cat->photo);
+                \File::delete(public_path() .'/assets/images/'.$cat->photo);
             }
             $input['photo'] = $name;
         }
@@ -154,7 +154,7 @@ class ModelController extends Controller
             return redirect()->route('admin-model-index');
         }
 
-        unlink(public_path().'/assets/images/'.$cat->photo);
+        \File::delete(public_path() .'/assets/images/'.$cat->photo);
         $cat->delete();
         Session::flash('success', 'Model deleted successfully.');
         return redirect()->route('admin-model-index');

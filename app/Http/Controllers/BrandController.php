@@ -130,7 +130,7 @@ class BrandController extends Controller
             $file->move('assets/images',$name);
             if($cat->photo != null)
             {
-                unlink(public_path().'/assets/images/'.$cat->photo);
+                \File::delete(public_path() .'/assets/images/'.$cat->photo);
             }
             $input['photo'] = $name;
         }
@@ -150,7 +150,7 @@ class BrandController extends Controller
             return redirect()->route('admin-brand-index');
         }
 
-        unlink(public_path().'/assets/images/'.$cat->photo);
+        \File::delete(public_path() .'/assets/images/'.$cat->photo);
         $cat->delete();
         Session::flash('success', 'Brand deleted successfully.');
         return redirect()->route('admin-brand-index');

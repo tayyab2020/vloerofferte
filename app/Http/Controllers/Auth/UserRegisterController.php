@@ -112,7 +112,7 @@ class UserRegisterController extends Controller
                     'string',
                     'email',
                     Rule::unique('users')->where(function($query) {
-                        $query->where('allowed', '=', '1');
+                        $query->where('allowed', '=', '1')->where('deleted_at', NULL);
                     })
                 ],
                 'name'   => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',

@@ -30,12 +30,12 @@ class AdminBlogController extends Controller
     {
         $blog = new Blog();
         $data = $request->all();
-        if ($file = $request->file('photo')) 
-         {      
+        if ($file = $request->file('photo'))
+         {
             $name = time().$file->getClientOriginalName();
-            $file->move('assets/images',$name);           
+            $file->move('assets/images',$name);
             $data['photo'] = $name;
-        } 
+        }
         $blog->fill($data)->save();
         return redirect()->route('admin-blog-index')->with('success','New Blog Added Successfully.');
     }
@@ -59,16 +59,16 @@ class AdminBlogController extends Controller
         $blog = Blog::findOrFail($id);
         $data = $request->all();
 
-            if ($file = $request->file('photo')) 
-            {              
+            if ($file = $request->file('photo'))
+            {
                 $name = time().$file->getClientOriginalName();
                 $file->move('assets/images',$name);
                 if($blog->photo != null)
                 {
-                    unlink(public_path().'/assets/images/'.$blog->photo);
-                }            
+                    \File::delete(public_path() .'/assets/images/'.$blog->photo);
+                }
             $data['photo'] = $name;
-            } 
+            }
         $blog->update($data);
         return redirect()->route('admin-blog-index')->with('success','Blog Updated Successfully.');
     }
@@ -82,7 +82,8 @@ class AdminBlogController extends Controller
         $blog->delete();
         return redirect()->route('admin-blog-index')->with('success','Blog Deleted Successfully.');
         }
-        unlink(public_path().'/assets/images/'.$blog->photo);
+
+        \File::delete(public_path() .'/assets/images/'.$blog->photo);
         $blog->delete();
         return redirect()->route('admin-blog-index')->with('success','Blog Deleted Successfully.');
     }

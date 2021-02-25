@@ -794,7 +794,7 @@ class AdminUserController extends Controller
         return redirect()->back();
         }
 
-        unlink(public_path().'/assets/images/'.$user->photo);
+        \File::delete(public_path() .'/assets/images/'.$user->photo);
         $user->delete();
         Session::flash('success', 'Successfully deleted your User');
         return redirect()->back();

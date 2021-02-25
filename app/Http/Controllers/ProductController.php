@@ -81,7 +81,7 @@ class ProductController extends Controller
             foreach ($product as $key)
             {
                 if($key->photo != null){
-                    unlink(public_path().'/assets/images/'.$key->photo);
+                    \File::delete(public_path() .'/assets/images/'.$key->photo);
                 }
                 handyman_products::where('product_id',$key->id)->delete();
                 $key->delete();
@@ -226,7 +226,7 @@ class ProductController extends Controller
             $file->move('assets/images',$name);
             if($cat->photo != null)
             {
-                unlink(public_path().'/assets/images/'.$cat->photo);
+                \File::delete(public_path() .'/assets/images/'.$cat->photo);
             }
             $input['photo'] = $name;
         }
@@ -246,7 +246,7 @@ class ProductController extends Controller
             return redirect()->route('admin-product-index');
         }
 
-        unlink(public_path().'/assets/images/'.$cat->photo);
+        \File::delete(public_path() .'/assets/images/'.$cat->photo);
         handyman_products::where('product_id',$id)->delete();
         $cat->delete();
         Session::flash('success', 'Product deleted successfully.');

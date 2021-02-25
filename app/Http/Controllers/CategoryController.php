@@ -153,7 +153,7 @@ class CategoryController extends Controller
                 $file->move('assets/images',$name);
                 if($cat->photo != null)
                 {
-                    unlink(public_path().'/assets/images/'.$cat->photo);
+                    \File::delete(public_path() .'/assets/images/'.$cat->photo);
                 }
             $input['photo'] = $name;
             }
@@ -174,7 +174,7 @@ class CategoryController extends Controller
          return redirect()->route('admin-cat-index');
         }
 
-        unlink(public_path().'/assets/images/'.$cat->photo);
+        \File::delete(public_path() .'/assets/images/'.$cat->photo);
         $cat->delete();
         Session::flash('success', 'Category deleted successfully.');
         return redirect()->route('admin-cat-index');
