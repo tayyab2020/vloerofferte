@@ -78,7 +78,7 @@
 
                                                                         <td style="outline: none;" data-editable="false">
                                                                             <label class="container-checkbox">
-                                                                                <input value="{{$i}}" class="products-checkboxes" name="product_checkboxes[]" type="checkbox">
+                                                                                <input value="" class="products-checkboxes" name="product_checkboxes[]" type="checkbox">
                                                                                 <span class="checkmark-checkbox"></span>
                                                                             </label>
                                                                         </td>
@@ -378,6 +378,9 @@
             {
                 responsive: false,
                 "fnDrawCallback": function(settings, json) {
+                    $('#example1 > tbody  > tr').each(function(index, tr) {
+                        $(this).children().first('td').find('.products-checkboxes').val(index);
+                    });
                     $('.mainTable').editableTableWidget();
                     $('.mainTable td').on('change', function(evt, newValue) {
 
