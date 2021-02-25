@@ -34,7 +34,7 @@
                         <div class="row pb-5 p-5" style="margin-right: 15px !important;">
 
                             <?php
-                            $date = date('d-m-Y');
+                            $date = date('d-m-Y',strtotime($invoice[0]->created_at));
                             $address = explode(',', $invoice[0]->address); array_pop($address); array_pop($address); $address = implode(",",$address);
                             ?>
 
