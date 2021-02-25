@@ -814,7 +814,7 @@ class UserController extends Controller
             $all_services = $all_services->unique();
 
             if (count($all_services) == 0) {
-                Session::flash('unsuccess', 'No product found, You have to insert at least one product in your portfolio');
+                Session::flash('unsuccess', __('text.No product found, You have to insert at least one product in your portfolio'));
                 return redirect()->back();
             }
 
@@ -1571,8 +1571,10 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
         $user_name = $user->name;
+        $user_email = $user->email;
+        $company_name = $user->company_name;
 
-        $result = custom_quotations::leftjoin('users', 'users.id', '=', 'custom_quotations.user_id')->where('custom_quotations.id', $id)->select('users.id', 'users.name', 'users.family_name', 'users.email', 'custom_quotations.*')->first();
+        $result = custom_quotations::leftjoin('users', 'users.id', '=', 'custom_quotations.user_id')->where('custom_quotations.id', $id)->select('users.company_name', 'users.id', 'users.name', 'users.family_name', 'users.email', 'custom_quotations.*')->first();
         $result->approved = 1;
         $result->status = 1;
         $result->save();
@@ -1592,9 +1594,10 @@ class UserController extends Controller
             array(
                 'username' => $user_name,
                 'client' => $client_name,
+                'company_name' => $company_name,
                 'quotation_invoice_number' => $quotation_invoice_number,
                 'type' => $type
-            ), function ($message) use ($file, $client_email, $filename) {
+            ), function ($message) use ($file, $client_email, $user_email, $user_name, $filename) {
                 $message->from('info@vloerofferte.nl');
                 $message->to($client_email)->subject(__('text.Quotation Created!'));
 
@@ -1616,6 +1619,7 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
         $user_name = $user->name;
+        $user_email = $user->email;
         $company_name = $user->company_name;
         $counter = $user->counter;
 
@@ -1694,7 +1698,9 @@ class UserController extends Controller
 
                 ini_set('max_execution_time', 180);
 
-                $pdf = PDF::loadView('user.pdf_custom_quotation', compact('client', 'user', 'type', 'request', 'quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+                $date = $invoice->created_at;
+
+                $pdf = PDF::loadView('user.pdf_custom_quotation', compact('date','client', 'user', 'type', 'request', 'quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
                 $pdf->save(public_path() . '/assets/customQuotations/' . $filename);
             }
@@ -1794,7 +1800,9 @@ class UserController extends Controller
 
                 ini_set('max_execution_time', 180);
 
-                $pdf = PDF::loadView('user.pdf_custom_quotation', compact('client', 'user', 'type', 'request', 'quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+                $date = $invoice->created_at;
+
+                $pdf = PDF::loadView('user.pdf_custom_quotation', compact('date','client', 'user', 'type', 'request', 'quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
                 $pdf->save(public_path() . '/assets/customQuotations/' . $filename);
             }
@@ -1824,9 +1832,10 @@ class UserController extends Controller
                 array(
                     'username' => $user_name,
                     'client' => $client_name,
+                    'company_name' => $company_name,
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
-                ), function ($message) use ($file, $client_email, $filename, $company_name) {
+                ), function ($message) use ($file, $client_email, $user_email, $user_name, $filename, $company_name) {
                     $message->from('info@vloerofferte.nl');
                     $message->to($client_email)->subject(__('text.Direct Invoice Created!').$company_name);
 
@@ -1904,7 +1913,9 @@ class UserController extends Controller
 
             ini_set('max_execution_time', 180);
 
-            $pdf = PDF::loadView('user.pdf_custom_quotation', compact('client', 'user', 'type', 'request', 'quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+            $date = $quotation->created_at;
+
+            $pdf = PDF::loadView('user.pdf_custom_quotation', compact('date','client', 'user', 'type', 'request', 'quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
             $pdf->save(public_path() . '/assets/customQuotations/' . $filename);
 
@@ -1917,9 +1928,10 @@ class UserController extends Controller
                 array(
                     'username' => $user_name,
                     'client' => $client_name,
+                    'company_name' => $company_name,
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
-                ), function ($message) use ($file, $client_email, $filename) {
+                ), function ($message) use ($file, $client_email, $user_email, $user_name, $filename) {
                     $message->from('info@vloerofferte.nl');
                     $message->to($client_email)->subject(__('text.Quotation Edited!'));
 
@@ -2017,7 +2029,9 @@ class UserController extends Controller
 
             ini_set('max_execution_time', 180);
 
-            $pdf = PDF::loadView('user.pdf_custom_quotation', compact('client', 'user', 'type', 'request', 'quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
+            $date = $quotation->created_at;
+
+            $pdf = PDF::loadView('user.pdf_custom_quotation', compact('date','client', 'user', 'type', 'request', 'quotation_invoice_number'))->setPaper('letter', 'portrait')->setOptions(['dpi' => 140]);
 
             $pdf->save(public_path() . '/assets/customQuotations/' . $filename);
 
@@ -2030,9 +2044,10 @@ class UserController extends Controller
                 array(
                     'username' => $user_name,
                     'client' => $client_name,
+                    'company_name' => $company_name,
                     'quotation_invoice_number' => $quotation_invoice_number,
                     'type' => $type
-                ), function ($message) use ($file, $client_email, $filename) {
+                ), function ($message) use ($file, $client_email, $user_email, $user_name, $filename) {
                     $message->from('info@vloerofferte.nl');
                     $message->to($client_email)->subject(__('text.Invoice Generated!'));
 

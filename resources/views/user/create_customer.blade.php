@@ -85,7 +85,7 @@
                                         </div>
 
                                         <div class="add-product-footer">
-                                            <button name="addProduct_btn" id="submit" type="submit" class="btn add-product_btn">{{__('text.Submit')}}</button>
+                                            <button name="addProduct_btn" id="submit" type="submit" class="btn add-product_btn">{{__('text.Create Customer')}}</button>
                                         </div>
                                     </form>
                                 </div>

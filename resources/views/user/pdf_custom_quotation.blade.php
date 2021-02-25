@@ -17,6 +17,8 @@
 
                             <?php
                             $address = explode(',', $user->address); array_pop($address); array_pop($address); $address = implode(",",$address);
+                            $client_address = explode(',', $client->address); array_pop($client_address); array_pop($client_address); $client_address = implode(",",$client_address);
+                            $date = date('d-m-Y',strtotime($date));
                             ?>
 
                             <div class="col-md-4 col-sm-4 col-xs-12">
@@ -29,21 +31,13 @@
                                 <p style="margin: 0">TEL: {{$user->phone}}</p>
                                 <p style="margin: 0">{{$user->email}}</p>
                                 <br>
-                                <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @elseif($type == 'direct-invoice') {{__('text.Direct Invoice')}} @else {{__('text.Quotation')}} @endif</p>
+                                <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @elseif($type == 'direct-invoice') {{__('text.Direct Invoice')}} @else {{__('text.Quotation')}} @endif @if($type == 'invoice' || $type == 'direct-invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
+                                <p class="text-muted" style="font-size: 15px;margin-top: 10px;">{{__('text.Created at')}}: {{$date}}</p>
 
                             </div>
 
 
                             <div class="col-md-6 col-sm-6 col-xs-12 text-right inv-rigth" style="float: right;margin-top: 50px;">
-
-                                <p class="font-weight-bold mb-1" style="font-size: 20px;">@if($type == 'invoice' || $type == 'direct-invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
-
-                                <?php
-                                $date = date('d-m-Y');
-                                $client_address = explode(',', $client->address); array_pop($client_address); array_pop($client_address); $client_address = implode(",",$client_address);
-                                ?>
-
-                                <p class="text-muted" style="font-size: 15px;margin-top: 10px;">{{__('text.Created at')}}: {{$date}}</p>
 
                                 <p class="mb-1 m-rest">{{$client->name}} {{$client->family_name}}</p>
                                 <p class="mb-1 m-rest">{{$client_address}}</p>
