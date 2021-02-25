@@ -567,7 +567,10 @@ class AdminUserController extends Controller
 
         User::where('id',$user_id)->update(['name' => $input['name'], 'family_name' => $input['family_name'], 'photo' => $input['photo'], 'description' => $input['description'], 'language' => $input['language'], 'education' => $input['education'], 'profession' => $input['profession'], 'city' => $input['city'], 'address' => $input['address'], 'phone' => $input['phone'],  'web' => $input['web'], 'special' => $input['special'], 'registration_number' => $input['registration_number'], 'company_name' => $input['company_name'], 'tax_number' => $input['tax_number'], 'bank_account' => $input['bank_account'], 'postcode' => $input['postcode'] ]);
 
-        handyman_terminals::where('handyman_id',$user_id)->update(['latitude' => $input['latitude'], 'longitude' => $input['longitude'], 'zipcode' => $input['postcode'], 'city' => $input['city']]);
+        if($input['latitude'] && $input['longitude'])
+        {
+            handyman_terminals::where('handyman_id',$user_id)->update(['latitude' => $input['latitude'], 'longitude' => $input['longitude'], 'zipcode' => $input['postcode'], 'city' => $input['city']]);
+        }
 
         handyman_temporary::where('handyman_id',$user_id)->delete();
 

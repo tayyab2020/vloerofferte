@@ -3528,8 +3528,17 @@ class UserController extends Controller
         else
         {
             $terminal = handyman_terminals::where('handyman_id',$user_id)->first();
-            $latitude = $terminal->latitude;
-            $longitude = $terminal->longitude;
+
+            if($terminal)
+            {
+                $latitude = $terminal->latitude;
+                $longitude = $terminal->longitude;
+            }
+            else
+            {
+                $latitude = '';
+                $longitude = '';
+            }
         }
 
         $check = handyman_temporary::where('handyman_id', $user->id)->first();
