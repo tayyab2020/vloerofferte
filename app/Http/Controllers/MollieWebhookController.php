@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Mollie\Laravel\Facades\Mollie;
 use App\Generalsetting;
@@ -113,8 +114,8 @@ class MollieWebhookController extends Controller {
 
                 $settings = Generalsetting::where('id',1)->update(['counter' => $counter]);
 
-                $post = users::where('id','=',$data->handyman_id)->first();
-                $post1 = users::where('id','=',$data->user_id)->first();
+                $post = User::where('id','=',$data->handyman_id)->first();
+                $post1 = User::where('id','=',$data->user_id)->first();
 
                 $handyman_email = $post->email;
                 $user_email = $post1->email;

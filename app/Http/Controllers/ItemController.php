@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\items;
+use App\User;
 use App\users;
 use Illuminate\Http\Request;
 use App\Category;
@@ -35,7 +36,7 @@ class ItemController extends Controller
 
     public function create()
     {
-        $handymen = users::where('role_id',2)->where('active',1)->get();
+        $handymen = User::where('role_id',2)->where('active',1)->get();
 
         return view('admin.item.create',compact('handymen'));
     }
@@ -70,7 +71,7 @@ class ItemController extends Controller
     {
         $item = items::findOrFail($id);
 
-        $handymen = users::where('role_id',2)->where('active',1)->get();
+        $handymen = User::where('role_id',2)->where('active',1)->get();
 
         return view('admin.item.edit',compact('item','handymen'));
     }

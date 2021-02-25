@@ -1120,7 +1120,7 @@ class FrontendController extends Controller
                     'quote_familyname.regex' => 'Family Name format is invalid.',
                 ]);
 
-            $check = users::where('email', $request->quote_email)->where('allowed',1)->first();
+            $check = User::where('email', $request->quote_email)->where('allowed',1)->first();
 
             $user_name = $request->quote_name;
             $user_email = $request->quote_email;
@@ -1140,7 +1140,7 @@ class FrontendController extends Controller
             } else {
                 $password = Str::random(8);
                 $hashed_random_password = Hash::make($password);
-                $user = new users;
+                $user = new User;
                 $user->name = $request->quote_name;
                 $user->family_name = $request->quote_familyname;
                 $user->category_id = 20;

@@ -538,7 +538,7 @@ class UserController extends Controller
 
             if($request->update == 1)
             {
-                users::where('id',$user_id)->update(['address' => $request->delivery_address,'postcode' => $request->postcode,'city' => $request->city]);
+                User::where('id',$user_id)->update(['address' => $request->delivery_address,'postcode' => $request->postcode,'city' => $request->city]);
             }
         }
         else
@@ -2438,8 +2438,8 @@ class UserController extends Controller
 
             $post = invoices::where('id', '=', $request->item_id)->first();
 
-            $user = users::where('id', '=', $post->handyman_id)->first();
-            $user1 = users::where('id', '=', $post->user_id)->first();
+            $user = User::where('id', '=', $post->handyman_id)->first();
+            $user1 = User::where('id', '=', $post->user_id)->first();
 
             $handyman_email = $user->email;
             $user_email = $user1->email;
@@ -3559,7 +3559,7 @@ class UserController extends Controller
                 $name = time() . $file->getClientOriginalName();
                 $file->move('assets/images', $name);
 
-                $handyman = users::where('id',$user_id)->update(['photo' => $name]);
+                $handyman = User::where('id',$user_id)->update(['photo' => $name]);
 
                 $input['photo'] = $name;
             } else {
@@ -3576,7 +3576,7 @@ class UserController extends Controller
                 $name = time() . $file->getClientOriginalName();
                 $file->move('assets/images', $name);
 
-                $handyman = users::where('id',$user_id)->update(['photo' => $name]);
+                $handyman = User::where('id',$user_id)->update(['photo' => $name]);
 
                 $input['photo'] = $name;
             } else {
@@ -3734,7 +3734,7 @@ class UserController extends Controller
 
         }
 
-        /*users::where('id', '=', $user->id)->update(['postcode' => $input['postal_code']]);*/
+        /*User::where('id', '=', $user->id)->update(['postcode' => $input['postal_code']]);*/
 
 
         Session::flash('success', $this->lang->success);

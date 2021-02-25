@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Mollie\Laravel\Facades\Mollie;
 use App\orders;
@@ -34,7 +35,7 @@ class MollieFirstPayment extends Controller {
 
         if ($payment->isPaid()) {
 
-            $user = users::where('id','=',$user_id)->update(['mollie_customer_id' => $customerId  , 'payment_id' => $request->id , 'payment_status' => $status, 'featured' => 1]);
+            $user = User::where('id','=',$user_id)->update(['mollie_customer_id' => $customerId  , 'payment_id' => $request->id , 'payment_status' => $status, 'featured' => 1]);
 
             $headers =  'MIME-Version: 1.0' . "\r\n";
             $headers .= 'From: Vloerofferte <info@vloerofferte.nl>' . "\r\n";

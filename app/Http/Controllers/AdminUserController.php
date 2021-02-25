@@ -402,7 +402,7 @@ class AdminUserController extends Controller
 
             $file = public_path().'/assets/quotationsPDF/'.$filename;
 
-            $user = users::where('id',$quotation->handyman_id)->first();
+            $user = User::where('id',$quotation->handyman_id)->first();
             $user_name = $user->name;
             $email = $user->email;
 
@@ -476,7 +476,7 @@ class AdminUserController extends Controller
 
         foreach ($handyman as $key)
         {
-            $user = users::where('id',$key)->first();
+            $user = User::where('id',$key)->first();
             $email = $user->email;
 
             $user_name = $user->name;
@@ -561,11 +561,11 @@ class AdminUserController extends Controller
 
         $user_id = $input['handyman_id'];
 
-        $user = users::where('id',$user_id)->first();
+        $user = User::where('id',$user_id)->first();
 
         $input['photo'] = $user->photo;
 
-        users::where('id',$user_id)->update(['name' => $input['name'], 'family_name' => $input['family_name'], 'photo' => $input['photo'], 'description' => $input['description'], 'language' => $input['language'], 'education' => $input['education'], 'profession' => $input['profession'], 'city' => $input['city'], 'address' => $input['address'], 'phone' => $input['phone'],  'web' => $input['web'], 'special' => $input['special'], 'registration_number' => $input['registration_number'], 'company_name' => $input['company_name'], 'tax_number' => $input['tax_number'], 'bank_account' => $input['bank_account'], 'postcode' => $input['postcode'] ]);
+        User::where('id',$user_id)->update(['name' => $input['name'], 'family_name' => $input['family_name'], 'photo' => $input['photo'], 'description' => $input['description'], 'language' => $input['language'], 'education' => $input['education'], 'profession' => $input['profession'], 'city' => $input['city'], 'address' => $input['address'], 'phone' => $input['phone'],  'web' => $input['web'], 'special' => $input['special'], 'registration_number' => $input['registration_number'], 'company_name' => $input['company_name'], 'tax_number' => $input['tax_number'], 'bank_account' => $input['bank_account'], 'postcode' => $input['postcode'] ]);
 
         handyman_terminals::where('handyman_id',$user_id)->update(['latitude' => $input['latitude'], 'longitude' => $input['longitude'], 'zipcode' => $input['postcode'], 'city' => $input['city']]);
 
