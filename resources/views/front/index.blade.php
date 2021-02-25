@@ -2227,6 +2227,11 @@
             height: '200px',
             placeholder: "{{__('text.Select Brand')}}",
             allowClear: true,
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
         });
 
         $(".js-data-example-ajax4").select2({

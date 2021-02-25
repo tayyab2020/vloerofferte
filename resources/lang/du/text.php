@@ -246,4 +246,5 @@ return [
     'Customer updated successfully' => 'Customer updated successfully',
     'Customer deleted successfully' => 'Customer deleted successfully',
     'No product found, You have to insert at least one product in your portfolio' => 'No product found, You have to insert at least one product in your portfolio',
+    'No results found' => 'No results found',
 ];
