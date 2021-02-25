@@ -210,7 +210,7 @@
 
                                                 <button style="background-color: white !important;color: black !important;position: relative;right: 5px;" type="button" class="close dropdown-close" aria-hidden="true">×</button>
 
-                                                <li><a href="{{route('client-dashboard')}}">{{$lang->cpt}}</a></li>
+                                                <li><a href="{{route('client-quotation-requests')}}">{{$lang->cpt}}</a></li>
 
                                                 <li><a href="{{route('user-logout')}}">{{$lang->logout}}</a></li>
 

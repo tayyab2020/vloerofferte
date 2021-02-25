@@ -150,7 +150,7 @@ class UserRegisterController extends Controller
             $input['password'] = bcrypt($request['password']);
             $user->fill($input)->save();
             Auth::guard('user')->login($user);
-            $link = url('/').'/aanbieder/client-dashboard';
+            $link = url('/').'/aanbieder/quotation-requests';
 
 
             /*$headers =  'MIME-Version: 1.0' . "\r\n";
@@ -168,7 +168,7 @@ class UserRegisterController extends Controller
             $msg = "Beste ".$user_name.",<br><br>Je account is succesvol aangemaakt. Je kan vanaf nu binnen paar klikken een stoffeerder reserveren. Klik op account om je profiel te bezoeken <a href='".$link."'>account.</a><br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
             mail($user_email,$subject,$msg,$headers);
 
-            return redirect()->route('client-dashboard');
+            return redirect()->route('client-quotation-requests');
 
         }
         else {

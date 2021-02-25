@@ -321,7 +321,7 @@ class UserController extends Controller
             }
 
         } else {
-            return redirect('aanbieder/client-dashboard');
+            return redirect('aanbieder/quotation-requests');
         }
     }
 
@@ -966,7 +966,7 @@ class UserController extends Controller
 
             $input['id'] = $user->id;
 
-            /*$link = url('/') . '/aanbieder/client-dashboard';
+            /*$link = url('/') . '/aanbieder/quotation-requests';
 
             if($this->lang->lang == 'du')
             {
@@ -1177,7 +1177,7 @@ class UserController extends Controller
 
             return view('user.client_quotation', compact('quotation', 'services', 'vat_percentage', 'items'));
         } else {
-            return redirect('aanbieder/client-dashboard');
+            return redirect('aanbieder/quotation-requests');
         }
     }
 
@@ -1200,7 +1200,7 @@ class UserController extends Controller
 
             return view('user.client_quotation', compact('quotation', 'services', 'vat_percentage', 'items'));
         } else {
-            return redirect('aanbieder/client-dashboard');
+            return redirect('aanbieder/quotation-requests');
         }
     }
 
@@ -2265,7 +2265,7 @@ class UserController extends Controller
 
         $handyman_dash = url('/') . '/aanbieder/dashboard';
 
-        $client_dash = url('/') . '/aanbieder/client-dashboard';
+        $client_dash = url('/') . '/aanbieder/quotation-requests';
 
 
         if ($request->statusSelect == 1) {
@@ -2370,7 +2370,7 @@ class UserController extends Controller
 
         $handyman_dash = url('/') . '/aanbieder/dashboard';
 
-        $client_dash = url('/') . '/aanbieder/client-dashboard';
+        $client_dash = url('/') . '/aanbieder/quotation-requests';
 
 
         if ($request->statusSelect == 1) {
@@ -4026,7 +4026,7 @@ class UserController extends Controller
 
             $admin_email = $this->sl->admin_email;
 
-            $link = url('/') . '/aanbieder/client-dashboard';
+            $link = url('/') . '/aanbieder/quotation-requests';
 
             if($this->lang->lang == 'du')
             {
@@ -4116,7 +4116,7 @@ class UserController extends Controller
 
             $admin_email = $this->sl->admin_email;
 
-            $link = url('/') . '/aanbieder/client-dashboard';
+            $link = url('/') . '/aanbieder/quotation-requests';
 
             if($this->lang->lang == 'du')
             {

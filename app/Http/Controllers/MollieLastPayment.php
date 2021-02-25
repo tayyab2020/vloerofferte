@@ -49,7 +49,7 @@ $client_name = $data->client_name;
 
 $handyman_dash = url('/').'/aanbieder/dashboard';
 
-$client_dash = url('/').'/aanbieder/client-dashboard';
+$client_dash = url('/').'/aanbieder/quotation-requests';
 
 
         if($data->language == 'eng')

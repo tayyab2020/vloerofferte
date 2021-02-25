@@ -113,7 +113,7 @@
                     <ul class="list-unstyled components">
 
                         {{--<li>
-                            <a href="{{route('client-dashboard')}}"  id="dashboard"><i class="fa fa-home"></i> {{$lang->dashboard}}</a>
+                            <a href="{{route('client-quotation-requests')}}"  id="dashboard"><i class="fa fa-home"></i> {{$lang->dashboard}}</a>
                         </li>--}}
 
 
