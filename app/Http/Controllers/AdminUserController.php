@@ -522,6 +522,7 @@ class AdminUserController extends Controller
     public function Clients()
     {
         $users = User::where('role_id','=',3)->where('allowed',1)->orderBy('created_at','desc')->get();
+        $categories = array();
 
         foreach ($users as $key) {
 
