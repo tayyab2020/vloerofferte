@@ -185,7 +185,7 @@
                                                                 if($key->accept_date)
                                                                     {
                                                                         $accept_date = strtotime($key->accept_date);
-                                                                        $accept_date = date('d-m-Y H:i:s',$accept_date);
+                                                                        $accept_date = date('d-m-Y',$accept_date);
 
                                                                         $cal_accept_date = strtotime($key->accept_date);
                                                                         $cal_accept_date = date('Y-m-d H:i:s',$cal_accept_date);
@@ -200,7 +200,7 @@
                                                                 if($key->delivery_date)
                                                                     {
                                                                         $delivery_date = strtotime($key->delivery_date);
-                                                                        $delivery_date = date('d-m-Y H:i:s',$delivery_date);
+                                                                        $delivery_date = date('d-m-Y',$delivery_date);
 
                                                                         $cal_delivery_date = strtotime($key->delivery_date);
                                                                         $cal_delivery_date = date('Y-m-d H:i:s',$cal_delivery_date);
