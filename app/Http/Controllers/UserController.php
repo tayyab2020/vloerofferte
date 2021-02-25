@@ -3536,8 +3536,8 @@ class UserController extends Controller
             }
             else
             {
-                $latitude = '';
-                $longitude = '';
+                $latitude = NULL;
+                $longitude = NULL;
             }
         }
 
