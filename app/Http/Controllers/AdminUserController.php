@@ -163,6 +163,7 @@ class AdminUserController extends Controller
     public function index()
     {
         $users = User::where('role_id','=',2)->orderBy('created_at','desc')->get();
+        $categories = array();
 
         foreach ($users as $key) {
 
