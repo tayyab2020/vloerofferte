@@ -148,6 +148,11 @@ $without_vat = number_format($without_vat,2)
                 // placeholder: "City Name",
                 placeholder: "<?php echo $lang->sbg; ?>",
                 allowClear: true,
+                "language": {
+                    "noResults": function(){
+                        return '{{__('text.No results found')}}';
+                    }
+                },
 
 
             });
@@ -302,6 +307,11 @@ $without_vat = number_format($without_vat,2)
                 // placeholder: "City Name",
                 placeholder: "<?php echo $lang->sbg; ?>",
                 allowClear: true,
+                "language": {
+                    "noResults": function(){
+                        return '{{__('text.No results found')}}';
+                    }
+                },
 
             }).on('change', function (e) {
 // AT this section we have to load placeholder and use it to Next textfield
@@ -413,6 +423,11 @@ $without_vat = number_format($without_vat,2)
                             // placeholder: "City Name",
                             placeholder: "<?php echo $lang->sbg; ?>",
                             allowClear: true,
+                            "language": {
+                                "noResults": function(){
+                                    return '{{__('text.No results found')}}';
+                                }
+                            },
 
                         }).on('change', function (e) {
 // AT this section we have to load placeholder and use it to Next textfield
@@ -493,6 +508,11 @@ $without_vat = number_format($without_vat,2)
                     // placeholder: "City Name",
                     placeholder: "<?php echo $lang->sbg; ?>",
                     allowClear: true,
+                    "language": {
+                        "noResults": function(){
+                            return '{{__('text.No results found')}}';
+                        }
+                    },
 
                 }).on('change', function (e) {
 // AT this section we have to load placeholder and use it to Next textfield

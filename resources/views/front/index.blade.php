@@ -2213,6 +2213,11 @@
             placeholder: "{{__('text.Select Category')}}",
             allowClear: true,
             dropdownParent: $('#service_box'),
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
         });
 
         $(".js-data-example-ajax1").select2({
@@ -2220,6 +2225,11 @@
             height: '200px',
             placeholder: "{{__('text.Select Category')}}",
             allowClear: true,
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
         });
 
         $(".js-data-example-ajax3").select2({
@@ -2239,6 +2249,11 @@
             height: '200px',
             placeholder: "{{__('text.Select Model')}}",
             allowClear: true,
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
         });
 
         $(".js-data-example-ajax2").select2({
@@ -2247,7 +2262,11 @@
             placeholder: "{{__('text.Select Category')}}",
             allowClear: true,
             dropdownParent: $('#request-modal'),
-
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
         });
 
         $(".js-data-example-ajax5").select2({
@@ -2256,6 +2275,11 @@
             placeholder: "{{__('text.Select Brand')}}",
             allowClear: true,
             dropdownParent: $('#request-modal'),
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
 
         });
 
@@ -2265,6 +2289,11 @@
             placeholder: "{{__('text.Select Model')}}",
             allowClear: true,
             dropdownParent: $('#request-modal'),
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
 
         });
 

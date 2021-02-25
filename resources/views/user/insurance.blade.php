@@ -215,6 +215,11 @@
                 // placeholder: "City Name",
                 placeholder: "<?php echo $lang->sbg; ?>",
                 allowClear: true,
+                "language": {
+                    "noResults": function(){
+                        return '{{__('text.No results found')}}';
+                    }
+                },
 
             }).on('change', function (e) {
 // AT this section we have to load placeholder and use it to Next textfield
@@ -326,6 +331,11 @@
                             // placeholder: "City Name",
                             placeholder: "<?php echo $lang->sbg; ?>",
                             allowClear: true,
+                            "language": {
+                                "noResults": function(){
+                                    return '{{__('text.No results found')}}';
+                                }
+                            },
 
                         }).on('change', function (e) {
 // AT this section we have to load placeholder and use it to Next textfield
@@ -406,6 +416,11 @@
                     // placeholder: "City Name",
                     placeholder: "<?php echo $lang->sbg; ?>",
                     allowClear: true,
+                    "language": {
+                        "noResults": function(){
+                            return '{{__('text.No results found')}}';
+                        }
+                    },
 
                 }).on('change', function (e) {
 // AT this section we have to load placeholder and use it to Next textfield

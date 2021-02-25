@@ -173,6 +173,11 @@
             height: '200px',
             placeholder: "Select Product",
             allowClear: true,
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
         });
 
         $('.product_rate,.product_sell_rate').keypress(function(e){

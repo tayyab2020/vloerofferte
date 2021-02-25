@@ -241,6 +241,11 @@ $('#to_date').datepicker({
                placeholder: "<?php echo $lang->sbg; ?>",
                allowClear: true,
                dropdownParent: $('#service_box'),
+                                              "language": {
+                                                  "noResults": function(){
+                                                      return '{{__('text.No results found')}}';
+                                                  }
+                                              },
 
 
            });

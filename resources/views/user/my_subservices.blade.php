@@ -351,6 +351,11 @@
                 // placeholder: "City Name",
                 placeholder: "<?php echo $lang->ssst; ?>",
                 allowClear: true,
+                "language": {
+                    "noResults": function(){
+                        return '{{__('text.No results found')}}';
+                    }
+                },
 
 
             });
@@ -524,6 +529,11 @@
                 // placeholder: "City Name",
                 placeholder: "<?php echo $lang->ssst; ?>",
                 allowClear: true,
+                "language": {
+                    "noResults": function(){
+                        return '{{__('text.No results found')}}';
+                    }
+                },
 
             }).on('change', function (e) {
 // AT this section we have to load placeholder and use it to Next textfield

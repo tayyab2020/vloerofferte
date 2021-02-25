@@ -1322,6 +1322,11 @@
                 height: '200px',
                 placeholder: "{{__('text.Select Customer')}}",
                 allowClear: true,
+                "language": {
+                    "noResults": function(){
+                        return '{{__('text.No results found')}}';
+                    }
+                },
             });
 
             $(".js-data-example-ajax").select2({
@@ -1329,6 +1334,11 @@
                 height: '200px',
                 placeholder: "{{__('text.Select Category/Item')}}",
                 allowClear: true,
+                "language": {
+                    "noResults": function(){
+                        return '{{__('text.No results found')}}';
+                    }
+                },
             });
 
             $(".js-data-example-ajax1").select2({
@@ -1336,6 +1346,11 @@
                 height: '200px',
                 placeholder: "{{__('text.Select Brand')}}",
                 allowClear: true,
+                "language": {
+                    "noResults": function(){
+                        return '{{__('text.No results found')}}';
+                    }
+                },
             });
 
             $(".js-data-example-ajax2").select2({
@@ -1343,6 +1358,11 @@
                 height: '200px',
                 placeholder: "{{__('text.Select Model')}}",
                 allowClear: true,
+                "language": {
+                    "noResults": function(){
+                        return '{{__('text.No results found')}}';
+                    }
+                },
             });
 
 
@@ -1673,6 +1693,11 @@
                     height: '200px',
                     placeholder: "{{__('text.Select Category/Item')}}",
                     allowClear: true,
+                    "language": {
+                        "noResults": function(){
+                            return '{{__('text.No results found')}}';
+                        }
+                    },
                 });
 
                 last_row.find(".js-data-example-ajax1").select2({
@@ -1680,6 +1705,11 @@
                     height: '200px',
                     placeholder: "{{__('text.Select Brand')}}",
                     allowClear: true,
+                    "language": {
+                        "noResults": function(){
+                            return '{{__('text.No results found')}}';
+                        }
+                    },
                 });
 
                 last_row.find(".js-data-example-ajax2").select2({
@@ -1687,6 +1717,11 @@
                     height: '200px',
                     placeholder: "{{__('text.Select Model')}}",
                     allowClear: true,
+                    "language": {
+                        "noResults": function(){
+                            return '{{__('text.No results found')}}';
+                        }
+                    },
                 });
 
 
