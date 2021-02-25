@@ -117,7 +117,7 @@
                                                 <td>{{$key->service}}</td>
                                                 <td>{{$key->brand}}</td>
                                                 <td>{{$key->model}}</td>
-                                                <td>{{(isset($invoice->b_i_id[$i]) && isset($invoice->m_i_id[$i])) ? ($quote->quote_service == $invoice->s_i_id[$i] && $quote->quote_brand == $invoice->b_i_id[$i] && $quote->quote_model == $invoice->m_i_id[$i] ? $quote->quote_model_number : null) : null}}</td>
+                                                <td>{{(isset($invoice[$x]->b_i_id) && isset($invoice[$x]->m_i_id)) ? ($quote->quote_service == $invoice[$x]->s_i_id && $quote->quote_brand == $invoice[$x]->b_i_id && $quote->quote_model == $invoice[$x]->m_i_id ? $quote->quote_model_number : null) : null}}</td>
                                                 {{--<td>{{$key->description}}</td>--}}
                                                 <td>{{number_format((float)$key->qty, 2, ',', '.')}}</td>
                                                 <td>{{number_format((float)$key->rate, 2, ',', '.')}}</td>

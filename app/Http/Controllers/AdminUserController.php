@@ -420,7 +420,7 @@ class AdminUserController extends Controller
 
                 });
 
-            $client_link = url('/').'/handyman/quotation-requests';
+            $client_link = url('/').'/aanbieder/quotation-requests';
 
             \Mail::send('admin.user.quotation_client_mail',
                 array(
