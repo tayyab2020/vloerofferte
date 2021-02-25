@@ -212,9 +212,9 @@ class UserRegisterController extends Controller
                 'registration_number' => 'required',
                 'postcode' => 'required',
                 'city' => 'required',
-                'bank_account' => 'required',
+                /*'bank_account' => 'required',*/
+                /*'tax_number' => 'required',*/
                 'address' => 'required',
-                'tax_number' => 'required',
                 'phone' => 'required',
                 'password' => 'required|min:8|confirmed',
                 'g-recaptcha-response' => 'required',
@@ -231,8 +231,8 @@ class UserRegisterController extends Controller
               'family_name.regex' => $this->lang->fniv,
               'company_name.required' => $this->lang->cnrv,
               'registration_number.required' => $this->lang->rnrv,
-              'bank_account.required' => $this->lang->barv,
-              'tax_number.required' => $this->lang->tnrv,
+              /*'bank_account.required' => $this->lang->barv,
+              'tax_number.required' => $this->lang->tnrv,*/
               'postcode.required' => $this->lang->pcrv,
               'city.required' => $this->lang->crv,
               'address.required' => $this->lang->arv,

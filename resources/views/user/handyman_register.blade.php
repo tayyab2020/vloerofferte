@@ -100,7 +100,7 @@
                                 </div>
                               </div>
 
-                              <div class="form-group">
+                              {{--<div class="form-group">
                                 <div class="input-group">
                                   <div class="input-group-addon">
                                       <i class="fa fa-user"></i>
@@ -116,7 +116,7 @@
                                   </div>
                                   <input name="bank_account" class="form-control" placeholder="{{$lang->ba}}" type="text" value="{{ old('bank_account') }}">
                                 </div>
-                              </div>
+                              </div>--}}
 
                               <input type="hidden" name="category_id" value="20">
                               <input type="hidden" name="role_id" value="2">
