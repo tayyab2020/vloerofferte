@@ -334,47 +334,15 @@ class FrontendController extends Controller
 
     public function index()
     {
-        $users = User::all();
-        $city = null;
-        if (count($users) > 0) {
-            foreach ($users as $user) {
-                $city[] = $user->city;
-            }
-            $cities = array_unique($city);
-        } else {
-            $cities = null;
-        }
-        $ads = Portfolio::all();
+
         $cats = Category::where('main_service', '=', 1)->get();
-        /*$brands = Brand::all();
-        $models = Model1::all();*/
-        $rusers = User::where('featured', '=', 1)->where('active', '=', 1)->orderBy('created_at', 'desc')->limit(4)->get();
 
-        $no = 0;
-
-        foreach ($rusers as $key) {
-
-            $post = invoices::where('handyman_id', '=', $key->id)->where('is_completed', 1)->get();
-
-            foreach ($post as $temp) {
-
-                $no = $no + 1;
-            }
-
-            $jobs[] = array($no);
-
-            $no = 0;
-        }
-
-        if (!isset($jobs)) {
-            $jobs = [];
-        }
 
         $language = $this->lang->lang;
         $blogs = Blog::all();
         $data = terms_conditions::where("role",2)->first();
 
-        return view('front.index', compact('data','blogs','ads', 'cats', 'rusers', 'cities', 'jobs', 'language'));
+        return view('front.index', compact('data','blogs', 'cats', 'language'));
 
     }
 
