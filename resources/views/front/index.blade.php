@@ -124,7 +124,7 @@
 
                             </div>
 
-                            <button href="#request-modal" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;" class="btn btn-primary">{{__('text.Search')}}</button>
+                            <button href="#aanvragen" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;" class="btn btn-primary">{{__('text.Search')}}</button>
 
                         </div>
                     </div>
@@ -157,7 +157,7 @@
                         </div>
                     </div>
 
-                    <div id="request-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div id="aanvragen" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
 
                             <form id="quote_form" method="post" action="{{route('user.quote')}}">
@@ -2261,7 +2261,7 @@
             height: '200px',
             placeholder: "{{__('text.Select Category')}}",
             allowClear: true,
-            dropdownParent: $('#request-modal'),
+            dropdownParent: $('#aanvragen'),
             "language": {
                 "noResults": function(){
                     return '{{__('text.No results found')}}';
@@ -2274,7 +2274,7 @@
             height: '200px',
             placeholder: "{{__('text.Select Brand')}}",
             allowClear: true,
-            dropdownParent: $('#request-modal'),
+            dropdownParent: $('#aanvragen'),
             "language": {
                 "noResults": function(){
                     return '{{__('text.No results found')}}';
@@ -2288,7 +2288,7 @@
             height: '200px',
             placeholder: "{{__('text.Select Model')}}",
             allowClear: true,
-            dropdownParent: $('#request-modal'),
+            dropdownParent: $('#aanvragen'),
             "language": {
                 "noResults": function(){
                     return '{{__('text.No results found')}}';
