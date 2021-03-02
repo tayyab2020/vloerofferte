@@ -336,14 +336,21 @@ class FrontendController extends Controller
     {
 
         $cats = Category::where('main_service', '=', 1)->get();
-
+        $products = Products::all();
 
         $language = $this->lang->lang;
         $blogs = Blog::all();
         $data = terms_conditions::where("role",2)->first();
 
-        return view('front.index', compact('data','blogs', 'cats', 'language'));
+        return view('front.index', compact('data','blogs', 'cats', 'language','products'));
 
+    }
+
+    public function productsById(Request $request)
+    {
+        $data = Products::where('id','=',$request->id)->first();
+
+        return $data;
     }
 
     public function productsModelsByBrands(Request $request)

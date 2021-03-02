@@ -15,7 +15,7 @@
 @section('content')
 
 
-    <div class="hero-area overlay" style="background-image: url({{asset('assets/images/'.$gs->bgimg)}});z-index: auto;color: black;padding-top: 20px;background-color: #ebebeb;">
+    <div class="hero-area overlay" style="background-image: url({{asset('assets/images/'.$gs->bgimg)}});z-index: auto;color: black;padding-top: 20px;padding-bottom: 45px;background-color: #ebebeb;">
 
         @if(Session::has('unsuccess'))
 
@@ -154,6 +154,29 @@
                                 </div>
 
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="main-form" style="border-radius: 10px;box-shadow: 0px 0px 4px 0px #dbdbdb;margin-top: 10px;">
+
+                        <div id="quote-box" style="display: flex;justify-content: space-between;width: 100%;padding: 20px;">
+
+                            <div style="width: 90%;">
+
+                                <select class="js-data-example-ajax7 form-control quote-product" name="group" id="blood_grp">
+
+                                    <option value="">{{__('text.Select Product')}}</option>
+
+                                    @foreach($products as $product)
+                                        <option value="{{$product->id}}">{{$product->title}}</option>
+                                    @endforeach
+
+                                </select>
+
+                            </div>
+
+                            <button href="#aanvragen" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;" class="btn btn-primary">{{__('text.Search')}}</button>
+
                         </div>
                     </div>
 
@@ -952,6 +975,152 @@
                                 .append('<option value="">Select Brand</option>'+options);
 
                         }
+                    });
+
+                });
+
+
+                $('.quote-product').change(function(){
+
+                    var product_id = $(this).val();
+                    var options = '';
+
+                    $.ajax({
+                        type: "GET",
+                        data: "id=" + product_id,
+                        url: "<?php echo url('/products-by-id')?>",
+                        success: function (data) {
+
+                            $('.quote-service').val(data.category_id);
+                            $(".quote-service").trigger('change.select2');
+
+                            var category_id = data.category_id;
+                            var brand_id = data.brand_id;
+                            var model_id = data.model_id;
+                            var options = '';
+
+                            $.ajax({
+                                type: "GET",
+                                data: "id=" + category_id,
+                                url: "<?php echo url('get-questions')?>",
+
+                                success: function (data) {
+
+                                    $('#step3').children('.well').empty();
+
+                                    var index_count = 0;
+
+                                    $.each(data, function (index, val) {
+
+                                        if (data.length == index + 1) {
+                                            $('#step3').children('.well').append('<div style="margin-bottom: 20px;"></div>');
+                                        } else {
+                                            $('#step3').children('.well').append('<div style="margin-bottom: 40px;"></div>');
+                                        }
+
+                                        var last = $('#step3').children('.well').children().last('div');
+
+                                        last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">' + val.title + '</h3><input type="hidden" name="questions[]" value="' + val.title + '">');
+
+                                        if (val.predefined == 1) {
+
+                                            last.append('<div class="checkbox_validation"><input name="predefined' + index + '" type="hidden" value="1"></div>');
+
+                                            $.each(val.answers, function (index1, val1) {
+
+                                                last.children('div').append('<hr>\n' +
+                                                    '                                        <label class="container-checkbox">' + val1.title + '\n' +
+                                                    '                                        <input name="answers' + index + '[]" type="checkbox" value="' + val1.title + '">\n' +
+                                                    '                                        <span class="checkmark-checkbox"></span>\n' +
+                                                    '                                        </label>');
+
+                                            });
+                                        } else {
+                                            if (val.placeholder) {
+                                                var placeholder = val.placeholder;
+                                            } else {
+                                                var placeholder = '';
+                                            }
+
+                                            last.append('<input name="predefined' + index + '" type="hidden" value="0">\n' +
+                                                '<textarea name="answers' + index + '" style="resize: vertical;" rows="1" class="form-control quote_validation" placeholder="' + placeholder + '"></textarea>');
+                                        }
+
+                                        index_count = index;
+
+                                    });
+
+                                    $('#step3').children('.well').append('<input type="hidden" name="index_count" value="' + index_count + '">');
+
+                                    /*$('#step3').children('div').children('h3').
+                                    console.log(data);*/
+                                }
+                            });
+
+                            $.ajax({
+                                type: "GET",
+                                data: "id=" + category_id,
+                                url: "<?php echo url('/products-brands-by-category')?>",
+                                success: function (data) {
+
+                                    $.each(data, function (index, value) {
+
+                                        var opt = '<option value="' + value.id + '" >' + value.cat_name + '</option>';
+
+                                        options = options + opt;
+
+                                    });
+
+                                    $('.quote-model').find('option')
+                                        .remove()
+                                        .end()
+                                        .append('<option value="">Select Model</option>');
+
+                                    $('.quote-brand').find('option')
+                                        .remove()
+                                        .end()
+                                        .append('<option value="">Select Brand</option>' + options);
+
+                                    $('.quote-brand').val(brand_id);
+                                    $(".quote-brand").trigger('change.select2');
+
+
+                                    var options = '';
+
+                                    $.ajax({
+                                        type: "GET",
+                                        data: "id=" + brand_id,
+                                        url: "<?php echo url('/products-models-by-brands')?>",
+                                        success: function (data) {
+
+                                            $.each(data, function (index, value) {
+
+                                                var opt = '<option value="' + value.id + '" >' + value.cat_name + '</option>';
+
+                                                options = options + opt;
+
+                                            });
+
+                                            $('.quote-model').find('option')
+                                                .remove()
+                                                .end()
+                                                .append('<option value="">Select Model</option>' + options);
+
+                                            $('.quote-model').val(model_id);
+                                            $(".quote-model").trigger('change.select2');
+
+                                        }
+                                    });
+
+                                }
+                            });
+
+                            $('.navbar a[href="#step1"]').trigger('click');
+
+                            $('.back').hide();
+
+                        }
+
                     });
 
                 });
@@ -2289,6 +2458,19 @@
             placeholder: "{{__('text.Select Model')}}",
             allowClear: true,
             dropdownParent: $('#aanvragen'),
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+
+        });
+
+        $(".js-data-example-ajax7").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "{{__('text.Select Product')}}",
+            allowClear: true,
             "language": {
                 "noResults": function(){
                     return '{{__('text.No results found')}}';
