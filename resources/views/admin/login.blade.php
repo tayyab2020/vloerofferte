@@ -11,7 +11,7 @@
         <link href="{{asset('assets/admin/css/font-awesome.min.css')}}" rel="stylesheet">
         <link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet">
         <link href="{{asset('assets/admin/css/responsive.css')}}" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{{asset('assets/images/'.$gs->favicon)}}">    
+    <link rel="icon" type="image/png" href="{{asset('assets/images/'.$gs->favicon)}}">
     <style type="text/css">
 .login-form {
     border: 1px solid {{$gs->colors == null ? '#337AB7':$gs->colors}};
@@ -31,23 +31,23 @@
 .login-btn {
     background-color: {{$gs->colors == null ? '#337AB7':$gs->colors}};
 }
-    </style>    
+    </style>
     </head>
     <body>
         <section class="login-area">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-                        <div class="login-form">
+                        <div style="padding: 30px;" class="login-form">
                             <div class="login-icon"><i class="fa fa-user"></i></div>
-                            
+
                             <div class="section-borders">
                                 <span></span>
                                 <span class="black-border"></span>
                                 <span></span>
                             </div>
-                            
-                            <div class="login-title">Please Sign In</div>
+
+                            <div style="margin-top: 100px;text-align: center;" class="login-title">Please Sign In</div>
 
                             @include('includes.form-error')
                             @include('includes.form-success')
@@ -80,14 +80,14 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="login-footer text-center">
-                      Powered By <a href="http://geniusocean.com/">GeniousOcean</a>
+                      Powered By <a href="http://geniusocean.com/">Vloerofferteonline.nl</a>
                     </div>
                   </div>
                 </div>
             </div>
         </section>
-        
-        
+
+
 
         <script src="{{asset('assets/admin/js/jquery.min.js')}}"></script>
         <script src="{{asset('assets/admin/js/bootstrap.min.js')}}"></script>
