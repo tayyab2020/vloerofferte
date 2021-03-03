@@ -368,6 +368,22 @@
 
                     <style>
 
+                        .autocomplete ::-webkit-input-placeholder {
+                            text-align: center;
+                        }
+
+                        .autocomplete :-moz-placeholder { /* Firefox 18- */
+                            text-align: center;
+                        }
+
+                        .autocomplete ::-moz-placeholder {  /* Firefox 19+ */
+                            text-align: center;
+                        }
+
+                        .autocomplete :-ms-input-placeholder {
+                            text-align: center;
+                        }
+
                         .autocomplete {
                             position: relative;
                             display: inline-block;
