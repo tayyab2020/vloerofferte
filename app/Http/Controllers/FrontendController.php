@@ -346,12 +346,14 @@ class FrontendController extends Controller
 
     }
 
+
     public function productsById(Request $request)
     {
         $data = Products::where('id','=',$request->id)->first();
 
         return $data;
     }
+
 
     public function productsModelsByBrands(Request $request)
     {
