@@ -336,7 +336,7 @@ class FrontendController extends Controller
     {
 
         $cats = Category::where('main_service', '=', 1)->get();
-        $products = Products::all();
+        $products = Products::leftjoin('categories','categories.id','=','products.category_id')->select('products.id','products.title','categories.cat_name')->get();
 
         $language = $this->lang->lang;
         $blogs = Blog::all();

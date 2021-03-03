@@ -170,7 +170,7 @@
                                 <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
 
                                     @foreach($products as $product)
-                                        <option value="{{$product->id}}">{{$product->title}}</option>
+                                        <option data-cat="{{$product->cat_name}}" value="{{$product->id}}">{{$product->title}}</option>
                                     @endforeach
 
                                 </select>
@@ -1030,7 +1030,7 @@
                 });
 
 
-                function autocomplete(inp, arr, values) {
+                function autocomplete(inp, arr, values, categories) {
                     /*the autocomplete function takes two arguments,
                     the text field element and an array of possible autocompleted values:*/
                     var currentFocus;
@@ -1049,29 +1049,11 @@
                         this.parentNode.appendChild(a);
                         /*for each item in the array...*/
                         for (i = 0; i < arr.length; i++) {
-                            /*check if the item starts with the same letters as the text field value:*/
-
-                            /*const string = 'Quick Step Signature';*/
-                            /*var regex1 = val;
-                            regex1 = new RegExp(regex1);*/
-
-                            /*const string = 'Quick Step Signature';
-                            const res =  string.split(/[\s,\?\,\.!]+/).some(f=> f === val);
-                            console.log(res);*/
 
                             var string = arr[i];
                             string = string.toLowerCase();
                             val = val.toLowerCase();
                             var res = string.includes(val);
-
-                            /*var regex1 = string.split(" ").includes(val);
-
-                            console.log(regex1);*/
-
-                            /*var res = string.match(regex1);*/
-
-                            /*var str = "Quick Step Signature";
-                            var res = str.match(val);*/
 
                             if (res) {
                                 /*create a DIV element for each matching element:*/
@@ -1079,7 +1061,7 @@
                                 /*make the matching letters bold:*/
                                 /*b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                                 b.innerHTML += arr[i].substr(val.length);*/
-                                b.innerHTML = arr[i];
+                                b.innerHTML = arr[i] + ', ' + categories[i];
                                 /*insert a input field that will hold the current array item's value:*/
                                 b.innerHTML += "<input type='hidden' value='" + arr[i] + "'><input type='hidden' value='" + values[i] + "'>";
                                 /*execute a function when someone clicks on the item value (DIV element):*/
@@ -1296,12 +1278,13 @@
                 /*An array containing all the country names in the world:*/
                 options = [];
                 texts = [];
+                categories = [];
 
                 var sel = $(".all-products");
                 var length = sel.children('option').length;
 
                 $(".all-products > option").each(function() {
-                    if (this.value) options.push(this.value); texts.push(this.text);
+                    if (this.value) options.push(this.value); texts.push(this.text); categories.push(this.getAttribute('data-cat'));
                 });
 
                 /*for (var i=0, n=length;i<n;i++) { // looping over the options
@@ -1311,7 +1294,7 @@
 
                 console.log(options);*/
 
-                autocomplete(document.getElementById("productInput"), texts, options);
+                autocomplete(document.getElementById("productInput"), texts, options, categories);
 
                 $('.next-submit').click(function(){
 
