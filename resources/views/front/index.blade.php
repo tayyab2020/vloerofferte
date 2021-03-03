@@ -1050,12 +1050,36 @@
                         /*for each item in the array...*/
                         for (i = 0; i < arr.length; i++) {
                             /*check if the item starts with the same letters as the text field value:*/
-                            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+
+                            /*const string = 'Quick Step Signature';*/
+                            /*var regex1 = val;
+                            regex1 = new RegExp(regex1);*/
+
+                            /*const string = 'Quick Step Signature';
+                            const res =  string.split(/[\s,\?\,\.!]+/).some(f=> f === val);
+                            console.log(res);*/
+
+                            var string = arr[i];
+                            string = string.toLowerCase();
+                            val = val.toLowerCase();
+                            var res = string.includes(val);
+
+                            /*var regex1 = string.split(" ").includes(val);
+
+                            console.log(regex1);*/
+
+                            /*var res = string.match(regex1);*/
+
+                            /*var str = "Quick Step Signature";
+                            var res = str.match(val);*/
+
+                            if (res) {
                                 /*create a DIV element for each matching element:*/
                                 b = document.createElement("DIV");
                                 /*make the matching letters bold:*/
-                                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                                b.innerHTML += arr[i].substr(val.length);
+                                /*b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                                b.innerHTML += arr[i].substr(val.length);*/
+                                b.innerHTML = arr[i];
                                 /*insert a input field that will hold the current array item's value:*/
                                 b.innerHTML += "<input type='hidden' value='" + arr[i] + "'><input type='hidden' value='" + values[i] + "'>";
                                 /*execute a function when someone clicks on the item value (DIV element):*/
