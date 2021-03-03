@@ -248,4 +248,5 @@ return [
     'No product found, You have to insert at least one product in your portfolio' => 'No product found, You have to insert at least one product in your portfolio',
     'No results found' => 'No results found',
     'Select Product' => 'Select Product',
+    'Start' => 'Start',
 ];

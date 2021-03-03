@@ -248,4 +248,5 @@ return [
     'No product found, You have to insert at least one product in your portfolio' => 'Je hebt nog geen producten toegevoegd, voeg eerst producten toe.',
     'No results found' => 'Vul eerst vorige veld(en) in',
     'Select Product' => 'Vul hier het merk en/of model in waar je naar op zoek bent!',
+    'Start' => 'Start',
 ];
