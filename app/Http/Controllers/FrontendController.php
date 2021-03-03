@@ -129,6 +129,8 @@ class FrontendController extends Controller
             \App::setLocale('du');
 
         }
+
+        $this->sl = Sociallink::findOrFail(1);
     }
 
 
@@ -1236,6 +1238,16 @@ class FrontendController extends Controller
                             ->subject(__('text.Quotation Request Submitted!'))
                             ->setBody($msg, 'text/html');
                     });
+
+                    $admin_email = $this->sl->admin_email;
+
+                    \Mail::send(array(), array(), function ($message) use ($admin_email, $user_email, $user_name) {
+                        $message->to($admin_email)
+                            ->from('info@vloerofferte.nl')
+                            ->subject(__('text.Quotation Request Submitted!'))
+                            ->setBody('Dear Nordin Adoui, A new quote request has been submitted by '.$user_name.'.', 'text/html');
+                    });
+
                 }
                 catch(\Exception $e){
                     return redirect()->back();
