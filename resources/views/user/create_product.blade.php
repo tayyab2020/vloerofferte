@@ -107,31 +107,126 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-sm-4" for="blood_group_slug">Rate*</label>
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Model Number</label>
                                                 <div class="col-sm-6">
-                                                    <input maskedFormat="9,1" autocomplete="off" name="product_rate" step="any" value="{{isset($my_product) ? number_format((float)$my_product->rate, 2, ',', '.') : null}}" class="form-control product_rate" id="blood_group_slug" placeholder="Enter Product Rate" required="" type="text">
+                                                    <input readonly name="model_number" value="{{isset($my_product) ? $my_product->model_number : null}}" class="form-control" id="blood_group_slug" type="text">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-sm-4" for="blood_group_slug">Sell Rate*</label>
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Size</label>
                                                 <div class="col-sm-6">
-                                                    <input maskedFormat="9,1" autocomplete="off" name="product_sell_rate" step="any" value="{{isset($my_product) ? number_format((float)$my_product->sell_rate, 2, ',', '.') : null}}" class="form-control product_sell_rate" id="blood_group_slug" placeholder="" required="" type="text">
+                                                    <input readonly name="size" value="{{isset($my_product) ? $my_product->size : null}}" class="form-control" id="blood_group_slug" type="text">
                                                 </div>
                                             </div>
-
 
                                             <div class="form-group">
-                                                <label class="control-label col-sm-4" for="blood_group_slug">Model Number (Optional)</label>
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Measure</label>
                                                 <div class="col-sm-6">
-                                                    <input name="model_number" value="{{isset($my_product) ? $my_product->model_number : null}}" class="form-control" id="blood_group_slug" type="text">
+                                                    <input readonly name="measure" value="{{isset($my_product) ? $my_product->measure : null}}" class="form-control" id="blood_group_slug" type="text">
                                                 </div>
                                             </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Estimated Price</label>
+                                                <div class="col-sm-6">
+                                                    <input readonly name="estimated_price" value="{{isset($my_product) ? $my_product->estimated_price : null}}" class="form-control" id="blood_group_slug" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Additional Info</label>
+                                                <div class="col-sm-6">
+                                                    <input readonly name="additional_info" value="{{isset($my_product) ? $my_product->additional_info : null}}" class="form-control" id="blood_group_slug" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Floor Type</label>
+                                                <div class="col-sm-6">
+                                                    <input readonly name="floor_type" value="{{isset($my_product) ? $my_product->floor_type : null}}" class="form-control" id="blood_group_slug" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Floor Type 2</label>
+                                                <div class="col-sm-6">
+                                                    <input readonly name="floor_type2" value="{{isset($my_product) ? $my_product->floor_type2 : null}}" class="form-control" id="blood_group_slug" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Supplier</label>
+                                                <div class="col-sm-6">
+                                                    <input readonly name="supplier" value="{{isset($my_product) ? $my_product->supplier : null}}" class="form-control" id="blood_group_slug" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Color</label>
+                                                <div class="col-sm-6">
+                                                    <input readonly name="color" value="{{isset($my_product) ? $my_product->color : null}}" class="form-control" id="blood_group_slug" type="text">
+                                                </div>
+                                            </div>
+
+                                            @if($my_product->size)
+
+                                                <?php
+
+                                                $sizes = explode(',', $my_product->size);
+
+                                                $size_rates = explode(',',$my_product->size_rates);
+                                                $size_sell_rates = explode(',',$my_product->size_sell_rates);
+
+                                                ?>
+
+                                                @foreach($sizes as $x => $key)
+
+                                                    <div style="margin-bottom: 30px;" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                                        <h3 style="text-align: center;">{{__('text.Size')}}: {{$key}}</h3>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-4" for="blood_group_slug">Rate*</label>
+                                                            <div class="col-sm-6">
+                                                                <input maskedFormat="9,1" autocomplete="off" name="product_rate[]" step="any" value="{{isset($my_product) ? number_format((float)$size_rates[$x], 2, ',', '.') : null}}" class="form-control product_rate" id="blood_group_slug" placeholder="Enter Product Rate" required="" type="text">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-4" for="blood_group_slug">Sell Rate*</label>
+                                                            <div class="col-sm-6">
+                                                                <input maskedFormat="9,1" autocomplete="off" name="product_sell_rate[]" step="any" value="{{isset($my_product) ? number_format((float)$size_sell_rates[$x], 2, ',', '.') : null}}" class="form-control product_sell_rate" id="blood_group_slug" placeholder="" required="" type="text">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                @endforeach
+
+                                            @else
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4" for="blood_group_slug">Rate*</label>
+                                                    <div class="col-sm-6">
+                                                        <input maskedFormat="9,1" autocomplete="off" name="product_rate[]" step="any" value="{{isset($my_product) ? number_format((float)$my_product->size_rates, 2, ',', '.') : null}}" class="form-control product_rate" id="blood_group_slug" placeholder="Enter Product Rate" required="" type="text">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4" for="blood_group_slug">Sell Rate*</label>
+                                                    <div class="col-sm-6">
+                                                        <input maskedFormat="9,1" autocomplete="off" name="product_sell_rate[]" step="any" value="{{isset($my_product) ? number_format((float)$my_product->size_sell_rates, 2, ',', '.') : null}}" class="form-control product_sell_rate" id="blood_group_slug" placeholder="" required="" type="text">
+                                                    </div>
+                                                </div>
+
+                                            @endif
+
 
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4" for="current_photo">Current Photo</label>
                                                 <div class="col-sm-6">
-                                                    <img width="130px" height="90px" id="adminimg" src="{{isset($my_product) ? asset('assets/images/'.$my_product->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}" alt="">
+                                                    <img width="130px" height="90px" id="adminimg" src="{{isset($my_product->photo) ? asset('assets/images/'.$my_product->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}" alt="">
                                                 </div>
                                             </div>
 
@@ -228,7 +323,7 @@
             var sell_rate = rate * vat;
             sell_rate = parseFloat(sell_rate).toFixed(2);
 
-            $('.product_sell_rate').val(sell_rate.replace(/\./g, ','));
+            $(this).parent().parent().parent().find('.product_sell_rate').val(sell_rate.replace(/\./g, ','));
 
         });
 
@@ -241,7 +336,7 @@
             var rate = sell_rate / vat;
             rate = parseFloat(rate).toFixed(2);
 
-            $('.product_rate').val(rate.replace(/\./g, ','));
+            $(this).parent().parent().parent().find('.product_rate').val(rate.replace(/\./g, ','));
 
         });
 

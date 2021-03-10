@@ -51,6 +51,69 @@
                                             </div>
 
                                             <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Model Number <span>(In English)</span></label>
+                                                <div class="col-sm-6">
+                                                    <input value="{{isset($cats) ? $cats->model_number : null}}" class="form-control" name="model_number" id="blood_group_slug" placeholder="Enter Model Number" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Size</label>
+                                                <div class="col-sm-6">
+                                                    <input value="{{isset($cats) ? $cats->size : null}}" class="form-control" name="size" id="blood_group_slug" placeholder="Enter Size" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Measure</label>
+                                                <div class="col-sm-6">
+                                                    <input value="{{isset($cats) ? $cats->measure : null}}" class="form-control" name="measure" id="blood_group_slug" placeholder="Enter Measure" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Estimated Price</label>
+                                                <div class="col-sm-6">
+                                                    <input value="{{isset($cats) ? $cats->estimated_price : null}}" class="form-control" name="estimated_price" id="blood_group_slug" placeholder="Enter Estimated Price" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Additional Info</label>
+                                                <div class="col-sm-6">
+                                                    <input value="{{isset($cats) ? $cats->additional_info : null}}" class="form-control" name="additional_info" id="blood_group_slug" placeholder="Enter Additional Info" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Floor Type</label>
+                                                <div class="col-sm-6">
+                                                    <input value="{{isset($cats) ? $cats->floor_type : null}}" class="form-control" name="floor_type" id="blood_group_slug" placeholder="Enter Floor Type" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Floor Type 2</label>
+                                                <div class="col-sm-6">
+                                                    <input value="{{isset($cats) ? $cats->floor_type2 : null}}" class="form-control" name="floor_type2" id="blood_group_slug" placeholder="Enter Floor Type 2" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Supplier</label>
+                                                <div class="col-sm-6">
+                                                    <input value="{{isset($cats) ? $cats->supplier : null}}" class="form-control" name="supplier" id="blood_group_slug" placeholder="Enter Supplier" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Color</label>
+                                                <div class="col-sm-6">
+                                                    <input value="{{isset($cats) ? $cats->color : null}}" class="form-control" name="color" id="blood_group_slug" placeholder="Enter Color" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
                                                 <label class="control-label col-sm-4" for="blood_group_slug">Category*</label>
                                                 <div class="col-sm-6">
                                                     <select class="js-data-example-ajax form-control quote_validation" style="height: 40px;" name="category_id" id="blood_grp" required>

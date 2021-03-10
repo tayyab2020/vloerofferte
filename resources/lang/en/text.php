@@ -249,4 +249,6 @@ return [
     'No results found' => 'No results found',
     'Select Product' => 'Select Product',
     'Start' => 'Start',
+    'Size' => 'Size',
+    'Measure' => 'Measure',
 ];

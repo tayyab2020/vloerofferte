@@ -249,4 +249,6 @@ return [
     'No results found' => 'Vul eerst vorige veld(en) in',
     'Select Product' => 'Vul hier het merk en/of model in waar je naar op zoek bent!',
     'Start' => 'Start aanvraag',
+    'Size' => 'Size',
+    'Measure' => 'Measure',
 ];

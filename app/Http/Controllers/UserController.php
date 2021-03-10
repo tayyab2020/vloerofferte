@@ -3161,7 +3161,7 @@ class UserController extends Controller
 
         $products_array = array();
 
-        $products_selected = handyman_products::leftjoin('products', 'products.id', '=', 'handyman_products.product_id')->leftjoin('categories', 'categories.id', '=', 'products.category_id')->leftjoin('brands', 'brands.id', '=', 'products.brand_id')->leftjoin('models', 'models.id', '=', 'products.model_id')->where('handyman_products.handyman_id', '=', $user_id)->orderBy('products.id', 'desc')->select('products.*', 'categories.cat_name as category', 'brands.cat_name as brand', 'models.cat_name as model', 'handyman_products.rate', 'handyman_products.vat_percentage', 'handyman_products.sell_rate', 'handyman_products.id','handyman_products.product_id')->get();
+        $products_selected = handyman_products::leftjoin('products', 'products.id', '=', 'handyman_products.product_id')->leftjoin('categories', 'categories.id', '=', 'products.category_id')->leftjoin('brands', 'brands.id', '=', 'products.brand_id')->leftjoin('models', 'models.id', '=', 'products.model_id')->where('handyman_products.handyman_id', '=', $user_id)->orderBy('products.id', 'desc')->select('products.*', 'categories.cat_name as category', 'brands.cat_name as brand', 'models.cat_name as model', 'handyman_products.rate', 'handyman_products.vat_percentage', 'handyman_products.sell_rate', 'handyman_products.id', 'handyman_products.product_id', 'handyman_products.size_rates', 'handyman_products.size_sell_rates')->get();
 
         foreach ($products_selected as $key)
         {
@@ -3235,13 +3235,31 @@ class UserController extends Controller
 
         if($request->handyman_product_id)
         {
+            $sizes = explode(',', $request->size);
+
             $post = handyman_products::where('id',$request->handyman_product_id)->first();
             $post->handyman_id = $user_id;
             $post->product_id = $request->product_id;
-            $post->rate = str_replace(",",".",$request->product_rate);
-            $post->sell_rate = str_replace(",",".",$request->product_sell_rate);
+            $post->rate = str_replace(",",".",$request->product_rate[0]);
+            $post->sell_rate = str_replace(",",".",$request->product_sell_rate[0]);
             $post->vat_percentage = $request->product_vat;
-            $post->model_number = $request->model_number;
+            /*$post->model_number = $request->model_number;*/
+
+            $new_rates = [];
+            $new_sell_rates = [];
+
+            foreach ($sizes as $y => $key1)
+            {
+                array_push($new_rates,str_replace(",",".",$request->product_rate[$y]));
+                array_push($new_sell_rates,str_replace(",",".",$request->product_sell_rate[$y]));
+            }
+
+            $size_rates = implode(',',$new_rates);
+            $size_sell_rates = implode(',',$new_sell_rates);
+
+            $post->size_rates = $size_rates;
+            $post->size_sell_rates = $size_sell_rates;
+
             $post->save();
 
 
@@ -3251,11 +3269,27 @@ class UserController extends Controller
         {
             foreach ($request->product_checkboxes as $x => $key)
             {
+                $sizes = explode(',', $request->sizes[$x]);
+
+                $new_rates = [];
+                $new_sell_rates = [];
+
+                foreach ($sizes as $y => $key1)
+                {
+                    array_push($new_rates,number_format((float)$request->product_rate[$key], 2, '.', ''));
+                    array_push($new_sell_rates,number_format((float)$request->product_sell_rate[$key], 2, '.', ''));
+                }
+
+                $size_rates = implode(',',$new_rates);
+                $size_sell_rates = implode(',',$new_sell_rates);
+
                 $post = new handyman_products;
                 $post->handyman_id = $user_id;
                 $post->product_id = $request->product_id[$key];
                 $post->rate = $request->product_rate[$key];
                 $post->sell_rate = $request->product_sell_rate[$key];
+                $post->size_rates = $size_rates;
+                $post->size_sell_rates = $size_sell_rates;
                 $post->vat_percentage = 21;
                 /*$post->model_number = $request->model_number[$x];*/
                 $post->save();

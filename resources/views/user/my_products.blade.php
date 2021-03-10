@@ -64,6 +64,8 @@
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Category')}}</th>
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Brand')}}</th>
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Model')}}</th>
+                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Size')}}</th>
+                                                                    <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Measure')}}</th>
                                                                     {{--<th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">Model Number</th>--}}
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Rate')}}</th>
                                                                     <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Sell Rate')}}</th>
@@ -93,11 +95,14 @@
                                                                         <td data-editable="false">{{$cat->category}}</td>
                                                                         <td data-editable="false">{{$cat->brand}}</td>
                                                                         <td data-editable="false">{{$cat->model}}</td>
+                                                                        <td data-editable="false">{{$cat->size}}</td>
+                                                                        <td data-editable="false">{{$cat->measure}}</td>
                                                                         {{--<td data-type="model_number"></td>--}}
                                                                         <td data-type="rate"><span style="border: 2px solid;display: block;width: 100%;">€</span></td>
                                                                         <td data-type="sell_rate"><span style="border: 2px solid;display: block;width: 100%;">€</span></td>
                                                                         <td data-editable="false">21</td>
 
+                                                                        <input type="hidden" name="sizes[]" value="{{$cat->size}}">
                                                                         <input type="hidden" name="product_id[]" value="{{$cat->id}}" />
                                                                         <input class="product_rate" name="product_rate[]" step="any" value="" type="hidden">
                                                                         <input class="product_sell_rate" name="product_sell_rate[]" step="any" value="" type="hidden">
@@ -152,6 +157,8 @@
                                                                 <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Category')}}</th>
                                                                 <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Brand')}}</th>
                                                                 <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Model')}}</th>
+                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Size')}}</th>
+                                                                <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Measure')}}</th>
                                                                 <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Rate')}}</th>
                                                                 <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.Sell Rate')}}</th>
                                                                 <th class="sorting" id="client"  tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Donor's Name: activate to sort column ascending">{{__('text.VAT')}} %</th>
@@ -161,6 +168,29 @@
                                                             <tbody>
 
                                                             @foreach($products_selected as $cat)
+
+                                                                <?php
+
+                                                                $rates = explode(',', $cat->size_rates);
+                                                                $sell_rates = explode(',', $cat->size_sell_rates);
+
+                                                                $new_rates = [];
+                                                                $new_sell_rates = [];
+
+                                                                foreach ($rates as $x => $key)
+                                                                    {
+                                                                        $r = number_format((float)$key, 2, ',', '.');
+                                                                        $s = number_format((float)$sell_rates[$x], 2, ',', '.');
+
+                                                                        array_push($new_rates,$r);
+                                                                        array_push($new_sell_rates,$s);
+                                                                    }
+
+                                                                $rates = implode("<br>",$new_rates);
+                                                                $sell_rates = implode("<br>",$new_sell_rates);
+
+                                                                ?>
+
                                                                 <tr role="row" class="odd">
                                                                     <td data-editable="false" tabindex="0" class="sorting_1"><img
                                                                             src="{{ $cat->photo ? asset('assets/images/'.$cat->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}"
@@ -171,8 +201,10 @@
                                                                     <td data-editable="false">{{$cat->category}}</td>
                                                                     <td data-editable="false">{{$cat->brand}}</td>
                                                                     <td data-editable="false">{{$cat->model}}</td>
-                                                                    <td>{{number_format((float)$cat->rate, 2, ',', '.')}}</td>
-                                                                    <td>{{number_format((float)$cat->sell_rate, 2, ',', '.')}}</td>
+                                                                    <td data-editable="false">{{$cat->size}}</td>
+                                                                    <td data-editable="false">{{$cat->measure}}</td>
+                                                                    <td>{!! $rates !!}</td>
+                                                                    <td>{!! $sell_rates !!}</td>
                                                                     <td data-editable="false">{{$cat->vat_percentage}}</td>
                                                                     <td data-editable="false">
                                                                         <a href="{{route('product-edit',$cat->id)}}"
