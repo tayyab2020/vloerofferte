@@ -149,6 +149,9 @@
                     top: 100%;
                     left: 0;
                     right: 0;
+                    max-height: 230px;
+                    overflow-x: hidden;
+                    overflow-y: auto;
                 }
 
                 .autocomplete-items div {
