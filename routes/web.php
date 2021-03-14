@@ -12,6 +12,7 @@
 */
 
   Route::get('/','FrontendController@index')->name('front.index');
+  Route::get('/products','FrontendController@products')->name('front.products');
   Route::get('/products-by-id', 'FrontendController@productsById')->name('all-products-by-id');
   Route::get('/products-models-by-brands', 'FrontendController@productsModelsByBrands')->name('all-products-models-by-brands');
   Route::get('/products-brands-by-category', 'FrontendController@productsBrandsByCategory')->name('all-products-brands-by-category');

@@ -62,6 +62,7 @@ class ProductsImport implements ToModel, WithStartRow
 
     public function model(array $row)
     {
+
         if($row[1])
         {
             $category = Category::where('cat_name',$row[4])->first();

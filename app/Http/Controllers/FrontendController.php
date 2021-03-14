@@ -1261,6 +1261,15 @@ class FrontendController extends Controller
 
     }
 
+    public function products(Request $request)
+    {
+        $products = Products::paginate(12);
+
+        $all_products = Products::all();
+
+        return view('front.products',compact('products','all_products'));
+    }
+
     public function subscribe(Request $request)
     {
         $this->validate($request, [
