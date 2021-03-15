@@ -1295,8 +1295,10 @@ class FrontendController extends Controller
         $products = $products->select('products.*','estimated_prices.price')->paginate(12);
 
         $all_products = Products::all();
+        $cats = Category::where('main_service', '=', 1)->get();
+        $data = terms_conditions::where("role",2)->first();
 
-        return view('front.products',compact('products','all_products'));
+        return view('front.products',compact('products','all_products','cats','data'));
     }
 
     public function subscribe(Request $request)
