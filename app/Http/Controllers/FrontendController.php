@@ -1287,7 +1287,7 @@ class FrontendController extends Controller
             $products = $products->whereRaw("find_in_set('".$color."',products.color)");
         }
 
-        if($s >= 0)
+        if($request->range_start && $request->range_end)
         {
             $products = $products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
         }
