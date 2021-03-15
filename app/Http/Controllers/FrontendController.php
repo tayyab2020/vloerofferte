@@ -1298,7 +1298,7 @@ class FrontendController extends Controller
         $cats = Category::where('main_service', '=', 1)->get();
         $data = terms_conditions::where("role",2)->first();
 
-        return view('front.products',compact('products','all_products','cats','data'));
+        return view('front.products',compact('products','all_products','cats','data','s','e','title','size','color'));
     }
 
     public function subscribe(Request $request)

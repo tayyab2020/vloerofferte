@@ -684,7 +684,7 @@
 
             </div>
             <div class="text-center">
-                {!! $products->links() !!}
+                {!! $products->appends(['range_start' => $s, 'range_end' => $e, 'product' => $to_date , 'size' =>$size, 'color' => $color])->links() !!}
             </div>
         </div>
 
