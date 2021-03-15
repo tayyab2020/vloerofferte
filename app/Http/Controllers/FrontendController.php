@@ -1270,7 +1270,7 @@ class FrontendController extends Controller
         $size = $request->size;
         $color = $request->color;
 
-        $products = Products::leftjoin('estimated_prices','estimated_prices.product_id','=','products.id');
+        $products = Products::where('deleted_at', NULL);
 
         if($title)
         {
@@ -1287,12 +1287,12 @@ class FrontendController extends Controller
             $products = $products->whereRaw("find_in_set('".$color."',products.color)");
         }
 
-        if($s)
+        /*if($s)
         {
             $products = $products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
-        }
+        }*/
 
-        $products = $products->select('products.*','estimated_prices.price')->distinct()->paginate(12);
+        $products = $products->select('products.*')->paginate(12);
 
         $all_products = Products::all();
         $cats = Category::where('main_service', '=', 1)->get();
