@@ -302,7 +302,7 @@
 
                         .team_style2 .team_common
                         {
-                            border: 1px solid #e9e9e9;
+                            border: 0;
                             box-shadow: 2px 2px 5px 1px #d7d7d7;
                         }
 
