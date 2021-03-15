@@ -138,6 +138,7 @@ class ProductsImport implements ToModel, WithStartRow
                     $check->model_number = $model_numbers;
                     $check->size = $sizes;
                     $check->measure = $row[9];
+                    $check->estimated_price = $prices;
                     $check->additional_info = $row[11];
                     $check->floor_type = $row[12];
                     $check->floor_type2 = $row[13];
@@ -204,6 +205,7 @@ class ProductsImport implements ToModel, WithStartRow
                     $check1->model_number = $model_numbers;
                     $check1->size = $sizes;
                     $check1->measure = $row[9];
+                    $check1->estimated_price = $prices;
                     $check1->additional_info = $row[11];
                     $check1->floor_type = $row[12];
                     $check1->floor_type2 = $row[13];
@@ -268,6 +270,7 @@ class ProductsImport implements ToModel, WithStartRow
                 $check->model_number = $model_numbers;
                 $check->size = $sizes;
                 $check->measure = $row[9];
+                $check->estimated_price = $prices;
                 $check->additional_info = $row[11];
                 $check->floor_type = $row[12];
                 $check->floor_type2 = $row[13];
