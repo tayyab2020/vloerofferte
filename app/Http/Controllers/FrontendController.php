@@ -1287,9 +1287,9 @@ class FrontendController extends Controller
             $products = $products->whereRaw("find_in_set('".$color."',products.color)");
         }
 
-        if($s)
+        if($s >= 0)
         {
-            $products = $products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e)->where('estimated_prices.price','!=',NULL);
+            $products = $products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
         }
 
         $products = $products->select('products.*','estimated_prices.price')->groupBy('products.id')->paginate(12);

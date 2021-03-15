@@ -30,7 +30,7 @@
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
                         <div class="autocomplete" style="width:100%;">
-                            <input id="productInput" class="form-control quote-product" type="text" name="product" placeholder="{{__('text.Select Product')}}">
+                            <input value="{{$title}}" id="productInput" class="form-control quote-product" type="text" name="product" placeholder="{{__('text.Select Product')}}">
                         </div>
 
                         <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
@@ -60,8 +60,8 @@
                         <span style="float: left;margin-top: 10px;">€0</span>
                         <span style="float: right;margin-top: 10px;">€1000</span>
 
-                        <input type="hidden" name="range_start" id="range-start" value="0">
-                        <input type="hidden" name="range_end" id="range-end" value="1000">
+                        <input type="hidden" name="range_start" id="range-start" value="{{$s ? $s : 0}}">
+                        <input type="hidden" name="range_end" id="range-end" value="{{$e ? $e : 1000}}">
 
 
                     </div> <!-- cd-filter-content -->
@@ -72,8 +72,12 @@
 
             <script>
                 var slider = document.getElementById('slider');
+
+                var start = $('#range-start').val();
+                var end = $('#range-end').val();
+
                 noUiSlider.create(slider, {
-                    start: [0, 1000],
+                    start: [start,end],
                     connect: true,
                     tooltips: true,
                     range: {
@@ -98,11 +102,11 @@
                     <div class="cd-select cd-filters">
                         <select class="filter" name="size" id="size">
                             <option value="">Select Size</option>
-                            <option value="160x230">160x230 cm</option>
-                            <option value="200x290">200x290 cm</option>
-                            <option value="300x350">300x350 cm</option>
-                            <option value="4">4 m1</option>
-                            <option value="5">5 m1</option>
+                            <option {{$size == '160x230' ? 'selected' : null}} value="160x230">160x230 cm</option>
+                            <option {{$size == '200x290' ? 'selected' : null}} value="200x290">200x290 cm</option>
+                            <option {{$size == '300x350' ? 'selected' : null}} value="300x350">300x350 cm</option>
+                            <option {{$size == '4' ? 'selected' : null}} value="4">4 m1</option>
+                            <option {{$size == '5' ? 'selected' : null}} value="5">5 m1</option>
                         </select>
                     </div> <!-- cd-select -->
                 </div> <!-- cd-filter-content -->
@@ -115,14 +119,14 @@
                     <div class="cd-select cd-filters">
                         <select class="filter" name="color" id="color">
                             <option value="">Select Color</option>
-                            <option value="Red">Red</option>
-                            <option value="Yellow">Yellow</option>
-                            <option value="White">White</option>
-                            <option value="Green">Green</option>
-                            <option value="Blue">Blue</option>
-                            <option value="Black">Black</option>
-                            <option value="Brown">Brown</option>
-                            <option value="Grey">Grey</option>
+                            <option {{$color == 'Red' ? 'selected' : null}} value="Red">Red</option>
+                            <option {{$color == 'Yellow' ? 'selected' : null}} value="Yellow">Yellow</option>
+                            <option {{$color == 'White' ? 'selected' : null}} value="White">White</option>
+                            <option {{$color == 'Green' ? 'selected' : null}} value="Green">Green</option>
+                            <option {{$color == 'Blue' ? 'selected' : null}} value="Blue">Blue</option>
+                            <option {{$color == 'Black' ? 'selected' : null}} value="Black">Black</option>
+                            <option {{$color == 'Brown' ? 'selected' : null}} value="Brown">Brown</option>
+                            <option {{$color == 'Grey' ? 'selected' : null}} value="Grey">Grey</option>
                         </select>
                     </div> <!-- cd-select -->
                 </div> <!-- cd-filter-content -->
