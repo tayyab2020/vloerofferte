@@ -1292,7 +1292,7 @@ class FrontendController extends Controller
             $products = $products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
         }
 
-        $products = $products->select('products.*','estimated_prices.price')->unique()->paginate(12);
+        $products = $products->select('products.*','estimated_prices.price')->distinct()->paginate(12);
 
         $all_products = Products::all();
         $cats = Category::where('main_service', '=', 1)->get();
