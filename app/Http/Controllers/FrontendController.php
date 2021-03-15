@@ -1263,7 +1263,36 @@ class FrontendController extends Controller
 
     public function products(Request $request)
     {
-        $products = Products::paginate(12);
+        $s = floatval($request->range_start);
+        $e = floatval($request->range_end);
+
+        $title = $request->product;
+        $size = $request->size;
+        $color = $request->color;
+
+        $products = Products::leftjoin('estimated_prices','estimated_prices.product_id','=','products.id');
+
+        if($title)
+        {
+            $products = $products->where('products.title','LIKE','%'.$title.'%');
+        }
+
+        if($size)
+        {
+            $products = $products->whereRaw("find_in_set('".$size."',products.size)");
+        }
+
+        if($color)
+        {
+            $products = $products->whereRaw("find_in_set('".$color."',products.color)");
+        }
+
+        if($s)
+        {
+            $products = $products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
+        }
+
+        $products = $products->select('products.*','estimated_prices.price')->paginate(12);
 
         $all_products = Products::all();
 

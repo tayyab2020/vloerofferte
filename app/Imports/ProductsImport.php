@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Brand;
 use App\Category;
+use App\estimated_prices;
 use App\Model1;
 use App\Products;
 use Illuminate\Support\Str;
@@ -62,6 +63,11 @@ class ProductsImport implements ToModel, WithStartRow
 
     public function model(array $row)
     {
+        $model_numbers = preg_replace("/,([\s])+/",",",$row[7]);
+        $sizes = preg_replace("/,([\s])+/",",",$row[8]);
+        $prices = preg_replace("/,([\s])+/",",",$row[10]);
+        $pricesArray = explode(',', $prices);
+        $colors = preg_replace("/,([\s])+/",",",$row[15]);
 
         if($row[1])
         {
@@ -129,34 +135,80 @@ class ProductsImport implements ToModel, WithStartRow
                     $check->category_id = $category->id;
                     $check->brand_id = $brand->id;
                     $check->model_id = $model->id;
-                    $check->model_number = $row[7];
-                    $check->size = $row[8];
+                    $check->model_number = $model_numbers;
+                    $check->size = $sizes;
                     $check->measure = $row[9];
-                    $check->estimated_price = $row[10];
                     $check->additional_info = $row[11];
                     $check->floor_type = $row[12];
                     $check->floor_type2 = $row[13];
                     $check->supplier = $row[14];
-                    $check->color = $row[15];
+                    $check->color = $colors;
                     $check->description = $row[16];
                     $check->excel = 1;
                     $check->save();
+
+                    foreach ($pricesArray as $x => $price)
+                    {
+                        $est = new estimated_prices;
+                        $est->product_id = $check->id;
+                        $est->price = $price;
+                        $est->save();
+                    }
 
                     $this->data[] = $check->id;
                 }
                 else
                 {
+                    $est = estimated_prices::where('product_id',$check1->id)->get();
+
+                    if(count($est) == 0)
+                    {
+                        foreach ($pricesArray as $price)
+                        {
+                            $est = new estimated_prices;
+                            $est->product_id = $check1->id;
+                            $est->price = $price;
+                            $est->save();
+                        }
+                    }
+                    else
+                    {
+                        if(count($pricesArray) > 0)
+                        {
+                            foreach ($pricesArray as $x => $price)
+                            {
+                                $est_check = estimated_prices::where('product_id',$check1->id)->skip($x)->first();
+
+                                if($est_check)
+                                {
+                                    $est_check->price = $pricesArray[$x];
+                                    $est_check->save();
+                                }
+                                else
+                                {
+                                    $temp = new estimated_prices;
+                                    $temp->product_id = $check1->id;
+                                    $temp->price = $pricesArray[$x];
+                                    $temp->save();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            estimated_prices::where('product_id',$check1->id)->delete();
+                        }
+                    }
+
                     $check1->article_code = $row[0];
                     $check1->slug = $row[3];
-                    $check1->model_number = $row[7];
-                    $check1->size = $row[8];
+                    $check1->model_number = $model_numbers;
+                    $check1->size = $sizes;
                     $check1->measure = $row[9];
-                    $check1->estimated_price = $row[10];
                     $check1->additional_info = $row[11];
                     $check1->floor_type = $row[12];
                     $check1->floor_type2 = $row[13];
                     $check1->supplier = $row[14];
-                    $check1->color = $row[15];
+                    $check1->color = $colors;
                     $check1->description = $row[16];
                     $check1->excel = 1;
                     $check1->save();
@@ -166,21 +218,61 @@ class ProductsImport implements ToModel, WithStartRow
             }
             else
             {
+                $est = estimated_prices::where('product_id',$check->id)->get();
+
+                if(count($est) == 0)
+                {
+                    foreach ($pricesArray as $price)
+                    {
+                        $est = new estimated_prices;
+                        $est->product_id = $check->id;
+                        $est->price = $price;
+                        $est->save();
+                    }
+                }
+                else
+                {
+                    if(count($pricesArray) > 0)
+                    {
+                        foreach ($pricesArray as $x => $price)
+                        {
+                            $est_check = estimated_prices::where('product_id',$check->id)->skip($x)->first();
+
+                            if($est_check)
+                            {
+                                $est_check->price = $pricesArray[$x];
+                                $est_check->save();
+                            }
+                            else
+                            {
+                                $temp = new estimated_prices;
+                                $temp->product_id = $check->id;
+                                $temp->price = $pricesArray[$x];
+                                $temp->save();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        estimated_prices::where('product_id',$check->id)->delete();
+                    }
+                }
+
+
                 $check->article_code = $row[0];
                 $check->title = $row[2];
                 $check->slug = $row[3];
                 $check->category_id = $category->id;
                 $check->brand_id = $brand->id;
                 $check->model_id = $model->id;
-                $check->model_number = $row[7];
-                $check->size = $row[8];
+                $check->model_number = $model_numbers;
+                $check->size = $sizes;
                 $check->measure = $row[9];
-                $check->estimated_price = $row[10];
                 $check->additional_info = $row[11];
                 $check->floor_type = $row[12];
                 $check->floor_type2 = $row[13];
                 $check->supplier = $row[14];
-                $check->color = $row[15];
+                $check->color = $colors;
                 $check->description = $row[16];
                 $check->excel = 1;
                 $check->save();
@@ -195,17 +287,57 @@ class ProductsImport implements ToModel, WithStartRow
 
             if ($check) {
 
+                $est = estimated_prices::where('product_id',$check->id)->get();
+
+                if(count($est) == 0)
+                {
+                    foreach ($pricesArray as $price)
+                    {
+                        $est = new estimated_prices;
+                        $est->product_id = $check->id;
+                        $est->price = $price;
+                        $est->save();
+                    }
+                }
+                else
+                {
+                    if(count($pricesArray) > 0)
+                    {
+                        foreach ($pricesArray as $x => $price)
+                        {
+                            $est_check = estimated_prices::where('product_id',$check->id)->skip($x)->first();
+
+                            if($est_check)
+                            {
+                                $est_check->price = $pricesArray[$x];
+                                $est_check->save();
+                            }
+                            else
+                            {
+                                $temp = new estimated_prices;
+                                $temp->product_id = $check->id;
+                                $temp->price = $pricesArray[$x];
+                                $temp->save();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        estimated_prices::where('product_id',$check->id)->delete();
+                    }
+                }
+
                 $check->article_code = $row[0];
                 $check->slug = $row[3];
-                $check->model_number = $row[7];
-                $check->size = $row[8];
+                $check->model_number = $model_numbers;
+                $check->size = $sizes;
                 $check->measure = $row[9];
-                $check->estimated_price = $row[10];
+                $check->estimated_price = $prices;
                 $check->additional_info = $row[11];
                 $check->floor_type = $row[12];
                 $check->floor_type2 = $row[13];
                 $check->supplier = $row[14];
-                $check->color = $row[15];
+                $check->color = $colors;
                 $check->description = $row[16];
                 $check->excel = 1;
                 $check->save();
@@ -265,18 +397,26 @@ class ProductsImport implements ToModel, WithStartRow
                 $product->category_id = $category->id;
                 $product->brand_id = $brand->id;
                 $product->model_id = $model->id;
-                $product->model_number = $row[7];
-                $product->size = $row[8];
+                $product->model_number = $model_numbers;
+                $product->size = $sizes;
                 $product->measure = $row[9];
-                $product->estimated_price = $row[10];
+                $product->estimated_price = $prices;
                 $product->additional_info = $row[11];
                 $product->floor_type = $row[12];
                 $product->floor_type2 = $row[13];
                 $product->supplier = $row[14];
-                $product->color = $row[15];
+                $product->color = $colors;
                 $product->description = $row[16];
                 $product->excel = 1;
                 $product->save();
+
+                foreach ($pricesArray as $x => $price)
+                {
+                    $est = new estimated_prices;
+                    $est->product_id = $product->id;
+                    $est->price = $price;
+                    $est->save();
+                }
 
                 /*return new Products([
                     'title' => $row[1],

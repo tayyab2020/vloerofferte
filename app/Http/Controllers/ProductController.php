@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\estimated_prices;
 use App\Exports\ProductsExport;
 use App\Imports\ProductsImport;
 use App\Model1;
@@ -239,6 +240,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $cat = Products::findOrFail($id);
+        estimated_prices::where('product_id',$id)->delete();
 
         if($cat->photo == null){
             $cat->delete();

@@ -20,24 +20,28 @@
         <a href="#0" class="cd-filter-trigger filter-is-visible" style="margin-left: 15px;">{{$lang->ft}}</a>
 
 
-        <form action="{{route('front.products')}}" method="post">
+        <form action="{{route('front.products')}}" method="get">
 
             {{csrf_field()}}
 
             <div class="cd-filter-block">
                 <h4>Product</h4>
 
-                <div class="autocomplete" style="width:100%;">
-                    <input id="productInput" class="form-control quote-product" type="text" name="product" placeholder="{{__('text.Select Product')}}">
-                </div>
+                <div class="cd-filter-content">
+                    <div class="cd-select cd-filters">
+                        <div class="autocomplete" style="width:100%;">
+                            <input id="productInput" class="form-control quote-product" type="text" name="product" placeholder="{{__('text.Select Product')}}">
+                        </div>
 
-                <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
+                        <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
 
-                    @foreach($all_products as $product)
-                        <option data-cat="{{$product->cat_name}}" value="{{$product->id}}">{{$product->title}}</option>
-                    @endforeach
+                            @foreach($all_products as $product)
+                                <option data-cat="{{$product->cat_name}}" value="{{$product->id}}">{{$product->title}}</option>
+                            @endforeach
 
-                </select>
+                        </select>
+                    </div> <!-- cd-select -->
+                </div> <!-- cd-filter-content -->
 
             </div> <!-- cd-filter-block -->
 
@@ -49,15 +53,15 @@
             <div class="cd-filter-block">
                 <h4>{{$lang->fprt}}</h4>
 
-                <div class="cd-filter-content">
+                <div class="cd-filter-content" style="margin-bottom: 50px;">
                     <div class="cd-filters">
                         <div id="slider" style="margin-top: 50px;"></div>
 
                         <span style="float: left;margin-top: 10px;">€0</span>
-                        <span style="float: right;margin-top: 10px;">€70</span>
+                        <span style="float: right;margin-top: 10px;">€1000</span>
 
                         <input type="hidden" name="range_start" id="range-start" value="0">
-                        <input type="hidden" name="range_end" id="range-end" value="70">
+                        <input type="hidden" name="range_end" id="range-end" value="1000">
 
 
                     </div> <!-- cd-filter-content -->
@@ -69,12 +73,12 @@
             <script>
                 var slider = document.getElementById('slider');
                 noUiSlider.create(slider, {
-                    start: [0, 70],
+                    start: [0, 1000],
                     connect: true,
                     tooltips: true,
                     range: {
                         min: [0],
-                        max: [70]
+                        max: [1000]
                     }
                 });
 
@@ -87,23 +91,49 @@
                 });
             </script>
 
-            <div class="cd-filter-block" style="margin-top: 75px;">
-                <h4>{{$lang->feyt}}</h4>
+            <div class="cd-filter-block">
+                <h4>Sizes</h4>
 
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
-                        <select class="filter" name="experience" id="experience">
-                            <option value="">{{$lang->fsyt}}</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
+                        <select class="filter" name="size" id="size">
+                            <option value="">Select Size</option>
+                            <option value="160x230">160x230 cm</option>
+                            <option value="200x290">200x290 cm</option>
+                            <option value="300x350">300x350 cm</option>
+                            <option value="4">4 m1</option>
+                            <option value="5">5 m1</option>
+                        </select>
+                    </div> <!-- cd-select -->
+                </div> <!-- cd-filter-content -->
+            </div> <!-- cd-filter-block -->
+
+            <div class="cd-filter-block">
+                <h4>Colors</h4>
+
+                <div class="cd-filter-content">
+                    <div class="cd-select cd-filters">
+                        <select class="filter" name="color" id="color">
+                            <option value="">Select Color</option>
+                            <option value="Red">Red</option>
+                            <option value="Yellow">Yellow</option>
+                            <option value="White">White</option>
+                            <option value="Green">Green</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Black">Black</option>
+                            <option value="Brown">Brown</option>
+                            <option value="Grey">Grey</option>
                         </select>
                     </div> <!-- cd-select -->
                 </div> <!-- cd-filter-content -->
             </div> <!-- cd-filter-block -->
 
             <style type="text/css">
+
+                .noUi-horizontal .noUi-handle
+                {
+                    outline: none;
+                }
 
                 .autocomplete ::-webkit-input-placeholder {
                     text-align: center;
