@@ -1263,8 +1263,10 @@ class FrontendController extends Controller
 
     public function products(Request $request)
     {
-        $s = floatval($request->range_start);
-        $e = floatval($request->range_end);
+        $range_s = $request->range_start;
+        $range_e = $request->range_end;
+        $s = floatval($range_s);
+        $e = floatval($range_e);
 
         $title = $request->product;
         $size = $request->size;
@@ -1287,7 +1289,7 @@ class FrontendController extends Controller
             $products = $products->whereRaw("find_in_set('".$color."',products.color)");
         }
 
-        if($request->range_start && $request->range_end)
+        if($range_s != NULL && $range_e != NULL)
         {
             $products = $products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
         }
@@ -1298,7 +1300,7 @@ class FrontendController extends Controller
         $cats = Category::where('main_service', '=', 1)->get();
         $data = terms_conditions::where("role",2)->first();
 
-        return view('front.products',compact('products','all_products','cats','data','s','e','title','size','color'));
+        return view('front.products',compact('products','all_products','cats','data','s','e','range_s','range_e','title','size','color'));
     }
 
     public function subscribe(Request $request)
