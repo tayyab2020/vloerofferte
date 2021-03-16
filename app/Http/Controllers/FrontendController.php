@@ -1268,15 +1268,27 @@ class FrontendController extends Controller
         $s = floatval($range_s);
         $e = floatval($range_e);
 
-        $title = $request->product;
+        $category = $request->category;
+        $brand = $request->brand;
+        $model = $request->model;
         $size = $request->size;
         $color = $request->color;
 
         $products = Products::leftjoin('estimated_prices','estimated_prices.product_id','=','products.id');
 
-        if($title)
+        if($category)
         {
-            $products = $products->where('products.title','LIKE','%'.$title.'%');
+            $products = $products->where('products.category_id',$category);
+        }
+
+        if($brand)
+        {
+            $products = $products->where('products.brand_id',$brand);
+        }
+
+        if($model)
+        {
+            $products = $products->where('products.model_id',$model);
         }
 
         if($size)
@@ -1296,11 +1308,12 @@ class FrontendController extends Controller
 
         $products = $products->select('products.*','estimated_prices.price')->groupBy('products.id')->paginate(12);
 
-        $all_products = Products::all();
         $cats = Category::where('main_service', '=', 1)->get();
+        $brands = Brand::all();
+        $models = Model1::all();
         $data = terms_conditions::where("role",2)->first();
 
-        return view('front.products',compact('products','all_products','cats','data','s','e','range_s','range_e','title','size','color'));
+        return view('front.products',compact('products','cats','brands','models','data','s','e','range_s','range_e','category','brand','model','size','color'));
     }
 
     public function product($id)

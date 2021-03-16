@@ -15,7 +15,7 @@
 @section('content')
 
 
-    <div class="cd-filter filter-is-visible" id="cd-filter" style="position: relative;float: left;height: 865px;z-index: auto;border-right: 1px solid #e0e0e0;">
+    <div class="cd-filter filter-is-visible" id="cd-filter" style="position: relative;float: left;height: 915px;z-index: auto;border-right: 1px solid #e0e0e0;">
 
         <a href="#0" class="cd-filter-trigger filter-is-visible" style="margin-left: 15px;">{{$lang->ft}}</a>
 
@@ -25,24 +25,48 @@
             {{csrf_field()}}
 
             <div class="cd-filter-block">
-                <h4>Product</h4>
+                <h4>Category</h4>
 
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
-                        <div class="autocomplete" style="width:100%;">
-                            <input value="{{$title}}" id="productInput" class="form-control quote-product" type="text" name="product" placeholder="{{__('text.Select Product')}}">
-                        </div>
-
-                        <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
-
-                            @foreach($all_products as $product)
-                                <option data-cat="{{$product->cat_name}}" value="{{$product->id}}">{{$product->title}}</option>
+                        <select class="filter categories" name="category" id="category">
+                            <option value="">Select Category</option>
+                            @foreach($cats as $key)
+                                <option {{$category == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->cat_name}}</option>
                             @endforeach
-
                         </select>
                     </div> <!-- cd-select -->
                 </div> <!-- cd-filter-content -->
+            </div> <!-- cd-filter-block -->
 
+            <div class="cd-filter-block">
+                <h4>Brand</h4>
+
+                <div class="cd-filter-content">
+                    <div class="cd-select cd-filters">
+                        <select class="filter brands" name="brand" id="brand">
+                            <option value="">Select Brand</option>
+                            @foreach($brands as $key)
+                                <option {{$brand == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->cat_name}}</option>
+                            @endforeach
+                        </select>
+                    </div> <!-- cd-select -->
+                </div> <!-- cd-filter-content -->
+            </div> <!-- cd-filter-block -->
+
+            <div class="cd-filter-block">
+                <h4>Model</h4>
+
+                <div class="cd-filter-content">
+                    <div class="cd-select cd-filters">
+                        <select class="filter models" name="model" id="model">
+                            <option value="">Select Model</option>
+                            @foreach($models as $key)
+                                <option {{$model == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->cat_name}}</option>
+                            @endforeach
+                        </select>
+                    </div> <!-- cd-select -->
+                </div> <!-- cd-filter-content -->
             </div> <!-- cd-filter-block -->
 
 
@@ -96,11 +120,11 @@
             </script>
 
             <div class="cd-filter-block">
-                <h4>Sizes</h4>
+                <h4>Size</h4>
 
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
-                        <select class="filter" name="size" id="size">
+                        <select class="filter sizes" name="size" id="size">
                             <option value="">Select Size</option>
                             <option {{$size == '160x230' ? 'selected' : null}} value="160x230">160x230 cm</option>
                             <option {{$size == '200x290' ? 'selected' : null}} value="200x290">200x290 cm</option>
@@ -113,11 +137,11 @@
             </div> <!-- cd-filter-block -->
 
             <div class="cd-filter-block">
-                <h4>Colors</h4>
+                <h4>Color</h4>
 
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
-                        <select class="filter" name="color" id="color">
+                        <select class="filter colors" name="color" id="color">
                             <option value="">Select Color</option>
                             <option {{$color == 'Red' ? 'selected' : null}} value="Red">Red</option>
                             <option {{$color == 'Yellow' ? 'selected' : null}} value="Yellow">Yellow</option>
@@ -139,72 +163,6 @@
                     outline: none;
                 }
 
-                .autocomplete ::-webkit-input-placeholder {
-                    text-align: center;
-                }
-
-                .autocomplete :-moz-placeholder { /* Firefox 18- */
-                    text-align: center;
-                }
-
-                .autocomplete ::-moz-placeholder {  /* Firefox 19+ */
-                    text-align: center;
-                }
-
-                .autocomplete :-ms-input-placeholder {
-                    text-align: center;
-                }
-
-                .autocomplete {
-                    position: relative;
-                    display: inline-block;
-                }
-
-                .quote-product {
-                    /*border: 1px solid transparent;*/
-                    background-color: #f1f1f1;
-                    padding: 10px;
-                    font-size: 16px;
-                }
-
-                .quote-product {
-                    background-color: #f1f1f1;
-                    width: 100%;
-                    height: 45px;
-                }
-
-                .autocomplete-items {
-                    position: absolute;
-                    border: 1px solid #d4d4d4;
-                    border-bottom: none;
-                    border-top: none;
-                    z-index: 99;
-                    /*position the autocomplete items to be the same width as the container:*/
-                    top: 100%;
-                    left: 0;
-                    right: 0;
-                    max-height: 230px;
-                    overflow-x: hidden;
-                    overflow-y: auto;
-                }
-
-                .autocomplete-items div {
-                    padding: 10px;
-                    cursor: pointer;
-                    background-color: #fff;
-                    border-bottom: 1px solid #d4d4d4;
-                }
-
-                /*when hovering an item:*/
-                .autocomplete-items div:hover {
-                    background-color: #e9e9e9;
-                }
-
-                /*when navigating through the items using the arrow keys:*/
-                .autocomplete-active {
-                    background-color: DodgerBlue !important;
-                    color: #ffffff;
-                }
 
                 @media only screen and (max-width: 991px) {
 
@@ -257,7 +215,7 @@
        style="color: white; position: relative; display: block; background-color: #003580; background-position-x: 33%; margin-left: 0px; left: 0px; padding-left: 0px; text-decoration: none; width: 35px; top: 0px; float: left;border-top-right-radius: 9px;border-bottom-right-radius: 10px;margin-top: 10px;"
        id="fltr-btn"></a>
 
-    <div class="cd-main-content is-fixed" style="height: 795px;overflow-y: auto;min-height: 865px;">
+    <div class="cd-main-content is-fixed" style="height: 915px;overflow-y: auto;min-height: 915px;">
 
 
         <div class="section-padding all-donors-wrap team_section team_style2 wow fadeInUp"
@@ -688,7 +646,7 @@
 
             </div>
             <div class="text-center">
-                {!! $products->appends(['range_start' => $range_s, 'range_end' => $range_e, 'product' => $title , 'size' =>$size, 'color' => $color])->links() !!}
+                {!! $products->appends(['range_start' => $range_s, 'range_end' => $range_e, 'category' => $category, 'brand' => $brand, 'model' => $model, 'size' => $size, 'color' => $color])->links() !!}
             </div>
         </div>
 
@@ -1342,6 +1300,14 @@
 
     <style type="text/css">
 
+        @media only screen and (max-width: 767px)
+        {
+            .subscribe-newsletter-wrapper
+            {
+                padding-top: 40px;
+            }
+        }
+
         .slick-slide
         {
             outline: none;
@@ -1813,6 +1779,12 @@
 
     <style>
 
+        .cd-filters .select2-container--default .select2-selection--single
+        {
+            border: 1px solid #aaa !important;
+            border-radius: 4px !important;
+        }
+
         .select2-container{
 
             height: 100%;
@@ -1833,469 +1805,23 @@
             padding: 19px;
         }
 
-        .select2-selection__clear{
+        .cd-filters .select2-selection__clear{
+            position: relative;
+            right: 5px;
+            top: 1px;
+            z-index: 1000;
+            display: block !important;
+        }
 
+        .select2-selection__clear
+        {
             display: none;
         }
 
     </style>
 
     <style type="text/css">
-        /*!
-* Datepicker for Bootstrap v1.5.0 (https://github.com/eternicode/bootstrap-datepicker)
-*
-* Copyright 2012 Stefan Petre
-* Improvements by Andrew Rowls
-* Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
-*/
-        .datepicker {
-            padding: 4px;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-            direction: ltr;
-        }
-        .datepicker-inline {
-            width: 220px;
-        }
-        .datepicker.datepicker-rtl {
-            direction: rtl;
-        }
-        .datepicker.datepicker-rtl table tr td span {
-            float: right;
-        }
-        .datepicker-dropdown {
-            top: 0;
 
-            min-width: 19.3% !important;
-        }
-
-        .table-condensed{
-
-            width: 100%;
-
-
-        }
-
-        .datepicker td, .datepicker th
-        {
-
-            font-size: 17px;
-
-
-        }
-        .datepicker-dropdown:before {
-            content: '';
-            display: inline-block;
-            border-left: 7px solid transparent;
-            border-right: 7px solid transparent;
-            border-bottom: 7px solid #999999;
-            border-top: 0;
-            border-bottom-color: rgba(0, 0, 0, 0.2);
-            position: absolute;
-        }
-        .datepicker-dropdown:after {
-            content: '';
-            display: inline-block;
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-bottom: 6px solid #ffffff;
-            border-top: 0;
-            position: absolute;
-        }
-        .datepicker-dropdown.datepicker-orient-left:before {
-            left: 6px;
-        }
-        .datepicker-dropdown.datepicker-orient-left:after {
-            left: 7px;
-        }
-        .datepicker-dropdown.datepicker-orient-right:before {
-            right: 6px;
-        }
-        .datepicker-dropdown.datepicker-orient-right:after {
-            right: 7px;
-        }
-        .datepicker-dropdown.datepicker-orient-bottom:before {
-            display: none;
-            top: -7px;
-        }
-        .datepicker-dropdown.datepicker-orient-bottom:after {
-            display: none;
-            top: -6px;
-        }
-        .datepicker-dropdown.datepicker-orient-top:before {
-            display: none;
-            bottom: -7px;
-            border-bottom: 0;
-            border-top: 7px solid #999999;
-        }
-        .datepicker-dropdown.datepicker-orient-top:after {
-            display: none;
-            bottom: -6px;
-            border-bottom: 0;
-            border-top: 6px solid #ffffff;
-        }
-        .datepicker > div {
-            display: none;
-        }
-        .datepicker table {
-            margin: 0;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        .datepicker td,
-        .datepicker th {
-            text-align: center;
-            width: 20px;
-            height: 20px;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-            border: none;
-        }
-        .table-striped .datepicker table tr td,
-        .table-striped .datepicker table tr th {
-            background-color: transparent;
-        }
-        .datepicker table tr td.day:hover,
-        .datepicker table tr td.day.focused {
-            background: #eeeeee;
-            cursor: pointer;
-        }
-        .datepicker table tr td.old,
-        .datepicker table tr td.new {
-            color: #999999;
-        }
-        .datepicker table tr td.disabled,
-        .datepicker table tr td.disabled:hover {
-            background: none;
-            color: #999999;
-            cursor: default;
-        }
-        .datepicker table tr td.highlighted {
-            background: #d9edf7;
-            border-radius: 0;
-        }
-        .datepicker table tr td.today,
-        .datepicker table tr td.today:hover,
-        .datepicker table tr td.today.disabled,
-        .datepicker table tr td.today.disabled:hover {
-            background-color: #fde19a;
-            background-image: -moz-linear-gradient(to bottom, #fdd49a, #fdf59a);
-            background-image: -ms-linear-gradient(to bottom, #fdd49a, #fdf59a);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fdd49a), to(#fdf59a));
-            background-image: -webkit-linear-gradient(to bottom, #fdd49a, #fdf59a);
-            background-image: -o-linear-gradient(to bottom, #fdd49a, #fdf59a);
-            background-image: linear-gradient(to bottom, #fdd49a, #fdf59a);
-            background-repeat: repeat-x;
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fdd49a', endColorstr='#fdf59a', GradientType=0);
-            border-color: #fdf59a #fdf59a #fbed50;
-            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-            color: #000;
-        }
-        .datepicker table tr td.today:hover,
-        .datepicker table tr td.today:hover:hover,
-        .datepicker table tr td.today.disabled:hover,
-        .datepicker table tr td.today.disabled:hover:hover,
-        .datepicker table tr td.today:active,
-        .datepicker table tr td.today:hover:active,
-        .datepicker table tr td.today.disabled:active,
-        .datepicker table tr td.today.disabled:hover:active,
-        .datepicker table tr td.today.active,
-        .datepicker table tr td.today:hover.active,
-        .datepicker table tr td.today.disabled.active,
-        .datepicker table tr td.today.disabled:hover.active,
-        .datepicker table tr td.today.disabled,
-        .datepicker table tr td.today:hover.disabled,
-        .datepicker table tr td.today.disabled.disabled,
-        .datepicker table tr td.today.disabled:hover.disabled,
-        .datepicker table tr td.today[disabled],
-        .datepicker table tr td.today:hover[disabled],
-        .datepicker table tr td.today.disabled[disabled],
-        .datepicker table tr td.today.disabled:hover[disabled] {
-            background-color: #fdf59a;
-        }
-        .datepicker table tr td.today:active,
-        .datepicker table tr td.today:hover:active,
-        .datepicker table tr td.today.disabled:active,
-        .datepicker table tr td.today.disabled:hover:active,
-        .datepicker table tr td.today.active,
-        .datepicker table tr td.today:hover.active,
-        .datepicker table tr td.today.disabled.active,
-        .datepicker table tr td.today.disabled:hover.active {
-            background-color: #fbf069 \9;
-        }
-        .datepicker table tr td.today:hover:hover {
-            color: #000;
-        }
-        .datepicker table tr td.today.active:hover {
-            color: #fff;
-        }
-        .datepicker table tr td.range,
-        .datepicker table tr td.range:hover,
-        .datepicker table tr td.range.disabled,
-        .datepicker table tr td.range.disabled:hover {
-            background: #eeeeee;
-            -webkit-border-radius: 0;
-            -moz-border-radius: 0;
-            border-radius: 0;
-        }
-        .datepicker table tr td.range.today,
-        .datepicker table tr td.range.today:hover,
-        .datepicker table tr td.range.today.disabled,
-        .datepicker table tr td.range.today.disabled:hover {
-            background-color: #f3d17a;
-            background-image: -moz-linear-gradient(to bottom, #f3c17a, #f3e97a);
-            background-image: -ms-linear-gradient(to bottom, #f3c17a, #f3e97a);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f3c17a), to(#f3e97a));
-            background-image: -webkit-linear-gradient(to bottom, #f3c17a, #f3e97a);
-            background-image: -o-linear-gradient(to bottom, #f3c17a, #f3e97a);
-            background-image: linear-gradient(to bottom, #f3c17a, #f3e97a);
-            background-repeat: repeat-x;
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f3c17a', endColorstr='#f3e97a', GradientType=0);
-            border-color: #f3e97a #f3e97a #edde34;
-            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-            -webkit-border-radius: 0;
-            -moz-border-radius: 0;
-            border-radius: 0;
-        }
-        .datepicker table tr td.range.today:hover,
-        .datepicker table tr td.range.today:hover:hover,
-        .datepicker table tr td.range.today.disabled:hover,
-        .datepicker table tr td.range.today.disabled:hover:hover,
-        .datepicker table tr td.range.today:active,
-        .datepicker table tr td.range.today:hover:active,
-        .datepicker table tr td.range.today.disabled:active,
-        .datepicker table tr td.range.today.disabled:hover:active,
-        .datepicker table tr td.range.today.active,
-        .datepicker table tr td.range.today:hover.active,
-        .datepicker table tr td.range.today.disabled.active,
-        .datepicker table tr td.range.today.disabled:hover.active,
-        .datepicker table tr td.range.today.disabled,
-        .datepicker table tr td.range.today:hover.disabled,
-        .datepicker table tr td.range.today.disabled.disabled,
-        .datepicker table tr td.range.today.disabled:hover.disabled,
-        .datepicker table tr td.range.today[disabled],
-        .datepicker table tr td.range.today:hover[disabled],
-        .datepicker table tr td.range.today.disabled[disabled],
-        .datepicker table tr td.range.today.disabled:hover[disabled] {
-            background-color: #f3e97a;
-        }
-        .datepicker table tr td.range.today:active,
-        .datepicker table tr td.range.today:hover:active,
-        .datepicker table tr td.range.today.disabled:active,
-        .datepicker table tr td.range.today.disabled:hover:active,
-        .datepicker table tr td.range.today.active,
-        .datepicker table tr td.range.today:hover.active,
-        .datepicker table tr td.range.today.disabled.active,
-        .datepicker table tr td.range.today.disabled:hover.active {
-            background-color: #efe24b \9;
-        }
-        .datepicker table tr td.selected,
-        .datepicker table tr td.selected:hover,
-        .datepicker table tr td.selected.disabled,
-        .datepicker table tr td.selected.disabled:hover {
-            background-color: #9e9e9e;
-            background-image: -moz-linear-gradient(to bottom, #b3b3b3, #808080);
-            background-image: -ms-linear-gradient(to bottom, #b3b3b3, #808080);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#b3b3b3), to(#808080));
-            background-image: -webkit-linear-gradient(to bottom, #b3b3b3, #808080);
-            background-image: -o-linear-gradient(to bottom, #b3b3b3, #808080);
-            background-image: linear-gradient(to bottom, #b3b3b3, #808080);
-            background-repeat: repeat-x;
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3b3b3', endColorstr='#808080', GradientType=0);
-            border-color: #808080 #808080 #595959;
-            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-            color: #fff;
-            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-        }
-        .datepicker table tr td.selected:hover,
-        .datepicker table tr td.selected:hover:hover,
-        .datepicker table tr td.selected.disabled:hover,
-        .datepicker table tr td.selected.disabled:hover:hover,
-        .datepicker table tr td.selected:active,
-        .datepicker table tr td.selected:hover:active,
-        .datepicker table tr td.selected.disabled:active,
-        .datepicker table tr td.selected.disabled:hover:active,
-        .datepicker table tr td.selected.active,
-        .datepicker table tr td.selected:hover.active,
-        .datepicker table tr td.selected.disabled.active,
-        .datepicker table tr td.selected.disabled:hover.active,
-        .datepicker table tr td.selected.disabled,
-        .datepicker table tr td.selected:hover.disabled,
-        .datepicker table tr td.selected.disabled.disabled,
-        .datepicker table tr td.selected.disabled:hover.disabled,
-        .datepicker table tr td.selected[disabled],
-        .datepicker table tr td.selected:hover[disabled],
-        .datepicker table tr td.selected.disabled[disabled],
-        .datepicker table tr td.selected.disabled:hover[disabled] {
-            background-color: #808080;
-        }
-        .datepicker table tr td.selected:active,
-        .datepicker table tr td.selected:hover:active,
-        .datepicker table tr td.selected.disabled:active,
-        .datepicker table tr td.selected.disabled:hover:active,
-        .datepicker table tr td.selected.active,
-        .datepicker table tr td.selected:hover.active,
-        .datepicker table tr td.selected.disabled.active,
-        .datepicker table tr td.selected.disabled:hover.active {
-            background-color: #666666 \9;
-        }
-        .datepicker table tr td.active,
-        .datepicker table tr td.active:hover,
-        .datepicker table tr td.active.disabled,
-        .datepicker table tr td.active.disabled:hover {
-            background-color: #006dcc;
-            background-image: -moz-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: -ms-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
-            background-image: -webkit-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: -o-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: linear-gradient(to bottom, #0088cc, #0044cc);
-            background-repeat: repeat-x;
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
-            border-color: #0044cc #0044cc #002a80;
-            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-            color: #fff;
-            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-        }
-        .datepicker table tr td.active:hover,
-        .datepicker table tr td.active:hover:hover,
-        .datepicker table tr td.active.disabled:hover,
-        .datepicker table tr td.active.disabled:hover:hover,
-        .datepicker table tr td.active:active,
-        .datepicker table tr td.active:hover:active,
-        .datepicker table tr td.active.disabled:active,
-        .datepicker table tr td.active.disabled:hover:active,
-        .datepicker table tr td.active.active,
-        .datepicker table tr td.active:hover.active,
-        .datepicker table tr td.active.disabled.active,
-        .datepicker table tr td.active.disabled:hover.active,
-        .datepicker table tr td.active.disabled,
-        .datepicker table tr td.active:hover.disabled,
-        .datepicker table tr td.active.disabled.disabled,
-        .datepicker table tr td.active.disabled:hover.disabled,
-        .datepicker table tr td.active[disabled],
-        .datepicker table tr td.active:hover[disabled],
-        .datepicker table tr td.active.disabled[disabled],
-        .datepicker table tr td.active.disabled:hover[disabled] {
-            background-color: #0044cc;
-        }
-        .datepicker table tr td.active:active,
-        .datepicker table tr td.active:hover:active,
-        .datepicker table tr td.active.disabled:active,
-        .datepicker table tr td.active.disabled:hover:active,
-        .datepicker table tr td.active.active,
-        .datepicker table tr td.active:hover.active,
-        .datepicker table tr td.active.disabled.active,
-        .datepicker table tr td.active.disabled:hover.active {
-            background-color: #003399 \9;
-        }
-        .datepicker table tr td span {
-            display: block;
-            width: 23%;
-            height: 54px;
-            line-height: 54px;
-            float: left;
-            margin: 1%;
-            cursor: pointer;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-        }
-        .datepicker table tr td span:hover {
-            background: #eeeeee;
-        }
-        .datepicker table tr td span.disabled,
-        .datepicker table tr td span.disabled:hover {
-            background: none;
-            color: #999999;
-            cursor: default;
-        }
-        .datepicker table tr td span.active,
-        .datepicker table tr td span.active:hover,
-        .datepicker table tr td span.active.disabled,
-        .datepicker table tr td span.active.disabled:hover {
-            background-color: #006dcc;
-            background-image: -moz-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: -ms-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
-            background-image: -webkit-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: -o-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: linear-gradient(to bottom, #0088cc, #0044cc);
-            background-repeat: repeat-x;
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
-            border-color: #0044cc #0044cc #002a80;
-            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-            color: #fff;
-            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-        }
-        .datepicker table tr td span.active:hover,
-        .datepicker table tr td span.active:hover:hover,
-        .datepicker table tr td span.active.disabled:hover,
-        .datepicker table tr td span.active.disabled:hover:hover,
-        .datepicker table tr td span.active:active,
-        .datepicker table tr td span.active:hover:active,
-        .datepicker table tr td span.active.disabled:active,
-        .datepicker table tr td span.active.disabled:hover:active,
-        .datepicker table tr td span.active.active,
-        .datepicker table tr td span.active:hover.active,
-        .datepicker table tr td span.active.disabled.active,
-        .datepicker table tr td span.active.disabled:hover.active,
-        .datepicker table tr td span.active.disabled,
-        .datepicker table tr td span.active:hover.disabled,
-        .datepicker table tr td span.active.disabled.disabled,
-        .datepicker table tr td span.active.disabled:hover.disabled,
-        .datepicker table tr td span.active[disabled],
-        .datepicker table tr td span.active:hover[disabled],
-        .datepicker table tr td span.active.disabled[disabled],
-        .datepicker table tr td span.active.disabled:hover[disabled] {
-            background-color: #0044cc;
-        }
-        .datepicker table tr td span.active:active,
-        .datepicker table tr td span.active:hover:active,
-        .datepicker table tr td span.active.disabled:active,
-        .datepicker table tr td span.active.disabled:hover:active,
-        .datepicker table tr td span.active.active,
-        .datepicker table tr td span.active:hover.active,
-        .datepicker table tr td span.active.disabled.active,
-        .datepicker table tr td span.active.disabled:hover.active {
-            background-color: #003399 \9;
-        }
-        .datepicker table tr td span.old,
-        .datepicker table tr td span.new {
-            color: #999999;
-        }
-        .datepicker .datepicker-switch {
-            width: 145px;
-        }
-        .datepicker .datepicker-switch,
-        .datepicker .prev,
-        .datepicker .next,
-        .datepicker tfoot tr th {
-            cursor: pointer;
-        }
-        .datepicker .datepicker-switch:hover,
-        .datepicker .prev:hover,
-        .datepicker .next:hover,
-        .datepicker tfoot tr th:hover {
-            background: #eeeeee;
-        }
-        .datepicker .cw {
-            font-size: 10px;
-            width: 12px;
-            padding: 0 2px 0 5px;
-            vertical-align: middle;
-        }
         .input-append.date .add-on,
         .input-prepend.date .add-on {
             cursor: pointer;
@@ -2338,6 +1864,67 @@
     </style>
 
     <script>
+
+        $(".categories").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "{{__('text.Select Category')}}",
+            allowClear: true,
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+        });
+
+        $(".brands").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "{{__('text.Select Brand')}}",
+            allowClear: true,
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+        });
+
+        $(".models").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "{{__('text.Select Model')}}",
+            allowClear: true,
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+        });
+
+
+        $(".sizes").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "Select Size",
+            allowClear: true,
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+        });
+
+        $(".colors").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "Select Color",
+            allowClear: true,
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+        });
 
         $(".js-data-example-ajax").select2({
             width: '100%',
@@ -2429,276 +2016,6 @@
 
         });
 
-    </script>
-
-    <script type="text/javascript">
-
-        function autocomplete(inp, arr, values, categories) {
-            /*the autocomplete function takes two arguments,
-            the text field element and an array of possible autocompleted values:*/
-            var currentFocus;
-            /*execute a function when someone writes in the text field:*/
-            inp.addEventListener("input", function(e) {
-                var a, b, i, val = this.value;
-                /*close any already open lists of autocompleted values*/
-                closeAllLists();
-                if (!val) { return false;}
-                currentFocus = -1;
-                /*create a DIV element that will contain the items (values):*/
-                a = document.createElement("DIV");
-                a.setAttribute("id", this.id + "autocomplete-list");
-                a.setAttribute("class", "autocomplete-items");
-                /*append the DIV element as a child of the autocomplete container:*/
-                this.parentNode.appendChild(a);
-                /*for each item in the array...*/
-                for (i = 0; i < arr.length; i++) {
-
-                    var string = arr[i];
-                    string = string.toLowerCase();
-                    val = val.toLowerCase();
-                    var res = string.includes(val);
-
-                    if (res) {
-                        /*create a DIV element for each matching element:*/
-                        b = document.createElement("DIV");
-                        /*make the matching letters bold:*/
-                        /*b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                        b.innerHTML += arr[i].substr(val.length);*/
-                        b.innerHTML = arr[i] + ', ' + categories[i];
-                        /*insert a input field that will hold the current array item's value:*/
-                        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'><input type='hidden' value='" + values[i] + "'>";
-                        /*execute a function when someone clicks on the item value (DIV element):*/
-                        b.addEventListener("click", function(e) {
-                            /*insert the value for the autocomplete text field:*/
-                            inp.value = this.getElementsByTagName("input")[0].value;
-
-                            var product_id = this.getElementsByTagName("input")[1].value;
-                            var options = '';
-
-                            $.ajax({
-                                type: "GET",
-                                data: "id=" + product_id,
-                                url: "<?php echo url('/products-by-id')?>",
-                                success: function (data) {
-
-                                    $('.quote-service').val(data.category_id);
-                                    $(".quote-service").trigger('change.select2');
-
-                                    var category_id = data.category_id;
-                                    var brand_id = data.brand_id;
-                                    var model_id = data.model_id;
-                                    var options = '';
-
-                                    $.ajax({
-                                        type: "GET",
-                                        data: "id=" + category_id,
-                                        url: "<?php echo url('get-questions')?>",
-
-                                        success: function (data) {
-
-                                            $('#step3').children('.well').empty();
-
-                                            var index_count = 0;
-
-                                            $.each(data, function (index, val) {
-
-                                                if (data.length == index + 1) {
-                                                    $('#step3').children('.well').append('<div style="margin-bottom: 20px;"></div>');
-                                                } else {
-                                                    $('#step3').children('.well').append('<div style="margin-bottom: 40px;"></div>');
-                                                }
-
-                                                var last = $('#step3').children('.well').children().last('div');
-
-                                                last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">' + val.title + '</h3><input type="hidden" name="questions[]" value="' + val.title + '">');
-
-                                                if (val.predefined == 1) {
-
-                                                    last.append('<div class="checkbox_validation"><input name="predefined' + index + '" type="hidden" value="1"></div>');
-
-                                                    $.each(val.answers, function (index1, val1) {
-
-                                                        last.children('div').append('<hr>\n' +
-                                                            '                                        <label class="container-checkbox">' + val1.title + '\n' +
-                                                            '                                        <input name="answers' + index + '[]" type="checkbox" value="' + val1.title + '">\n' +
-                                                            '                                        <span class="checkmark-checkbox"></span>\n' +
-                                                            '                                        </label>');
-
-                                                    });
-                                                } else {
-                                                    if (val.placeholder) {
-                                                        var placeholder = val.placeholder;
-                                                    } else {
-                                                        var placeholder = '';
-                                                    }
-
-                                                    last.append('<input name="predefined' + index + '" type="hidden" value="0">\n' +
-                                                        '<textarea name="answers' + index + '" style="resize: vertical;" rows="1" class="form-control quote_validation" placeholder="' + placeholder + '"></textarea>');
-                                                }
-
-                                                index_count = index;
-
-                                            });
-
-                                            $('#step3').children('.well').append('<input type="hidden" name="index_count" value="' + index_count + '">');
-
-                                            /*$('#step3').children('div').children('h3').
-                                            console.log(data);*/
-                                        }
-                                    });
-
-                                    $.ajax({
-                                        type: "GET",
-                                        data: "id=" + category_id,
-                                        url: "<?php echo url('/products-brands-by-category')?>",
-                                        success: function (data) {
-
-                                            $.each(data, function (index, value) {
-
-                                                var opt = '<option value="' + value.id + '" >' + value.cat_name + '</option>';
-
-                                                options = options + opt;
-
-                                            });
-
-                                            $('.quote-model').find('option')
-                                                .remove()
-                                                .end()
-                                                .append('<option value="">Select Model</option>');
-
-                                            $('.quote-brand').find('option')
-                                                .remove()
-                                                .end()
-                                                .append('<option value="">Select Brand</option>' + options);
-
-                                            $('.quote-brand').val(brand_id);
-                                            $(".quote-brand").trigger('change.select2');
-
-
-                                            var options = '';
-
-                                            $.ajax({
-                                                type: "GET",
-                                                data: "id=" + brand_id,
-                                                url: "<?php echo url('/products-models-by-brands')?>",
-                                                success: function (data) {
-
-                                                    $.each(data, function (index, value) {
-
-                                                        var opt = '<option value="' + value.id + '" >' + value.cat_name + '</option>';
-
-                                                        options = options + opt;
-
-                                                    });
-
-                                                    $('.quote-model').find('option')
-                                                        .remove()
-                                                        .end()
-                                                        .append('<option value="">Select Model</option>' + options);
-
-                                                    $('.quote-model').val(model_id);
-                                                    $(".quote-model").trigger('change.select2');
-
-                                                }
-                                            });
-
-                                        }
-                                    });
-
-                                    $('.navbar a[href="#step1"]').trigger('click');
-
-                                    $('.back').hide();
-
-                                }
-
-                            });
-
-                            /*close the list of autocompleted values,
-                            (or any other open lists of autocompleted values:*/
-                            closeAllLists();
-                        });
-                        a.appendChild(b);
-                    }
-                }
-            });
-            /*execute a function presses a key on the keyboard:*/
-            inp.addEventListener("keydown", function(e) {
-                var x = document.getElementById(this.id + "autocomplete-list");
-                if (x) x = x.getElementsByTagName("div");
-                if (e.keyCode == 40) {
-                    /*If the arrow DOWN key is pressed,
-                    increase the currentFocus variable:*/
-                    currentFocus++;
-                    /*and and make the current item more visible:*/
-                    addActive(x);
-                } else if (e.keyCode == 38) { //up
-                    /*If the arrow UP key is pressed,
-                    decrease the currentFocus variable:*/
-                    currentFocus--;
-                    /*and and make the current item more visible:*/
-                    addActive(x);
-                } else if (e.keyCode == 13) {
-                    /*If the ENTER key is pressed, prevent the form from being submitted,*/
-                    e.preventDefault();
-                    if (currentFocus > -1) {
-                        /*and simulate a click on the "active" item:*/
-                        if (x) x[currentFocus].click();
-                    }
-                }
-            });
-            function addActive(x) {
-                /*a function to classify an item as "active":*/
-                if (!x) return false;
-                /*start by removing the "active" class on all items:*/
-                removeActive(x);
-                if (currentFocus >= x.length) currentFocus = 0;
-                if (currentFocus < 0) currentFocus = (x.length - 1);
-                /*add class "autocomplete-active":*/
-                x[currentFocus].classList.add("autocomplete-active");
-            }
-            function removeActive(x) {
-                /*a function to remove the "active" class from all autocomplete items:*/
-                for (var i = 0; i < x.length; i++) {
-                    x[i].classList.remove("autocomplete-active");
-                }
-            }
-            function closeAllLists(elmnt) {
-                /*close all autocomplete lists in the document,
-                except the one passed as an argument:*/
-                var x = document.getElementsByClassName("autocomplete-items");
-                for (var i = 0; i < x.length; i++) {
-                    if (elmnt != x[i] && elmnt != inp) {
-                        x[i].parentNode.removeChild(x[i]);
-                    }
-                }
-            }
-            /*execute a function when someone clicks in the document:*/
-            document.addEventListener("click", function (e) {
-                closeAllLists(e.target);
-            });
-        }
-
-        /*An array containing all the country names in the world:*/
-        options = [];
-        texts = [];
-        categories = [];
-
-        var sel = $(".all-products");
-        var length = sel.children('option').length;
-
-        $(".all-products > option").each(function() {
-            if (this.value) options.push(this.value); texts.push(this.text); categories.push(this.getAttribute('data-cat'));
-        });
-
-        /*for (var i=0, n=length;i<n;i++) { // looping over the options
-            console.log($('.all-products option:eq(i)').text());
-            if (sel.options[i].value) options.push(sel.options[i].value);
-        }
-
-        console.log(options);*/
-
-        autocomplete(document.getElementById("productInput"), texts, options, categories);
-
         jQuery(document).ready(function ($) {
             //open/close lateral filter
 
@@ -2770,12 +2087,6 @@
 
 
         });
-
-        /*****************************************************
-         MixItUp - Define a single object literal
-         to contain all filter custom functionality
-         *****************************************************/
-
 
     </script>
 
@@ -3558,7 +2869,6 @@
     </style>
 
 
-
     <style type="text/css">
 
         .select2-container {
@@ -3579,11 +2889,18 @@
             padding: 26px;
         }
 
-        .select2-selection__clear {
-
-            display: none;
+        .cd-filters .select2-selection__clear {
+            position: relative;
+            right: 5px;
+            top: 1px;
+            z-index: 1000;
+            display: block !important;
         }
 
+        .select2-selection__clear
+        {
+            display: none;
+        }
 
         [type="radio"]:checked,
         [type="radio"]:not(:checked) {
@@ -3642,554 +2959,5 @@
 
     </style>
 
-
-    <style type="text/css">
-        /*!
-* Datepicker for Bootstrap v1.5.0 (https://github.com/eternicode/bootstrap-datepicker)
-*
-* Copyright 2012 Stefan Petre
-* Improvements by Andrew Rowls
-* Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
-*/
-        .datepicker {
-            padding: 4px;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-            direction: ltr;
-        }
-
-        .datepicker-inline {
-            width: 220px;
-        }
-
-        .datepicker.datepicker-rtl {
-            direction: rtl;
-        }
-
-        .datepicker.datepicker-rtl table tr td span {
-            float: right;
-        }
-
-        .datepicker-dropdown {
-            top: 0;
-            min-width: 22% !important;
-        }
-
-        .table-condensed {
-
-            width: 100%;
-
-
-        }
-
-        .datepicker td, .datepicker th {
-
-            font-size: 17px;
-
-
-        }
-
-        .datepicker-dropdown:before {
-            content: '';
-            display: inline-block;
-            border-left: 7px solid transparent;
-            border-right: 7px solid transparent;
-            border-bottom: 7px solid #999999;
-            border-top: 0;
-            border-bottom-color: rgba(0, 0, 0, 0.2);
-            position: absolute;
-        }
-
-        .datepicker-dropdown:after {
-            content: '';
-            display: inline-block;
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-bottom: 6px solid #ffffff;
-            border-top: 0;
-            position: absolute;
-        }
-
-        .datepicker-dropdown.datepicker-orient-left:before {
-            left: 6px;
-        }
-
-        .datepicker-dropdown.datepicker-orient-left:after {
-            left: 7px;
-        }
-
-        .datepicker-dropdown.datepicker-orient-right:before {
-            right: 6px;
-        }
-
-        .datepicker-dropdown.datepicker-orient-right:after {
-            right: 7px;
-        }
-
-        .datepicker-dropdown.datepicker-orient-bottom:before {
-            display: none;
-            top: -7px;
-        }
-
-        .datepicker-dropdown.datepicker-orient-bottom:after {
-            display: none;
-            top: -6px;
-        }
-
-        .datepicker-dropdown.datepicker-orient-top:before {
-            display: none;
-            bottom: -7px;
-            border-bottom: 0;
-            border-top: 7px solid #999999;
-        }
-
-        .datepicker-dropdown.datepicker-orient-top:after {
-            display: none;
-            bottom: -6px;
-            border-bottom: 0;
-            border-top: 6px solid #ffffff;
-        }
-
-        .datepicker > div {
-            display: none;
-        }
-
-        .datepicker table {
-            margin: 0;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        .datepicker td,
-        .datepicker th {
-            text-align: center;
-            width: 20px;
-            height: 20px;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-            border: none;
-        }
-
-        .table-striped .datepicker table tr td,
-        .table-striped .datepicker table tr th {
-            background-color: transparent;
-        }
-
-        .datepicker table tr td.day:hover,
-        .datepicker table tr td.day.focused {
-            background: #eeeeee;
-            cursor: pointer;
-        }
-
-        .datepicker table tr td.old,
-        .datepicker table tr td.new {
-            color: #999999;
-        }
-
-        .datepicker table tr td.disabled,
-        .datepicker table tr td.disabled:hover {
-            background: none;
-            color: #999999;
-            cursor: default;
-        }
-
-        .datepicker table tr td.highlighted {
-            background: #d9edf7;
-            border-radius: 0;
-        }
-
-        .datepicker table tr td.today,
-        .datepicker table tr td.today:hover,
-        .datepicker table tr td.today.disabled,
-        .datepicker table tr td.today.disabled:hover {
-            background-color: #fde19a;
-            background-image: -moz-linear-gradient(to bottom, #fdd49a, #fdf59a);
-            background-image: -ms-linear-gradient(to bottom, #fdd49a, #fdf59a);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fdd49a), to(#fdf59a));
-            background-image: -webkit-linear-gradient(to bottom, #fdd49a, #fdf59a);
-            background-image: -o-linear-gradient(to bottom, #fdd49a, #fdf59a);
-            background-image: linear-gradient(to bottom, #fdd49a, #fdf59a);
-            background-repeat: repeat-x;
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fdd49a', endColorstr='#fdf59a', GradientType=0);
-            border-color: #fdf59a #fdf59a #fbed50;
-            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-            color: #000;
-        }
-
-        .datepicker table tr td.today:hover,
-        .datepicker table tr td.today:hover:hover,
-        .datepicker table tr td.today.disabled:hover,
-        .datepicker table tr td.today.disabled:hover:hover,
-        .datepicker table tr td.today:active,
-        .datepicker table tr td.today:hover:active,
-        .datepicker table tr td.today.disabled:active,
-        .datepicker table tr td.today.disabled:hover:active,
-        .datepicker table tr td.today.active,
-        .datepicker table tr td.today:hover.active,
-        .datepicker table tr td.today.disabled.active,
-        .datepicker table tr td.today.disabled:hover.active,
-        .datepicker table tr td.today.disabled,
-        .datepicker table tr td.today:hover.disabled,
-        .datepicker table tr td.today.disabled.disabled,
-        .datepicker table tr td.today.disabled:hover.disabled,
-        .datepicker table tr td.today[disabled],
-        .datepicker table tr td.today:hover[disabled],
-        .datepicker table tr td.today.disabled[disabled],
-        .datepicker table tr td.today.disabled:hover[disabled] {
-            background-color: #fdf59a;
-        }
-
-        .datepicker table tr td.today:active,
-        .datepicker table tr td.today:hover:active,
-        .datepicker table tr td.today.disabled:active,
-        .datepicker table tr td.today.disabled:hover:active,
-        .datepicker table tr td.today.active,
-        .datepicker table tr td.today:hover.active,
-        .datepicker table tr td.today.disabled.active,
-        .datepicker table tr td.today.disabled:hover.active {
-            background-color: #fbf069 \9;
-        }
-
-        .datepicker table tr td.today:hover:hover {
-            color: #000;
-        }
-
-        .datepicker table tr td.today.active:hover {
-            color: #fff;
-        }
-
-        .datepicker table tr td.range,
-        .datepicker table tr td.range:hover,
-        .datepicker table tr td.range.disabled,
-        .datepicker table tr td.range.disabled:hover {
-            background: #eeeeee;
-            -webkit-border-radius: 0;
-            -moz-border-radius: 0;
-            border-radius: 0;
-        }
-
-        .datepicker table tr td.range.today,
-        .datepicker table tr td.range.today:hover,
-        .datepicker table tr td.range.today.disabled,
-        .datepicker table tr td.range.today.disabled:hover {
-            background-color: #f3d17a;
-            background-image: -moz-linear-gradient(to bottom, #f3c17a, #f3e97a);
-            background-image: -ms-linear-gradient(to bottom, #f3c17a, #f3e97a);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f3c17a), to(#f3e97a));
-            background-image: -webkit-linear-gradient(to bottom, #f3c17a, #f3e97a);
-            background-image: -o-linear-gradient(to bottom, #f3c17a, #f3e97a);
-            background-image: linear-gradient(to bottom, #f3c17a, #f3e97a);
-            background-repeat: repeat-x;
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f3c17a', endColorstr='#f3e97a', GradientType=0);
-            border-color: #f3e97a #f3e97a #edde34;
-            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-            -webkit-border-radius: 0;
-            -moz-border-radius: 0;
-            border-radius: 0;
-        }
-
-        .datepicker table tr td.range.today:hover,
-        .datepicker table tr td.range.today:hover:hover,
-        .datepicker table tr td.range.today.disabled:hover,
-        .datepicker table tr td.range.today.disabled:hover:hover,
-        .datepicker table tr td.range.today:active,
-        .datepicker table tr td.range.today:hover:active,
-        .datepicker table tr td.range.today.disabled:active,
-        .datepicker table tr td.range.today.disabled:hover:active,
-        .datepicker table tr td.range.today.active,
-        .datepicker table tr td.range.today:hover.active,
-        .datepicker table tr td.range.today.disabled.active,
-        .datepicker table tr td.range.today.disabled:hover.active,
-        .datepicker table tr td.range.today.disabled,
-        .datepicker table tr td.range.today:hover.disabled,
-        .datepicker table tr td.range.today.disabled.disabled,
-        .datepicker table tr td.range.today.disabled:hover.disabled,
-        .datepicker table tr td.range.today[disabled],
-        .datepicker table tr td.range.today:hover[disabled],
-        .datepicker table tr td.range.today.disabled[disabled],
-        .datepicker table tr td.range.today.disabled:hover[disabled] {
-            background-color: #f3e97a;
-        }
-
-        .datepicker table tr td.range.today:active,
-        .datepicker table tr td.range.today:hover:active,
-        .datepicker table tr td.range.today.disabled:active,
-        .datepicker table tr td.range.today.disabled:hover:active,
-        .datepicker table tr td.range.today.active,
-        .datepicker table tr td.range.today:hover.active,
-        .datepicker table tr td.range.today.disabled.active,
-        .datepicker table tr td.range.today.disabled:hover.active {
-            background-color: #efe24b \9;
-        }
-
-        .datepicker table tr td.selected,
-        .datepicker table tr td.selected:hover,
-        .datepicker table tr td.selected.disabled,
-        .datepicker table tr td.selected.disabled:hover {
-            background-color: #9e9e9e;
-            background-image: -moz-linear-gradient(to bottom, #b3b3b3, #808080);
-            background-image: -ms-linear-gradient(to bottom, #b3b3b3, #808080);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#b3b3b3), to(#808080));
-            background-image: -webkit-linear-gradient(to bottom, #b3b3b3, #808080);
-            background-image: -o-linear-gradient(to bottom, #b3b3b3, #808080);
-            background-image: linear-gradient(to bottom, #b3b3b3, #808080);
-            background-repeat: repeat-x;
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3b3b3', endColorstr='#808080', GradientType=0);
-            border-color: #808080 #808080 #595959;
-            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-            color: #fff;
-            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-        }
-
-        .datepicker table tr td.selected:hover,
-        .datepicker table tr td.selected:hover:hover,
-        .datepicker table tr td.selected.disabled:hover,
-        .datepicker table tr td.selected.disabled:hover:hover,
-        .datepicker table tr td.selected:active,
-        .datepicker table tr td.selected:hover:active,
-        .datepicker table tr td.selected.disabled:active,
-        .datepicker table tr td.selected.disabled:hover:active,
-        .datepicker table tr td.selected.active,
-        .datepicker table tr td.selected:hover.active,
-        .datepicker table tr td.selected.disabled.active,
-        .datepicker table tr td.selected.disabled:hover.active,
-        .datepicker table tr td.selected.disabled,
-        .datepicker table tr td.selected:hover.disabled,
-        .datepicker table tr td.selected.disabled.disabled,
-        .datepicker table tr td.selected.disabled:hover.disabled,
-        .datepicker table tr td.selected[disabled],
-        .datepicker table tr td.selected:hover[disabled],
-        .datepicker table tr td.selected.disabled[disabled],
-        .datepicker table tr td.selected.disabled:hover[disabled] {
-            background-color: #808080;
-        }
-
-        .datepicker table tr td.selected:active,
-        .datepicker table tr td.selected:hover:active,
-        .datepicker table tr td.selected.disabled:active,
-        .datepicker table tr td.selected.disabled:hover:active,
-        .datepicker table tr td.selected.active,
-        .datepicker table tr td.selected:hover.active,
-        .datepicker table tr td.selected.disabled.active,
-        .datepicker table tr td.selected.disabled:hover.active {
-            background-color: #666666 \9;
-        }
-
-        .datepicker table tr td.active,
-        .datepicker table tr td.active:hover,
-        .datepicker table tr td.active.disabled,
-        .datepicker table tr td.active.disabled:hover {
-            background-color: #006dcc;
-            background-image: -moz-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: -ms-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
-            background-image: -webkit-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: -o-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: linear-gradient(to bottom, #0088cc, #0044cc);
-            background-repeat: repeat-x;
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
-            border-color: #0044cc #0044cc #002a80;
-            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-            color: #fff;
-            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-        }
-
-        .datepicker table tr td.active:hover,
-        .datepicker table tr td.active:hover:hover,
-        .datepicker table tr td.active.disabled:hover,
-        .datepicker table tr td.active.disabled:hover:hover,
-        .datepicker table tr td.active:active,
-        .datepicker table tr td.active:hover:active,
-        .datepicker table tr td.active.disabled:active,
-        .datepicker table tr td.active.disabled:hover:active,
-        .datepicker table tr td.active.active,
-        .datepicker table tr td.active:hover.active,
-        .datepicker table tr td.active.disabled.active,
-        .datepicker table tr td.active.disabled:hover.active,
-        .datepicker table tr td.active.disabled,
-        .datepicker table tr td.active:hover.disabled,
-        .datepicker table tr td.active.disabled.disabled,
-        .datepicker table tr td.active.disabled:hover.disabled,
-        .datepicker table tr td.active[disabled],
-        .datepicker table tr td.active:hover[disabled],
-        .datepicker table tr td.active.disabled[disabled],
-        .datepicker table tr td.active.disabled:hover[disabled] {
-            background-color: #0044cc;
-        }
-
-        .datepicker table tr td.active:active,
-        .datepicker table tr td.active:hover:active,
-        .datepicker table tr td.active.disabled:active,
-        .datepicker table tr td.active.disabled:hover:active,
-        .datepicker table tr td.active.active,
-        .datepicker table tr td.active:hover.active,
-        .datepicker table tr td.active.disabled.active,
-        .datepicker table tr td.active.disabled:hover.active {
-            background-color: #003399 \9;
-        }
-
-        .datepicker table tr td span {
-            display: block;
-            width: 23%;
-            height: 54px;
-            line-height: 54px;
-            float: left;
-            margin: 1%;
-            cursor: pointer;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-        }
-
-        .datepicker table tr td span:hover {
-            background: #eeeeee;
-        }
-
-        .datepicker table tr td span.disabled,
-        .datepicker table tr td span.disabled:hover {
-            background: none;
-            color: #999999;
-            cursor: default;
-        }
-
-        .datepicker table tr td span.active,
-        .datepicker table tr td span.active:hover,
-        .datepicker table tr td span.active.disabled,
-        .datepicker table tr td span.active.disabled:hover {
-            background-color: #006dcc;
-            background-image: -moz-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: -ms-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
-            background-image: -webkit-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: -o-linear-gradient(to bottom, #0088cc, #0044cc);
-            background-image: linear-gradient(to bottom, #0088cc, #0044cc);
-            background-repeat: repeat-x;
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
-            border-color: #0044cc #0044cc #002a80;
-            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-            color: #fff;
-            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-        }
-
-        .datepicker table tr td span.active:hover,
-        .datepicker table tr td span.active:hover:hover,
-        .datepicker table tr td span.active.disabled:hover,
-        .datepicker table tr td span.active.disabled:hover:hover,
-        .datepicker table tr td span.active:active,
-        .datepicker table tr td span.active:hover:active,
-        .datepicker table tr td span.active.disabled:active,
-        .datepicker table tr td span.active.disabled:hover:active,
-        .datepicker table tr td span.active.active,
-        .datepicker table tr td span.active:hover.active,
-        .datepicker table tr td span.active.disabled.active,
-        .datepicker table tr td span.active.disabled:hover.active,
-        .datepicker table tr td span.active.disabled,
-        .datepicker table tr td span.active:hover.disabled,
-        .datepicker table tr td span.active.disabled.disabled,
-        .datepicker table tr td span.active.disabled:hover.disabled,
-        .datepicker table tr td span.active[disabled],
-        .datepicker table tr td span.active:hover[disabled],
-        .datepicker table tr td span.active.disabled[disabled],
-        .datepicker table tr td span.active.disabled:hover[disabled] {
-            background-color: #0044cc;
-        }
-
-        .datepicker table tr td span.active:active,
-        .datepicker table tr td span.active:hover:active,
-        .datepicker table tr td span.active.disabled:active,
-        .datepicker table tr td span.active.disabled:hover:active,
-        .datepicker table tr td span.active.active,
-        .datepicker table tr td span.active:hover.active,
-        .datepicker table tr td span.active.disabled.active,
-        .datepicker table tr td span.active.disabled:hover.active {
-            background-color: #003399 \9;
-        }
-
-        .datepicker table tr td span.old,
-        .datepicker table tr td span.new {
-            color: #999999;
-        }
-
-        .datepicker .datepicker-switch {
-            width: 145px;
-        }
-
-        .datepicker .datepicker-switch,
-        .datepicker .prev,
-        .datepicker .next,
-        .datepicker tfoot tr th {
-            cursor: pointer;
-        }
-
-        .datepicker .datepicker-switch:hover,
-        .datepicker .prev:hover,
-        .datepicker .next:hover,
-        .datepicker tfoot tr th:hover {
-            background: #eeeeee;
-        }
-
-        .datepicker .cw {
-            font-size: 10px;
-            width: 12px;
-            padding: 0 2px 0 5px;
-            vertical-align: middle;
-        }
-
-        .input-append.date .add-on,
-        .input-prepend.date .add-on {
-            cursor: pointer;
-        }
-
-        .input-append.date .add-on i,
-        .input-prepend.date .add-on i {
-            margin-top: 3px;
-        }
-
-        .input-daterange input {
-            text-align: center;
-        }
-
-        .input-daterange input:first-child {
-            -webkit-border-radius: 3px 0 0 3px;
-            -moz-border-radius: 3px 0 0 3px;
-            border-radius: 3px 0 0 3px;
-        }
-
-        .input-daterange input:last-child {
-            -webkit-border-radius: 0 3px 3px 0;
-            -moz-border-radius: 0 3px 3px 0;
-            border-radius: 0 3px 3px 0;
-        }
-
-        .input-daterange .add-on {
-            display: inline-block;
-            width: auto;
-            min-width: 16px;
-            height: 18px;
-            padding: 4px 5px;
-            font-weight: normal;
-            line-height: 18px;
-            text-align: center;
-            text-shadow: 0 1px 0 #ffffff;
-            vertical-align: middle;
-            background-color: #eeeeee;
-            border: 1px solid #ccc;
-            margin-left: -5px;
-            margin-right: -5px;
-        }
-
-
-    </style>
 
 @endsection
