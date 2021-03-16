@@ -101,6 +101,9 @@ class ProductController extends Controller
 
     public function store(StoreValidationRequest3 $request)
     {
+        $prices = preg_replace("/,([\s])+/",",",$request->estimated_price);
+        $pricesArray = explode(',', $prices);
+
         $input = $request->all();
 
         if($request->cat_id)
@@ -117,11 +120,51 @@ class ProductController extends Controller
 
             $cat->fill($input)->save();
 
+            $est = estimated_prices::where('product_id',$request->cat_id)->get();
+
+            if(count($est) == 0)
+            {
+                foreach ($pricesArray as $price)
+                {
+                    $est = new estimated_prices;
+                    $est->product_id = $request->cat_id;
+                    $est->price = $price;
+                    $est->save();
+                }
+            }
+            else
+            {
+                if(count($pricesArray) > 0)
+                {
+                    foreach ($pricesArray as $x => $price)
+                    {
+                        $est_check = estimated_prices::where('product_id',$request->cat_id)->skip($x)->first();
+
+                        if($est_check)
+                        {
+                            $est_check->price = $pricesArray[$x];
+                            $est_check->save();
+                        }
+                        else
+                        {
+                            $temp = new estimated_prices;
+                            $temp->product_id = $request->cat_id;
+                            $temp->price = $pricesArray[$x];
+                            $temp->save();
+                        }
+                    }
+                }
+                else
+                {
+                    estimated_prices::where('product_id',$request->cat_id)->delete();
+                }
+            }
+
             Session::flash('success', 'Product edited successfully.');
         }
         else
         {
-            $check = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('products.title', 'LIKE', '%'.$request->title.'%')->where('categories.id',$request->category_id)->where('brands.id',$request->brand_id)->where('models.id',$request->model_id)->select('products.*')->first();
+            $check = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('products.title', 'LIKE', '%'.$request->title.'%')->where('products.model_number',$request->model_number)->where('categories.id',$request->category_id)->where('brands.id',$request->brand_id)->where('models.id',$request->model_id)->select('products.*')->first();
 
             if(!$check)
             {
@@ -137,6 +180,14 @@ class ProductController extends Controller
 
                 $cat->fill($input)->save();
 
+                foreach ($pricesArray as $x => $price)
+                {
+                    $est = new estimated_prices;
+                    $est->product_id = $cat->id;
+                    $est->price = $price;
+                    $est->save();
+                }
+
                 Session::flash('success', 'New Product added successfully.');
             }
             else
@@ -151,6 +202,46 @@ class ProductController extends Controller
                 }
 
                 $check->fill($input)->save();
+
+                $est = estimated_prices::where('product_id',$check->id)->get();
+
+                if(count($est) == 0)
+                {
+                    foreach ($pricesArray as $price)
+                    {
+                        $est = new estimated_prices;
+                        $est->product_id = $check->id;
+                        $est->price = $price;
+                        $est->save();
+                    }
+                }
+                else
+                {
+                    if(count($pricesArray) > 0)
+                    {
+                        foreach ($pricesArray as $x => $price)
+                        {
+                            $est_check = estimated_prices::where('product_id',$check->id)->skip($x)->first();
+
+                            if($est_check)
+                            {
+                                $est_check->price = $pricesArray[$x];
+                                $est_check->save();
+                            }
+                            else
+                            {
+                                $temp = new estimated_prices;
+                                $temp->product_id = $check->id;
+                                $temp->price = $pricesArray[$x];
+                                $temp->save();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        estimated_prices::where('product_id',$check->id)->delete();
+                    }
+                }
 
                 Session::flash('success', 'Product edited successfully.');
             }
