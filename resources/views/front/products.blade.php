@@ -271,7 +271,7 @@
                             <div class="team_common">
 
                                 <div style="width: 100%;background-color: white;">
-                                    <a href="">
+                                    <a href="{{url('product/'.$key->id)}}">
                                         <div class="member_img"
                                              style="width: 100%;border: 0;display: inline-block;height: 210px;">
 

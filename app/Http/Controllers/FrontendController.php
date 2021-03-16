@@ -1303,6 +1303,13 @@ class FrontendController extends Controller
         return view('front.products',compact('products','all_products','cats','data','s','e','range_s','range_e','title','size','color'));
     }
 
+    public function product($id)
+    {
+        $product = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('products.id',$id)->select('products.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->first();
+
+        return view('front.product',compact('product'));
+    }
+
     public function subscribe(Request $request)
     {
         $this->validate($request, [
