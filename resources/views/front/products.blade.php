@@ -1266,36 +1266,6 @@
 
         });
 
-        function changeLanguage(id)
-        {
-            if(id == 1)
-            {
-
-                $('#dutch').addClass('languageSelector-selected');
-                $('#english').removeClass('languageSelector-selected');
-
-                $('.step__header_en').addClass('hide');
-                $('.step__header_de').removeClass('hide');
-
-                $('.step__description_en').addClass('hide');
-                $('.step__description_de').removeClass('hide');
-
-            }
-            else{
-
-                $('#english').addClass('languageSelector-selected');
-                $('#dutch').removeClass('languageSelector-selected');
-
-                $('.step__header_de').addClass('hide');
-                $('.step__header_en').removeClass('hide');
-
-
-                $('.step__description_de').addClass('hide');
-                $('.step__description_en').removeClass('hide');
-
-            }
-        }
-
     </script>
 
     <style type="text/css">
@@ -1926,54 +1896,6 @@
             },
         });
 
-        $(".js-data-example-ajax").select2({
-            width: '100%',
-            height: '200px',
-            placeholder: "{{__('text.Select Category')}}",
-            allowClear: true,
-            dropdownParent: $('#service_box'),
-            "language": {
-                "noResults": function(){
-                    return '{{__('text.No results found')}}';
-                }
-            },
-        });
-
-        $(".js-data-example-ajax1").select2({
-            width: '100%',
-            height: '200px',
-            placeholder: "{{__('text.Select Category')}}",
-            allowClear: true,
-            "language": {
-                "noResults": function(){
-                    return '{{__('text.No results found')}}';
-                }
-            },
-        });
-
-        $(".js-data-example-ajax3").select2({
-            width: '100%',
-            height: '200px',
-            placeholder: "{{__('text.Select Brand')}}",
-            allowClear: true,
-            "language": {
-                "noResults": function(){
-                    return '{{__('text.No results found')}}';
-                }
-            },
-        });
-
-        $(".js-data-example-ajax4").select2({
-            width: '100%',
-            height: '200px',
-            placeholder: "{{__('text.Select Model')}}",
-            allowClear: true,
-            "language": {
-                "noResults": function(){
-                    return '{{__('text.No results found')}}';
-                }
-            },
-        });
 
         $(".js-data-example-ajax2").select2({
             width: '100%',
