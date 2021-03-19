@@ -220,7 +220,7 @@
                             <span style="font-size: 20px;">Including Waste?</span>
 
                             <label class="switch">
-                                <input name="waste" type="checkbox" checked>
+                                <input class="quote-waste" name="waste" id="waste" type="checkbox" checked>
                                 <span class="slider round"></span>
                             </label>
 
@@ -244,6 +244,7 @@
             <form id="quote_form" method="post" action="{{route('user.quote')}}">
 
                 <input type="hidden" name="_token" value="{{@csrf_token()}}">
+                <input type="hidden" name="quote_waste" id="quote_waste" value="1">
 
                 <div class="modal-content">
                     <div class="modal-header">
@@ -795,6 +796,23 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
+
+            $('.quote-waste').change(function() {
+
+                var check = $(this).is(":checked");
+
+                if(check)
+                {
+                    check = 1;
+                }
+                else
+                {
+                    check = 0;
+                }
+
+                $('#quote_waste').val(check);
+
+            });
 
             $("#quantity").keypress(function(e){
 
