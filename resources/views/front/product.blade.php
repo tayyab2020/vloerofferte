@@ -7,6 +7,12 @@
         <!-- Left Column / Headphones Image -->
         <div class="left-column">
 
+            <!-- Product Description -->
+            <div style="border: 0;width: 90%;margin: auto;" class="product-description">
+                <h1>{{$product->brand_name}} {{$product->model_name}} {{$product->model_number}}</h1>
+
+            </div>
+
             @if($product->photo)
 
                 <img src="{{asset('assets/images/'.$product->photo)}}" class="active">
@@ -27,13 +33,6 @@
         <!-- Right Column -->
         <div class="right-column">
 
-            <!-- Product Description -->
-            <div style="border: 0;" class="product-description">
-                <span id="top-heading">{{$product->article_code}}</span>
-                <h1>{{$product->brand_name}} {{$product->model_name}} {{$product->article_code}}</h1>
-
-            </div>
-
             <!-- Product Configuration -->
             <div class="product-configuration">
 
@@ -42,7 +41,7 @@
                     <li style="margin-bottom: 0;"><a data-toggle="tab" href="#menu1">Specification</a></li>
                 </ul>
 
-                <div style="padding: 20px 15px;border: 1px solid #24232329;height: 329px;overflow: auto;" class="tab-content">
+                <div style="padding: 20px 15px;border: 1px solid #24232329;height: 453px;overflow: auto;" class="tab-content">
                     <div id="description" class="tab-pane fade in active">
                         {!! $product->description !!}
                     </div>
@@ -166,28 +165,40 @@
 
                         @endif
 
-
-                        @if($product->additional_info)
-
-                            <div class="product-description">
-                                <span>Additional Info</span>
-
-                                <p style="padding: 5px;color: black;">{{$product->additional_info}}</p>
-
-                            </div>
-
-                        @endif
+                        <?php $estimated_prices = explode(',',$product->estimated_price); ?>
 
                         @if($product->estimated_price)
 
-                        <!-- Product Pricing -->
-                            <div class="product-price">
-                                <span>Estimated Price: € {{$product->estimated_price}} {{$product->measure ? "/".$product->measure : null}}</span>
-                            </div>
+
+                            @if(strtolower($product->additional_info) == 'per piece')
+
+                                <?php $sizes = explode(',',$product->size); ?>
+
+                                <div class="product-description">
+                                    <span>Estimated Price</span>
+
+                                    <p style="padding: 5px;color: black;">@foreach($sizes as $i => $size) {{$size}}{{$product->measure}} &nbsp;&nbsp; € {{$estimated_prices[$i]}}, &nbsp;&nbsp; -{{strtolower($product->additional_info)}} <br> @endforeach</p>
+
+                                </div>
+
+                            @else
+
+                                <?php $additional_info = explode(',',$product->additional_info); ?>
+
+                                <div class="product-description">
+                                    <span>Estimated Price</span>
+
+                                    <p style="padding: 5px;color: black;">@foreach($additional_info as $i => $key) {{$key}} &nbsp;&nbsp; € {{$estimated_prices[$i]}} {{$product->measure ? ' / '.$product->measure : null}} <br> @endforeach</p>
+
+                                </div>
+
+                            @endif
+
 
                         @endif
 
-                        <div style="margin-top: 20px;" class="input-group col-lg-5 col-md-5 col-sm-5 col-xs-8">
+
+                        <div style="margin-top: 20px;margin-bottom: 20px;" class="input-group col-lg-5 col-md-5 col-sm-5 col-xs-8">
 
                             <span class="input-group-btn">
                                 <button style="background-color: #f3f3f3 !important;border: 1px solid #e1e1e1 !important;" type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
@@ -195,13 +206,23 @@
                                 </button>
                             </span>
 
-                            <input style="border: 1px solid #d9d9d9;text-align: center;" type="text" id="quantity" name="quantity" class="form-control input-number" value="10" min="1" max="100">
+                            <input style="border: 1px solid #d9d9d9;text-align: center;" type="text" id="quantity" name="quantity" class="form-control input-number" maskedFormat="9,1" autocomplete="off" value="1,00" min="1" max="100">
 
                             <span class="input-group-btn">
                                 <button style="background-color: #f3f3f3 !important;border: 1px solid #e1e1e1 !important;" type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
                                     <span style="color: grey;" class="glyphicon glyphicon-plus"></span>
                                 </button>
                             </span>
+
+                        </div>
+
+                        <div class="product-description">
+                            <span style="font-size: 20px;">Including Waste?</span>
+
+                            <label class="switch">
+                                <input name="waste" type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
 
                         </div>
 
@@ -305,7 +326,7 @@
 
                                     <div>
 
-                                        <input max="100" min="1" style="height: 40px;border: 1px solid #e1e1e1;" type="number" name="quote_quantity" placeholder="Quantity" class="form-control quote_quantity">
+                                        <input maskedFormat="9,1" autocomplete="off" max="100" min="1" value="1" style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_quantity" placeholder="Quantity" class="form-control quote_quantity quote_validation">
 
                                     </div>
 
@@ -401,6 +422,72 @@
     </div>
 
     <style type="text/css">
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        #menu1 .product-description, #menu1 .product-color
+        {
+            display: flex;
+            justify-content: space-between;
+        }
 
         .terms .checkmark-checkbox:after
         {
@@ -709,18 +796,101 @@
 
         $(document).ready(function() {
 
+            $("#quantity").keypress(function(e){
+
+                e = e || window.event;
+                var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+                var val = String.fromCharCode(charCode);
+
+                if (!val.match(/^[0-9]*\,?[0-9]*$/))  // For characters validation
+                {
+                    e.preventDefault();
+                    return false;
+                }
+
+                if(e.which == 44)
+                {
+                    if(this.value.indexOf(',') > -1)
+                    {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+
+                var num = $(this).attr("maskedFormat").toString().split(',');
+                var regex = new RegExp("^\\d{0," + num[0] + "}(\\,\\d{0," + num[1] + "})?$");
+                if (!regex.test(this.value)) {
+                    this.value = this.value.substring(0, this.value.length - 1);
+                }
+
+            });
+
+            $("#quantity").on('focusout',function(e){
+                if($(this).val().slice($(this).val().length - 1) == ',')
+                {
+                    var val = $(this).val();
+                    val = val + '00';
+                    $(this).val(val);
+                }
+            });
+
             $("#quantity").on('input',function(e) {
 
                 var max = parseInt($(this).attr('max'));
                 var min = parseInt($(this).attr('min'));
+                var value = $(this).val();
+                value = value.toString();
+                value = value.replace(/\,/g, '.');
+                value = parseFloat(value);
 
-                if ($(this).val() > max)
+                if (value > max)
                 {
                     $(this).val(max);
                 }
-                else if ($(this).val() < min)
+                else if (value < min)
                 {
                     $(this).val(min);
+                }
+
+                $('.quote_quantity').val($(this).val());
+            });
+
+
+            $(".quote_quantity").keypress(function(e){
+
+                e = e || window.event;
+                var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+                var val = String.fromCharCode(charCode);
+
+                if (!val.match(/^[0-9]*\,?[0-9]*$/))  // For characters validation
+                {
+                    e.preventDefault();
+                    return false;
+                }
+
+                if(e.which == 44)
+                {
+                    if(this.value.indexOf(',') > -1)
+                    {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+
+                var num = $(this).attr("maskedFormat").toString().split(',');
+                var regex = new RegExp("^\\d{0," + num[0] + "}(\\,\\d{0," + num[1] + "})?$");
+                if (!regex.test(this.value)) {
+                    this.value = this.value.substring(0, this.value.length - 1);
+                }
+
+            });
+
+            $(".quote_quantity").on('focusout',function(e){
+                if($(this).val().slice($(this).val().length - 1) == ',')
+                {
+                    var val = $(this).val();
+                    val = val + '00';
+                    $(this).val(val);
                 }
             });
 
@@ -728,16 +898,23 @@
 
                 var max = parseInt($(this).attr('max'));
                 var min = parseInt($(this).attr('min'));
+                var value = $(this).val();
+                value = value.toString();
+                value = value.replace(/\,/g, '.');
+                value = parseFloat(value);
 
-                if ($(this).val() > max)
+                if (value > max)
                 {
                     $(this).val(max);
                 }
-                else if ($(this).val() < min)
+                else if (value < min)
                 {
                     $(this).val(min);
                 }
+
+                $('#quantity').val($(this).val());
             });
+
 
             $('.topMembers').slick({
                 dots: false,
@@ -1074,8 +1251,6 @@
             });
 
             $('.start-btn').click(function(){
-
-                $('.quote_quantity').val($('#quantity').val());
 
                 var product_id = $(this).data('id');
                 var options = '';
@@ -1885,16 +2060,33 @@
                 e.preventDefault();
                 // Get the field name
 
-                var quantity = parseInt($('#quantity').val());
+                var quantity = $('#quantity').val();
+                quantity = quantity.toString();
+                quantity = quantity.replace(/\,/g, '.');
+                quantity = parseFloat(quantity);
 
                 // If is not undefined
 
-                var max = parseInt($('#quantity').attr('max'));
-                var min = parseInt($('#quantity').attr('min'));
+                var max = parseFloat($('#quantity').attr('max')).toFixed(2);
+                var new_qty = quantity + 1;
 
-                if (quantity < max)
+                if (new_qty <= max)
                 {
-                    $('#quantity').val(quantity + 1);
+                    quantity = new_qty;
+                    quantity = parseFloat(quantity).toFixed(2);
+                    quantity = quantity.toString();
+                    quantity = quantity.replace(/\./g, ',');
+
+                    $('#quantity').val(quantity);
+                    $('.quote_quantity').val(quantity);
+                }
+                else
+                {
+                    max = max.toString();
+                    max = max.replace(/\./g, ',');
+
+                    $('#quantity').val(max);
+                    $('.quote_quantity').val(max);
                 }
 
                 // Increment
@@ -1905,19 +2097,36 @@
                 // Stop acting like a button
                 e.preventDefault();
                 // Get the field name
-                var quantity = parseInt($('#quantity').val());
+                var quantity = $('#quantity').val();
+                quantity = quantity.toString();
+                quantity = quantity.replace(/\,/g, '.');
+                quantity = parseFloat(quantity);
 
                 // If is not undefined
 
                 // Increment
                 if(quantity>0){
 
-                    var max = parseInt($('#quantity').attr('max'));
-                    var min = parseInt($('#quantity').attr('min'));
+                    var min = parseFloat($('#quantity').attr('min')).toFixed(2);
+                    var new_qty = quantity - 1;
 
-                    if (quantity > min)
+                    if (new_qty >= min)
                     {
-                        $('#quantity').val(quantity - 1);
+                        quantity = new_qty;
+                        quantity = parseFloat(quantity).toFixed(2);
+                        quantity = quantity.toString();
+                        quantity = quantity.replace(/\./g, ',');
+
+                        $('#quantity').val(quantity);
+                        $('.quote_quantity').val(quantity);
+                    }
+                    else
+                    {
+                        min = min.toString();
+                        min = min.replace(/\./g, ',');
+
+                        $('#quantity').val(min);
+                        $('.quote_quantity').val(min);
                     }
                 }
             });
@@ -1975,8 +2184,8 @@
 
         /* Product Description */
         .product-description {
-            border-bottom: 1px solid #E1E8EE;
-            margin-bottom: 20px;
+            /*border-bottom: 1px solid #E1E8EE;
+            margin-bottom: 20px;*/
         }
         .product-description #top-heading {
             font-size: 12px;
@@ -1987,9 +2196,10 @@
         }
         .product-description h1 {
             font-weight: 300;
-            font-size: 32px;
+            font-size: 25px;
             color: #43484D;
             letter-spacing: -2px;
+            text-align: left;
         }
         .product-description p {
             font-size: 16px;
@@ -2000,7 +2210,7 @@
 
         /* Product Color */
         .product-color {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .color-choose div {
@@ -2185,8 +2395,13 @@
 
         @media (max-width: 535px) {
             .left-column img {
-                width: 70%;
+                width: 100%;
                 top: -85px;
+            }
+
+            .left-column .product-description
+            {
+                width: 100% !important;
             }
         }
     </style>

@@ -1142,6 +1142,7 @@ class FrontendController extends Controller
             $quote = new quotes;
             $quote->user_id = $user_id;
             $quote->quote_number = $quote_number;
+            $quote->quote_qty = str_replace(",",".",$request->quote_quantity);
             $quote->quote_service = $request->quote_service;
             $quote->quote_brand = $request->quote_brand;
             $quote->quote_model = $request->quote_model;
