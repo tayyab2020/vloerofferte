@@ -37,15 +37,13 @@
             <div class="product-configuration">
 
                 <ul style="border: 0;" class="nav nav-tabs">
-                    <li style="margin-bottom: 0;" class="active"><a data-toggle="tab" href="#description">Description</a></li>
-                    <li style="margin-bottom: 0;"><a data-toggle="tab" href="#menu1">Specification</a></li>
+                    <li style="margin-bottom: 0;" class="active"><a data-toggle="tab" href="#menu1">Specification</a></li>
+                    <li style="margin-bottom: 0;"><a data-toggle="tab" href="#description">Description</a></li>
                 </ul>
 
                 <div style="padding: 20px 15px;border: 1px solid #24232329;height: 453px;overflow: auto;" class="tab-content">
-                    <div id="description" class="tab-pane fade in active">
-                        {!! $product->description !!}
-                    </div>
-                    <div id="menu1" class="tab-pane fade">
+
+                    <div id="menu1" class="tab-pane fade  in active">
 
                     <?php if($product->color){ $colors = explode(',',$product->color); }else{ $colors = []; } ?>
 
@@ -206,7 +204,7 @@
                                 </button>
                             </span>
 
-                            <input style="border: 1px solid #d9d9d9;text-align: center;" type="text" id="quantity" name="quantity" class="form-control input-number" maskedFormat="9,1" autocomplete="off" value="1,00" min="1" max="100">
+                            <input placeholder="Quantity" style="border: 1px solid #d9d9d9;text-align: center;" type="text" id="quantity" name="quantity" class="form-control input-number" maskedFormat="9,1" autocomplete="off" min="1" max="100">
 
                             <span class="input-group-btn">
                                 <button style="background-color: #f3f3f3 !important;border: 1px solid #e1e1e1 !important;" type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
@@ -230,6 +228,10 @@
                             <button data-id="{{$product->id}}" href="#aanvragen" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;border: 0;outline: none;font-size: 18px;width: 100%;background-color: #5cb85c !important;border-color: #4cae4c !important;" class="btn btn-success start-btn">{{__('text.Start')}}</button>
                         </div>
 
+                    </div>
+
+                    <div id="description" class="tab-pane fade">
+                        {!! $product->description !!}
                     </div>
 
                     </div>
@@ -327,7 +329,7 @@
 
                                     <div>
 
-                                        <input maskedFormat="9,1" autocomplete="off" max="100" min="1" value="1" style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_quantity" placeholder="Quantity" class="form-control quote_quantity quote_validation">
+                                        <input maskedFormat="9,1" autocomplete="off" max="100" min="1" style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_quantity" placeholder="Quantity" class="form-control quote_quantity quote_validation">
 
                                     </div>
 
