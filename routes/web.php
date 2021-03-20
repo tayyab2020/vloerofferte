@@ -15,9 +15,10 @@
   Route::get('/products','FrontendController@products')->name('front.products');
   Route::get('/product/{id}','FrontendController@product');
   Route::get('/products-by-id', 'FrontendController@productsById')->name('all-products-by-id');
-  Route::get('/products-model-number-by-model', 'FrontendController@productsModelNumberByModel')->name('products-model-number-by-model');
+  Route::get('/products-model-number-by-model', 'FrontendController@productsModelNumberByModel')->name('all-products-model-number-by-model');
   Route::get('/products-models-by-brands', 'FrontendController@productsModelsByBrands')->name('all-products-models-by-brands');
   Route::get('/products-brands-by-category', 'FrontendController@productsBrandsByCategory')->name('all-products-brands-by-category');
+  Route::get('/products-sizes-by-category', 'FrontendController@productsSizesByCategory')->name('all-products-sizes-by-category');
   Route::get('/account-products-models-by-brands', 'FrontendController@accountProductsModelsByBrands')->name('products-models-by-brands');
   Route::get('/account-products-brands-by-category', 'FrontendController@accountProductsBrandsByCategory')->name('products-brands-by-category');
   Route::get('/get-questions','FrontendController@GetQuestions');

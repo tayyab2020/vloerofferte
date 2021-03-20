@@ -126,11 +126,9 @@
                     <div class="cd-select cd-filters">
                         <select class="filter sizes" name="size" id="size">
                             <option value="">Select Size</option>
-                            <option {{$size == '160x230' ? 'selected' : null}} value="160x230">160x230 cm</option>
-                            <option {{$size == '200x290' ? 'selected' : null}} value="200x290">200x290 cm</option>
-                            <option {{$size == '300x350' ? 'selected' : null}} value="300x350">300x350 cm</option>
-                            <option {{$size == '4' ? 'selected' : null}} value="4">4 m1</option>
-                            <option {{$size == '5' ? 'selected' : null}} value="5">5 m1</option>
+                            @foreach($sizes as $key)
+                                <option {{$size == $key->size ? 'selected' : null}} value="{{$key->size}}">{{$key->size}}</option>
+                            @endforeach
                         </select>
                     </div> <!-- cd-select -->
                 </div> <!-- cd-filter-content -->
@@ -313,7 +311,7 @@
 
                                                 <div class="tab-pane fade in active" id="step1">
 
-                                                    <div class="well">
+                                                    <div class="well" style="height: 300px;">
 
                                                         <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 30px;">{{__('text.Fill information for Quotation')}}</h3>
 
@@ -364,9 +362,16 @@
                                                         </div>
 
 
-                                                        <div>
+                                                        <div style="margin-bottom: 40px;">
 
                                                             <input style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_model_number" placeholder="{{__('text.Model Number (Optional)')}}" class="form-control quote-model-number">
+
+                                                        </div>
+
+
+                                                        <div>
+
+                                                            <input maskedFormat="9,1" autocomplete="off" max="100" min="1" style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_quantity" placeholder="Quantity" class="form-control quote_quantity quote_validation">
 
                                                         </div>
 
@@ -781,6 +786,65 @@
 
         $(document).ready(function() {
 
+            $(".quote_quantity").keypress(function(e){
+
+                e = e || window.event;
+                var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+                var val = String.fromCharCode(charCode);
+
+                if (!val.match(/^[0-9]*\,?[0-9]*$/))  // For characters validation
+                {
+                    e.preventDefault();
+                    return false;
+                }
+
+                if(e.which == 44)
+                {
+                    if(this.value.indexOf(',') > -1)
+                    {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+
+                var num = $(this).attr("maskedFormat").toString().split(',');
+                var regex = new RegExp("^\\d{0," + num[0] + "}(\\,\\d{0," + num[1] + "})?$");
+                if (!regex.test(this.value)) {
+                    this.value = this.value.substring(0, this.value.length - 1);
+                }
+
+            });
+
+            $(".quote_quantity").on('focusout',function(e){
+                if($(this).val().slice($(this).val().length - 1) == ',')
+                {
+                    var val = $(this).val();
+                    val = val + '00';
+                    $(this).val(val);
+                }
+            });
+
+            $(".quote_quantity").on('input',function(e) {
+
+                var max = parseInt($(this).attr('max'));
+                var min = parseInt($(this).attr('min'));
+                var value = $(this).val();
+                value = value.toString();
+                value = value.replace(/\,/g, '.');
+                value = parseFloat(value);
+
+                if (value > max)
+                {
+                    $(this).val(max);
+                }
+                else if (value < min)
+                {
+                    $(this).val(min);
+                }
+
+                $('#quantity').val($(this).val());
+            });
+
             $('.topMembers').slick({
                 dots: false,
                 arrows: true,
@@ -1137,7 +1201,10 @@
                         var category_id = data.category_id;
                         var brand_id = data.brand_id;
                         var model_id = data.model_id;
+                        var model_number = data.model_number;
                         var options = '';
+
+                        $('.quote-model-number').val(model_number);
 
                         $.ajax({
                             type: "GET",
@@ -1847,6 +1914,37 @@
                 }
             },
         });
+
+
+        $('.categories').change(function() {
+
+            var id = $(this).val();
+            var options = '';
+
+            $.ajax({
+                type:"GET",
+                data: "id=" + id ,
+                url: "<?php echo url('/products-sizes-by-category')?>",
+                success: function(data) {
+
+                    $.each(data, function(index, value) {
+
+                        var opt = '<option value="'+value.size+'" >'+value.size+'</option>';
+
+                        options = options + opt;
+
+                    });
+
+                    $('.sizes').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Size</option>'+options);
+
+                }
+            });
+
+        });
+
 
         $(".brands").select2({
             width: '100%',

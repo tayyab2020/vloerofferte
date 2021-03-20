@@ -218,7 +218,7 @@
 
                                             <div class="tab-pane fade in active" id="step1">
 
-                                                <div class="well">
+                                                <div class="well" style="height: 300px;">
 
                                                     <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 30px;">{{__('text.Fill information for Quotation')}}</h3>
 
@@ -277,7 +277,7 @@
 
                                                     <div>
 
-                                                        <input maskedFormat="9,1" autocomplete="off" max="100" min="1" value="1" style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_quantity" placeholder="Quantity" class="form-control quote_quantity quote_validation">
+                                                        <input maskedFormat="9,1" autocomplete="off" max="100" min="1" style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_quantity" placeholder="Quantity" class="form-control quote_quantity quote_validation">
 
                                                     </div>
 

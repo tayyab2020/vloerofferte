@@ -381,6 +381,15 @@ class FrontendController extends Controller
         return $brands;
     }
 
+    public function productsSizesByCategory(Request $request)
+    {
+        $sizes = Products::where('category_id','=',$request->id)->where('size','!=',NULL)->get();
+
+        $sizes = $sizes->unique('size');
+
+        return $sizes;
+    }
+
     public function accountProductsModelsByBrands(Request $request)
     {
         $models = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('models','models.id','=','products.model_id')->where('products.brand_id','=',$request->id)->where('handyman_products.handyman_id','=',$request->handyman_id)->select('models.*')->get();
@@ -1319,8 +1328,10 @@ class FrontendController extends Controller
         $brands = Brand::all();
         $models = Model1::all();
         $data = terms_conditions::where("role",2)->first();
+        $sizes = Products::where('category_id','=',$request->category)->where('size','!=',NULL)->get();
+        $sizes = $sizes->unique('size');
 
-        return view('front.products',compact('products','cats','brands','models','data','s','e','range_s','range_e','category','brand','model','size','color'));
+        return view('front.products',compact('sizes','products','cats','brands','models','data','s','e','range_s','range_e','category','brand','model','size','color'));
     }
 
     public function product($id)
