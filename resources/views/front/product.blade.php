@@ -43,7 +43,7 @@
 
                 <div style="padding: 20px 15px;border: 1px solid #24232329;height: 453px;overflow: auto;" class="tab-content">
 
-                    <div id="menu1" class="tab-pane fade  in active">
+                    <div id="menu1" class="tab-pane fade in active">
 
                     <?php if($product->color){ $colors = explode(',',$product->color); }else{ $colors = []; } ?>
 
@@ -51,9 +51,10 @@
 
                         <!-- Product Color -->
                             <div class="product-color">
-                                <span>Colors</span>
 
-                                <div class="color-choose">
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Colors</span>
+
+                                <div class="col-lg-7 color-choose">
 
                                     @foreach($colors as $color)
 
@@ -72,32 +73,37 @@
 
                     <!-- Cable Configuration -->
                         <div class="product-description">
-                            <span>Category</span>
 
-                            <p style="padding: 5px;color: black;">{{$product->cat_name}}</p>
+                            <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Category</span>
 
-                        </div>
-
-                        <div class="product-description">
-                            <span>Brand</span>
-
-                            <p style="padding: 5px;color: black;">{{$product->brand_name}}</p>
+                            <p class="col-lg-7" style="color: black;">{{$product->cat_name}}</p>
 
                         </div>
 
                         <div class="product-description">
-                            <span>Model</span>
 
-                            <p style="padding: 5px;color: black;">{{$product->model_name}}</p>
+                            <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Brand</span>
+
+                            <p class="col-lg-7" style="color: black;">{{$product->brand_name}}</p>
 
                         </div>
+
+                        <div class="product-description">
+
+                            <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Model</span>
+
+                            <p class="col-lg-7" style="color: black;">{{$product->model_name}}</p>
+
+                        </div>
+
 
                         @if($product->model_number)
 
                             <div class="product-description">
-                                <span>Model Number</span>
 
-                                <p style="padding: 5px;color: black;">{{$product->model_number}}</p>
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Model Number</span>
+
+                                <p class="col-lg-7" style="color: black;">{{$product->model_number}}</p>
 
                             </div>
 
@@ -107,9 +113,10 @@
                         @if($product->size)
 
                             <div class="product-description">
-                                <span>Sizes</span>
 
-                                <p style="padding: 5px;color: black;">{{$product->size}}</p>
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Sizes</span>
+
+                                <p class="col-lg-7" style="color: black;">{{$product->size}}</p>
 
                             </div>
 
@@ -119,9 +126,10 @@
                         @if($product->measure)
 
                             <div class="product-description">
-                                <span>Measure</span>
 
-                                <p style="padding: 5px;color: black;">{{$product->measure}}</p>
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Measure</span>
+
+                                <p class="col-lg-7" style="color: black;">{{$product->measure}}</p>
 
                             </div>
 
@@ -131,9 +139,10 @@
                         @if($product->floor_type)
 
                             <div class="product-description">
-                                <span>Floor Type</span>
 
-                                <p style="padding: 5px;color: black;">{{$product->floor_type}}</p>
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Floor Type</span>
+
+                                <p class="col-lg-7" style="color: black;">{{$product->floor_type}}</p>
 
                             </div>
 
@@ -143,9 +152,10 @@
                         @if($product->floor_type2)
 
                             <div class="product-description">
-                                <span>Floor Type 2</span>
 
-                                <p style="padding: 5px;color: black;">{{$product->floor_type2}}</p>
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Floor Type 2</span>
+
+                                <p class="col-lg-7" style="color: black;">{{$product->floor_type2}}</p>
 
                             </div>
 
@@ -155,15 +165,18 @@
                         @if($product->supplier)
 
                             <div class="product-description">
-                                <span>Supplier</span>
 
-                                <p style="padding: 5px;color: black;">{{$product->supplier}}</p>
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Supplier</span>
+
+                                <p class="col-lg-7" style="color: black;">{{$product->supplier}}</p>
 
                             </div>
 
                         @endif
 
+
                         <?php $estimated_prices = explode(',',$product->estimated_price); ?>
+
 
                         @if($product->estimated_price)
 
@@ -173,9 +186,10 @@
                                 <?php $sizes = explode(',',$product->size); ?>
 
                                 <div class="product-description">
-                                    <span>Estimated Price</span>
 
-                                    <p style="padding: 5px;color: black;">@foreach($sizes as $i => $size) {{$size}}{{$product->measure}} &nbsp;&nbsp; € {{$estimated_prices[$i]}}, &nbsp;&nbsp; -{{strtolower($product->additional_info)}} <br> @endforeach</p>
+                                    <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Estimated Price</span>
+
+                                    <p class="col-lg-7" style="color: black;">@foreach($sizes as $i => $size) {{$size}}{{$product->measure}} &nbsp;&nbsp; € {{$estimated_prices[$i]}}, &nbsp;&nbsp; -{{strtolower($product->additional_info)}} <br> @endforeach</p>
 
                                 </div>
 
@@ -184,9 +198,10 @@
                                 <?php $additional_info = explode(',',$product->additional_info); ?>
 
                                 <div class="product-description">
-                                    <span>Estimated Price</span>
 
-                                    <p style="padding: 5px;color: black;">@foreach($additional_info as $i => $key) {{$key}} &nbsp;&nbsp; € {{$estimated_prices[$i]}} {{$product->measure ? ' / '.$product->measure : null}} <br> @endforeach</p>
+                                    <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Estimated Price</span>
+
+                                    <p class="col-lg-7" style="color: black;">@foreach($additional_info as $i => $key) {{$key}} &nbsp;&nbsp; € {{$estimated_prices[$i]}} {{$product->measure ? ' / '.$product->measure : null}} <br> @endforeach</p>
 
                                 </div>
 
@@ -215,12 +230,17 @@
                         </div>
 
                         <div class="product-description">
-                            <span style="font-size: 20px;">Including Waste?</span>
 
-                            <label class="switch">
-                                <input class="quote-waste" name="waste" id="waste" type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
+                            <span style="padding: 0;display: flex;align-items: center;font-size: 20px;" class="col-lg-5">Including Waste?</span>
+
+                            <div class="col-lg-7">
+
+                                <label class="switch">
+                                    <input class="quote-waste" name="waste" id="waste" type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                                
+                            </div>
 
                         </div>
 
@@ -2018,6 +2038,11 @@
         {
             padding-left: 10px !important;
             padding-top: 10px;
+        }
+
+        .color-choose div:first-child label
+        {
+            padding-left: 0 !important;
         }
 
         .color-choose label:before, .color-choose label:after
