@@ -116,20 +116,7 @@
 
                                 <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Sizes</span>
 
-                                <p class="col-lg-7" style="color: black;">{{$product->size}}</p>
-
-                            </div>
-
-                        @endif
-
-
-                        @if($product->measure)
-
-                            <div class="product-description">
-
-                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Measure</span>
-
-                                <p class="col-lg-7" style="color: black;">{{$product->measure}}</p>
+                                <p class="col-lg-7" style="color: black;">{{$product->size}} {{$product->measure}}</p>
 
                             </div>
 
@@ -239,7 +226,7 @@
                                     <input class="quote-waste" name="waste" id="waste" type="checkbox">
                                     <span class="slider round"></span>
                                 </label>
-                                
+
                             </div>
 
                         </div>
