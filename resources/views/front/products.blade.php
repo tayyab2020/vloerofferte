@@ -259,8 +259,9 @@
                                         </div>
                                     </a>
 
-                                    <div style="display: inline-block;width: 100%;text-align: center;">
+                                    <div style="display: inline-block;width: 100%;text-align: center;min-height: 70px;">
                                         <p style="font-size: 18px;font-weight: bold;color: black;text-overflow: ellipsis;display: -webkit-box;width: 100%;visibility: visible;-webkit-line-clamp: 1;-webkit-box-orient: vertical;overflow: hidden;line-height: 2;padding: 0 10px;">{{$key->title}}</p>
+                                        <small>{{$key->model_number}}</small>
                                     </div>
 
 

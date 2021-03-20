@@ -220,7 +220,7 @@
                             <span style="font-size: 20px;">Including Waste?</span>
 
                             <label class="switch">
-                                <input class="quote-waste" name="waste" id="waste" type="checkbox" checked>
+                                <input class="quote-waste" name="waste" id="waste" type="checkbox">
                                 <span class="slider round"></span>
                             </label>
 
@@ -244,7 +244,7 @@
             <form id="quote_form" method="post" action="{{route('user.quote')}}">
 
                 <input type="hidden" name="_token" value="{{@csrf_token()}}">
-                <input type="hidden" name="quote_waste" id="quote_waste" value="1">
+                <input type="hidden" name="quote_waste" id="quote_waste" value="0">
 
                 <div class="modal-content">
                     <div class="modal-header">

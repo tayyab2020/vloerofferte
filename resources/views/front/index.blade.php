@@ -269,9 +269,15 @@
                                                     </div>
 
 
-                                                    <div>
+                                                    <div style="margin-bottom: 40px;">
 
                                                         <input style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_model_number" placeholder="{{__('text.Model Number (Optional)')}}" class="form-control quote-model-number">
+
+                                                    </div>
+
+                                                    <div>
+
+                                                        <input maskedFormat="9,1" autocomplete="off" max="100" min="1" value="1" style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_quantity" placeholder="Quantity" class="form-control quote_quantity quote_validation">
 
                                                     </div>
 
@@ -891,6 +897,8 @@
                 $('.quote-model').change(function() {
 
                     var id = $(this).val();
+                    var brand_id = $('.quote-brand').val();
+                    var cat_id = $('.quote-service').val();
 
                     $('.quote-model').val($(this).val());
 
@@ -899,6 +907,19 @@
                     $('.navbar a[href="#step1"]').trigger('click');
 
                     $('.back').hide();
+
+                    var options = '';
+
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + id + "&brand_id=" + brand_id + "&cat_id=" + cat_id,
+                        url: "<?php echo url('/products-model-number-by-model')?>",
+                        success: function(data) {
+
+                            $('.quote-model-number').val(data.model_number);
+
+                        }
+                    });
 
                 });
 
@@ -1046,6 +1067,65 @@
                         }
                     });
 
+                });
+
+                $(".quote_quantity").keypress(function(e){
+
+                    e = e || window.event;
+                    var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+                    var val = String.fromCharCode(charCode);
+
+                    if (!val.match(/^[0-9]*\,?[0-9]*$/))  // For characters validation
+                    {
+                        e.preventDefault();
+                        return false;
+                    }
+
+                    if(e.which == 44)
+                    {
+                        if(this.value.indexOf(',') > -1)
+                        {
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+
+                    var num = $(this).attr("maskedFormat").toString().split(',');
+                    var regex = new RegExp("^\\d{0," + num[0] + "}(\\,\\d{0," + num[1] + "})?$");
+                    if (!regex.test(this.value)) {
+                        this.value = this.value.substring(0, this.value.length - 1);
+                    }
+
+                });
+
+                $(".quote_quantity").on('focusout',function(e){
+                    if($(this).val().slice($(this).val().length - 1) == ',')
+                    {
+                        var val = $(this).val();
+                        val = val + '00';
+                        $(this).val(val);
+                    }
+                });
+
+                $(".quote_quantity").on('input',function(e) {
+
+                    var max = parseInt($(this).attr('max'));
+                    var min = parseInt($(this).attr('min'));
+                    var value = $(this).val();
+                    value = value.toString();
+                    value = value.replace(/\,/g, '.');
+                    value = parseFloat(value);
+
+                    if (value > max)
+                    {
+                        $(this).val(max);
+                    }
+                    else if (value < min)
+                    {
+                        $(this).val(min);
+                    }
+
+                    $('#quantity').val($(this).val());
                 });
 
 
@@ -1214,6 +1294,17 @@
 
                                                             $('.quote-model').val(model_id);
                                                             $(".quote-model").trigger('change.select2');
+
+                                                        }
+                                                    });
+
+                                                    $.ajax({
+                                                        type:"GET",
+                                                        data: "id=" + model_id + "&brand_id=" + brand_id + "&cat_id=" + category_id,
+                                                        url: "<?php echo url('/products-model-number-by-model')?>",
+                                                        success: function(data) {
+
+                                                            $('.quote-model-number').val(data.model_number);
 
                                                         }
                                                     });

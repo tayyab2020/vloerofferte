@@ -356,6 +356,12 @@ class FrontendController extends Controller
         return $data;
     }
 
+    public function productsModelNumberByModel(Request $request)
+    {
+        $model_number = Products::where('category_id',$request->cat_id)->where('brand_id',$request->brand_id)->where('model_id','=',$request->id)->first();
+
+        return $model_number;
+    }
 
     public function productsModelsByBrands(Request $request)
     {
