@@ -72,7 +72,7 @@
                                                                             <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
 
                                                                                 @foreach($all_services as $key)
-                                                                                    <option value="{{$key->id}}" @if($matched_data->service_id == $key->id) selected <?php $rate = $matched_data->rate; $service_title = $key->cat_name; ?> @endif>{{$key->cat_name}}</option>
+                                                                                    <option value="{{$key->id}}" @if($matched_data->service_id == $key->id) selected <?php $rate = $matched_data->rate; $qty = $quote->quote_qty; $amount = $rate * $qty; $service_title = $key->cat_name; ?> @endif>{{$key->cat_name}}</option>
                                                                                 @endforeach
 
                                                                                 @foreach($items as $key)
@@ -81,7 +81,7 @@
 
                                                                             </select>
 
-                                                                            <?php if(!isset($service_title)){ $service_title = $all_services[0]->cat_name; $rate = 0; } ?>
+                                                                            <?php if(!isset($service_title)){ $service_title = $all_services[0]->cat_name; $rate = 0; $qty = 0; $amount = 0; } ?>
 
                                                                             <input type="hidden" name="service_title[]" value="{{$service_title}}">
                                                                         </td>
@@ -119,7 +119,7 @@
 
 
                                                                         <td class="td-qty">
-                                                                            <input name="qty[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" required>
+                                                                            <input name="qty[]" value="{{number_format((float)$qty, 2, ',', '.')}}" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" required>
                                                                         </td>
 
                                                                         <td class="td-rate">
@@ -128,7 +128,7 @@
 
 
                                                                         <td class="td-amount">
-                                                                            <input name="amount[]" class="form-control" readonly="" type="text">
+                                                                            <input value="{{number_format((float)$amount, 2, ',', '.')}}" name="amount[]" class="form-control" readonly="" type="text">
                                                                         </td>
 
                                                                         <td style="text-align: center;" class="td-desc">
