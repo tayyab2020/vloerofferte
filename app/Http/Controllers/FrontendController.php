@@ -387,7 +387,14 @@ class FrontendController extends Controller
 
         $sizes = $sizes->unique('size');
 
-        return $sizes;
+        $colors = Products::where('category_id','=',$request->id)->where('color','!=',NULL)->get();
+
+        $colors = $colors->unique('color');
+
+        $data[0] = $sizes;
+        $data[1] = $colors;
+
+        return $data;
     }
 
     public function accountProductsModelsByBrands(Request $request)
@@ -1336,8 +1343,10 @@ class FrontendController extends Controller
         $data = terms_conditions::where("role",2)->first();
         $sizes = Products::where('category_id','=',$request->category)->where('size','!=',NULL)->get();
         $sizes = $sizes->unique('size');
+        $colors = Products::where('category_id','=',$request->category)->where('color','!=',NULL)->get();
+        $colors = $colors->unique('color');
 
-        return view('front.products',compact('sizes','products','cats','brands','models','data','s','e','range_s','range_e','category','brand','model','size','color'));
+        return view('front.products',compact('sizes','colors','products','cats','brands','models','data','s','e','range_s','range_e','category','brand','model','size','color'));
     }
 
     public function product($id)

@@ -141,14 +141,9 @@
                     <div class="cd-select cd-filters">
                         <select class="filter colors" name="color" id="color">
                             <option value="">Select Color</option>
-                            <option {{$color == 'Red' ? 'selected' : null}} value="Red">Red</option>
-                            <option {{$color == 'Yellow' ? 'selected' : null}} value="Yellow">Yellow</option>
-                            <option {{$color == 'White' ? 'selected' : null}} value="White">White</option>
-                            <option {{$color == 'Green' ? 'selected' : null}} value="Green">Green</option>
-                            <option {{$color == 'Blue' ? 'selected' : null}} value="Blue">Blue</option>
-                            <option {{$color == 'Black' ? 'selected' : null}} value="Black">Black</option>
-                            <option {{$color == 'Brown' ? 'selected' : null}} value="Brown">Brown</option>
-                            <option {{$color == 'Grey' ? 'selected' : null}} value="Grey">Grey</option>
+                            @foreach($colors as $key)
+                                <option {{$color == $key->color ? 'selected' : null}} value="{{$key->color}}">{{$key->color}}</option>
+                            @endforeach
                         </select>
                     </div> <!-- cd-select -->
                 </div> <!-- cd-filter-content -->
@@ -1920,6 +1915,7 @@
 
             var id = $(this).val();
             var options = '';
+            var options1 = '';
 
             $.ajax({
                 type:"GET",
@@ -1927,11 +1923,49 @@
                 url: "<?php echo url('/products-sizes-by-category')?>",
                 success: function(data) {
 
-                    $.each(data, function(index, value) {
+                    $.each(data[0], function(index, value) {
 
-                        var opt = '<option value="'+value.size+'" >'+value.size+'</option>';
+                        var measure = value.measure;
 
-                        options = options + opt;
+                        var size_count = 0;
+                        var sizes = value.size;
+                        sizes = sizes.split(',');
+
+                        if(value.size != '')
+                        {
+                            size_count = sizes.length;
+                        }
+
+                        if(size_count > 0)
+                        {
+                            for(var i=0;i<size_count;i++)
+                            {
+                                var opt = '<option value="'+sizes[i]+'" >'+sizes[i] +' '+measure+'</option>';
+                                options = options + opt;
+                            }
+                        }
+
+                    });
+
+                    $.each(data[1], function(index, value) {
+
+                        var color_count = 0;
+                        var colors = value.color;
+                        colors = colors.split(',');
+
+                        if(value.color != '')
+                        {
+                            color_count = colors.length;
+                        }
+
+                        if(color_count > 0)
+                        {
+                            for(var i=0;i<color_count;i++)
+                            {
+                                var opt1 = '<option value="'+colors[i]+'" >'+colors[i]+'</option>';
+                                options1 = options1 + opt1;
+                            }
+                        }
 
                     });
 
@@ -1939,6 +1973,11 @@
                         .remove()
                         .end()
                         .append('<option value="">Select Size</option>'+options);
+
+                    $('.colors').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Color</option>'+options1);
 
                 }
             });
