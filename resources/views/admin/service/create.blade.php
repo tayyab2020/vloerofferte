@@ -23,37 +23,52 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="add-product-box">
                                         <div class="add-product-header">
-                                            <h2>{{isset($cats) ? 'Edit Category' : 'Add Category'}}</h2>
-                                            <a href="{{route('admin-cat-index')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
+                                            <h2>{{isset($cats) ? 'Edit Service' : 'Add Service'}}</h2>
+                                            <a href="{{route('admin-service-index')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
                                         </div>
                                         <hr>
-                                        <form class="form-horizontal" action="{{route('admin-cat-store')}}" method="POST" enctype="multipart/form-data">
+                                        <form class="form-horizontal" action="{{route('admin-service-store')}}" method="POST" enctype="multipart/form-data">
 
                                             @include('includes.form-error')
                                             @include('includes.form-success')
 
                                             {{csrf_field()}}
 
-                                            <input type="hidden" name="cat_id" value="{{isset($cats) ? $cats->id : null}}" />
+                                            <input type="hidden" name="service_id" value="{{isset($cats) ? $cats->id : null}}" />
 
                                           <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Title* <span>(In Any Language)</span></label>
+                                            <label class="control-label col-sm-4" for="blood_group_display_name">Title*</label>
                                             <div class="col-sm-6">
-                                              <input value="{{isset($cats) ? $cats->cat_name : null}}" class="form-control" name="cat_name" id="blood_group_display_name" placeholder="Enter Category title" required="" type="text">
+                                              <input value="{{isset($cats) ? $cats->title : null}}" class="form-control" name="title" id="blood_group_display_name" placeholder="Enter Service title" required="" type="text">
                                             </div>
                                           </div>
+
                                           <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_slug">Slug* <span>(In English)</span></label>
+                                            <label class="control-label col-sm-4" for="blood_group_slug">Slug*</label>
                                             <div class="col-sm-6">
-                                              <input value="{{isset($cats) ? $cats->cat_slug : null}}" class="form-control" name="cat_slug" id="blood_group_slug" placeholder="Enter Category Slug" required="" type="text">
+                                              <input value="{{isset($cats) ? $cats->slug : null}}" class="form-control" name="slug" id="blood_group_slug" placeholder="Enter Service Slug" required="" type="text">
                                             </div>
                                           </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Estimated Prices</label>
+                                                <div class="col-sm-6">
+                                                    <input value="{{isset($cats) ? $cats->estimated_prices : null}}" class="form-control" name="estimated_prices" id="blood_group_slug" placeholder="Enter Estimated Prices" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Measure</label>
+                                                <div class="col-sm-6">
+                                                    <input value="{{isset($cats) ? $cats->measure : null}}" class="form-control" name="measure" id="blood_group_slug" placeholder="Enter Measure" type="text">
+                                                </div>
+                                            </div>
 
 
                                             <div class="form-group">
-                                                <label class="control-label col-sm-4" for="service_description">Category Description*</label>
+                                                <label class="control-label col-sm-4" for="service_description">Service Description*</label>
                                                 <div class="col-sm-6">
-                                                    <textarea class="form-control" name="description" id="service_description" rows="5" style="resize: vertical;" placeholder="Enter Category Description">{{isset($cats) ? $cats->description : null}}</textarea>
+                                                    <textarea class="form-control" name="description" id="service_description" rows="5" style="resize: vertical;" placeholder="Enter Service Description">{{isset($cats) ? $cats->description : null}}</textarea>
                                                 </div>
                                             </div>
 
@@ -70,7 +85,7 @@
                                             <label class="control-label col-sm-4" for="profile_photo">Add Photo</label>
                                             <div class="col-sm-6">
                                                 <input type="file" id="uploadFile" class="hidden" name="photo" value="">
-                                              <button type="button" id="uploadTrigger" onclick="uploadclick()" class="form-control"><i class="fa fa-download"></i> Add Category Photo</button>
+                                              <button type="button" id="uploadTrigger" onclick="uploadclick()" class="form-control"><i class="fa fa-download"></i> Add Service Photo</button>
                                               <p>Prefered Size: (600x600) or Square Sized Image</p>
                                             </div>
                                           </div>
@@ -79,7 +94,7 @@
                                             <hr>
 
                                             <div class="add-product-footer">
-                                                <button name="addProduct_btn" type="submit" class="btn add-product_btn">{{isset($cats) ? 'Edit Category' : 'Add Category'}}</button>
+                                                <button name="addProduct_btn" type="submit" class="btn add-product_btn">{{isset($cats) ? 'Edit Service' : 'Add Service'}}</button>
                                             </div>
 
                                         </form>

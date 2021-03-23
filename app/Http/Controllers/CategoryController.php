@@ -147,16 +147,16 @@ class CategoryController extends Controller
         $input['vat_rule'] = $vat->rule;
         $input['vat_code'] = $vat->code;
 
-            if ($file = $request->file('photo'))
+        if ($file = $request->file('photo'))
+        {
+            $name = time().$file->getClientOriginalName();
+            $file->move('assets/images',$name);
+            if($cat->photo != null)
             {
-                $name = time().$file->getClientOriginalName();
-                $file->move('assets/images',$name);
-                if($cat->photo != null)
-                {
-                    \File::delete(public_path() .'/assets/images/'.$cat->photo);
-                }
-            $input['photo'] = $name;
+                \File::delete(public_path() .'/assets/images/'.$cat->photo);
             }
+            $input['photo'] = $name;
+        }
 
         $cat->update($input);
         Session::flash('success', 'Service updated successfully.');

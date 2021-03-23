@@ -141,6 +141,11 @@
   Route::get('/product-edit/{id}', 'UserController@ProductEdit')->name('product-edit');
   Route::get('/product-delete/{id}', 'UserController@ProductDelete')->name('product-delete');
   Route::get('/product-details', 'UserController@ProductDetails');
+  Route::get('/my-services', 'UserController@MyServices')->name('my-services');
+  Route::get('/service-create', 'UserController@MyServices')->name('service-create');
+  Route::post('/service-store', 'UserController@ServiceStore')->name('service-store');
+  Route::get('/service-edit/{id}', 'UserController@ServiceEdit')->name('service-edit');
+  Route::get('/service-delete/{id}', 'UserController@ServiceDelete')->name('service-delete');
   Route::get('/my-items', 'UserController@MyItems')->name('user-items');
   Route::get('/create-item', 'UserController@CreateItem')->name('create-item');
   Route::post('/store-item', 'UserController@StoreItem')->name('store-item');
@@ -270,6 +275,12 @@
   Route::get('/category/edit/{id}', 'CategoryController@edit')->name('admin-cat-edit');
   /*Route::post('/category/update/{id}', 'CategoryController@update')->name('admin-cat-update');*/
   Route::get('/category/delete/{id}', 'CategoryController@destroy')->name('admin-cat-delete');
+
+  Route::get('/services', 'ServiceController@index')->name('admin-service-index');
+  Route::get('/service/create', 'ServiceController@create')->name('admin-service-create');
+  Route::post('/service/create', 'ServiceController@store')->name('admin-service-store');
+  Route::get('/service/edit/{id}', 'ServiceController@edit')->name('admin-service-edit');
+  Route::get('/service/delete/{id}', 'ServiceController@destroy')->name('admin-service-delete');
 
   Route::get('/products', 'ProductController@index')->name('admin-product-index');
   Route::get('/product/create', 'ProductController@create')->name('admin-product-create');

@@ -36,7 +36,7 @@
 
                                         <input type="hidden" name="handyman_product_id" value="{{isset($my_product) ? $my_product->id : null}}" />
 
-                                        <div class="form-group">
+                                        <div class="form-group" style="display: none;">
                                             <label class="control-label col-sm-4" for="blood_group_slug">Products*</label>
                                             <div class="col-sm-6">
                                                 <select class="js-data-example-ajax form-control quote_validation" style="height: 40px;" name="product_id" id="blood_grp" required>
@@ -189,14 +189,14 @@
                                                         <div class="form-group">
                                                             <label class="control-label col-sm-4" for="blood_group_slug">Rate*</label>
                                                             <div class="col-sm-6">
-                                                                <input maskedFormat="9,1" autocomplete="off" name="product_rate[]" step="any" value="{{isset($my_product) ? number_format((float)$size_rates[$x], 2, ',', '.') : null}}" class="form-control product_rate" id="blood_group_slug" placeholder="Enter Product Rate" required="" type="text">
+                                                                <input maskedFormat="9,1" autocomplete="off" name="product_rate[]" step="any" value="{{isset($size_rates[$x]) ? number_format((float)$size_rates[$x], 2, ',', '.') : null}}" class="form-control product_rate" id="blood_group_slug" placeholder="Enter Product Rate" required="" type="text">
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label class="control-label col-sm-4" for="blood_group_slug">Sell Rate*</label>
                                                             <div class="col-sm-6">
-                                                                <input maskedFormat="9,1" autocomplete="off" name="product_sell_rate[]" step="any" value="{{isset($my_product) ? number_format((float)$size_sell_rates[$x], 2, ',', '.') : null}}" class="form-control product_sell_rate" id="blood_group_slug" placeholder="" required="" type="text">
+                                                                <input maskedFormat="9,1" autocomplete="off" name="product_sell_rate[]" step="any" value="{{isset($size_rates[$x]) ? number_format((float)$size_sell_rates[$x], 2, ',', '.') : null}}" class="form-control product_sell_rate" id="blood_group_slug" placeholder="" required="" type="text">
                                                             </div>
                                                         </div>
 

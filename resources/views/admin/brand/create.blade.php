@@ -82,7 +82,7 @@
                                                 Photo*</label>
                                             <div class="col-sm-6">
                                                 <img width="130px" height="90px" id="adminimg"
-                                                     src="{{isset($cats) ? asset('assets/images/'.$cats->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}"
+                                                     src="{{isset($cats->photo) ? asset('assets/images/'.$cats->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}"
                                                      alt="">
                                             </div>
                                         </div>

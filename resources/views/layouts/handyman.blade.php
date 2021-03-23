@@ -154,11 +154,20 @@
 
 
                         <li>
-                            <a href="#services" data-toggle="collapse" @if(Route::currentRouteName() == 'user-products' || Route::currentRouteName() == 'product-create') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> {{__('text.My Products')}}</a>
+                            <a href="#services" data-toggle="collapse" @if(Route::currentRouteName() == 'user-products' || Route::currentRouteName() == 'product-create' || Route::currentRouteName() == 'user-items') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> {{__('text.My Products')}}</a>
                             <ul class="collapse list-unstyled submenu" id="services">
                                 <li><a href="{{route('user-products')}}"><i class="fa fa-angle-right"></i> {{__('text.Products Overview')}}</a></li>
                                 <li><a href="{{route('product-create')}}"><i class="fa fa-angle-right"></i> {{__('text.Add Products')}}</a></li>
                                 <li><a href="{{route('user-items')}}"><i class="fa fa-angle-right"></i> {{__('text.My Items')}}</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li>
+                            <a href="#services1" data-toggle="collapse" @if(Route::currentRouteName() == 'my-services' || Route::currentRouteName() == 'service-create') aria-expanded="true" @else aria-expanded="false" @endif><i class="fa fa-fw fa-file-code-o"></i> My Services</a>
+                            <ul class="collapse list-unstyled submenu" id="services1">
+                                <li><a href="{{route('my-services')}}"><i class="fa fa-angle-right"></i> Services Overview</a></li>
+                                <li><a href="{{route('service-create')}}"><i class="fa fa-angle-right"></i> Add Services</a></li>
                             </ul>
                         </li>
 

@@ -6,6 +6,7 @@ use App\Brand;
 use App\custom_quotations;
 use App\custom_quotations_data;
 use App\handyman_quotes;
+use App\handyman_services;
 use App\instruction_manual;
 use App\items;
 use App\Model1;
@@ -15,6 +16,7 @@ use App\quotation_invoices_data;
 use App\quotation_invoices;
 use App\quotes;
 use App\requests_q_a;
+use App\Service;
 use Illuminate\Http\Request;
 use App\User;
 use App\Category;
@@ -3307,6 +3309,99 @@ class UserController extends Controller
 
         $my_product->delete();
         Session::flash('success', __('text.Product deleted successfully.'));
+        return redirect()->back();
+    }
+
+    public function MyServices()
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = Auth::guard('user')->user()->id;
+
+        if ($user->role_id == 3) {
+            return redirect()->route('user-login');
+        }
+
+        $services_array = array();
+
+        $services_selected = handyman_services::leftjoin('services', 'services.id', '=', 'handyman_services.service_id')->where('handyman_services.handyman_id', '=', $user_id)->orderBy('services.id', 'desc')->select('services.*','handyman_services.rate','handyman_services.sell_rate','handyman_services.id','handyman_services.service_id')->get();
+
+        foreach ($services_selected as $key)
+        {
+            $services_array[] = array($key->service_id);
+        }
+
+        $services = Service::whereNotIn('id',$services_array)->orderBy('services.id', 'desc')->get();
+
+        return view('user.my_services', compact('user', 'services_selected','services'));
+    }
+
+    public function ServiceStore(Request $request)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = Auth::guard('user')->user()->id;
+
+        if($request->handyman_service_id)
+        {
+            $sizes = explode(',', $request->size);
+
+            $post = handyman_services::where('id',$request->handyman_service_id)->first();
+            $post->handyman_id = $user_id;
+            $post->service_id = $request->service_id;
+            $post->rate = str_replace(",",".",$request->product_rate);
+            $post->sell_rate = str_replace(",",".",$request->product_sell_rate);
+            $post->save();
+
+            Session::flash('success', 'Service edited successfully.');
+        }
+        else
+        {
+            foreach ($request->service_checkboxes as $x => $key)
+            {
+                $post = new handyman_services;
+                $post->handyman_id = $user_id;
+                $post->service_id = $request->service_id[$key];
+                $post->rate = $request->product_rate[$key];
+                $post->sell_rate = $request->product_sell_rate[$key];
+                $post->save();
+            }
+
+            Session::flash('success', 'New Service(s) added successfully.');
+        }
+
+        return redirect()->route('my-services');
+    }
+
+    public function ServiceEdit($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = Auth::guard('user')->user()->id;
+
+        if ($user->role_id == 3) {
+            return redirect()->route('user-login');
+        }
+
+        $my_service = handyman_services::leftjoin('services','services.id','=','handyman_services.service_id')->where('handyman_services.id',$id)->select('services.*','handyman_services.*')->first();
+
+        $ids = array();
+
+        $my_services = handyman_services::where('handyman_id',$user_id)->where('id','!=',$id)->get();
+
+        foreach($my_services as $key)
+        {
+            $ids[] = array('id' => $key->service_id);
+        }
+
+        $services = Service::whereNotIn('id',$ids)->get();
+
+        return view('user.create_service',compact('services','my_service'));
+    }
+
+    public function ServiceDelete($id)
+    {
+        $my_service = handyman_services::findOrFail($id);
+
+        $my_service->delete();
+        Session::flash('success', 'Service deleted successfully.');
         return redirect()->back();
     }
 
