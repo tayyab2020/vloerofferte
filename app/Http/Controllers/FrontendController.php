@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\estimated_prices;
 use App\Model1;
 use App\Products;
 use App\question_services;
@@ -1345,8 +1346,10 @@ class FrontendController extends Controller
         $sizes = $sizes->unique('size');
         $colors = Products::where('category_id','=',$request->category)->where('color','!=',NULL)->get();
         $colors = $colors->unique('color');
+        $highest = estimated_prices::max('price');
+        $lowest = estimated_prices::min('price');
 
-        return view('front.products',compact('sizes','colors','products','cats','brands','models','data','s','e','range_s','range_e','category','brand','model','size','color'));
+        return view('front.products',compact('highest','lowest','sizes','colors','products','cats','brands','models','data','s','e','range_s','range_e','category','brand','model','size','color'));
     }
 
     public function product($id)

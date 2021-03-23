@@ -81,11 +81,11 @@
                     <div class="cd-filters">
                         <div id="slider" style="margin-top: 50px;"></div>
 
-                        <span style="float: left;margin-top: 10px;">€0</span>
-                        <span style="float: right;margin-top: 10px;">€1000</span>
+                        <span style="float: left;margin-top: 10px;">€{{$lowest}}</span>
+                        <span style="float: right;margin-top: 10px;">€{{$highest}}</span>
 
-                        <input type="hidden" name="range_start" id="range-start" value="{{$s ? $s : 0}}">
-                        <input type="hidden" name="range_end" id="range-end" value="{{$e ? $e : 1000}}">
+                        <input type="hidden" name="range_start" id="range-start" value="{{$s ? $s : $lowest}}">
+                        <input type="hidden" name="range_end" id="range-end" value="{{$e ? $e : $highest}}">
 
 
                     </div> <!-- cd-filter-content -->
@@ -105,8 +105,8 @@
                     connect: true,
                     tooltips: true,
                     range: {
-                        min: [0],
-                        max: [1000]
+                        min: [{{$lowest}}],
+                        max: [{{$highest}}]
                     }
                 });
 
