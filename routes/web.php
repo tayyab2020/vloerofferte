@@ -14,6 +14,7 @@
   Route::get('/','FrontendController@index')->name('front.index');
   Route::get('/products','FrontendController@products')->name('front.products');
   Route::get('/product/{id}','FrontendController@product');
+  Route::get('/our-services','FrontendController@services')->name('front.services');
   Route::get('/products-by-id', 'FrontendController@productsById')->name('all-products-by-id');
   Route::get('/products-model-number-by-model', 'FrontendController@productsModelNumberByModel')->name('all-products-model-number-by-model');
   Route::get('/products-models-by-brands', 'FrontendController@productsModelsByBrands')->name('all-products-models-by-brands');
@@ -22,6 +23,7 @@
   Route::get('/account-products-models-by-brands', 'FrontendController@accountProductsModelsByBrands')->name('products-models-by-brands');
   Route::get('/account-products-brands-by-category', 'FrontendController@accountProductsBrandsByCategory')->name('products-brands-by-category');
   Route::get('/get-questions','FrontendController@GetQuestions');
+  Route::get('/get-service-questions','FrontendController@GetServiceQuestions');
   Route::get('/thankyou/{id}','FrontendController@Thankyou');
   Route::get('/thankyou-page/{id}','FrontendController@ThankyouPage');
   Route::post('/lang-change','FrontendController@LanguageChange')->name('lang.change');
@@ -236,6 +238,11 @@
   Route::get('/edit-question/{id}', 'AdminUserController@EditQuestion')->name('edit-question');
   Route::get('/delete-question/{id}', 'AdminUserController@DeleteQuestion')->name('delete-question');
 
+  Route::get('/services-quotation-questions', 'AdminUserController@ServicesQuotationQuestions')->name('services-quotation-questions');
+  Route::get('/create-services-question', 'AdminUserController@CreateServicesQuestion')->name('create-services-question');
+  Route::post('/create-services-question', 'AdminUserController@SubmitServicesQuestion')->name('save-services-question');
+  Route::get('/edit-services-question/{id}', 'AdminUserController@EditServicesQuestion')->name('edit-services-question');
+  Route::get('/delete-services-question/{id}', 'AdminUserController@DeleteServicesQuestion')->name('delete-services-question');
 
   Route::get('/quotation-requests', 'AdminUserController@QuotationRequests')->name('quotation-requests');
   Route::get('/handyman-quotations/{id?}', 'AdminUserController@HandymanQuotations')->name('handyman-quotations');

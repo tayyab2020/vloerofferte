@@ -9,8 +9,10 @@ use App\Products;
 use App\question_services;
 use App\quotation_invoices;
 use App\quotation_questions;
+use App\quotation_services_questions;
 use App\quotes;
 use App\requests_q_a;
+use App\Service;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Portfolio;
@@ -330,6 +332,16 @@ class FrontendController extends Controller
         $data = quotation_questions::with('answers')->whereHas('services', function ($query) use ($request) {
             $query->where('question_services.service_id', $request->id);
         })->orderBy('quotation_questions.order_no','asc')->get();
+
+        return $data;
+    }
+
+
+    public function GetServiceQuestions(Request $request)
+    {
+        $data = quotation_services_questions::with('answers')->whereHas('services', function ($query) use ($request) {
+            $query->where('question_services1.service_id', $request->id);
+        })->orderBy('quotation_services_questions.order_no','asc')->get();
 
         return $data;
     }
@@ -1350,6 +1362,17 @@ class FrontendController extends Controller
         $lowest = estimated_prices::min('price');
 
         return view('front.products',compact('highest','lowest','sizes','colors','products','cats','brands','models','data','s','e','range_s','range_e','category','brand','model','size','color'));
+    }
+
+
+    public function services(Request $request)
+    {
+        $services = Service::groupBy('services.id')->paginate(12);
+        $data = terms_conditions::where("role",2)->first();
+
+        $all_services = Service::all();
+
+        return view('front.services',compact('services','data','all_services'));
     }
 
     public function product($id)

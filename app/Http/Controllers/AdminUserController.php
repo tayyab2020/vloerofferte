@@ -12,13 +12,17 @@ use App\handyman_unavailability;
 use App\items;
 use App\Model1;
 use App\predefined_answers;
+use App\predefined_services_answers;
 use App\product;
 use App\Products;
 use App\question_services;
+use App\question_services1;
 use App\quotation_invoices;
 use App\quotation_questions;
+use App\quotation_services_questions;
 use App\quotes;
 use App\requests_q_a;
+use App\Service;
 use App\sub_services;
 use App\User;
 use Illuminate\Http\Request;
@@ -155,6 +159,123 @@ class AdminUserController extends Controller
         $question = quotation_questions::where('id',$id)->delete();
         $sub = predefined_answers::where('question_id',$id)->delete();
         $services = question_services::where('question_id',$id)->delete();
+
+        Session::flash('success', 'Question deleted successfully.');
+        return redirect()->back();
+    }
+
+    public function ServicesQuotationQuestions()
+    {
+
+        $data = quotation_services_questions::with('answers')->with(['services' => function($query){
+            $query->leftjoin('services','services.id','=','question_services1.service_id');
+        }])->get();
+
+
+        return view('admin.user.services_questions',compact('data'));
+    }
+
+    public function CreateServicesQuestion()
+    {
+        $services = Service::get();
+
+        return view('admin.user.create_services_questions',compact('services'));
+    }
+
+    public function EditServicesQuestion($id)
+    {
+        $services = Service::get();
+
+        $data = quotation_services_questions::where('id',$id)->with('answers')->with('services')->first();
+
+        return view('admin.user.create_services_questions',compact('services','data'));
+    }
+
+    public function SubmitServicesQuestion(Request $request)
+    {
+
+        $predefined = $request->predefined;
+
+        if($predefined == 'on')
+        {
+            $predefined = 1;
+        }
+        else
+        {
+            $predefined = 0;
+        }
+
+        if(!$request->question_id)
+        {
+            $question = new quotation_services_questions();
+            $question->title = $request->title;
+            $question->predefined = $predefined;
+            $question->order_no = $request->order_no;
+            $question->placeholder = $request->placeholder;
+            $question->save();
+
+            foreach ($request->services as $i => $temp)
+            {
+                $post = new question_services1;
+                $post->question_id = $question->id;
+                $post->service_id = $temp;
+                $post->save();
+            }
+
+            if($predefined)
+            {
+                foreach ($request->predefined_answer as $key)
+                {
+                    $answer = new predefined_services_answers();
+                    $answer->question_id = $question->id;
+                    $answer->title = $key;
+                    $answer->save();
+                }
+            }
+
+            Session::flash('success', 'Flexible Question Created Successfully!');
+        }
+        else
+        {
+            $question = quotation_services_questions::where('id',$request->question_id)->update(['title' => $request->title, 'placeholder' => $request->placeholder, 'predefined' => $predefined, 'order_no' => $request->order_no]);
+
+            question_services1::where('question_id',$request->question_id)->delete();
+
+            foreach ($request->services as $service)
+            {
+                $services = new question_services1;
+                $services->question_id = $request->question_id;
+                $services->service_id = $service;
+                $services->save();
+            }
+
+            predefined_services_answers::where('question_id',$request->question_id)->delete();
+
+            if($predefined)
+            {
+
+                foreach ($request->predefined_answer as $key)
+                {
+                    $answer = new predefined_services_answers;
+                    $answer->question_id = $request->question_id;
+                    $answer->title = $key;
+                    $answer->save();
+                }
+            }
+
+            Session::flash('success', 'Flexible Question Updated Successfully!');
+        }
+
+        return redirect()->back();
+
+    }
+
+    public function DeleteServicesQuestion($id)
+    {
+
+        $question = quotation_services_questions::where('id',$id)->delete();
+        $sub = predefined_services_answers::where('question_id',$id)->delete();
+        $services = question_services1::where('question_id',$id)->delete();
 
         Session::flash('success', 'Question deleted successfully.');
         return redirect()->back();

@@ -11,8 +11,8 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
-                                        <h2>Categories Questions</h2>
-                                        <a href="{{route('create-question')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Create New Question</a>
+                                        <h2>Services Questions</h2>
+                                        <a href="{{route('create-services-question')}}" class="btn add-newProduct-btn"><i class="fa fa-plus"></i> Create New Question</a>
                                     </div>
                                     <hr>
                                     <div>
@@ -26,7 +26,7 @@
                                                     <tr role="row">
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 20%;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Title</th>
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 20%;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Placeholder</th>
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 20%;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Category(s)</th>
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 20%;" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Service(s)</th>
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" style="width: 50%;" colspan="1" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Predefined Answer(s)</th>
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" style="width: 50%;" colspan="1" aria-sort="ascending" aria-label="Blood Group Name: activate to sort column descending">Sequence No</th>
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending">Actions</th>
@@ -41,24 +41,24 @@
                                                             <td>{{$key->placeholder}}</td>
 
                                                             <td>
-                                                            @foreach($key->services as $x => $service)
-                                                                <b>{{$x+1}}. {{$service->cat_name}}</b>
-                                                                <br>
-                                                            @endforeach
+                                                                @foreach($key->services as $x => $service)
+                                                                    <b>{{$x+1}}. {{$service->title}}</b>
+                                                                    <br>
+                                                                @endforeach
                                                             </td>
 
                                                             <td>
-                                                            @foreach($key->answers as $i => $temp)
-                                                                <b>{{$i+1}}. {{$temp->title}}</b>
-                                                                <br>
-                                                            @endforeach
+                                                                @foreach($key->answers as $i => $temp)
+                                                                    <b>{{$i+1}}. {{$temp->title}}</b>
+                                                                    <br>
+                                                                @endforeach
                                                             </td>
 
                                                             <td>{{$key->order_no}}</td>
 
                                                             <td>
-                                                                <a href="{{route('edit-question',$key->id)}}" class="btn btn-primary product-btn"><i class="fa fa-edit"></i> Edit</a>
-                                                                <a href="{{route('delete-question',$key->id)}}" class="btn btn-danger product-btn"><i class="fa fa-trash"></i> Remove</a>
+                                                                <a href="{{route('edit-services-question',$key->id)}}" class="btn btn-primary product-btn"><i class="fa fa-edit"></i> Edit</a>
+                                                                <a href="{{route('delete-services-question',$key->id)}}" class="btn btn-danger product-btn"><i class="fa fa-trash"></i> Remove</a>
                                                             </td>
                                                         </tr>
                                                     @endforeach

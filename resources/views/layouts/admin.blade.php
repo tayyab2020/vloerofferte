@@ -76,7 +76,8 @@
                                         <li><a href="{{route('handyman-quotations')}}"><i class="fa fa-angle-right"></i> Handyman Quotations</a></li>
                                         <li><a href="{{route('handyman-quotations-invoices')}}"><i class="fa fa-angle-right"></i> Quotation Invoices</a></li>
                                         <li><a href="{{route('handyman-commission-invoices')}}"><i class="fa fa-angle-right"></i> Commission Invoices</a></li>
-                                        <li><a href="{{route('quotation-questions')}}"><i class="fa fa-angle-right"></i> Quotation Questions</a></li>
+                                        <li><a href="{{route('quotation-questions')}}"><i class="fa fa-angle-right"></i> Categories Quotation Questions</a></li>
+                                        <li><a href="{{route('services-quotation-questions')}}"><i class="fa fa-angle-right"></i> Services Quotation Questions</a></li>
                                     </ul>
                                 </li>
 

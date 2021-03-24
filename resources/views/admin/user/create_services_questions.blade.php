@@ -23,11 +23,11 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header">
-                                        <h2>Add Categories Question</h2>
-                                        <a href="{{route('quotation-questions')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
+                                        <h2>Add Services Question</h2>
+                                        <a href="{{route('services-quotation-questions')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
                                     </div>
                                     <hr>
-                                    <form class="form-horizontal" action="{{route('save-question')}}" method="POST" enctype="multipart/form-data">
+                                    <form class="form-horizontal" action="{{route('save-services-question')}}" method="POST" enctype="multipart/form-data">
                                         @include('includes.form-error')
                                         @include('includes.form-success')
                                         {{csrf_field()}}
@@ -36,7 +36,7 @@
 
                                         <div style="border-bottom: 1px solid rgba(233,233,233,0.33);padding: 15px 0px;margin-bottom: 20px;">
 
-                                            <h2 style="text-align: center;">Categories</h2>
+                                            <h2 style="text-align: center;">Services</h2>
 
                                             <div class="service_box" style="margin-bottom: 20px;">
 
@@ -46,17 +46,17 @@
 
                                                         <div class="form-group">
 
-                                                            <label class="control-label col-sm-4">Category* </label>
+                                                            <label class="control-label col-sm-4">Service* </label>
 
                                                             <div class="col-sm-6">
 
                                                                 <select class="form-control validate js-data-example-ajax" name="services[]" required>
 
-                                                                    <option value="">Select Category</option>
+                                                                    <option value="">Select Service</option>
 
                                                                     @foreach($services as $key)
 
-                                                                        <option @if($service->service_id == $key->id) selected @endif value="{{$key->id}}">{{$key->cat_name}}</option>
+                                                                        <option @if($service->service_id == $key->id) selected @endif value="{{$key->id}}">{{$key->title}}</option>
 
                                                                     @endforeach
 
@@ -76,17 +76,17 @@
 
                                                     <div class="form-group">
 
-                                                        <label class="control-label col-sm-4">Category* </label>
+                                                        <label class="control-label col-sm-4">Service* </label>
 
                                                         <div class="col-sm-6">
 
                                                             <select class="form-control validate js-data-example-ajax" name="services[]" required>
 
-                                                                <option value="">Select Category</option>
+                                                                <option value="">Select Service</option>
 
                                                                 @foreach($services as $key)
 
-                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
+                                                                    <option value="{{$key->id}}">{{$key->title}}</option>
 
                                                                 @endforeach
 
@@ -108,7 +108,7 @@
                                                 <label class="control-label col-sm-3" for=""></label>
 
                                                 <div class="col-sm-12 text-center">
-                                                    <button class="btn btn-default featured-btn" type="button" id="add-service-btn"><i class="fa fa-plus"></i> Add More Categories</button>
+                                                    <button class="btn btn-default featured-btn" type="button" id="add-service-btn"><i class="fa fa-plus"></i> Add More Services</button>
                                                 </div>
                                             </div>
 
@@ -237,7 +237,7 @@
                 if ($selects.find('option[value=' + id + ']:selected').length > 1) {
                     Swal.fire({
                         title: 'Oops...',
-                        text: 'Category already selected!',
+                        text: 'Service already selected!',
 
                     })
                     this.options[0].selected = true;
@@ -262,11 +262,11 @@
                 '                <div class="col-sm-6">\n' +
                 '                <select class="form-control validate js-data-example-ajax" name="services[]" required>\n' +
                 '\n' +
-                '            <option value="">Select Category</option>\n' +
+                '            <option value="">Select Service</option>\n' +
                 '\n' +
                 '            @foreach($services as $key)\n' +
                 '\n' +
-                '            <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
+                '            <option value="{{$key->id}}">{{$key->title}}</option>\n' +
                 '\n' +
                 '                @endforeach\n' +
                 '\n' +
@@ -288,7 +288,7 @@
                 if ($selects.find('option[value=' + id + ']:selected').length > 1) {
                     Swal.fire({
                         title: 'Oops...',
-                        text: 'Category already selected!',
+                        text: 'Service already selected!',
 
                     })
                     this.options[0].selected = true;
@@ -318,11 +318,11 @@
                     '                <div class="col-sm-6">\n' +
                     '                <select class="form-control validate js-data-example-ajax" name="services[]" required>\n' +
                     '\n' +
-                    '            <option value="">Select Category</option>\n' +
+                    '            <option value="">Select Service</option>\n' +
                     '\n' +
                     '            @foreach($services as $key)\n' +
                     '\n' +
-                    '            <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
+                    '            <option value="{{$key->id}}">{{$key->title}}</option>\n' +
                     '\n' +
                     '                @endforeach\n' +
                     '\n' +
