@@ -19,6 +19,9 @@
 
         <div class="section-padding all-donors-wrap team_section team_style2 wow fadeInUp"
              style="visibility: visible; animation-name: fadeInUp;float: right;width: 100%;">
+
+            <h1 style="margin-bottom: 30px;text-align: center;">Our Services</h1>
+
             <div class="container">
 
                 <div class="row">

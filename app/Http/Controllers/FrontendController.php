@@ -1383,6 +1383,14 @@ class FrontendController extends Controller
         return view('front.product',compact('product','data'));
     }
 
+    public function service($id)
+    {
+        $service = Service::where('id',$id)->first();
+        $data = terms_conditions::where("role",2)->first();
+
+        return view('front.service',compact('service','data'));
+    }
+
     public function subscribe(Request $request)
     {
         $this->validate($request, [
