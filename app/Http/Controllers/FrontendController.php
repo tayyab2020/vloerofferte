@@ -356,8 +356,9 @@ class FrontendController extends Controller
         $language = $this->lang->lang;
         $blogs = Blog::all();
         $data = terms_conditions::where("role",2)->first();
+        $services = Service::all();
 
-        return view('front.index', compact('data','blogs', 'cats', 'language','products'));
+        return view('front.index', compact('data','blogs', 'cats', 'language','products','services'));
 
     }
 

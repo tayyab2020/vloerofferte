@@ -76,7 +76,7 @@
 
                             <div style="width: 20%;">
 
-                                <select class="js-data-example-ajax1 form-control quote-service" name="group" id="blood_grp">
+                                <select class="js-data-example-ajax1 form-control quote-category" name="group" id="blood_grp">
 
                                     <option value="">{{__('text.Select Category')}}</option>
 
@@ -94,11 +94,13 @@
 
                                     @endif
 
+                                    <option value="Diensten">Diensten</option>
+
                                 </select>
 
                             </div>
 
-                            <div style="width: 20%;">
+                            <div class="linked-boxes" style="width: 20%;">
 
                                 <select class="js-data-example-ajax3 form-control quote-brand" name="group" id="blood_grp">
 
@@ -108,7 +110,7 @@
 
                             </div>
 
-                            <div style="width: 20%;">
+                            <div class="linked-boxes" style="width: 20%;">
 
                                 <select class="js-data-example-ajax4 quote-model form-control" name="group" id="blood_grp">
 
@@ -118,9 +120,23 @@
 
                             </div>
 
-                            <div style="width: 20%;">
+                            <div class="linked-boxes" style="width: 20%;">
 
                                 <input type="text" style="height: 100%;" name="model_number" class="form-control quote-model-number" placeholder="{{__('text.Model Number (Optional)')}}" />
+
+                            </div>
+
+                            <div class="unlinked-boxes" style="width: 60%;display: none;">
+
+                                <select class="js-data-example-ajax0 form-control quote-service" name="group" id="blood_grp">
+
+                                    <option value="">Select Service</option>
+
+                                    @foreach($services as $service)
+                                        <option value="{{$service->id}}">{{$service->title}}</option>
+                                    @endforeach
+
+                                </select>
 
                             </div>
 
@@ -224,7 +240,7 @@
 
                                                     <div style="margin-bottom: 40px;">
 
-                                                        <select class="js-data-example-ajax2 form-control quote-service quote_validation" style="height: 40px;" name="quote_service" id="blood_grp" required>
+                                                        <select class="js-data-example-ajax2 form-control quote-category quote_validation" style="height: 40px;" name="quote_service" id="blood_grp" required>
 
                                                             <option value="">{{__('text.Select Category')}}</option>
 
@@ -242,12 +258,14 @@
 
                                                             @endif
 
+                                                            <option value="Diensten">Diensten</option>
+
                                                         </select>
 
                                                     </div>
 
 
-                                                    <div style="margin-bottom: 40px;">
+                                                    <div class="linked-boxes" style="margin-bottom: 40px;">
 
                                                         <select class="js-data-example-ajax5 form-control quote-brand quote_validation" style="height: 40px;" name="quote_brand" id="blood_grp" required>
 
@@ -258,7 +276,7 @@
                                                     </div>
 
 
-                                                    <div style="margin-bottom: 40px;">
+                                                    <div class="linked-boxes" style="margin-bottom: 40px;">
 
                                                         <select class="js-data-example-ajax6 form-control quote-model quote_validation" style="height: 40px;" name="quote_model" id="blood_grp" required>
 
@@ -269,9 +287,24 @@
                                                     </div>
 
 
-                                                    <div style="margin-bottom: 40px;">
+                                                    <div class="linked-boxes" style="margin-bottom: 40px;">
 
                                                         <input style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_model_number" placeholder="{{__('text.Model Number (Optional)')}}" class="form-control quote-model-number">
+
+                                                    </div>
+
+
+                                                    <div class="unlinked-boxes" style="margin-bottom: 40px;display: none;">
+
+                                                        <select class="js-data-example-ajax10 form-control quote-service quote_validation" name="group" id="blood_grp">
+
+                                                            <option value="">Select Service</option>
+
+                                                            @foreach($services as $service)
+                                                                <option value="{{$service->id}}">{{$service->title}}</option>
+                                                            @endforeach
+
+                                                        </select>
 
                                                     </div>
 
@@ -898,7 +931,7 @@
 
                     var id = $(this).val();
                     var brand_id = $('.quote-brand').val();
-                    var cat_id = $('.quote-service').val();
+                    var cat_id = $('.quote-category').val();
 
                     $('.quote-model').val($(this).val());
 
@@ -960,6 +993,144 @@
 
                 });
 
+                $('.quote-category').change(function(){
+
+                    $('.quote-service').val('');
+
+                    $(".quote-service").trigger('change.select2');
+
+                    $('.quote-category').val($(this).val());
+
+                    $(".quote-category").trigger('change.select2');
+
+                    $('.navbar a[href="#step1"]').trigger('click');
+
+                    $('.back').hide();
+
+                    if($(this).val() == 'Diensten')
+                    {
+                        $('.linked-boxes').hide();
+                        $('.unlinked-boxes').show();
+
+                        $('.quote-service').addClass('quote_validation');
+                        $('.quote-category').removeClass('quote_validation');
+                        $('.quote-brand').removeClass('quote_validation');
+                        $('.quote-model').removeClass('quote_validation');
+
+                        $('#step1').children('.well').css('height','');
+                    }
+                    else
+                    {
+                        $('.quote-service').removeClass('quote_validation');
+                        $('.quote-category').addClass('quote_validation');
+                        $('.quote-brand').addClass('quote_validation');
+                        $('.quote-model').addClass('quote_validation');
+
+                        $('#step1').children('.well').css('height','300px');
+
+                        $('.unlinked-boxes').hide();
+                        $('.linked-boxes').show();
+
+                        var category_id = $(this).val();
+                        var options = '';
+
+                        $.ajax({
+                            type:"GET",
+                            data: "id=" + category_id,
+                            url: "<?php echo url('get-questions')?>",
+
+                            success: function(data) {
+
+                                $('#step3').children('.well').empty();
+
+                                var index_count = 0;
+
+                                $.each(data, function (index, val) {
+
+                                    if(data.length == index + 1)
+                                    {
+                                        $('#step3').children('.well').append('<div style="margin-bottom: 20px;"></div>');
+                                    }
+                                    else
+                                    {
+                                        $('#step3').children('.well').append('<div style="margin-bottom: 40px;"></div>');
+                                    }
+
+                                    var last = $('#step3').children('.well').children().last('div');
+
+                                    last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">'+val.title+'</h3><input type="hidden" name="questions[]" value="'+val.title+'">');
+
+                                    if(val.predefined == 1)
+                                    {
+
+                                        last.append('<div class="checkbox_validation"><input name="predefined'+index+'" type="hidden" value="1"></div>');
+
+                                        $.each(val.answers, function (index1, val1) {
+
+                                            last.children('div').append('<hr>\n' +
+                                                '                                        <label class="container-checkbox">'+val1.title+'\n' +
+                                                '                                        <input name="answers'+index+'[]" type="checkbox" value="'+val1.title+'">\n' +
+                                                '                                        <span class="checkmark-checkbox"></span>\n' +
+                                                '                                        </label>');
+
+                                        });
+                                    }
+                                    else
+                                    {
+                                        if(val.placeholder)
+                                        {
+                                            var placeholder = val.placeholder;
+                                        }
+                                        else
+                                        {
+                                            var placeholder = '';
+                                        }
+
+                                        last.append('<input name="predefined'+index+'" type="hidden" value="0">\n'+
+                                            '<textarea name="answers'+index+'" style="resize: vertical;" rows="1" class="form-control quote_validation" placeholder="'+placeholder+'"></textarea>');
+                                    }
+
+                                    index_count = index;
+
+                                });
+
+                                $('#step3').children('.well').append('<input type="hidden" name="index_count" value="'+index_count+'">');
+
+                                /*$('#step3').children('div').children('h3').
+                                console.log(data);*/
+                            }
+                        });
+
+                        $.ajax({
+                            type:"GET",
+                            data: "id=" + category_id ,
+                            url: "<?php echo url('/products-brands-by-category')?>",
+                            success: function(data) {
+
+                                $.each(data, function(index, value) {
+
+                                    var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
+
+                                    options = options + opt;
+
+                                });
+
+                                $('.quote-model').find('option')
+                                    .remove()
+                                    .end()
+                                    .append('<option value="">Select Model</option>');
+
+                                $('.quote-brand').find('option')
+                                    .remove()
+                                    .end()
+                                    .append('<option value="">Select Brand</option>'+options);
+
+                            }
+                        });
+                    }
+
+                });
+
                 $('.quote-service').change(function(){
 
                     $('.quote-service').val($(this).val());
@@ -970,13 +1141,13 @@
 
                     $('.back').hide();
 
-                    var category_id = $(this).val();
+                    var service_id = $(this).val();
                     var options = '';
 
                     $.ajax({
                         type:"GET",
-                        data: "id=" + category_id,
-                        url: "<?php echo url('get-questions')?>",
+                        data: "id=" + service_id,
+                        url: "<?php echo url('get-service-questions')?>",
 
                         success: function(data) {
 
@@ -1037,33 +1208,6 @@
 
                             /*$('#step3').children('div').children('h3').
                             console.log(data);*/
-                        }
-                    });
-
-                    $.ajax({
-                        type:"GET",
-                        data: "id=" + category_id ,
-                        url: "<?php echo url('/products-brands-by-category')?>",
-                        success: function(data) {
-
-                            $.each(data, function(index, value) {
-
-                                var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
-
-                                options = options + opt;
-
-                            });
-
-                            $('.quote-model').find('option')
-                                .remove()
-                                .end()
-                                .append('<option value="">Select Model</option>');
-
-                            $('.quote-brand').find('option')
-                                .remove()
-                                .end()
-                                .append('<option value="">Select Brand</option>'+options);
-
                         }
                     });
 
@@ -1177,8 +1321,8 @@
                                         url: "<?php echo url('/products-by-id')?>",
                                         success: function (data) {
 
-                                            $('.quote-service').val(data.category_id);
-                                            $(".quote-service").trigger('change.select2');
+                                            $('.quote-category').val(data.category_id);
+                                            $(".quote-category").trigger('change.select2');
 
                                             var category_id = data.category_id;
                                             var brand_id = data.brand_id;
@@ -2657,18 +2801,31 @@
 
     <script>
 
-        $(".js-data-example-ajax").select2({
+        $(".js-data-example-ajax0").select2({
             width: '100%',
             height: '200px',
-            placeholder: "{{__('text.Select Category')}}",
+            placeholder: "Select Service",
             allowClear: true,
-            dropdownParent: $('#service_box'),
             "language": {
                 "noResults": function(){
                     return '{{__('text.No results found')}}';
                 }
             },
         });
+
+        $(".js-data-example-ajax10").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "Select Service",
+            allowClear: true,
+            dropdownParent: $('#aanvragen'),
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+        });
+
 
         $(".js-data-example-ajax1").select2({
             width: '100%',
