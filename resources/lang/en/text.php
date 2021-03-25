@@ -251,4 +251,6 @@ return [
     'Start' => 'Start',
     'Size' => 'Size',
     'Measure' => 'Measure',
+    'Service' => 'Service',
+    'Quantity' => 'Quantity',
 ];

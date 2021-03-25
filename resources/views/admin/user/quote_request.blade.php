@@ -85,61 +85,84 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Category* </label>
-                                            <div class="col-sm-6">
-                                                <select class="form-control" name="quote_service" id="quote_service"
-                                                        required="">
-                                                    @foreach($categories as $key)
+                                        @if($request->quote_service != 0 && $request->quote_brand != 0 && $request->quote_model != 0)
 
-                                                        <option @if($request->quote_service == $key->id) selected
-                                                                @endif value="{{$key->id}}">{{$key->cat_name}}</option>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_display_name">Category* </label>
+                                                <div class="col-sm-6">
+                                                    <select class="form-control" name="quote_service" id="quote_service"
+                                                            required="">
+                                                        @foreach($categories as $key)
 
-                                                    @endforeach
-                                                </select>
+                                                            <option @if($request->quote_service == $key->id) selected
+                                                                    @endif value="{{$key->id}}">{{$key->cat_name}}</option>
+
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4"
-                                                   for="blood_group_display_name">Brand* </label>
-                                            <div class="col-sm-6">
-                                                <select class="form-control" name="quote_service" id="quote_service"
-                                                        required="">
-                                                    @foreach($brands as $key)
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4"
+                                                       for="blood_group_display_name">Brand* </label>
+                                                <div class="col-sm-6">
+                                                    <select class="form-control" name="quote_service" id="quote_service"
+                                                            required="">
+                                                        @foreach($brands as $key)
 
-                                                        <option @if($request->quote_brand == $key->id) selected
-                                                                @endif value="{{$key->id}}">{{$key->cat_name}}</option>
+                                                            <option @if($request->quote_brand == $key->id) selected
+                                                                    @endif value="{{$key->id}}">{{$key->cat_name}}</option>
 
-                                                    @endforeach
-                                                </select>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4"
-                                                   for="blood_group_display_name">Model* </label>
-                                            <div class="col-sm-6">
-                                                <select class="form-control" name="quote_service" id="quote_service"
-                                                        required="">
-                                                    @foreach($models as $key)
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4"
+                                                       for="blood_group_display_name">Model* </label>
+                                                <div class="col-sm-6">
+                                                    <select class="form-control" name="quote_service" id="quote_service"
+                                                            required="">
+                                                        @foreach($models as $key)
 
-                                                        <option @if($request->quote_model == $key->id) selected
-                                                                @endif value="{{$key->id}}">{{$key->cat_name}}</option>
+                                                            <option @if($request->quote_model == $key->id) selected
+                                                                    @endif value="{{$key->id}}">{{$key->cat_name}}</option>
 
-                                                    @endforeach
-                                                </select>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_slug">Model Number </label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" value="{{$request->quote_model_number}}"
-                                                       name="quote_model_number" id="quote_model_number"
-                                                       placeholder="Enter Model Number" required="" type="text">
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Model Number </label>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control" value="{{$request->quote_model_number}}"
+                                                           name="quote_model_number" id="quote_model_number"
+                                                           placeholder="Enter Model Number" required="" type="text">
+                                                </div>
                                             </div>
-                                        </div>
+
+                                        @else
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_display_name">Service* </label>
+                                                <div class="col-sm-6">
+                                                    <select class="form-control" name="quote_service1" id="quote_service1"
+                                                            required="">
+                                                        @foreach($services as $key)
+
+                                                            <option @if($request->quote_service1 == $key->id) selected
+                                                                    @endif value="{{$key->id}}">{{$key->title}}</option>
+
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        @endif
+
 
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="blood_group_slug">Zip

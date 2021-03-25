@@ -75,10 +75,18 @@
                                     <table class="table" style="border: 1px solid #e5e5e5;">
                                         <thead>
                                         <tr>
-                                            <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Category/Item')}}</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Brand')}}</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model')}}</th>
-                                            <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model Number')}}</th>
+                                            @if($quote->cat_name != '' && $quote->brand_name != '' && $quote->model_name != '')
+
+                                                <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Category/Item')}}</th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Brand')}}</th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model')}}</th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model Number')}}</th>
+
+                                            @else
+
+                                                <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Service')}}</th>
+
+                                            @endif
                                             {{--<th class="border-0 text-uppercase small font-weight-bold">Street</th>
                                             <th class="border-0 text-uppercase small font-weight-bold">House Number</th>--}}
                                         </tr>
@@ -87,10 +95,19 @@
                                         <tbody>
 
                                             <tr>
-                                                <td>{{$quote->cat_name}}</td>
-                                                <td>{{$quote->brand_name}}</td>
-                                                <td>{{$quote->model_name}}</td>
-                                                <td>{{$quote->quote_model_number}}</td>
+                                                @if($quote->cat_name != '' && $quote->brand_name != '' && $quote->model_name != '')
+
+                                                    <td>{{$quote->cat_name}}</td>
+                                                    <td>{{$quote->brand_name}}</td>
+                                                    <td>{{$quote->model_name}}</td>
+                                                    <td>{{$quote->quote_model_number}}</td>
+
+                                                @else
+
+                                                    <td>{{$quote->title}}</td>
+
+                                                @endif
+
                                                 {{--<td>{{$quote->quote_street}}</td>
                                                 <td>{{$quote->quote_house}}</td>--}}
                                             </tr>

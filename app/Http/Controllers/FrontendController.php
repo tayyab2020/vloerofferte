@@ -1185,10 +1185,22 @@ class FrontendController extends Controller
                 $quote->quote_waste = $request->quote_waste;
             }
 
-            $quote->quote_service = $request->quote_service;
-            $quote->quote_brand = $request->quote_brand;
-            $quote->quote_model = $request->quote_model;
-            $quote->quote_model_number = $request->quote_model_number;
+            if($request->quote_service == 'Diensten')
+            {
+                $quote->quote_service = 0;
+                $quote->quote_service1 = $request->quote_service1;
+                $quote->quote_brand = 0;
+                $quote->quote_model = 0;
+            }
+            else
+            {
+                $quote->quote_service = $request->quote_service;
+                $quote->quote_service1 = 0;
+                $quote->quote_brand = $request->quote_brand;
+                $quote->quote_model = $request->quote_model;
+                $quote->quote_model_number = $request->quote_model_number;
+            }
+
             $quote->quote_zipcode = $request->quote_zipcode;
             $quote->quote_postcode = $request->postcode;
             $quote->quote_city = $request->city;

@@ -296,7 +296,7 @@
 
                                                     <div class="unlinked-boxes" style="margin-bottom: 40px;display: none;">
 
-                                                        <select class="js-data-example-ajax10 form-control quote-service quote_validation" name="group" id="blood_grp">
+                                                        <select class="js-data-example-ajax10 form-control quote-service quote_validation" name="quote_service1" id="blood_grp">
 
                                                             <option value="">Select Service</option>
 

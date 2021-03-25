@@ -31,6 +31,8 @@
 
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="rate">{{__('text.Category')}}</th>
 
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="rate">{{__('text.Service')}}</th>
+
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="rate">{{__('text.Name')}}</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">{{__('text.Address')}}</th>
@@ -58,6 +60,8 @@
                                                             <td>{{count($invoices[$i])}}</td>
 
                                                             <td>{{$key->cat_name}}</td>
+
+                                                            <td>{{$key->title}}</td>
 
                                                             <td>{{$key->quote_name}}</td>
 
@@ -111,7 +115,7 @@
                                                                         <span class="caret"></span></button>
                                                                     <ul class="dropdown-menu">
                                                                         <li><a href="{{ url('/aanbieder/bekijk-offerte-aanvraag/'.$key->id) }}">{{__('text.View')}}</a></li>
-                                                                        <li><a href="{{ url('/aanbieder/quotations/'.$key->id) }}">{{__('text.View Quotations')}}</a></li>
+                                                                        <li><a href="{{ url('/aanbieder/offertes/'.$key->id) }}">{{__('text.View Quotations')}}</a></li>
                                                                         <li><a href="{{ url('/aanbieder/download-quote-request/'.$key->id) }}">{{__('text.Download PDF')}}</a></li>
                                                                     </ul>
                                                                 </div>

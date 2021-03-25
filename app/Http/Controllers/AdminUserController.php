@@ -298,7 +298,7 @@ class AdminUserController extends Controller
 
     public function QuotationRequests()
     {
-        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->leftjoin('quotation_invoices','quotation_invoices.quote_id','=','quotes.id')->orderBy('quotes.created_at','desc')->select('quotes.*','quotation_invoices.delivered','quotation_invoices.received','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->withCount('quotations')->get();
+        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('services','services.id','=','quotes.quote_service1')->leftjoin('quotation_invoices','quotation_invoices.quote_id','=','quotes.id')->orderBy('quotes.created_at','desc')->select('quotes.*','quotation_invoices.delivered','quotation_invoices.received','categories.cat_name','services.title')->withCount('quotations')->get();
 
 
         return view('admin.user.quote_requests',compact('requests'));
@@ -339,15 +339,16 @@ class AdminUserController extends Controller
         $q_a = requests_q_a::where('request_id',$id)->get();
 
         $categories = Category::where('main_service',1)->get();
+        $services = Service::all();
         $brands = Brand::all();
         $models = Model1::all();
 
-        return view('admin.user.quote_request',compact('request','categories','brands','models','q_a'));
+        return view('admin.user.quote_request',compact('request','categories','brands','models','q_a','services'));
     }
 
     public function DownloadQuoteRequest($id)
     {
-        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->where('quotes.id',$id)->select('quotes.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->first();
+        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->leftjoin('services','services.id','=','quotes.quote_service1')->where('quotes.id',$id)->select('quotes.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name','services.title')->first();
 
         $q_a = requests_q_a::where('request_id',$id)->get();
 
@@ -574,7 +575,7 @@ class AdminUserController extends Controller
     {
         $handyman = $request->action;
 
-        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->first();
+        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->leftjoin('services','services.id','=','quotes.quote_service1')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name','services.title','brands.cat_name as brand_name','models.cat_name as model_name')->first();
 
         $q_a = requests_q_a::where('request_id',$request->quote_id)->get();
 
