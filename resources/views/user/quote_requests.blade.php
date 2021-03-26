@@ -33,6 +33,8 @@
 
                                                         <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">{{__('text.Model')}}</th>
 
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">{{__('text.Service')}}</th>
+
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">{{__('text.Current Stage')}}</th>
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="service">{{__('text.Created At')}}</th>
@@ -51,13 +53,15 @@
 
                                                             <?php $requested_quote_number = $key->quote_number; ?>
 
-                                                            <td><a href="{{ url('/aanbieder/aanbieder-offertes/'.$key->id) }}">{{$requested_quote_number}}</a></td>
+                                                                <td><a href="{{ url('/aanbieder/aanbieder-offertes/'.$key->id) }}">{{$requested_quote_number}}</a></td>
 
-                                                            <td>{{$key->cat_name}}</td>
+                                                                <td>{{$key->cat_name}}</td>
 
                                                                 <td>{{$key->brand_name}}</td>
 
                                                                 <td>{{$key->model_name}}</td>
+
+                                                                <td>{{$key->title}}</td>
 
                                                             <td>
 

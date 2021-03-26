@@ -70,37 +70,51 @@
                                         @endif
 
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Category')}}* </label>
-                                            <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->cat_name}}</p>
-                                            </div>
-                                        </div>
+                                            @if($request->cat_name != '' && $request->brand_name != '' && $request->model_name != '')
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Brand')}}* </label>
-                                            <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->brand_name}}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Model')}}* </label>
-                                            <div class="col-sm-6">
-                                                <p style="padding: 10px;" class="form-control">{{$request->model_name}}</p>
-                                            </div>
-                                        </div>
-
-                                        @if($request->quote_model_number)
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Model Number')}} </label>
-                                                <div class="col-sm-6">
-                                                    <p style="padding: 10px;" class="form-control">{{$request->quote_model_number}}</p>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Category')}}* </label>
+                                                    <div class="col-sm-6">
+                                                        <p style="padding: 10px;" class="form-control">{{$request->cat_name}}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                        @endif
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Brand')}}* </label>
+                                                    <div class="col-sm-6">
+                                                        <p style="padding: 10px;" class="form-control">{{$request->brand_name}}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Model')}}* </label>
+                                                    <div class="col-sm-6">
+                                                        <p style="padding: 10px;" class="form-control">{{$request->model_name}}</p>
+                                                    </div>
+                                                </div>
+
+                                                @if($request->quote_model_number)
+
+                                                    <div class="form-group">
+                                                        <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Model Number')}} </label>
+                                                        <div class="col-sm-6">
+                                                            <p style="padding: 10px;" class="form-control">{{$request->quote_model_number}}</p>
+                                                        </div>
+                                                    </div>
+
+                                                @endif
+
+                                            @else
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Service')}}* </label>
+                                                    <div class="col-sm-6">
+                                                        <p style="padding: 10px;" class="form-control">{{$request->title}}</p>
+                                                    </div>
+                                                </div>
+
+                                            @endif
+
 
                                         @foreach($q_a as $key)
 
