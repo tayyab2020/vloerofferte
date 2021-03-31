@@ -1033,32 +1033,39 @@ class UserController extends Controller
 
         $quote = quotes::leftjoin('handyman_quotes', 'handyman_quotes.quote_id', '=', 'quotes.id')->where('quotes.id', $id)->where('handyman_quotes.handyman_id', $user_id)->select('quotes.*')->first();
 
-        /*$services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', $user_id)->select('categories.*', 'handyman_products.rate')->get();*/
+        /*if($quote->quote_service == 0 && $quote->quote_brand == 0 && $quote->quote_model == 0)
+        {
+            $matched_data = Service::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'services.id')->where('handyman_services.handyman_id', $user_id)->where('services.id', $quote->quote_service1)->select('services.id as service_id', 'handyman_services.sell_rate as rate')->first();
+        }
+        else
+        {
+            $matched_data = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id', $user_id)->where('products.category_id', $quote->quote_service)->where('products.brand_id', $quote->quote_brand)->where('products.model_id', $quote->quote_model)->select('categories.id as service_id', 'brands.id as brand_id', 'models.id as model_id', 'handyman_products.sell_rate as rate')->first();
+        }*/
 
-        $matched_data = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id', $user_id)->where('products.category_id', $quote->quote_service)->where('products.brand_id', $quote->quote_brand)->where('products.model_id', $quote->quote_model)->select('categories.id as service_id', 'brands.id as brand_id', 'models.id as model_id', 'handyman_products.sell_rate as rate')->first();
-
-        $all_services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*')->get();
+        /*$all_services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*')->get();
         $all_services = $all_services->unique();
 
         $all_brands = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('products.category_id',$quote->quote_service)->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
         $all_brands = $all_brands->unique();
 
         $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('products.brand_id',$quote->quote_brand)->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
-        $all_models = $all_models->unique();
+        $all_models = $all_models->unique();*/
 
-        if (!$matched_data) {
+        $all_products = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories', 'categories.id', '=', 'products.category_id')->where('handyman_products.handyman_id', $user_id)->select('products.*','categories.cat_name','handyman_products.sell_rate as rate')->get();
+        $all_services = Service::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'services.id')->where('handyman_services.handyman_id', $user_id)->select('services.*','handyman_services.sell_rate as rate')->get();
+        $items = items::where('user_id',$user_id)->get();
+
+        /*if (!$matched_data) {
             Session::flash('unsuccess', 'None of your product(s) matched with details asked in this quotation');
             return redirect()->back();
-        }
-
-        $items = items::where('user_id',$user_id)->get();
+        }*/
 
         $settings = Generalsetting::findOrFail(1);
 
         $vat_percentage = $settings->vat;
 
         if ($quote) {
-            return view('user.create_quotation', compact('quote', 'matched_data', 'vat_percentage', 'items', 'all_services', 'all_brands', 'all_models', 'user_id'));
+            return view('user.create_quotation', compact('quote', 'vat_percentage', 'items', 'all_services', 'all_products', 'user_id'));
         } else {
             return redirect('aanbieder/dashboard');
         }
@@ -1237,35 +1244,38 @@ class UserController extends Controller
 
             foreach ($services as $i => $key) {
 
-                if (strpos($services[$i], 'I') > -1) {
-                    $x = 1;
-                    $brand_id = 0;
-                    $model_id = 0;
-
-                    $brand_title = $request->brand_title;
-
-                    $brand_title[$i] = $request->item_brand[$i];
-                    $request->merge(['brand_title' => $brand_title]);
-
-                    $model_title = $request->model_title;
-                    $model_title[$i] = $request->item_model[$i];
-                    $request->merge(['model_title' => $model_title]);
-
-                } else {
-                    $x = 0;
-                    $brand_id = (int)$request->brand[$i];
-                    $model_id = (int)$request->model[$i];
-                }
-
                 $invoice_items = new quotation_invoices_data;
                 $invoice_items->quotation_id = $invoice->id;
                 $invoice_items->s_i_id = (int)$key;
-                $invoice_items->b_i_id = $brand_id;
-                $invoice_items->m_i_id = $model_id;
-                $invoice_items->item = $x;
                 $invoice_items->service = $request->service_title[$i];
-                $invoice_items->brand = $request->brand_title[$i];
-                $invoice_items->model = $request->model_title[$i];
+
+                if (strpos($services[$i], 'I') > -1) {
+
+                    $invoice_items->b_i_id = 0;
+                    $invoice_items->m_i_id = 0;
+                    $invoice_items->item = 1;
+                    $invoice_items->brand = '';
+                    $invoice_items->model = '';
+
+                }
+                elseif (strpos($services[$i], 'S') > -1) {
+
+                    $invoice_items->b_i_id = 0;
+                    $invoice_items->m_i_id = 0;
+                    $invoice_items->is_service = 1;
+                    $invoice_items->brand = '';
+                    $invoice_items->model = '';
+
+                }
+                else {
+
+                    $invoice_items->b_i_id = (int)$request->brand[$i];
+                    $invoice_items->m_i_id = (int)$request->model[$i];
+                    $invoice_items->brand = $request->brand_title[$i];
+                    $invoice_items->model = $request->model_title[$i];
+
+                }
+                
                 $invoice_items->rate = str_replace(",",".",$request->cost[$i]);
                 $invoice_items->qty = str_replace(",",".",$request->qty[$i]);
                 $invoice_items->description = $request->description[$i];

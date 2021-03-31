@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Brand;
 use App\estimated_prices;
+use App\items;
 use App\Model1;
 use App\Products;
 use App\question_services;
@@ -366,6 +367,27 @@ class FrontendController extends Controller
     public function productsById(Request $request)
     {
         $data = Products::where('id','=',$request->id)->first();
+
+        return $data;
+    }
+
+    public function handymanproductsById(Request $request)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        if($request->type == 'product')
+        {
+            $data = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id',$user_id)->where('products.id','=',$request->id)->select('products.category_id','products.brand_id','products.model_id','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name','handyman_products.sell_rate as rate')->first();
+        }
+        elseif($request->type == 'service')
+        {
+            $data = Service::leftjoin('handyman_services','handyman_services.service_id','=','services.id')->where('handyman_services.handyman_id',$user_id)->where('services.id','=',$request->id)->select('services.id as service_id','services.title as service_name','handyman_services.sell_rate as rate')->first();
+        }
+        else
+        {
+            $data = items::where('user_id',$user_id)->where('id','=',$request->id)->select('items.id as item_id','items.cat_name as item_name','items.rate')->first();
+        }
 
         return $data;
     }
