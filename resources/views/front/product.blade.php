@@ -168,7 +168,7 @@
                         @if($product->estimated_price)
 
 
-                            @if(strtolower($product->additional_info) == 'per piece' || strtolower($product->additional_info) == 'Per stuk')
+                            @if(strtolower($product->additional_info) == 'per piece' || strtolower($product->additional_info) == 'per stuk')
 
                                 <?php $sizes = explode(',',$product->size); ?>
 
