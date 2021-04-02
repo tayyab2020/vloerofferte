@@ -1383,7 +1383,6 @@ class FrontendController extends Controller
 
         if($range_s != NULL && $range_e != NULL)
         {
-            exit();
             $s = floatval($range_s);
             $e = floatval($range_e);
 
@@ -1399,6 +1398,9 @@ class FrontendController extends Controller
             $highest = estimated_prices::max('price');
             $lowest = estimated_prices::min('price');
         }
+
+        var_dump($e);
+        exit();
 
         $all_products = $all_products->select('products.*','estimated_prices.price')->groupBy('products.id')->paginate(12);
 
