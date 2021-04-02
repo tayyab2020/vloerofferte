@@ -1393,8 +1393,8 @@ class FrontendController extends Controller
         }
         else
         {
-            $s = '';
-            $e = '';
+            $s = 's';
+            $e = 'e';
             $highest = estimated_prices::max('price');
             $lowest = estimated_prices::min('price');
         }
