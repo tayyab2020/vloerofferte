@@ -1741,19 +1741,22 @@
                         var highest = data[2];
                         var lowest = data[3];
 
-                        slider.noUiSlider.updateOptions({
-                            range: {
-                                'min': lowest,
-                                'max': highest
-                            },
-                            start: [lowest,highest],
-                        });
+                        if(highest != null && lowest != null && highest != lowest)
+                        {
+                            slider.noUiSlider.updateOptions({
+                                range: {
+                                    'min': lowest,
+                                    'max': highest
+                                },
+                                start: [lowest,highest],
+                            });
 
-                        $("#slider-lowest").text('€ '+ lowest);
-                        $("#slider-highest").text('€ '+ highest);
+                            $("#slider-lowest").text('€ '+ lowest);
+                            $("#slider-highest").text('€ '+ highest);
 
-                        $('#org_range-start').val(lowest);
-                        $('#org_range-end').val(highest);
+                            $('#org_range-start').val(lowest);
+                            $('#org_range-end').val(highest);
+                        }
 
                         $.each(data[0], function(index, value) {
 
