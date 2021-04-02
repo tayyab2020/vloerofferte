@@ -417,7 +417,7 @@ class FrontendController extends Controller
         return $brands;
     }
 
-    public function productsSizesByCategory(Request $request)
+    public function productsDataByCategory(Request $request)
     {
         $sizes = Products::where('category_id','=',$request->id)->where('size','!=',NULL)->get();
 
@@ -427,8 +427,13 @@ class FrontendController extends Controller
 
         $colors = $colors->unique('color');
 
+        $highest = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('estimated_prices','estimated_prices.product_id','=','products.id')->where('categories.id',$request->id)->max('price');
+        $lowest = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('estimated_prices','estimated_prices.product_id','=','products.id')->where('categories.id',$request->id)->min('price');
+
         $data[0] = $sizes;
         $data[1] = $colors;
+        $data[2] = $highest;
+        $data[3] = $lowest;
 
         return $data;
     }
@@ -1350,40 +1355,44 @@ class FrontendController extends Controller
         $model = $request->model;
         $size = $request->size;
         $color = $request->color;
+        $highest = estimated_prices::max('price');
+        $lowest = estimated_prices::min('price');
 
-        $products = Products::leftjoin('estimated_prices','estimated_prices.product_id','=','products.id');
+        $all_products = Products::leftjoin('estimated_prices','estimated_prices.product_id','=','products.id');
 
         if($category)
         {
-            $products = $products->where('products.category_id',$category);
+            $all_products = $all_products->where('products.category_id',$category);
         }
 
         if($brand)
         {
-            $products = $products->where('products.brand_id',$brand);
+            $all_products = $all_products->where('products.brand_id',$brand);
         }
 
         if($model)
         {
-            $products = $products->where('products.model_id',$model);
+            $all_products = $all_products->where('products.model_id',$model);
         }
 
         if($size)
         {
-            $products = $products->whereRaw("find_in_set('".$size."',products.size)");
+            $all_products = $all_products->whereRaw("find_in_set('".$size."',products.size)");
         }
 
         if($color)
         {
-            $products = $products->whereRaw("find_in_set('".$color."',products.color)");
+            $all_products = $all_products->whereRaw("find_in_set('".$color."',products.color)");
         }
 
         if($range_s != NULL && $range_e != NULL)
         {
-            $products = $products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
+            $all_products = $all_products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
+            $lowest = $request->org_range_start;
+            $highest = $request->org_range_end;
         }
 
-        $products = $products->select('products.*','estimated_prices.price')->groupBy('products.id')->paginate(12);
+        $all_products = $all_products->select('products.*','estimated_prices.price')->groupBy('products.id')->paginate(12);
 
         $cats = Category::where('main_service', '=', 1)->get();
         $brands = Brand::all();
@@ -1393,21 +1402,19 @@ class FrontendController extends Controller
         $sizes = $sizes->unique('size');
         $colors = Products::where('category_id','=',$request->category)->where('color','!=',NULL)->get();
         $colors = $colors->unique('color');
-        $highest = estimated_prices::max('price');
-        $lowest = estimated_prices::min('price');
 
-        return view('front.products',compact('highest','lowest','sizes','colors','products','cats','brands','models','data','s','e','range_s','range_e','category','brand','model','size','color'));
+        return view('front.products',compact('highest','lowest','sizes','colors','all_products','cats','brands','models','data','s','e','range_s','range_e','category','brand','model','size','color'));
     }
 
 
     public function services(Request $request)
     {
-        $services = Service::groupBy('services.id')->paginate(12);
+        $our_services = Service::groupBy('services.id')->paginate(12);
         $data = terms_conditions::where("role",2)->first();
 
         $all_services = Service::all();
 
-        return view('front.services',compact('services','data','all_services'));
+        return view('front.services',compact('our_services','data','all_services'));
     }
 
     public function product($id)

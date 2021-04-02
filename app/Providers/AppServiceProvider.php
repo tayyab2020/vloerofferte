@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Category;
+use App\Products;
+use App\Service;
+use App\terms_conditions;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Generalsetting;
@@ -82,11 +86,29 @@ class AppServiceProvider extends ServiceProvider
             {
                 $settings->with('gs', Generalsetting::where('backend',0)->first());
             }
-            else
-                {
-                    $settings->with('gs', Generalsetting::where('backend',1)->first());
-                }
+            else {
+                $settings->with('gs', Generalsetting::where('backend',1)->first());
+            }
 
+            if(\Route::currentRouteName() == 'front.index' || \Route::currentRouteName() == 'front.products' || \Route::currentRouteName() == 'front.product' || \Route::currentRouteName() == 'front.services' || \Route::currentRouteName() == 'front.service')
+            {
+                $cats = Category::where('main_service', '=', 1)->get();
+                $products = Products::leftjoin('categories','categories.id','=','products.category_id')->select('products.id','products.title','categories.cat_name')->get();
+                $services = Service::all();
+            }
+            else
+            {
+                $cats = [];
+                $products = [];
+                $services = [];
+            }
+
+            $data = terms_conditions::where("role",2)->first();
+
+            $settings->with('cats', $cats);
+            $settings->with('products', $products);
+            $settings->with('services', $services);
+            $settings->with('data', $data);
             $settings->with('sl', Sociallink::find(1));
             $settings->with('seo', Seotool::find(1));
             $settings->with('ps', Pagesetting::find(1));

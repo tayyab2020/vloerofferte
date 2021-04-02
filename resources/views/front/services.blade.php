@@ -26,7 +26,7 @@
 
                 <div class="row">
 
-                    @foreach($services as $key)
+                    @foreach($our_services as $key)
                         <div class="col-lg-4 col-md-4 col-sm-4" style="z-index: 0;">
                             <div class="team_common">
 
@@ -71,157 +71,6 @@
 
                     @endforeach
 
-                    <div id="aanvragen" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-
-                            <form id="quote_form" method="post" action="{{route('user.quote')}}">
-
-                                <input type="hidden" name="_token" value="{{@csrf_token()}}">
-
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button style="background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        <h3 id="myModalLabel">{{__('text.Ask for Quotation')}}</h3>
-                                    </div>
-                                    <div class="modal-body" id="myWizard">
-
-                                        <div class="progress" style="height: 25px;">
-                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 20%;line-height: 25px;font-size: 14px;font-weight: 100;background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};">
-                                                {{__('text.Step')}} 1
-                                            </div>
-                                        </div>
-
-                                        <div class="navbar" style="display: none;">
-                                            <div class="navbar-inner">
-                                                <ul class="nav nav-pills">
-                                                    <li class="active"><a href="#step1" data-toggle="tab" data-step="1">{{__('text.Step')}} 1</a></li>
-                                                    <li><a href="#step2" data-toggle="tab" data-step="2">{{__('text.Step')}} 2</a></li>
-                                                    <li><a href="#step3" data-toggle="tab" data-step="3">{{__('text.Step')}} 3</a></li>
-                                                    <li><a href="#step4" data-toggle="tab" data-step="4">{{__('text.Step')}} 4</a></li>
-                                                    <li><a href="#step5" data-toggle="tab" data-step="5">{{__('text.Step')}} 5</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="tab-content">
-
-                                            <div class="tab-pane fade in active" id="step1">
-
-                                                <div class="well">
-
-                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 30px;">{{__('text.Fill information for Quotation')}}</h3>
-
-                                                    <div style="margin-bottom: 40px;">
-
-                                                        <select class="js-data-example-ajax2 form-control quote-service quote_validation" style="height: 40px;" name="quote_service" id="blood_grp" required>
-
-                                                            <option value="">Select Service</option>
-
-                                                            @foreach($all_services as $service)
-                                                                <option value="{{$service->id}}">{{$service->title}}</option>
-                                                            @endforeach
-
-                                                        </select>
-
-                                                    </div>
-
-
-                                                    <div>
-
-                                                        <input maskedFormat="9,1" autocomplete="off" max="100" min="1" style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_quantity" placeholder="Quantity" class="form-control quote_quantity quote_validation">
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div class="tab-pane fade" id="step2">
-                                                <div class="well">
-
-                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">{{__('text.Where do you need the job done?')}}</h3>
-
-                                                    <input style="height: 40px;" type="search" name="quote_zipcode" id="quote-zipcode" class="form-control quote_validation" placeholder="{{$lang->spzc}}" autocomplete="off">
-                                                    <input type="hidden" id="check_address" value="0">
-                                                    <input id="postcode" name="postcode" type="hidden">
-                                                    <input name="city" id="city" type="hidden">
-
-                                                </div>
-                                            </div>
-
-
-                                            <div class="tab-pane fade" id="step3">
-
-                                                <div class="well" style="height: 300px;"></div>
-
-                                                <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-
-                                            </div>
-
-                                            <div class="tab-pane fade" id="step4">
-
-                                                <div class="well" style="height: 300px;">
-
-                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">{{__('text.Provide a description of your job')}}</h3>
-
-                                                    <textarea style="resize: vertical;" rows="7" name="quote_description" class="form-control quote_validation" placeholder="{{__('text.Providing more details increases interest from tradies')}}"></textarea>
-
-                                                </div>
-
-                                                <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-
-                                            </div>
-
-                                            <div class="tab-pane fade" id="step5">
-                                                <div class="well" style="height: 300px;">
-
-                                                    <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">{{__('text.Please provide some contact details.')}}</h3>
-
-                                                    <label>{{__('text.Name')}} <span style="color: red;">*</span></label>
-                                                    <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_name" class="form-control quote_validation" placeholder="{{__('text.Enter Name')}}" autocomplete="off">
-
-                                                    <label>{{__('text.Family Name')}} <span style="color: red;">*</span></label>
-                                                    <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_familyname" class="form-control quote_validation" placeholder="{{__('text.Enter Family Name')}}" autocomplete="off">
-
-                                                    <label>{{__('text.Email')}} <span style="color: red;">*</span></label>
-                                                    <input style="height: 45px;margin-bottom: 20px" type="email" name="quote_email" class="form-control quote_validation" placeholder="{{__('text.Enter Email')}}">
-
-                                                    <label>{{__('text.Contact Number')}} <span style="color: red;">*</span></label>
-                                                    <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_contact" class="form-control quote_validation" placeholder="{{__('text.Enter Contact Number')}}" autocomplete="off">
-
-                                                    <div>
-
-                                                        <label style="align-items: flex-start;font-size: 12px;padding-left: 25px;margin-bottom: 0;" class="container-checkbox terms">{{__('text.Your details will be used to create a job post, so that you can monitor and manage the job you\'ve posted.')}}
-                                                            <input name="permission" class="permission_validation" type="checkbox" value="1">
-                                                            <span style="top: 7px;width: 15px;height: 15px;border: 1px solid #8d8d8d;" class="checkmark-checkbox permission-checkbox"></span>
-                                                        </label>
-
-                                                    </div>
-
-                                                    <br>
-
-                                                    <small style="text-align: center;display: block;width: 80%;margin: auto;margin-bottom: 10px;">{{__('text.By pressing Get Quotes you agree to the')}} <a target="_blank" href="{{asset('assets/'.$data->file)}}">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}</small>
-
-                                                </div>
-                                                <div style="width: 100%;position: relative;height: 2rem;bottom: 1rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <button style="border: 0;display: none;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">{{__('text.Back')}}</button>
-                                        <button style="border: 0;outline: none;background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}} !important;" class="btn btn-primary next">{{__('text.Continue')}}</button>
-                                        <button style="display: none;border: 0;outline: none;background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}} !important;" class="btn btn-primary next-submit">{{__('text.Get Quotes')}}</button>
-                                    </div>
-
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
 
                     <style type="text/css">
 
@@ -409,13 +258,13 @@
 
             </div>
             <div class="text-center">
-                {!! $services->links() !!}
+                {!! $our_services->links() !!}
             </div>
         </div>
 
     </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLY8yBITvKeBs1k95HeMuCGgPgVGZRYi0&libraries=places&callback=initMap" async defer></script>
 
     <script type="text/javascript">
 
@@ -852,6 +701,19 @@
             });
 
             $('.start-btn').click(function(){
+
+                $('.quote-category').val('Diensten');
+                $(".quote-category").trigger('change.select2');
+
+                $('.linked-boxes').hide();
+                $('.unlinked-boxes').show();
+
+                $('.quote-service').addClass('quote_validation');
+                $('.quote-category').removeClass('quote_validation');
+                $('.quote-brand').removeClass('quote_validation');
+                $('.quote-model').removeClass('quote_validation');
+
+                $('#step1').children('.well').css('height','');
 
                 var service_id = $(this).data('id');
                 var options = '';
@@ -1495,7 +1357,7 @@
     <script>
 
 
-        $(".js-data-example-ajax2").select2({
+        $(".js-data-example-ajax10").select2({
             width: '100%',
             height: '200px',
             placeholder: "Select Service",
@@ -1506,6 +1368,47 @@
                     return '{{__('text.No results found')}}';
                 }
             },
+        });
+
+        $(".js-data-example-ajax2").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "{{__('text.Select Category')}}",
+            allowClear: true,
+            dropdownParent: $('#aanvragen'),
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+        });
+
+        $(".js-data-example-ajax5").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "{{__('text.Select Brand')}}",
+            allowClear: true,
+            dropdownParent: $('#aanvragen'),
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+
+        });
+
+        $(".js-data-example-ajax6").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "{{__('text.Select Model')}}",
+            allowClear: true,
+            dropdownParent: $('#aanvragen'),
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+
         });
 
 

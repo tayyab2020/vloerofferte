@@ -77,16 +77,18 @@
             <div class="cd-filter-block">
                 <h4>{{$lang->fprt}}</h4>
 
+                <input type="hidden" name="org_range_start" id="org_range-start" value="{{$lowest}}">
+                <input type="hidden" name="org_range_end" id="org_range-end" value="{{$highest}}">
+
                 <div class="cd-filter-content" style="margin-bottom: 50px;">
                     <div class="cd-filters">
                         <div id="slider" style="margin-top: 50px;"></div>
 
-                        <span style="float: left;margin-top: 10px;">€{{$lowest}}</span>
-                        <span style="float: right;margin-top: 10px;">€{{$highest}}</span>
+                        <span id="slider-lowest" style="float: left;margin-top: 10px;">€ {{$lowest}}</span>
+                        <span id="slider-highest" style="float: right;margin-top: 10px;">€ {{$highest}}</span>
 
                         <input type="hidden" name="range_start" id="range-start" value="{{$s ? $s : $lowest}}">
                         <input type="hidden" name="range_end" id="range-end" value="{{$e ? $e : $highest}}">
-
 
                     </div> <!-- cd-filter-content -->
                 </div> <!-- cd-filter-block -->
@@ -217,7 +219,7 @@
 
                 <div class="row">
 
-                    @foreach($products as $key)
+                    @foreach($all_products as $key)
                         <div class="col-lg-4 col-md-4 col-sm-4" style="z-index: 0;">
                             <div class="team_common">
 
@@ -270,196 +272,7 @@
 
                     @endforeach
 
-                        <div id="aanvragen" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
 
-                                <form id="quote_form" method="post" action="{{route('user.quote')}}">
-
-                                    <input type="hidden" name="_token" value="{{@csrf_token()}}">
-
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button style="background-color: white !important;color: black !important;" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            <h3 id="myModalLabel">{{__('text.Ask for Quotation')}}</h3>
-                                        </div>
-                                        <div class="modal-body" id="myWizard">
-
-                                            <div class="progress" style="height: 25px;">
-                                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 20%;line-height: 25px;font-size: 14px;font-weight: 100;background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};">
-                                                    {{__('text.Step')}} 1
-                                                </div>
-                                            </div>
-
-                                            <div class="navbar" style="display: none;">
-                                                <div class="navbar-inner">
-                                                    <ul class="nav nav-pills">
-                                                        <li class="active"><a href="#step1" data-toggle="tab" data-step="1">{{__('text.Step')}} 1</a></li>
-                                                        <li><a href="#step2" data-toggle="tab" data-step="2">{{__('text.Step')}} 2</a></li>
-                                                        <li><a href="#step3" data-toggle="tab" data-step="3">{{__('text.Step')}} 3</a></li>
-                                                        <li><a href="#step4" data-toggle="tab" data-step="4">{{__('text.Step')}} 4</a></li>
-                                                        <li><a href="#step5" data-toggle="tab" data-step="5">{{__('text.Step')}} 5</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div class="tab-content">
-
-                                                <div class="tab-pane fade in active" id="step1">
-
-                                                    <div class="well" style="height: 300px;">
-
-                                                        <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 30px;">{{__('text.Fill information for Quotation')}}</h3>
-
-                                                        <div style="margin-bottom: 40px;">
-
-                                                            <select class="js-data-example-ajax2 form-control quote-service quote_validation" style="height: 40px;" name="quote_service" id="blood_grp" required>
-
-                                                                <option value="">{{__('text.Select Category')}}</option>
-
-                                                                @if($lang->lang == 'eng')
-
-                                                                    @foreach($cats as $cat)
-                                                                        <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
-                                                                    @endforeach
-
-                                                                @else
-
-                                                                    @foreach($cats as $cat)
-                                                                        <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
-                                                                    @endforeach
-
-                                                                @endif
-
-                                                            </select>
-
-                                                        </div>
-
-
-                                                        <div style="margin-bottom: 40px;">
-
-                                                            <select class="js-data-example-ajax5 form-control quote-brand quote_validation" style="height: 40px;" name="quote_brand" id="blood_grp" required>
-
-                                                                <option value="">{{__('text.Select Brand')}}</option>
-
-                                                            </select>
-
-                                                        </div>
-
-
-                                                        <div style="margin-bottom: 40px;">
-
-                                                            <select class="js-data-example-ajax6 form-control quote-model quote_validation" style="height: 40px;" name="quote_model" id="blood_grp" required>
-
-                                                                <option value="">{{__('text.Select Model')}}</option>
-
-                                                            </select>
-
-                                                        </div>
-
-
-                                                        <div style="margin-bottom: 40px;">
-
-                                                            <input style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_model_number" placeholder="{{__('text.Model Number (Optional)')}}" class="form-control quote-model-number">
-
-                                                        </div>
-
-
-                                                        <div>
-
-                                                            <input maskedFormat="9,1" autocomplete="off" max="100" min="1" style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_quantity" placeholder="Quantity" class="form-control quote_quantity quote_validation">
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="tab-pane fade" id="step2">
-                                                    <div class="well">
-
-                                                        <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">{{__('text.Where do you need the job done?')}}</h3>
-
-                                                        <input style="height: 40px;" type="search" name="quote_zipcode" id="quote-zipcode" class="form-control quote_validation" placeholder="{{$lang->spzc}}" autocomplete="off">
-                                                        <input type="hidden" id="check_address" value="0">
-                                                        <input id="postcode" name="postcode" type="hidden">
-                                                        <input name="city" id="city" type="hidden">
-
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="tab-pane fade" id="step3">
-
-                                                    <div class="well" style="height: 300px;"></div>
-
-                                                    <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-
-                                                </div>
-
-                                                <div class="tab-pane fade" id="step4">
-
-                                                    <div class="well" style="height: 300px;">
-
-                                                        <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">{{__('text.Provide a description of your job')}}</h3>
-
-                                                        <textarea style="resize: vertical;" rows="7" name="quote_description" class="form-control quote_validation" placeholder="{{__('text.Providing more details increases interest from tradies')}}"></textarea>
-
-                                                    </div>
-
-                                                    <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-
-                                                </div>
-
-                                                <div class="tab-pane fade" id="step5">
-                                                    <div class="well" style="height: 300px;">
-
-                                                        <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">{{__('text.Please provide some contact details.')}}</h3>
-
-                                                        <label>{{__('text.Name')}} <span style="color: red;">*</span></label>
-                                                        <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_name" class="form-control quote_validation" placeholder="{{__('text.Enter Name')}}" autocomplete="off">
-
-                                                        <label>{{__('text.Family Name')}} <span style="color: red;">*</span></label>
-                                                        <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_familyname" class="form-control quote_validation" placeholder="{{__('text.Enter Family Name')}}" autocomplete="off">
-
-                                                        <label>{{__('text.Email')}} <span style="color: red;">*</span></label>
-                                                        <input style="height: 45px;margin-bottom: 20px" type="email" name="quote_email" class="form-control quote_validation" placeholder="{{__('text.Enter Email')}}">
-
-                                                        <label>{{__('text.Contact Number')}} <span style="color: red;">*</span></label>
-                                                        <input style="height: 45px;margin-bottom: 20px" type="text" name="quote_contact" class="form-control quote_validation" placeholder="{{__('text.Enter Contact Number')}}" autocomplete="off">
-
-                                                        <div>
-
-                                                            <label style="align-items: flex-start;font-size: 12px;padding-left: 25px;margin-bottom: 0;" class="container-checkbox terms">{{__('text.Your details will be used to create a job post, so that you can monitor and manage the job you\'ve posted.')}}
-                                                                <input name="permission" class="permission_validation" type="checkbox" value="1">
-                                                                <span style="top: 7px;width: 15px;height: 15px;border: 1px solid #8d8d8d;" class="checkmark-checkbox permission-checkbox"></span>
-                                                            </label>
-
-                                                        </div>
-
-                                                        <br>
-
-                                                        <small style="text-align: center;display: block;width: 80%;margin: auto;margin-bottom: 10px;">{{__('text.By pressing Get Quotes you agree to the')}} <a target="_blank" href="{{asset('assets/'.$data->file)}}">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}</small>
-
-                                                    </div>
-                                                    <div style="width: 100%;position: relative;height: 2rem;bottom: 1rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button style="border: 0;display: none;outline: none;background-color: #e5e5e5 !important;color: black !important;" class="btn back">{{__('text.Back')}}</button>
-                                            <button style="border: 0;outline: none;background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}} !important;" class="btn btn-primary next">{{__('text.Continue')}}</button>
-                                            <button style="display: none;border: 0;outline: none;background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}} !important;" class="btn btn-primary next-submit">{{__('text.Get Quotes')}}</button>
-                                        </div>
-
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
 
                     <style type="text/css">
 
@@ -647,13 +460,13 @@
 
             </div>
             <div class="text-center">
-                {!! $products->appends(['range_start' => $range_s, 'range_end' => $range_e, 'category' => $category, 'brand' => $brand, 'model' => $model, 'size' => $size, 'color' => $color])->links() !!}
+                {!! $all_products->appends(['range_start' => $range_s, 'range_end' => $range_e, 'category' => $category, 'brand' => $brand, 'model' => $model, 'size' => $size, 'color' => $color])->links() !!}
             </div>
         </div>
 
     </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLY8yBITvKeBs1k95HeMuCGgPgVGZRYi0&libraries=places&callback=initMap" async defer></script>
 
     <script type="text/javascript">
 
@@ -926,11 +739,11 @@
 
             });
 
-            $('.quote-service').change(function(){
+            $('.quote-category').change(function(){
 
-                $('.quote-service').val($(this).val());
+                $('.quote-category').val($(this).val());
 
-                $(".quote-service").trigger('change.select2');
+                $(".quote-category").trigger('change.select2');
 
                 $('.navbar a[href="#step1"]').trigger('click');
 
@@ -1190,8 +1003,8 @@
                     url: "<?php echo url('/products-by-id')?>",
                     success: function (data) {
 
-                        $('.quote-service').val(data.category_id);
-                        $(".quote-service").trigger('change.select2');
+                        $('.quote-category').val(data.category_id);
+                        $(".quote-category").trigger('change.select2');
 
                         var category_id = data.category_id;
                         var brand_id = data.brand_id;
@@ -1917,70 +1730,90 @@
             var options = '';
             var options1 = '';
 
-            $.ajax({
-                type:"GET",
-                data: "id=" + id ,
-                url: "<?php echo url('/products-sizes-by-category')?>",
-                success: function(data) {
+            if(id != '')
+            {
+                $.ajax({
+                    type:"GET",
+                    data: "id=" + id ,
+                    url: "<?php echo url('/products-data-by-category')?>",
+                    success: function(data) {
 
-                    $.each(data[0], function(index, value) {
+                        var highest = data[2];
+                        var lowest = data[3];
 
-                        var measure = value.measure;
+                        slider.noUiSlider.updateOptions({
+                            range: {
+                                'min': lowest,
+                                'max': highest
+                            },
+                            start: [lowest,highest],
+                        });
 
-                        var size_count = 0;
-                        var sizes = value.size;
-                        sizes = sizes.split(',');
+                        $("#slider-lowest").text('€ '+ lowest);
+                        $("#slider-highest").text('€ '+ highest);
 
-                        if(value.size != '')
-                        {
-                            size_count = sizes.length;
-                        }
+                        $('#org_range-start').val(lowest);
+                        $('#org_range-end').val(highest);
 
-                        if(size_count > 0)
-                        {
-                            for(var i=0;i<size_count;i++)
+                        $.each(data[0], function(index, value) {
+
+                            var measure = value.measure;
+
+                            var size_count = 0;
+                            var sizes = value.size;
+                            sizes = sizes.split(',');
+
+                            if(value.size != '')
                             {
-                                var opt = '<option value="'+sizes[i]+'" >'+sizes[i] +' '+measure+'</option>';
-                                options = options + opt;
+                                size_count = sizes.length;
                             }
-                        }
 
-                    });
-
-                    $.each(data[1], function(index, value) {
-
-                        var color_count = 0;
-                        var colors = value.color;
-                        colors = colors.split(',');
-
-                        if(value.color != '')
-                        {
-                            color_count = colors.length;
-                        }
-
-                        if(color_count > 0)
-                        {
-                            for(var i=0;i<color_count;i++)
+                            if(size_count > 0)
                             {
-                                var opt1 = '<option value="'+colors[i]+'" >'+colors[i]+'</option>';
-                                options1 = options1 + opt1;
+                                for(var i=0;i<size_count;i++)
+                                {
+                                    var opt = '<option value="'+sizes[i]+'" >'+sizes[i] +' '+measure+'</option>';
+                                    options = options + opt;
+                                }
                             }
-                        }
 
-                    });
+                        });
 
-                    $('.sizes').find('option')
-                        .remove()
-                        .end()
-                        .append('<option value="">Select Size</option>'+options);
+                        $.each(data[1], function(index, value) {
 
-                    $('.colors').find('option')
-                        .remove()
-                        .end()
-                        .append('<option value="">Select Color</option>'+options1);
+                            var color_count = 0;
+                            var colors = value.color;
+                            colors = colors.split(',');
 
-                }
-            });
+                            if(value.color != '')
+                            {
+                                color_count = colors.length;
+                            }
+
+                            if(color_count > 0)
+                            {
+                                for(var i=0;i<color_count;i++)
+                                {
+                                    var opt1 = '<option value="'+colors[i]+'" >'+colors[i]+'</option>';
+                                    options1 = options1 + opt1;
+                                }
+                            }
+
+                        });
+
+                        $('.sizes').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Size</option>'+options);
+
+                        $('.colors').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Color</option>'+options1);
+
+                    }
+                });
+            }
 
         });
 

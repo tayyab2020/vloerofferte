@@ -13,15 +13,15 @@
 
   Route::get('/','FrontendController@index')->name('front.index');
   Route::get('/products','FrontendController@products')->name('front.products');
-  Route::get('/product/{id}','FrontendController@product');
+  Route::get('/product/{id}','FrontendController@product')->name('front.product');
   Route::get('/our-services','FrontendController@services')->name('front.services');
-  Route::get('/service/{id}','FrontendController@service');
+  Route::get('/service/{id}','FrontendController@service')->name('front.service');
   Route::get('/products-by-id', 'FrontendController@productsById')->name('all-products-by-id');
   Route::get('/handymanproducts-by-id', 'FrontendController@handymanproductsById');
   Route::get('/products-model-number-by-model', 'FrontendController@productsModelNumberByModel')->name('all-products-model-number-by-model');
   Route::get('/products-models-by-brands', 'FrontendController@productsModelsByBrands')->name('all-products-models-by-brands');
   Route::get('/products-brands-by-category', 'FrontendController@productsBrandsByCategory')->name('all-products-brands-by-category');
-  Route::get('/products-sizes-by-category', 'FrontendController@productsSizesByCategory')->name('all-products-sizes-by-category');
+  Route::get('/products-data-by-category', 'FrontendController@productsDataByCategory')->name('all-products-data-by-category');
   Route::get('/account-products-models-by-brands', 'FrontendController@accountProductsModelsByBrands')->name('products-models-by-brands');
   Route::get('/account-products-brands-by-category', 'FrontendController@accountProductsBrandsByCategory')->name('products-brands-by-category');
   Route::get('/get-questions','FrontendController@GetQuestions');
