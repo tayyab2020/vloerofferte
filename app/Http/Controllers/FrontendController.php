@@ -1399,9 +1399,6 @@ class FrontendController extends Controller
             $lowest = estimated_prices::min('price');
         }
 
-        var_dump($e);
-        exit();
-
         $all_products = $all_products->select('products.*','estimated_prices.price')->groupBy('products.id')->paginate(12);
 
         $cats = Category::where('main_service', '=', 1)->get();
