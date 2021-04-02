@@ -1393,13 +1393,12 @@ class FrontendController extends Controller
         }
         else
         {
-            $s = 's';
-            $e = 'e';
             $highest = estimated_prices::max('price');
             $lowest = estimated_prices::min('price');
+
+            $s = $lowest;
+            $e = $highest;
         }
-        var_dump($s);
-        exit();
 
         $all_products = $all_products->select('products.*','estimated_prices.price')->groupBy('products.id')->paginate(12);
 
