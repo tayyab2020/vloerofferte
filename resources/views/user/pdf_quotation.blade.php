@@ -97,11 +97,11 @@
                                 <table class="table" style="border: 1px solid #e5e5e5;">
                                     <thead>
                                     <tr>
-                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Category/Item')}}</th>
+                                        {{--<th class="border-0 text-uppercase small font-weight-bold">{{__('text.Category/Item')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Brand')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model')}}</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model Number')}}</th>
-                                        {{--<th class="border-0 text-uppercase small font-weight-bold">{{__('text.Description')}}</th>--}}
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model Number')}}</th>--}}
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Description')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Qty')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Cost')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Amount')}}</th>
@@ -114,11 +114,11 @@
                                         @foreach($invoice as $x => $key)
 
                                             <tr>
-                                                <td>{{$key->service}}</td>
+                                                {{--<td>{{$key->service}}</td>
                                                 <td>{{$key->brand}}</td>
                                                 <td>{{$key->model}}</td>
-                                                <td>{{(isset($invoice[$x]->b_i_id) && isset($invoice[$x]->m_i_id)) ? ($quote->quote_service == $invoice[$x]->s_i_id && $quote->quote_brand == $invoice[$x]->b_i_id && $quote->quote_model == $invoice[$x]->m_i_id ? $quote->quote_model_number : null) : null}}</td>
-                                                {{--<td>{{$key->description}}</td>--}}
+                                                <td>{{(isset($invoice[$x]->b_i_id) && isset($invoice[$x]->m_i_id)) ? ($quote->quote_service == $invoice[$x]->s_i_id && $quote->quote_brand == $invoice[$x]->b_i_id && $quote->quote_model == $invoice[$x]->m_i_id ? $quote->quote_model_number : null) : null}}</td>--}}
+                                                <td>{{$key->description}}</td>
                                                 <td>{{number_format((float)$key->qty, 2, ',', '.')}}</td>
                                                 <td>{{number_format((float)$key->rate, 2, ',', '.')}}</td>
                                                 <td>{{number_format((float)$key->amount, 2, ',', '.')}}</td>
@@ -131,11 +131,11 @@
                                         @foreach($request->item as $i => $key)
 
                                             <tr>
-                                                <td>{{$request->service_title[$i]}}</td>
+                                                {{--<td>{{$request->service_title[$i]}}</td>
                                                 <td>{{$request->brand_title[$i]}}</td>
                                                 <td>{{$request->model_title[$i]}}</td>
-                                                <td>{{(isset($request->brand[$i]) && isset($request->model[$i])) ? ($quote->quote_service == $request->item[$i] && $quote->quote_brand == $request->brand[$i] && $quote->quote_model == $request->model[$i] ? $quote->quote_model_number : null) : null}}</td>
-                                                {{--<td>{{$request->description[$i]}}</td>--}}
+                                                <td>{{(isset($request->brand[$i]) && isset($request->model[$i])) ? ($quote->quote_service == $request->item[$i] && $quote->quote_brand == $request->brand[$i] && $quote->quote_model == $request->model[$i] ? $quote->quote_model_number : null) : null}}</td>--}}
+                                                <td>{{$request->description[$i]}}</td>
                                                 <td>{{$request->qty[$i]}}</td>
                                                 <td>{{$request->cost[$i]}}</td>
                                                 <td>{{$request->amount[$i]}}</td>

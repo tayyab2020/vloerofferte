@@ -1275,7 +1275,7 @@ class UserController extends Controller
                     $invoice_items->model = $request->model_title[$i];
 
                 }
-                
+
                 $invoice_items->rate = str_replace(",",".",$request->cost[$i]);
                 $invoice_items->qty = str_replace(",",".",$request->qty[$i]);
                 $invoice_items->description = $request->description[$i];

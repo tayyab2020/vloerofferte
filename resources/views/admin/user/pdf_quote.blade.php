@@ -85,6 +85,7 @@
                                             @else
 
                                                 <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Service')}}</th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Description')}}</th>
 
                                             @endif
                                             {{--<th class="border-0 text-uppercase small font-weight-bold">Street</th>
@@ -105,6 +106,7 @@
                                                 @else
 
                                                     <td>{{$quote->title}}</td>
+                                                    <td>{{$quote->quote_description}}</td>
 
                                                 @endif
 

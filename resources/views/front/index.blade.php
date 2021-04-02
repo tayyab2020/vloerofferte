@@ -717,6 +717,76 @@
     </section>
 
 
+    <!-- Starting of All - sectors area -->
+    <div class="section-padding all-sectors-wrap wow fadeInUp" style="background-color: white;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title pb_50 text-center">
+                        <h2>{{$lang->bgs}}</h2>
+
+                        <div class="section-borders">
+                            <span></span>
+                            <span class="black-border"></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                @foreach($services as $service)
+
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                            <div class="mainflip">
+                                <div class="frontside">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <p>
+
+                                                @if($service->photo == NULL)
+
+                                                    <img class=" img-fluid" src="{{asset('assets/default.jpg')}}" >
+
+                                                @else
+
+                                                    <img class=" img-fluid" src="{{asset('assets/images/'.$service->photo)}}" >
+
+                                            @endif
+
+                                            <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$service->title}}</h4>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="backside" >
+                                    <div class="card">
+                                        <div class="card-body text-center mt-4">
+
+                                            <h4 class="card-title">{{$service->title}}</h4>
+
+                                            <p class="card-text">{!! $service->description !!}</p>
+
+                                            <a class="btn btn-primary" style="color: white !important;margin-top: 20px;" href="{{url('service/'.$service->id)}}">View</a>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                @endforeach
+
+            </div>
+        </div>
+    </div>
+    <!-- Ending of All - sectors area -->
+
     <!-- Starting of blog area -->
     <div class="section-padding blog-area-wrapper wow fadeInUp">
 
