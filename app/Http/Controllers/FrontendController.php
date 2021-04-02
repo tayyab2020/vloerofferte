@@ -432,8 +432,8 @@ class FrontendController extends Controller
 
         $data[0] = $sizes;
         $data[1] = $colors;
-        $data[2] = $highest;
-        $data[3] = $lowest;
+        $data[2] = floatval($highest);
+        $data[3] = floatval($lowest);
 
         return $data;
     }
@@ -1388,8 +1388,8 @@ class FrontendController extends Controller
         if($range_s != NULL && $range_e != NULL)
         {
             $all_products = $all_products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
-            $lowest = floatval($request->org_range_start);
-            $highest = floatval($request->org_range_end);
+            $lowest = $request->org_range_start;
+            $highest = $request->org_range_end;
         }
 
         $all_products = $all_products->select('products.*','estimated_prices.price')->groupBy('products.id')->paginate(12);
