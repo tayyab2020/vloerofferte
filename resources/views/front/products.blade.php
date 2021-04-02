@@ -87,7 +87,7 @@
                         <span id="slider-lowest" style="float: left;margin-top: 10px;">€ {{$lowest}}</span>
                         <span id="slider-highest" style="float: right;margin-top: 10px;">€ {{$highest}}</span>
 
-                        <input type="hidden" name="range_start" id="range-start" value="{{$s ? $s : $lowest}}">
+                        <input type="hidden" name="range_start" id="range-start" value="{{$s ? $s : ($s == 0 ? 0 : $lowest)}}">
                         <input type="hidden" name="range_end" id="range-end" value="{{$e ? $e : ($e == 0 ? 0 : $highest)}}">
 
                     </div> <!-- cd-filter-content -->

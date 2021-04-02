@@ -1347,16 +1347,12 @@ class FrontendController extends Controller
     {
         $range_s = $request->range_start;
         $range_e = $request->range_end;
-        $s = floatval($range_s);
-        $e = floatval($range_e);
 
         $category = $request->category;
         $brand = $request->brand;
         $model = $request->model;
         $size = $request->size;
         $color = $request->color;
-        $highest = estimated_prices::max('price');
-        $lowest = estimated_prices::min('price');
 
         $all_products = Products::leftjoin('estimated_prices','estimated_prices.product_id','=','products.id');
 
@@ -1387,9 +1383,20 @@ class FrontendController extends Controller
 
         if($range_s != NULL && $range_e != NULL)
         {
+            $s = floatval($range_s);
+            $e = floatval($range_e);
+
             $all_products = $all_products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
+
             $lowest = $request->org_range_start;
             $highest = $request->org_range_end;
+        }
+        else
+        {
+            $s = '';
+            $e = '';
+            $highest = estimated_prices::max('price');
+            $lowest = estimated_prices::min('price');
         }
 
         $all_products = $all_products->select('products.*','estimated_prices.price')->groupBy('products.id')->paginate(12);
