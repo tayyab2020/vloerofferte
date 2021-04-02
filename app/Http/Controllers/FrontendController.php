@@ -1385,7 +1385,7 @@ class FrontendController extends Controller
             $all_products = $all_products->whereRaw("find_in_set('".$color."',products.color)");
         }
 
-        if($range_s != NULL && $range_e != NULL)
+        if(isset($range_s) && isset($range_e))
         {
             $all_products = $all_products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
             $lowest = $request->org_range_start;
