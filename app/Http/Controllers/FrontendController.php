@@ -1388,8 +1388,8 @@ class FrontendController extends Controller
         if($range_s != NULL && $range_e != NULL)
         {
             $all_products = $all_products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
-            $lowest = $request->org_range_start;
-            $highest = $request->org_range_end;
+            $lowest = floatval($request->org_range_start);
+            $highest = floatval($request->org_range_end);
         }
 
         $all_products = $all_products->select('products.*','estimated_prices.price')->groupBy('products.id')->paginate(12);
