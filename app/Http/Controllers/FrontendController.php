@@ -1383,6 +1383,7 @@ class FrontendController extends Controller
 
         if($range_s != NULL && $range_e != NULL)
         {
+            exit();
             $s = floatval($range_s);
             $e = floatval($range_e);
 
