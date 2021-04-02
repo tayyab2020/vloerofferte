@@ -87,17 +87,8 @@
                         <span id="slider-lowest" style="float: left;margin-top: 10px;">€ {{$lowest}}</span>
                         <span id="slider-highest" style="float: right;margin-top: 10px;">€ {{$highest}}</span>
 
-                        @if($s == '' && $s != 0.00 && $s != 0)
-                            <input type="hidden" name="range_start" id="range-start" value="{{$lowest}}">
-                        @else
-                            <input type="hidden" name="range_start" id="range-start" value="{{$s}}">
-                        @endif
-
-                        @if($e == '' && $e != 0.00 && $e != 0)
-                            <input type="hidden" name="range_end" id="range-end" value="{{$highest}}">
-                        @else
-                            <input type="hidden" name="range_end" id="range-end" value="{{$e}}">
-                        @endif
+                        <input type="hidden" name="range_start" id="range-start" value="{{$s == '' ? $lowest : $s}}">
+                        <input type="hidden" name="range_end" id="range-end" value="{{$e == '' && $s != $e ? $highest : $e}}">
 
                     </div> <!-- cd-filter-content -->
                 </div> <!-- cd-filter-block -->
