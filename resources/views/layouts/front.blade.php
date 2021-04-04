@@ -446,13 +446,7 @@
 
                                         <option value="">{{__('text.Select Category')}}</option>
 
-                                        @if($lang->lang == 'eng')
-
-                                            @foreach($cats as $cat)
-                                                <option value="{{$cat->id}}">{{$cat->cat_slug}}</option>
-                                            @endforeach
-
-                                        @else
+                                        @if(isset($cats))
 
                                             @foreach($cats as $cat)
                                                 <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
@@ -508,9 +502,13 @@
 
                                         <option value="">Select Service</option>
 
-                                        @foreach($services as $service)
-                                            <option value="{{$service->id}}">{{$service->title}}</option>
-                                        @endforeach
+                                        @if(isset($services))
+
+                                            @foreach($services as $service)
+                                                <option value="{{$service->id}}">{{$service->title}}</option>
+                                            @endforeach
+
+                                        @endif
 
                                     </select>
 
@@ -613,7 +611,7 @@
                                 <small
                                     style="text-align: center;display: block;width: 80%;margin: auto;margin-bottom: 10px;">{{__('text.By pressing Get Quotes you agree to the')}}
                                     <a target="_blank"
-                                       href="{{asset('assets/'.$data->file)}}">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}
+                                       href="{{isset($data) ? asset('assets/'.$data->file) : null}}">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}
                                 </small>
 
                             </div>

@@ -352,14 +352,13 @@ class FrontendController extends Controller
     {
 
         $cats = Category::where('main_service', '=', 1)->get();
-        $products = Products::leftjoin('categories','categories.id','=','products.category_id')->select('products.id','products.title','categories.cat_name')->get();
 
         $language = $this->lang->lang;
         $blogs = Blog::all();
         $data = terms_conditions::where("role",2)->first();
         $services = Service::all();
 
-        return view('front.index', compact('data','blogs', 'cats', 'language','products','services'));
+        return view('front.index', compact('data','blogs', 'cats', 'language','services'));
 
     }
 
