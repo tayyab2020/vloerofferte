@@ -351,12 +351,10 @@ class FrontendController extends Controller
     public function index()
     {
 
-        $cats = Category::where('main_service', '=', 1)->get();
-
         $language = $this->lang->lang;
         $blogs = Blog::all();
 
-        return view('front.index', compact('blogs', 'cats', 'language'));
+        return view('front.index', compact('blogs', 'language'));
 
     }
 

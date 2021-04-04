@@ -1095,6 +1095,7 @@
 
             $('.start-btn').click(function(){
 
+                $('.quote_delivery').attr("placeholder", "Select Delivery Date");
                 var product_id = $(this).data('id');
                 var options = '';
 

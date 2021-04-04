@@ -901,6 +901,7 @@
                 $('.quote-model').removeClass('quote_validation');
 
                 $('#step1').children('.well').css('height','');
+                $('.quote_delivery').attr("placeholder", "Select Installation Date");
 
                 var service_id = $(this).data('id');
                 var options = '';
