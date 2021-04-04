@@ -102,7 +102,15 @@ class ProductController extends Controller
     public function store(StoreValidationRequest3 $request)
     {
         $prices = preg_replace("/,([\s])+/",",",$request->estimated_price);
-        $pricesArray = explode(',', $prices);
+
+        if($prices)
+        {
+            $pricesArray = explode(',', $prices);
+        }
+        else
+        {
+            $pricesArray = [];
+        }
 
         $input = $request->all();
 

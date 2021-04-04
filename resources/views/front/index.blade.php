@@ -132,9 +132,13 @@
 
                                     <option value="">Select Service</option>
 
-                                    @foreach($services as $service)
-                                        <option value="{{$service->id}}">{{$service->title}}</option>
-                                    @endforeach
+                                    @if(isset($quote_services))
+
+                                        @foreach($quote_services as $service)
+                                            <option value="{{$service->id}}">{{$service->title}}</option>
+                                        @endforeach
+
+                                    @endif
 
                                 </select>
 
@@ -185,7 +189,7 @@
 
                                 <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
 
-                                    @foreach($products as $product)
+                                    @foreach($quote_products as $product)
                                         <option data-cat="{{$product->cat_name}}" value="{{$product->id}}">{{$product->title}}</option>
                                     @endforeach
 
@@ -529,7 +533,7 @@
 
             <div class="row">
 
-                @foreach($services as $service)
+                @foreach($quote_cats as $cat)
 
                     <div class="col-xs-12 col-sm-6 col-md-4">
                         <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
@@ -539,17 +543,17 @@
                                         <div class="card-body text-center">
                                             <p>
 
-                                                @if($service->photo == NULL)
+                                                @if($cat->photo == NULL)
 
                                                     <img class=" img-fluid" src="{{asset('assets/default.jpg')}}" >
 
                                                 @else
 
-                                                    <img class=" img-fluid" src="{{asset('assets/images/'.$service->photo)}}" >
+                                                    <img class=" img-fluid" src="{{asset('assets/images/'.$cat->photo)}}" >
 
                                             @endif
 
-                                            <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$service->title}}</h4>
+                                            <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$cat->cat_name}}</h4>
 
                                         </div>
                                     </div>
@@ -558,11 +562,11 @@
                                     <div class="card">
                                         <div class="card-body text-center mt-4">
 
-                                            <h4 class="card-title">{{$service->title}}</h4>
+                                            <h4 class="card-title">{{$cat->cat_name}}</h4>
 
-                                            <p class="card-text">{!! $service->description !!}</p>
+                                            <p class="card-text">{!! $cat->description !!}</p>
 
-                                            <a class="btn btn-primary" style="color: white !important;margin-top: 20px;" href="{{url('service/'.$service->id)}}">View</a>
+                                            <a class="btn btn-primary" style="color: white !important;margin-top: 20px;" href="{{url('products/?_token='.@csrf_token().'&category='.$cat->id)}}">View</a>
 
 
                                         </div>

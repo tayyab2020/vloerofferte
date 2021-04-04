@@ -31,7 +31,7 @@
                     <div class="cd-select cd-filters">
                         <select class="filter categories" name="category" id="category">
                             <option value="">Select Category</option>
-                            @foreach($cats as $key)
+                            @foreach($quote_cats as $key)
                                 <option {{$category == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->cat_name}}</option>
                             @endforeach
                         </select>
@@ -46,7 +46,7 @@
                     <div class="cd-select cd-filters">
                         <select class="filter brands" name="brand" id="brand">
                             <option value="">Select Brand</option>
-                            @foreach($brands as $key)
+                            @foreach($filter_brands as $key)
                                 <option {{$brand == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->cat_name}}</option>
                             @endforeach
                         </select>
@@ -61,7 +61,7 @@
                     <div class="cd-select cd-filters">
                         <select class="filter models" name="model" id="model">
                             <option value="">Select Model</option>
-                            @foreach($models as $key)
+                            @foreach($filter_models as $key)
                                 <option {{$model == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->cat_name}}</option>
                             @endforeach
                         </select>
@@ -1741,8 +1741,27 @@
                         var highest = data[2];
                         var lowest = data[3];
 
-                        if(highest != null && lowest != null && highest != lowest)
+
+                        if(highest != lowest)
                         {
+                            slider.noUiSlider.updateOptions({
+                                range: {
+                                    'min': lowest,
+                                    'max': highest
+                                },
+                                start: [lowest,highest],
+                            });
+
+                            $("#slider-lowest").text('€ '+ lowest);
+                            $("#slider-highest").text('€ '+ highest);
+
+                            $('#org_range-start').val(lowest);
+                            $('#org_range-end').val(highest);
+                        }
+                        else
+                        {
+                            highest = highest + 0.1;
+
                             slider.noUiSlider.updateOptions({
                                 range: {
                                     'min': lowest,

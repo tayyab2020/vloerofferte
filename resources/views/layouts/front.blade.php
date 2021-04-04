@@ -446,9 +446,9 @@
 
                                         <option value="">{{__('text.Select Category')}}</option>
 
-                                        @if(isset($cats))
+                                        @if(isset($quote_cats))
 
-                                            @foreach($cats as $cat)
+                                            @foreach($quote_cats as $cat)
                                                 <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
                                             @endforeach
 
@@ -502,9 +502,9 @@
 
                                         <option value="">Select Service</option>
 
-                                        @if(isset($services))
+                                        @if(isset($quote_services))
 
-                                            @foreach($services as $service)
+                                            @foreach($quote_services as $service)
                                                 <option value="{{$service->id}}">{{$service->title}}</option>
                                             @endforeach
 
@@ -611,7 +611,7 @@
                                 <small
                                     style="text-align: center;display: block;width: 80%;margin: auto;margin-bottom: 10px;">{{__('text.By pressing Get Quotes you agree to the')}}
                                     <a target="_blank"
-                                       href="{{isset($data) ? asset('assets/'.$data->file) : null}}">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}
+                                       href="{{isset($quote_data) ? asset('assets/'.$quote_data->file) : null}}">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}
                                 </small>
 
                             </div>

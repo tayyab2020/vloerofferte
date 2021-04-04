@@ -66,7 +66,16 @@ class ProductsImport implements ToModel, WithStartRow
         $model_numbers = preg_replace("/,([\s])+/",",",$row[7]);
         $sizes = preg_replace("/,([\s])+/",",",$row[8]);
         $prices = preg_replace("/,([\s])+/",",",$row[10]);
-        $pricesArray = explode(',', $prices);
+
+        if($prices)
+        {
+            $pricesArray = explode(',', $prices);
+        }
+        else
+        {
+            $pricesArray = [];
+        }
+
         $colors = preg_replace("/,([\s])+/",",",$row[15]);
 
         if($row[1])

@@ -355,10 +355,8 @@ class FrontendController extends Controller
 
         $language = $this->lang->lang;
         $blogs = Blog::all();
-        $data = terms_conditions::where("role",2)->first();
-        $services = Service::all();
 
-        return view('front.index', compact('data','blogs', 'cats', 'language','services'));
+        return view('front.index', compact('blogs', 'cats', 'language'));
 
     }
 
@@ -1358,6 +1356,26 @@ class FrontendController extends Controller
         if($category)
         {
             $all_products = $all_products->where('products.category_id',$category);
+
+            if(!$range_s && !$range_e)
+            {
+                $range_s = $all_products->min('estimated_prices.price');
+                $range_e = $all_products->max('estimated_prices.price');
+
+                if($range_s == NULL && $range_e == NULL)
+                {
+                    $range_e = 0;
+                    $range_s = 0;
+                }
+
+                if($range_s == $range_e)
+                {
+                    $range_e = $range_e + 0.1;
+                }
+
+                $request->org_range_start = $range_s;
+                $request->org_range_end = $range_e;
+            }
         }
 
         if($brand)
@@ -1380,7 +1398,7 @@ class FrontendController extends Controller
             $all_products = $all_products->whereRaw("find_in_set('".$color."',products.color)");
         }
 
-        if($range_s != NULL && $range_e != NULL)
+        if(is_numeric($range_s) && is_numeric($range_e))
         {
             $s = floatval($range_s);
             $e = floatval($range_e);
@@ -1401,43 +1419,36 @@ class FrontendController extends Controller
 
         $all_products = $all_products->select('products.*','estimated_prices.price')->groupBy('products.id')->paginate(12);
 
-        $cats = Category::where('main_service', '=', 1)->get();
-        $brands = Brand::all();
-        $models = Model1::all();
-        $data = terms_conditions::where("role",2)->first();
+        $filter_brands = Brand::all();
+        $filter_models = Model1::all();
         $sizes = Products::where('category_id','=',$request->category)->where('size','!=',NULL)->get();
         $sizes = $sizes->unique('size');
         $colors = Products::where('category_id','=',$request->category)->where('color','!=',NULL)->get();
         $colors = $colors->unique('color');
 
-        return view('front.products',compact('highest','lowest','sizes','colors','all_products','cats','brands','models','data','s','e','range_s','range_e','category','brand','model','size','color'));
+        return view('front.products',compact('highest','lowest','sizes','colors','all_products','filter_brands','filter_models','s','e','range_s','range_e','category','brand','model','size','color'));
     }
 
 
     public function services(Request $request)
     {
         $our_services = Service::groupBy('services.id')->paginate(12);
-        $data = terms_conditions::where("role",2)->first();
 
-        $all_services = Service::all();
-
-        return view('front.services',compact('our_services','data','all_services'));
+        return view('front.services',compact('our_services'));
     }
 
     public function product($id)
     {
         $product = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('products.id',$id)->select('products.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->first();
-        $data = terms_conditions::where("role",2)->first();
 
-        return view('front.product',compact('product','data'));
+        return view('front.product',compact('product'));
     }
 
     public function service($id)
     {
         $service = Service::where('id',$id)->first();
-        $data = terms_conditions::where("role",2)->first();
 
-        return view('front.service',compact('service','data'));
+        return view('front.service',compact('service'));
     }
 
     public function subscribe(Request $request)

@@ -92,15 +92,15 @@ class AppServiceProvider extends ServiceProvider
 
             if(\Route::currentRouteName() == 'front.index' || \Route::currentRouteName() == 'front.products' || \Route::currentRouteName() == 'front.product' || \Route::currentRouteName() == 'front.services' || \Route::currentRouteName() == 'front.service')
             {
-                $cats = Category::where('main_service', '=', 1)->get();
-                $products = Products::leftjoin('categories','categories.id','=','products.category_id')->select('products.id','products.title','categories.cat_name')->get();
-                $services = Service::all();
-                $data = terms_conditions::where("role",2)->first();
+                $quote_cats = Category::where('main_service', '=', 1)->get();
+                $quote_products = Products::leftjoin('categories','categories.id','=','products.category_id')->select('products.id','products.title','categories.cat_name')->get();
+                $quote_services = Service::all();
+                $quote_data = terms_conditions::where("role",2)->first();
 
-                $settings->with('cats', $cats);
-                $settings->with('products', $products);
-                $settings->with('services', $services);
-                $settings->with('data', $data);
+                $settings->with('quote_cats', $quote_cats);
+                $settings->with('quote_products', $quote_products);
+                $settings->with('quote_services', $quote_services);
+                $settings->with('quote_data', $quote_data);
             }
 
             $settings->with('sl', Sociallink::find(1));
