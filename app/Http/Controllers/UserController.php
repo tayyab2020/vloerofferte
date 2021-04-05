@@ -534,7 +534,7 @@ class UserController extends Controller
 
         if($request->change_address == 1)
         {
-            quotes::where('id', $invoice[0]->quote_id)->update(['status' => 2,'quote_zipcode' => $request->delivery_address,'quote_postcode' => $request->postcode,'quote_city' => $request->city]);
+            quotes::where('id', $invoice[0]->quote_id)->update(['status' => 2,'quote_delivery' => $delivery_date,'quote_zipcode' => $request->delivery_address,'quote_postcode' => $request->postcode,'quote_city' => $request->city]);
 
             if($request->update == 1)
             {
@@ -543,7 +543,7 @@ class UserController extends Controller
         }
         else
         {
-            quotes::where('id', $invoice[0]->quote_id)->update(['status' => 2]);
+            quotes::where('id', $invoice[0]->quote_id)->update(['status' => 2, 'quote_delivery' => $delivery_date]);
         }
 
         $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->leftjoin('services','services.id','=','quotes.quote_service1')->leftjoin('users','users.id','=','quotes.user_id')->where('quotes.id',$invoice[0]->quote_id)->select('quotes.*','categories.cat_name','services.title','brands.cat_name as brand_name','models.cat_name as model_name','users.postcode','users.city','users.address')->first();
@@ -1224,7 +1224,7 @@ class UserController extends Controller
 
         if ($name == 'store-quotation') {
 
-            $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.id', $request->quote_id)->select('quotes.*', 'categories.cat_name')->first();
+            $quote = quotes::where('id', $request->quote_id)->first();
             $quote->status = 1;
             $quote->save();
 
@@ -1240,6 +1240,7 @@ class UserController extends Controller
             $invoice->subtotal = str_replace(",",".",$request->sub_total);
             $invoice->grand_total = str_replace(",",".",$request->grand_total);
             $invoice->description = $request->other_info;
+            $invoice->delivery_date = $quote->quote_delivery;
             $invoice->save();
 
             foreach ($services as $i => $key) {

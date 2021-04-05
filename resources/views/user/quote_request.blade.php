@@ -29,43 +29,43 @@
 
                                         @if($request->status > 1 && $invoice && $invoice->accepted)
 
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4"
-                                                       for="blood_group_slug">{{__('text.Name')}}* </label>
-                                                <div class="col-sm-6">
-                                                    <p style="padding: 10px;" class="form-control">{{$request->quote_name}}</p>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4"
+                                                           for="blood_group_slug">{{__('text.Name')}}* </label>
+                                                    <div class="col-sm-6">
+                                                        <p style="padding: 10px;" class="form-control">{{$request->quote_name}}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Family Name')}}* </label>
-                                                <div class="col-sm-6">
-                                                    <p style="padding: 10px;" class="form-control">{{$request->quote_familyname}}</p>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Family Name')}}* </label>
+                                                    <div class="col-sm-6">
+                                                        <p style="padding: 10px;" class="form-control">{{$request->quote_familyname}}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4"
-                                                       for="blood_group_slug">{{__('text.Email')}}* </label>
-                                                <div class="col-sm-6">
-                                                    <p style="padding: 10px;" class="form-control">{{$request->quote_email}}</p>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4"
+                                                           for="blood_group_slug">{{__('text.Email')}}* </label>
+                                                    <div class="col-sm-6">
+                                                        <p style="padding: 10px;" class="form-control">{{$request->quote_email}}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4"
-                                                       for="blood_group_slug">{{__('text.Contact')}}* </label>
-                                                <div class="col-sm-6">
-                                                    <p style="padding: 10px;" class="form-control">{{$request->quote_contact}}</p>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4"
+                                                           for="blood_group_slug">{{__('text.Contact')}}* </label>
+                                                    <div class="col-sm-6">
+                                                        <p style="padding: 10px;" class="form-control">{{$request->quote_contact}}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Zip Code')}}* </label>
-                                                <div class="col-sm-6">
-                                                    <p style="padding: 10px;" class="form-control">{{$request->quote_zipcode}}</p>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Zip Code')}}* </label>
+                                                    <div class="col-sm-6">
+                                                        <p style="padding: 10px;" class="form-control">{{$request->quote_zipcode}}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
 
                                         @endif
 
@@ -104,6 +104,13 @@
 
                                                 @endif
 
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Delivery Date')}}* </label>
+                                                    <div class="col-sm-6">
+                                                        <p style="padding: 10px;" class="form-control">{{$request->quote_delivery ? date('d-m-Y',strtotime($request->quote_delivery)) : null}}</p>
+                                                    </div>
+                                                </div>
+
                                             @else
 
                                                 <div class="form-group">
@@ -113,8 +120,21 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Installation Date')}}* </label>
+                                                    <div class="col-sm-6">
+                                                        <p style="padding: 10px;" class="form-control">{{$request->quote_delivery ? date('d-m-Y',strtotime($request->quote_delivery)) : null}}</p>
+                                                    </div>
+                                                </div>
+
                                             @endif
 
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Quantity')}}* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;" class="form-control">{{$request->quote_qty}}</p>
+                                                </div>
+                                            </div>
 
                                         @foreach($q_a as $key)
 

@@ -79,15 +79,24 @@
                                     @endif
 
                                     <div>
-                                        <p style="font-size: 25px;float: left;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @else {{__('text.Quotation')}} @endif @if($type == 'invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
+                                        <p style="font-size: 22px;float: left;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @else {{__('text.Quotation')}} @endif {{$quotation_invoice_number}}</p>
                                         <p style="float: right;" class="mb-1 m-rest">{{__('text.Created at')}}: {{$date}}</p>
                                     </div>
                                     <br><br>
                                     <p class="mb-1 m-rest">{{__('text.Requested Quote Number')}}: {{$requested_quote_number}}</p>
-                                    @if(isset($delivery_date))
-                                        <?php $delivery_date = date('d-m-Y',strtotime($delivery_date)); ?>
-                                        <p class="mb-1 m-rest">{{__('text.Delivery Date')}}: {{$delivery_date}}</p>
+
+                                    <?php $quote_delivery_date = date('d-m-Y',strtotime($quote->quote_delivery)); ?>
+
+                                    @if($quote->quote_service != 0 && $quote->quote_brand != 0 && $quote->quote_model != 0)
+
+                                        <p class="mb-1 m-rest">{{__('text.Delivery Date')}}: {{$quote_delivery_date}}</p>
+
+                                    @else
+
+                                        <p class="mb-1 m-rest">{{__('text.Installation Date')}}: {{$quote_delivery_date}}</p>
+
                                     @endif
+
                                 </div>
 
                         </div>

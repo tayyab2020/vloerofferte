@@ -107,7 +107,7 @@
 
                                                             $date = date('d-m-Y',$date);  ?>
 
-                                                            <td>{{$date}}</td>
+                                                            <td data-sort="{{strtotime($key->created_at)}}">{{$date}}</td>
 
                                                             <td>
                                                                 <div class="dropdown">
@@ -321,7 +321,7 @@
 
     <script type="text/javascript">
         $('#example').DataTable({
-            order: [[5, 'desc']],
+            order: [[7, 'desc']],
             "oLanguage": {
                 "sLengthMenu": "<?php echo __('text.Show') . ' _MENU_ ' . __('text.records'); ?>",
                 "sSearch": "<?php echo __('text.Search') . ':' ?>",

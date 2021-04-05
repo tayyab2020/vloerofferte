@@ -298,7 +298,7 @@ class AdminUserController extends Controller
 
     public function QuotationRequests()
     {
-        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('services','services.id','=','quotes.quote_service1')->leftjoin('quotation_invoices','quotation_invoices.quote_id','=','quotes.id')->orderBy('quotes.created_at','desc')->select('quotes.*','quotation_invoices.delivered','quotation_invoices.received','categories.cat_name','services.title')->withCount('quotations')->get();
+        $requests = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('services','services.id','=','quotes.quote_service1')->leftjoin('quotation_invoices','quotation_invoices.quote_id','=','quotes.id')->select('quotes.*','quotation_invoices.delivered','quotation_invoices.received','categories.cat_name','services.title')->orderBy('quotes.created_at','desc')->withCount('quotations')->get();
 
 
         return view('admin.user.quote_requests',compact('requests'));
@@ -431,7 +431,7 @@ class AdminUserController extends Controller
 
         $search = $request->quote_zipcode;
 
-        $url = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&address=".urlencode($search).",+Netherlands&sensor=false";
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBNRJukOohRJ1tW0tMG4tzpDXFz68OnonM&address=".urlencode($search).",+Netherlands&sensor=false";
 
         $result_string = file_get_contents($url);
         $result = json_decode($result_string, true);
@@ -458,7 +458,7 @@ class AdminUserController extends Controller
                 $lng = $key->longitude;
                 $radius = $key->radius;
 
-                $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=".$lat.",".$lng."&destinations=".$user_latitude.",".$user_longitude."&mode=driving&key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q";
+                $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=".$lat.",".$lng."&destinations=".$user_latitude.",".$user_longitude."&mode=driving&key=AIzaSyBNRJukOohRJ1tW0tMG4tzpDXFz68OnonM";
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

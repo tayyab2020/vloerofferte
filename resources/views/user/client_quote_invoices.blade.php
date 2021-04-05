@@ -95,6 +95,43 @@
 
                                                             <td>{{number_format((float)$key->grand_total, 2, ',', '.')}}</td>
 
+                                                            <?php
+
+                                                            $date = strtotime($key->invoice_date);
+                                                            $date = date('d-m-Y',$date);
+
+                                                            if($key->accept_date)
+                                                            {
+                                                                $accept_date = strtotime($key->accept_date);
+                                                                $accept_date = date('d-m-Y',$accept_date);
+
+                                                                $cal_accept_date = strtotime($key->accept_date);
+                                                                $cal_accept_date = date('Y-m-d H:i:s',$cal_accept_date);
+                                                            }
+                                                            else{
+                                                                $accept_date = '-';
+                                                                $cal_accept_date = '-';
+                                                            }
+
+                                                            $current_date = date('d-m-Y H:i:s', time());
+
+                                                            if($key->delivery_date)
+                                                            {
+                                                                $delivery_date = strtotime($key->delivery_date);
+                                                                $delivery_date = date('d-m-Y',$delivery_date);
+
+                                                                $cal_delivery_date = strtotime($key->delivery_date);
+                                                                $cal_delivery_date = date('Y-m-d H:i:s',$cal_delivery_date);
+                                                            }
+                                                            else{
+
+                                                                $delivery_date = '-';
+                                                                $cal_delivery_date = '-';
+
+                                                            }
+
+                                                            ?>
+
                                                             <td class="current-stage">
 
                                                                 @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-custom-quotations')
@@ -149,7 +186,7 @@
 
                                                                             @else
 
-                                                                                <a class="btn btn-primary1" onclick="accept(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Accept')}}</a>
+                                                                                <a class="btn btn-primary1" onclick="accept(this)" data-date="{{$delivery_date != '-' ? $delivery_date : null}}" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Accept')}}</a>
 
                                                                             @endif
 
@@ -177,116 +214,79 @@
 
                                                              </td>
 
-                                                            <?php
+                                                            <td class="accept_date">
+                                                                <input type="hidden" id="accept_date" value="{{$cal_accept_date}}">
+                                                                {{$accept_date}}
+                                                            </td>
 
-                                                                $date = strtotime($key->invoice_date);
-                                                                $date = date('d-m-Y',$date);
+                                                            <td class="delivery_date">
+                                                                <input type="hidden" id="delivery_date" value="{{$cal_delivery_date}}">
+                                                                {{$delivery_date}}
+                                                            </td>
 
-                                                                if($key->accept_date)
-                                                                    {
-                                                                        $accept_date = strtotime($key->accept_date);
-                                                                        $accept_date = date('d-m-Y',$accept_date);
-
-                                                                        $cal_accept_date = strtotime($key->accept_date);
-                                                                        $cal_accept_date = date('Y-m-d H:i:s',$cal_accept_date);
-                                                                    }
-                                                                else{
-                                                                    $accept_date = '-';
-                                                                    $cal_accept_date = '-';
-                                                                }
-
-                                                                $current_date = date('d-m-Y H:i:s', time());
-
-                                                                if($key->delivery_date)
-                                                                    {
-                                                                        $delivery_date = strtotime($key->delivery_date);
-                                                                        $delivery_date = date('d-m-Y',$delivery_date);
-
-                                                                        $cal_delivery_date = strtotime($key->delivery_date);
-                                                                        $cal_delivery_date = date('Y-m-d H:i:s',$cal_delivery_date);
-                                                                    }
-                                                                else{
-
-                                                                    $delivery_date = '-';
-                                                                    $cal_delivery_date = '-';
-
-                                                                }
-
-                                                            ?>
-
-
-                                                                <td class="accept_date">
-                                                                    <input type="hidden" id="accept_date" value="{{$cal_accept_date}}">
-                                                                    {{$accept_date}}
-                                                                </td>
-
-                                                                <td class="delivery_date">
-                                                                    <input type="hidden" id="delivery_date" value="{{$cal_delivery_date}}">
-                                                                    {{$delivery_date}}
-                                                                </td>
-
-                                                                @if(Route::currentRouteName() == 'client-quotations')
+                                                            @if(Route::currentRouteName() == 'client-quotations')
 
                                                                 <td class="interval"></td>
 
-                                                                @endif
+                                                            @endif
 
-                                                                <td class="action_td">
-                                                                    <div class="dropdown">
-                                                                        <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{__('text.Action')}}
-                                                                            <span class="caret"></span></button>
-                                                                        <ul class="dropdown-menu">
+                                                            <td class="action_td">
+                                                                <div class="dropdown">
+                                                                    <button style="outline: none;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{__('text.Action')}}
+                                                                        <span class="caret"></span></button>
+                                                                    <ul class="dropdown-menu">
 
-                                                                            @if(Route::currentRouteName() == 'client-custom-quotations')
+                                                                        @if(Route::currentRouteName() == 'client-custom-quotations')
 
-                                                                                <li><a href="{{ url('/aanbieder/aangepaste-offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
-                                                                                <li><a href="{{ url('/aanbieder/download-client-custom-quotation/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
+                                                                            <li><a href="{{ url('/aanbieder/aangepaste-offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
+                                                                            <li><a href="{{ url('/aanbieder/download-client-custom-quotation/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
 
-                                                                                @if($key->status != 2 && $key->status != 3)
+                                                                            @if($key->status != 2 && $key->status != 3)
 
-                                                                                    <li><a onclick="ask(this)" data-id="{{$key->invoice_id}}" data-text="{{$key->review_text}}" data-url="{{ url('/aanbieder/aangepaste-offerte/ask-customization/') }}" href="javascript:void(0)">{{__('text.Ask Again')}}</a></li>
+                                                                                <li><a onclick="ask(this)" data-id="{{$key->invoice_id}}" data-text="{{$key->review_text}}" data-url="{{ url('/aanbieder/aangepaste-offerte/ask-customization/') }}" href="javascript:void(0)">{{__('text.Ask Again')}}</a></li>
 
-                                                                                    <li><a href="{{ url('/aanbieder/eigen-offerte/accepteren-offerte/'.$key->invoice_id) }}">{{__('text.Accept')}}</a></li>
-
-                                                                                @endif
-
-                                                                                @if($key->delivered == 1 && $key->received == 0)
-
-                                                                                    <li><a href="{{ url('/aanbieder/custom-mark-received/'.$key->invoice_id) }}">{{__('text.Mark as received')}}</a></li>
-
-                                                                                @endif
-
-                                                                            @else
-
-                                                                                <li><a href="{{ url('/aanbieder/offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
-                                                                                <li><a href="{{ url('/aanbieder/bekijk-offerte-aanvraag/'.$key->id) }}">{{__('text.View Request')}}</a></li>
-                                                                                <li><a href="{{ url('/aanbieder/download-client-quote-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
-
-                                                                                @if($key->status != 0 && $key->status != 2 && $key->status != 3)
-
-                                                                                    <li><a onclick="ask(this)" data-id="{{$key->invoice_id}}" data-text="{{$key->review_text}}" data-url="{{ url('/aanbieder/ask-customization/') }}" href="javascript:void(0)">{{__('text.Ask Again')}}</a></li>
-
-                                                                                    <li><a onclick="accept(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Accept')}}</a></li>
-
-                                                                                @endif
-
-                                                                                @if($key->status == 2)
-
-                                                                                    <li><a class="pay_now" onclick="PayNow(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Pay Now')}}</a></li>
-
-                                                                                @endif
-
-                                                                                @if($key->delivered == 1 && $key->received == 0)
-
-                                                                                    <li><a href="{{ url('/aanbieder/mark-received/'.$key->invoice_id) }}">{{__('text.Mark as received')}}</a></li>
-
-                                                                                @endif
+                                                                                <li><a href="{{ url('/aanbieder/eigen-offerte/accepteren-offerte/'.$key->invoice_id) }}">{{__('text.Accept')}}</a></li>
 
                                                                             @endif
 
-                                                                        </ul>
-                                                                    </div>
-                                                                </td>
+                                                                            @if($key->delivered == 1 && $key->received == 0)
+
+                                                                                <li><a href="{{ url('/aanbieder/custom-mark-received/'.$key->invoice_id) }}">{{__('text.Mark as received')}}</a></li>
+
+                                                                            @endif
+
+                                                                        @else
+
+                                                                            <li><a href="{{ url('/aanbieder/offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
+                                                                            <li><a href="{{ url('/aanbieder/bekijk-offerte-aanvraag/'.$key->id) }}">{{__('text.View Request')}}</a></li>
+                                                                            <li><a href="{{ url('/aanbieder/download-client-quote-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
+
+                                                                            @if($key->status != 0 && $key->status != 2 && $key->status != 3)
+
+                                                                                <li><a onclick="ask(this)" data-id="{{$key->invoice_id}}" data-text="{{$key->review_text}}" data-url="{{ url('/aanbieder/ask-customization/') }}" href="javascript:void(0)">{{__('text.Ask Again')}}</a></li>
+
+                                                                                <li><a onclick="accept(this)" data-date="{{$delivery_date != '-' ? $delivery_date : null}}" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Accept')}}</a></li>
+
+                                                                            @endif
+
+                                                                            @if($key->status == 2)
+
+                                                                                <li><a class="pay_now" onclick="PayNow(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Pay Now')}}</a></li>
+
+                                                                            @endif
+
+                                                                            @if($key->delivered == 1 && $key->received == 0)
+
+                                                                                <li><a href="{{ url('/aanbieder/mark-received/'.$key->invoice_id) }}">{{__('text.Mark as received')}}</a></li>
+
+                                                                            @endif
+
+                                                                        @endif
+
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+
                                                         </tr>
 
                                                     @endforeach
@@ -1567,7 +1567,7 @@
 @section('scripts')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNlftIg-4OOM7dicTvWaJm46DgD-Wz61Q&libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdCPSjhOgaYXo6twWkseoaSHc2Ipob024&libraries=places&callback=initMap" async defer></script>
 
     <script type="text/javascript">
 
@@ -1771,11 +1771,12 @@
         function accept(e)
         {
             var invoice_id = $(e).data('id');
+            var delivery_date = $(e).data('date');
 
             $('#invoice_id').val(invoice_id);
             $('#delivery_box').hide();
 
-            $("#delivery_date_picker").val('');
+            $("#delivery_date_picker").val(delivery_date);
             $("#tool-1").prop("checked", true);
             $("#tool-2").prop("checked", true);
 
