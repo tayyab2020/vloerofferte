@@ -56,10 +56,18 @@
                                         <p style="float: right;" class="mb-1 m-rest">{{__('text.Created at')}}: {{$date}}</p>
                                     </div>
 
-                                    @if(isset($delivery_date))
-                                        <?php $delivery_date = date('d-m-Y',strtotime($delivery_date)); ?>
+                                    <?php $quote_delivery_date = date('d-m-Y',strtotime($quote->quote_delivery)); ?>
+
+                                    @if($quote->cat_name != '' && $quote->brand_name != '' && $quote->model_name != '')
+
                                         <br><br>
-                                        <p class="mb-1 m-rest">{{__('text.Delivery Date')}}: {{$delivery_date}}</p>
+                                        <p class="mb-1 m-rest">{{__('text.Delivery Date')}}: {{$quote_delivery_date}}</p>
+
+                                    @else
+
+                                        <br><br>
+                                        <p class="mb-1 m-rest">{{__('text.Installation Date')}}: {{$quote_delivery_date}}</p>
+
                                     @endif
 
                                 </div>

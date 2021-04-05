@@ -109,7 +109,7 @@
 
                                                             $date = date('d-m-Y',$date);  ?>
 
-                                                            <td>{{$date}}</td>
+                                                            <td data-sort="{{strtotime($key->created_at)}}">{{$date}}</td>
 
                                                             <td>
                                                                 <div class="dropdown">
@@ -335,7 +335,7 @@
 
     <script type="text/javascript">
         $('#example').DataTable({
-            order: [[6, 'desc']]
+            order: [[7, 'desc']]
         });
     </script>
 

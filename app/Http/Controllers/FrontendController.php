@@ -1141,6 +1141,11 @@ class FrontendController extends Controller
 
         } else {
 
+            $now = date('d-m-Y H:i:s');
+            $time = strtotime($now);
+            $time = date('H:i:s',$time);
+            $delivery_date = $request->quote_delivery . ' ' . $time;
+
             $this->validate($request, [
                 'quote_email' => 'required|string|email',
                 'quote_name' => 'required|regex:/(^[A-Za-z ]+$)+/|max:15',
@@ -1231,7 +1236,7 @@ class FrontendController extends Controller
             $quote->quote_familyname = $request->quote_familyname;
             $quote->quote_email = $request->quote_email;
             $quote->quote_contact = $request->quote_contact;
-            $quote->quote_delivery = $request->quote_delivery;
+            $quote->quote_delivery = $delivery_date;
 
             $quote->save();
 

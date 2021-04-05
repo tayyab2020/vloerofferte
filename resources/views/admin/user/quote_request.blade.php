@@ -85,6 +85,26 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4"
+                                                   for="blood_group_slug">Quantity* </label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" value="{{$request->quote_qty}}"
+                                                       name="quote_qty" id="quote_qty"
+                                                       required="" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4"
+                                                   for="blood_group_slug">{{$request->quote_service == 0 ? 'Installation Date' : 'Delivery Date'}}* </label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" value="{{$request->quote_delivery ? date('d-m-Y',strtotime($request->quote_delivery)) : null}}"
+                                                       name="quote_delivery" id="quote_delivery"
+                                                       required="" type="text">
+                                            </div>
+                                        </div>
+
                                         @if($request->quote_service != 0 && $request->quote_brand != 0 && $request->quote_model != 0)
 
                                             <div class="form-group">

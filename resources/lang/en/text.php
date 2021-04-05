@@ -82,6 +82,7 @@ return [
     'Quotation Number' => 'Quotation Number',
     'Estimated Date' => 'Estimated Date',
     'Delivery Date' => 'Delivery Date',
+    'Installation Date' => 'Installation Date',
     'Category/Item' => 'Category/Item',
     'Qty' => 'Qty',
     'Cost' => 'Cost',

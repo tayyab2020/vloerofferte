@@ -79,6 +79,7 @@ return [
     'Quotation Number' => 'Offerte nummer',
     'Estimated Date' => 'Geldig tot',
     'Delivery Date' => 'Leverdatum',
+    'Installation Date' => 'Gewenste installatiedatum',
     'Category/Item' => 'Categorie',
     'Qty' => 'Aantal',
     'Cost' => 'Prijs',
