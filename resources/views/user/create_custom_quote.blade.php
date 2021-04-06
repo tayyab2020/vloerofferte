@@ -64,6 +64,22 @@
 
                                         @endif
 
+                                            <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
+
+                                                @foreach($all_products as $product)
+                                                    <option data-type="Product" data-cat="{{$product->cat_name}}" value="{{$product->id}}">{{$product->title}}</option>
+                                                @endforeach
+
+                                                @foreach($all_services as $service)
+                                                    <option data-type="Service" value="{{$service->id}}S">{{$service->title}}</option>
+                                                @endforeach
+
+                                                @foreach($items as $item)
+                                                    <option data-type="Item" value="{{$item->id}}I">{{$item->cat_name}}</option>
+                                                @endforeach
+
+                                            </select>
+
                                             <div class="row" style="margin: 0;margin-top: 30px;margin-bottom: 20px;">
 
                                                 <div class="col-md-4">
@@ -103,14 +119,12 @@
 
                                                     <div class="row" style="margin: 0;margin-top: 35px;">
                                                         <div class="col-md-12 col-sm-12" style="border: 1px solid #e5e5e5;padding: 0;">
-                                                            <div class="table-responsive">
+                                                            <div style="overflow: visible;" class="table-responsive">
                                                                 <table class="table table-hover table-white items-table">
                                                                     <thead>
                                                                     <tr>
                                                                         <th style="width: 40px;">#</th>
-                                                                        <th class="col-sm-2">{{__('text.Category/Item')}}</th>
-                                                                        <th class="col-sm-2">{{__('text.Brand')}}</th>
-                                                                        <th class="col-sm-2">{{__('text.Model')}}</th>
+                                                                        <th class="col-sm-6">Product/Service/Item</th>
                                                                         <th class="col-sm-2">{{__('text.Qty')}}</th>
                                                                         <th class="col-sm-2">{{__('text.Cost')}}</th>
                                                                         <th class="col-sm-2">{{__('text.Amount')}}</th>
@@ -124,45 +138,20 @@
                                                                         <td>1</td>
                                                                         <td class="service_box">
 
-                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>
+                                                                            <div class="autocomplete" style="width:100%;">
+                                                                                <input autocomplete="off" required name="productInput[]" id="productInput" class="form-control" type="text" placeholder="{{__('text.Select Product')}}">
+                                                                                <input type="hidden" id="check" value="0">
+                                                                            </div>
 
-                                                                                <option value="">{{__('text.Select Category/Item')}}</option>
+                                                                            <input type="hidden" id="item" name="item[]" value="">
+                                                                            <input type="hidden" id="service_title" name="service_title[]">
 
-                                                                                @foreach($all_services as $key)
-                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>
-                                                                                @endforeach
+                                                                            <input type="hidden" id="brand" name="brand[]" value="">
+                                                                            <input type="hidden" id="brand_title" name="brand_title[]">
 
-                                                                                @foreach($items as $key)
-                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>
-                                                                                @endforeach
+                                                                            <input type="hidden" id="model" name="model[]" value="">
+                                                                            <input type="hidden" id="model_title" name="model_title[]">
 
-                                                                            </select>
-
-                                                                            <input type="hidden" name="service_title[]" value="">
-                                                                        </td>
-
-                                                                        <td class="brand_box">
-
-                                                                            <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>
-
-                                                                                <option value="">{{__('text.Select Brand')}}</option>
-
-                                                                            </select>
-
-                                                                            <input type="hidden" name="brand_title[]" value="">
-                                                                            <input style="display: none;" class="form-control" type="text" name="item_brand[]" id="item_brand">
-                                                                        </td>
-
-                                                                        <td class="model_box">
-
-                                                                            <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>
-
-                                                                                <option value="">{{__('text.Select Model')}}</option>
-
-                                                                            </select>
-
-                                                                            <input type="hidden" name="model_title[]" value="">
-                                                                            <input style="display: none;" class="form-control" type="text" name="item_model[]" id="item_model">
                                                                         </td>
 
                                                                         <td class="td-qty">
@@ -1041,6 +1030,73 @@
             margin-right: -5px;
         }
 
+        .autocomplete ::-webkit-input-placeholder {
+            text-align: center;
+        }
+
+        .autocomplete :-moz-placeholder { /* Firefox 18- */
+            text-align: center;
+        }
+
+        .autocomplete ::-moz-placeholder {  /* Firefox 19+ */
+            text-align: center;
+        }
+
+        .autocomplete :-ms-input-placeholder {
+            text-align: center;
+        }
+
+        .autocomplete {
+            position: relative;
+            display: inline-block;
+        }
+
+        .quote-product {
+            /*border: 1px solid transparent;*/
+            background-color: #f1f1f1;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .quote-product {
+            background-color: #f1f1f1;
+            width: 100%;
+            height: 45px;
+        }
+
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            border-bottom: none;
+            border-top: none;
+            z-index: 99;
+            /*position the autocomplete items to be the same width as the container:*/
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 230px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+        }
+
+        /*when hovering an item:*/
+        .autocomplete-items div:hover {
+            background-color: #e9e9e9;
+        }
+
+        /*when navigating through the items using the arrow keys:*/
+        .autocomplete-active {
+            background-color: DodgerBlue !important;
+            color: #ffffff;
+        }
+
     </style>
 
 
@@ -1366,270 +1422,283 @@
             });
 
 
-            $(".js-data-example-ajax").change(function(){
+            function autocomplete(inp, arr, values, categories) {
+                /*the autocomplete function takes two arguments,
+                the text field element and an array of possible autocompleted values:*/
+                var currentFocus;
+                /*execute a function when someone writes in the text field:*/
+                inp.addEventListener("input", function(e) {
 
-                var current = $(this);
+                    inp.parentElement.getElementsByTagName("input")[1].value = 0;
 
-                var id = current.val();
-                var handyman_id = $('#handyman_id').val();
+                    var a, b, i, val = this.value;
+                    /*close any already open lists of autocompleted values*/
+                    closeAllLists();
+                    if (!val) { return false;}
+                    currentFocus = -1;
+                    /*create a DIV element that will contain the items (values):*/
+                    a = document.createElement("DIV");
+                    a.setAttribute("id", this.id + "autocomplete-list");
+                    a.setAttribute("class", "autocomplete-items");
+                    /*append the DIV element as a child of the autocomplete container:*/
+                    this.parentNode.appendChild(a);
+                    /*for each item in the array...*/
+                    for (i = 0; i < arr.length; i++) {
 
-                $.ajax({
-                    type:"GET",
-                    data: "id=" + id + "&type=service",
-                    url: "<?php echo url('/get-quotation-data')?>",
-                    success: function(data) {
+                        var string = arr[i];
+                        string = string.toLowerCase();
+                        val = val.toLowerCase();
+                        var res = string.includes(val);
 
-                        current.parent().children('input').val(data.cat_name);
+                        if (res) {
+                            /*create a DIV element for each matching element:*/
+                            b = document.createElement("DIV");
+                            /*make the matching letters bold:*/
+                            /*b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                            b.innerHTML += arr[i].substr(val.length);*/
+                            b.innerHTML = arr[i] + ', ' + categories[i];
+                            /*insert a input field that will hold the current array item's value:*/
+                            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'><input type='hidden' value='" + values[i] + "'>";
+                            /*execute a function when someone clicks on the item value (DIV element):*/
+                            b.addEventListener("click", function(e) {
 
-                        if(data.rate)
-                        {
-                            var rate = data.rate;
-                            rate = rate.toString();
-                            rate = rate.replace(/\./g, ',');
+                                inp.parentElement.getElementsByTagName("input")[1].value = 1;
 
-                            current.parent().parent().find('.td-rate').children('input').val(rate);
+                                /*insert the value for the autocomplete text field:*/
+                                inp.value = this.getElementsByTagName("input")[0].value;
+
+                                var product_id = this.getElementsByTagName("input")[1].value;
+
+                                if(product_id.includes('S'))
+                                {
+                                    product_id = product_id.replace('S', '');
+                                    var type = 'service';
+                                }
+                                else if(product_id.includes('I'))
+                                {
+                                    product_id = product_id.replace('I', '');
+                                    var type = 'item';
+                                }
+                                else
+                                {
+                                    var type = 'product';
+                                }
+
+                                $.ajax({
+                                    type: "GET",
+                                    data: "id=" + product_id + "&type=" + type,
+                                    url: "<?php echo url('/handymanproducts-by-id')?>",
+                                    success: function (data) {
+
+                                        var current = $(inp);
+
+                                        if(data.category_id)
+                                        {
+                                            current.parent().parent().find('#item').val(data.category_id);
+                                            current.parent().parent().find('#service_title').val(data.cat_name);
+
+                                            current.parent().parent().find('#brand').val(data.brand_id);
+                                            current.parent().parent().find('#brand_title').val(data.brand_name);
+
+                                            current.parent().parent().find('#model').val(data.model_id);
+                                            current.parent().parent().find('#model_title').val(data.model_name);
+                                        }
+                                        else if(data.service_id)
+                                        {
+                                            var service_id = data.service_id + 'S';
+                                            current.parent().parent().find('#item').val(service_id);
+                                            current.parent().parent().find('#service_title').val(data.service_name);
+                                        }
+                                        else
+                                        {
+                                            var item_id = data.item_id + 'I';
+                                            current.parent().parent().find('#item').val(item_id);
+                                            current.parent().parent().find('#service_title').val(data.item_name);
+                                        }
+
+                                        if(data.rate)
+                                        {
+                                            var rate = data.rate;
+                                            rate = rate.toString();
+                                            rate = rate.replace(/\./g, ',');
+
+                                            current.parent().parent().parent().find('.td-rate').children('input').val(rate);
+                                        }
+                                        else
+                                        {
+                                            current.parent().parent().parent().find('.td-rate').children('input').val(0);
+                                        }
+
+                                        var vat_percentage = parseInt($('#vat_percentage').val());
+                                        vat_percentage = vat_percentage + 100;
+                                        var cost = current.parent().parent().parent().find('.td-rate').children('input').val();
+                                        cost = cost.replace(/\,/g, '.');
+                                        var qty = current.parent().parent().parent().find('.td-qty').children('input').val();
+                                        qty = qty.replace(/\,/g, '.');
+
+                                        var amount = cost * qty;
+
+                                        amount = parseFloat(amount).toFixed(2);
+
+                                        if(isNaN(amount))
+                                        {
+                                            amount = 0;
+                                        }
+
+                                        amount = amount.replace(/\./g, ',');
+
+                                        current.parent().parent().parent().find('.td-amount').children('input').val(amount);
+
+                                        var amounts = [];
+
+                                        $("input[name='amount[]']").each(function() {
+                                            amounts.push($(this).val().replace(/\,/g, '.'));
+                                        });
+
+                                        var grand_total = 0;
+
+                                        for (let i = 0; i < amounts.length; ++i) {
+
+                                            if(isNaN(parseFloat(amounts[i])))
+                                            {
+                                                amounts[i] = 0;
+                                            }
+
+                                            grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
+                                        }
+
+                                        var vat = grand_total/vat_percentage * 100;
+                                        vat = grand_total - vat;
+                                        vat = parseFloat(vat).toFixed(2);
+
+                                        var sub_total = grand_total - vat;
+                                        sub_total = parseFloat(sub_total).toFixed(2);
+
+                                        $('#sub_total').val(sub_total.replace(/\./g, ','));
+                                        $('#tax_amount').val(vat.replace(/\./g, ','));
+                                        $('#grand_total').val(grand_total);
+
+                                        $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
+
+                                    }
+
+                                });
+
+                                /*close the list of autocompleted values,
+                                (or any other open lists of autocompleted values:*/
+                                closeAllLists();
+                            });
+                            a.appendChild(b);
                         }
-                        else
-                        {
-                            current.parent().parent().find('.td-rate').children('input').val(0);
-                        }
-
-                        var vat_percentage = parseInt($('#vat_percentage').val());
-                        vat_percentage = vat_percentage + 100;
-                        var cost = current.parent().parent().find('.td-rate').children('input').val();
-                        cost = cost.replace(/\,/g, '.');
-                        var qty = current.parent().parent().find('.td-qty').children('input').val();
-                        qty = qty.replace(/\,/g, '.');
-
-                        var amount = cost * qty;
-
-                        amount = parseFloat(amount).toFixed(2);
-
-                        if(isNaN(amount))
-                        {
-                            amount = 0;
-                        }
-
-                        amount = amount.replace(/\./g, ',');
-
-                        current.parent().parent().find('.td-amount').children('input').val(amount);
-
-                        var amounts = [];
-                        $("input[name='amount[]']").each(function() {
-                            amounts.push($(this).val().replace(/\,/g, '.'));
-                        });
-
-                        var grand_total = 0;
-
-                        for (let i = 0; i < amounts.length; ++i) {
-
-                            if(isNaN(parseFloat(amounts[i])))
-                            {
-                                amounts[i] = 0;
-                            }
-
-                            grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
-                        }
-
-                        var vat = grand_total/vat_percentage * 100;
-                        vat = grand_total - vat;
-                        vat = parseFloat(vat).toFixed(2);
-
-                        var sub_total = grand_total - vat;
-                        sub_total = parseFloat(sub_total).toFixed(2);
-
-                        $('#sub_total').val(sub_total.replace(/\./g, ','));
-                        $('#tax_amount').val(vat.replace(/\./g, ','));
-                        $('#grand_total').val(grand_total);
-
-                        $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
                     }
                 });
-
-                var category_id = current.val();
-                var item_check = category_id.includes('I');
-
-                if(!item_check)
-                {
-                    var options = '';
-
-                    $.ajax({
-                        type:"GET",
-                        data: "id=" + category_id + "&handyman_id=" + handyman_id,
-                        url: "<?php echo route('products-brands-by-category') ?>",
-                        success: function(data) {
-
-                            $.each(data, function(index, value) {
-
-                                var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
-
-                                options = options + opt;
-
-                            });
-
-                            current.parent().next().children('select').find('option')
-                                .remove()
-                                .end()
-                                .append('<option value="">Select Brand</option>'+options);
-
-                            current.parent().next().next().children('select').find('option')
-                                .remove()
-                                .end()
-                                .append('<option value="">Select Model</option>');
-
-                            current.parent().next().children('select').attr('required', true);
-                            current.parent().next().next().children('select').attr('required', true);
-
-                            current.parent().next().children('#item_brand').hide();
-                            current.parent().next().children('.select2').show();
-
-                            current.parent().next().next().children('#item_model').hide();
-                            current.parent().next().next().children('.select2').show();
-
+                /*execute a function presses a key on the keyboard:*/
+                inp.addEventListener("keydown", function(e) {
+                    var x = document.getElementById(this.id + "autocomplete-list");
+                    if (x) x = x.getElementsByTagName("div");
+                    if (e.keyCode == 40) {
+                        /*If the arrow DOWN key is pressed,
+                        increase the currentFocus variable:*/
+                        currentFocus++;
+                        /*and and make the current item more visible:*/
+                        addActive(x);
+                    } else if (e.keyCode == 38) { //up
+                        /*If the arrow UP key is pressed,
+                        decrease the currentFocus variable:*/
+                        currentFocus--;
+                        /*and and make the current item more visible:*/
+                        addActive(x);
+                    } else if (e.keyCode == 13) {
+                        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                        e.preventDefault();
+                        if (currentFocus > -1) {
+                            /*and simulate a click on the "active" item:*/
+                            if (x) x[currentFocus].click();
                         }
-                    });
+                    }
+                });
+                function addActive(x) {
+                    /*a function to classify an item as "active":*/
+                    if (!x) return false;
+                    /*start by removing the "active" class on all items:*/
+                    removeActive(x);
+                    if (currentFocus >= x.length) currentFocus = 0;
+                    if (currentFocus < 0) currentFocus = (x.length - 1);
+                    /*add class "autocomplete-active":*/
+                    x[currentFocus].classList.add("autocomplete-active");
+                }
+                function removeActive(x) {
+                    /*a function to remove the "active" class from all autocomplete items:*/
+                    for (var i = 0; i < x.length; i++) {
+                        x[i].classList.remove("autocomplete-active");
+                    }
+                }
+                function closeAllLists(elmnt) {
+
+                    /*close all autocomplete lists in the document,
+                    except the one passed as an argument:*/
+
+                    if(typeof inp !== 'undefined')
+                    {
+                        var x = inp.parentElement.getElementsByClassName("autocomplete-items");
+                    }
+                    else
+                    {
+                        var x = [];
+                    }
+
+
+                    for (var i = 0; i < x.length; i++) {
+
+                        if (elmnt != x[i] && elmnt != inp) {
+                            x[i].parentNode.removeChild(x[i]);
+                        }
+                    }
+                }
+                /*execute a function when someone clicks in the document:*/
+                document.addEventListener("click", function (e) {
+                    closeAllLists(e.target);
+                });
+            }
+
+            $(document).on('focusout', '#productInput', function(){
+
+                var check = $(this).next('input').val();
+
+                if(check == 0)
+                {
+                    $(this).val('');
+                }
+            });
+
+            /*An array containing all the country names in the world:*/
+            options = [];
+            texts = [];
+            categories = [];
+
+            var sel = $(".all-products");
+            var length = sel.children('option').length;
+
+            $(".all-products > option").each(function() {
+                if(this.getAttribute('data-type') != 'Product')
+                {
+                    var category = this.getAttribute('data-type');
                 }
                 else
                 {
-
-                    current.parent().next().children('select').find('option')
-                        .remove()
-                        .end()
-                        .append('<option value="">Select Brand</option>');
-
-                    current.parent().next().next().children('select').find('option')
-                        .remove()
-                        .end()
-                        .append('<option value="">Select Model</option>');
-
-                    current.parent().next().children('select').attr('required', false);
-                    current.parent().next().next().children('select').attr('required', false);
-
-                    current.parent().next().children('.select2').hide();
-                    current.parent().next().children('#item_brand').show();
-
-                    current.parent().next().next().children('.select2').hide();
-                    current.parent().next().next().children('#item_model').show();
+                    var category = this.getAttribute('data-cat');
                 }
-
+                if (this.value) options.push(this.value); texts.push(this.text); categories.push(category);
             });
 
+            /*for (var i=0, n=length;i<n;i++) { // looping over the options
+                console.log($('.all-products option:eq(i)').text());
+                if (sel.options[i].value) options.push(sel.options[i].value);
+            }
 
-            $(".js-data-example-ajax1").change(function(){
+            console.log(options);*/
 
-                var current = $(this);
-
-                var brand_id = current.val();
-                var handyman_id = $('#handyman_id').val();
-
-                $.ajax({
-                    type:"GET",
-                    data: "id=" + brand_id + "&type=brand",
-                    url: "<?php echo url('/get-quotation-data')?>",
-                    success: function(data) {
-                        current.parent().children('input').val(data.cat_name);
-                    }
-                });
-
-                var options = '';
-
-                $.ajax({
-                    type:"GET",
-                    data: "id=" + brand_id + "&handyman_id=" + handyman_id,
-                    url: "<?php echo route('products-models-by-brands') ?>",
-                    success: function(data) {
-
-                        $.each(data, function(index, value) {
-
-                            var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
-
-                            options = options + opt;
-
-                        });
-
-                        current.parent().next().children('select').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">Select Model</option>'+options);
-
-                    }
-                });
-
-            });
-
-            $(".js-data-example-ajax2").change(function(){
-
-                var current = $(this);
-                var model_id = current.val();
-                var brand_id = current.parent().parent().find('.brand_box').children('select').val();
-                var cat_id = current.parent().parent().find('.service_box').children('select').val();
-
-                $.ajax({
-                    type:"GET",
-                    data: "id=" + model_id + "&cat=" + cat_id + "&brand=" + brand_id + "&type=model",
-                    url: "<?php echo url('/get-quotation-data')?>",
-                    success: function(data) {
-                        current.parent().children('input').val(data.cat_name);
-
-                        var rate = data.rate;
-                        rate = rate.toString();
-                        rate = rate.replace(/\./g, ',');
-
-                        current.parent().parent().find('.td-rate').children('input').val(rate);
-
-                        var vat_percentage = parseInt($('#vat_percentage').val());
-                        vat_percentage = vat_percentage + 100;
-                        var cost = current.parent().parent().find('.td-rate').children('input').val();
-                        cost = cost.replace(/\,/g, '.');
-                        var qty = current.parent().parent().find('.td-qty').children('input').val();
-                        qty = qty.replace(/\,/g, '.');
-
-                        var amount = cost * qty;
-
-                        amount = parseFloat(amount).toFixed(2);
-
-                        if(isNaN(amount))
-                        {
-                            amount = 0;
-                        }
-
-                        amount = amount.replace(/\./g, ',');
-
-                        current.parent().parent().find('.td-amount').children('input').val(amount);
-
-                        var amounts = [];
-                        $("input[name='amount[]']").each(function() {
-                            amounts.push($(this).val().replace(/\,/g, '.'));
-                        });
-
-                        var grand_total = 0;
-
-                        for (let i = 0; i < amounts.length; ++i) {
-
-                            if(isNaN(parseFloat(amounts[i])))
-                            {
-                                amounts[i] = 0;
-                            }
-
-                            grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
-                        }
-
-                        var vat = grand_total/vat_percentage * 100;
-                        vat = grand_total - vat;
-                        vat = parseFloat(vat).toFixed(2);
-
-                        var sub_total = grand_total - vat;
-                        sub_total = parseFloat(sub_total).toFixed(2);
-
-                        $('#sub_total').val(sub_total.replace(/\./g, ','));
-                        $('#tax_amount').val(vat.replace(/\./g, ','));
-                        $('#grand_total').val(grand_total);
-
-                        $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
-                    }
-                });
-
-            });
+            autocomplete(document.getElementById("productInput"), texts, options, categories);
 
             $(document).on('click', '.add-row', function(){
 
@@ -1638,30 +1707,27 @@
                 $(".items-table").append('<tr>\n' +
                     '                                                                        <td>'+rowCount+'</td>\n' +
                     '                                                                        <td class="service_box">\n' +
-                    '                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>\n' +
-                    '                                                                                    <option value="">Select Category/Item</option>\n' +
-                    '                                                                                @foreach($all_services as $key)\n' +
-                    '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
+                    '                                                                            <div class="autocomplete" style="width:100%;">\n' +
+                    '                                                                                <input autocomplete="off" required name="productInput[]" id="productInput" class="form-control" type="text" placeholder="{{__('text.Select Product')}}">\n' +
+                    '                                                                                <input type="hidden" id="check" value="0">\n' +
+                    '                                                                            </div>\n' +
+                    '                                                                            <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">\n' +
+                    '                                                                                @foreach($all_products as $product)\n' +
+                    '                                                                                    <option data-type="Product" data-cat="{{$product->cat_name}}" value="{{$product->id}}">{{$product->title}}</option>\n' +
                     '                                                                                @endforeach\n' +
-                    '                                                                                @foreach($items as $key)\n' +
-                    '                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>\n' +
-                    '                                                                                @endforeach\n' +
+                    '                                                                               @foreach($all_services as $service)\n' +
+                    '                                                                                    <option data-type="Service" value="{{$service->id}}S">{{$service->title}}</option>\n' +
+                    '                                                                               @endforeach\n' +
+                    '                                                                               @foreach($items as $item)\n' +
+                    '                                                                                    <option data-type="Item" value="{{$item->id}}I">{{$item->cat_name}}</option>\n' +
+                    '                                                                               @endforeach\n' +
                     '                                                                            </select>\n' +
-                    '                                                                           <input type="hidden" name="service_title[]" value="">\n'+
-                    '                                                                        </td>\n' +
-                    '                                                                        <td class="brand_box">\n' +
-                    '                                                                            <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required>\n' +
-                    '                                                                                    <option value="">Select Brand</option>\n' +
-                    '                                                                            </select>\n' +
-                    '                                                                           <input type="hidden" name="brand_title[]" value="">\n'+
-                    '                                                                           <input style="display: none;" class="form-control" type="text" name="item_brand[]" id="item_brand">\n'+
-                    '                                                                        </td>\n' +
-                    '                                                                        <td class="model_box">\n' +
-                    '                                                                            <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required>\n' +
-                    '                                                                                    <option value="">Select Model</option>\n' +
-                    '                                                                            </select>\n' +
-                    '                                                                           <input type="hidden" name="model_title[]" value="">\n'+
-                    '                                                                           <input style="display: none;" class="form-control" type="text" name="item_model[]" id="item_model">\n'+
+                    '                                                                            <input type="hidden" id="item" name="item[]" value="">\n' +
+                    '                                                                            <input type="hidden" id="service_title" name="service_title[]">\n' +
+                    '                                                                            <input type="hidden" id="brand" name="brand[]" value="">\n' +
+                    '                                                                            <input type="hidden" id="brand_title" name="brand_title[]">\n' +
+                    '                                                                            <input type="hidden" id="model" name="model[]" value="">\n' +
+                    '                                                                            <input type="hidden" id="model_title" name="model_title[]">\n'+
                     '                                                                        </td>\n' +
                     '                                                                        <td class="td-qty">\n' +
                     '                                                                            <input name="qty[]" maskedFormat="9,1" autocomplete="off" class="form-control" type="text" required>\n' +
@@ -1687,6 +1753,8 @@
                 });
 
                 var last_row = $('.items-table tr:last');
+
+                autocomplete(last_row.find('#productInput')[0], texts, options, categories);
 
                 last_row.find(".js-data-example-ajax").select2({
                     width: '100%',
@@ -1722,279 +1790,6 @@
                             return '{{__('text.No results found')}}';
                         }
                     },
-                });
-
-
-                $(".js-data-example-ajax").change(function(){
-
-                    var current = $(this);
-
-                    var id = current.val();
-                    var handyman_id = $('#handyman_id').val();
-
-                    $.ajax({
-                        type:"GET",
-                        data: "id=" + id + "&type=service",
-                        url: "<?php echo url('/get-quotation-data')?>",
-                        success: function(data) {
-
-                            current.parent().children('input').val(data.cat_name);
-
-                            if(data.rate)
-                            {
-                                var rate = data.rate;
-                                rate = rate.toString();
-                                rate = rate.replace(/\./g, ',');
-                                current.parent().parent().find('.td-rate').children('input').val(rate);
-                            }
-                            else
-                            {
-                                current.parent().parent().find('.td-rate').children('input').val(0);
-                            }
-
-                            var vat_percentage = parseInt($('#vat_percentage').val());
-                            vat_percentage = vat_percentage + 100;
-                            var cost = current.parent().parent().find('.td-rate').children('input').val();
-                            cost = cost.replace(/\,/g, '.');
-                            var qty = current.parent().parent().find('.td-qty').children('input').val();
-                            qty = qty.replace(/\,/g, '.');
-
-                            var amount = cost * qty;
-
-                            amount = parseFloat(amount).toFixed(2);
-
-                            if(isNaN(amount))
-                            {
-                                amount = 0;
-                            }
-
-                            amount = amount.replace(/\./g, ',');
-
-                            current.parent().parent().find('.td-amount').children('input').val(amount);
-
-                            var amounts = [];
-                            $("input[name='amount[]']").each(function() {
-                                amounts.push($(this).val().replace(/\,/g, '.'));
-                            });
-
-                            var grand_total = 0;
-
-                            for (let i = 0; i < amounts.length; ++i) {
-
-                                if(isNaN(parseFloat(amounts[i])))
-                                {
-                                    amounts[i] = 0;
-                                }
-
-                                grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
-                            }
-
-                            var vat = grand_total/vat_percentage * 100;
-                            vat = grand_total - vat;
-                            vat = parseFloat(vat).toFixed(2);
-
-                            var sub_total = grand_total - vat;
-                            sub_total = parseFloat(sub_total).toFixed(2);
-
-                            $('#sub_total').val(sub_total.replace(/\./g, ','));
-                            $('#tax_amount').val(vat.replace(/\./g, ','));
-                            $('#grand_total').val(grand_total);
-
-                            $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
-                        }
-                    });
-
-                    var category_id = current.val();
-                    var item_check = category_id.includes('I');
-
-                    if(!item_check)
-                    {
-                        var options = '';
-
-                        $.ajax({
-                            type:"GET",
-                            data: "id=" + category_id + "&handyman_id=" + handyman_id,
-                            url: "<?php echo route('products-brands-by-category') ?>",
-                            success: function(data) {
-
-                                $.each(data, function(index, value) {
-
-                                    var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
-
-                                    options = options + opt;
-
-                                });
-
-                                current.parent().next().children('select').find('option')
-                                    .remove()
-                                    .end()
-                                    .append('<option value="">Select Brand</option>'+options);
-
-                                current.parent().next().next().children('select').find('option')
-                                    .remove()
-                                    .end()
-                                    .append('<option value="">Select Model</option>');
-
-                                current.parent().next().children('select').attr('required', true);
-                                current.parent().next().next().children('select').attr('required', true);
-
-                                current.parent().next().children('#item_brand').hide();
-                                current.parent().next().children('.select2').show();
-
-                                current.parent().next().next().children('#item_model').hide();
-                                current.parent().next().next().children('.select2').show();
-
-                            }
-                        });
-                    }
-                    else
-                    {
-
-                        current.parent().next().children('select').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">Select Brand</option>');
-
-                        current.parent().next().next().children('select').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">Select Model</option>');
-
-                        current.parent().next().children('select').attr('required', false);
-                        current.parent().next().next().children('select').attr('required', false);
-
-                        current.parent().next().children('.select2').hide();
-                        current.parent().next().children('#item_brand').show();
-
-                        current.parent().next().next().children('.select2').hide();
-                        current.parent().next().next().children('#item_model').show();
-                    }
-
-                });
-
-
-                $(".js-data-example-ajax1").change(function(){
-
-                    var current = $(this);
-
-                    var brand_id = current.val();
-                    var handyman_id = $('#handyman_id').val();
-
-                    $.ajax({
-                        type:"GET",
-                        data: "id=" + brand_id + "&type=brand",
-                        url: "<?php echo url('/get-quotation-data')?>",
-                        success: function(data) {
-                            current.parent().children('input').val(data.cat_name);
-                        }
-                    });
-
-                    var options = '';
-
-                    $.ajax({
-                        type:"GET",
-                        data: "id=" + brand_id + "&handyman_id=" + handyman_id,
-                        url: "<?php echo route('products-models-by-brands') ?>",
-                        success: function(data) {
-
-                            $.each(data, function(index, value) {
-
-                                var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
-
-                                options = options + opt;
-
-                            });
-
-                            current.parent().next().children('select').find('option')
-                                .remove()
-                                .end()
-                                .append('<option value="">Select Model</option>'+options);
-
-                        }
-                    });
-
-                });
-
-
-                $(".js-data-example-ajax2").change(function(){
-
-                    var current = $(this);
-                    var model_id = current.val();
-                    var brand_id = current.parent().parent().find('.brand_box').children('select').val();
-                    var cat_id = current.parent().parent().find('.service_box').children('select').val();
-
-                    $.ajax({
-                        type:"GET",
-                        data: "id=" + model_id + "&cat=" + cat_id + "&brand=" + brand_id + "&type=model",
-                        url: "<?php echo url('/get-quotation-data')?>",
-                        success: function(data) {
-                            current.parent().children('input').val(data.cat_name);
-
-                            var rate = data.rate;
-                            rate = rate.toString();
-                            rate = rate.replace(/\./g, ',');
-
-                            current.parent().parent().find('.td-rate').children('input').val(rate);
-
-                            var vat_percentage = parseInt($('#vat_percentage').val());
-                            vat_percentage = vat_percentage + 100;
-                            var cost = current.parent().parent().find('.td-rate').children('input').val();
-                            cost = cost.replace(/\,/g, '.');
-                            var qty = current.parent().parent().find('.td-qty').children('input').val();
-                            qty = qty.replace(/\,/g, '.');
-
-                            var amount = cost * qty;
-
-                            amount = parseFloat(amount).toFixed(2);
-
-                            if(isNaN(amount))
-                            {
-                                amount = 0;
-                            }
-
-                            amount = amount.replace(/\./g, ',');
-
-                            current.parent().parent().find('.td-amount').children('input').val(amount);
-
-                            var amounts = [];
-                            $("input[name='amount[]']").each(function() {
-                                amounts.push($(this).val().replace(/\,/g, '.'));
-                            });
-
-                            var grand_total = 0;
-
-                            for (let i = 0; i < amounts.length; ++i) {
-
-                                if(isNaN(parseFloat(amounts[i])))
-                                {
-                                    amounts[i] = 0;
-                                }
-
-                                grand_total = (parseFloat(amounts[i]) + parseFloat(grand_total)).toFixed(2);
-                            }
-
-                            var vat = grand_total/vat_percentage * 100;
-                            vat = grand_total - vat;
-                            vat = parseFloat(vat).toFixed(2);
-
-                            var sub_total = grand_total - vat;
-                            sub_total = parseFloat(sub_total).toFixed(2);
-
-                            $('#sub_total').val(sub_total.replace(/\./g, ','));
-                            $('#tax_amount').val(vat.replace(/\./g, ','));
-                            $('#grand_total').val(grand_total);
-
-                            $('#grand_total_cell').text('€ ' + grand_total.replace(/\./g, ','));
-                        }
-                    });
-
-                });
-
-                $('.estimate_date').datepicker({
-
-                    format: 'dd-mm-yyyy',
-                    startDate: new Date(),
-
                 });
 
 

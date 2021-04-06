@@ -31,7 +31,7 @@
                                 <p style="margin: 0">TEL: {{$user->phone}}</p>
                                 <p style="margin: 0">{{$user->email}}</p>
                                 <br>
-                                <p style="font-size: 25px;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @elseif($type == 'direct-invoice') {{__('text.Direct Invoice')}} @else {{__('text.Quotation')}} @endif @if($type == 'invoice' || $type == 'direct-invoice') INV# @else QUO# @endif {{$quotation_invoice_number}}</p>
+                                <p style="font-size: 22px;" class="font-weight-bold mb-4 m-heading">@if($type == 'invoice') {{__('text.Quotation Invoice')}} @elseif($type == 'direct-invoice') {{__('text.Direct Invoice')}} @else {{__('text.Quotation')}} @endif {{$quotation_invoice_number}}</p>
                                 <p class="text-muted" style="font-size: 15px;margin-top: 10px;">{{__('text.Created at')}}: {{$date}}</p>
 
                             </div>
@@ -63,11 +63,11 @@
                                 <table class="table" style="border: 1px solid #e5e5e5;">
                                     <thead>
                                     <tr>
-                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Category/Item')}}</th>
+                                        {{--<th class="border-0 text-uppercase small font-weight-bold">{{__('text.Category/Item')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Brand')}}</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model')}}</th>
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model')}}</th>--}}
                                         {{--<th class="border-0 text-uppercase small font-weight-bold">Estimated Date</th>--}}
-                                        {{--<th class="border-0 text-uppercase small font-weight-bold">Description</th>--}}
+                                        <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Description')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Qty')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Cost')}}</th>
                                         <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Amount')}}</th>
@@ -78,11 +78,11 @@
                                     @foreach($request->item as $i => $key)
 
                                         <tr>
-                                            <td>{{$request->service_title[$i]}}</td>
+                                            {{--<td>{{$request->service_title[$i]}}</td>
                                             <td>{{$request->brand_title[$i]}}</td>
-                                            <td>{{$request->model_title[$i]}}</td>
+                                            <td>{{$request->model_title[$i]}}</td>--}}
                                             {{--<td>{{$request->date}}</td>--}}
-                                            {{--<td>{{$request->description[$i]}}</td>--}}
+                                            <td>{{$request->description[$i]}}</td>
                                             <td>{{$request->qty[$i]}}</td>
                                             <td>{{$request->cost[$i]}}</td>
                                             <td>{{$request->amount[$i]}}</td>

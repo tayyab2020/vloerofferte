@@ -129,6 +129,21 @@
                                             <div class="col-sm-12">
 
                                                 <input type="hidden" name="handyman_id" id="handyman_id" value="{{$user_id}}">
+                                                <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
+
+                                                    @foreach($all_products as $product)
+                                                        <option data-type="Product" data-cat="{{$product->cat_name}}" value="{{$product->id}}">{{$product->title}}</option>
+                                                    @endforeach
+
+                                                    @foreach($all_services as $service)
+                                                        <option data-type="Service" value="{{$service->id}}S">{{$service->title}}</option>
+                                                    @endforeach
+
+                                                    @foreach($items as $item)
+                                                        <option data-type="Item" value="{{$item->id}}I">{{$item->cat_name}}</option>
+                                                    @endforeach
+
+                                                </select>
 
                                                         <div class="row" style="margin: 0;margin-top: 35px;">
                                                             <div class="col-md-12 col-sm-12" style="border: 1px solid #e5e5e5;padding: 0;">
@@ -157,27 +172,11 @@
                                                                                 <td class="service_box">
 
                                                                                     <div class="autocomplete" style="width:100%;">
-                                                                                        <input value="{{$temp->product_title}}" required name="productInput[]" id="productInput" class="form-control" type="text" placeholder="{{__('text.Select Product')}}" @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
+                                                                                        <input autocomplete="off" value="{{$temp->product_title}}" required name="productInput[]" id="productInput" class="form-control productInput" type="text" placeholder="{{__('text.Select Product')}}" @if(Route::currentRouteName() == 'view-handyman-quotation' || Route::currentRouteName() == 'view-custom-quotation') readonly @endif>
                                                                                         <input type="hidden" id="check" value="1">
                                                                                     </div>
 
-                                                                                    <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
-
-                                                                                        @foreach($all_products as $product)
-                                                                                            <option data-type="Product" data-cat="{{$product->cat_name}}" value="{{$product->id}}">{{$product->title}}</option>
-                                                                                        @endforeach
-
-                                                                                        @foreach($all_services as $service)
-                                                                                            <option data-type="Service" value="{{$service->id}}S">{{$service->title}}</option>
-                                                                                        @endforeach
-
-                                                                                        @foreach($items as $item)
-                                                                                            <option data-type="Item" value="{{$item->id}}I">{{$item->cat_name}}</option>
-                                                                                        @endforeach
-
-                                                                                    </select>
-
-                                                                                    <input type="hidden" id="item" name="item[]" value="{{$temp->s_i_id}}">
+                                                                                    <input type="hidden" id="item" name="item[]" @if($temp->is_service) value="{{$temp->s_i_id}}S" @elseif($temp->item) value="{{$temp->s_i_id}}I" @else value="{{$temp->s_i_id}}" @endif>
                                                                                     <input type="hidden" id="service_title" name="service_title[]" value="{{$temp->service}}">
 
                                                                                     <input type="hidden" id="brand" name="brand[]" value="{{$temp->b_i_id}}">
@@ -1575,7 +1574,7 @@
                 });
             }
 
-            $(document).on('focusout', '#productInput', function(){
+            $(document).on('focusout', '.productInput', function(){
 
                 var check = $(this).next('input').val();
 
@@ -1612,7 +1611,11 @@
 
             console.log(options);*/
 
-            autocomplete(document.getElementById("productInput"), texts, options, categories);
+            $('.productInput').each(function(i, obj) {
+
+                autocomplete($(this)[0], texts, options, categories);
+
+            });
 
             $(".add-row").click(function(){
 
@@ -1622,7 +1625,7 @@
                     '                                                                        <td>'+rowCount+'</td>\n' +
                     '                                                                        <td class="service_box">\n' +
                     '                                                                            <div class="autocomplete" style="width:100%;">\n' +
-                    '                                                                                <input required name="productInput[]" id="productInput" class="form-control" type="text" placeholder="{{__('text.Select Product')}}">\n' +
+                    '                                                                                <input autocomplete="off" required name="productInput[]" id="productInput" class="form-control productInput" type="text" placeholder="{{__('text.Select Product')}}">\n' +
                     '                                                                                <input type="hidden" id="check" value="0">\n' +
                     '                                                                            </div>\n' +
                     '                                                                            <input type="hidden" id="item" name="item[]" value="">\n' +
@@ -1649,7 +1652,7 @@
 
                 var last_row = $('.items-table tr:last');
 
-                autocomplete(last_row.find('#productInput')[0], texts, options, categories);
+                autocomplete(last_row.find('.productInput')[0], texts, options, categories);
 
                 $(".remove-row").click(function(){
 
