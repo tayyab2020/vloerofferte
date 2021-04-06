@@ -253,9 +253,9 @@ class UserController extends Controller
         $user_role = $user->role_id;
 
         if ($id) {
-            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('quotation_invoices.quote_id', $id)->where('quotation_invoices.invoice', 1)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.review_text', 'quotation_invoices.delivered', 'quotation_invoices.received', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'quotation_invoices.accept_date', 'quotation_invoices.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
+            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('quotation_invoices.quote_id', $id)->where('quotation_invoices.invoice', 1)->where('quotation_invoices.approved', 1)->select('quotes.*', 'quotation_invoices.review_text', 'quotation_invoices.delivered', 'quotation_invoices.received', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'quotation_invoices.accept_date', 'quotation_invoices.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->orderBy('quotation_invoices.created_at', 'desc')->get();
         } else {
-            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('quotation_invoices.invoice', 1)->where('quotation_invoices.approved', 1)->orderBy('quotation_invoices.created_at', 'desc')->select('quotes.*', 'quotation_invoices.review_text', 'quotation_invoices.delivered', 'quotation_invoices.received', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'quotation_invoices.accept_date', 'quotation_invoices.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
+            $invoices = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->leftjoin('users', 'users.id', '=', 'quotation_invoices.handyman_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('quotation_invoices.invoice', 1)->where('quotation_invoices.approved', 1)->select('quotes.*', 'quotation_invoices.review_text', 'quotation_invoices.delivered', 'quotation_invoices.received', 'quotation_invoices.ask_customization', 'quotation_invoices.approved', 'quotation_invoices.accepted', 'quotation_invoices.id as invoice_id', 'quotation_invoices.quotation_invoice_number', 'quotation_invoices.tax', 'quotation_invoices.subtotal', 'quotation_invoices.grand_total', 'quotation_invoices.created_at as invoice_date', 'quotation_invoices.accept_date', 'quotation_invoices.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->orderBy('quotation_invoices.created_at', 'desc')->get();
         }
 
         return view('user.client_quote_invoices', compact('invoices'));
@@ -1033,32 +1033,9 @@ class UserController extends Controller
 
         $quote = quotes::leftjoin('handyman_quotes', 'handyman_quotes.quote_id', '=', 'quotes.id')->where('quotes.id', $id)->where('handyman_quotes.handyman_id', $user_id)->select('quotes.*')->first();
 
-        /*if($quote->quote_service == 0 && $quote->quote_brand == 0 && $quote->quote_model == 0)
-        {
-            $matched_data = Service::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'services.id')->where('handyman_services.handyman_id', $user_id)->where('services.id', $quote->quote_service1)->select('services.id as service_id', 'handyman_services.sell_rate as rate')->first();
-        }
-        else
-        {
-            $matched_data = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id', $user_id)->where('products.category_id', $quote->quote_service)->where('products.brand_id', $quote->quote_brand)->where('products.model_id', $quote->quote_model)->select('categories.id as service_id', 'brands.id as brand_id', 'models.id as model_id', 'handyman_products.sell_rate as rate')->first();
-        }*/
-
-        /*$all_services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*')->get();
-        $all_services = $all_services->unique();
-
-        $all_brands = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('products.category_id',$quote->quote_service)->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
-        $all_brands = $all_brands->unique();
-
-        $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('products.brand_id',$quote->quote_brand)->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
-        $all_models = $all_models->unique();*/
-
         $all_products = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories', 'categories.id', '=', 'products.category_id')->where('handyman_products.handyman_id', $user_id)->select('products.*','categories.cat_name','handyman_products.sell_rate as rate')->get();
         $all_services = Service::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'services.id')->where('handyman_services.handyman_id', $user_id)->select('services.*','handyman_services.sell_rate as rate')->get();
         $items = items::where('user_id',$user_id)->get();
-
-        /*if (!$matched_data) {
-            Session::flash('unsuccess', 'None of your product(s) matched with details asked in this quotation');
-            return redirect()->back();
-        }*/
 
         $settings = Generalsetting::findOrFail(1);
 
@@ -1081,33 +1058,15 @@ class UserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotation_invoices.handyman_id', $user_id)->select('quotation_invoices.*', 'quotes.quote_zipcode', 'quotes.quote_postcode', 'quotes.quote_city', 'quotes.id as quote_id', 'quotes.quote_number', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.b_i_id', 'quotation_invoices_data.m_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotation_invoices.handyman_id', $user_id)->select('quotation_invoices.*', 'quotes.quote_zipcode', 'quotes.quote_postcode', 'quotes.quote_city', 'quotes.id as quote_id', 'quotes.quote_number', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.product_title', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.b_i_id', 'quotation_invoices_data.m_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
 
-        $services = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories','categories.id','=','products.category_id')->where('handyman_products.handyman_id', $user_id)->select('categories.*')->get();
-        $services = $services->unique();
+        $all_products = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories', 'categories.id', '=', 'products.category_id')->where('handyman_products.handyman_id', $user_id)->select('products.*','categories.cat_name','handyman_products.sell_rate as rate')->get();
+        $all_services = Service::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'services.id')->where('handyman_services.handyman_id', $user_id)->select('services.*','handyman_services.sell_rate as rate')->get();
+        $items = items::where('user_id',$user_id)->get();
 
         if (count($quotation) != 0) {
 
-            foreach ($quotation as $i => $key)
-            {
-                if(!$key->item)
-                {
-                    $all_brands = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('brands','brands.id','=','products.brand_id')->where('products.category_id',$key->s_i_id)->where('handyman_products.handyman_id', $user_id)->select('brands.*')->get();
-                    $all_brands[$i] = $all_brands->unique();
-
-                    $all_models = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('models','models.id','=','products.model_id')->where('products.brand_id',$key->b_i_id)->where('handyman_products.handyman_id', $user_id)->select('models.*')->get();
-                    $all_models[$i] = $all_models->unique();
-                }
-                else
-                {
-                    $all_brands[$i] = '';
-                    $all_models[$i] = '';
-                }
-            }
-
-            $items = items::where('user_id', $user_id)->get();
-
-            return view('user.quotation', compact('quotation', 'services', 'vat_percentage', 'items', 'all_brands', 'all_models', 'user_id'));
+            return view('user.quotation', compact('quotation', 'vat_percentage', 'user_id', 'all_products', 'all_services', 'items'));
 
         } else {
             return redirect('aanbieder/dashboard');
@@ -1175,14 +1134,12 @@ class UserController extends Controller
 
         $vat_percentage = $settings->vat;
 
-        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotes.user_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.quote_zipcode', 'quotes.quote_postcode', 'quotes.quote_city', 'quotes.quote_number', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
+        $quotation = quotation_invoices::leftjoin('quotation_invoices_data', 'quotation_invoices_data.quotation_id', '=', 'quotation_invoices.id')->leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotes.user_id', $user_id)->select('quotation_invoices.*', 'quotes.id as quote_id', 'quotes.quote_zipcode', 'quotes.quote_postcode', 'quotes.quote_city', 'quotes.quote_number', 'quotes.created_at as quote_date', 'quotation_invoices_data.id as data_id', 'quotation_invoices_data.product_title', 'quotation_invoices_data.s_i_id', 'quotation_invoices_data.item', 'quotation_invoices_data.service', 'quotation_invoices_data.brand', 'quotation_invoices_data.model', 'quotation_invoices_data.rate', 'quotation_invoices_data.qty', 'quotation_invoices_data.description as data_description', 'quotation_invoices_data.estimated_date', 'quotation_invoices_data.amount')->get();
 
         if (count($quotation) != 0) {
-            $services = Category::all();
 
-            $items = items::all();
+            return view('user.client_quotation', compact('quotation', 'vat_percentage'));
 
-            return view('user.client_quotation', compact('quotation', 'services', 'vat_percentage', 'items'));
         } else {
             return redirect('aanbieder/quotation-requests');
         }
@@ -1249,6 +1206,7 @@ class UserController extends Controller
                 $invoice_items->quotation_id = $invoice->id;
                 $invoice_items->s_i_id = (int)$key;
                 $invoice_items->service = $request->service_title[$i];
+                $invoice_items->product_title = $request->productInput[$i];
 
                 if (strpos($services[$i], 'I') > -1) {
 
@@ -1337,6 +1295,7 @@ class UserController extends Controller
 
             Session::flash('success', __('text.Quotation has been created successfully!'));
             return redirect()->route('handyman-quotation-requests');
+
         } elseif ($name == 'update-quotation') {
 
             $quote = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->where('quotes.id', $request->quote_id)->select('quotes.*', 'categories.cat_name')->first();
@@ -1354,36 +1313,39 @@ class UserController extends Controller
 
             foreach ($services as $i => $key) {
 
-                if (strpos($services[$i], 'I') > -1) {
-
-                    $x = 1;
-                    $brand_id = 0;
-                    $model_id = 0;
-
-                    $brand_title = $request->brand_title;
-
-                    $brand_title[$i] = $request->item_brand[$i];
-                    $request->merge(['brand_title' => $brand_title]);
-
-                    $model_title = $request->model_title;
-                    $model_title[$i] = $request->item_model[$i];
-                    $request->merge(['model_title' => $model_title]);
-
-                } else {
-                    $x = 0;
-                    $brand_id = (int)$request->brand[$i];
-                    $model_id = (int)$request->model[$i];
-                }
-
                 $item = new quotation_invoices_data;
                 $item->quotation_id = $quotation->id;
                 $item->s_i_id = (int)$key;
-                $item->b_i_id = $brand_id;
-                $item->m_i_id = $model_id;
-                $item->item = $x;
                 $item->service = $request->service_title[$i];
-                $item->brand = $request->brand_title[$i];
-                $item->model = $request->model_title[$i];
+                $item->product_title = $request->productInput[$i];
+
+                if (strpos($services[$i], 'I') > -1) {
+
+                    $item->b_i_id = 0;
+                    $item->m_i_id = 0;
+                    $item->item = 1;
+                    $item->brand = '';
+                    $item->model = '';
+
+                }
+                elseif (strpos($services[$i], 'S') > -1) {
+
+                    $item->b_i_id = 0;
+                    $item->m_i_id = 0;
+                    $item->is_service = 1;
+                    $item->brand = '';
+                    $item->model = '';
+
+                }
+                else {
+
+                    $item->b_i_id = (int)$request->brand[$i];
+                    $item->m_i_id = (int)$request->model[$i];
+                    $item->brand = $request->brand_title[$i];
+                    $item->model = $request->model_title[$i];
+
+                }
+
                 $item->rate = str_replace(",",".",$request->cost[$i]);
                 $item->qty = str_replace(",",".",$request->qty[$i]);
                 $item->description = $request->description[$i];

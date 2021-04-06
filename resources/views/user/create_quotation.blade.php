@@ -69,7 +69,7 @@
                                                                         <td class="main_box">
 
                                                                             <div class="autocomplete" style="width:100%;">
-                                                                                <input required id="productInput" class="form-control" type="text" placeholder="{{__('text.Select Product')}}">
+                                                                                <input required name="productInput[]" id="productInput" class="form-control" type="text" placeholder="{{__('text.Select Product')}}">
                                                                                 <input type="hidden" id="check" value="0">
                                                                             </div>
 
@@ -1520,7 +1520,7 @@
                     '                                                                        <td>'+rowCount+'</td>\n' +
                     '                                                                           <td class="main_box">\n' +
                     '                                                                            <div class="autocomplete" style="width:100%;">\n' +
-                    '                                                                                <input required id="productInput" class="form-control" type="text" placeholder="{{__('text.Select Product')}}">\n' +
+                    '                                                                                <input required name="productInput[]" id="productInput" class="form-control" type="text" placeholder="{{__('text.Select Product')}}">\n' +
                     '                                                                                <input type="hidden" id="check" value="0">\n' +
                     '                                                                            </div>\n' +
                     '                                                                            <input type="hidden" id="item" name="item[]" value="">\n' +

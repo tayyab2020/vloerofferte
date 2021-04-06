@@ -79,9 +79,7 @@
                                                                     <thead>
                                                                     <tr>
                                                                         <th style="width: 40px;">#</th>
-                                                                        <th class="col-sm-2">Category/Item</th>
-                                                                        <th class="col-sm-2">Brand</th>
-                                                                        <th class="col-sm-2">Model</th>
+                                                                        <th class="col-sm-6">Product/Service/Item</th>
                                                                         <th class="col-md-3">Description</th>
                                                                         <th style="width:100px;">Cost</th>
                                                                         <th style="width:120px;">Qty</th>
@@ -98,41 +96,7 @@
                                                                             <tr>
                                                                                 <td>{{$i + 1}}</td>
                                                                                 <td>
-                                                                                    <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required @if(Route::currentRouteName() == 'view-quotation') disabled @endif>
-
-                                                                                        @foreach($services as $key)
-                                                                                            <option value="{{$key->id}}" @if(!$temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->service; ?> @endif @endif>{{$key->cat_name}}</option>
-                                                                                        @endforeach
-
-                                                                                        @foreach($items as $key)
-                                                                                            <option value="{{$key->id}}I" @if($temp->item) @if($temp->s_i_id == $key->id) selected <?php $service_title = $temp->temp; ?> @endif @endif>{{$key->cat_name}}</option>
-                                                                                        @endforeach
-
-                                                                                    </select>
-
-                                                                                    <input type="hidden" name="service_title[]" value="{{isset($service_title) ? $service_title : $services[0]->cat_name}}">
-                                                                                </td>
-                                                                                <td>
-                                                                                    <select class="js-data-example-ajax1 form-control" style="width: 100%" name="brand[]" required @if(Route::currentRouteName() == 'view-quotation') disabled @endif>
-
-                                                                                        @foreach($all_brands as $key)
-                                                                                            <option value="{{$key->id}}" @if($temp->b_i_id == $key->id) selected <?php $brand_title = $temp->brand; ?> @endif>{{$key->cat_name}}</option>
-                                                                                        @endforeach
-
-                                                                                    </select>
-
-                                                                                    <input type="hidden" name="brand_title[]" value="{{isset($brand_title) ? $brand_title : $all_brands[0]->cat_name}}">
-                                                                                </td>
-                                                                                <td>
-                                                                                    <select class="js-data-example-ajax2 form-control" style="width: 100%" name="model[]" required @if(Route::currentRouteName() == 'view-quotation') disabled @endif>
-
-                                                                                        @foreach($all_models as $key)
-                                                                                            <option value="{{$key->id}}" @if($temp->m_i_id == $key->id) selected <?php $model_title = $temp->model; ?> @endif>{{$key->cat_name}}</option>
-                                                                                        @endforeach
-
-                                                                                    </select>
-
-                                                                                    <input type="hidden" name="model_title[]" value="{{isset($model_title) ? $model_title : $all_models[0]->cat_name}}">
+                                                                                    <input name="productInput[]" class="form-control" type="text" value="{{$temp->product_title}}" required @if(Route::currentRouteName() == 'view-quotation') readonly @endif>
                                                                                 </td>
                                                                                 <td>
                                                                                     <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control" @if(Route::currentRouteName() == 'view-quotation') readonly @endif>{{$temp->data_description}}</textarea>
@@ -976,16 +940,8 @@
                 $(".items-table").append('<tr>\n' +
                     '                                                                        <td>'+rowCount+'</td>\n' +
                     '                                                                        <td>\n' +
-                    '                                                                            <select class="js-data-example-ajax form-control" style="width: 100%" name="item[]" required>\n' +
-                    '                                                                                @foreach($services as $key)\n' +
-                    '                                                                                    <option value="{{$key->id}}">{{$key->cat_name}}</option>\n' +
-                    '                                                                                @endforeach\n' +
-                    '                                                                                @foreach($items as $key)\n' +
-                    '                                                                                    <option value="{{$key->id}}I">{{$key->cat_name}}</option>\n' +
-                    '                                                                                @endforeach\n' +
-                    '                                                                            </select>\n' +
-                    '                                                                           <input type="hidden" name="service_title[]" value="">\n'+
-                    '                                                                        </td>\n' +
+                    '                                                                             <input name="productInput[]" class="form-control" type="text" required>\n' +
+                    '                                                                        </td>\n'+
                     '                                                                        <td>\n' +
                     '                                                                            <textarea style="resize: vertical;" rows="1" name="description[]" class="form-control"></textarea>\n' +
                     '                                                                        </td>\n' +

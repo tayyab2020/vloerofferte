@@ -90,9 +90,7 @@
                                                                         <thead>
                                                                         <tr>
                                                                             <th style="width: 40px;">#</th>
-                                                                            <th class="col-sm-2">{{__('text.Category/Item')}}</th>
-                                                                            <th class="col-sm-2">{{__('text.Brand')}}</th>
-                                                                            <th class="col-sm-2">{{__('text.Model')}}</th>
+                                                                            <th class="col-sm-6">Product/Service/Item</th>
                                                                             <th class="col-md-2">{{__('text.Description')}}</th>
                                                                             <th style="width:120px;">{{__('text.Qty')}}</th>
                                                                             <th style="width:100px;">{{__('text.Cost')}}</th>
@@ -108,21 +106,10 @@
 
                                                                             <tr>
                                                                                 <td>{{$i + 1}}</td>
+
                                                                                 <td class="service_box">
 
-                                                                                    <input name="item[]" class="form-control" type="text" value="{{$temp->service}}" readonly>
-
-                                                                                </td>
-
-                                                                                <td class="brand_box">
-
-                                                                                    <input name="brand[]" class="form-control" type="text" value="{{$temp->brand}}" readonly>
-
-                                                                                </td>
-
-                                                                                <td class="model_box">
-
-                                                                                    <input name="model[]" class="form-control" type="text" value="{{$temp->model}}" readonly>
+                                                                                    <input name="item[]" class="form-control" type="text" value="{{$temp->product_title}}" readonly>
 
                                                                                 </td>
 
