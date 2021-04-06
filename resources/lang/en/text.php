@@ -254,4 +254,5 @@ return [
     'Measure' => 'Measure',
     'Service' => 'Service',
     'Quantity' => 'Quantity',
+    'Our Brands' => 'Our Brands',
 ];

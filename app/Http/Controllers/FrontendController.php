@@ -353,8 +353,9 @@ class FrontendController extends Controller
 
         $language = $this->lang->lang;
         $blogs = Blog::all();
+        $brands = Brand::where('photo','!=',NULL)->get();
 
-        return view('front.index', compact('blogs', 'language'));
+        return view('front.index', compact('blogs', 'language','brands'));
 
     }
 
