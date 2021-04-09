@@ -242,6 +242,20 @@
                                                     alt="member image"
                                                     style="width: 100%;height: 100%;">
 
+                                            @elseif(file_exists('assets/images/'.$key->article_code.'.jpg'))
+
+                                                <img
+                                                    src="{{asset('assets/images/'.$key->article_code.'.jpg')}}"
+                                                    alt="member image"
+                                                    style="width: 100%;height: 100%;">
+
+                                            @elseif(file_exists('assets/images/'.$key->article_code.'.png'))
+
+                                                <img
+                                                    src="{{asset('assets/images/'.$key->article_code.'.png')}}"
+                                                    alt="member image"
+                                                    style="width: 100%;height: 100%;">
+
                                             @else
 
                                                 <img
