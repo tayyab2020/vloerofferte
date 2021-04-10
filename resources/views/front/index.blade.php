@@ -557,26 +557,30 @@
                     <div class="col-xs-12 col-sm-6 col-md-4">
                         <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                             <div class="mainflip">
-                                <div class="frontside">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <p>
 
-                                                @if($cat->photo == NULL)
+                                <a href="{{url('products/?_token='.@csrf_token().'&category='.$cat->id)}}">
+                                    <div class="frontside">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <p>
 
-                                                    <img class=" img-fluid" src="{{asset('assets/default.jpg')}}" >
+                                                    @if($cat->photo == NULL)
 
-                                                @else
+                                                        <img class=" img-fluid" src="{{asset('assets/default.jpg')}}" >
 
-                                                    <img class=" img-fluid" src="{{asset('assets/images/'.$cat->photo)}}" >
+                                                    @else
 
-                                            @endif
+                                                        <img class=" img-fluid" src="{{asset('assets/images/'.$cat->photo)}}" >
 
-                                            <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$cat->cat_name}}</h4>
+                                                @endif
 
+                                                <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$cat->cat_name}}</h4>
+
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
+
                                 <div class="backside" >
                                     <div class="card">
                                         <div class="card-body text-center mt-4">
@@ -591,6 +595,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -878,7 +883,7 @@
                 $('.p-btns').click(function(){
 
                     var id = $(this).data('id');
-                    
+
                     $('.navbar a[href="#step1"]').trigger('click');
                     $('.back').hide();
 
@@ -1480,7 +1485,7 @@
             }
 
 
-            .image-flip:hover .backside,
+            /*.image-flip:hover .backside,
             .image-flip.hover .backside {
                 -webkit-transform: rotateY(0deg);
                 -moz-transform: rotateY(0deg);
@@ -1496,7 +1501,7 @@
                 -moz-transform: rotateY(180deg);
                 -o-transform: rotateY(180deg);
                 transform: rotateY(180deg);
-            }
+            }*/
 
             .mainflip {
                 -webkit-transition: 1s;
