@@ -63,7 +63,7 @@ class GeneralSettingController extends Controller
                 $file->move('assets/images',$name);
                 if($fav->fav != null)
                 {
-                    unlink(public_path().'/assets/images/'.$fav->fav);
+                    \File::delete(public_path() .'/assets/images/'.$fav->fav);
                 }
             $input['favicon'] = $name;
             }
@@ -95,7 +95,7 @@ class GeneralSettingController extends Controller
                 $file->move('assets/images',$name);
                 if($fav->loader != null)
                 {
-                    unlink(public_path().'/assets/images/'.$fav->loader);
+                    \File::delete(public_path() .'/assets/images/'.$fav->loader);
                 }
             $input['loader'] = $name;
             }
@@ -125,7 +125,7 @@ class GeneralSettingController extends Controller
                 $file->move('assets/images',$name);
                 if($bgimg->bgimg != null)
                 {
-                    unlink(public_path().'/assets/images/'.$bgimg->bgimg);
+                    \File::delete(public_path() .'/assets/images/'.$bgimg->bgimg);
                 }
             $input['bgimg'] = $name;
             }
@@ -160,7 +160,7 @@ class GeneralSettingController extends Controller
                 $file->move('assets/images',$name);
                 if($content->bimg != null)
                 {
-                    unlink(public_path().'/assets/images/'.$content->bimg);
+                    \File::delete(public_path() .'/assets/images/'.$content->bimg);
                 }
             $input['bimg'] = $name;
             }
@@ -172,7 +172,7 @@ class GeneralSettingController extends Controller
                 $file->move('assets/images',$name1);
                 if($content->h_sidebg != null)
                 {
-                    unlink(public_path().'/assets/images/'.$content->h_sidebg);
+                    \File::delete(public_path() .'/assets/images/'.$content->h_sidebg);
                 }
             $input['h_sidebg'] = $name1;
             }
@@ -185,7 +185,7 @@ class GeneralSettingController extends Controller
                 $file->move('assets/images',$name2);
                 if($content->h_dashbg != null)
                 {
-                    unlink(public_path().'/assets/images/'.$content->h_dashbg);
+                    \File::delete(public_path() .'/assets/images/'.$content->h_dashbg);
                 }
             $input['h_dashbg'] = $name2;
             }
@@ -197,7 +197,7 @@ class GeneralSettingController extends Controller
                 $file->move('assets/images',$name3);
                 if($content->c_sidebg != null)
                 {
-                    unlink(public_path().'/assets/images/'.$content->c_sidebg);
+                    \File::delete(public_path() .'/assets/images/'.$content->c_sidebg);
                 }
             $input['c_sidebg'] = $name3;
             }
@@ -209,7 +209,7 @@ class GeneralSettingController extends Controller
                 $file->move('assets/images',$name4);
                 if($content->c_dashbg != null)
                 {
-                    unlink(public_path().'/assets/images/'.$content->c_dashbg);
+                    \File::delete(public_path() .'/assets/images/'.$content->c_dashbg);
                 }
             $input['c_dashbg'] = $name4;
             }
