@@ -37,7 +37,7 @@
                     <li style="margin-bottom: 0;"><a data-toggle="tab" href="#description">Description</a></li>
                 </ul>
 
-                <div style="padding: 20px 15px;border: 1px solid #24232329;height: 453px;overflow: auto;" class="tab-content">
+                <div style="padding: 20px 15px;border: 1px solid #24232329;min-height: 453px;" class="tab-content">
 
                     <div id="menu1" class="tab-pane fade in active">
 
