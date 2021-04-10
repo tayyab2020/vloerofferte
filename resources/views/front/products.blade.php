@@ -15,7 +15,7 @@
 @section('content')
 
 
-    <div class="cd-filter filter-is-visible" id="cd-filter" style="position: relative;float: left;height: 915px;z-index: auto;border-right: 1px solid #e0e0e0;">
+    <div class="cd-filter filter-is-visible" id="cd-filter" style="position: relative;float: left;/*height: 915px;*/height: auto;z-index: auto;border-right: 1px solid #e0e0e0;">
 
         <a href="#0" class="cd-filter-trigger filter-is-visible" style="margin-left: 15px;">{{$lang->ft}}</a>
 
@@ -210,7 +210,7 @@
        style="color: white; position: relative; display: block; background-color: #003580; background-position-x: 33%; margin-left: 0px; left: 0px; padding-left: 0px; text-decoration: none; width: 35px; top: 0px; float: left;border-top-right-radius: 9px;border-bottom-right-radius: 10px;margin-top: 10px;"
        id="fltr-btn"></a>
 
-    <div class="cd-main-content is-fixed" style="height: 915px;overflow-y: auto;min-height: 915px;">
+    <div class="cd-main-content is-fixed" style="/*height: 915px;*/height: auto;overflow-y: hidden;min-height: auto;/*min-height: 915px;*/">
 
 
         <div class="section-padding all-donors-wrap team_section team_style2 wow fadeInUp"

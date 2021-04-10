@@ -52,38 +52,6 @@
 
         <div class="container" style="width: 100%;">
 
-            <div class="row" style="margin: 30px 0;display: flex;justify-content: center;">
-
-                <div class="btn-box col-lg-11 col-md-11 col-sm-11 col-xs-12" style="display: flex;justify-content: center;">
-
-                    <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-
-                        <button data-id="1" class="btn btn-success p-btns">
-                            <span>Product</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
-                        </button>
-
-                    </div>
-
-                    <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-
-                        <button data-id="2" class="btn btn-success p-btns">
-                            <span>Product + Dienst</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
-                        </button>
-
-                    </div>
-
-                    <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-
-                        <button data-id="3" class="btn btn-success p-btns">
-                            <span>Dienst</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
             <div class="row" style="display: flex;justify-content: center;">
 
                 <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12" id="quote-con">
@@ -102,7 +70,39 @@
                         }
                     </style>
 
-                    <div class="main-form" style="border-radius: 10px;box-shadow: 0px 0px 4px 0px #dbdbdb;">
+                    <div class="row o-box" style="margin: 35px 0 30px 0;display: flex;justify-content: center;">
+
+                        <div class="btn-box col-lg-11 col-md-11 col-sm-11 col-xs-12" style="display: flex;justify-content: center;">
+
+                            <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                                <button data-id="1" class="btn btn-success p-btns">
+                                    <span>Product</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
+                                </button>
+
+                            </div>
+
+                            <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                                <button data-id="2" class="btn btn-success p-btns">
+                                    <span>Product + Dienst</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
+                                </button>
+
+                            </div>
+
+                            <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                                <button data-id="3" class="btn btn-success p-btns">
+                                    <span>Dienst</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="main-form cbm-box" style="display: none;border-radius: 10px;box-shadow: 0px 0px 4px 0px #dbdbdb;">
 
                         <div id="quote-box" style="display: flex;justify-content: space-between;width: 100%;padding: 20px;">
 
@@ -199,7 +199,7 @@
                         </div>
                     </div>
 
-                    <div class="main-form" style="border-radius: 10px;box-shadow: 0px 0px 4px 0px #dbdbdb;margin-top: 10px;">
+                    <div class="main-form p-box" style="display: none;border-radius: 10px;box-shadow: 0px 0px 4px 0px #dbdbdb;margin-top: 10px;">
 
                         <div id="quote-box" style="display: flex;justify-content: space-between;width: 100%;padding: 20px;">
 
@@ -248,11 +248,11 @@
                             transition: opacity .45s cubic-bezier(0.25,1,0.33,1);
                             color: white;
                             font-weight: 600;
-                            background-color: #000 !important;
                             display: inline-block;
                             width: 80%;
                             border: 0;
                             border-radius: 6px;
+                            background-color: {{($gs->form_bg == null) ? (($gs->colors == null) ? '#f3bd02 !important;' : $gs->colors.' !important;') : $gs->form_bg. ' !important;' }}
                         }
 
                         .p-btns span
@@ -264,11 +264,6 @@
                             transition: opacity .45s cubic-bezier(0.25,1,0.33,1),transform .45s cubic-bezier(0.25,1,0.33,1);
                             -webkit-transition: opacity .45s cubic-bezier(0.25,1,0.33,1),transform .45s cubic-bezier(0.25,1,0.33,1);
                             position: relative;
-                        }
-
-                        .p-btns:hover
-                        {
-                            background-color: {{($gs->form_bg == null) ? (($gs->colors == null) ? '#f3bd02 !important;' : $gs->colors.' !important;') : $gs->form_bg. ' !important;' }};
                         }
 
                         .p-btns:hover span
@@ -881,6 +876,10 @@
             $(document).ready(function(){
 
                 $('.p-btns').click(function(){
+
+                    $('.o-box').hide();
+                    $('.cbm-box').show();
+                    $('.p-box').show();
 
                     var id = $(this).data('id');
 
