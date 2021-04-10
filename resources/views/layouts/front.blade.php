@@ -186,7 +186,7 @@
     <div class="container" style="width: 90%;">
         <div class="row">
             <div class="col-sm-4 col-md-4 col-lg-4 mid-break-4" id="logo-div">
-                <div class="logo" style="margin-bottom: 20px;">
+                <div class="logo" style="margin-bottom: 20px;z-index: 1000;">
                     <a href="{{route('front.index')}}">
                         <img src="{{asset('assets/images/'.$gs->logo)}}" alt="" style="height: 75px;padding-top: 15px;">
                     </a>

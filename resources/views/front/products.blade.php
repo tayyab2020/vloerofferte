@@ -15,7 +15,7 @@
 @section('content')
 
 
-    <div class="cd-filter filter-is-visible" id="cd-filter" style="position: relative;float: left;/*height: 915px;*/height: auto;z-index: auto;border-right: 1px solid #e0e0e0;">
+    <div class="cd-filter filter-is-visible" id="cd-filter" style="position: relative;float: left;/*height: 915px;*/height: auto;z-index: 1;border-right: 1px solid #e0e0e0;">
 
         <a href="#0" class="cd-filter-trigger filter-is-visible" style="margin-left: 15px;">{{$lang->ft}}</a>
 
@@ -1166,6 +1166,7 @@
             .subscribe-newsletter-wrapper
             {
                 padding-top: 40px;
+                padding-bottom: 30px !important;
             }
         }
 
@@ -2282,6 +2283,12 @@
         }
 
         @media only screen and (min-width: 768px) {
+
+            .section-padding.footer-area-wrapper
+            {
+                padding-top: 60px;
+            }
+
             .cd-tab-filter {
                 /* tabbed navigation style on medium devices */
                 width: auto;
@@ -2562,9 +2569,23 @@
                 width: 100%;
             }
 
+            .cd-main-content
+            {
+                overflow-y: unset !important;
+            }
+
+            .section-padding
+            {
+                visibility: visible !important;
+                animation-name: none !important;
+            }
 
         }
 
+        .subscribe-newsletter-wrapper
+        {
+            padding-bottom: 0;
+        }
 
         /* --------------------------------
 
