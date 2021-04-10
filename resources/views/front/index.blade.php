@@ -52,6 +52,38 @@
 
         <div class="container" style="width: 100%;">
 
+            <div class="row" style="margin: 30px 0;display: flex;justify-content: center;">
+
+                <div class="btn-box col-lg-11 col-md-11 col-sm-11 col-xs-12" style="display: flex;justify-content: center;">
+
+                    <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                        <button data-id="1" class="btn btn-success p-btns">
+                            <span>Product</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
+                        </button>
+
+                    </div>
+
+                    <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                        <button data-id="2" class="btn btn-success p-btns">
+                            <span>Product + Dienst</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
+                        </button>
+
+                    </div>
+
+                    <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                        <button data-id="3" class="btn btn-success p-btns">
+                            <span>Dienst</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
             <div class="row" style="display: flex;justify-content: center;">
 
                 <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12" id="quote-con">
@@ -193,6 +225,83 @@
                     </div>
 
                     <style>
+
+                        @media (max-width: 767px)
+                        {
+                            .btn-box
+                            {
+                                display: block !important;
+                            }
+
+                            .btn-box div
+                            {
+                                margin: 20px 0;
+                            }
+                        }
+
+                        .p-btns
+                        {
+                            padding: 20px 15px;
+                            text-align: center;
+                            font-size: 14px;
+                            -webkit-transition: opacity .45s cubic-bezier(0.25,1,0.33,1);
+                            transition: opacity .45s cubic-bezier(0.25,1,0.33,1);
+                            color: white;
+                            font-weight: 600;
+                            background-color: #000 !important;
+                            display: inline-block;
+                            width: 80%;
+                            border: 0;
+                            border-radius: 6px;
+                        }
+
+                        .p-btns span
+                        {
+                            left: 0;
+                            display: inline-block;
+                            transform: translateX(0);
+                            -webkit-transform: translateX(0);
+                            transition: opacity .45s cubic-bezier(0.25,1,0.33,1),transform .45s cubic-bezier(0.25,1,0.33,1);
+                            -webkit-transition: opacity .45s cubic-bezier(0.25,1,0.33,1),transform .45s cubic-bezier(0.25,1,0.33,1);
+                            position: relative;
+                        }
+
+                        .p-btns:hover
+                        {
+                            background-color: {{($gs->form_bg == null) ? (($gs->colors == null) ? '#f3bd02 !important;' : $gs->colors.' !important;') : $gs->form_bg. ' !important;' }};
+                        }
+
+                        .p-btns:hover span
+                        {
+                            transform: translateX(-18px);
+                            -webkit-transform: translateX(-18px);
+                        }
+
+                        .p-btns i
+                        {
+                            text-decoration: none;
+                            background-color: transparent!important;
+                            top: 53% !important;
+                            right: 20% !important;
+                            font-size: 18px;
+                            line-height: 18px;
+                            width: 18px;
+                            position: absolute;
+                            margin-top: -9px;
+                            opacity: 0;
+                            transition: all .45s cubic-bezier(0.25,1,0.33,1);
+                            -webkit-transition: all .45s cubic-bezier(0.25,1,0.33,1);
+                            display: inline-block;
+                            word-spacing: 1px;
+                            text-align: center;
+                            vertical-align: middle;
+                            max-width: 100%;
+                        }
+
+                        .p-btns:hover i
+                        {
+                            opacity: 1;
+                        }
 
                         .autocomplete ::-webkit-input-placeholder {
                             text-align: center;
@@ -765,6 +874,50 @@
         <script type="text/javascript">
 
             $(document).ready(function(){
+
+                $('.p-btns').click(function(){
+
+                    var id = $(this).data('id');
+                    
+                    $('.navbar a[href="#step1"]').trigger('click');
+                    $('.back').hide();
+
+                    if(id == 1 || id == 2)
+                    {
+                        $('.quote-category').val('');
+                        $(".quote-category").trigger('change.select2');
+
+                        $('.quote-service').removeClass('quote_validation');
+                        $('.quote-category').addClass('quote_validation');
+                        $('.quote-brand').addClass('quote_validation');
+                        $('.quote-model').addClass('quote_validation');
+
+                        $('#step1').children('.well').css('height','300px');
+                        $('.quote_delivery').attr("placeholder", "Select Delivery Date");
+
+                        $('.unlinked-boxes').hide();
+                        $('.linked-boxes').show();
+                    }
+                    else
+                    {
+                        $('.quote-category').val('Diensten');
+                        $(".quote-category").trigger('change.select2');
+
+                        $('.linked-boxes').hide();
+                        $('.unlinked-boxes').show();
+
+                        $('.quote-service').addClass('quote_validation');
+                        $('.quote-category').removeClass('quote_validation');
+                        $('.quote-brand').removeClass('quote_validation');
+                        $('.quote-model').removeClass('quote_validation');
+
+                        $('#step1').children('.well').css('height','');
+
+                        $('.quote_delivery').attr("placeholder", "Select Installation Date");
+                    }
+
+                });
+
                 $('.customer-logos').slick({
                     slidesToShow: 6,
                     slidesToScroll: 1,
