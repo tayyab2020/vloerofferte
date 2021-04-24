@@ -474,7 +474,7 @@
 
             </div>
             <div class="text-center">
-                {!! $all_products->appends(['range_start' => $range_s, 'range_end' => $range_e, 'category' => $category, 'brand' => $brand, 'model' => $model, 'size' => $size, 'color' => $color])->links() !!}
+                {!! $all_products->appends(['org_range_start' => $lowest, 'org_range_end' => $highest, 'range_start' => $range_s, 'range_end' => $range_e, 'category' => $category, 'brand' => $brand, 'model' => $model, 'size' => $size, 'color' => $color])->links() !!}
             </div>
         </div>
 
