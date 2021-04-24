@@ -152,7 +152,7 @@
 
                                 <select class="js-data-example-ajax0 form-control quote-service" name="group" id="blood_grp">
 
-                                    <option value="">Select Service</option>
+                                    <option value="">{{__('text.Select Service)}}</option>
 
                                     @if(isset($quote_services))
 
@@ -1989,7 +1989,7 @@
         $(".js-data-example-ajax0").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Service",
+            placeholder: "{{__('text.Select Service)}}",
             allowClear: true,
             "language": {
                 "noResults": function(){
@@ -2002,7 +2002,7 @@
         $(".js-data-example-ajax10").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Service",
+            placeholder: "{{__('text.Select Service)}}",
             allowClear: true,
             dropdownParent: $('#aanvragen'),
             "language": {

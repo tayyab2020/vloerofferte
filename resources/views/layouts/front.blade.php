@@ -525,7 +525,7 @@
 
                                 <div>
 
-                                    <input style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_delivery" id="quote_delivery" class="form-control quote_delivery quote_validation" placeholder="Select Delivery Date" autocomplete="off">
+                                    <input style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_delivery" id="quote_delivery" class="form-control quote_delivery quote_validation" placeholder="{{__('Select Delivery Date')}}" autocomplete="off">
 
                                 </div>
 
