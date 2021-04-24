@@ -20,7 +20,7 @@
         <div class="section-padding all-donors-wrap team_section team_style2 wow fadeInUp"
              style="visibility: visible; animation-name: fadeInUp;float: right;width: 100%;">
 
-            <h1 style="margin-bottom: 30px;text-align: center;">Our Services</h1>
+            <h1 style="margin-bottom: 30px;text-align: center;">{{__('text.Our Services')}}</h1>
 
             <div class="container">
 
@@ -451,36 +451,6 @@
                 $('#quantity').val($(this).val());
             });
 
-            $('.topMembers').slick({
-                dots: false,
-                arrows: true,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                responsive: [
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            arrows: true,
-                            centerMode: false,
-                            centerPadding: '0px',
-                            slidesToShow: 2
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            arrows: false,
-                            centerMode: true,
-                            centerPadding: '40px',
-                            slidesToShow: 1
-                        }
-                    }
-                ],
-                prevArrow: "<button class='slick-arrow slick-prev' data-role='none' type='button' style='display: block;'><svg class='domain-icon css-oee40j' viewBox='0 0 24 24' aria-hidden='true'><path fill='none' stroke='currentColor' stroke-width='2' d='M15 5l-7 7 7 7'></path></svg><span class='css-16q9xmc'>Prev</span></button>",
-                nextArrow: "<button class='slick-arrow slick-next' data-role='none' type='button' style='display: block;'><svg class='domain-icon css-oee40j' viewBox='0 0 24 24' aria-hidden='true'><path fill='none' stroke='currentColor' stroke-width='2' d='M9 5l7 7-7 7'></path></svg><span class='css-16q9xmc'>Next</span></button>"
-            });
-
-
 
             $('.quote-service').change(function(){
 
@@ -598,6 +568,7 @@
                 return false;
             });
 
+
             $('.next').click(function(){
 
                 var validation = $('.tab-content').find('.active').find('.quote_validation');
@@ -714,7 +685,7 @@
                 $('.quote-model').removeClass('quote_validation');
 
                 $('#step1').children('.well').css('height','');
-                $('.quote_delivery').attr("placeholder", "Select Installation Date");
+                $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
 
                 var service_id = $(this).data('id');
                 var options = '';
@@ -1361,7 +1332,7 @@
         $(".js-data-example-ajax10").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Service",
+            placeholder: "{{__('text.Select Service')}}",
             allowClear: true,
             dropdownParent: $('#aanvragen'),
             "language": {

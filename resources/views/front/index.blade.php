@@ -608,7 +608,7 @@
                                         <div class="card">
                                             <div class="card-body text-center">
                                                 <p>
-                                                    <img class=" img-fluid" src="{{asset('assets/default.jpg')}}">
+                                                    <img class=" img-fluid" src="{{asset('assets/Diensten.jpeg')}}">
                                                 </p>
 
                                                 <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{__('text.Services')}}</h4>

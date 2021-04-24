@@ -267,4 +267,6 @@ return [
     'Floor Type 2' => 'Floor Type 2',
     'Floor Type' => 'Floor Type',
     'Sizes' => 'Sizes',
+    'Our Services' => 'Our Services',
+    'Select Service' => 'Select Service',
 ];
