@@ -525,7 +525,7 @@
 
                                 <div>
 
-                                    <input style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_delivery" id="quote_delivery" class="form-control quote_delivery quote_validation" placeholder="{{__('Select Delivery Date')}}" autocomplete="off">
+                                    <input style="height: 40px;border: 1px solid #e1e1e1;" type="text" name="quote_delivery" id="quote_delivery" class="form-control quote_delivery quote_validation" placeholder="{{__('text.Select Delivery Date')}}" autocomplete="off">
 
                                 </div>
 
@@ -1172,6 +1172,14 @@
 
     $(document).ready(function() {
 
+        $.fn.datepicker.dates['en'] = {
+            days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+            daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+            months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        };
+
         $('#quote_delivery').datepicker({
 
             format: 'dd-mm-yyyy',
@@ -1285,7 +1293,7 @@
 
                 $('#step1').children('.well').css('height','');
 
-                $('.quote_delivery').attr("placeholder", "Select Installation Date");
+                $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
             }
             else
             {
@@ -1295,7 +1303,7 @@
                 $('.quote-model').addClass('quote_validation');
 
                 $('#step1').children('.well').css('height','300px');
-                $('.quote_delivery').attr("placeholder", "Select Delivery Date");
+                $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
 
                 $('.unlinked-boxes').hide();
                 $('.linked-boxes').show();

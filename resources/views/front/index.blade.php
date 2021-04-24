@@ -936,7 +936,7 @@
                         $('.quote-model').addClass('quote_validation');
 
                         $('#step1').children('.well').css('height','300px');
-                        $('.quote_delivery').attr("placeholder", "Select Delivery Date");
+                        $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
 
                         $('.unlinked-boxes').hide();
                         $('.linked-boxes').show();
@@ -956,7 +956,7 @@
 
                         $('#step1').children('.well').css('height','');
 
-                        $('.quote_delivery').attr("placeholder", "Select Installation Date");
+                        $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
                     }
 
                 });
