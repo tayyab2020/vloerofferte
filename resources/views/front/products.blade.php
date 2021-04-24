@@ -25,12 +25,12 @@
             {{csrf_field()}}
 
             <div class="cd-filter-block">
-                <h4>Category</h4>
+                <h4>{{__('text.Category')}}</h4>
 
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
                         <select class="filter categories" name="category" id="category">
-                            <option value="">Select Category</option>
+                            <option value="">{{__('text.Select Category')}}</option>
                             @foreach($quote_cats as $key)
                                 <option {{$category == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->cat_name}}</option>
                             @endforeach
@@ -40,12 +40,12 @@
             </div> <!-- cd-filter-block -->
 
             <div class="cd-filter-block">
-                <h4>Brand</h4>
+                <h4>{{__('text.Brand')}}</h4>
 
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
                         <select class="filter brands" name="brand" id="brand">
-                            <option value="">Select Brand</option>
+                            <option value="">{{__('text.Select Brand')}}</option>
                             @foreach($filter_brands as $key)
                                 <option {{$brand == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->cat_name}}</option>
                             @endforeach
@@ -55,12 +55,12 @@
             </div> <!-- cd-filter-block -->
 
             <div class="cd-filter-block">
-                <h4>Model</h4>
+                <h4>{{__('text.Model')}}</h4>
 
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
                         <select class="filter models" name="model" id="model">
-                            <option value="">Select Model</option>
+                            <option value="">{{__('text.Select Model')}}</option>
                             @foreach($filter_models as $key)
                                 <option {{$model == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->cat_name}}</option>
                             @endforeach
@@ -82,7 +82,7 @@
 
                 <div class="cd-filter-content" style="margin-bottom: 50px;">
                     <div class="cd-filters">
-                        <div id="slider" style="margin-top: 50px;"></div>
+                        <div id="slider" style="margin-top: 35px;"></div>
 
                         <span id="slider-lowest" style="float: left;margin-top: 10px;">€ {{$lowest}}</span>
                         <span id="slider-highest" style="float: right;margin-top: 10px;">€ {{$highest}}</span>
@@ -122,12 +122,12 @@
             </script>
 
             <div class="cd-filter-block">
-                <h4>Size</h4>
+                <h4>{{__('text.Size')}}</h4>
 
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
                         <select class="filter sizes" name="size" id="size">
-                            <option value="">Select Size</option>
+                            <option value="">{{__('text.Select Size')}}</option>
                             @foreach($sizes as $key)
                                 <option {{$size == $key->size ? 'selected' : null}} value="{{$key->size}}">{{$key->size}}</option>
                             @endforeach
@@ -137,12 +137,12 @@
             </div> <!-- cd-filter-block -->
 
             <div class="cd-filter-block">
-                <h4>Color</h4>
+                <h4>{{__('text.Color')}}</h4>
 
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
                         <select class="filter colors" name="color" id="color">
-                            <option value="">Select Color</option>
+                            <option value="">{{__('text.Select Color')}}</option>
                             @foreach($colors as $key)
                                 <option {{$color == $key->color ? 'selected' : null}} value="{{$key->color}}">{{$key->color}}</option>
                             @endforeach
@@ -1842,12 +1842,12 @@
                         $('.sizes').find('option')
                             .remove()
                             .end()
-                            .append('<option value="">Select Size</option>'+options);
+                            .append('<option value="">{{__('text.Select Size')}}</option>'+options);
 
                         $('.colors').find('option')
                             .remove()
                             .end()
-                            .append('<option value="">Select Color</option>'+options1);
+                            .append('<option value="">{{__('text.Select Color')}}</option>'+options1);
 
                     }
                 });
@@ -1884,7 +1884,7 @@
         $(".sizes").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Size",
+            placeholder: "{{__('text.Select Size')}}",
             allowClear: true,
             "language": {
                 "noResults": function(){
@@ -1896,7 +1896,7 @@
         $(".colors").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Color",
+            placeholder: "{{__('text.Select Color')}}",
             allowClear: true,
             "language": {
                 "noResults": function(){

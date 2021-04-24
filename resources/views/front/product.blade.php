@@ -37,8 +37,8 @@
             <div class="product-configuration">
 
                 <ul style="border: 0;" class="nav nav-tabs">
-                    <li style="margin-bottom: 0;" class="active"><a data-toggle="tab" href="#menu1">Specification</a></li>
-                    <li style="margin-bottom: 0;"><a data-toggle="tab" href="#description">Description</a></li>
+                    <li style="margin-bottom: 0;" class="active"><a data-toggle="tab" href="#menu1">{{__('text.Specification')}}</a></li>
+                    <li style="margin-bottom: 0;"><a data-toggle="tab" href="#description">{{__('text.Description')}}</a></li>
                 </ul>
 
                 <div style="padding: 20px 15px;border: 1px solid #24232329;min-height: 453px;" class="tab-content">
@@ -52,18 +52,20 @@
                         <!-- Product Color -->
                             <div class="product-color">
 
-                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Colors</span>
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Colors')}}</span>
 
                                 <div class="col-lg-7 color-choose">
 
-                                    @foreach($colors as $color)
+                                    {{$product->color}}
+
+                                    {{--@foreach($colors as $color)
 
                                         <div>
                                             <input data-image="{{$color}}" type="radio" id="{{$color}}" name="color" value="{{$color}}" checked>
                                             <label for="{{$color}}"><span></span></label>
                                         </div>
 
-                                    @endforeach
+                                    @endforeach--}}
 
                                 </div>
 
@@ -74,7 +76,7 @@
                     <!-- Cable Configuration -->
                         <div class="product-description">
 
-                            <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Category</span>
+                            <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Category')}}</span>
 
                             <p class="col-lg-7" style="color: black;">{{$product->cat_name}}</p>
 
@@ -82,7 +84,7 @@
 
                         <div class="product-description">
 
-                            <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Brand</span>
+                            <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Brand')}}</span>
 
                             <p class="col-lg-7" style="color: black;">{{$product->brand_name}}</p>
 
@@ -90,7 +92,7 @@
 
                         <div class="product-description">
 
-                            <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Model</span>
+                            <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Model')}}</span>
 
                             <p class="col-lg-7" style="color: black;">{{$product->model_name}}</p>
 
@@ -101,7 +103,7 @@
 
                             <div class="product-description">
 
-                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Model Number</span>
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Model Number')}}</span>
 
                                 <p class="col-lg-7" style="color: black;">{{$product->model_number}}</p>
 
@@ -114,7 +116,7 @@
 
                             <div class="product-description">
 
-                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Sizes</span>
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Sizes')}}</span>
 
                                 <p class="col-lg-7" style="color: black;">{{$product->size}} {{$product->measure}}</p>
 
@@ -127,7 +129,7 @@
 
                             <div class="product-description">
 
-                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Floor Type</span>
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Floor Type')}}</span>
 
                                 <p class="col-lg-7" style="color: black;">{{$product->floor_type}}</p>
 
@@ -140,7 +142,7 @@
 
                             <div class="product-description">
 
-                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Floor Type 2</span>
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Floor Type')}} 2</span>
 
                                 <p class="col-lg-7" style="color: black;">{{$product->floor_type2}}</p>
 
@@ -153,7 +155,7 @@
 
                             <div class="product-description">
 
-                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Supplier</span>
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Supplier')}}</span>
 
                                 <p class="col-lg-7" style="color: black;">{{$product->supplier}}</p>
 
@@ -174,7 +176,7 @@
 
                                 <div class="product-description">
 
-                                    <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Estimated Price</span>
+                                    <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Estimated Price')}}</span>
 
                                     <p class="col-lg-7" style="color: black;">@foreach($sizes as $i => $size) {{$size}}{{$product->measure}} &nbsp;&nbsp; € {{$estimated_prices[$i]}}, &nbsp;&nbsp; -{{strtolower($product->additional_info)}} <br> @endforeach</p>
 
@@ -186,7 +188,7 @@
 
                                 <div class="product-description">
 
-                                    <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">Estimated Price</span>
+                                    <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Estimated Price')}}</span>
 
                                     <p class="col-lg-7" style="color: black;">@foreach($additional_info as $i => $key) {{$key}} &nbsp;&nbsp; € {{$estimated_prices[$i]}} {{$product->measure ? ' / '.$product->measure : null}} <br> @endforeach</p>
 
@@ -206,7 +208,7 @@
                                 </button>
                             </span>
 
-                            <input placeholder="Quantity" style="border: 1px solid #d9d9d9;text-align: center;" type="text" id="quantity" name="quantity" class="form-control input-number" maskedFormat="9,1" autocomplete="off" min="1" max="100">
+                            <input placeholder="{{__('text.Quantity')}}" style="border: 1px solid #d9d9d9;text-align: center;" type="text" id="quantity" name="quantity" class="form-control input-number" maskedFormat="9,1" autocomplete="off" min="1" max="100">
 
                             <span class="input-group-btn">
                                 <button style="background-color: #f3f3f3 !important;border: 1px solid #e1e1e1 !important;" type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
@@ -218,7 +220,7 @@
 
                         <div class="product-description">
 
-                            <span style="padding: 0;display: flex;align-items: center;font-size: 20px;" class="col-lg-5">Including Waste?</span>
+                            <span style="padding: 0;display: flex;align-items: center;font-size: 20px;" class="col-lg-5">{{__('text.Including Waste?')}}</span>
 
                             <div class="col-lg-7">
 
@@ -759,36 +761,6 @@
             });
 
 
-            $('.topMembers').slick({
-                dots: false,
-                arrows: true,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                responsive: [
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            arrows: true,
-                            centerMode: false,
-                            centerPadding: '0px',
-                            slidesToShow: 2
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            arrows: false,
-                            centerMode: true,
-                            centerPadding: '40px',
-                            slidesToShow: 1
-                        }
-                    }
-                ],
-                prevArrow: "<button class='slick-arrow slick-prev' data-role='none' type='button' style='display: block;'><svg class='domain-icon css-oee40j' viewBox='0 0 24 24' aria-hidden='true'><path fill='none' stroke='currentColor' stroke-width='2' d='M15 5l-7 7 7 7'></path></svg><span class='css-16q9xmc'>Prev</span></button>",
-                nextArrow: "<button class='slick-arrow slick-next' data-role='none' type='button' style='display: block;'><svg class='domain-icon css-oee40j' viewBox='0 0 24 24' aria-hidden='true'><path fill='none' stroke='currentColor' stroke-width='2' d='M9 5l7 7-7 7'></path></svg><span class='css-16q9xmc'>Next</span></button>"
-            });
-
-
             $('.quote-model').change(function() {
 
                 var id = $(this).val();
@@ -1095,7 +1067,7 @@
 
             $('.start-btn').click(function(){
 
-                $('.quote_delivery').attr("placeholder", "Select Delivery Date");
+                $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
                 var product_id = $(this).data('id');
                 var options = '';
 

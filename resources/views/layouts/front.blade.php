@@ -518,7 +518,7 @@
 
                                     <input maskedFormat="9,1" autocomplete="off" max="100" min="1"
                                            style="height: 40px;border: 1px solid #e1e1e1;" type="text"
-                                           name="quote_quantity" placeholder="Quantity"
+                                           name="quote_quantity" placeholder="{{__('text.Quantity')}}"
                                            class="form-control quote_quantity quote_validation">
 
                                 </div>
