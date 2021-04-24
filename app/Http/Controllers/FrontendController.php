@@ -1408,9 +1408,7 @@ class FrontendController extends Controller
             $s = floatval($range_s);
             $e = floatval($range_e);
 
-            $all_products = $all_products->where(function($query) use($s, $e) {
-                $query->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
-            })->orWhere('estimated_prices.price',NULL);
+            $all_products = $all_products->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e);
 
             $lowest = $request->org_range_start;
             $highest = $request->org_range_end;
