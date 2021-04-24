@@ -261,13 +261,13 @@ return [
     'Select Color' => 'Selecteer kleur',
     'Specification' => 'Specificatie',
     'Colors' => 'Kleuren',
-    'Including Waste?' => 'Inclusief snijverlies?',
+    'Including Waste?' => 'Inclusief snijverlies',
     'Estimated Price' => 'Geschatte prijs',
     'Supplier' => 'Leverancier',
-    'Floor Type 2' => 'Soort plank',
+    'Floor Type 2' => 'Soort',
     'Floor Type' => 'Eigenschappen',
-    'Sizes' => 'Maten',
-    'Our Services' => 'Our Services',
-    'Select Service' => 'Select Service',
+    'Sizes' => 'Afmetingen',
+    'Our Services' => 'Diensten',
+    'Select Service' => 'Selecteer dienst',
 
 ];
