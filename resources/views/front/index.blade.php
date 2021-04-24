@@ -557,8 +557,8 @@
                                     <div class="frontside">
                                         <div class="card">
                                             <div class="card-body text-center">
-                                                <p>
 
+                                                <p>
                                                     @if($cat->photo == NULL)
 
                                                         <img class=" img-fluid" src="{{asset('assets/default.jpg')}}" >
@@ -567,7 +567,9 @@
 
                                                         <img class=" img-fluid" src="{{asset('assets/images/'.$cat->photo)}}" >
 
-                                                @endif
+                                                    @endif
+
+                                                </p>
 
                                                 <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{$cat->cat_name}}</h4>
 
@@ -595,8 +597,45 @@
                         </div>
                     </div>
 
-
                 @endforeach
+
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                            <div class="mainflip">
+
+                                <a href="{{url('our-services')}}">
+                                    <div class="frontside">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <p>
+                                                    <img class=" img-fluid" src="{{asset('assets/default.jpg')}}">
+                                                </p>
+
+                                                <h4 class="card-title" style="font-weight: 600;padding-top: 30px;font-family: monospace;font-size: 15px;">{{__('text.Services')}}</h4>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <div class="backside" >
+                                    <div class="card">
+                                        <div class="card-body text-center mt-4">
+
+                                            <h4 class="card-title">{{__('text.Services')}}</h4>
+
+                                            <p class="card-text"></p>
+
+                                            <a target="_blank" class="btn btn-primary" style="color: white !important;margin-top: 20px;" href="{{url('our-services')}}">View</a>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
 
             </div>
         </div>

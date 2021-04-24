@@ -255,4 +255,5 @@ return [
     'Service' => 'Service',
     'Quantity' => 'Quantity',
     'Our Brands' => 'Our Brands',
+    'Services' => 'Diensten',
 ];
