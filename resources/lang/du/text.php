@@ -166,7 +166,7 @@ return [
     'Edit Photo' => 'Edit Photo',
     'Edit Item Photo' => 'Edit Item Photo',
     'Update Item' => 'Update Item',
-    'Your reliable partner' => 'Alle <b>vloeraanbieders</b> onder Ã©Ã©n dak',
+    'Your reliable partner' => 'Alle <b>vloeraanbieders</b> onder één dak',
     'We match supply and demand transparently' => '100% veilig met onze <b>gelijk oversteken service</b>',
     'We are involved in the growth of your company' => 'Gratis meerdere <b>vloeroffertes</b> aanvragen',
     'Street Number' => 'Adres',
