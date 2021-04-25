@@ -412,8 +412,8 @@
 
                     <div class="progress" style="height: 25px;">
                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1"
-                             aria-valuemin="1" aria-valuemax="5"
-                             style="width: 20%;line-height: 25px;font-size: 14px;font-weight: 100;background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};">
+                             aria-valuemin="1" aria-valuemax="4"
+                             style="width: 25%;line-height: 25px;font-size: 14px;font-weight: 100;background-color: {{$gs->colors == null ? '#f3bd02':$gs->colors}};">
                             {{__('text.Step')}} 1
                         </div>
                     </div>
@@ -426,7 +426,6 @@
                                 <li><a href="#step2" data-toggle="tab" data-step="2">{{__('text.Step')}} 2</a></li>
                                 <li><a href="#step3" data-toggle="tab" data-step="3">{{__('text.Step')}} 3</a></li>
                                 <li><a href="#step4" data-toggle="tab" data-step="4">{{__('text.Step')}} 4</a></li>
-                                <li><a href="#step5" data-toggle="tab" data-step="5">{{__('text.Step')}} 5</a></li>
                             </ul>
                         </div>
                     </div>
@@ -533,23 +532,8 @@
 
                         </div>
 
+
                         <div class="tab-pane fade" id="step2">
-                            <div class="well">
-
-                                <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">{{__('text.Where do you need the job done?')}}</h3>
-
-                                <input style="height: 40px;" type="search" name="quote_zipcode" id="quote-zipcode"
-                                       class="form-control quote_validation" placeholder="{{$lang->spzc}}"
-                                       autocomplete="off">
-                                <input type="hidden" id="check_address" value="0">
-                                <input id="postcode" name="postcode" type="hidden">
-                                <input name="city" id="city" type="hidden">
-
-                            </div>
-                        </div>
-
-
-                        <div class="tab-pane fade" id="step3">
 
                             <div class="well" style="height: 300px;"></div>
 
@@ -558,7 +542,7 @@
 
                         </div>
 
-                        <div class="tab-pane fade" id="step4">
+                        <div class="tab-pane fade" id="step3">
 
                             <div class="well" style="height: 300px;">
 
@@ -575,7 +559,7 @@
 
                         </div>
 
-                        <div class="tab-pane fade" id="step5">
+                        <div class="tab-pane fade" id="step4">
                             <div class="well" style="height: 300px;">
 
                                 <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">{{__('text.Please provide some contact details.')}}</h3>
@@ -589,6 +573,16 @@
                                 <input style="height: 45px;margin-bottom: 20px;" type="text" name="quote_familyname"
                                        class="form-control quote_validation"
                                        placeholder="{{__('text.Enter Family Name')}}" autocomplete="off">
+
+                                <label>{{__('text.Where do you need the job done?')}} <span style="color: red;">*</span></label>
+                                <div style="margin-bottom: 20px;">
+                                    <input style="height: 45px;" type="search" name="quote_zipcode" id="quote-zipcode"
+                                           class="form-control quote_validation" placeholder="{{$lang->spzc}}"
+                                           autocomplete="off">
+                                    <input type="hidden" id="check_address" value="0">
+                                    <input id="postcode" name="postcode" type="hidden">
+                                    <input name="city" id="city" type="hidden">
+                                </div>
 
                                 <label>{{__('text.Email')}} <span style="color: red;">*</span></label>
                                 <input style="height: 45px;margin-bottom: 20px" type="email" name="quote_email"
@@ -1294,7 +1288,7 @@
 
                 $('#step1').children('.well').css('height','');
 
-                $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
+                $('.quote_delivery').attr("placeholder", "{{__('text.Select Installation Date')}}");
             }
             else
             {
@@ -1319,7 +1313,7 @@
 
                     success: function(data) {
 
-                        $('#step3').children('.well').empty();
+                        $('#step2').children('.well').empty();
 
                         var index_count = 0;
 
@@ -1327,14 +1321,14 @@
 
                             if(data.length == index + 1)
                             {
-                                $('#step3').children('.well').append('<div style="margin-bottom: 20px;"></div>');
+                                $('#step2').children('.well').append('<div style="margin-bottom: 20px;"></div>');
                             }
                             else
                             {
-                                $('#step3').children('.well').append('<div style="margin-bottom: 40px;"></div>');
+                                $('#step2').children('.well').append('<div style="margin-bottom: 40px;"></div>');
                             }
 
-                            var last = $('#step3').children('.well').children().last('div');
+                            var last = $('#step2').children('.well').children().last('div');
 
                             last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">'+val.title+'</h3><input type="hidden" name="questions[]" value="'+val.title+'">');
 
@@ -1372,9 +1366,9 @@
 
                         });
 
-                        $('#step3').children('.well').append('<input type="hidden" name="index_count" value="'+index_count+'">');
+                        $('#step2').children('.well').append('<input type="hidden" name="index_count" value="'+index_count+'">');
 
-                        /*$('#step3').children('div').children('h3').
+                        /*$('#step2').children('div').children('h3').
                         console.log(data);*/
                     }
                 });
@@ -1429,7 +1423,7 @@
 
                 success: function(data) {
 
-                    $('#step3').children('.well').empty();
+                    $('#step2').children('.well').empty();
 
                     var index_count = 0;
 
@@ -1437,14 +1431,14 @@
 
                         if(data.length == index + 1)
                         {
-                            $('#step3').children('.well').append('<div style="margin-bottom: 20px;"></div>');
+                            $('#step2').children('.well').append('<div style="margin-bottom: 20px;"></div>');
                         }
                         else
                         {
-                            $('#step3').children('.well').append('<div style="margin-bottom: 40px;"></div>');
+                            $('#step2').children('.well').append('<div style="margin-bottom: 40px;"></div>');
                         }
 
-                        var last = $('#step3').children('.well').children().last('div');
+                        var last = $('#step2').children('.well').children().last('div');
 
                         last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">'+val.title+'</h3><input type="hidden" name="questions[]" value="'+val.title+'">');
 
@@ -1482,9 +1476,9 @@
 
                     });
 
-                    $('#step3').children('.well').append('<input type="hidden" name="index_count" value="'+index_count+'">');
+                    $('#step2').children('.well').append('<input type="hidden" name="index_count" value="'+index_count+'">');
 
-                    /*$('#step3').children('div').children('h3').
+                    /*$('#step2').children('div').children('h3').
                     console.log(data);*/
                 }
             });
@@ -1646,7 +1640,7 @@
 
                 $('.back').show();
 
-                if(nextId == 'step5')
+                if(nextId == 'step4')
                 {
                     $('.next').hide();
                     $('.next-submit').show();
@@ -1680,7 +1674,7 @@
 
             //update progress
             var step = $(e.target).data('step');
-            var percent = (parseInt(step) / 5) * 100;
+            var percent = (parseInt(step) / 4) * 100;
 
             $('.progress-bar').css({width: percent + '%'});
             $('.progress-bar').text("{{__('text.Step')}} " + step);

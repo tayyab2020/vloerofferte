@@ -269,5 +269,6 @@ return [
     'Sizes' => 'Afmetingen',
     'Our Services' => 'Diensten',
     'Select Service' => 'Selecteer dienst',
+    'Select Installation Date' => 'Select Installation Date',
 
 ];

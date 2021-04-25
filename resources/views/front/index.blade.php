@@ -956,7 +956,7 @@
 
                         $('#step1').children('.well').css('height','');
 
-                        $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
+                        $('.quote_delivery').attr("placeholder", "{{__('text.Select Installation Date')}}");
                     }
 
                 });
@@ -1077,7 +1077,7 @@
                         $("#city").val('');
 
                         $("#address-error").remove();
-                        $('#quote-zipcode').parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;">{{__('text.Kindly write your full address with house/building number so system can detect postal code and city from it!')}}</small>');
+                        $('#quote-zipcode').parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;padding-left: 5px;">{{__('text.Kindly write your full address with house/building number so system can detect postal code and city from it!')}}</small>');
                     }
 
                 });
@@ -1153,6 +1153,17 @@
                                     /*insert the value for the autocomplete text field:*/
                                     inp.value = this.getElementsByTagName("input")[0].value;
 
+                                    $('.quote-service').removeClass('quote_validation');
+                                    $('.quote-category').addClass('quote_validation');
+                                    $('.quote-brand').addClass('quote_validation');
+                                    $('.quote-model').addClass('quote_validation');
+
+                                    $('#step1').children('.well').css('height','300px');
+                                    $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
+
+                                    $('.unlinked-boxes').hide();
+                                    $('.linked-boxes').show();
+
                                     var product_id = this.getElementsByTagName("input")[1].value;
                                     var options = '';
 
@@ -1177,19 +1188,19 @@
 
                                                 success: function (data) {
 
-                                                    $('#step3').children('.well').empty();
+                                                    $('#step2').children('.well').empty();
 
                                                     var index_count = 0;
 
                                                     $.each(data, function (index, val) {
 
                                                         if (data.length == index + 1) {
-                                                            $('#step3').children('.well').append('<div style="margin-bottom: 20px;"></div>');
+                                                            $('#step2').children('.well').append('<div style="margin-bottom: 20px;"></div>');
                                                         } else {
-                                                            $('#step3').children('.well').append('<div style="margin-bottom: 40px;"></div>');
+                                                            $('#step2').children('.well').append('<div style="margin-bottom: 40px;"></div>');
                                                         }
 
-                                                        var last = $('#step3').children('.well').children().last('div');
+                                                        var last = $('#step2').children('.well').children().last('div');
 
                                                         last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">' + val.title + '</h3><input type="hidden" name="questions[]" value="' + val.title + '">');
 
@@ -1221,9 +1232,9 @@
 
                                                     });
 
-                                                    $('#step3').children('.well').append('<input type="hidden" name="index_count" value="' + index_count + '">');
+                                                    $('#step2').children('.well').append('<input type="hidden" name="index_count" value="' + index_count + '">');
 
-                                                    /*$('#step3').children('div').children('h3').
+                                                    /*$('#step2').children('div').children('h3').
                                                     console.log(data);*/
                                                 }
                                             });
