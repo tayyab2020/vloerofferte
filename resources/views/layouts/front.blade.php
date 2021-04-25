@@ -1172,18 +1172,19 @@
 
     $(document).ready(function() {
 
-        $.fn.datepicker.dates['en'] = {
-            days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-            daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-            months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-            monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        $.fn.datepicker.dates['du'] = {
+            days: ["zondag", "maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag"],
+            daysShort: ["zo", "ma", "di", "wo", "do", "vr", "za"],
+            daysMin: ["zo", "ma", "di", "wo", "do", "vr", "za"],
+            months: ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"],
+            monthsShort: ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"],
         };
 
         $('#quote_delivery').datepicker({
 
             format: 'dd-mm-yyyy',
             startDate: new Date(),
+            language: 'du'
 
         });
 
