@@ -432,9 +432,9 @@
 
                     <div class="tab-content">
 
-                        <div class="tab-pane fade in active" id="step1">
+                        <div class="tab-pane fade in active" id="step1" style="height: 300px;overflow-y: auto;">
 
-                            <div class="well" style="height: 300px;">
+                            <div class="well">
 
                                 <h3 style="text-align: center;color: #4b4b4b;margin-bottom: 30px;">{{__('text.Fill information for Quotation')}}</h3>
 
@@ -1285,9 +1285,6 @@
                 $('.quote-category').removeClass('quote_validation');
                 $('.quote-brand').removeClass('quote_validation');
                 $('.quote-model').removeClass('quote_validation');
-
-                $('#step1').children('.well').css('height','');
-
                 $('.quote_delivery').attr("placeholder", "{{__('text.Select Installation Date')}}");
             }
             else
@@ -1296,8 +1293,6 @@
                 $('.quote-category').addClass('quote_validation');
                 $('.quote-brand').addClass('quote_validation');
                 $('.quote-model').addClass('quote_validation');
-
-                $('#step1').children('.well').css('height','300px');
                 $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
 
                 $('.unlinked-boxes').hide();

@@ -80,7 +80,7 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="login-footer text-center">
-                      Powered By <a href="http://geniusocean.com/">Vloerofferteonline.nl</a>
+                      Powered By <a href="http://geniusocean.com/">Vloerofferte.nl</a>
                     </div>
                   </div>
                 </div>

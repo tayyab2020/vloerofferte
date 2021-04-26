@@ -725,7 +725,6 @@
                         $('.next-submit').hide();
                         $('.next').show();
 
-                        $('#step1').children('.well').css('height','300px');
                         $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
 
                         $('.unlinked-boxes').hide();
