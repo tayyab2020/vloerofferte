@@ -376,7 +376,6 @@
 
         $(document).ready(function() {
 
-
             $('.start-btn').click(function(){
 
                 $('.quote-category').val('Diensten');
