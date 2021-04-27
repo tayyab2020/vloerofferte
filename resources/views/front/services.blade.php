@@ -389,7 +389,6 @@
                 $('.quote-category').removeClass('quote_validation');
                 $('.quote-brand').removeClass('quote_validation');
                 $('.quote-model').removeClass('quote_validation');
-
                 $('.quote_delivery').attr("placeholder", "{{__('text.Select Installation Date')}}");
 
                 var service_id = $(this).data('id');
