@@ -18,8 +18,7 @@
     <div class="cd-filter filter-is-visible" id="cd-filter" style="position: relative;float: left;/*height: 915px;*/height: auto;z-index: 1;border-right: 1px solid #e0e0e0;">
 
         <a href="#0" class="cd-filter-trigger filter-is-visible" style="margin-left: 15px;">{{$lang->ft}}</a>
-
-
+        
         <form action="{{route('front.products')}}" method="get">
 
             {{csrf_field()}}
