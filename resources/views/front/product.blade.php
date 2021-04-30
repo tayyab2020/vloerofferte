@@ -23,12 +23,12 @@
 
             @elseif(file_exists('assets/images/'.$product->article_code.'.jpg'))
 
-                <img src="{{asset('assets/images/'.$key->article_code.'.jpg')}}" class="active">
+                <img src="{{asset('assets/images/'.$product->article_code.'.jpg')}}" class="active">
 
             @elseif(file_exists('assets/images/'.$product->article_code.'.png'))
 
                 <img
-                    src="{{asset('assets/images/'.$key->article_code.'.png')}}" class="active">
+                    src="{{asset('assets/images/'.$product->article_code.'.png')}}" class="active">
 
             @else
 
