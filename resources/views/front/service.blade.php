@@ -19,7 +19,7 @@
 
             @else
 
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG" class="active">
+                <img src="{{asset('assets/images/'.$gs->logo)}}" class="active">
 
             @endif
 

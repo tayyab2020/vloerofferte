@@ -89,7 +89,7 @@
                                                     @foreach($cats as $cat)
                                                         <tr role="row" class="odd">
                                                             <td tabindex="0" class="sorting_1"><img
-                                                                    src="{{ $cat->photo ? asset('assets/images/'.$cat->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}"
+                                                                    src="{{ $cat->photo ? asset('assets/images/'.$cat->photo):(file_exists('assets/images/'.$cat->article_code.'.jpeg') ? asset('assets/images/'.$cat->article_code.'.jpeg') : (file_exists('assets/images/'.$cat->article_code.'.jpg') ? asset('assets/images/'.$cat->article_code.'.jpg') : (file_exists('assets/images/'.$cat->article_code.'.png') ? asset('assets/images/'.$cat->article_code.'.png') : 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG') ))}}"
                                                                     alt="Category's Photo" style="max-height: 100px;">
                                                             </td>
                                                             <td>{{$cat->title}}</td>
