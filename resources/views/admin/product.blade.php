@@ -16,8 +16,6 @@
                             <div class="col-md-2 border-right" style="min-width: 20%;text-align: center;">
                                 <h4 style="margin-bottom: 20px;">Products</h4>
                             </div>
-                          
-
                         </div>
 
 
@@ -26,7 +24,7 @@
                                 <table class="table table-hover ">
                                     <thead class="bg-light ">
                                         <tr>
-                                            
+
                                             <th style="width: 20%;">Image</th>
                                             <th>Title</th>
                                             <th>Type</th>
@@ -38,7 +36,7 @@
                                             <th>Price</th>
                                             <th>Color</th>
                                             <th>Review</th>
-                                            
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,13 +58,13 @@
 
                                             <td>{{$key->rating}} Stars</td>
 
-                                            
+
                                         </tr>
 
                                         @endforeach
-                                       
+
                                        <style type="text/css">
-                                           
+
                                            .table td, .table th
                                            {
                                             vertical-align: middle;
@@ -74,7 +72,7 @@
                                            }
 
                                        </style>
-                                    
+
                                     </tbody>
                                 </table>
                             </div>

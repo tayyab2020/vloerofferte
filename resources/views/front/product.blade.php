@@ -23,7 +23,7 @@
 
             @else
 
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG" class="active">
+                <img src="{{asset('assets/images/'.$gs->logo)}}" class="active">
 
             @endif
 
@@ -97,6 +97,19 @@
                             <p class="col-lg-7" style="color: black;">{{$product->model_name}}</p>
 
                         </div>
+
+
+                        @if($product->article_code)
+
+                            <div class="product-description">
+
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Article Code')}}</span>
+
+                                <p class="col-lg-7" style="color: black;">{{$product->article_code}}</p>
+
+                            </div>
+
+                        @endif
 
 
                         @if($product->model_number)

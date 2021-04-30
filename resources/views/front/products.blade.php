@@ -225,7 +225,7 @@
                                 <div style="width: 100%;background-color: white;">
                                     <a href="{{url('product/'.$key->id)}}">
                                         <div class="member_img"
-                                             style="width: 100%;border: 0;display: inline-block;height: 210px;">
+                                             style="width: 100%;border: 0;display: flex;align-items: center;margin-bottom: 10px;height: 210px;border-bottom: 1px solid #e3e3e36b !important;">
 
                                             @if($key->photo)
 
@@ -258,9 +258,9 @@
                                             @else
 
                                                 <img
-                                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG"
+                                                    src="{{asset('assets/images/'.$gs->logo)}}"
                                                     alt="member image"
-                                                    style="width: 100%;height: 100%;">
+                                                    style="width: 100%;height: 50%;">
 
                                             @endif
 

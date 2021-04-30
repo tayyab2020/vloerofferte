@@ -270,5 +270,6 @@ return [
     'Our Services' => 'Diensten',
     'Select Service' => 'Selecteer dienst',
     'Select Installation Date' => 'Selecteer gewenste installatie datum',
+    'Article Code' => 'Article Code'
 
 ];
