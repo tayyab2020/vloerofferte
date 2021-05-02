@@ -253,7 +253,7 @@ return [
     'Size' => 'Maat',
     'Measure' => 'Per',
     'Service' => 'Dienst',
-    'Quantity' => 'Vul gewenste aantal in',
+    'Quantity' => 'Vul gewenste aantal m² in',
     'Our Brands' => 'Alle merken',
     'Services' => 'Diensten',
     'Select Size' => 'Selecteer maat',
