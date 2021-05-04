@@ -14,7 +14,7 @@
   Route::get('/','FrontendController@index')->name('front.index');
   Route::get('/products','FrontendController@products')->name('front.products');
   Route::get('/product/{id}','FrontendController@product')->name('front.product');
-  Route::get('/our-services','FrontendController@services')->name('front.services');
+  Route::get('/diensten','FrontendController@services')->name('front.services');
   Route::get('/service/{id}','FrontendController@service')->name('front.service');
   Route::get('/products-by-id', 'FrontendController@productsById')->name('all-products-by-id');
   Route::get('/handymanproducts-by-id', 'FrontendController@handymanproductsById');
