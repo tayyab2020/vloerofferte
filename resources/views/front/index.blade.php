@@ -603,7 +603,7 @@
                         <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                             <div class="mainflip">
 
-                                <a href="{{url('our-services')}}">
+                                <a href="{{url('diensten')}}">
                                     <div class="frontside">
                                         <div class="card">
                                             <div class="card-body text-center">
@@ -626,7 +626,7 @@
 
                                             <p class="card-text"></p>
 
-                                            <a target="_blank" class="btn btn-primary" style="color: white !important;margin-top: 20px;" href="{{url('our-services')}}">View</a>
+                                            <a target="_blank" class="btn btn-primary" style="color: white !important;margin-top: 20px;" href="{{url('diensten')}}">View</a>
 
 
                                         </div>
