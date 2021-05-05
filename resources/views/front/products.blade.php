@@ -1,4 +1,9 @@
 @extends('layouts.front')
+
+@section('title', '')
+@section('description', '')
+@section('keywords', '')
+
 @section('styles')
     <style type="text/css">
         /* Hide the list on focus of the input field */

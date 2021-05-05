@@ -5,8 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="{{$seo->meta_keys}}">
-    <meta name="author" content="GeniusOcean">
+    <meta name="title" content="@yield('title','Gratis vloeroffertes van verschillende winkels bij jou in de buurt. | Vloer offerte aanvragen? | vloerofferte.nl')">
+    <meta name="description" content="@yield('description','')">
+    <meta property="keywords" content="@yield('keywords','Vloeroffertes, laminaat offerte, visgraat offerte, pvc visgraat offerte, parket offerte, houten vloer offerte')" />
+    <meta name="author" content="Vloerofferte.nl">
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="{{url('/')}}" />
     <title>{{$gs->title}}</title>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
@@ -49,7 +54,7 @@
 
 
     <!-- Smartsupp Live Chat script -->
-    <script type="text/javascript">
+    {{--<script type="text/javascript">
         var _smartsupp = _smartsupp || {};
         _smartsupp.key = 'c48884354ee46ae0e7e98458fad7375341bdcfcf';
         window.smartsupp || (function (d) {
@@ -65,7 +70,7 @@
             c.src = 'https://www.smartsuppchat.com/loader.js?';
             s.parentNode.insertBefore(c, s);
         })(document);
-    </script>
+    </script>--}}
 
     @include('styles.design')
     @yield('styles')
