@@ -1,4 +1,9 @@
 @extends('layouts.front')
+
+@section('title', '')
+@section('description', '')
+@section('keywords', '')
+
 @section('content')
 <div class="section-padding faq-wrapper">
             <div class="container">

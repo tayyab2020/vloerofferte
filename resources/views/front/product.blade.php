@@ -1,5 +1,9 @@
 @extends('layouts.front')
 
+@section('title', '')
+@section('description', '')
+@section('keywords', '')
+
 @section('content')
 
     <main class="container container1">

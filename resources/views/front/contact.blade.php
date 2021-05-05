@@ -1,4 +1,9 @@
 @extends('layouts.front')
+
+@section('title', '')
+@section('description', '')
+@section('keywords', '')
+
 @section('content')
 <div class="section-padding contact-area-wrapper wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
             <div class="container">
