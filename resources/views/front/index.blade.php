@@ -1,8 +1,6 @@
 @extends('layouts.front')
 
-@section('title', '')
-@section('description', '')
-@section('keywords', '')
+@section('keywords', $seo->meta_keys)
 
 @section('styles')
     <style type="text/css">
