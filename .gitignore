@@ -19,5 +19,5 @@ yarn-error.log
 /public/assets/quotesPDF
 /public/assets/adminQuotesPDF
 /public/assets/temporary_images
-/config/app.php
 /resources/views/layouts/front.blade.php
+/config/app.php
