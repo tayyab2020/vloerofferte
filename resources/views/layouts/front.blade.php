@@ -54,7 +54,7 @@
 
 
     <!-- Smartsupp Live Chat script -->
-    {{--<script type="text/javascript">
+    <script type="text/javascript">
         var _smartsupp = _smartsupp || {};
         _smartsupp.key = 'c48884354ee46ae0e7e98458fad7375341bdcfcf';
         window.smartsupp || (function (d) {
@@ -70,7 +70,7 @@
             c.src = 'https://www.smartsuppchat.com/loader.js?';
             s.parentNode.insertBefore(c, s);
         })(document);
-    </script>--}}
+    </script>
 
     @include('styles.design')
     @yield('styles')
@@ -114,14 +114,14 @@
     @endif
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-    {{--<script async src="https://www.googletagmanager.com/gtag/js?id=G-QV9Q57K9LE"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QV9Q57K9LE"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'G-QV9Q57K9LE');
-    </script>--}}
+    </script>
 
     @if($lang->lang == 'eng')
 
