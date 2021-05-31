@@ -284,15 +284,15 @@ class AdminUserController extends Controller
     public function index()
     {
         $users = User::where('role_id','=',2)->orderBy('created_at','desc')->get();
-        $categories = array();
+        $products = array();
 
         foreach ($users as $key) {
 
-             $categories[] = handyman_products::leftjoin('categories','categories.id','=','handyman_products.product_id')->where('handyman_products.handyman_id',$key->id)->select('categories.cat_name')->get();
+             $products[] = handyman_products::leftjoin('products','products.id','=','handyman_products.product_id')->where('handyman_products.handyman_id',$key->id)->select('products.title')->get();
 
         }
 
-        return view('admin.user.index',compact('users','categories'));
+        return view('admin.user.index',compact('users','products'));
     }
 
 

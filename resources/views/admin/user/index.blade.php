@@ -26,7 +26,7 @@
                                                       <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending">Handyman ID</th>
                                                       <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending">Handyman's Photo</th><th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending">Handyman's Name</th><th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending">Email</th>
                                                       <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending">Rating</th>
-                                                      <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending">Registration Fee</th><th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending">Services</th><th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 240px;" aria-label="Actions: activate to sort column ascending">Actions</th>
+                                                      <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending">Registration Fee</th><th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 95px;" aria-label="City: activate to sort column ascending">Products</th><th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 240px;" aria-label="Actions: activate to sort column ascending">Actions</th>
                                                   </tr>
                                               </thead>
 
@@ -55,14 +55,29 @@
 
                                                         <td>
 
-                                                        <?php for ($i=0; $i < sizeof($categories[$x]); $i++) { ?>
+                                                            @if(count($products[$x]) > 0)
+
+                                                                <select>
+
+                                                                    @foreach($products[$x] as $product)
+
+                                                                        <option value="{{$product->title}}">{{$product->title}}</option>
+
+                                                                    @endforeach
+                                                                    
+                                                                </select>
+
+                                                            @endif
+
+
+                                                        <?php /*for ($i=0; $i < sizeof($products[$x]); $i++) { */?><!--
 
 
 
-                                                          <?php if($i == 0){ echo $categories[$x][$i]->cat_name; } else{ echo ','.$categories[$x][$i]->cat_name; } ?>
+                                                          <?php /*if($i == 0){ echo $products[$x][$i]->title; } else{ echo ','.$products[$x][$i]->title; } */?>
 
 
-                                                        <?php } ?>
+                                                        --><?php /*} */?>
 
                                                         </td>
 
