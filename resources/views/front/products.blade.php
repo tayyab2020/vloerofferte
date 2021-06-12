@@ -1456,7 +1456,7 @@
                             .append('<option value="">{{__('text.Select Color')}}</option>'+options1);
 
 
-                        if(price_filter)
+                        if(price_filter == 1)
                         {
                             $('.price_filter').show();
                         }
@@ -1465,7 +1465,7 @@
                             $('.price_filter').hide();
                         }
 
-                        if(size_filter)
+                        if(size_filter == 1)
                         {
                             $('.size_filter').show();
                         }
@@ -1474,7 +1474,7 @@
                             $('.size_filter').hide();
                         }
 
-                        if(color_filter)
+                        if(color_filter == 1)
                         {
                             $('.color_filter').show();
                         }
