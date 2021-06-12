@@ -60,6 +60,24 @@ class CategoryController extends Controller
 
     public function store(StoreValidationRequest $request)
     {
+        $price_filter = 0;
+        $size_filter = 0;
+        $color_filter = 0;
+
+        if($request->price_filter)
+        {
+            $price_filter = 1;
+        }
+
+        if($request->size_filter)
+        {
+            $size_filter = 1;
+        }
+
+        if($request->color_filter)
+        {
+            $color_filter = 1;
+        }
 
         $request['main_service'] = 1;
 
@@ -75,10 +93,17 @@ class CategoryController extends Controller
         }
 
         $input = $request->all();
+        $input['price_filter'] = $price_filter;
+        $input['size_filter'] = $size_filter;
+        $input['color_filter'] = $color_filter;
 
 
         if ($file = $request->file('photo'))
         {
+            if($cat->photo != null)
+            {
+                \File::delete(public_path() .'/assets/images/'.$cat->photo);
+            }
             $name = time().$file->getClientOriginalName();
             $file->move('assets/images',$name);
             $input['photo'] = $name;

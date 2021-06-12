@@ -78,7 +78,7 @@
             <script src="{{ asset('assets/front/js/nouislider.js') }}"></script>
 
 
-            <div class="cd-filter-block">
+            <div @if(isset($filters)) @if(!$filters->price_filter) style="display: none;" @endif @endif class="price_filter cd-filter-block">
                 <h4>{{$lang->fprt}}</h4>
 
                 <input type="hidden" name="org_range_start" id="org_range-start" value="{{$lowest}}">
@@ -125,7 +125,7 @@
                 });
             </script>
 
-            <div class="cd-filter-block">
+            <div @if(isset($filters)) @if(!$filters->size_filter) style="display: none;" @endif @endif class="size_filter cd-filter-block">
                 <h4>{{__('text.Size')}}</h4>
 
                 <div class="cd-filter-content">
@@ -140,7 +140,7 @@
                 </div> <!-- cd-filter-content -->
             </div> <!-- cd-filter-block -->
 
-            <div class="cd-filter-block">
+            <div @if(isset($filters)) @if(!$filters->color_filter) style="display: none;" @endif @endif class="color_filter cd-filter-block">
                 <h4>{{__('text.Color')}}</h4>
 
                 <div class="cd-filter-content">
@@ -1357,6 +1357,9 @@
                     url: "<?php echo url('/products-data-by-category')?>",
                     success: function(data) {
 
+                        var price_filter = data[4]['price_filter'];
+                        var size_filter = data[4]['size_filter'];
+                        var color_filter = data[4]['color_filter'];
                         var highest = data[2];
                         var lowest = data[3];
 
@@ -1451,6 +1454,34 @@
                             .remove()
                             .end()
                             .append('<option value="">{{__('text.Select Color')}}</option>'+options1);
+
+
+                        if(price_filter)
+                        {
+                            $('.price_filter').show();
+                        }
+                        else
+                        {
+                            $('.price_filter').hide();
+                        }
+
+                        if(size_filter)
+                        {
+                            $('.size_filter').show();
+                        }
+                        else
+                        {
+                            $('.size_filter').hide();
+                        }
+
+                        if(color_filter)
+                        {
+                            $('.color_filter').show();
+                        }
+                        else
+                        {
+                            $('.color_filter').hide();
+                        }
 
                     }
                 });

@@ -426,10 +426,13 @@ class FrontendController extends Controller
         $highest = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('estimated_prices','estimated_prices.product_id','=','products.id')->where('categories.id',$request->id)->max('price');
         $lowest = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('estimated_prices','estimated_prices.product_id','=','products.id')->where('categories.id',$request->id)->min('price');
 
+        $category = Category::where('id',$request->id)->first();
+
         $data[0] = $sizes;
         $data[1] = $colors;
         $data[2] = floatval($highest);
         $data[3] = floatval($lowest);
+        $data[4] = $category;
 
         return $data;
     }
@@ -1356,6 +1359,8 @@ class FrontendController extends Controller
         $size = $request->size;
         $color = $request->color;
 
+        $filters = Category::where('id',$category)->first();
+
         $all_products = Products::leftjoin('estimated_prices','estimated_prices.product_id','=','products.id');
 
         if($category)
@@ -1443,7 +1448,7 @@ class FrontendController extends Controller
         $colors = Products::where('category_id','=',$request->category)->where('color','!=',NULL)->get();
         $colors = $colors->unique('color');
 
-        return view('front.products',compact('highest','lowest','sizes','colors','all_products','filter_brands','filter_models','s','e','range_s','range_e','category','brand','model','size','color'));
+        return view('front.products',compact('filters','highest','lowest','sizes','colors','all_products','filter_brands','filter_models','s','e','range_s','range_e','category','brand','model','size','color'));
     }
 
 
