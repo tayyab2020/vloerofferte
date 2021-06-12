@@ -1361,7 +1361,7 @@ class FrontendController extends Controller
 
         $filters = Category::where('id',$category)->first();
 
-        $all_products = Products::leftjoin('estimated_prices','estimated_prices.product_id','=','products.id');
+        $all_products = Products::leftjoin('estimated_prices','estimated_prices.product_id','=','products.id')->leftjoin('models','models.id','=','products.model_id');
 
         if($category)
         {
@@ -1439,7 +1439,7 @@ class FrontendController extends Controller
             $e = $highest;
         }
 
-        $all_products = $all_products->select('products.*','estimated_prices.price')->groupBy('products.id')->paginate(12);
+        $all_products = $all_products->select('products.*','models.cat_name as model','estimated_prices.price')->groupBy('products.id')->paginate(12);
 
         $filter_brands = Brand::all();
         $filter_models = Model1::all();
