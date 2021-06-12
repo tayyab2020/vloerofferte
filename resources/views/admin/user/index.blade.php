@@ -64,7 +64,7 @@
                                                                         <option value="{{$product->title}}">{{$product->title}}</option>
 
                                                                     @endforeach
-                                                                    
+
                                                                 </select>
 
                                                             @endif

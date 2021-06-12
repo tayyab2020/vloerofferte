@@ -71,10 +71,40 @@
                                             <div class="col-sm-6">
                                                 <input type="file" id="uploadFile" class="hidden" name="photo" value="">
                                               <button type="button" id="uploadTrigger" onclick="uploadclick()" class="form-control"><i class="fa fa-download"></i> Add Category Photo</button>
-                                              <p>Prefered Size: (600x600) or Square Sized Image</p>
+                                              <p>Preferred Size: (600x600) or Square Sized Image</p>
                                             </div>
                                           </div>
 
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Price Filter</label>
+                                                <div class="col-sm-3">
+                                                    <label class="switch">
+                                                        <input {{isset($cats) ? ($cats->price_filter ? 'checked' : null) : 'checked'}} type="checkbox" name="price_filter" id="price_filter">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Size Filter</label>
+                                                <div class="col-sm-3">
+                                                    <label class="switch">
+                                                        <input {{isset($cats) ? ($cats->size_filter ? 'checked' : null) : 'checked'}} type="checkbox" name="size_filter" id="size_filter">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Color Filter</label>
+                                                <div class="col-sm-3">
+                                                    <label class="switch">
+                                                        <input {{isset($cats) ? ($cats->color_filter ? 'checked' : null) : 'checked'}} type="checkbox" name="color_filter" id="color_filter">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
 
                                             <hr>
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
 	use SoftDeletes;
-    protected $fillable = ['cat_name','cat_slug','photo','description','main_service'];
+    protected $fillable = ['cat_name','cat_slug','photo','description','main_service','price_filter','size_filter','color_filter'];
     public $timestamps = false;
     protected $dates = ['deleted_at'];
 
