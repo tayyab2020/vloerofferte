@@ -1360,8 +1360,6 @@
                         var price_filter = data[4]['price_filter'];
                         var size_filter = data[4]['size_filter'];
                         var color_filter = data[4]['color_filter'];
-
-                        console.log(price_filter);
                         var highest = data[2];
                         var lowest = data[3];
 
