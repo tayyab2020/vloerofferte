@@ -1360,6 +1360,8 @@
                         var price_filter = data[4]['price_filter'];
                         var size_filter = data[4]['size_filter'];
                         var color_filter = data[4]['color_filter'];
+
+                        console.log(price_filter);
                         var highest = data[2];
                         var lowest = data[3];
 
@@ -1456,7 +1458,7 @@
                             .append('<option value="">{{__('text.Select Color')}}</option>'+options1);
 
 
-                        if(price_filter)
+                        if(price_filter == 1)
                         {
                             $('.price_filter').show();
                         }
@@ -1465,7 +1467,7 @@
                             $('.price_filter').hide();
                         }
 
-                        if(size_filter)
+                        if(size_filter == 1)
                         {
                             $('.size_filter').show();
                         }
@@ -1474,7 +1476,7 @@
                             $('.size_filter').hide();
                         }
 
-                        if(color_filter)
+                        if(color_filter == 1)
                         {
                             $('.color_filter').show();
                         }
