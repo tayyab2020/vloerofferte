@@ -101,6 +101,14 @@
 
                             </div>
 
+                            <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                                <button data-id="4" class="btn btn-success p-btns">
+                                    <span>Offerte vergelijken</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
+                                </button>
+
+                            </div>
+
                         </div>
 
                     </div>
@@ -919,13 +927,11 @@
 
                 $('.p-btns').click(function(){
 
-                    $('.o-box').hide();
-                    $('.cbm-box').show();
-                    $('.p-box').show();
-
                     var id = $(this).data('id');
 
                     $('.navbar a[href="#step1"]').trigger('click');
+                    $('.next').show();
+                    $('.next-submit').hide();
                     $('.back').hide();
 
                     if(id == 1 || id == 2)
@@ -933,33 +939,85 @@
                         $('.quote-category').val('');
                         $(".quote-category").trigger('change.select2');
 
+                        $('.files-upload').removeClass('quote_validation');
                         $('.quote-service').removeClass('quote_validation');
                         $('.quote-category').addClass('quote_validation');
                         $('.quote-brand').addClass('quote_validation');
                         $('.quote-model').addClass('quote_validation');
+                        $('.quote_quantity').addClass('quote_validation');
+                        $('.quote_delivery').addClass('quote_validation');
 
-                        $('#step1').children('.well').css('height','300px');
+                        $('#step1').css('height','300px');
                         $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
 
+                        $('.files-box').hide();
                         $('.unlinked-boxes').hide();
                         $('.linked-boxes').show();
+                        $('.duo-boxes').show();
+
+                        $('.o-box').hide();
+                        $('.cbm-box').show();
+                        $('.p-box').show();
+                        $('.progress-bar').css('width',(100/4)+'%');
                     }
-                    else
+                    else if(id == 3)
                     {
                         $('.quote-category').val('Diensten');
                         $(".quote-category").trigger('change.select2');
 
+                        $('.files-box').hide();
                         $('.linked-boxes').hide();
                         $('.unlinked-boxes').show();
+                        $('.duo-boxes').show();
 
                         $('.quote-service').addClass('quote_validation');
+                        $('.files-upload').removeClass('quote_validation');
+                        $('.quote-category').removeClass('quote_validation');
+                        $('.quote-brand').removeClass('quote_validation');
+                        $('.quote-model').removeClass('quote_validation');
+                        $('.quote_quantity').addClass('quote_validation');
+                        $('.quote_delivery').addClass('quote_validation');
+
+                        $('#step1').css('height','300px');
+
+                        $('.quote_delivery').attr("placeholder", "{{__('text.Select Installation Date')}}");
+
+                        $('.o-box').hide();
+                        $('.cbm-box').show();
+                        $('.p-box').show();
+                        $('.progress-bar').css('width',(100/4)+'%');
+                    }
+                    else
+                    {
+                        $('.quote-service').val('');
+                        $('.quote-service').trigger('change.select2');
+
+                        $('.quote-category').val('');
+                        $(".quote-category").trigger('change.select2');
+
+                        $('.quote-brand').val('');
+                        $(".quote-brand").trigger('change.select2');
+
+                        $('.quote-model').val('');
+                        $(".quote-model").trigger('change.select2');
+
+                        $('.files-upload').addClass('quote_validation');
+                        $('.quote-service').removeClass('quote_validation');
                         $('.quote-category').removeClass('quote_validation');
                         $('.quote-brand').removeClass('quote_validation');
                         $('.quote-model').removeClass('quote_validation');
 
-                        $('#step1').children('.well').css('height','');
+                        $('#step1').css('height','');
+                        $('.quote_quantity').removeClass('quote_validation');
+                        $('.quote_delivery').removeClass('quote_validation');
 
-                        $('.quote_delivery').attr("placeholder", "{{__('text.Select Installation Date')}}");
+                        $('.unlinked-boxes').hide();
+                        $('.linked-boxes').hide();
+                        $('.duo-boxes').hide();
+                        $('.files-box').show();
+                        $('.progress-bar').css('width',(100/3)+'%');
+
+                        $('#aanvragen').modal('toggle');
                     }
 
                 });
@@ -1313,6 +1371,8 @@
 
                                             $('.navbar a[href="#step1"]').trigger('click');
 
+                                            $('.next').show();
+                                            $('.next-submit').hide();
                                             $('.back').hide();
 
                                         }
