@@ -750,6 +750,7 @@
                         $('.back').hide();
                         $('.next-submit').hide();
                         $('.next').show();
+                        $('.floor').show();
 
                         $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
 

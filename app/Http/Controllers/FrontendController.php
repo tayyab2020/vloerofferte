@@ -1268,6 +1268,7 @@ class FrontendController extends Controller
             $quote->quote_familyname = $request->quote_familyname;
             $quote->quote_email = $request->quote_email;
             $quote->quote_contact = $request->quote_contact;
+            $quote->floor_description = $request->floor_description;
 
             $quote->save();
 

@@ -270,6 +270,7 @@ return [
     'Our Services' => 'Diensten',
     'Select Service' => 'Selecteer dienst',
     'Select Installation Date' => 'Selecteer gewenste installatie datum',
-    'Article Code' => 'Article Code'
-
+    'Article Code' => 'Article Code',
+    'If you cant find floor, Click Here' => 'If you cant find floor, Click Here',
+    'Provide description of floors' => 'Provide description of floors',
 ];

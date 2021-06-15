@@ -214,7 +214,7 @@ return [
     'Do you want this address to be updated in your profile?' => 'Do you want this address to be updated in your profile?',
     'No details available for input: ' => 'No details available for input: ',
     'Kindly write your full address with house/building number so system can detect postal code and city from it!' => 'Kindly write your full address with house/building number so system can detect postal code and city from it!',
-    'You haven\'t answered all the questions yet . Scroll down to answer the other questions.' => 'You haven\'t answered all the questions yet . Scroll down to answer the other questions.',
+    'You haven\'t answered all the questions yet. Scroll down to answer the other questions.' => 'You haven\'t answered all the questions yet . Scroll down to answer the other questions.',
     'Note: Radius management postcode will also be updated after approval of your profile information changes.' => 'Note: Radius management postcode will also be updated after approval of your profile information changes.',
     'Thank You!' => 'Thank You!',
     'Congratulations!' => 'Congratulations!',
@@ -270,5 +270,7 @@ return [
     'Our Services' => 'Our Services',
     'Select Service' => 'Select Service',
     'Select Installation Date' => 'Select Installation Date',
-    'Article Code' => 'Article Code'
+    'Article Code' => 'Article Code',
+    'If you cant find floor, Click Here' => 'If you cant find floor, Click Here',
+    'Provide description of floors' => 'Provide description of floors',
 ];

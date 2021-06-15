@@ -217,7 +217,7 @@
                             <div style="width: 90%;">
 
                                 <div class="autocomplete" style="width:100%;">
-                                    <input id="productInput" class="form-control quote-product" type="text" name="product" placeholder="{{__('text.Select Product')}}">
+                                    <input id="productInput" autocomplete="off" class="form-control quote-product" type="text" name="product" placeholder="{{__('text.Select Product')}}">
                                 </div>
 
                                 <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
@@ -927,9 +927,12 @@
 
                 $('.p-btns').click(function(){
 
+                    $('.floor-description').remove();
+
                     var id = $(this).data('id');
 
                     $('.navbar a[href="#step1"]').trigger('click');
+                    $('.floor').show();
                     $('.next').show();
                     $('.next-submit').hide();
                     $('.back').hide();
@@ -1371,6 +1374,7 @@
 
                                             $('.navbar a[href="#step1"]').trigger('click');
 
+                                            $('.floor').show();
                                             $('.next').show();
                                             $('.next-submit').hide();
                                             $('.back').hide();

@@ -607,6 +607,7 @@
                 $('.back').hide();
                 $('.next-submit').hide();
                 $('.next').show();
+                $('.floor').show();
 
                 $.ajax({
                     type: "GET",
