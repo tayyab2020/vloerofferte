@@ -932,13 +932,13 @@
                     var id = $(this).data('id');
 
                     $('.navbar a[href="#step1"]').trigger('click');
-                    $('.floor').show();
                     $('.next').show();
                     $('.next-submit').hide();
                     $('.back').hide();
 
                     if(id == 1 || id == 2)
                     {
+                        $('.floor').show();
                         $('.quote-category').val('');
                         $(".quote-category").trigger('change.select2');
 
