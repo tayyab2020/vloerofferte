@@ -586,13 +586,16 @@
                 $('.quote-category').val('Diensten');
                 $(".quote-category").trigger('change.select2');
 
-                $('.linked-boxes').hide();
-                $('.unlinked-boxes').show();
+                if($('#step1').find('.floor-description').length == 0)
+                {
+                    $('.linked-boxes').hide();
+                    $('.unlinked-boxes').show();
 
-                $('.quote-service').addClass('quote_validation');
-                $('.quote-category').removeClass('quote_validation');
-                $('.quote-brand').removeClass('quote_validation');
-                $('.quote-model').removeClass('quote_validation');
+                    $('.quote-service').addClass('quote_validation');
+                    $('.quote-category').removeClass('quote_validation');
+                    $('.quote-brand').removeClass('quote_validation');
+                    $('.quote-model').removeClass('quote_validation');
+                }
 
                 $('.quote_delivery').attr("placeholder", "{{__('text.Select Installation Date')}}");
 

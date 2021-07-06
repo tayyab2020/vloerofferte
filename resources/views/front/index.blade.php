@@ -85,13 +85,13 @@
 
                             </div>
 
-                            <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            {{--<div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 
                                 <button data-id="2" class="btn btn-success p-btns">
                                     <span>Product + Dienst</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
                                 </button>
 
-                            </div>
+                            </div>--}}
 
                             <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 
@@ -1217,16 +1217,24 @@
                                     /*insert the value for the autocomplete text field:*/
                                     inp.value = this.getElementsByTagName("input")[0].value;
 
-                                    $('.quote-service').removeClass('quote_validation');
-                                    $('.quote-category').addClass('quote_validation');
-                                    $('.quote-brand').addClass('quote_validation');
-                                    $('.quote-model').addClass('quote_validation');
+                                    if($('#step1').find('.floor-description').length == 0)
+                                    {
+                                        $('.quote-service').removeClass('quote_validation');
+                                        $('.quote-category').addClass('quote_validation');
+                                        $('.quote-brand').addClass('quote_validation');
+                                        $('.quote-model').addClass('quote_validation');
+
+                                        $('.unlinked-boxes').hide();
+                                        $('.linked-boxes').show();
+                                    }
+                                    else
+                                    {
+                                        $('#quote-box').find('.unlinked-boxes').hide();
+                                        $('#quote-box').find('.linked-boxes').show();
+                                    }
 
                                     $('#step1').children('.well').css('height','300px');
                                     $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
-
-                                    $('.unlinked-boxes').hide();
-                                    $('.linked-boxes').show();
 
                                     var product_id = this.getElementsByTagName("input")[1].value;
                                     var options = '';

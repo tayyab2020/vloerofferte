@@ -1215,7 +1215,7 @@ class FrontendController extends Controller
                 $quote->quote_waste = $request->quote_waste;
             }
 
-            if(count($request->file('quote_files')) > 0)
+            if($request->quote_files)
             {
                 $quote->quote_service = 0;
                 $quote->quote_service1 = 0;
@@ -1251,8 +1251,8 @@ class FrontendController extends Controller
                 {
                     $quote->quote_service = $request->quote_service;
                     $quote->quote_service1 = 0;
-                    $quote->quote_brand = $request->quote_brand;
-                    $quote->quote_model = $request->quote_model;
+                    $quote->quote_brand = $request->quote_brand ? $request->quote_brand : 0;
+                    $quote->quote_model = $request->quote_model ? $request->quote_model : 0;
                     $quote->quote_model_number = $request->quote_model_number;
                 }
 
