@@ -270,10 +270,10 @@ return [
     'Our Services' => 'Diensten',
     'Select Service' => 'Selecteer dienst',
     'Select Installation Date' => 'Selecteer gewenste installatie datum',
-    'Article Code' => 'Article Code',
-    'If you cant find floor, Click Here' => 'If you cant find floor, Click Here',
+    'Article Code' => 'Artikelnummer',
+    'If you cant find floor, Click Here' => 'Klik hier als je vloer er niet tussen staat',
     'Provide description of floors heading' => 'Provide description of floors heading',
-    'Provide description of floors' => 'Provide description of floors',
+    'Provide description of floors' => 'Vul hier het merk en modelnummer waar je naar opzoek bent',
     'Upload your file (Max 2)' => 'Upload your file (Max 2)',
     'Please upload max 2 files' => 'Please upload max 2 files',
 ];
