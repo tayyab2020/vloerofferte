@@ -13,6 +13,14 @@
             display: none;
         }
 
+        @media (max-width: 767px)
+        {
+            .video-box video
+            {
+                width: 95% !important;
+            }
+        }
+
     </style>
 @endsection
 @section('content')
@@ -54,6 +62,16 @@
 
 
         <div class="container" style="width: 100%;">
+
+            <div style="margin: 0;display: flex;justify-content: center;" class="row video-box">
+
+                <video style="width: 60%;" controls="">
+
+                    <source type="video/mp4" src="{{asset('assets/vloerofferte.nl.mp4')}}">
+
+                </video>
+
+            </div>
 
             <div class="row" style="display: flex;justify-content: center;">
 
