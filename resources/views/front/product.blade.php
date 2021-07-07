@@ -740,21 +740,25 @@
                         $('.quote-category').val(data.category_id);
                         $(".quote-category").trigger('change.select2');
 
-                        $('.quote-service').removeClass('quote_validation');
-                        $('.quote-category').addClass('quote_validation');
-                        $('.quote-brand').addClass('quote_validation');
-                        $('.quote-model').addClass('quote_validation');
+                        if($('#step1').find('.floor-description').length == 0)
+                        {
+                            $('.quote-service').removeClass('quote_validation');
+                            $('.quote-category').addClass('quote_validation');
+                            $('.quote-brand').addClass('quote_validation');
+                            $('.quote-model').addClass('quote_validation');
+
+                            $('.unlinked-boxes').hide();
+                            $('.linked-boxes').show();
+                        }
 
                         $('.navbar a[href="#step1"]').trigger('click');
 
                         $('.back').hide();
                         $('.next-submit').hide();
                         $('.next').show();
+                        $('.floor').show();
 
                         $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
-
-                        $('.unlinked-boxes').hide();
-                        $('.linked-boxes').show();
 
                         var category_id = data.category_id;
                         var brand_id = data.brand_id;

@@ -1209,27 +1209,55 @@ class FrontendController extends Controller
             $quote = new quotes;
             $quote->user_id = $user_id;
             $quote->quote_number = $quote_number;
-            $quote->quote_qty = str_replace(",",".",$request->quote_quantity);
 
             if(isset($request->quote_waste))
             {
                 $quote->quote_waste = $request->quote_waste;
             }
 
-            if($request->quote_service == 'Diensten')
+            if($request->quote_files)
             {
                 $quote->quote_service = 0;
-                $quote->quote_service1 = $request->quote_service1;
+                $quote->quote_service1 = 0;
                 $quote->quote_brand = 0;
                 $quote->quote_model = 0;
+                $quote->quote_delivery = date('d-m-Y H:i:s', time());
+
+                foreach ($request->file('quote_files') as $f => $file)
+                {
+                    $name = time().$file->getClientOriginalName();
+                    $file->move('assets/quotes_user_files',$name);
+
+                    if($f == 0)
+                    {
+                        $quote->quote_file1 = $name;
+                    }
+                    else
+                    {
+                        $quote->quote_file2 = $name;
+                    }
+                }
             }
             else
             {
-                $quote->quote_service = $request->quote_service;
-                $quote->quote_service1 = 0;
-                $quote->quote_brand = $request->quote_brand;
-                $quote->quote_model = $request->quote_model;
-                $quote->quote_model_number = $request->quote_model_number;
+                if($request->quote_service == 'Diensten')
+                {
+                    $quote->quote_service = 0;
+                    $quote->quote_service1 = $request->quote_service1;
+                    $quote->quote_brand = 0;
+                    $quote->quote_model = 0;
+                }
+                else
+                {
+                    $quote->quote_service = $request->quote_service;
+                    $quote->quote_service1 = 0;
+                    $quote->quote_brand = $request->quote_brand ? $request->quote_brand : 0;
+                    $quote->quote_model = $request->quote_model ? $request->quote_model : 0;
+                    $quote->quote_model_number = $request->quote_model_number;
+                }
+
+                $quote->quote_qty = str_replace(",",".",$request->quote_quantity);
+                $quote->quote_delivery = $delivery_date;
             }
 
             $quote->quote_zipcode = $request->quote_zipcode;
@@ -1240,7 +1268,7 @@ class FrontendController extends Controller
             $quote->quote_familyname = $request->quote_familyname;
             $quote->quote_email = $request->quote_email;
             $quote->quote_contact = $request->quote_contact;
-            $quote->quote_delivery = $delivery_date;
+            $quote->floor_description = $request->floor_description;
 
             $quote->save();
 

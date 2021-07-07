@@ -13,6 +13,14 @@
             display: none;
         }
 
+        @media (max-width: 767px)
+        {
+            .video-box video
+            {
+                width: 95% !important;
+            }
+        }
+
     </style>
 @endsection
 @section('content')
@@ -55,6 +63,16 @@
 
         <div class="container" style="width: 100%;">
 
+            <div style="margin: 0;display: flex;justify-content: center;" class="row video-box">
+
+                <video style="width: 60%;" controls="">
+
+                    <source type="video/mp4" src="{{asset('assets/vloerofferte.nl.mp4')}}">
+
+                </video>
+
+            </div>
+
             <div class="row" style="display: flex;justify-content: center;">
 
                 <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12" id="quote-con">
@@ -85,18 +103,26 @@
 
                             </div>
 
-                            <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            {{--<div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 
                                 <button data-id="2" class="btn btn-success p-btns">
                                     <span>Product + Dienst</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
+                                </button>
+
+                            </div>--}}
+
+                            <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                                <button data-id="3" class="btn btn-success p-btns">
+                                    <span>Dienst</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
                                 </button>
 
                             </div>
 
                             <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 
-                                <button data-id="3" class="btn btn-success p-btns">
-                                    <span>Dienst</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
+                                <button data-id="4" class="btn btn-success p-btns">
+                                    <span>Offerte vergelijken</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
                                 </button>
 
                             </div>
@@ -209,7 +235,7 @@
                             <div style="width: 90%;">
 
                                 <div class="autocomplete" style="width:100%;">
-                                    <input id="productInput" class="form-control quote-product" type="text" name="product" placeholder="{{__('text.Select Product')}}">
+                                    <input id="productInput" autocomplete="off" class="form-control quote-product" type="text" name="product" placeholder="{{__('text.Select Product')}}">
                                 </div>
 
                                 <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
@@ -919,47 +945,100 @@
 
                 $('.p-btns').click(function(){
 
-                    $('.o-box').hide();
-                    $('.cbm-box').show();
-                    $('.p-box').show();
+                    $('.floor-description').remove();
 
                     var id = $(this).data('id');
 
                     $('.navbar a[href="#step1"]').trigger('click');
+                    $('.next').show();
+                    $('.next-submit').hide();
                     $('.back').hide();
 
                     if(id == 1 || id == 2)
                     {
+                        $('.floor').show();
                         $('.quote-category').val('');
                         $(".quote-category").trigger('change.select2');
 
+                        $('.files-upload').removeClass('quote_validation');
                         $('.quote-service').removeClass('quote_validation');
                         $('.quote-category').addClass('quote_validation');
                         $('.quote-brand').addClass('quote_validation');
                         $('.quote-model').addClass('quote_validation');
+                        $('.quote_quantity').addClass('quote_validation');
+                        $('.quote_delivery').addClass('quote_validation');
 
-                        $('#step1').children('.well').css('height','300px');
+                        $('#step1').css('height','300px');
                         $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
 
+                        $('.files-box').hide();
                         $('.unlinked-boxes').hide();
                         $('.linked-boxes').show();
+                        $('.duo-boxes').show();
+
+                        $('.o-box').hide();
+                        $('.cbm-box').show();
+                        $('.p-box').show();
+                        $('.progress-bar').css('width',(100/4)+'%');
                     }
-                    else
+                    else if(id == 3)
                     {
                         $('.quote-category').val('Diensten');
                         $(".quote-category").trigger('change.select2');
 
+                        $('.files-box').hide();
                         $('.linked-boxes').hide();
                         $('.unlinked-boxes').show();
+                        $('.duo-boxes').show();
 
                         $('.quote-service').addClass('quote_validation');
+                        $('.files-upload').removeClass('quote_validation');
+                        $('.quote-category').removeClass('quote_validation');
+                        $('.quote-brand').removeClass('quote_validation');
+                        $('.quote-model').removeClass('quote_validation');
+                        $('.quote_quantity').addClass('quote_validation');
+                        $('.quote_delivery').addClass('quote_validation');
+
+                        $('#step1').css('height','300px');
+
+                        $('.quote_delivery').attr("placeholder", "{{__('text.Select Installation Date')}}");
+
+                        $('.o-box').hide();
+                        $('.cbm-box').show();
+                        $('.p-box').show();
+                        $('.progress-bar').css('width',(100/4)+'%');
+                    }
+                    else
+                    {
+                        $('.quote-service').val('');
+                        $('.quote-service').trigger('change.select2');
+
+                        $('.quote-category').val('');
+                        $(".quote-category").trigger('change.select2');
+
+                        $('.quote-brand').val('');
+                        $(".quote-brand").trigger('change.select2');
+
+                        $('.quote-model').val('');
+                        $(".quote-model").trigger('change.select2');
+
+                        $('.files-upload').addClass('quote_validation');
+                        $('.quote-service').removeClass('quote_validation');
                         $('.quote-category').removeClass('quote_validation');
                         $('.quote-brand').removeClass('quote_validation');
                         $('.quote-model').removeClass('quote_validation');
 
-                        $('#step1').children('.well').css('height','');
+                        $('#step1').css('height','');
+                        $('.quote_quantity').removeClass('quote_validation');
+                        $('.quote_delivery').removeClass('quote_validation');
 
-                        $('.quote_delivery').attr("placeholder", "{{__('text.Select Installation Date')}}");
+                        $('.unlinked-boxes').hide();
+                        $('.linked-boxes').hide();
+                        $('.duo-boxes').hide();
+                        $('.files-box').show();
+                        $('.progress-bar').css('width',(100/3)+'%');
+
+                        $('#aanvragen').modal('toggle');
                     }
 
                 });
@@ -1156,16 +1235,24 @@
                                     /*insert the value for the autocomplete text field:*/
                                     inp.value = this.getElementsByTagName("input")[0].value;
 
-                                    $('.quote-service').removeClass('quote_validation');
-                                    $('.quote-category').addClass('quote_validation');
-                                    $('.quote-brand').addClass('quote_validation');
-                                    $('.quote-model').addClass('quote_validation');
+                                    if($('#step1').find('.floor-description').length == 0)
+                                    {
+                                        $('.quote-service').removeClass('quote_validation');
+                                        $('.quote-category').addClass('quote_validation');
+                                        $('.quote-brand').addClass('quote_validation');
+                                        $('.quote-model').addClass('quote_validation');
+
+                                        $('.unlinked-boxes').hide();
+                                        $('.linked-boxes').show();
+                                    }
+                                    else
+                                    {
+                                        $('#quote-box').find('.unlinked-boxes').hide();
+                                        $('#quote-box').find('.linked-boxes').show();
+                                    }
 
                                     $('#step1').children('.well').css('height','300px');
                                     $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
-
-                                    $('.unlinked-boxes').hide();
-                                    $('.linked-boxes').show();
 
                                     var product_id = this.getElementsByTagName("input")[1].value;
                                     var options = '';
@@ -1313,6 +1400,9 @@
 
                                             $('.navbar a[href="#step1"]').trigger('click');
 
+                                            $('.floor').show();
+                                            $('.next').show();
+                                            $('.next-submit').hide();
                                             $('.back').hide();
 
                                         }

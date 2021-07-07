@@ -105,7 +105,7 @@
                                             </div>
                                         </div>
 
-                                        @if($request->quote_service != 0 && $request->quote_brand != 0 && $request->quote_model != 0)
+                                        @if($request->quote_service != 0)
 
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4" for="blood_group_display_name">Category* </label>
@@ -121,6 +121,10 @@
                                                     </select>
                                                 </div>
                                             </div>
+
+                                        @endif
+
+                                        @if($request->quote_brand != 0)
 
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4"
@@ -138,6 +142,10 @@
                                                 </div>
                                             </div>
 
+                                        @endif
+
+                                        @if($request->quote_model != 0)
+
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4"
                                                        for="blood_group_display_name">Model* </label>
@@ -154,17 +162,19 @@
                                                 </div>
                                             </div>
 
+                                        @endif
 
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4" for="blood_group_slug">Model Number </label>
-                                                <div class="col-sm-6">
-                                                    <input class="form-control" value="{{$request->quote_model_number}}"
-                                                           name="quote_model_number" id="quote_model_number"
-                                                           placeholder="Enter Model Number" required="" type="text">
-                                                </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_slug">Model Number </label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" value="{{$request->quote_model_number}}"
+                                                       name="quote_model_number" id="quote_model_number"
+                                                       placeholder="Enter Model Number" required="" type="text">
                                             </div>
+                                        </div>
 
-                                        @else
+
+                                        @if($request->quote_service == 0 && $request->quote_service1 != 0)
 
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4" for="blood_group_display_name">Service* </label>
@@ -236,6 +246,20 @@
                                             </div>
                                         </div>
 
+
+                                        @if($request->floor_description)
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4"
+                                                       for="service_description">Floor Description*</label>
+                                                <div class="col-sm-6">
+                                                <textarea class="form-control" name="floor_description"
+                                                          id="floor_description" rows="5" style="resize: vertical;"
+                                                          placeholder="Enter Description of Floor">{{$request->floor_description}}</textarea>
+                                                </div>
+                                            </div>
+
+                                        @endif
 
                                         <hr>
                                         {{--<div class="add-product-footer">
