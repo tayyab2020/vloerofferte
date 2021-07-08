@@ -1139,11 +1139,10 @@
                         }
                     }
 
-
-                    if(postal_code == '' || city == '')
+                    /*if(postal_code == '' || city == '')
                     {
                         flag = 1;
-                    }
+                    }*/
 
                     if(!flag)
                     {
