@@ -137,7 +137,7 @@
 
                             <div style="width: 20%;">
 
-                                <select class="js-data-example-ajax1 form-control quote-category" name="group" id="blood_grp">
+                                <select data-target="1" class="js-data-example-ajax1 form-control quote-category" name="group" id="blood_grp">
 
                                     <option value="">{{__('text.Select Category')}}</option>
 
@@ -156,6 +156,10 @@
                                 <select class="js-data-example-ajax3 form-control quote-brand" name="group" id="blood_grp">
 
                                     <option value="">{{__('text.Select Brand')}}</option>
+
+                                    @foreach($quote_brands as $brand)
+                                        <option value="{{$brand->id}}">{{$brand->cat_name}}</option>
+                                    @endforeach
 
                                 </select>
 

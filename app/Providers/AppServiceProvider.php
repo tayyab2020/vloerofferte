@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Brand;
 use App\Category;
+use App\sub_categories;
 use App\Products;
 use App\Service;
 use App\terms_conditions;
@@ -92,12 +94,17 @@ class AppServiceProvider extends ServiceProvider
 
             if(\Route::currentRouteName() == 'front.index' || \Route::currentRouteName() == 'front.products' || \Route::currentRouteName() == 'front.product' || \Route::currentRouteName() == 'front.services' || \Route::currentRouteName() == 'front.service')
             {
-                $quote_cats = Category::where('main_service', '=', 1)->get();
-                $quote_products = Products::leftjoin('categories','categories.id','=','products.category_id')->select('products.id','products.title','categories.cat_name')->get();
+                $floor_category = Category::where('cat_name','LIKE', '%Floors%')->orWhere('cat_name','LIKE', '%Vloeren%')->pluck('id')->first();
+                $quote_cats = sub_categories::where('parent_id',$floor_category)->get();
+                $quote_brands = Brand::get();
+                $quote_products = Products::leftjoin('categories','categories.id','=','products.category_id')->where(function($query) {
+                    $query->where('categories.cat_name','LIKE', '%Floors%')->orWhere('categories.cat_name','LIKE', '%Vloeren%');
+                })->select('products.id','products.title','categories.cat_name')->get();
                 $quote_services = Service::all();
                 $quote_data = terms_conditions::where("role",2)->first();
 
                 $settings->with('quote_cats', $quote_cats);
+                $settings->with('quote_brands', $quote_brands);
                 $settings->with('quote_products', $quote_products);
                 $settings->with('quote_services', $quote_services);
                 $settings->with('quote_data', $quote_data);
