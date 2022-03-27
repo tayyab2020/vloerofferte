@@ -96,15 +96,14 @@ class AppServiceProvider extends ServiceProvider
             {
                 $floor_category = Category::where('cat_name','LIKE', '%Floors%')->orWhere('cat_name','LIKE', '%Vloeren%')->pluck('id')->first();
                 $quote_cats = sub_categories::where('parent_id',$floor_category)->get();
-                $quote_brands = Brand::get();
                 $quote_products = Products::leftjoin('categories','categories.id','=','products.category_id')->where(function($query) {
                     $query->where('categories.cat_name','LIKE', '%Floors%')->orWhere('categories.cat_name','LIKE', '%Vloeren%');
-                })->select('products.id','products.title','categories.cat_name')->get();
+                })->with('colors')->with('models')->select('products.id','products.user_id','products.sub_category_id as cat_id','products.brand_id','products.title','categories.cat_name')->get();
+                
                 $quote_services = Service::all();
                 $quote_data = terms_conditions::where("role",2)->first();
 
                 $settings->with('quote_cats', $quote_cats);
-                $settings->with('quote_brands', $quote_brands);
                 $settings->with('quote_products', $quote_products);
                 $settings->with('quote_services', $quote_services);
                 $settings->with('quote_data', $quote_data);

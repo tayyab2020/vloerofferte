@@ -13,5 +13,19 @@ class Products extends Model
     public $timestamps = false;
     protected $dates = ['deleted_at'];
 
+    public function supplier()
+    {
+        return $this->belongsTo('App\User','user_id','id');
+    }
+
+    public function colors()
+    {
+        return $this->hasMany('App\colors','product_id','id');
+    }
+
+    public function models()
+    {
+        return $this->hasMany('App\product_models','product_id','id');
+    }
 
 }

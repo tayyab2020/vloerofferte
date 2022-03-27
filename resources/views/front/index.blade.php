@@ -137,7 +137,7 @@
 
                             <div style="width: 20%;">
 
-                                <select data-target="1" class="js-data-example-ajax1 form-control quote-category" name="group" id="blood_grp">
+                                <select class="js-data-example-ajax1 form-control quote-category" name="group" id="blood_grp">
 
                                     <option value="">{{__('text.Select Category')}}</option>
 
@@ -157,10 +157,6 @@
 
                                     <option value="">{{__('text.Select Brand')}}</option>
 
-                                    @foreach($quote_brands as $brand)
-                                        <option value="{{$brand->id}}">{{$brand->cat_name}}</option>
-                                    @endforeach
-
                                 </select>
 
                             </div>
@@ -177,7 +173,11 @@
 
                             <div class="linked-boxes" style="width: 20%;">
 
-                                <input type="text" style="height: 100%;" name="model_number" class="form-control quote-model-number" placeholder="{{__('text.Model Number (Optional)')}}" />
+                                <select class="js-data-example-ajax7 quote-color form-control" name="group" id="blood_grp">
+
+                                    <option value="">{{__('text.Select Color')}}</option>
+
+                                </select>
 
                             </div>
 
@@ -244,11 +244,27 @@
 
                                 <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
 
-                                    @foreach($quote_products as $product)
-                                        <option data-cat="{{$product->cat_name}}" value="{{$product->id}}">{{$product->title}}</option>
+                                    @foreach($quote_products as $key)
+
+                                        @foreach($key->models as $key1)
+
+                                            @foreach($key->colors as $key2)
+
+                                                <option data-cat="{{$key->cat_id}}" data-brand-id="{{$key->brand_id}}" data-model="{{$key1->model}}" data-model-id="{{$key1->id}}" data-color="{{$key2->title}}" data-color-id="{{$key2->id}}" value="{{$key->id}}">{{$key->title.', '.$key1->model.', '.$key2->title.', ('.$key->supplier->company_name.')'}}</option>
+
+                                            @endforeach
+
+                                        @endforeach
+
                                     @endforeach
 
                                 </select>
+
+                                <input type="hidden" id="product_id">
+                                <input type="hidden" id="category_id">
+								<input type="hidden" id="brand_id">
+                                <input type="hidden" id="model_id">
+                                <input type="hidden" id="color_id">
 
                             </div>
 
@@ -1199,7 +1215,7 @@
                     nextArrow: "<button class='slick-arrow slick-next' data-role='none' type='button' style='display: block;'><svg class='domain-icon css-oee40j' viewBox='0 0 24 24' aria-hidden='true'><path fill='none' stroke='currentColor' stroke-width='2' d='M9 5l7 7-7 7'></path></svg><span class='css-16q9xmc'>Next</span></button>"
                 });
 
-                function autocomplete(inp, arr, values, categories) {
+                function autocomplete(inp, arr, values, categories, brands, models, colors) {
                     /*the autocomplete function takes two arguments,
                     the text field element and an array of possible autocompleted values:*/
                     var currentFocus;
@@ -1230,9 +1246,10 @@
                                 /*make the matching letters bold:*/
                                 /*b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                                 b.innerHTML += arr[i].substr(val.length);*/
-                                b.innerHTML = arr[i] + ', ' + categories[i];
+                                // b.innerHTML = arr[i] + ', ' + categories[i];
+                                b.innerHTML = arr[i];
                                 /*insert a input field that will hold the current array item's value:*/
-                                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'><input type='hidden' value='" + values[i] + "'>";
+                                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'><input type='hidden' value='" + values[i] + "'><input type='hidden' value='" + categories[i] + "'><input type='hidden' value='" + brands[i] + "'><input type='hidden' value='" + models[i] + "'><input type='hidden' value='" + colors[i] + "'>";
                                 /*execute a function when someone clicks on the item value (DIV element):*/
                                 b.addEventListener("click", function(e) {
                                     /*insert the value for the autocomplete text field:*/
@@ -1258,159 +1275,161 @@
                                     $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
 
                                     var product_id = this.getElementsByTagName("input")[1].value;
+                                    var category_id = this.getElementsByTagName("input")[2].value;
+                                    var brand_id = this.getElementsByTagName("input")[3].value;
+                                    var model_id = this.getElementsByTagName("input")[4].value;
+                                    var color_id = this.getElementsByTagName("input")[5].value;
+
+                                    $('.quote-category').val(category_id);
+                                    $(".quote-category").trigger('change.select2');
+
                                     var options = '';
 
                                     $.ajax({
                                         type: "GET",
-                                        data: "id=" + product_id,
-                                        url: "<?php echo url('/products-by-id')?>",
+                                        data: "id=" + category_id,
+                                        url: "<?php echo url('get-questions')?>",
+
                                         success: function (data) {
 
-                                            $('.quote-category').val(data.category_id);
-                                            $(".quote-category").trigger('change.select2');
+                                            $('#step2').children('.well').empty();
 
-                                            var category_id = data.category_id;
-                                            var brand_id = data.brand_id;
-                                            var model_id = data.model_id;
-                                            var options = '';
+                                            var index_count = 0;
 
-                                            $.ajax({
-                                                type: "GET",
-                                                data: "id=" + category_id,
-                                                url: "<?php echo url('get-questions')?>",
+                                            $.each(data, function (index, val) {
 
-                                                success: function (data) {
+                                                if (data.length == index + 1) {
+                                                    $('#step2').children('.well').append('<div style="margin-bottom: 20px;"></div>');
+                                                } else {
+                                                    $('#step2').children('.well').append('<div style="margin-bottom: 40px;"></div>');
+                                                }
 
-                                                    $('#step2').children('.well').empty();
+                                                var last = $('#step2').children('.well').children().last('div');
 
-                                                    var index_count = 0;
+                                                last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">' + val.title + '</h3><input type="hidden" name="questions[]" value="' + val.title + '">');
 
-                                                    $.each(data, function (index, val) {
+                                                if (val.predefined == 1) {
 
-                                                        if (data.length == index + 1) {
-                                                            $('#step2').children('.well').append('<div style="margin-bottom: 20px;"></div>');
-                                                        } else {
-                                                            $('#step2').children('.well').append('<div style="margin-bottom: 40px;"></div>');
-                                                        }
+                                                    last.append('<div class="checkbox_validation"><input name="predefined' + index + '" type="hidden" value="1"></div>');
 
-                                                        var last = $('#step2').children('.well').children().last('div');
+                                                    $.each(val.answers, function (index1, val1) {
 
-                                                        last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">' + val.title + '</h3><input type="hidden" name="questions[]" value="' + val.title + '">');
-
-                                                        if (val.predefined == 1) {
-
-                                                            last.append('<div class="checkbox_validation"><input name="predefined' + index + '" type="hidden" value="1"></div>');
-
-                                                            $.each(val.answers, function (index1, val1) {
-
-                                                                last.children('div').append('<hr>\n' +
-                                                                    '                                        <label class="container-checkbox">' + val1.title + '\n' +
-                                                                    '                                        <input name="answers' + index + '[]" type="checkbox" value="' + val1.title + '">\n' +
-                                                                    '                                        <span class="checkmark-checkbox"></span>\n' +
-                                                                    '                                        </label>');
-
-                                                            });
-                                                        } else {
-                                                            if (val.placeholder) {
-                                                                var placeholder = val.placeholder;
-                                                            } else {
-                                                                var placeholder = '';
-                                                            }
-
-                                                            last.append('<input name="predefined' + index + '" type="hidden" value="0">\n' +
-                                                                '<textarea name="answers' + index + '" style="resize: vertical;" rows="1" class="form-control quote_validation" placeholder="' + placeholder + '"></textarea>');
-                                                        }
-
-                                                        index_count = index;
+                                                        last.children('div').append('<hr>\n' +
+                                                            '                                        <label class="container-checkbox">' + val1.title + '\n' +
+                                                            '                                        <input name="answers' + index + '[]" type="checkbox" value="' + val1.title + '">\n' +
+                                                            '                                        <span class="checkmark-checkbox"></span>\n' +
+                                                            '                                        </label>');
 
                                                     });
+                                                } else {
+                                                    if (val.placeholder) {
+                                                        var placeholder = val.placeholder;
+                                                    } else {
+                                                        var placeholder = '';
+                                                    }
 
-                                                    $('#step2').children('.well').append('<input type="hidden" name="index_count" value="' + index_count + '">');
-
-                                                    /*$('#step2').children('div').children('h3').
-                                                    console.log(data);*/
+                                                    last.append('<input name="predefined' + index + '" type="hidden" value="0">\n' +
+                                                        '<textarea name="answers' + index + '" style="resize: vertical;" rows="1" class="form-control quote_validation" placeholder="' + placeholder + '"></textarea>');
                                                 }
+
+                                                index_count = index;
+
                                             });
+
+                                            $('#step2').children('.well').append('<input type="hidden" name="index_count" value="' + index_count + '">');
+
+                                            /*$('#step2').children('div').children('h3').
+                                            console.log(data);*/
+                                        }
+                                    });
+
+                                    $.ajax({
+                                        type: "GET",
+                                        data: "id=" + category_id,
+                                        url: "<?php echo url('/products-brands-by-category')?>",
+                                        success: function (data) {
+
+                                            $.each(data, function (index, value) {
+
+                                                var opt = '<option value="' + value.id + '" >'+value.cat_name + ' (' + value.supplier.company_name + ')' +'</option>';
+
+                                                options = options + opt;
+
+                                            });
+
+                                            $('.quote-model').find('option')
+                                                .remove()
+                                                .end()
+                                                .append('<option value="">Select Model</option>');
+
+                                            $('.quote-color').find('option')
+                                                .remove()
+                                                .end()
+                                                .append('<option value="">Select Color</option>');
+
+                                            $('.quote-brand').find('option')
+                                                .remove()
+                                                .end()
+                                                .append('<option value="">Select Brand</option>' + options);
+
+                                            $('.quote-brand').val(brand_id);
+                                            $(".quote-brand").trigger('change.select2');
+
+                                            var options = '';
+                                            var options1 = '';
 
                                             $.ajax({
                                                 type: "GET",
-                                                data: "id=" + category_id,
-                                                url: "<?php echo url('/products-brands-by-category')?>",
+                                                data: "id=" + brand_id,
+                                                url: "<?php echo url('/products-models-by-brands')?>",
                                                 success: function (data) {
 
-                                                    $.each(data, function (index, value) {
+                                                    $.each(data, function(index, value) {
 
-                                                        var opt = '<option value="' + value.id + '" >' + value.cat_name + '</option>';
+                                                        $.each(value.models, function(index1, value1) {
 
-                                                        options = options + opt;
+                                                            var opt = '<option value="'+value1.id+'" >'+value1.model + ' (' + value.supplier.company_name + ')' +'</option>';
+
+                                                            options = options + opt;
+
+                                                        });
+
+                                                        $.each(value.colors, function(index2, value2) {
+
+                                                            var opt1 = '<option value="'+value2.id+'" >'+value2.title + ' (' + value.supplier.company_name + ')' +'</option>';
+
+                                                            options1 = options1 + opt1;
+
+                                                        });
 
                                                     });
 
                                                     $('.quote-model').find('option')
                                                         .remove()
                                                         .end()
-                                                        .append('<option value="">Select Model</option>');
+                                                        .append('<option value="">Select Model</option>'+options);
 
-                                                    $('.quote-brand').find('option')
+                                                    $('.quote-color').find('option')
                                                         .remove()
                                                         .end()
-                                                        .append('<option value="">Select Brand</option>' + options);
+                                                        .append('<option value="">Select Color</option>'+options1);
 
-                                                    $('.quote-brand').val(brand_id);
-                                                    $(".quote-brand").trigger('change.select2');
-
-
-                                                    var options = '';
-
-                                                    $.ajax({
-                                                        type: "GET",
-                                                        data: "id=" + brand_id,
-                                                        url: "<?php echo url('/products-models-by-brands')?>",
-                                                        success: function (data) {
-
-                                                            $.each(data, function (index, value) {
-
-                                                                var opt = '<option value="' + value.id + '" >' + value.cat_name + '</option>';
-
-                                                                options = options + opt;
-
-                                                            });
-
-                                                            $('.quote-model').find('option')
-                                                                .remove()
-                                                                .end()
-                                                                .append('<option value="">Select Model</option>' + options);
-
-                                                            $('.quote-model').val(model_id);
-                                                            $(".quote-model").trigger('change.select2');
-
-                                                        }
-                                                    });
-
-                                                    $.ajax({
-                                                        type:"GET",
-                                                        data: "id=" + model_id + "&brand_id=" + brand_id + "&cat_id=" + category_id,
-                                                        url: "<?php echo url('/products-model-number-by-model')?>",
-                                                        success: function(data) {
-
-                                                            $('.quote-model-number').val(data.model_number);
-
-                                                        }
-                                                    });
+                                                    $('.quote-model').val(model_id);
+                                                    $('.quote-color').val(color_id);
+                                                    $(".quote-model").trigger('change.select2');
 
                                                 }
                                             });
 
-                                            $('.navbar a[href="#step1"]').trigger('click');
-
-                                            $('.floor').show();
-                                            $('.next').show();
-                                            $('.next-submit').hide();
-                                            $('.back').hide();
-
                                         }
-
                                     });
+
+                                    $('.navbar a[href="#step1"]').trigger('click');
+
+                                    $('.floor').show();
+                                    $('.next').show();
+                                    $('.next-submit').hide();
+                                    $('.back').hide();
 
                                     /*close the list of autocompleted values,
                                     (or any other open lists of autocompleted values:*/
@@ -1481,12 +1500,15 @@
                 options = [];
                 texts = [];
                 categories = [];
+                brands = [];
+                models = [];
+                colors = [];
 
                 var sel = $(".all-products");
                 var length = sel.children('option').length;
 
                 $(".all-products > option").each(function() {
-                    if (this.value) options.push(this.value); texts.push(this.text); categories.push(this.getAttribute('data-cat'));
+                    if (this.value) options.push(this.value); texts.push(this.text); categories.push(this.getAttribute('data-cat')); brands.push(this.getAttribute('data-brand-id')); models.push(this.getAttribute('data-model-id')); colors.push(this.getAttribute('data-color-id'));
                 });
 
                 /*for (var i=0, n=length;i<n;i++) { // looping over the options
@@ -1496,7 +1518,7 @@
 
                 console.log(options);*/
 
-                autocomplete(document.getElementById("productInput"), texts, options, categories);
+                autocomplete(document.getElementById("productInput"), texts, options, categories, brands, models, colors);
 
             });
 
@@ -2156,6 +2178,18 @@
             },
         });
 
+        $(".js-data-example-ajax7").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "{{__('text.Select Color')}}",
+            allowClear: true,
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+        });
+
         $(".js-data-example-ajax2").select2({
             width: '100%',
             height: '200px',
@@ -2187,6 +2221,20 @@
             width: '100%',
             height: '200px',
             placeholder: "{{__('text.Select Model')}}",
+            allowClear: true,
+            dropdownParent: $('#aanvragen'),
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+
+        });
+
+        $(".js-data-example-ajax8").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "{{__('text.Select Color')}}",
             allowClear: true,
             dropdownParent: $('#aanvragen'),
             "language": {
