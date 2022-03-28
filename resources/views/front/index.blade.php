@@ -135,7 +135,7 @@
 
                         <div id="quote-box" style="display: flex;justify-content: space-between;width: 100%;padding: 20px;">
 
-                            <div style="width: 20%;">
+                            <div style="width: 18%;">
 
                                 <select class="js-data-example-ajax1 form-control quote-category" name="group" id="blood_grp">
 
@@ -151,7 +151,7 @@
 
                             </div>
 
-                            <div class="linked-boxes" style="width: 20%;">
+                            <div class="linked-boxes" style="width: 18%;">
 
                                 <select class="js-data-example-ajax3 form-control quote-brand" name="group" id="blood_grp">
 
@@ -161,7 +161,17 @@
 
                             </div>
 
-                            <div class="linked-boxes" style="width: 20%;">
+                            <div style="width: 18%;">
+
+                                <select class="js-data-example-ajax9 form-control products-dropdown" name="group" id="blood_grp">
+
+                                    <option value="">{{__('text.Select Product')}}</option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="linked-boxes" style="width: 18%;">
 
                                 <select class="js-data-example-ajax4 quote-model form-control" name="group" id="blood_grp">
 
@@ -171,7 +181,7 @@
 
                             </div>
 
-                            <div class="linked-boxes" style="width: 20%;">
+                            <div class="linked-boxes" style="width: 18%;">
 
                                 <select class="js-data-example-ajax7 quote-color form-control" name="group" id="blood_grp">
 
@@ -181,7 +191,7 @@
 
                             </div>
 
-                            <div class="unlinked-boxes" style="width: 60%;display: none;">
+                            <div class="unlinked-boxes" style="width: 54%;display: none;">
 
                                 <select class="js-data-example-ajax0 form-control quote-service" name="group" id="blood_grp">
 
@@ -1351,7 +1361,7 @@
 
                                             $.each(data, function (index, value) {
 
-                                                var opt = '<option value="' + value.id + '" >'+value.cat_name + ' (' + value.supplier.company_name + ')' +'</option>';
+                                                var opt = '<option value="' + value.id + '" >'+value.cat_name+'</option>';
 
                                                 options = options + opt;
 
@@ -1388,7 +1398,7 @@
 
                                                         $.each(value.models, function(index1, value1) {
 
-                                                            var opt = '<option value="'+value1.id+'" >'+value1.model + ' (' + value.supplier.company_name + ')' +'</option>';
+                                                            var opt = '<option value="'+value1.id+'" >'+value1.model+'</option>';
 
                                                             options = options + opt;
 
@@ -1396,7 +1406,7 @@
 
                                                         $.each(value.colors, function(index2, value2) {
 
-                                                            var opt1 = '<option value="'+value2.id+'" >'+value2.title + ' (' + value.supplier.company_name + ')' +'</option>';
+                                                            var opt1 = '<option value="'+value2.id+'" >'+value2.title+'</option>';
 
                                                             options1 = options1 + opt1;
 
@@ -2237,6 +2247,19 @@
             placeholder: "{{__('text.Select Color')}}",
             allowClear: true,
             dropdownParent: $('#aanvragen'),
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+
+        });
+
+        $(".js-data-example-ajax9").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "{{__('text.Select Product')}}",
+            allowClear: true,
             "language": {
                 "noResults": function(){
                     return '{{__('text.No results found')}}';

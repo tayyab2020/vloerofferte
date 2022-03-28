@@ -401,14 +401,28 @@ class FrontendController extends Controller
 
         // $models = $models->unique();
 
-        $models = Products::where('brand_id','=',$request->id)->with('supplier')->with('colors')->with('models')->get();
+        $models = Products::where('brand_id','=',$request->id)->with('colors')->with('models')->get();
 
         return $models;
     }
 
+    public function productsByCategoryBrand(Request $request)
+    {
+        $products = Products::where('sub_category_id','=',$request->category_id)->where('brand_id','=',$request->brand_id)->get();
+
+        return $products;
+    }
+
+    public function productsModelsColorsByProduct(Request $request)
+    {
+        $data = Products::where('id','=',$request->product_id)->with('colors')->with('models')->get();
+
+        return $data;
+    }
+
     public function productsBrandsByCategory(Request $request)
     {
-        $brands = Products::leftjoin('brands','brands.id','=','products.brand_id')->where('products.sub_category_id','=',$request->id)->with('supplier')->select('brands.*','products.user_id')->get();
+        $brands = Products::leftjoin('brands','brands.id','=','products.brand_id')->where('products.sub_category_id','=',$request->id)->select('brands.*','products.user_id')->get();
 
         $brands = $brands->unique();
 
