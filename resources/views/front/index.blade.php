@@ -2268,6 +2268,20 @@
 
         });
 
+        $(".js-data-example-ajax11").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "{{__('text.Select Product')}}",
+            allowClear: true,
+            dropdownParent: $('#aanvragen'),
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+
+        });
+
     </script>
 
 @endsection

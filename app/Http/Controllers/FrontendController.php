@@ -970,7 +970,7 @@ class FrontendController extends Controller
 
         }
 
-        $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->where('handyman_products.handyman_id', '=', $id)->where('categories.main_service', 1)->leftjoin('service_types', 'service_types.id', '=', 'categories.service_type')->Select('categories.id as id', 'categories.variable_questions', 'categories.cat_name as cat_name', 'categories.cat_slug as cat_slug', 'categories.photo as cat_photo', 'service_types.type as service_type', 'service_types.text as service_text', 'handyman_products.rate', 'handyman_products.description', 'handyman_products.vat_percentage', 'handyman_products.sell_rate', 'service_types.id as service_id')->get();
+        $services = Category::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'categories.id')->leftjoin('service_types', 'service_types.id', '=', 'categories.service_type')->where('handyman_products.handyman_id', '=', $id)->Select('categories.id as id', 'categories.variable_questions', 'categories.cat_name as cat_name', 'categories.cat_slug as cat_slug', 'categories.photo as cat_photo', 'service_types.type as service_type', 'service_types.text as service_text', 'handyman_products.rate', 'handyman_products.description', 'handyman_products.vat_percentage', 'handyman_products.sell_rate', 'service_types.id as service_id')->get();
 
         if ($user1 != "") {
             $user_id = Auth::guard('user')->user()->id;
@@ -1153,8 +1153,8 @@ class FrontendController extends Controller
         $account_create = 0;
 
         if ($request->quote_id) {
-            $quote = quotes::where('id', $request->quote_id)->update(['quote_service' => $request->quote_service, 'quote_zipcode' => $request->quote_zipcode, 'quote_work' => $request->quote_work, 'quote_when' => $request->quote_when, 'quote_budget' => $request->quote_budget, 'quote_job' => $request->quote_job, 'quote_status' => $request->quote_status, 'quote_description' => $request->quote_description, 'quote_name' => $request->quote_name, 'quote_familyname' => $request->quote_familyname, 'quote_email' => $request->quote_email, 'quote_contact' => $request->quote_contact]);
 
+            $quote = quotes::where('id', $request->quote_id)->update(['quote_service' => $request->quote_service, 'quote_zipcode' => $request->quote_zipcode, 'quote_work' => $request->quote_work, 'quote_when' => $request->quote_when, 'quote_budget' => $request->quote_budget, 'quote_job' => $request->quote_job, 'quote_status' => $request->quote_status, 'quote_description' => $request->quote_description, 'quote_name' => $request->quote_name, 'quote_familyname' => $request->quote_familyname, 'quote_email' => $request->quote_email, 'quote_contact' => $request->quote_contact]);
 
             Session::flash('success', __('text.Your Quotation request has been updated successfully!'));
             return redirect()->back();

@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
+use App\all_categories;
 use App\Brand;
 use App\Category;
-use App\sub_categories;
 use App\Products;
 use App\Service;
 use App\terms_conditions;
@@ -94,8 +94,8 @@ class AppServiceProvider extends ServiceProvider
 
             if(\Route::currentRouteName() == 'front.index' || \Route::currentRouteName() == 'front.products' || \Route::currentRouteName() == 'front.product' || \Route::currentRouteName() == 'front.services' || \Route::currentRouteName() == 'front.service')
             {
-                $floor_category = Category::where('cat_name','LIKE', '%Floors%')->orWhere('cat_name','LIKE', '%Vloeren%')->pluck('id')->first();
-                $quote_cats = sub_categories::where('parent_id',$floor_category)->get();
+                $floor_category = all_categories::where('cat_name','LIKE', '%Floors%')->orWhere('cat_name','LIKE', '%Vloeren%')->pluck('id')->first();
+                $quote_cats = Category::where('parent_id',$floor_category)->get();
                 $quote_products = Products::leftjoin('categories','categories.id','=','products.category_id')->where(function($query) {
                     $query->where('categories.cat_name','LIKE', '%Floors%')->orWhere('categories.cat_name','LIKE', '%Vloeren%');
                 })->with('colors')->with('models')->select('products.id','products.user_id','products.sub_category_id as cat_id','products.brand_id','products.title','categories.cat_name')->get();

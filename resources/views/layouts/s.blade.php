@@ -54,7 +54,7 @@
 
 
     <!-- Smartsupp Live Chat script -->
-    {{--<script type="text/javascript">
+    <script type="text/javascript">
         var _smartsupp = _smartsupp || {};
         _smartsupp.key = 'c48884354ee46ae0e7e98458fad7375341bdcfcf';
         window.smartsupp || (function (d) {
@@ -70,7 +70,7 @@
             c.src = 'https://www.smartsuppchat.com/loader.js?';
             s.parentNode.insertBefore(c, s);
         })(document);
-    </script>--}}
+    </script>
 
     @include('styles.design')
     @yield('styles')
@@ -115,14 +115,14 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-    {{--<script async src="https://www.googletagmanager.com/gtag/js?id=G-QV9Q57K9LE"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QV9Q57K9LE"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'G-QV9Q57K9LE');
-    </script>--}}
+    </script>
 
     @if($lang->lang == 'eng')
 
@@ -492,6 +492,17 @@
                                             style="height: 40px;" name="quote_brand" id="blood_grp" required>
 
                                         <option value="">{{__('text.Select Brand')}}</option>
+
+                                    </select>
+
+                                </div>
+
+                                <div class="linked-boxes" style="margin-bottom: 40px;">
+
+                                    <select class="js-data-example-ajax11 form-control products-dropdown quote_validation"
+                                            style="height: 40px;" name="product_id" id="blood_grp" required>
+
+                                        <option value="">{{__('text.Select Product')}}</option>
 
                                     </select>
 
@@ -1292,6 +1303,19 @@
 
         });
 
+        $('.quote-model').change(function() {
+
+            var id = $(this).val();
+
+            $('.quote-model').val(id);
+            $(".quote-model").trigger('change.select2');
+
+            $('.navbar a[href="#step1"]').trigger('click');
+            $('.back').hide();
+            $('.floor').show();
+
+        });
+
         $('.quote-color').change(function() {
 
             var id = $(this).val();
@@ -1758,8 +1782,6 @@
             $('#quantity').val($(this).val());
         });
 
-
-
         $('.next-submit').click(function(){
 
             var validation = $('.tab-content').find('.active').find('.quote_validation');
@@ -1800,7 +1822,6 @@
 
             return false;
         });
-
 
         $('.floor').click(function(){
 
@@ -2009,6 +2030,7 @@
         $('.menuLi').click(function () {
             $(".menuUl1").css("display", 'none');
         });
+
     });
 
     $(document).on('mouseover', '.lang-list', function () {
@@ -2021,8 +2043,6 @@
         $('.lang_select').val(value);
 
         $('#lang-form').submit();
-
-
     }
 </script>
 
@@ -2310,7 +2330,7 @@
                                 <li>
                                     <img style="height: 30px;" src="{{asset('assets/images/'.$lblog->photo)}}" alt="">
                                     <span><a
-                                            href="{{route('front.blogshow',$lblog->title)}}">{{$lblog->title}}</a></span>
+                                                href="{{route('front.blogshow',$lblog->title)}}">{{$lblog->title}}</a></span>
                                 </li>
                             @endforeach
                         </ul>
@@ -2403,68 +2423,68 @@
     button {
         background-color: <?php if($gs->btn_bg == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->btn_bg. ' !important;'; } ?>
 
-         border-color:
+ border-color:
         <?php if($gs->btn_brd != null) { echo $gs->btn_brd. ' !important;'; } else { echo '#ffffff00 !important;'; } ?>
 
- color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
+color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
 
 
-    }
+}
 
     input[type=submit] {
         background-color: <?php if($gs->btn_bg == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->btn_bg. ' !important;'; } ?>
 
-         border-color:
+ border-color:
         <?php if($gs->btn_brd != null) { echo $gs->btn_brd. ' !important;'; } else { echo '#ffffff00 !important;'; } ?>
 
- color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
+color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
 
 
-    }
+}
 
     .btn-cyan {
         background-color: <?php if($gs->btn_bg == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->btn_bg. ' !important;'; } ?>
 
-         border-color:
+ border-color:
         <?php if($gs->btn_brd != null) { echo $gs->btn_brd. ' !important;'; } else { echo '#ffffff00 !important;'; } ?>
 
- color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
+color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
 
-    }
+}
 
     .hero-btn {
         background-color: <?php if($gs->btn_bg == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->btn_bg. ' !important;'; } ?>
 
-         border-color:
+ border-color:
         <?php if($gs->btn_brd != null) { echo $gs->btn_brd. ' !important;'; } else { echo '#ffffff00 !important;'; } ?>
 
- color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
+color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
 
-    }
+}
 
     .footer-social-links li a {
         background-color: <?php if($gs->btn_bg == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->btn_bg. ' !important;'; } ?>
 
-         border-color:
+ border-color:
         <?php if($gs->btn_brd != null) { echo $gs->btn_brd. ' !important;'; } else { echo '#ffffff00 !important;'; } ?>
 
- color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
+color: <?php if($gs->btn_col != null) { echo $gs->btn_col. ' !important;'; } else { echo '#fff !important;'; } ?>
 
-         border-left: 1.5px solid;
+ border-left: 1.5px solid;
     }
 
     .hero-form {
         background-color: <?php if($gs->form_bg == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->form_bg. ' !important;'; } ?>
 
-         color:
+ color:
         <?php if($gs->form_col != null) { echo $gs->form_col. ' !important;'; } else { echo 'black !important;'; } ?>
- border: 11px solid<?php if($gs->form_ic == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->form_ic. ' !important;'; } ?>;
+border: 11px solid<?php if($gs->form_ic == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->form_ic. ' !important;'; } ?>;
     }
 
     .hero-form-wrapper .input-group-addon {
         background-color: <?php if($gs->form_ic == null) { if($gs->colors == null){ echo '#f3bd02 !important;'; } else {   echo $gs->colors.' !important;'; }} else { echo $gs->form_ic. ' !important;'; } ?>
 
-    }
+}
 
     .next1 {
         text-decoration: none !important;
@@ -2598,11 +2618,11 @@
 <script src="{{ asset('assets/front/js/main.js?v=1.1') }}"></script>
 {!! $seo->google_analytics !!}
 <script type="text/javascript">
-    $(window).load(function () {
-        setTimeout(function () {
-            $('#cover').fadeOut(1000);
-        }, 1000)
-    });
+$(window).load(function () {
+setTimeout(function () {
+    $('#cover').fadeOut(1000);
+}, 1000)
+});
 </script>
 
 @yield('scripts')
