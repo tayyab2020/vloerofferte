@@ -1383,6 +1383,7 @@
                                                 .append('<option value="">Select Brand</option>' + options);
 
                                             $('.quote-brand').val(brand_id);
+                                            fetch_products(category_id,brand_id,product_id);
                                             $(".quote-brand").trigger('change.select2');
 
                                             var options = '';
