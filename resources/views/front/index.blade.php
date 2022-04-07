@@ -163,13 +163,23 @@
 
                             <div style="width: 18%;">
 
-                                <select class="js-data-example-ajax9 form-control products-dropdown" name="group" id="blood_grp">
+                                <select class="js-data-example-ajax12 form-control quote-type" name="group" id="blood_grp">
 
-                                    <option value="">{{__('text.Select Product')}}</option>
+                                    <option value="">Select Type</option>
 
                                 </select>
 
                             </div>
+
+{{--                            <div style="width: 18%;">--}}
+
+{{--                                <select class="js-data-example-ajax9 form-control products-dropdown" name="group" id="blood_grp">--}}
+
+{{--                                    <option value="">{{__('text.Select Product')}}</option>--}}
+
+{{--                                </select>--}}
+
+{{--                            </div>--}}
 
                             <div class="linked-boxes" style="width: 18%;">
 
@@ -1353,6 +1363,8 @@
                                         }
                                     });
 
+                                    var options = '';
+
                                     $.ajax({
                                         type: "GET",
                                         data: "id=" + category_id,
@@ -1395,23 +1407,17 @@
                                                 url: "<?php echo url('/products-models-by-brands')?>",
                                                 success: function (data) {
 
-                                                    $.each(data, function(index, value) {
+                                                    $.each(data.models, function(index1, value1) {
+                                                        
+                                                        var opt = '<option value="'+value1.id+'" >'+value1.model+'</option>';
+                                                        options = options + opt;
+                                                    
+                                                    });
 
-                                                        $.each(value.models, function(index1, value1) {
+                                                    $.each(data.colors, function(index2, value2) {
 
-                                                            var opt = '<option value="'+value1.id+'" >'+value1.model+'</option>';
-
-                                                            options = options + opt;
-
-                                                        });
-
-                                                        $.each(value.colors, function(index2, value2) {
-
-                                                            var opt1 = '<option value="'+value2.id+'" >'+value2.title+'</option>';
-
-                                                            options1 = options1 + opt1;
-
-                                                        });
+                                                        var opt1 = '<option value="'+value2.id+'" >'+value2.title+'</option>';
+                                                        options1 = options1 + opt1;
 
                                                     });
 
@@ -2272,6 +2278,33 @@
             width: '100%',
             height: '200px',
             placeholder: "{{__('text.Select Product')}}",
+            allowClear: true,
+            dropdownParent: $('#aanvragen'),
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+
+        });
+
+        $(".js-data-example-ajax12").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "Select Type",
+            allowClear: true,
+            "language": {
+                "noResults": function(){
+                    return '{{__('text.No results found')}}';
+                }
+            },
+
+        });
+
+        $(".js-data-example-ajax13").select2({
+            width: '100%',
+            height: '200px',
+            placeholder: "Select Type",
             allowClear: true,
             dropdownParent: $('#aanvragen'),
             "language": {

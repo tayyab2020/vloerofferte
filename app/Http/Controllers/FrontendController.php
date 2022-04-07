@@ -37,6 +37,7 @@ use App\handyman_unavailability;
 use App\carts;
 use App\user_languages;
 use App\invoices;
+use App\product_models;
 use Crypt;
 use App\Sociallink;
 use App\booking_images;
@@ -406,6 +407,29 @@ class FrontendController extends Controller
         return $models;
     }
 
+    public function productsTypesByCategoryBrand(Request $request)
+    {
+        $types = Model1::leftjoin('products','products.model_id','=','models.id')->where('products.sub_category_id',$request->category_id)->where('products.brand_id','=',$request->brand_id)->select('models.*')->get();
+        $types = $types->unique();
+
+        return $types;
+    }
+
+    public function productsModelsByCategoryBrandType(Request $request)
+    {
+        $models = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$request->category_id)->where('products.brand_id','=',$request->brand_id)->where('products.model_id',$request->type_id)->select('product_models.*')->get();
+        $models = $models->unique();
+
+        return $models;
+    }
+
+    public function productsColorsByModel(Request $request)
+    {
+        $colors = Products::leftjoin('product_models','product_models.product_id','=','products.id')->where('product_models.id','=',$request->model_id)->with('colors')->select('products.*')->first();
+
+        return $colors;
+    }
+
     public function productsByCategoryBrand(Request $request)
     {
         $products = Products::where('sub_category_id','=',$request->category_id)->where('brand_id','=',$request->brand_id)->get();
@@ -422,8 +446,22 @@ class FrontendController extends Controller
 
     public function productsBrandsByCategory(Request $request)
     {
-        $brands = Products::leftjoin('brands','brands.id','=','products.brand_id')->where('products.sub_category_id','=',$request->id)->select('brands.*','products.user_id')->get();
+        $brands = Products::leftjoin('brands','brands.id','=','products.brand_id')->where('products.sub_category_id','=',$request->id)->with('types')->select('brands.*','products.user_id','products.brand_id')->get();
 
+        $brand_ids = array();
+
+        foreach($brands as $key)
+        {
+            $type_ids = $key->types->pluck('id')->toArray();
+            $check = Products::whereIn('model_id',$type_ids)->first();
+
+            if($check)
+            {
+                $brand_ids[] = $key->id;
+            }
+        }
+
+        $brands = Products::leftjoin('brands','brands.id','=','products.brand_id')->where('products.sub_category_id','=',$request->id)->whereIn('brands.id',$brand_ids)->select('brands.*','products.user_id','products.brand_id')->get();
         $brands = $brands->unique();
 
         return $brands;

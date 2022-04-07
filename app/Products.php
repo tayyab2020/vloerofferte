@@ -28,4 +28,9 @@ class Products extends Model
         return $this->hasMany('App\product_models','product_id','id');
     }
 
+    public function types()
+    {
+        return $this->hasMany('App\Model1','brand_id','brand_id');
+    }
+
 }

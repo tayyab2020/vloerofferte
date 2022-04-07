@@ -21,6 +21,9 @@
   Route::get('/products-model-number-by-model', 'FrontendController@productsModelNumberByModel')->name('all-products-model-number-by-model');
   Route::get('/products-models-by-brands', 'FrontendController@productsModelsByBrands')->name('all-products-models-by-brands');
   Route::get('/products-by-category-brand', 'FrontendController@productsByCategoryBrand')->name('all-products-by-category-brand');
+  Route::get('/products-types-by-category-brand', 'FrontendController@productsTypesByCategoryBrand')->name('all-products-types-by-category-brand');
+  Route::get('/products-models-by-category-brand-type', 'FrontendController@productsModelsByCategoryBrandType')->name('all-products-models-by-category-brand-type');
+  Route::get('/products-colors-by-model', 'FrontendController@productsColorsByModel')->name('all-products-colors-by-model');
   Route::get('/products-models-colors-by-product', 'FrontendController@productsModelsColorsByProduct')->name('all-products-models-colors-by-product');
   Route::get('/products-brands-by-category', 'FrontendController@productsBrandsByCategory')->name('all-products-brands-by-category');
   Route::get('/products-data-by-category', 'FrontendController@productsDataByCategory')->name('all-products-data-by-category');

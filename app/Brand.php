@@ -13,5 +13,4 @@ class Brand extends Model
     public $timestamps = false;
     protected $dates = ['deleted_at'];
 
-
 }

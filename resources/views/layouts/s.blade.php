@@ -398,7 +398,6 @@
     </div>
 </div>
 
-
 <div id="aanvragen" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
 
@@ -1295,6 +1294,48 @@
 
 <script type="text/javascript">
 
+    function fetch_products(category_id,brand_id,product_id = null)
+    {
+        var options = '';
+
+        $.ajax({
+            type:"GET",
+            data: "category_id=" + category_id + "&brand_id=" + brand_id ,
+            url: "<?php echo url('/products-by-category-brand')?>",
+            success: function(data) {
+
+                $.each(data, function(index, value) {
+
+                    var opt = '<option value="'+value.id+'" >'+value.title+'</option>';
+
+                    options = options + opt;
+
+                });
+
+                $('.quote-model').find('option')
+                    .remove()
+                    .end()
+                    .append('<option value="">Select Model</option>');
+
+                $('.quote-color').find('option')
+                    .remove()
+                    .end()
+                    .append('<option value="">Select Color</option>');
+
+                $('.products-dropdown').find('option')
+                    .remove()
+                    .end()
+                    .append('<option value="">Select Product</option>'+options);
+
+                if(product_id)
+                {
+                    $('.products-dropdown').val(product_id);
+                }
+
+            }
+        });
+    }
+
     $(document).ready(function () {
 
         $('.quote-model-number').keyup(function() {
@@ -1344,39 +1385,8 @@
 
             var category_id = $('.quote-category').val();
             var brand_id = $(this).val();
-            var options = '';
 
-            $.ajax({
-                type:"GET",
-                data: "category_id=" + category_id + "&brand_id=" + brand_id ,
-                url: "<?php echo url('/products-by-category-brand')?>",
-                success: function(data) {
-
-                    $.each(data, function(index, value) {
-
-                        var opt = '<option value="'+value.id+'" >'+value.title+'</option>';
-
-                        options = options + opt;
-
-                    });
-
-                    $('.quote-model').find('option')
-                        .remove()
-                        .end()
-                        .append('<option value="">Select Model</option>');
-
-                    $('.quote-color').find('option')
-                        .remove()
-                        .end()
-                        .append('<option value="">Select Color</option>');
-
-                    $('.products-dropdown').find('option')
-                        .remove()
-                        .end()
-                        .append('<option value="">Select Product</option>'+options);
-
-                }
-            });
+            fetch_products(category_id,brand_id);
 
         });
 
