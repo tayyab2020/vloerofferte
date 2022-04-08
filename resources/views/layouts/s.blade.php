@@ -209,7 +209,7 @@
                             <li class="border-line"><a href="{{route('user-login')}}">{{$lang->signin}}</a></li>
                             {{--<li class="border-line"><a href="{{route('user-register')}}">{{$lang->signup}}</a></li>--}}
                             <li class="border-line"><a
-                                    href="{{route('handyman-register')}}">{{$lang->signup_handyman}}</a></li>
+                                        href="{{route('handyman-register')}}">{{$lang->signup_handyman}}</a></li>
                         @endif
 
 
@@ -218,12 +218,12 @@
                             @if(Auth::guard('user')->user()->role_id == 2)
 
                                 <li class="menuLi border-line"><a style="cursor: pointer;">{{__('text.PROFILE')}} <i
-                                            class="fa fa-angle-down"></i></a>
+                                                class="fa fa-angle-down"></i></a>
                                     <ul class="menuUl">
 
                                         <button
-                                            style="background-color: white !important;color: black !important;position: relative;right: 5px;"
-                                            type="button" class="close dropdown-close" aria-hidden="true">×
+                                                style="background-color: white !important;color: black !important;position: relative;right: 5px;"
+                                                type="button" class="close dropdown-close" aria-hidden="true">×
                                         </button>
 
                                         <li><a href="{{route('user-dashboard')}}">{{$lang->hpt}}</a></li>
@@ -235,12 +235,12 @@
                             @elseif(Auth::guard('user')->user()->role_id == 3)
 
                                 <li class="menuLi border-line"><a style="cursor: pointer;">{{__('text.PROFILE')}} <i
-                                            class="fa fa-angle-down"></i></a>
+                                                class="fa fa-angle-down"></i></a>
                                     <ul class="menuUl">
 
                                         <button
-                                            style="background-color: white !important;color: black !important;position: relative;right: 5px;"
-                                            type="button" class="close dropdown-close" aria-hidden="true">×
+                                                style="background-color: white !important;color: black !important;position: relative;right: 5px;"
+                                                type="button" class="close dropdown-close" aria-hidden="true">×
                                         </button>
 
                                         <li><a href="{{route('client-quotation-requests')}}">{{$lang->cpt}}</a></li>
@@ -255,12 +255,12 @@
                         @endif
 
                         <li class="menuLi1 border-line"><a style="cursor: pointer;">{{__('text.MENU')}} <i
-                                    class="fa fa-angle-down"></i></a>
+                                        class="fa fa-angle-down"></i></a>
                             <ul class="menuUl1" style="left: -100px;">
 
                                 <button
-                                    style="background-color: white !important;color: black !important;position: relative;right: 5px;"
-                                    type="button" class="close dropdown-close" aria-hidden="true">×
+                                        style="background-color: white !important;color: black !important;position: relative;right: 5px;"
+                                        type="button" class="close dropdown-close" aria-hidden="true">×
                                 </button>
 
                                 <li><a href="{{route('front.index')}}">{{$lang->home}}</a></li>
@@ -299,8 +299,8 @@
                                                         data-toggle="dropdown" title="English">
 
                                                     <span class="filter-option pull-left"><span
-                                                            class="flag-icon flag-icon-nl"></span> English</span>&nbsp;<span
-                                                        class="caret"></span></button>
+                                                                class="flag-icon flag-icon-nl"></span> English</span>&nbsp;<span
+                                                            class="caret"></span></button>
 
                                                 <div class="dropdown-menu open">
 
@@ -310,15 +310,15 @@
                                                                                         style="color: black !important;"
                                                                                         onclick="formSubmit(this)"
                                                                                         data-value="eng"><span
-                                                                    class="flag-icon flag-icon-us"></span> English<i
-                                                                    class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                                                                        class="flag-icon flag-icon-us"></span> English<i
+                                                                        class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
                                                         </li>
 
                                                         <li rel="1"><a href="#" tabindex="0" class=""
                                                                        style="color: black !important;"
                                                                        onclick="formSubmit(this)" data-value="du"><span
-                                                                    class="flag-icon flag-icon-nl"></span> Nederlands<i
-                                                                    class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                                                                        class="flag-icon flag-icon-nl"></span> Nederlands<i
+                                                                        class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
                                                         </li>
                                                     </ul>
 
@@ -332,8 +332,8 @@
                                                         data-toggle="dropdown" title="Nederlands">
 
                                                     <span class="filter-option pull-left"><span
-                                                            class="flag-icon flag-icon-nl"></span> Nederlands</span>&nbsp;<span
-                                                        class="caret"></span></button>
+                                                                class="flag-icon flag-icon-nl"></span> Nederlands</span>&nbsp;<span
+                                                            class="caret"></span></button>
 
                                                 <div class="dropdown-menu open">
 
@@ -342,16 +342,16 @@
                                                         <li rel="0"><a href="#" tabindex="0" class=""
                                                                        style="color: black !important;"
                                                                        onclick="formSubmit(this)" data-value="eng"><span
-                                                                    class="flag-icon flag-icon-us"></span> English<i
-                                                                    class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                                                                        class="flag-icon flag-icon-us"></span> English<i
+                                                                        class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
                                                         </li>
 
                                                         <li rel="1" class="selected"><a href="#" tabindex="0" class=""
                                                                                         style="color: black !important;"
                                                                                         onclick="formSubmit(this)"
                                                                                         data-value="du"><span
-                                                                    class="flag-icon flag-icon-nl"></span> Nederlands<i
-                                                                    class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                                                                        class="flag-icon flag-icon-nl"></span> Nederlands<i
+                                                                        class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
                                                         </li>
                                                     </ul>
 
@@ -498,6 +498,17 @@
 
                                 <div class="linked-boxes" style="margin-bottom: 40px;">
 
+                                    <select class="js-data-example-ajax13 form-control quote-type quote_validation"
+                                            style="height: 40px;" name="type_id" id="blood_grp" required>
+
+                                        <option value="">Select Type</option>
+
+                                    </select>
+
+                                </div>
+
+                                {{--<div class="linked-boxes" style="margin-bottom: 40px;">
+
                                     <select class="js-data-example-ajax11 form-control products-dropdown quote_validation"
                                             style="height: 40px;" name="product_id" id="blood_grp" required>
 
@@ -505,7 +516,7 @@
 
                                     </select>
 
-                                </div>
+                                </div>--}}
 
                                 <div class="linked-boxes" style="margin-bottom: 40px;">
 
@@ -589,7 +600,7 @@
                             </div>
 
                             <div
-                                style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
+                                    style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
 
                         </div>
 
@@ -630,8 +641,8 @@
                                 <div>
 
                                     <label
-                                        style="align-items: flex-start;font-size: 12px;padding-left: 25px;margin-bottom: 0;"
-                                        class="container-checkbox terms">{{__('text.Your details will be used to create a job post, so that you can monitor and manage the job you\'ve posted.')}}
+                                            style="align-items: flex-start;font-size: 12px;padding-left: 25px;margin-bottom: 0;"
+                                            class="container-checkbox terms">{{__('text.Your details will be used to create a job post, so that you can monitor and manage the job you\'ve posted.')}}
                                         <input name="permission" class="permission_validation" type="checkbox"
                                                value="1">
                                         <span style="top: 7px;width: 15px;height: 15px;border: 1px solid #8d8d8d;"
@@ -643,14 +654,14 @@
                                 <br>
 
                                 <small
-                                    style="text-align: center;display: block;width: 80%;margin: auto;margin-bottom: 10px;">{{__('text.By pressing Get Quotes you agree to the')}}
+                                        style="text-align: center;display: block;width: 80%;margin: auto;margin-bottom: 10px;">{{__('text.By pressing Get Quotes you agree to the')}}
                                     <a target="_blank"
                                        href="{{isset($quote_data) ? asset('assets/'.$quote_data->file) : null}}">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}
                                 </small>
 
                             </div>
                             <div
-                                style="width: 100%;position: relative;height: 2rem;bottom: 1rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
+                                    style="width: 100%;position: relative;height: 2rem;bottom: 1rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
 
                         </div>
 
@@ -1355,6 +1366,29 @@
             $('.back').hide();
             $('.floor').show();
 
+            var options = '';
+
+            $.ajax({
+                type: "GET",
+                data: "model_id=" + id,
+                url: "<?php echo url('/products-colors-by-model')?>",
+                success: function (data) {
+
+                    $.each(data.colors, function(index, value) {
+
+                        var opt = '<option value="'+value.id+'" >'+value.title+'</option>';
+                        options = options + opt;
+
+                    });
+
+                    $('.quote-color').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Color</option>' + options);
+
+                }
+            });
+
         });
 
         $('.quote-color').change(function() {
@@ -1386,7 +1420,87 @@
             var category_id = $('.quote-category').val();
             var brand_id = $(this).val();
 
-            fetch_products(category_id,brand_id);
+            var options = '';
+
+            $.ajax({
+                type: "GET",
+                data: "category_id=" + category_id + "&brand_id=" + brand_id,
+                url: "<?php echo url('/products-types-by-category-brand')?>",
+                success: function (data) {
+
+                    $.each(data, function(index, value) {
+
+                        var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
+                        options = options + opt;
+
+                    });
+
+                    $('.quote-type').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Type</option>' + options);
+
+                    $('.quote-model').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Model</option>');
+
+                    $('.quote-color').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Color</option>');
+
+                }
+            });
+
+            // fetch_products(category_id,brand_id);
+
+        });
+
+        $('.quote-type').change(function() {
+
+            $('.quote-type').val($(this).val());
+
+            $(".quote-type").trigger('change.select2');
+
+            $('.navbar a[href="#step1"]').trigger('click');
+
+            $('.back').hide();
+            $('.floor').show();
+
+            var category_id = $('.quote-category').val();
+            var brand_id = $('.quote-brand').val();
+            var type_id = $(this).val();
+
+            var options = '';
+
+            $.ajax({
+                type: "GET",
+                data: "category_id=" + category_id + "&brand_id=" + brand_id + "&type_id=" + type_id,
+                url: "<?php echo url('/products-models-by-category-brand-type')?>",
+                success: function (data) {
+
+                    $.each(data, function(index, value) {
+
+                        var opt = '<option value="'+value.id+'" >'+value.model+'</option>';
+                        options = options + opt;
+
+                    });
+
+                    $('.quote-model').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Model</option>' + options);
+
+                    $('.quote-color').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">Select Color</option>');
+
+                }
+            });
+
+            // fetch_products(category_id,brand_id);
 
         });
 
@@ -1514,6 +1628,11 @@
 
                             });
 
+                            $('.quote-type').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">Select Type</option>');
+
                             $('.quote-model').find('option')
                                 .remove()
                                 .end()
@@ -1556,7 +1675,12 @@
 
                             });
 
-                            $('#quote-box').find('.quote-model').find('option')
+                            $('.quote-type').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">Select Type</option>');
+
+                            $('.quote-model').find('option')
                                 .remove()
                                 .end()
                                 .append('<option value="">Select Model</option>');
@@ -1566,12 +1690,12 @@
                                 .end()
                                 .append('<option value="">Select Color</option>');
 
-                            $('.products-dropdown').find('option')
-                                .remove()
-                                .end()
-                                .append('<option value="">Select Product</option>');
+                            // $('.products-dropdown').find('option')
+                            //     .remove()
+                            //     .end()
+                            //     .append('<option value="">Select Product</option>');
 
-                            $('#quote-box').find('.quote-brand').find('option')
+                            $('.quote-brand').find('option')
                                 .remove()
                                 .end()
                                 .append('<option value="">Select Brand</option>'+options);
@@ -2628,11 +2752,11 @@ border: 11px solid<?php if($gs->form_ic == null) { if($gs->colors == null){ echo
 <script src="{{ asset('assets/front/js/main.js?v=1.1') }}"></script>
 {!! $seo->google_analytics !!}
 <script type="text/javascript">
-$(window).load(function () {
-setTimeout(function () {
-    $('#cover').fadeOut(1000);
-}, 1000)
-});
+    $(window).load(function () {
+        setTimeout(function () {
+            $('#cover').fadeOut(1000);
+        }, 1000)
+    });
 </script>
 
 @yield('scripts')
