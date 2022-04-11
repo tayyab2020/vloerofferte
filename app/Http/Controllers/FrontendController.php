@@ -376,7 +376,7 @@ class FrontendController extends Controller
 
         if($request->type == 'product')
         {
-            $data = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id',$user_id)->where('products.id','=',$request->id)->select('products.category_id','products.brand_id','products.model_id','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name','handyman_products.sell_rate as rate')->first();
+            $data = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('product_models','product_models.id','=','products.model_id')->where('products.user_id',$user_id)->where('products.id','=',$request->id)->select('products.category_id','products.brand_id','products.model_id','categories.cat_name','brands.cat_name as brand_name','product_models.model as model_name','products.estimated_price as rate')->first();
         }
         elseif($request->type == 'service')
         {
@@ -1277,6 +1277,8 @@ class FrontendController extends Controller
                 $quote->quote_service1 = 0;
                 $quote->quote_brand = 0;
                 $quote->quote_model = 0;
+                $quote->quote_type = 0;
+                $quote->quote_color = 0;
                 $quote->quote_delivery = date('d-m-Y H:i:s', time());
 
                 foreach ($request->file('quote_files') as $f => $file)
@@ -1302,6 +1304,8 @@ class FrontendController extends Controller
                     $quote->quote_service1 = $request->quote_service1;
                     $quote->quote_brand = 0;
                     $quote->quote_model = 0;
+                    $quote->quote_type = 0;
+                    $quote->quote_color = 0;
                 }
                 else
                 {
@@ -1309,6 +1313,8 @@ class FrontendController extends Controller
                     $quote->quote_service1 = 0;
                     $quote->quote_brand = $request->quote_brand ? $request->quote_brand : 0;
                     $quote->quote_model = $request->quote_model ? $request->quote_model : 0;
+                    $quote->quote_type = $request->type_id ? $request->type_id : 0;
+                    $quote->quote_color = $request->quote_color ? $request->quote_color : 0;
                     $quote->quote_model_number = $request->quote_model_number;
                 }
 

@@ -36,6 +36,8 @@ use App\users;
 use App\service_types;
 use App\invoices;
 use App\handyman_temporary;
+use App\product_models;
+use App\colors;
 use File;
 use PDF;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -338,17 +340,21 @@ class AdminUserController extends Controller
 
         $q_a = requests_q_a::where('request_id',$id)->get();
 
+        $quote_model = product_models::where('id',$request->quote_model)->first();
+        $quote_color = colors::where('id',$request->quote_color)->first();
         $categories = Category::get();
         $services = Service::all();
         $brands = Brand::all();
-        $models = Model1::all();
+        $models = product_models::groupBy('model')->get();
+        $types = Model1::all();
+        $colors = colors::groupBy('title')->get();
 
-        return view('admin.user.quote_request',compact('request','categories','brands','models','q_a','services'));
+        return view('admin.user.quote_request',compact('request','categories','brands','models','q_a','services','types','colors','quote_model','quote_color'));
     }
 
     public function DownloadQuoteRequest($id)
     {
-        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->leftjoin('services','services.id','=','quotes.quote_service1')->where('quotes.id',$id)->select('quotes.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name','services.title')->first();
+        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('product_models','product_models.id','=','quotes.quote_model')->leftjoin('models','models.id','=','quotes.quote_type')->leftjoin('colors','colors.id','=','quotes.quote_color')->leftjoin('services','services.id','=','quotes.quote_service1')->where('quotes.id',$id)->select('quotes.*','categories.cat_name','brands.cat_name as brand_name','product_models.model as model_name','services.title','models.cat_name as type_title','colors.title as color')->first();
 
         $q_a = requests_q_a::where('request_id',$id)->get();
 
@@ -415,7 +421,7 @@ class AdminUserController extends Controller
     public function SendQuoteRequest($id)
     {
 
-        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->leftjoin('services','services.id','=','quotes.quote_service1')->where('quotes.id',$id)->select('quotes.*','categories.cat_name','services.title','brands.cat_name as brand_name','models.cat_name as model_name')->first();
+        $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('product_models','product_models.id','=','quotes.quote_model')->leftjoin('models','models.id','=','quotes.quote_type')->leftjoin('colors','colors.id','=','quotes.quote_color')->leftjoin('services','services.id','=','quotes.quote_service1')->where('quotes.id',$id)->select('quotes.*','categories.cat_name','services.title','brands.cat_name as brand_name','product_models.model as model_name','models.cat_name as type_title','colors.title as color')->first();
 
         $search = $request->quote_zipcode;
 
@@ -431,13 +437,13 @@ class AdminUserController extends Controller
             $user_latitude = $result['results'][0]['geometry']['location']['lat'];
             $user_longitude = $result['results'][0]['geometry']['location']['lng'];
 
-            if($request->quote_service == 0 && $request->quote_brand == 0 && $request->quote_model == 0)
+            if($request->quote_service == 0 && $request->quote_brand == 0 && $request->quote_type == 0)
             {
                 $handymen = Service::leftjoin('handyman_services','handyman_services.service_id','=','services.id')->leftjoin('users','users.id','=','handyman_services.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('services.id','=', $request->quote_service1)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude','handyman_terminals.radius')->get();
             }
             else
             {
-                $handymen = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('users','users.id','=','handyman_products.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('products.category_id','=', $request->quote_service)->where('products.brand_id','=', $request->quote_brand)->where('products.model_id','=', $request->quote_model)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude','handyman_terminals.radius')->get();
+                $handymen = Products::leftjoin('users','users.id','=','products.user_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('products.sub_category_id','=', $request->quote_service)->where('products.brand_id','=', $request->quote_brand)->where('products.model_id','=', $request->quote_type)->groupBy('users.id')->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude','handyman_terminals.radius')->get();
             }
 
             foreach ($handymen as $key) {
@@ -570,7 +576,7 @@ class AdminUserController extends Controller
     {
         $handyman = $request->action;
 
-        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('models','models.id','=','quotes.quote_model')->leftjoin('services','services.id','=','quotes.quote_service1')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name','services.title','brands.cat_name as brand_name','models.cat_name as model_name')->first();
+        $quote = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('product_models','product_models.id','=','quotes.quote_model')->leftjoin('models','models.id','=','quotes.quote_type')->leftjoin('colors','colors.id','=','quotes.quote_color')->leftjoin('services','services.id','=','quotes.quote_service1')->where('quotes.id',$request->quote_id)->select('quotes.*','categories.cat_name','services.title','brands.cat_name as brand_name','product_models.model as model_name','models.cat_name as type_title','colors.title as color')->first();
 
         $q_a = requests_q_a::where('request_id',$request->quote_id)->get();
 

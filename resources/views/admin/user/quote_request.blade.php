@@ -154,7 +154,27 @@
                                                             required="">
                                                         @foreach($models as $key)
 
-                                                            <option @if($request->quote_model == $key->id) selected
+                                                            <option @if($quote_model->model == $key->model) selected
+                                                                    @endif value="{{$key->id}}">{{$key->model}}</option>
+
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        @endif
+
+                                        @if($request->quote_type != 0)
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4"
+                                                       for="blood_group_display_name">Type* </label>
+                                                <div class="col-sm-6">
+                                                    <select class="form-control" name="quote_type" id="quote_type"
+                                                            required="">
+                                                        @foreach($types as $key)
+
+                                                            <option @if($request->quote_type == $key->id) selected
                                                                     @endif value="{{$key->id}}">{{$key->cat_name}}</option>
 
                                                         @endforeach
@@ -164,15 +184,25 @@
 
                                         @endif
 
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_slug">Model Number </label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" value="{{$request->quote_model_number}}"
-                                                       name="quote_model_number" id="quote_model_number"
-                                                       placeholder="Enter Model Number" required="" type="text">
-                                            </div>
-                                        </div>
+                                        @if($request->quote_color != 0)
 
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4"
+                                                       for="blood_group_display_name">Color* </label>
+                                                <div class="col-sm-6">
+                                                    <select class="form-control" name="quote_color" id="quote_color"
+                                                            required="">
+                                                        @foreach($colors as $key)
+
+                                                            <option @if($quote_color->title == $key->title) selected
+                                                                    @endif value="{{$key->id}}">{{$key->title}}</option>
+
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        @endif
 
                                         @if($request->quote_service == 0 && $request->quote_service1 != 0)
 

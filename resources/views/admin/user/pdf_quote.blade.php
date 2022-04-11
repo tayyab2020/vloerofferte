@@ -83,12 +83,13 @@
                                     <table class="table" style="border: 1px solid #e5e5e5;">
                                         <thead>
                                         <tr>
-                                            @if($quote->cat_name != '' && $quote->brand_name != '' && $quote->model_name != '')
+                                            @if($quote->cat_name != '' && $quote->brand_name != '' && $quote->model_name != '' && $quote->type_title != '' && $quote->color != '')
 
                                                 <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Category/Item')}}</th>
                                                 <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Brand')}}</th>
                                                 <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model')}}</th>
-                                                <th class="border-0 text-uppercase small font-weight-bold">{{__('text.Model Number')}}</th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">Type</th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">Color</th>
 
                                             @else
 
@@ -104,12 +105,13 @@
                                         <tbody>
 
                                             <tr>
-                                                @if($quote->cat_name != '' && $quote->brand_name != '' && $quote->model_name != '')
+                                                @if($quote->cat_name != '' && $quote->brand_name != '' && $quote->model_name != '' && $quote->type_title != '' && $quote->color != '')
 
                                                     <td>{{$quote->cat_name}}</td>
                                                     <td>{{$quote->brand_name}}</td>
                                                     <td>{{$quote->model_name}}</td>
-                                                    <td>{{$quote->quote_model_number}}</td>
+                                                    <td>{{$quote->type_title}}</td>
+                                                    <td>{{$quote->color}}</td>
 
                                                 @else
 
