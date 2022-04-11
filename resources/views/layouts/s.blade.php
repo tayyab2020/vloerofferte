@@ -1366,29 +1366,6 @@
             $('.back').hide();
             $('.floor').show();
 
-            var options = '';
-
-            $.ajax({
-                type: "GET",
-                data: "model_id=" + id,
-                url: "<?php echo url('/products-colors-by-model')?>",
-                success: function (data) {
-
-                    $.each(data.colors, function(index, value) {
-
-                        var opt = '<option value="'+value.id+'" >'+value.title+'</option>';
-                        options = options + opt;
-
-                    });
-
-                    $('.quote-color').find('option')
-                        .remove()
-                        .end()
-                        .append('<option value="">Select Color</option>' + options);
-
-                }
-            });
-
         });
 
         $('.quote-color').change(function() {
@@ -1473,17 +1450,25 @@
             var type_id = $(this).val();
 
             var options = '';
+            var options1 = '';
 
             $.ajax({
                 type: "GET",
                 data: "category_id=" + category_id + "&brand_id=" + brand_id + "&type_id=" + type_id,
-                url: "<?php echo url('/products-models-by-category-brand-type')?>",
+                url: "<?php echo url('/products-models-colors-by-category-brand-type')?>",
                 success: function (data) {
 
-                    $.each(data, function(index, value) {
+                    $.each(data[0], function(index, value) {
 
                         var opt = '<option value="'+value.id+'" >'+value.model+'</option>';
                         options = options + opt;
+
+                    });
+
+                    $.each(data[1], function(index, value) {
+
+                        var opt1 = '<option value="'+value.id+'" >'+value.title+'</option>';
+                        options1 = options1 + opt1;
 
                     });
 
@@ -1495,7 +1480,7 @@
                     $('.quote-color').find('option')
                         .remove()
                         .end()
-                        .append('<option value="">Select Color</option>');
+                        .append('<option value="">Select Color</option>' + options1);
 
                 }
             });
@@ -1588,6 +1573,7 @@
                     $('.quote-service').addClass('quote_validation');
                     $('.quote-category').removeClass('quote_validation');
                     $('.quote-brand').removeClass('quote_validation');
+                    $('.quote-type').removeClass('quote_validation');
                     $('.quote-model').removeClass('quote_validation');
                 }
                 else
@@ -1609,6 +1595,7 @@
                     $('.quote-service').removeClass('quote_validation');
                     $('.quote-category').addClass('quote_validation');
                     $('.quote-brand').addClass('quote_validation');
+                    $('.quote-type').addClass('quote_validation');
                     $('.quote-model').addClass('quote_validation');
 
                     $('.unlinked-boxes').hide();
@@ -1643,10 +1630,10 @@
                                 .end()
                                 .append('<option value="">Select Color</option>');
 
-                            $('.products-dropdown').find('option')
+                            $('.quote-type').find('option')
                                 .remove()
                                 .end()
-                                .append('<option value="">Select Product</option>');
+                                .append('<option value="">Select Type</option>');
 
                             $('.quote-brand').find('option')
                                 .remove()

@@ -38,6 +38,7 @@ use App\carts;
 use App\user_languages;
 use App\invoices;
 use App\product_models;
+use App\colors;
 use Crypt;
 use App\Sociallink;
 use App\booking_images;
@@ -415,12 +416,13 @@ class FrontendController extends Controller
         return $types;
     }
 
-    public function productsModelsByCategoryBrandType(Request $request)
+    public function productsModelsColorsByCategoryBrandType(Request $request)
     {
-        $models = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$request->category_id)->where('products.brand_id','=',$request->brand_id)->where('products.model_id',$request->type_id)->select('product_models.*')->get();
-        $models = $models->unique();
+        $models = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$request->category_id)->where('products.brand_id','=',$request->brand_id)->where('products.model_id',$request->type_id)->groupBy('product_models.model')->select('product_models.*')->get();
+        $colors = colors::leftjoin('products','products.id','=','colors.product_id')->where('products.sub_category_id',$request->category_id)->where('products.brand_id','=',$request->brand_id)->where('products.model_id',$request->type_id)->groupBy('colors.title')->select('colors.*')->get();
+        $data = array($models,$colors);
 
-        return $models;
+        return $data;
     }
 
     public function productsColorsByModel(Request $request)

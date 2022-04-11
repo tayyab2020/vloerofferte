@@ -270,7 +270,7 @@
 
                                             @foreach($key->colors as $key2)
 
-                                                <option data-cat="{{$key->cat_id}}" data-brand-id="{{$key->brand_id}}" data-model="{{$key1->model}}" data-model-id="{{$key1->id}}" data-color="{{$key2->title}}" data-color-id="{{$key2->id}}" value="{{$key->id}}">{{$key->title.', '.$key1->model.', '.$key2->title.', ('.$key->supplier->company_name.')'}}</option>
+                                                <option data-cat="{{$key->cat_id}}" data-brand-id="{{$key->brand_id}}" data-type-id="{{$key->model_id}}" data-model="{{$key1->model}}" data-model-id="{{$key1->id}}" data-color="{{$key2->title}}" data-color-id="{{$key2->id}}" value="{{$key->id}}">{{$key->title.', '.$key1->model.', '.$key2->title.', ('.$key->supplier->company_name.')'}}</option>
 
                                             @endforeach
 
@@ -280,7 +280,7 @@
 
                                 </select>
 
-                                <input type="hidden" id="product_id">
+                                <input type="hidden" id="type_id">
                                 <input type="hidden" id="category_id">
 								<input type="hidden" id="brand_id">
                                 <input type="hidden" id="model_id">
@@ -1004,6 +1004,7 @@
                         $('.quote-service').removeClass('quote_validation');
                         $('.quote-category').addClass('quote_validation');
                         $('.quote-brand').addClass('quote_validation');
+                        $('.quote-type').addClass('quote_validation');
                         $('.quote-model').addClass('quote_validation');
                         $('.quote_quantity').addClass('quote_validation');
                         $('.quote_delivery').addClass('quote_validation');
@@ -1035,6 +1036,7 @@
                         $('.files-upload').removeClass('quote_validation');
                         $('.quote-category').removeClass('quote_validation');
                         $('.quote-brand').removeClass('quote_validation');
+                        $('.quote-type').removeClass('quote_validation');
                         $('.quote-model').removeClass('quote_validation');
                         $('.quote_quantity').addClass('quote_validation');
                         $('.quote_delivery').addClass('quote_validation');
@@ -1059,6 +1061,9 @@
                         $('.quote-brand').val('');
                         $(".quote-brand").trigger('change.select2');
 
+                        $('.quote-type').val('');
+                        $(".quote-type").trigger('change.select2');
+
                         $('.quote-model').val('');
                         $(".quote-model").trigger('change.select2');
 
@@ -1066,6 +1071,7 @@
                         $('.quote-service').removeClass('quote_validation');
                         $('.quote-category').removeClass('quote_validation');
                         $('.quote-brand').removeClass('quote_validation');
+                        $('.quote-type').removeClass('quote_validation');
                         $('.quote-model').removeClass('quote_validation');
 
                         $('#step1').css('height','');
@@ -1235,7 +1241,7 @@
                     nextArrow: "<button class='slick-arrow slick-next' data-role='none' type='button' style='display: block;'><svg class='domain-icon css-oee40j' viewBox='0 0 24 24' aria-hidden='true'><path fill='none' stroke='currentColor' stroke-width='2' d='M9 5l7 7-7 7'></path></svg><span class='css-16q9xmc'>Next</span></button>"
                 });
 
-                function autocomplete(inp, arr, values, categories, brands, models, colors) {
+                function autocomplete(inp, arr, values, categories, brands, types, models, colors, models_texts, colors_texts) {
                     /*the autocomplete function takes two arguments,
                     the text field element and an array of possible autocompleted values:*/
                     var currentFocus;
@@ -1269,7 +1275,7 @@
                                 // b.innerHTML = arr[i] + ', ' + categories[i];
                                 b.innerHTML = arr[i];
                                 /*insert a input field that will hold the current array item's value:*/
-                                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'><input type='hidden' value='" + values[i] + "'><input type='hidden' value='" + categories[i] + "'><input type='hidden' value='" + brands[i] + "'><input type='hidden' value='" + models[i] + "'><input type='hidden' value='" + colors[i] + "'>";
+                                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'><input type='hidden' value='" + values[i] + "'><input type='hidden' value='" + categories[i] + "'><input type='hidden' value='" + brands[i] + "'><input type='hidden' value='" + types[i] + "'><input type='hidden' value='" + models[i] + "'><input type='hidden' value='" + colors[i] + "'><input type='hidden' value='" + models_texts[i] + "'><input type='hidden' value='" + colors_texts[i] + "'>";
                                 /*execute a function when someone clicks on the item value (DIV element):*/
                                 b.addEventListener("click", function(e) {
                                     /*insert the value for the autocomplete text field:*/
@@ -1280,6 +1286,7 @@
                                         $('.quote-service').removeClass('quote_validation');
                                         $('.quote-category').addClass('quote_validation');
                                         $('.quote-brand').addClass('quote_validation');
+                                        $('.quote-type').addClass('quote_validation');
                                         $('.quote-model').addClass('quote_validation');
 
                                         $('.unlinked-boxes').hide();
@@ -1297,13 +1304,12 @@
                                     var product_id = this.getElementsByTagName("input")[1].value;
                                     var category_id = this.getElementsByTagName("input")[2].value;
                                     var brand_id = this.getElementsByTagName("input")[3].value;
-                                    var model_id = this.getElementsByTagName("input")[4].value;
-                                    var color_id = this.getElementsByTagName("input")[5].value;
+                                    var type_id = this.getElementsByTagName("input")[4].value;
+                                    var model_text = this.getElementsByTagName("input")[7].value;
+                                    var color_text = this.getElementsByTagName("input")[8].value;
 
                                     $('.quote-category').val(category_id);
                                     $(".quote-category").trigger('change.select2');
-
-                                    var options = '';
 
                                     $.ajax({
                                         type: "GET",
@@ -1363,13 +1369,13 @@
                                         }
                                     });
 
-                                    var options = '';
-
                                     $.ajax({
                                         type: "GET",
                                         data: "id=" + category_id,
                                         url: "<?php echo url('/products-brands-by-category')?>",
                                         success: function (data) {
+
+                                            var options = '';
 
                                             $.each(data, function (index, value) {
 
@@ -1389,51 +1395,88 @@
                                                 .end()
                                                 .append('<option value="">Select Color</option>');
 
+                                            $('.quote-type').find('option')
+                                                .remove()
+                                                .end()
+                                                .append('<option value="">Select Type</option>');
+
                                             $('.quote-brand').find('option')
                                                 .remove()
                                                 .end()
                                                 .append('<option value="">Select Brand</option>' + options);
 
                                             $('.quote-brand').val(brand_id);
-                                            fetch_products(category_id,brand_id,product_id);
                                             $(".quote-brand").trigger('change.select2');
-
-                                            var options = '';
-                                            var options1 = '';
+                                            $(".quote-brand").trigger('change');
 
                                             $.ajax({
                                                 type: "GET",
-                                                data: "id=" + brand_id,
-                                                url: "<?php echo url('/products-models-by-brands')?>",
+                                                data: "category_id=" + category_id + "&brand_id=" + brand_id,
+                                                url: "<?php echo url('/products-types-by-category-brand')?>",
                                                 success: function (data) {
 
-                                                    $.each(data.models, function(index1, value1) {
-                                                        
-                                                        var opt = '<option value="'+value1.id+'" >'+value1.model+'</option>';
+                                                    var options = '';
+
+                                                    $.each(data, function(index, value) {
+
+                                                        var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
                                                         options = options + opt;
-                                                    
-                                                    });
-
-                                                    $.each(data.colors, function(index2, value2) {
-
-                                                        var opt1 = '<option value="'+value2.id+'" >'+value2.title+'</option>';
-                                                        options1 = options1 + opt1;
 
                                                     });
 
-                                                    $('.quote-model').find('option')
+                                                    $('.quote-type').find('option')
                                                         .remove()
                                                         .end()
-                                                        .append('<option value="">Select Model</option>'+options);
+                                                        .append('<option value="">Select Type</option>' + options);
 
-                                                    $('.quote-color').find('option')
-                                                        .remove()
-                                                        .end()
-                                                        .append('<option value="">Select Color</option>'+options1);
+                                                    $('.quote-type').val(type_id);
+                                                    $(".quote-type").trigger('change.select2');
+                                                    $(".quote-type").trigger('change');
 
-                                                    $('.quote-model').val(model_id);
-                                                    $('.quote-color').val(color_id);
-                                                    $(".quote-model").trigger('change.select2');
+                                                    var options = '';
+                                                    var options1 = '';
+
+                                                    $.ajax({
+                                                        type: "GET",
+                                                        data: "category_id=" + category_id + "&brand_id=" + brand_id + "&type_id=" + type_id,
+                                                        url: "<?php echo url('/products-models-colors-by-category-brand-type')?>",
+                                                        success: function (data) {
+
+                                                            $.each(data[0], function(index, value) {
+
+                                                                var opt = '<option value="'+value.id+'" >'+value.model+'</option>';
+                                                                options = options + opt;
+
+                                                            });
+
+                                                            $.each(data[1], function(index, value) {
+
+                                                                var opt1 = '<option value="'+value.id+'" >'+value.title+'</option>';
+                                                                options1 = options1 + opt1;
+
+                                                            });
+
+                                                            $('.quote-model').find('option')
+                                                                .remove()
+                                                                .end()
+                                                                .append('<option value="">Select Model</option>' + options);
+
+                                                            $('.quote-color').find('option')
+                                                                .remove()
+                                                                .end()
+                                                                .append('<option value="">Select Color</option>' + options1);
+
+                                                            var model_id = $('.quote-model option').filter(function () { return $(this).html() == model_text; }).val();
+                                                            var color_id = $('.quote-color option').filter(function () { return $(this).html() == color_text; }).val();
+                                                            $('.quote-model').val(model_id);
+                                                            $(".quote-model").trigger('change.select2');
+                                                            $(".quote-model").trigger('change');
+                                                            $('.quote-color').val(color_id);
+                                                            $(".quote-color").trigger('change.select2');
+                                                            $(".quote-color").trigger('change');
+
+                                                        }
+                                                    });
 
                                                 }
                                             });
@@ -1518,14 +1561,17 @@
                 texts = [];
                 categories = [];
                 brands = [];
+                types = [];
                 models = [];
                 colors = [];
+                models_texts = [];
+                colors_texts = [];
 
                 var sel = $(".all-products");
                 var length = sel.children('option').length;
 
                 $(".all-products > option").each(function() {
-                    if (this.value) options.push(this.value); texts.push(this.text); categories.push(this.getAttribute('data-cat')); brands.push(this.getAttribute('data-brand-id')); models.push(this.getAttribute('data-model-id')); colors.push(this.getAttribute('data-color-id'));
+                    if (this.value) options.push(this.value); texts.push(this.text); categories.push(this.getAttribute('data-cat')); brands.push(this.getAttribute('data-brand-id')); types.push(this.getAttribute('data-type-id')); models.push(this.getAttribute('data-model-id')); colors.push(this.getAttribute('data-color-id')); models_texts.push(this.getAttribute('data-model')); colors_texts.push(this.getAttribute('data-color'));
                 });
 
                 /*for (var i=0, n=length;i<n;i++) { // looping over the options
@@ -1535,7 +1581,7 @@
 
                 console.log(options);*/
 
-                autocomplete(document.getElementById("productInput"), texts, options, categories, brands, models, colors);
+                autocomplete(document.getElementById("productInput"), texts, options, categories, brands, types, models, colors, models_texts, colors_texts);
 
             });
 
