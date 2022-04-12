@@ -420,7 +420,6 @@ class AdminUserController extends Controller
 
     public function SendQuoteRequest($id)
     {
-
         $request = quotes::leftjoin('categories','categories.id','=','quotes.quote_service')->leftjoin('brands','brands.id','=','quotes.quote_brand')->leftjoin('product_models','product_models.id','=','quotes.quote_model')->leftjoin('models','models.id','=','quotes.quote_type')->leftjoin('colors','colors.id','=','quotes.quote_color')->leftjoin('services','services.id','=','quotes.quote_service1')->where('quotes.id',$id)->select('quotes.*','categories.cat_name','services.title','brands.cat_name as brand_name','product_models.model as model_name','models.cat_name as type_title','colors.title as color')->first();
 
         $search = $request->quote_zipcode;
@@ -440,10 +439,12 @@ class AdminUserController extends Controller
             if($request->quote_service == 0 && $request->quote_brand == 0 && $request->quote_type == 0)
             {
                 $handymen = Service::leftjoin('handyman_services','handyman_services.service_id','=','services.id')->leftjoin('users','users.id','=','handyman_services.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('services.id','=', $request->quote_service1)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude','handyman_terminals.radius')->get();
+                $handymen = $handymen->unique();
             }
             else
             {
-                $handymen = Products::leftjoin('users','users.id','=','products.user_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('products.sub_category_id','=', $request->quote_service)->where('products.brand_id','=', $request->quote_brand)->where('products.model_id','=', $request->quote_type)->groupBy('users.id')->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude','handyman_terminals.radius')->get();
+                $handymen = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('users','users.id','=','handyman_products.handyman_id')->leftjoin('handyman_terminals','handyman_terminals.handyman_id','=','users.id')->where('users.active',1)->where('products.sub_category_id','=', $request->quote_service)->where('products.brand_id','=', $request->quote_brand)->where('products.model_id','=', $request->quote_type)->select('users.*','handyman_terminals.zipcode','handyman_terminals.longitude','handyman_terminals.latitude','handyman_terminals.radius')->get();
+                $handymen = $handymen->unique();
             }
 
             foreach ($handymen as $key) {

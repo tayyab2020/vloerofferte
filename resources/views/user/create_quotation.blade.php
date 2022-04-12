@@ -50,7 +50,7 @@
                                                 <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
 
                                                     @foreach($all_products as $product)
-                                                        <option data-type="Product" data-cat="{{$product->cat_name}}" value="{{$product->id}}">{{$product->title}}</option>
+                                                        <option data-type="Product" data-cat="{{$product->cat_name}}" data-brand="{{$product->brand}}" data-type1="{{$product->type_title}}" value="{{$product->id}}">{{$product->title}}</option>
                                                     @endforeach
 
                                                     @foreach($all_services as $service)
@@ -1233,7 +1233,7 @@
                 },
             });
 
-            function autocomplete(inp, arr, values, categories) {
+            function autocomplete(inp, arr, values, categories, brands, types) {
                 /*the autocomplete function takes two arguments,
                 the text field element and an array of possible autocompleted values:*/
                 var currentFocus;
@@ -1267,7 +1267,7 @@
                             /*make the matching letters bold:*/
                             /*b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                             b.innerHTML += arr[i].substr(val.length);*/
-                            b.innerHTML = arr[i] + ', ' + categories[i];
+                            b.innerHTML = arr[i] + ', ' + categories[i] + ', ' + brands[i] + ', ' + types[i];
                             /*insert a input field that will hold the current array item's value:*/
                             b.innerHTML += "<input type='hidden' value='" + arr[i] + "'><input type='hidden' value='" + values[i] + "'>";
                             /*execute a function when someone clicks on the item value (DIV element):*/
@@ -1486,20 +1486,29 @@
             options = [];
             texts = [];
             categories = [];
+            brands = [];
+            types = [];
 
             var sel = $(".all-products");
             var length = sel.children('option').length;
 
             $(".all-products > option").each(function() {
+
                 if(this.getAttribute('data-type') != 'Product')
                 {
                     var category = this.getAttribute('data-type');
+                    var brand = "";
+                    var type = "";
                 }
                 else
                 {
                     var category = this.getAttribute('data-cat');
+                    var brand = this.getAttribute('data-brand');
+                    var type = this.getAttribute('data-type1');
                 }
-                if (this.value) options.push(this.value); texts.push(this.text); categories.push(category);
+                
+                if (this.value) options.push(this.value); texts.push(this.text); categories.push(category); brands.push(brand); types.push(type);
+
             });
 
             /*for (var i=0, n=length;i<n;i++) { // looping over the options
@@ -1509,7 +1518,7 @@
 
             console.log(options);*/
 
-            autocomplete(document.getElementById("productInput"), texts, options, categories);
+            autocomplete(document.getElementById("productInput"), texts, options, categories, brands, types);
 
             $(document).on('click', '.add-row', function(){
 
@@ -1554,7 +1563,7 @@
 
                 var last_row = $('.items-table tr:last');
 
-                autocomplete(last_row.find('#productInput')[0], texts, options, categories);
+                autocomplete(last_row.find('#productInput')[0], texts, options, categories, brands, types);
 
                 last_row.find(".js-data-example-ajax").select2({
                     width: '100%',

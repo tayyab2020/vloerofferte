@@ -84,7 +84,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-sm-4" for="blood_group_slug">Model*</label>
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Type*</label>
                                                 <div class="col-sm-6">
                                                     <input value="{{isset($my_product) ? $my_product->model_id : null}}" class="form-control model_id" name="model_id" id="blood_group_slug" type="hidden">
                                                     <input readonly value="{{isset($my_product) ? $my_product->model : null}}" class="form-control product_model" id="blood_group_slug" placeholder="Enter Product Model" required="" type="text">

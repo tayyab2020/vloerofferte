@@ -791,7 +791,7 @@ class UserController extends Controller
         $user_id = $user->id;
         $user_role = $user->role_id;
 
-        $request = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->leftjoin('brands', 'brands.id', '=', 'quotes.quote_brand')->leftjoin('product_models', 'product_models.id', '=', 'quotes.quote_model')->leftjoin('services','services.id','=','quotes.quote_service1')->where('quotes.id', $id)->select('quotes.*', 'categories.cat_name','services.title','brands.cat_name as brand_name','product_models.model as model_name')->first();
+        $request = quotes::leftjoin('categories', 'categories.id', '=', 'quotes.quote_service')->leftjoin('brands', 'brands.id', '=', 'quotes.quote_brand')->leftjoin('product_models', 'product_models.id', '=', 'quotes.quote_model')->leftjoin('models', 'models.id', '=', 'quotes.quote_type')->leftjoin('colors', 'colors.id', '=', 'quotes.quote_color')->leftjoin('services','services.id','=','quotes.quote_service1')->where('quotes.id', $id)->select('quotes.*', 'categories.cat_name','services.title','brands.cat_name as brand_name','product_models.model as model_name','models.cat_name as type_title','colors.title as color')->first();
 
         $q_a = requests_q_a::where('request_id', $id)->get();
 
@@ -1027,7 +1027,7 @@ class UserController extends Controller
 
         $quote = quotes::leftjoin('handyman_quotes', 'handyman_quotes.quote_id', '=', 'quotes.id')->where('quotes.id', $id)->where('handyman_quotes.handyman_id', $user_id)->select('quotes.*')->first();
 
-        $all_products = Products::leftjoin('categories', 'categories.id', '=', 'products.category_id')->where('products.user_id', $user_id)->select('products.*','categories.cat_name','products.estimated_price as rate')->get();
+        $all_products = Products::leftjoin('handyman_products', 'handyman_products.product_id', '=', 'products.id')->leftjoin('categories', 'categories.id', '=', 'products.sub_category_id')->leftjoin('brands', 'brands.id', '=', 'products.brand_id')->leftjoin('models', 'models.id', '=', 'products.model_id')->where('handyman_products.handyman_id', $user_id)->select('products.*','categories.cat_name','brands.cat_name as brand','models.cat_name as type_title','handyman_products.sell_rate as rate')->get();
         $all_services = Service::leftjoin('handyman_services', 'handyman_services.service_id', '=', 'services.id')->where('handyman_services.handyman_id', $user_id)->select('services.*','handyman_services.sell_rate as rate')->get();
         $items = items::where('user_id',$user_id)->get();
 
@@ -3116,14 +3116,14 @@ class UserController extends Controller
 
         $products_array = array();
 
-        $products_selected = handyman_products::leftjoin('products', 'products.id', '=', 'handyman_products.product_id')->leftjoin('categories', 'categories.id', '=', 'products.category_id')->leftjoin('brands', 'brands.id', '=', 'products.brand_id')->leftjoin('models', 'models.id', '=', 'products.model_id')->where('handyman_products.handyman_id', '=', $user_id)->orderBy('products.id', 'desc')->select('products.*', 'categories.cat_name as category', 'brands.cat_name as brand', 'models.cat_name as model', 'handyman_products.rate', 'handyman_products.vat_percentage', 'handyman_products.sell_rate', 'handyman_products.id', 'handyman_products.product_id', 'handyman_products.size_rates', 'handyman_products.size_sell_rates')->get();
+        $products_selected = handyman_products::leftjoin('products', 'products.id', '=', 'handyman_products.product_id')->leftjoin('categories', 'categories.id', '=', 'products.sub_category_id')->leftjoin('brands', 'brands.id', '=', 'products.brand_id')->leftjoin('models', 'models.id', '=', 'products.model_id')->where('handyman_products.handyman_id', '=', $user_id)->orderBy('products.id', 'desc')->select('products.*', 'categories.cat_name as category', 'brands.cat_name as brand', 'models.cat_name as model', 'handyman_products.rate', 'handyman_products.vat_percentage', 'handyman_products.sell_rate', 'handyman_products.id', 'handyman_products.product_id', 'handyman_products.size_rates', 'handyman_products.size_sell_rates')->get();
 
         foreach ($products_selected as $key)
         {
             $products_array[] = array($key->product_id);
         }
 
-        $products = Products::leftjoin('categories', 'categories.id', '=', 'products.category_id')->leftjoin('brands', 'brands.id', '=', 'products.brand_id')->leftjoin('models', 'models.id', '=', 'products.model_id')->whereNotIn('products.id',$products_array)->orderBy('products.id', 'desc')->select('products.*', 'categories.cat_name as category', 'brands.cat_name as brand', 'models.cat_name as model')->get();
+        $products = Products::leftjoin('categories', 'categories.id', '=', 'products.sub_category_id')->leftjoin('brands', 'brands.id', '=', 'products.brand_id')->leftjoin('models', 'models.id', '=', 'products.model_id')->whereNotIn('products.id',$products_array)->orderBy('products.id', 'desc')->select('products.*', 'categories.cat_name as category', 'brands.cat_name as brand', 'models.cat_name as model')->get();
 
         return view('user.my_products', compact('user', 'products_selected','products'));
     }
@@ -3160,7 +3160,7 @@ class UserController extends Controller
             return redirect()->route('user-login');
         }
 
-        $my_product = handyman_products::leftjoin('products','products.id','=','handyman_products.product_id')->leftjoin('categories', 'categories.id', '=', 'products.category_id')->leftjoin('brands', 'brands.id', '=', 'products.brand_id')->leftjoin('models', 'models.id', '=', 'products.model_id')->where('handyman_products.id',$id)->select('products.*','handyman_products.*','categories.cat_name as category','brands.cat_name as brand','models.cat_name as model')->first();
+        $my_product = handyman_products::leftjoin('products','products.id','=','handyman_products.product_id')->leftjoin('categories', 'categories.id', '=', 'products.sub_category_id')->leftjoin('brands', 'brands.id', '=', 'products.brand_id')->leftjoin('models', 'models.id', '=', 'products.model_id')->where('handyman_products.id',$id)->select('products.*','handyman_products.*','categories.cat_name as category','brands.cat_name as brand','models.cat_name as model')->first();
 
         $ids = array();
 

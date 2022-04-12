@@ -376,7 +376,7 @@ class FrontendController extends Controller
 
         if($request->type == 'product')
         {
-            $data = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('product_models','product_models.id','=','products.model_id')->where('products.user_id',$user_id)->where('products.id','=',$request->id)->select('products.category_id','products.brand_id','products.model_id','categories.cat_name','brands.cat_name as brand_name','product_models.model as model_name','products.estimated_price as rate')->first();
+            $data = Products::leftjoin('handyman_products','handyman_products.product_id','=','products.id')->leftjoin('categories','categories.id','=','products.sub_category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('handyman_products.handyman_id',$user_id)->where('products.id','=',$request->id)->select('products.sub_category_id','products.brand_id','products.model_id','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name','handyman_products.sell_rate as rate')->first();
         }
         elseif($request->type == 'service')
         {
