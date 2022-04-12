@@ -1303,9 +1303,9 @@
 
                                         var current = $(inp);
 
-                                        if(data.category_id)
+                                        if(data.sub_category_id)
                                         {
-                                            current.parent().parent().find('#item').val(data.category_id);
+                                            current.parent().parent().find('#item').val(data.sub_category_id);
                                             current.parent().parent().find('#service_title').val(data.cat_name);
 
                                             current.parent().parent().find('#brand').val(data.brand_id);
