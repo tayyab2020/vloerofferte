@@ -122,11 +122,15 @@
                         </li>--}}
 
                         <li>
+                            <a href="{{route('client-new-quotations')}}"><i class="fa fa-fw fa-file-text"></i> <span>Direct Quotations</span></a>
+                        </li>
+
+                        <li>
                             <a href="{{route('client-quotation-requests')}}"><i class="fa fa-fw fa-file-text"></i> {{__('text.Quotation Requests')}}</a>
                         </li>
 
                         <li>
-                            <a href="{{route('client-quotations')}}"><i class="fa fa-fw fa-file-text"></i> {{__('text.Quotations')}}</a>
+                            <a href="{{route('client-quotations')}}"><i class="fa fa-fw fa-file-text"></i> Indirect Quotations</a>
                         </li>
 
                         <li>

@@ -13,7 +13,7 @@
                                     <div class="add-product-header">
                                         <h2>{{__('text.Quote Request')}}</h2>
                                         <a href="{{route('client-quotation-requests')}}" class="btn add-back-btn"><i
-                                                class="fa fa-arrow-left"></i> {{__('text.Back')}}</a>
+                                                    class="fa fa-arrow-left"></i> {{__('text.Back')}}</a>
                                     </div>
                                     <hr>
 
@@ -64,89 +64,96 @@
                                             </div>
                                         </div>
 
-                                            @if($request->cat_name != '' && $request->brand_name != '' && $request->model_name != '')
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Category')}}* </label>
-                                                    <div class="col-sm-6">
-                                                        <p style="padding: 10px;" class="form-control">{{$request->cat_name}}</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Brand')}}* </label>
-                                                    <div class="col-sm-6">
-                                                        <p style="padding: 10px;" class="form-control">{{$request->brand_name}}</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Model')}}* </label>
-                                                    <div class="col-sm-6">
-                                                        <p style="padding: 10px;" class="form-control">{{$request->model_name}}</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Model Number')}}</label>
-                                                    <div class="col-sm-6">
-                                                        <p style="padding: 10px;" class="form-control">{{$request->quote_model_number}}</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Delivery Date')}}* </label>
-                                                    <div class="col-sm-6">
-                                                        <p style="padding: 10px;" class="form-control">{{$request->quote_delivery ? date('d-m-Y',strtotime($request->quote_delivery)) : null}}</p>
-                                                    </div>
-                                                </div>
-
-                                            @else
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Service')}}* </label>
-                                                    <div class="col-sm-6">
-                                                        <p style="padding: 10px;" class="form-control">{{$request->title}}</p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Installation Date')}}* </label>
-                                                    <div class="col-sm-6">
-                                                        <p style="padding: 10px;" class="form-control">{{$request->quote_delivery ? date('d-m-Y',strtotime($request->quote_delivery)) : null}}</p>
-                                                    </div>
-                                                </div>
-
-                                            @endif
-
+                                        @if($request->cat_name != '' && $request->brand_name != '' && $request->model_name != '' && $request->type_title != '' && $request->color != '')
 
                                             <div class="form-group">
-                                                <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Quantity')}}* </label>
+                                                <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Category')}}* </label>
                                                 <div class="col-sm-6">
-                                                    <p style="padding: 10px;" class="form-control">{{$request->quote_qty}}</p>
+                                                    <p style="padding: 10px;" class="form-control">{{$request->cat_name}}</p>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Zip Code')}}* </label>
+                                                <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Brand')}}* </label>
                                                 <div class="col-sm-6">
-                                                    <p style="padding: 10px;" class="form-control">{{$request->quote_zipcode}}</p>
-                                                </div>
-                                            </div>
-
-                                            {{--<div class="form-group">
-                                                <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Street Number')}}* </label>
-                                                <div class="col-sm-6">
-                                                    <p style="padding: 10px;" class="form-control">{{$request->quote_street}}</p>
+                                                    <p style="padding: 10px;" class="form-control">{{$request->brand_name}}</p>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.House Number')}}* </label>
+                                                <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Model')}}* </label>
                                                 <div class="col-sm-6">
-                                                    <p style="padding: 10px;" class="form-control">{{$request->quote_house}}</p>
+                                                    <p style="padding: 10px;" class="form-control">{{$request->model_name}}</p>
                                                 </div>
-                                            </div>--}}
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_display_name">Type* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;" class="form-control">{{$request->type_title}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Color')}}* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;" class="form-control">{{$request->color}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Delivery Date')}}* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;" class="form-control">{{$request->quote_delivery ? date('d-m-Y',strtotime($request->quote_delivery)) : null}}</p>
+                                                </div>
+                                            </div>
+
+                                        @else
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_display_name">{{__('text.Service')}}* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;" class="form-control">{{$request->title}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Installation Date')}}* </label>
+                                                <div class="col-sm-6">
+                                                    <p style="padding: 10px;" class="form-control">{{$request->quote_delivery ? date('d-m-Y',strtotime($request->quote_delivery)) : null}}</p>
+                                                </div>
+                                            </div>
+
+                                        @endif
+
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Quantity')}}* </label>
+                                            <div class="col-sm-6">
+                                                <p style="padding: 10px;" class="form-control">{{$request->quote_qty}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Zip Code')}}* </label>
+                                            <div class="col-sm-6">
+                                                <p style="padding: 10px;" class="form-control">{{$request->quote_zipcode}}</p>
+                                            </div>
+                                        </div>
+
+                                        {{--<div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.Street Number')}}* </label>
+                                            <div class="col-sm-6">
+                                                <p style="padding: 10px;" class="form-control">{{$request->quote_street}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="blood_group_slug">{{__('text.House Number')}}* </label>
+                                            <div class="col-sm-6">
+                                                <p style="padding: 10px;" class="form-control">{{$request->quote_house}}</p>
+                                            </div>
+                                        </div>--}}
 
                                         @foreach($q_a as $key)
 

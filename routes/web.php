@@ -93,6 +93,7 @@
   Route::get('/aanbieder-verkoopfacturen/{id?}', 'UserController@HandymanQuotationsInvoices')->name('quotations-invoices');
   Route::get('/aanbieder-commissiefacturen/{id?}', 'UserController@HandymanQuotationsInvoices')->name('commission-invoices');
   Route::get('/offertes/{id?}', 'UserController@Quotations')->name('client-quotations');
+  Route::get('/client-new-quotations', 'UserController@ClientNewQuotations')->name('client-new-quotations');
   Route::get('/Offerte-op-maat/{id?}', 'UserController@CustomQuotations')->name('client-custom-quotations');
   Route::get('/Offerte-verkoopfactuur/{id?}', 'UserController@QuotationsInvoices')->name('client-quotations-invoices');
   Route::get('/bekijk-offerte-aanvraag/{id}', 'UserController@QuoteRequest');

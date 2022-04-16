@@ -12,6 +12,7 @@
         "doctrine/inflector": "1.2.x",
         "elic-dev/laravel-site-protection": "^1.0",
         "google/recaptcha": "^1.2",
+        "guzzlehttp/guzzle": "~6.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "~1.0",
         "maatwebsite/excel": "^3.1",
