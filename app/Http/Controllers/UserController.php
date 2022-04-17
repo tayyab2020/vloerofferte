@@ -401,17 +401,33 @@ class UserController extends Controller
         $user_id = $user->id;
         $user_role = $user->role_id;
 
-        $invoice = quotation_invoices::leftjoin('quotes', 'quotes.id', '=', 'quotation_invoices.quote_id')->where('quotation_invoices.id', $id)->where('quotes.user_id', $user_id)->first();
+        $invoice = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->where('new_quotations.id', $id)->where('quotes.user_id', $user_id)->first();
 
         if (!$invoice) {
-            return redirect()->route('client-quotations');
+            return redirect()->back();
         }
 
         $quotation_invoice_number = $invoice->quotation_invoice_number;
 
         $filename = $quotation_invoice_number . '.pdf';
 
-        return response()->download(public_path("assets/quotationsPDF/{$filename}"));
+        $whitelist = array(
+            '127.0.0.1',
+            '::1'
+        );
+        
+        if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+            $url = $this->gs1->site . 'public/assets/newQuotations/'.$filename;
+        }
+        else
+        {
+            $url = 'http://localhost/pieppiep/public/assets/newQuotations/'.$filename;
+        }
+
+        $tempFile = tempnam(sys_get_temp_dir(), $filename);
+        copy($url, $tempFile);
+
+        return response()->download($tempFile, $filename);
     }
 
     public function DownloadClientCustomQuoteInvoice($id)
