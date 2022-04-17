@@ -311,6 +311,9 @@ class UserController extends Controller
 
             $response_data = $res->getBody()->getContents();
 
+            var_dump($res->getBody());
+            exit();
+
             if($response_data != 'Invalid')
             {
                 return response()->download($response_data);
