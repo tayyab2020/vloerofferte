@@ -673,14 +673,22 @@ class UserController extends Controller
             $url = $this->gs1->site . 'pay-quotation-api';
 
             $client = new Client();
-            $res = $client->request('POST', $url, [
-                'form_params' => [
-                    'data' => $data,
-                    'pay_invoice_id' => $pay_invoice_id,
-                    'language' => $language,
-                    'user_id' => $user_id,
-                ]
-            ]);
+
+            try {
+                $res = $client->request('POST', $url, [
+                    'form_params' => [
+                        'data' => $data,
+                        'pay_invoice_id' => $pay_invoice_id,
+                        'language' => $language,
+                        'user_id' => $user_id,
+                    ]
+                ]);
+            }
+            catch (GuzzleHttp\Exception\ClientException $e) {
+                $response = $e->getResponse();
+                $responseBodyAsString = $response->getBody()->getContents();
+                return $responseBodyAsString;
+            }
 
 //            if ($res->getStatusCode() == 200) { // 200 OK
 //
