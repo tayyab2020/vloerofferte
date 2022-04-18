@@ -615,6 +615,8 @@ class UserController extends Controller
 
         $pay_invoice_id = $request->pay_invoice_id;
         $data = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->where('new_quotations.id', $pay_invoice_id)->select('quotes.*', 'new_quotations.grand_total','new_quotations.creator_id','new_quotations.quotation_invoice_number','new_quotations.accept_date', 'new_quotations.delivery_date')->first();
+        var_dump($data);
+        exit();
         $quote_id = $data->id;
         $handyman_id = $data->handyman_id;
 
