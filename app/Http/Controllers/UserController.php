@@ -682,7 +682,7 @@ class UserController extends Controller
                 ]
             ]);
 
-            var_dump($response_data = $res->getBody()->getContents());
+            var_dump($response_data = $res->getBody());
             exit();
 
 //            if ($res->getStatusCode() == 200) { // 200 OK
