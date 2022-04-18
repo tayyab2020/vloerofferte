@@ -313,7 +313,38 @@ class UserController extends Controller
 
             if($response_data != 'Invalid')
             {
-                return response()->download($response_data);
+                $quote = quotes::where('id', $id)->where('user_id', $user_id)->first();
+                $quote_number = $quote->quote_number;
+                $filename = $quote_number . '.pdf';
+
+                if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+                    
+                    if($role == 3)
+                    {
+                        $url = $this->gs1->site . 'public/assets/adminQuotesPDF/'.$filename;
+                    }
+                    else
+                    {
+                        $url = $this->gs1->site . 'public/assets/quotesPDF/'.$filename;
+                    }
+
+                }
+                else
+                {
+                    if($role == 3)
+                    {
+                        $url = 'http://localhost/pieppiep/public/assets/adminQuotesPDF/'.$filename;
+                    }
+                    else
+                    {
+                        $url = 'http://localhost/pieppiep/public/assets/quotesPDF/'.$filename;
+                    }
+                }
+
+                $tempFile = tempnam(sys_get_temp_dir(), $filename);
+                copy($url, $tempFile);
+
+                return response()->download($tempFile, $filename);
             }
         }
 
