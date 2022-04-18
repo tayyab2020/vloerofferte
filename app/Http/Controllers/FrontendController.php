@@ -299,7 +299,6 @@ class FrontendController extends Controller
 
     public function QuotationPaymentRedirectPage($id)
     {
-
         $inv_decrypt = Crypt::decrypt($id);
 
         $invoice = quotation_invoices::where('id',$inv_decrypt)->first();
