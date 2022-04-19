@@ -308,7 +308,7 @@ class FrontendController extends Controller
             return redirect()->route('front.index');
         } else {
 
-            if ($invoice->invoice != 1) {
+            if ($invoice->paid != 1) {
 
                 return view('front.quotation_payment_failed');
 
