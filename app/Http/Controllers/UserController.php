@@ -610,13 +610,8 @@ class UserController extends Controller
 
     public function PayQuotation(Request $request)
     {
-        $user = Auth::guard('user')->user();
-        $user_id = $user->id;
-
         $pay_invoice_id = $request->pay_invoice_id;
         $data = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->where('new_quotations.id', $pay_invoice_id)->select('quotes.*', 'new_quotations.grand_total','new_quotations.creator_id','new_quotations.quotation_invoice_number','new_quotations.accept_date', 'new_quotations.delivery_date')->first();
-        $quote_id = $data->id;
-        $handyman_id = $data->handyman_id;
 
         $accept_date = $data->accept_date;
         $delivery_date = $data->delivery_date;
@@ -625,7 +620,6 @@ class UserController extends Controller
         $minute = $second * 60;
         $hour = $minute * 60;
         $day = $hour * 24;
-
 
         if($accept_date !== NULL && $delivery_date !== NULL)
         {
@@ -670,35 +664,54 @@ class UserController extends Controller
         if($check == 0)
         {
             $language = $this->lang->lang;
-            $url = $this->gs1->site . 'pay-quotation-api';
+            $quote_id = $data->id;
+            $retailer_id = $data->creator_id;
+            $quotation_invoice_number = $data->quotation_invoice_number;
 
-            $client = new Client([
-                'headers' => [ 'Content-Type' => 'application/json' ]
+            $total_mollie = number_format((float)$data->grand_total, 2, '.', '');
+            $settings = Generalsetting::where('backend',1)->first();
+            $description = 'Payment for Quotation No. ' . $quotation_invoice_number;
+
+            $inv_encrypt = Crypt::encrypt($pay_invoice_id);
+            $commission_percentage = $settings->commission_percentage;
+            $commission = $total_mollie * ($commission_percentage/100);
+            $commission = number_format((float)$commission, 2, '.', '');
+//        $commission_vat = ($commission/(21 + 100)) * 100;
+//        $commission_vat = $commission - $commission_vat;
+
+            $total_receive = $total_mollie - $commission;
+            $total_receive = number_format((float)$total_receive, 2, '.', '');
+
+            $commission_invoice_number = explode('-',  $quotation_invoice_number);
+            unset($commission_invoice_number[1]);
+            $commission_invoice_number = implode("-",$commission_invoice_number);
+            $api_key = Generalsetting::where('backend',0)->pluck('mollie')->first();
+
+            $mollie = new \Mollie\Api\MollieApiClient();
+            $mollie->setApiKey($api_key);
+            $payment = $mollie->payments->create([
+                'amount' => [
+                    'currency' => 'EUR',
+                    'value' => $total_mollie, // You must send the correct number of decimals, thus we enforce the use of strings
+                ],
+                'description' => $description,
+                'webhookUrl' => $settings->site.'webhooks/quotation_payment',
+                'redirectUrl' => url('aanbieder/quotation-payment-redirect-page/' . $inv_encrypt),
+                "metadata" => [
+                    "invoice_id" => $pay_invoice_id,
+                    "quote_id" => $quote_id,
+                    "retailer_id" => $retailer_id,
+                    "quotation_invoice_number" => $quotation_invoice_number,
+                    "commission_invoice_number" => $commission_invoice_number,
+                    "paid_amount" => $total_mollie,
+                    "commission_percentage" => $commission_percentage,
+                    "commission" => $commission,
+                    "total_receive" => $total_receive,
+                    "language" => $language,
+                ],
             ]);
-            
-            $res = $client->post($url,
-                ['body' => json_encode(
-                    [
-                        'request' => $data,
-                        'pay_invoice_id' => $pay_invoice_id,
-                        'language' => $language,
-                        'user_id' => $user_id,
-                    ]
-                )]
-            );
 
-            var_dump($response_data = $res->getBody()->getContents());
-            exit();
-
-//            if ($res->getStatusCode() == 200) { // 200 OK
-//
-//                $response_data = $res->getBody()->getContents();
-//
-//                if($response_data != 'Invalid')
-//                {
-//
-//                }
-//            }
+            return redirect($payment->getCheckoutUrl(), 303);
         }
         else
         {
