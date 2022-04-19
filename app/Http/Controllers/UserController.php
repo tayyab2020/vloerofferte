@@ -672,9 +672,6 @@ class UserController extends Controller
             $language = $this->lang->lang;
             $url = $this->gs1->site . 'pay-quotation-api';
 
-            var_dump($data);
-            exit();
-
             $client = new Client();
             $res = $client->request('POST', $url, [
                 'form_params' => [
