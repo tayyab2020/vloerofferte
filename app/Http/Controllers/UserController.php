@@ -695,7 +695,7 @@ class UserController extends Controller
                     'value' => $total_mollie, // You must send the correct number of decimals, thus we enforce the use of strings
                 ],
                 'description' => $description,
-                'webhookUrl' => $settings->site.'webhooks/quotation_payment',
+                'webhookUrl' => route('webhooks.quotation_payment'),
                 'redirectUrl' => url('aanbieder/quotation-payment-redirect-page/' . $inv_encrypt),
                 "metadata" => [
                     "invoice_id" => $pay_invoice_id,
