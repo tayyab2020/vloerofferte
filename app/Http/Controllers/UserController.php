@@ -694,7 +694,6 @@ class UserController extends Controller
                     'currency' => 'EUR',
                     'value' => $total_mollie, // You must send the correct number of decimals, thus we enforce the use of strings
                 ],
-                'testmode' => true,
                 'description' => $description,
                 'webhookUrl' => route('webhooks.quotation_payment'),
                 'redirectUrl' => url('aanbieder/quotation-payment-redirect-page/' . $inv_encrypt),
