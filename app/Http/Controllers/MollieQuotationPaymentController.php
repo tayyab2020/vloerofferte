@@ -40,7 +40,9 @@ class MollieQuotationPaymentController extends Controller {
         $mollie = new \Mollie\Api\MollieApiClient();
         $mollie->setApiKey($api_key->mollie);
 
-        $payment = $mollie->payments->get($request->id, array( 'testmode' => true ));
+        $payment = $mollie->payments->get($request->id, [
+            'testmode' => true,
+        ]);
 
         if ($payment->isPaid()) {
 
