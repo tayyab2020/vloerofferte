@@ -675,7 +675,7 @@ class UserController extends Controller
             $client = new Client();
             $res = $client->request('POST', $url, [
                 'form_params' => [
-                    'request' => $data,
+                    'request' => $data->all(),
                     'pay_invoice_id' => $pay_invoice_id,
                     'language' => $language,
                     'user_id' => $user_id,
