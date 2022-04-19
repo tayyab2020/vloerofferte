@@ -6,6 +6,7 @@ use App\Brand;
 use App\estimated_prices;
 use App\items;
 use App\Model1;
+use App\new_quotations;
 use App\Products;
 use App\question_services;
 use App\quotation_invoices;
@@ -301,10 +302,10 @@ class FrontendController extends Controller
     {
         $inv_decrypt = Crypt::decrypt($id);
 
-        $invoice = quotation_invoices::where('id',$inv_decrypt)->first();
+        $invoice = new_quotations::where('id',$inv_decrypt)->first();
 
         if ($invoice == "") {
-            return view('front.index');
+            return redirect()->route('front.index');
         } else {
 
             if ($invoice->invoice != 1) {
