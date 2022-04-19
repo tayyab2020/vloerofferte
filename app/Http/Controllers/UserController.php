@@ -672,15 +672,20 @@ class UserController extends Controller
             $language = $this->lang->lang;
             $url = $this->gs1->site . 'pay-quotation-api';
 
-            $client = new Client();
-            $res = $client->request('POST', $url, [
-                'form_params' => [
-                    'request' => $data->all(),
-                    'pay_invoice_id' => $pay_invoice_id,
-                    'language' => $language,
-                    'user_id' => $user_id,
-                ]
+            $client = new Client([
+                'headers' => [ 'Content-Type' => 'application/json' ]
             ]);
+            
+            $res = $client->post($url,
+                ['body' => json_encode(
+                    [
+                        'request' => $data,
+                        'pay_invoice_id' => $pay_invoice_id,
+                        'language' => $language,
+                        'user_id' => $user_id,
+                    ]
+                )]
+            );
 
             var_dump($response_data = $res->getBody()->getContents());
             exit();
