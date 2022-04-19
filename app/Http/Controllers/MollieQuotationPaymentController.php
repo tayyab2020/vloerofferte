@@ -40,7 +40,7 @@ class MollieQuotationPaymentController extends Controller {
         $mollie = new \Mollie\Api\MollieApiClient();
         $mollie->setApiKey($api_key->mollie);
 
-        Log::info($request->id);
+        \Log::info($request->id);
 
         $payment = $mollie->payments->get($request->id);
 
