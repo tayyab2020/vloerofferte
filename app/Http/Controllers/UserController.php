@@ -230,6 +230,7 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
         $user_role = $user->role_id;
+        $service_fee = $this->gs1->service_fee;
 
         if ($id) {
             $invoices = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('quotes.user_id', $user_id)->where('quotes.status', '<', 3)->where('new_quotations.quote_request_id', $id)->where('new_quotations.invoice', 0)->where('new_quotations.approved', 1)->orderBy('new_quotations.created_at', 'desc')->select('quotes.*', 'new_quotations.review_text', 'new_quotations.ask_customization', 'new_quotations.approved', 'new_quotations.accepted', 'new_quotations.id as invoice_id', 'new_quotations.quotation_invoice_number', 'new_quotations.tax_amount as tax', 'new_quotations.subtotal', 'new_quotations.grand_total', 'new_quotations.created_at as invoice_date', 'new_quotations.accept_date', 'new_quotations.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
@@ -237,7 +238,7 @@ class UserController extends Controller
             $invoices = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('quotes.user_id', $user_id)->where('quotes.status', '<', 3)->where('new_quotations.invoice', 0)->where('new_quotations.approved', 1)->orderBy('new_quotations.created_at', 'desc')->select('quotes.*', 'new_quotations.review_text', 'new_quotations.ask_customization', 'new_quotations.approved', 'new_quotations.accepted', 'new_quotations.id as invoice_id', 'new_quotations.quotation_invoice_number', 'new_quotations.tax_amount as tax', 'new_quotations.subtotal', 'new_quotations.grand_total', 'new_quotations.created_at as invoice_date', 'new_quotations.accept_date', 'new_quotations.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
         }
 
-        return view('user.client_quote_invoices', compact('invoices'));
+        return view('user.client_quote_invoices', compact('invoices','service_fee'));
     }
 
     public function CustomQuotations($id = '')
@@ -670,7 +671,7 @@ class UserController extends Controller
 
             $total_mollie = number_format((float)$data->grand_total, 2, '.', '');
             $settings = Generalsetting::where('backend',1)->first();
-            $description = 'Payment for Quotation No. ' . $quotation_invoice_number;
+            $description = 'Payment for Quotation No. ' . $quotation_invoice_number . '<br>We will charge 15 euro as service fee.';
 
             $inv_encrypt = Crypt::encrypt($pay_invoice_id);
             $commission_percentage = $settings->commission_percentage;

@@ -93,7 +93,7 @@
 
                                                             <td>{{$key->subtotal}}</td>--}}
 
-                                                            <td>{{number_format((float)$key->grand_total, 2, ',', '.')}}</td>
+                                                            <td>{{number_format((float)($key->grand_total + $service_fee), 2, ',','.')}}</td>
 
                                                             <?php
 
