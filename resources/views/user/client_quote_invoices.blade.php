@@ -79,8 +79,16 @@
 
                                                             @else
 
-                                                                <td><a href="{{ url('/aanbieder/offerte/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-new-quotations') QUO# @else INV# @endif{{$key->quotation_invoice_number}}</a></td>
+                                                                <td>
+                                                                    @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-new-quotations')
 
+                                                                        <a href="{{ url('/aanbieder/offerte/'.$key->invoice_id) }}">QUO# {{$key->quotation_invoice_number}}</a></td>
+
+                                                                    @else
+
+                                                                        <span>INV# {{$key->invoice_number}}</span></td>
+
+                                                                    @endif
 
                                                                 @if($key->quote_request_id)
 
@@ -310,7 +318,18 @@
 
                                                                         @else
 
-                                                                            <li><a href="{{ url('/aanbieder/offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
+                                                                            @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-new-quotations')
+
+                                                                                <li><a href="{{ url('/aanbieder/offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
+                                                                                <li><a href="{{ url('/aanbieder/download-client-quote-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
+
+                                                                                @if($key->paid)
+
+                                                                                    <li><a href="{{ url('/aanbieder/download-service-fee-invoice/'.$key->invoice_id) }}">Download Service Fee PDF</a></li>
+
+                                                                                @endif
+
+                                                                            @endif
 
                                                                             @if($key->quote_request_id)
 
@@ -318,17 +337,9 @@
 
                                                                             @endif
 
-                                                                            <li><a href="{{ url('/aanbieder/download-client-quote-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
-
                                                                             @if($key->invoice_sent)
 
                                                                                 <li><a href="{{ url('/aanbieder/download-invoice-pdf/'.$key->invoice_id) }}">Download Invoice PDF</a></li>
-
-                                                                            @endif
-
-                                                                            @if($key->paid)
-
-                                                                                <li><a href="{{ url('/aanbieder/download-service-fee-invoice/'.$key->invoice_id) }}">Download Service Fee PDF</a></li>
 
                                                                             @endif
 
@@ -354,11 +365,11 @@
 
                                                                             @endif
 
-                                                                            @if($key->delivered == 1 && $key->received == 0)
+                                                                            <!-- @if($key->delivered == 1 && $key->received == 0)
 
                                                                                 <li><a href="{{ url('/aanbieder/mark-received/'.$key->invoice_id) }}">{{__('text.Mark as received')}}</a></li>
 
-                                                                            @endif
+                                                                            @endif -->
 
                                                                         @endif
 
