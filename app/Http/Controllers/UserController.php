@@ -450,6 +450,13 @@ class UserController extends Controller
             {
                 $url = $this->gs1->site . 'public/assets/newQuotations/'.$filename;
             }
+            elseif(\Route::currentRouteName() == 'download-invoice-pdf')
+            {
+                $invoice_number = $invoice->invoice_number;
+                $filename = $invoice_number . '.pdf';
+
+                $url = $this->gs1->site . 'public/assets/newInvoices/'.$filename;
+            }
             else
             {
                 $url = $this->gs1->site . 'public/assets/newQuotations/CustomerQuotations/'.$filename;
@@ -461,6 +468,13 @@ class UserController extends Controller
             if(\Route::currentRouteName() == 'download-client-quote-invoice')
             {
                 $url = 'http://localhost/pieppiep/public/assets/newQuotations/'.$filename;
+            }
+            elseif(\Route::currentRouteName() == 'download-invoice-pdf')
+            {
+                $invoice_number = $invoice->invoice_number;
+                $filename = $invoice_number . '.pdf';
+
+                $url = 'http://localhost/pieppiep/public/assets/newInvoices/'.$filename;
             }
             else
             {

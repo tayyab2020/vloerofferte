@@ -324,6 +324,12 @@
 
                                                                             <li><a href="{{ url('/aanbieder/download-client-quote-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
 
+                                                                            @if($key->invoice_sent)
+
+                                                                                <li><a href="{{ url('/aanbieder/download-invoice-pdf/'.$key->invoice_id) }}">Download Invoice PDF</a></li>
+
+                                                                            @endif
+
                                                                             @if($key->paid)
 
                                                                                 <li><a href="{{ url('/aanbieder/download-service-fee-invoice/'.$key->invoice_id) }}">Download Service Fee PDF</a></li>
