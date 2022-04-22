@@ -11,6 +11,7 @@ use App\handyman_services;
 use App\instruction_manual;
 use App\items;
 use App\Model1;
+use App\new_invoices;
 use App\new_invoices_data;
 use App\new_quotations;
 use App\new_quotations_data;
