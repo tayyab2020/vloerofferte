@@ -84,7 +84,7 @@
     
                                                                     @else
 
-                                                                        <span class="btn btn-success">Paid</span>
+                                                                        <span class="btn btn-success">Paid {{$invoices[$i]->contains('invoice_sent', 1)}} {{$invoices[$i]->contains('invoice', 1)}}</span>
 
                                                                     @endif
 
