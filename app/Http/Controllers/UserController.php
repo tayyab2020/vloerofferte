@@ -144,7 +144,6 @@ class UserController extends Controller
             $invoices[] = new_quotations::where('quote_request_id', $key->id)->where('approved', 1)->get();
         }
 
-
         return view('user.client_quote_requests', compact('requests', 'invoices'));
     }
 
