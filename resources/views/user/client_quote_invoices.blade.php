@@ -159,7 +159,7 @@
 
                                                                             <span class="btn btn-success">{{__('text.Goods Delivered')}}</span>
 
-                                                                        @elseif($key->invoice)
+                                                                        @elseif($key->invoice_sent)
 
                                                                             <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
 
@@ -171,7 +171,7 @@
 
                                                                     @elseif($key->status == 2)
 
-                                                                        @if(($key->quote_request_id && $key->invoice) || (!$key->quote_request_id && $key->invoice_sent))
+                                                                        @if($key->invoice_sent)
 
                                                                             <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
 
