@@ -78,9 +78,13 @@
 
                                                                         <span class="btn btn-success">{{__('text.Goods Delivered')}}</span>
 
-                                                                    @else
+                                                                    @elseif($invoices[$i]->contains('invoice_sent', 1))
 
                                                                         <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+    
+                                                                    @else
+
+                                                                        <span class="btn btn-success">Paid</span>
 
                                                                     @endif
 
