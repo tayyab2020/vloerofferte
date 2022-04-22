@@ -24,7 +24,7 @@
 
 											<div style="background-color: black;border-radius: 10px;padding: 0 10px;">												
 
-												<a href="{{route('client-quotations')}}" class="tooltip1" style="cursor: pointer;font-size: 20px;color: white;">
+												<a href="{{redirect()->back()->getTargetUrl()}}" class="tooltip1" style="cursor: pointer;font-size: 20px;color: white;">
 													<i class="fa fa-fw fa-close"></i>
 													<span class="tooltiptext">Close</span>
 												</a>

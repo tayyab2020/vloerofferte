@@ -13,7 +13,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="add-product-box">
                                     <div class="add-product-header products">
-                                        @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-custom-quotations')
+                                        @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-new-quotations' || Route::currentRouteName() == 'client-custom-quotations')
                                             <h2>{{__('text.Quotations')}}</h2>
                                         @else
                                             <h2>{{__('text.Quotation Invoices')}}</h2>
@@ -31,11 +31,11 @@
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending">ID</th>
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">@if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-custom-quotations') {{__('text.Quotation Number')}} @else {{__('text.Invoice Number')}} @endif</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 171px;" aria-label="Donor's Name: activate to sort column ascending" id="client">@if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-new-quotations' || Route::currentRouteName() == 'client-custom-quotations') {{__('text.Quotation Number')}} @else {{__('text.Invoice Number')}} @endif</th>
 
                                                         @if(Route::currentRouteName() != 'client-custom-quotations')
 
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">{{__('text.Request Number')}}</th>
+                                                            <th class="sorting_asc" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 239px;" aria-sort="ascending" aria-label="Donor's Photo: activate to sort column descending" id="photo">{{__('text.Request Number')}}</th>
 
                                                         @endif
 
@@ -53,9 +53,9 @@
 
                                                         <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">{{__('text.Delivery Date')}}</th>
 
-                                                        @if(Route::currentRouteName() == 'client-quotations')
+                                                        @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-new-quotations')
 
-                                                        <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">{{__('text.Time Remaining')}}</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="product-table_wrapper" rowspan="1" colspan="1" style="width: 134px;" aria-label="Blood Group: activate to sort column ascending" id="client">{{__('text.Time Remaining')}}</th>
 
                                                         @endif
 
@@ -79,11 +79,20 @@
 
                                                             @else
 
-                                                                <td><a href="{{ url('/aanbieder/offerte/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'client-quotations') QUO# @else INV# @endif{{$key->quotation_invoice_number}}</a></td>
+                                                                <td><a href="{{ url('/aanbieder/offerte/'.$key->invoice_id) }}">@if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-new-quotations') QUO# @else INV# @endif{{$key->quotation_invoice_number}}</a></td>
 
-                                                                <?php $requested_quote_number = $key->quote_number; ?>
 
-                                                                <td><a href="{{ url('/aanbieder/bekijk-offerte-aanvraag/'.$key->id) }}">{{$requested_quote_number}}</a></td>
+                                                                @if($key->quote_request_id)
+
+                                                                    <?php $requested_quote_number = $key->quote_number; ?>
+
+                                                                    <td><a href="{{ url('/aanbieder/bekijk-offerte-aanvraag/'.$key->id) }}">{{$requested_quote_number}}</a></td>
+
+                                                                @else
+
+                                                                    <td></td>
+
+                                                                @endif
 
                                                             @endif
 
@@ -95,46 +104,50 @@
 
                                                             <td>{{number_format((float)$key->grand_total, 2, ',','.')}}</td>
 
-                                                            <?php
+                                                            @if($key->quote_request_id)
 
-                                                            $date = strtotime($key->invoice_date);
-                                                            $date = date('d-m-Y',$date);
+                                                                <?php
 
-                                                            if($key->accept_date)
-                                                            {
-                                                                $accept_date = strtotime($key->accept_date);
-                                                                $accept_date = date('d-m-Y',$accept_date);
+                                                                $date = strtotime($key->invoice_date);
+                                                                $date = date('d-m-Y',$date);
 
-                                                                $cal_accept_date = strtotime($key->accept_date);
-                                                                $cal_accept_date = date('Y-m-d H:i:s',$cal_accept_date);
-                                                            }
-                                                            else{
-                                                                $accept_date = '-';
-                                                                $cal_accept_date = '-';
-                                                            }
+                                                                if($key->accept_date)
+                                                                {
+                                                                    $accept_date = strtotime($key->accept_date);
+                                                                    $accept_date = date('d-m-Y',$accept_date);
 
-                                                            $current_date = date('d-m-Y H:i:s', time());
+                                                                    $cal_accept_date = strtotime($key->accept_date);
+                                                                    $cal_accept_date = date('Y-m-d H:i:s',$cal_accept_date);
+                                                                }
+                                                                else{
+                                                                    $accept_date = '-';
+                                                                    $cal_accept_date = '-';
+                                                                }
 
-                                                            if($key->delivery_date)
-                                                            {
-                                                                $delivery_date = strtotime($key->delivery_date);
-                                                                $delivery_date = date('d-m-Y',$delivery_date);
+                                                                $current_date = date('d-m-Y H:i:s', time());
 
-                                                                $cal_delivery_date = strtotime($key->delivery_date);
-                                                                $cal_delivery_date = date('Y-m-d H:i:s',$cal_delivery_date);
-                                                            }
-                                                            else{
+                                                                if($key->delivery_date)
+                                                                {
+                                                                    $delivery_date = strtotime($key->delivery_date);
+                                                                    $delivery_date = date('d-m-Y',$delivery_date);
 
-                                                                $delivery_date = '-';
-                                                                $cal_delivery_date = '-';
+                                                                    $cal_delivery_date = strtotime($key->delivery_date);
+                                                                    $cal_delivery_date = date('Y-m-d H:i:s',$cal_delivery_date);
+                                                                }
+                                                                else{
 
-                                                            }
+                                                                    $delivery_date = '-';
+                                                                    $cal_delivery_date = '-';
 
-                                                            ?>
+                                                                }
+
+                                                                ?>
+
+                                                            @endif
 
                                                             <td class="current-stage">
 
-                                                                @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-custom-quotations')
+                                                                @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-new-quotations' || Route::currentRouteName() == 'client-custom-quotations')
 
                                                                     @if($key->status == 3)
 
@@ -154,9 +167,17 @@
 
                                                                     @elseif($key->status == 2)
 
-                                                                        @if($key->accepted)
+                                                                        @if(($key->quote_request_id && $key->invoice) || (!$key->quote_request_id && $key->invoice_sent))
 
-                                                                            @if(Route::currentRouteName() == 'client-custom-quotations')
+                                                                            <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+
+                                                                        @elseif($key->retailer_delivered)
+
+                                                                            <span class="btn btn-success">{{__('text.Goods Delivered')}}</span>
+
+                                                                        @elseif($key->accepted)
+
+                                                                            @if(!$key->quote_request_id || Route::currentRouteName() == 'client-custom-quotations')
 
                                                                                 <span class="btn btn-success">{{__('text.Quotation Accepted')}}</span>
 
@@ -186,7 +207,15 @@
 
                                                                             @else
 
-                                                                                <a class="btn btn-primary1" onclick="accept(this)" data-date="{{$delivery_date != '-' ? $delivery_date : null}}" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Accept')}}</a>
+                                                                                @if($key->quote_request_id)
+
+                                                                                    <a class="btn btn-primary1" onclick="accept(this)" data-date="{{$delivery_date != '-' ? $delivery_date : null}}" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Accept')}}</a>
+
+                                                                                @else
+
+                                                                                    <a class="btn btn-primary1" href="{{route('accept-new-quotation', ['id' => $key->invoice_id])}}">{{__('text.Accept')}}</a>
+
+                                                                                @endif
 
                                                                             @endif
 
@@ -215,18 +244,42 @@
                                                              </td>
 
                                                             <td class="accept_date">
-                                                                <input type="hidden" id="accept_date" value="{{$cal_accept_date}}">
-                                                                {{$accept_date}}
+
+                                                                @if($key->quote_request_id)
+
+                                                                    <input type="hidden" id="accept_date" value="{{$cal_accept_date}}">
+                                                                    {{$accept_date}}
+
+                                                                @else
+
+                                                                    {{$key->accept_date ? date('d-m-Y',strtotime($key->accept_date)) : null}}
+
+                                                                @endif
+
                                                             </td>
 
                                                             <td class="delivery_date">
-                                                                <input type="hidden" id="delivery_date" value="{{$cal_delivery_date}}">
-                                                                {{$delivery_date}}
+
+                                                                @if($key->quote_request_id)
+
+                                                                    <input type="hidden" id="delivery_date" value="{{$cal_delivery_date}}">
+                                                                    {{$delivery_date}}
+
+                                                                @endif
+
                                                             </td>
 
-                                                            @if(Route::currentRouteName() == 'client-quotations')
+                                                            @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-new-quotations')
 
-                                                                <td class="interval"></td>
+                                                                @if($key->quote_request_id)
+
+                                                                    <td class="interval"></td>
+
+                                                                @else
+
+                                                                    <td></td>
+
+                                                                @endif
 
                                                             @endif
 
@@ -258,18 +311,32 @@
                                                                         @else
 
                                                                             <li><a href="{{ url('/aanbieder/offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
-                                                                            <li><a href="{{ url('/aanbieder/bekijk-offerte-aanvraag/'.$key->id) }}">{{__('text.View Request')}}</a></li>
+
+                                                                            @if($key->quote_request_id)
+
+                                                                                <li><a href="{{ url('/aanbieder/bekijk-offerte-aanvraag/'.$key->id) }}">{{__('text.View Request')}}</a></li>
+
+                                                                            @endif
+
                                                                             <li><a href="{{ url('/aanbieder/download-client-quote-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
 
                                                                             @if($key->status != 0 && $key->status != 2 && $key->status != 3)
 
                                                                                 <li><a onclick="ask(this)" data-id="{{$key->invoice_id}}" data-text="{{$key->review_text}}" data-url="{{ url('/aanbieder/ask-customization/') }}" href="javascript:void(0)">{{__('text.Ask Again')}}</a></li>
 
-                                                                                <li><a onclick="accept(this)" data-date="{{$delivery_date != '-' ? $delivery_date : null}}" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Accept')}}</a></li>
+                                                                                @if($key->quote_request_id)
+
+                                                                                    <li><a onclick="accept(this)" data-date="{{$delivery_date != '-' ? $delivery_date : null}}" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Accept')}}</a></li>
+
+                                                                                @else
+
+                                                                                    <li><a href="{{route('accept-new-quotation', ['id' => $key->invoice_id])}}">{{__('text.Accept')}}</a></li>
+
+                                                                                @endif
 
                                                                             @endif
 
-                                                                            @if($key->status == 2)
+                                                                            @if($key->quote_request_id && $key->status == 2)
 
                                                                                 <li><a class="pay_now" onclick="PayNow(this)" data-id="{{$key->invoice_id}}" href="javascript:void(0)">{{__('text.Pay Now')}}</a></li>
 

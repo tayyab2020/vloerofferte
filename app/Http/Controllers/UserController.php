@@ -225,22 +225,6 @@ class UserController extends Controller
         return view('user.quote_invoices', compact('invoices'));
     }
 
-    public function Quotations($id = '')
-    {
-        $user = Auth::guard('user')->user();
-        $user_id = $user->id;
-        $user_role = $user->role_id;
-        $service_fee = $this->gs1->service_fee;
-
-        if ($id) {
-            $invoices = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('quotes.user_id', $user_id)->where('quotes.status', '<', 3)->where('new_quotations.quote_request_id', $id)->where('new_quotations.invoice', 0)->where('new_quotations.approved', 1)->orderBy('new_quotations.created_at', 'desc')->select('quotes.*', 'new_quotations.review_text', 'new_quotations.ask_customization', 'new_quotations.approved', 'new_quotations.accepted', 'new_quotations.id as invoice_id', 'new_quotations.quotation_invoice_number', 'new_quotations.tax_amount as tax', 'new_quotations.subtotal', 'new_quotations.grand_total', 'new_quotations.created_at as invoice_date', 'new_quotations.accept_date', 'new_quotations.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
-        } else {
-            $invoices = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('quotes.user_id', $user_id)->where('quotes.status', '<', 3)->where('new_quotations.invoice', 0)->where('new_quotations.approved', 1)->orderBy('new_quotations.created_at', 'desc')->select('quotes.*', 'new_quotations.review_text', 'new_quotations.ask_customization', 'new_quotations.approved', 'new_quotations.accepted', 'new_quotations.id as invoice_id', 'new_quotations.quotation_invoice_number', 'new_quotations.tax_amount as tax', 'new_quotations.subtotal', 'new_quotations.grand_total', 'new_quotations.created_at as invoice_date', 'new_quotations.accept_date', 'new_quotations.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
-        }
-
-        return view('user.client_quote_invoices', compact('invoices','service_fee'));
-    }
-
     public function CustomQuotations($id = '')
     {
         $user = Auth::guard('user')->user();
@@ -416,15 +400,25 @@ class UserController extends Controller
         return response()->download(public_path("assets/customQuotations/{$filename}"));
     }
 
-    public function ClientNewQuotations()
+    public function ClientNewQuotations($id = "")
     {
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
-        $user_role = $user->role_id;
+        $service_fee = $this->gs1->service_fee;
 
-        $invoices = new_quotations::leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('new_quotations.user_id', $user_id)->where('new_quotations.approved', 1)->orderBy('new_quotations.created_at', 'desc')->select('new_quotations.*', 'new_quotations.id as invoice_id', 'new_quotations.created_at as invoice_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
+        if($id)
+        {
+            $invoices = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('quotes.user_id', $user_id)->where('quotes.status', '<', 3)->where('new_quotations.quote_request_id', $id)->where('new_quotations.invoice', 0)->where('new_quotations.approved', 1)->where('new_quotations.quote_request_id','!=',NULL)->orderBy('new_quotations.created_at', 'desc')->select('quotes.*', 'new_quotations.quote_request_id', 'new_quotations.review_text', 'new_quotations.ask_customization', 'new_quotations.approved', 'new_quotations.accepted', 'new_quotations.id as invoice_id', 'new_quotations.quotation_invoice_number', 'new_quotations.tax_amount as tax', 'new_quotations.subtotal', 'new_quotations.grand_total', 'new_quotations.created_at as invoice_date', 'new_quotations.accept_date', 'new_quotations.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
+        }
+        else
+        {
+            $direct = new_quotations::leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('new_quotations.user_id', $user_id)->where('new_quotations.approved', 1)->where('new_quotations.quote_request_id',NULL)->orderBy('new_quotations.created_at', 'desc')->select('new_quotations.*', 'new_quotations.id as invoice_id', 'new_quotations.created_at as invoice_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
+            $in_direct = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('quotes.user_id', $user_id)->where('quotes.status', '<', 3)->where('new_quotations.invoice', 0)->where('new_quotations.approved', 1)->where('new_quotations.quote_request_id','!=',NULL)->orderBy('new_quotations.created_at', 'desc')->select('quotes.*', 'new_quotations.quote_request_id', 'new_quotations.review_text', 'new_quotations.ask_customization', 'new_quotations.approved', 'new_quotations.accepted', 'new_quotations.id as invoice_id', 'new_quotations.quotation_invoice_number', 'new_quotations.tax_amount as tax', 'new_quotations.subtotal', 'new_quotations.grand_total', 'new_quotations.created_at as invoice_date', 'new_quotations.accept_date', 'new_quotations.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
 
-        return view('user.client_quote_invoices', compact('invoices'));
+            $invoices = $direct->concat($in_direct);
+        }
+        
+        return view('user.client_quote_invoices', compact('invoices','service_fee'));
     }
 
     public function DownloadClientQuoteInvoice($id)
@@ -433,7 +427,9 @@ class UserController extends Controller
         $user_id = $user->id;
         $user_role = $user->role_id;
 
-        $invoice = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->where('new_quotations.id', $id)->where('quotes.user_id', $user_id)->first();
+        $invoice = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->where('new_quotations.id', $id)->where(function($query) use ($user_id) {
+            $query->where('quotes.user_id', $user_id)->orWhere('new_quotations.user_id',$user_id);
+        })->first();
 
         if (!$invoice) {
             return redirect()->back();
@@ -490,7 +486,9 @@ class UserController extends Controller
         $user_id = $user->id;
         $user_role = $user->role_id;
 
-        $invoice = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('new_quotations.id', $id)->where('quotes.user_id', $user_id)->first();
+        $invoice = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('new_quotations.id', $id)->where(function($query) use ($user_id) {
+            $query->where('quotes.user_id', $user_id)->orWhere('new_quotations.user_id',$user_id);
+        })->first();
 
         if (!$invoice) {
             return redirect()->back();
@@ -514,7 +512,7 @@ class UserController extends Controller
             $message->to($admin_email)
                 ->from('info@vloerofferte.nl')
                 ->subject('Quotation Review Request!')
-                ->setBody("A quotation review request has been submitted by Mr/Mrs " . $user->name . " against quotation QUO# " . $invoice->quotation_invoice_number . "<br>Handyman: " . $user_name . "<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte", 'text/html');
+                ->setBody("A quotation review request has been submitted by Mr/Mrs " . $user->name . " against quotation QUO# " . $invoice->quotation_invoice_number . "<br>Retailer: " . $user_name . "<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte", 'text/html');
         });
 
         Session::flash('success', __('text.Request submitted successfully!'));
@@ -724,6 +722,44 @@ class UserController extends Controller
             Session::flash('unsuccess', 'Quotation Expired!');
             return redirect()->back();
         }
+    }
+
+    public function AcceptNewQuotation($id)
+    {
+        $now = date('d-m-Y H:i:s');
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+
+        $invoice = new_quotations::leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('new_quotations.id', $id)->where('new_quotations.user_id', $user_id)->where('new_quotations.status',1)->first();
+
+        if (!$invoice) {
+            return redirect()->back();
+        }
+
+        new_quotations::where('id', $id)->update(['status' => 2, 'ask_customization' => 0, 'accepted' => 1, 'accept_date' => $now]);
+
+        $creator_email = $invoice->email;
+        $creator_name = $invoice->name;
+
+        \Mail::send(array(), array(), function ($message) use ($creator_email, $creator_name, $invoice, $user) {
+            $message->to($creator_email)
+                ->from('info@vloerofferte.nl')
+                ->subject(__('text.Quotation Accepted!'))
+                ->setBody("Congratulations! Dear Mr/Mrs " . $creator_name . ",<br><br>Mr/Mrs " . $user->name . " has accepted your quotation QUO# " . $invoice->quotation_invoice_number . "<br><br>Kind regards,<br><br>Klantenservice<br><br> Pieppiep", 'text/html');
+        });
+
+        /*$admin_email = $this->sl->admin_email;
+
+        \Mail::send(array(), array(), function ($message) use($admin_email,$user_name,$invoice,$user) {
+            $message->to($admin_email)
+                ->from('info@pieppiep.nl')
+                ->subject('Quotation Accepted!')
+                ->setBody("A quotation QUO# ".$invoice->quotation_invoice_number." has been accepted by Mr/Mrs ".$user->name.' '.$user->family_name."<br>Handyman: ".$user_name."<br><br>Kind regards,<br><br>Klantenservice<br><br> Pieppiep", 'text/html');
+        });*/
+
+        Session::flash('success', __('text.Quotation accepted successfully!'));
+
+        return redirect()->back();
     }
 
     public function CustomQuotationAcceptQuotation($id)
@@ -1081,7 +1117,9 @@ class UserController extends Controller
         $user = Auth::guard('user')->user();
         $user_id = $user->id;
 
-        $check = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->where('new_quotations.id', $id)->where('quotes.user_id', $user_id)->first();
+        $check = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->where('new_quotations.id', $id)->where(function($query) use ($user_id) {
+            $query->where('quotes.user_id', $user_id)->orWhere('new_quotations.user_id',$user_id);
+        })->first();
 
         if($check)
         {
