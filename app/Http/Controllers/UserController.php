@@ -690,6 +690,7 @@ class UserController extends Controller
             $api_key = Generalsetting::where('backend',0)->pluck('mollie')->first();
 
             $total_mollie = $total_mollie + $service_fee;
+            $total_mollie = number_format((float)$total_mollie, 2, '.', '');
 
             $mollie = new \Mollie\Api\MollieApiClient();
             $mollie->setApiKey($api_key);
