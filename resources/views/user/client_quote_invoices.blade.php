@@ -159,9 +159,13 @@
 
                                                                             <span class="btn btn-success">{{__('text.Goods Delivered')}}</span>
 
-                                                                        @else
+                                                                        @elseif($key->invoice)
 
                                                                             <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+
+                                                                        @else
+
+                                                                            <span class="btn btn-success">{{__('text.Paid')}}</span>
 
                                                                         @endif
 
