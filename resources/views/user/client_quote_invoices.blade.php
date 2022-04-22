@@ -93,7 +93,7 @@
 
                                                             <td>{{$key->subtotal}}</td>--}}
 
-                                                            <td>{{number_format((float)($key->grand_total + $service_fee), 2, ',','.')}}</td>
+                                                            <td>{{number_format((float)$key->grand_total, 2, ',','.')}}</td>
 
                                                             <?php
 
@@ -319,6 +319,8 @@
                     </div>
 
                     <div class="modal-body" id="myWizard">
+
+                        <h5 style="color: #f52c2c;font-family: sans-serif;font-size: 15px;">Note: By accepting this offer we charge you {{$service_fee}} euro service fee</h5>
 
                         <input type="hidden" name="invoice_id" id="invoice_id">
                         <label>{{__('text.Delivery Date')}} <span style="color: red;">*</span></label>

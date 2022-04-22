@@ -612,8 +612,9 @@ class UserController extends Controller
     public function PayQuotation(Request $request)
     {
         $pay_invoice_id = $request->pay_invoice_id;
-        $data = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->where('new_quotations.id', $pay_invoice_id)->select('quotes.*', 'new_quotations.grand_total','new_quotations.creator_id','new_quotations.quotation_invoice_number','new_quotations.accept_date', 'new_quotations.delivery_date')->first();
+        $data = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->where('new_quotations.id', $pay_invoice_id)->select('quotes.*', 'new_quotations.service_fee', 'new_quotations.grand_total','new_quotations.creator_id','new_quotations.quotation_invoice_number','new_quotations.accept_date', 'new_quotations.delivery_date')->first();
 
+        $service_fee = $data->service_fee;
         $accept_date = $data->accept_date;
         $delivery_date = $data->delivery_date;
 
@@ -671,7 +672,7 @@ class UserController extends Controller
 
             $total_mollie = number_format((float)$data->grand_total, 2, '.', '');
             $settings = Generalsetting::where('backend',1)->first();
-            $description = 'Payment for Quotation No. ' . $quotation_invoice_number . '<br>We will charge 15 euro as service fee.';
+            $description = 'Payment for Quotation No. ' . $quotation_invoice_number;
 
             $inv_encrypt = Crypt::encrypt($pay_invoice_id);
             $commission_percentage = $settings->commission_percentage;
@@ -687,6 +688,8 @@ class UserController extends Controller
             unset($commission_invoice_number[1]);
             $commission_invoice_number = implode("-",$commission_invoice_number);
             $api_key = Generalsetting::where('backend',0)->pluck('mollie')->first();
+
+            $total_mollie = $total_mollie + $service_fee;
 
             $mollie = new \Mollie\Api\MollieApiClient();
             $mollie->setApiKey($api_key);
@@ -709,6 +712,7 @@ class UserController extends Controller
                     "commission" => $commission,
                     "total_receive" => $total_receive,
                     "language" => $language,
+                    "service_fee" => $service_fee
                 ],
             ]);
 
