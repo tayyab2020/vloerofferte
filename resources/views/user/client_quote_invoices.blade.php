@@ -151,11 +151,7 @@
 
                                                                     @if($key->status == 3)
 
-                                                                        @if($key->received)
-
-                                                                            <span class="btn btn-success">{{__('text.Goods Received')}}</span>
-
-                                                                        @elseif($key->delivered)
+                                                                        @if($key->delivered)
 
                                                                             <span class="btn btn-success">{{__('text.Goods Delivered')}}</span>
 
@@ -275,7 +271,7 @@
 
                                                             @if(Route::currentRouteName() == 'client-quotations' || Route::currentRouteName() == 'client-new-quotations')
 
-                                                                @if($key->quote_request_id)
+                                                                @if($key->quote_request_id && !$key->paid)
 
                                                                     <td class="interval"></td>
 
