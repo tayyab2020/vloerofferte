@@ -95,7 +95,7 @@
   Route::get('/offertes/{id?}', 'UserController@ClientNewQuotations')->name('client-quotations');
   Route::get('/client-new-quotations', 'UserController@ClientNewQuotations')->name('client-new-quotations');
   Route::get('/Offerte-op-maat/{id?}', 'UserController@CustomQuotations')->name('client-custom-quotations');
-  Route::get('/Offerte-verkoopfactuur/{id?}', 'UserController@QuotationsInvoices')->name('client-quotations-invoices');
+  Route::get('/Offerte-verkoopfactuur/{id?}', 'UserController@ClientNewQuotations')->name('client-quotations-invoices');
   Route::get('/bekijk-offerte-aanvraag/{id}', 'UserController@QuoteRequest');
   Route::get('/download-quote-request/{id}', 'UserController@DownloadQuoteRequest');
   Route::get('/download-quote-invoice/{id}', 'UserController@DownloadQuoteInvoice');
