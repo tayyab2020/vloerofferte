@@ -101,7 +101,8 @@
   Route::get('/download-quote-invoice/{id}', 'UserController@DownloadQuoteInvoice');
   Route::get('/download-commission-invoice/{id}', 'UserController@DownloadCommissionInvoice');
   Route::get('/download-custom-quotation/{id}', 'UserController@DownloadCustomQuotation');
-  Route::get('/download-client-quote-invoice/{id}', 'UserController@DownloadClientQuoteInvoice');
+  Route::get('/download-client-quote-invoice/{id}', 'UserController@DownloadClientQuoteInvoice')->name('download-client-quote-invoice');
+  Route::get('/download-service-fee-invoice/{id}', 'UserController@DownloadClientQuoteInvoice')->name('download-service-fee-invoice');
   Route::get('/download-client-custom-quotation/{id}', 'UserController@DownloadClientCustomQuoteInvoice');
   Route::post('/ask-customization', 'UserController@AskCustomization');
   Route::get('/accept-new-quotation/{id}', 'UserController@AcceptNewQuotation')->name('accept-new-quotation');

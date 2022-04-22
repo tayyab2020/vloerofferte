@@ -165,7 +165,7 @@
 
                                                                         @else
 
-                                                                            <span class="btn btn-success">{{__('text.Paid')}}</span>
+                                                                            <span class="btn btn-success">Paid</span>
 
                                                                         @endif
 
@@ -323,6 +323,12 @@
                                                                             @endif
 
                                                                             <li><a href="{{ url('/aanbieder/download-client-quote-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
+
+                                                                            @if($key->paid)
+
+                                                                                <li><a href="{{ url('/aanbieder/download-service-fee-invoice/'.$key->invoice_id) }}">Download Service Fee PDF</a></li>
+
+                                                                            @endif
 
                                                                             @if($key->status != 0 && $key->status != 2 && $key->status != 3)
 
