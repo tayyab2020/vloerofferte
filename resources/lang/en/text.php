@@ -175,7 +175,7 @@ return [
     'Enter Street Number' => 'Enter Street Number',
     'Enter House Details' => 'Enter House Details',
     'Your Quotation request has been updated successfully!' => 'Your Quotation request has been updated successfully!',
-    'Email address is already in use for a handyman account!' => 'Email address is already in use for a handyman account!',
+    'Email address is already in use for a retialer account!' => 'Email address is already in use for a retialer account!',
     'Your Quotation request has been created successfully!' => 'Your Quotation request has been created successfully!',
     'New Product(s) added successfully.' => 'New Product(s) added successfully.',
     'Product deleted successfully.' => 'Product deleted successfully.',

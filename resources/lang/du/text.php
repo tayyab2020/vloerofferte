@@ -175,7 +175,7 @@ return [
     'Enter House Details' => 'Vul hier je huisnummer',
     'Enter Contact Number' => 'Vul hier je telefoonnummer in',
     'Your Quotation request has been updated successfully!' => 'Je aanvraag is succesvol bijgewerkt',
-    'Email address is already in use for a handyman account!' => 'Dit emailadres is al in gebruik!',
+    'Email address is already in use for a retialer account!' => 'Dit emailadres is al in gebruik!',
     'Your Quotation request has been created successfully!' => 'Je offerteaanvraag is succesvol aangemaakt!',
     'New Product(s) added successfully.' => 'Je product(en) is met succes aangemaakt.',
     'Product deleted successfully.' => 'Product is succesvol verwijderd.',

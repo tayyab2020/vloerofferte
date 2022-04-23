@@ -161,7 +161,7 @@
 
                             </div>
 
-                            <div style="width: 18%;">
+                            <div class="linked-boxes" style="width: 18%;">
 
                                 <select class="js-data-example-ajax12 form-control quote-type" name="group" id="blood_grp">
 
@@ -201,7 +201,7 @@
 
                             </div>
 
-                            <div class="unlinked-boxes" style="width: 54%;display: none;">
+                            <div class="unlinked-boxes" style="width: 72%;display: none;">
 
                                 <select class="js-data-example-ajax0 form-control quote-service" name="group" id="blood_grp">
 
@@ -1006,6 +1006,7 @@
                         $('.quote-brand').addClass('quote_validation');
                         $('.quote-type').addClass('quote_validation');
                         $('.quote-model').addClass('quote_validation');
+                        $('.quote-color').addClass('quote_validation');
                         $('.quote_quantity').addClass('quote_validation');
                         $('.quote_delivery').addClass('quote_validation');
 
@@ -1038,6 +1039,7 @@
                         $('.quote-brand').removeClass('quote_validation');
                         $('.quote-type').removeClass('quote_validation');
                         $('.quote-model').removeClass('quote_validation');
+                        $('.quote-color').removeClass('quote_validation');
                         $('.quote_quantity').addClass('quote_validation');
                         $('.quote_delivery').addClass('quote_validation');
 
@@ -1067,12 +1069,16 @@
                         $('.quote-model').val('');
                         $(".quote-model").trigger('change.select2');
 
+                        $('.quote-color').val('');
+                        $(".quote-color").trigger('change.select2');
+
                         $('.files-upload').addClass('quote_validation');
                         $('.quote-service').removeClass('quote_validation');
                         $('.quote-category').removeClass('quote_validation');
                         $('.quote-brand').removeClass('quote_validation');
                         $('.quote-type').removeClass('quote_validation');
                         $('.quote-model').removeClass('quote_validation');
+                        $('.quote-color').removeClass('quote_validation');
 
                         $('#step1').css('height','');
                         $('.quote_quantity').removeClass('quote_validation');
@@ -1288,6 +1294,7 @@
                                         $('.quote-brand').addClass('quote_validation');
                                         $('.quote-type').addClass('quote_validation');
                                         $('.quote-model').addClass('quote_validation');
+                                        $('.quote-color').addClass('quote_validation');
 
                                         $('.unlinked-boxes').hide();
                                         $('.linked-boxes').show();

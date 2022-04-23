@@ -1231,7 +1231,7 @@ class FrontendController extends Controller
 
                 if ($check->role_id == 2) {
 
-                    Session::flash('unsuccess', __('text.Email address is already in use for a handyman account!'));
+                    Session::flash('unsuccess', __('text.Email address is already in use for a retialer account!'));
                     return redirect()->back();
 
                 }
