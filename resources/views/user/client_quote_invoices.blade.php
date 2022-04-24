@@ -323,6 +323,10 @@
                                                                                 <li><a href="{{ url('/aanbieder/offerte/'.$key->invoice_id) }}">{{__('text.View')}}</a></li>
                                                                                 <li><a href="{{ url('/aanbieder/download-client-quote-invoice/'.$key->invoice_id) }}">{{__('text.Download PDF')}}</a></li>
 
+                                                                            @endif
+
+                                                                            @if(Route::currentRouteName() == 'client-quotations-invoices')
+
                                                                                 @if($key->paid)
 
                                                                                     <li><a href="{{ url('/aanbieder/download-service-fee-invoice/'.$key->invoice_id) }}">Download Service Fee PDF</a></li>

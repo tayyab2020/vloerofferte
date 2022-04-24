@@ -1575,6 +1575,7 @@
                     $('.quote-brand').removeClass('quote_validation');
                     $('.quote-type').removeClass('quote_validation');
                     $('.quote-model').removeClass('quote_validation');
+                    $('.quote-color').removeClass('quote_validation');
                 }
                 else
                 {
@@ -1597,6 +1598,7 @@
                     $('.quote-brand').addClass('quote_validation');
                     $('.quote-type').addClass('quote_validation');
                     $('.quote-model').addClass('quote_validation');
+                    $('.quote-color').addClass('quote_validation');
 
                     $('.unlinked-boxes').hide();
                     $('.linked-boxes').show();
