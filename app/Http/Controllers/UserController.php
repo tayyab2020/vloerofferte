@@ -410,12 +410,12 @@ class UserController extends Controller
         {
             if($id)
             {
-                $invoices = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('quotes.user_id', $user_id)->where('new_quotations.quote_request_id', $id)->where('new_quotations.approved', 1)->where('new_quotations.quote_request_id','!=',NULL)->orderBy('new_quotations.created_at', 'desc')->select('quotes.*', 'new_quotations.invoice_sent', 'new_quotations.paid', 'new_quotations.invoice','new_quotations.quote_request_id', 'new_quotations.review_text', 'new_quotations.ask_customization', 'new_quotations.approved', 'new_quotations.accepted', 'new_quotations.id as invoice_id', 'new_quotations.quotation_invoice_number', 'new_quotations.tax_amount as tax', 'new_quotations.subtotal', 'new_quotations.grand_total', 'new_quotations.created_at as invoice_date', 'new_quotations.accept_date', 'new_quotations.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
+                $invoices = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('quotes.user_id', $user_id)->where('new_quotations.quote_request_id', $id)->where('new_quotations.approved', 1)->where('new_quotations.quote_request_id','!=',NULL)->orderBy('new_quotations.created_at', 'desc')->select('quotes.*', 'new_quotations.retailer_delivered', 'new_quotations.customer_received', 'new_quotations.invoice_sent', 'new_quotations.paid', 'new_quotations.invoice','new_quotations.quote_request_id', 'new_quotations.review_text', 'new_quotations.ask_customization', 'new_quotations.approved', 'new_quotations.accepted', 'new_quotations.id as invoice_id', 'new_quotations.quotation_invoice_number', 'new_quotations.tax_amount as tax', 'new_quotations.subtotal', 'new_quotations.grand_total', 'new_quotations.created_at as invoice_date', 'new_quotations.accept_date', 'new_quotations.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
             }
             else
             {
                 $direct = new_quotations::leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('new_quotations.user_id', $user_id)->where('new_quotations.approved', 1)->where('new_quotations.quote_request_id',NULL)->orderBy('new_quotations.created_at', 'desc')->select('new_quotations.*', 'new_quotations.id as invoice_id', 'new_quotations.created_at as invoice_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
-                $in_direct = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('quotes.user_id', $user_id)->where('new_quotations.approved', 1)->where('new_quotations.quote_request_id','!=',NULL)->orderBy('new_quotations.created_at', 'desc')->select('quotes.*', 'new_quotations.invoice_sent', 'new_quotations.paid', 'new_quotations.invoice', 'new_quotations.quote_request_id', 'new_quotations.review_text', 'new_quotations.ask_customization', 'new_quotations.approved', 'new_quotations.accepted', 'new_quotations.id as invoice_id', 'new_quotations.quotation_invoice_number', 'new_quotations.tax_amount as tax', 'new_quotations.subtotal', 'new_quotations.grand_total', 'new_quotations.created_at as invoice_date', 'new_quotations.accept_date', 'new_quotations.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
+                $in_direct = new_quotations::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_quotations.creator_id')->where('quotes.user_id', $user_id)->where('new_quotations.approved', 1)->where('new_quotations.quote_request_id','!=',NULL)->orderBy('new_quotations.created_at', 'desc')->select('quotes.*', 'new_quotations.retailer_delivered', 'new_quotations.customer_received', 'new_quotations.invoice_sent', 'new_quotations.paid', 'new_quotations.invoice', 'new_quotations.quote_request_id', 'new_quotations.review_text', 'new_quotations.ask_customization', 'new_quotations.approved', 'new_quotations.accepted', 'new_quotations.id as invoice_id', 'new_quotations.quotation_invoice_number', 'new_quotations.tax_amount as tax', 'new_quotations.subtotal', 'new_quotations.grand_total', 'new_quotations.created_at as invoice_date', 'new_quotations.accept_date', 'new_quotations.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
 
                 $invoices = $direct->concat($in_direct);
             }
@@ -424,12 +424,12 @@ class UserController extends Controller
         {
             if($id)
             {
-                $invoices = new_invoices::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_invoices.creator_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('new_invoices.quote_request_id', $id)->where('new_invoices.approved', 1)->where('new_invoices.invoice_sent', 1)->where('new_invoices.quote_request_id','!=',NULL)->orderBy('new_invoices.created_at', 'desc')->select('quotes.*', 'new_invoices.invoice_sent', 'new_invoices.paid', 'new_invoices.invoice','new_invoices.quote_request_id', 'new_invoices.review_text', 'new_invoices.ask_customization', 'new_invoices.approved', 'new_invoices.accepted', 'new_invoices.quotation_id as invoice_id', 'new_invoices.invoice_number', 'new_invoices.tax_amount as tax', 'new_invoices.subtotal', 'new_invoices.grand_total', 'new_invoices.created_at as invoice_date', 'new_invoices.accept_date', 'new_invoices.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
+                $invoices = new_invoices::leftjoin('quotes', 'quotes.id', '=', 'new_quotations.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_invoices.creator_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('new_invoices.quote_request_id', $id)->where('new_invoices.approved', 1)->where('new_invoices.invoice_sent', 1)->where('new_invoices.quote_request_id','!=',NULL)->orderBy('new_invoices.created_at', 'desc')->select('quotes.*', 'new_invoices.retailer_delivered', 'new_invoices.customer_received', 'new_invoices.invoice_sent', 'new_invoices.paid', 'new_invoices.invoice','new_invoices.quote_request_id', 'new_invoices.review_text', 'new_invoices.ask_customization', 'new_invoices.approved', 'new_invoices.accepted', 'new_invoices.quotation_id as invoice_id', 'new_invoices.invoice_number', 'new_invoices.tax_amount as tax', 'new_invoices.subtotal', 'new_invoices.grand_total', 'new_invoices.created_at as invoice_date', 'new_invoices.accept_date', 'new_invoices.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
             }
             else
             {
                 $direct = new_invoices::leftjoin('users', 'users.id', '=', 'new_invoices.creator_id')->where('new_invoices.user_id', $user_id)->where('new_invoices.approved', 1)->where('new_invoices.invoice_sent', 1)->where('new_invoices.quote_request_id',NULL)->orderBy('new_invoices.created_at', 'desc')->select('new_invoices.*', 'new_invoices.quotation_id as invoice_id', 'new_invoices.created_at as invoice_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
-                $in_direct = new_invoices::leftjoin('quotes', 'quotes.id', '=', 'new_invoices.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_invoices.creator_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('new_invoices.approved', 1)->where('new_invoices.invoice_sent', 1)->where('new_invoices.quote_request_id','!=',NULL)->orderBy('new_invoices.created_at', 'desc')->select('quotes.*', 'new_invoices.invoice_sent', 'new_invoices.paid', 'new_invoices.invoice', 'new_invoices.quote_request_id', 'new_invoices.review_text', 'new_invoices.ask_customization', 'new_invoices.approved', 'new_invoices.accepted', 'new_invoices.quotation_id as invoice_id', 'new_invoices.invoice_number', 'new_invoices.tax_amount as tax', 'new_invoices.subtotal', 'new_invoices.grand_total', 'new_invoices.created_at as invoice_date', 'new_invoices.accept_date', 'new_invoices.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
+                $in_direct = new_invoices::leftjoin('quotes', 'quotes.id', '=', 'new_invoices.quote_request_id')->leftjoin('users', 'users.id', '=', 'new_invoices.creator_id')->where('quotes.user_id', $user_id)->where('quotes.status', '=', 3)->where('new_invoices.approved', 1)->where('new_invoices.invoice_sent', 1)->where('new_invoices.quote_request_id','!=',NULL)->orderBy('new_invoices.created_at', 'desc')->select('quotes.*', 'new_invoices.retailer_delivered', 'new_invoices.customer_received', 'new_invoices.invoice_sent', 'new_invoices.paid', 'new_invoices.invoice', 'new_invoices.quote_request_id', 'new_invoices.review_text', 'new_invoices.ask_customization', 'new_invoices.approved', 'new_invoices.accepted', 'new_invoices.quotation_id as invoice_id', 'new_invoices.invoice_number', 'new_invoices.tax_amount as tax', 'new_invoices.subtotal', 'new_invoices.grand_total', 'new_invoices.created_at as invoice_date', 'new_invoices.accept_date', 'new_invoices.delivery_date', 'users.name', 'users.family_name', 'users.address', 'users.postcode', 'users.city', 'users.phone')->get();
 
                 $invoices = $direct->concat($in_direct);
             }
@@ -4280,35 +4280,35 @@ class UserController extends Controller
         $user_id = $user->id;
 
         $now = date('d-m-Y H:i:s');
-        $check = quotation_invoices::leftjoin('quotes','quotes.id','=','quotation_invoices.quote_id')->where('quotation_invoices.id',$id)->where('quotes.user_id',$user_id)->where('quotation_invoices.invoice',1)->update(['quotation_invoices.received' => 1,'quotation_invoices.received_date' => $now]);
+        $check = new_quotations::leftjoin('quotes','quotes.id','=','new_quotations.quote_request_id')->where('new_quotations.id',$id)->where('quotes.user_id',$user_id)->where('new_quotations.invoice',1)->update(['new_quotations.customer_received' => 1,'new_quotations.received_date' => $now]);
 
         iF($check)
         {
-            $handyman = quotation_invoices::leftjoin('users','users.id','=','quotation_invoices.handyman_id')->where('quotation_invoices.id',$id)->select('users.*','quotation_invoices.quotation_invoice_number')->first();
+            $retailer = new_quotations::leftjoin('users','users.id','=','new_quotations.creator_id')->where('new_quotations.id',$id)->select('users.*','new_quotations.quotation_invoice_number')->first();
 
             $admin_email = $this->sl->admin_email;
 
             if($this->lang->lang == 'du')
             {
-                $msg = "Beste $handyman->name,<br><br>Je klant heeft de status voor factuur INV# <b>" . $handyman->quotation_invoice_number . "</b> gewijzigd naar goederen ontvangen.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
+                $msg = "Beste $retailer->name,<br><br>Je klant heeft de status voor factuur INV# <b>" . $retailer->quotation_invoice_number . "</b> gewijzigd naar goederen ontvangen.<br><br>Met vriendelijke groeten,<br><br>Klantenservice<br><br> Vloerofferte";
             }
             else
             {
-                $msg = "Dear <b>Mr/Mrs " . $handyman->name . "</b>,<br><br>Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
+                $msg = "Dear <b>Mr/Mrs " . $retailer->name . "</b>,<br><br>Goods for quotation INV# <b>" . $retailer->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte";
             }
 
-            \Mail::send(array(), array(), function ($message) use ($msg,$handyman) {
-                $message->to($handyman->email)
+            \Mail::send(array(), array(), function ($message) use ($msg,$retailer) {
+                $message->to($retailer->email)
                     ->from('info@vloerofferte.nl')
                     ->subject(__('text.Invoice Status Changed'))
                     ->setBody($msg, 'text/html');
             });
 
-            \Mail::send(array(), array(), function ($message) use ($admin_email, $handyman) {
+            \Mail::send(array(), array(), function ($message) use ($admin_email, $retailer) {
                 $message->to($admin_email)
                     ->from('info@vloerofferte.nl')
                     ->subject('Invoice Status Changed')
-                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $handyman->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte", 'text/html');
+                    ->setBody("Recent activity: Goods for quotation INV# <b>" . $retailer->quotation_invoice_number . "</b> have been marked as received.<br><br>Kind regards,<br><br>Klantenservice<br><br> Vloerofferte", 'text/html');
             });
 
             Session::flash('success', __('text.Status Updated Successfully!'));

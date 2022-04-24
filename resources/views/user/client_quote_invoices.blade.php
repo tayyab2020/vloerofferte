@@ -159,7 +159,11 @@
 
                                                                     @if($key->status == 3)
 
-                                                                        @if($key->delivered)
+                                                                        @if($key->customer_received)
+
+                                                                            <span class="btn btn-success">{{__('text.Goods Received')}}</span>
+
+                                                                        @elseif($key->retailer_delivered)
 
                                                                             <span class="btn btn-success">{{__('text.Goods Delivered')}}</span>
 
@@ -175,13 +179,17 @@
 
                                                                     @elseif($key->status == 2)
 
-                                                                        @if($key->invoice_sent)
+                                                                        @if($key->customer_received)
 
-                                                                            <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
+                                                                            <span class="btn btn-success">{{__('text.Goods Received')}}</span>
 
                                                                         @elseif($key->retailer_delivered)
 
                                                                             <span class="btn btn-success">{{__('text.Goods Delivered')}}</span>
+
+                                                                        @elseif($key->invoice_sent)
+
+                                                                            <span class="btn btn-success">{{__('text.Invoice Generated')}}</span>
 
                                                                         @elseif($key->accepted)
 
@@ -369,11 +377,11 @@
 
                                                                             @endif
 
-                                                                            <!-- @if($key->delivered == 1 && $key->received == 0)
+                                                                            @if($key->retailer_delivered == 1 && $key->customer_received == 0)
 
                                                                                 <li><a href="{{ url('/aanbieder/mark-received/'.$key->invoice_id) }}">{{__('text.Mark as received')}}</a></li>
 
-                                                                            @endif -->
+                                                                            @endif
 
                                                                         @endif
 
