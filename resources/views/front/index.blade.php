@@ -635,7 +635,7 @@
                                                 <p>
                                                     @if($cat->photo == NULL)
 
-                                                        <img class=" img-fluid" src="{{asset('assets/default.jpg')}}" >
+                                                        <img class=" img-fluid" src="{{asset('assets/images/'.$gs->logo)}}" >
 
                                                     @else
 
