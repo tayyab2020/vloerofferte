@@ -563,7 +563,7 @@
 
                                     <input maskedFormat="9,1" autocomplete="off" max="100" min="1"
                                            style="height: 40px;border: 1px solid #e1e1e1;" type="text"
-                                           name="quote_quantity" placeholder="{{__('text.Quantity')}}"
+                                           name="quote_quantity" placeholder="Quantity"
                                            class="form-control quote_quantity quote_validation">
 
                                 </div>
@@ -583,7 +583,66 @@
 
                             <div class="well"></div>
 
-                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
+                            <section class="attributes_table" style="width: 100%;padding: 19px;">
+
+                                <div class="header-div">
+                                    <div class="headings" style="width: 42%;">Description</div>
+                                    <div class="headings" style="width: 20%;">Width</div>
+                                    <div class="headings" style="width: 20%;">Height</div>
+                                    <div class="headings" style="width: 18%;"></div>
+                                </div>
+
+                                <div class="attribute-content-div">
+
+                                    <div class="attribute full-res" style="width: 42%;">
+                                        <div style="display: flex;align-items: center;">
+                                            <span style="width: 10%">1</span>
+                                            <div style="width: 90%;"><textarea class="form-control attribute_description" style="width: 90%;border-radius: 7px;resize: vertical;height: 40px;outline: none;" name="attribute_description[]"></textarea></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="attribute width-box" style="width: 20%;">
+
+                                        <div class="m-box">
+                                            <input style="border: 1px solid #ccc;" id="width" class="form-control width m-input" maskedformat="9,1" autocomplete="off" name="width[]" type="text">
+                                            <input style="border: 0;outline: none;" value="cm" readonly="" type="text" name="width_unit[]" class="measure-unit">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="attribute height-box" style="width: 20%;">
+
+                                        <div class="m-box">
+                                            <input style="border: 1px solid #ccc;" id="height" class="form-control height m-input" maskedformat="9,1" autocomplete="off" name="height[]" type="text">
+                                            <input style="border: 0;outline: none;" value="cm" readonly="" type="text" name="height_unit[]" class="measure-unit">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="attribute last-content" style="padding: 0;width: 18%;">
+                                        <div class="res-white" style="display: flex;justify-content: flex-start;align-items: center;width: 100%;">
+
+                                            <span id="next-row-span" class="add-attribute-row" style="cursor: pointer;font-size: 20px;margin-left: 10px;width: 20px;height: 20px;line-height: 20px;">
+                                                <i id="next-row-icon" class="fa fa-fw fa-plus"></i>
+                                            </span>
+
+                                            <span id="next-row-span" class="remove-attribute-row" style="cursor: pointer;font-size: 20px;margin-left: 10px;width: 20px;height: 20px;line-height: 20px;">
+                                                <i id="next-row-icon" class="fa fa-fw fa-trash-o"></i>
+                                            </span>
+
+                                            <span id="next-row-span" class="copy-attribute-row" style="cursor: pointer;font-size: 20px;margin: 0 10px;width: 20px;height: 20px;line-height: 20px;">
+                                                <i id="next-row-icon" class="fa fa-fw fa-copy"></i>
+                                            </span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </section>
+
+{{--                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>--}}
 
                         </div>
 
@@ -691,6 +750,90 @@
 </div>
 
 <style type="text/css">
+
+    .attributes_table
+    {
+        display: none;
+    }
+
+    .attributes_table.active
+    {
+        display: block;
+    }
+
+    .m-box {
+        display: flex;
+        align-items: center;
+    }
+
+    .m-input {
+        border-radius: 5px !important;
+        width: 70%;
+        border: 0;
+        padding: 0 5px;
+        text-align: left;
+        height: 30px !important;
+    }
+
+    .m-input:focus{
+        background: #f6f6f6;
+    }
+
+    .measure-unit {
+        width: 50%;
+    }
+
+    .header-div, .content-div, .attribute-content-div
+    {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .header-div .headings
+    {
+        font-family: system-ui;
+        font-weight: 500;
+        border-bottom: 1px solid #ebebeb;
+        padding-bottom: 15px;
+        color: gray;
+        height: 40px;
+    }
+
+    .content-div, .attribute-content-div
+    {
+        margin-top: 15px;
+        flex-flow: wrap;
+        /*border-bottom: 1px solid #d0d0d0;*/
+        padding-bottom: 10px;
+    }
+
+    .content-div .content {
+        font-family: system-ui;
+        font-weight: 500;
+        padding: 0;
+        color: #3c3c3c;
+        height: 40px;
+        display: flex;
+        align-items: center;
+    }
+
+    .content-div.active .content {
+        border-top: 2px solid #cecece;
+        border-bottom: 2px solid #cecece;
+    }
+
+    .content-div.active .content:first-child {
+        border-left: 2px solid #cecece;
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+    }
+
+    .content-div.active .last-content {
+        border-right: 2px solid #cecece;
+        border-bottom-right-radius: 4px;
+        border-top-right-radius: 4px;
+    }
 
     .it .btn-orange
     {
@@ -1229,6 +1372,90 @@
 
 <script type="text/javascript">
 
+    function add_attribute_row(copy = false,content = null) {
+
+        if (!copy) {
+
+            $(`.attributes_table`).append('<div class="attribute-content-div"><div class="attribute full-res" style="width: 42%;">\n' +
+                '\n' +
+                '                                        <div style="display: flex;align-items: center;">\n' +
+                '                                            <span style="width: 10%">1</span>\n' +
+                '                                            <div style="width: 90%;"><textarea class="form-control attribute_description" style="width: 90%;border-radius: 7px;resize: vertical;height: 40px;outline: none;" name="attribute_description[]"></textarea></div>\n' +
+                '                                        </div>\n' +
+                '                                    </div>\n' +
+                '\n' +
+                '                                    <div class="attribute width-box" style="width: 20%;">\n' +
+                '\n' +
+                '                                        <div class="m-box">\n' +
+                '                                            <input style="border: 1px solid #ccc;" id="width" class="form-control width m-input" maskedformat="9,1" autocomplete="off" name="width[]" type="text">\n' +
+                '                                            <input style="border: 0;outline: none;" value="cm" readonly="" type="text" name="width_unit[]" class="measure-unit">\n' +
+                '                                        </div>\n' +
+                '\n' +
+                '                                    </div>\n' +
+                '\n' +
+                '                                    <div class="attribute height-box" style="width: 20%;">\n' +
+                '\n' +
+                '                                        <div class="m-box">\n' +
+                '                                            <input style="border: 1px solid #ccc;" id="height" class="form-control height m-input" maskedformat="9,1" autocomplete="off" name="height[]" type="text">\n' +
+                '                                            <input style="border: 0;outline: none;" value="cm" readonly="" type="text" name="height_unit[]" class="measure-unit">\n' +
+                '                                        </div>\n' +
+                '\n' +
+                '                                    </div>\n' +
+                '\n' +
+                '                                    <div class="attribute last-content" style="padding: 0;width: 18%;">\n' +
+                '                                        <div class="res-white" style="display: flex;justify-content: flex-start;align-items: center;width: 100%;">\n' +
+                '\n' +
+                '                                            <span id="next-row-span" class="add-attribute-row" style="cursor: pointer;font-size: 20px;margin-left: 10px;width: 20px;height: 20px;line-height: 20px;">\n' +
+                '                                                <i id="next-row-icon" class="fa fa-fw fa-plus"></i>\n' +
+                '                                            </span>\n' +
+                '\n' +
+                '                                            <span id="next-row-span" class="remove-attribute-row" style="cursor: pointer;font-size: 20px;margin-left: 10px;width: 20px;height: 20px;line-height: 20px;">\n' +
+                '                                                <i id="next-row-icon" class="fa fa-fw fa-trash-o"></i>\n' +
+                '                                            </span>\n' +
+                '\n' +
+                '                                            <span id="next-row-span" class="copy-attribute-row" style="cursor: pointer;font-size: 20px;margin: 0 10px;width: 20px;height: 20px;line-height: 20px;">\n' +
+                '                                                <i id="next-row-icon" class="fa fa-fw fa-copy"></i>\n' +
+                '                                            </span>\n' +
+                '\n' +
+                '                                        </div>\n' +
+                '                                    </div></div>');
+        }
+        else {
+
+            $(`.attributes_table`).append('<div class="attribute-content-div"></div>\n');
+            content.appendTo(`.attributes_table .attribute-content-div:last`);
+        }
+    }
+
+    $(document).on('click', '.add-attribute-row', function () {
+
+        add_attribute_row(false);
+
+    });
+
+    $(document).on('click', '.copy-attribute-row', function () {
+
+        var current = $(this).parents('.attribute-content-div');
+        var content = current.children().clone();
+
+        add_attribute_row(true, content);
+
+    });
+
+    $(document).on('click', '.remove-attribute-row', function () {
+
+        var current = $(this).parents('.attribute-content-div');
+        var count = $(".attributes_table .attribute-content-div").length;
+
+
+        if (count != 1) {
+
+            current.remove();
+
+        }
+
+    });
+
     $(document).on('change','.files-upload', function(e){
         var names = [];
         var length = $(this).get(0).files.length;
@@ -1358,9 +1585,20 @@
         $('.quote-model').change(function() {
 
             var id = $(this).val();
+            var measure = $(this).find(':selected').data('measure');
+
+            if(measure == 'M1' || measure == 'Custom Sized')
+            {
+                $('.attributes_table').addClass('active');
+            }
+            else
+            {
+                $('.attributes_table').removeClass('active');
+            }
 
             $('.quote-model').val(id);
             $(".quote-model").trigger('change.select2');
+            $('.quote_quantity').attr("placeholder", "Vul gewenste aantal "+measure+" in");
 
             $('.navbar a[href="#step1"]').trigger('click');
             $('.back').hide();
@@ -1460,7 +1698,7 @@
 
                     $.each(data[0], function(index, value) {
 
-                        var opt = '<option value="'+value.id+'" >'+value.model+'</option>';
+                        var opt = '<option data-measure="'+value.measure+'" value="'+value.id+'" >'+value.model+'</option>';
                         options = options + opt;
 
                     });

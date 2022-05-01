@@ -1468,7 +1468,7 @@
 
                                                             $.each(data[0], function(index, value) {
 
-                                                                var opt = '<option value="'+value.id+'" >'+value.model+'</option>';
+                                                                var opt = '<option data-measure="'+value.measure+'" value="'+value.id+'" >'+value.model+'</option>';
                                                                 options = options + opt;
 
                                                             });
