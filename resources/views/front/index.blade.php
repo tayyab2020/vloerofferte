@@ -1322,7 +1322,7 @@
                                         $('#quote-box').find('.linked-boxes').show();
                                     }
 
-                                    $('#step1').children('.well').css('height','300px');
+                                    // $('#step1').children('.well').css('height','300px');
                                     $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
 
                                     var product_id = this.getElementsByTagName("input")[1].value;
@@ -1387,6 +1387,15 @@
                                             });
 
                                             $('#step2').children('.well').append('<input type="hidden" name="index_count" value="' + index_count + '">');
+
+                                            if(data.length == 0)
+                                            {
+                                                $('#step2').children('.well').addClass('hide');                            
+                                            }
+                                            else
+                                            {
+                                                $('#step2').children('.well').removeClass('hide');
+                                            }
 
                                             /*$('#step2').children('div').children('h3').
                                             console.log(data);*/

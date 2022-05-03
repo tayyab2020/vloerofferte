@@ -223,7 +223,7 @@
 
                                         <button
                                                 style="background-color: white !important;color: black !important;position: relative;right: 5px;"
-                                                type="button" class="close dropdown-close" aria-hidden="true">×
+                                                type="button" class="close dropdown-close" aria-hidden="true">Ã—
                                         </button>
 
                                         <li><a href="{{route('user-dashboard')}}">{{$lang->hpt}}</a></li>
@@ -240,7 +240,7 @@
 
                                         <button
                                                 style="background-color: white !important;color: black !important;position: relative;right: 5px;"
-                                                type="button" class="close dropdown-close" aria-hidden="true">×
+                                                type="button" class="close dropdown-close" aria-hidden="true">Ã—
                                         </button>
 
                                         <li><a href="{{route('client-quotation-requests')}}">{{$lang->cpt}}</a></li>
@@ -260,7 +260,7 @@
 
                                 <button
                                         style="background-color: white !important;color: black !important;position: relative;right: 5px;"
-                                        type="button" class="close dropdown-close" aria-hidden="true">×
+                                        type="button" class="close dropdown-close" aria-hidden="true">Ã—
                                 </button>
 
                                 <li><a href="{{route('front.index')}}">{{$lang->home}}</a></li>
@@ -409,7 +409,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button style="background-color: white !important;color: black !important;" type="button"
-                            class="close" data-dismiss="modal" aria-hidden="true">×
+                            class="close" data-dismiss="modal" aria-hidden="true">Ã—
                     </button>
                     <h3 id="myModalLabel">{{__('text.Ask for Quotation')}}</h3>
                 </div>
@@ -585,6 +585,9 @@
 
                             <section class="attributes_table" style="width: 100%;padding: 19px;">
 
+                                <input type="hidden" name="measure_type" id="measure_type">
+                                <h3 style="border-bottom: 1px solid #b9b9b9;margin-bottom: 30px;padding-bottom: 10px;text-align: center;">Dimensions</h3>
+
                                 <div class="header-div">
                                     <div class="headings" style="width: 42%;">Description</div>
                                     <div class="headings" style="width: 20%;">Width</div>
@@ -596,8 +599,7 @@
 
                                     <div class="attribute full-res" style="width: 42%;">
                                         <div style="display: flex;align-items: center;">
-                                            <span style="width: 10%">1</span>
-                                            <div style="width: 90%;"><textarea class="form-control attribute_description" style="width: 90%;border-radius: 7px;resize: vertical;height: 40px;outline: none;" name="attribute_description[]"></textarea></div>
+                                            <div style="width: 100%;"><textarea class="form-control attribute_description" style="width: 90%;border-radius: 7px;resize: vertical;height: 40px;outline: none;" name="attribute_description[]"></textarea></div>
                                         </div>
                                     </div>
 
@@ -1379,8 +1381,7 @@
             $(`.attributes_table`).append('<div class="attribute-content-div"><div class="attribute full-res" style="width: 42%;">\n' +
                 '\n' +
                 '                                        <div style="display: flex;align-items: center;">\n' +
-                '                                            <span style="width: 10%">1</span>\n' +
-                '                                            <div style="width: 90%;"><textarea class="form-control attribute_description" style="width: 90%;border-radius: 7px;resize: vertical;height: 40px;outline: none;" name="attribute_description[]"></textarea></div>\n' +
+                '                                            <div style="width: 100%;"><textarea class="form-control attribute_description" style="width: 90%;border-radius: 7px;resize: vertical;height: 40px;outline: none;" name="attribute_description[]"></textarea></div>\n' +
                 '                                        </div>\n' +
                 '                                    </div>\n' +
                 '\n' +
@@ -1532,6 +1533,42 @@
 
 <script type="text/javascript">
 
+    $(document).on('keypress', ".width, .height", function (e) {
+
+        e = e || window.event;
+        var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+        var val = String.fromCharCode(charCode);
+
+        if (!val.match(/^[0-9]*\,?[0-9]*$/))  // For characters validation
+        {
+            e.preventDefault();
+            return false;
+        }
+
+        if (e.which == 44) {
+            if (this.value.indexOf(',') > -1) {
+                e.preventDefault();
+                return false;
+            }
+        }
+
+        var num = $(this).attr("maskedFormat").toString().split(',');
+        var regex = new RegExp("^\\d{0," + num[0] + "}(\\,\\d{0," + num[1] + "})?$");
+        if (!regex.test(this.value)) {
+            this.value = this.value.substring(0, this.value.length - 1);
+        }
+
+    });
+
+    $(document).on('focusout', ".width, .height", function (e) {
+
+        if ($(this).val().slice($(this).val().length - 1) == ',') {
+            var val = $(this).val();
+            val = val + '00';
+            $(this).val(val);
+        }
+    });
+
     function fetch_products(category_id,brand_id,product_id = null)
     {
         var options = '';
@@ -1586,6 +1623,8 @@
 
             var id = $(this).val();
             var measure = $(this).find(':selected').data('measure');
+
+            $('#measure_type').val(measure);
 
             if(measure == 'M1' || measure == 'Custom Sized')
             {
@@ -1993,6 +2032,15 @@
 
                         $('#step2').children('.well').append('<input type="hidden" name="index_count" value="'+index_count+'">');
 
+                        if(data.length == 0)
+                        {
+                            $('#step2').children('.well').addClass('hide');
+                        }
+                        else
+                        {
+                            $('#step2').children('.well').removeClass('hide');
+                        }
+
                         /*$('#step2').children('div').children('h3').
                         console.log(data);*/
                     }
@@ -2076,6 +2124,16 @@
                     });
 
                     $('#step2').children('.well').append('<input type="hidden" name="index_count" value="'+index_count+'">');
+
+                    if(data.length == 0)
+                    {
+                        $('#step2').children('.well').addClass('hide');
+
+                    }
+                    else
+                    {
+                        $('#step2').children('.well').removeClass('hide');
+                    }
 
                     /*$('#step2').children('div').children('h3').
                     console.log(data);*/

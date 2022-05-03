@@ -12,6 +12,7 @@ use App\question_services;
 use App\quotation_invoices;
 use App\quotation_questions;
 use App\quotation_services_questions;
+use App\quote_dimensions;
 use App\quotes;
 use App\requests_q_a;
 use App\Service;
@@ -1316,6 +1317,7 @@ class FrontendController extends Controller
                     $quote->quote_type = $request->type_id ? $request->type_id : 0;
                     $quote->quote_color = $request->quote_color ? $request->quote_color : 0;
                     $quote->quote_model_number = $request->quote_model_number;
+                    $quote->measure = $request->measure_type;
                 }
 
                 $quote->quote_qty = str_replace(",",".",$request->quote_quantity);
@@ -1333,6 +1335,19 @@ class FrontendController extends Controller
             $quote->floor_description = $request->floor_description;
 
             $quote->save();
+
+            if($request->measure_type == 'M1' || $request->measure_type == 'Custom Sized')
+            {
+                foreach($request->attribute_description as $d => $key)
+                {
+                    $dimensions = new quote_dimensions;
+                    $dimensions->quote_id = $quote->id;
+                    $dimensions->description = $key;
+                    $dimensions->width = $request->width[$d] ? str_replace(',', '.',$request->width[$d]) : NULL;
+                    $dimensions->height = $request->height[$d] ? str_replace(',', '.',$request->height[$d]) : NULL;
+                    $dimensions->save();
+                }
+            }
 
             $counter = $counter + 1;
             User::where('id',$user_id)->update(['counter' => $counter]);
