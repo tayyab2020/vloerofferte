@@ -223,7 +223,7 @@
 
                                         <button
                                                 style="background-color: white !important;color: black !important;position: relative;right: 5px;"
-                                                type="button" class="close dropdown-close" aria-hidden="true">Ã—
+                                                type="button" class="close dropdown-close" aria-hidden="true">×
                                         </button>
 
                                         <li><a href="{{route('user-dashboard')}}">{{$lang->hpt}}</a></li>
@@ -240,7 +240,7 @@
 
                                         <button
                                                 style="background-color: white !important;color: black !important;position: relative;right: 5px;"
-                                                type="button" class="close dropdown-close" aria-hidden="true">Ã—
+                                                type="button" class="close dropdown-close" aria-hidden="true">×
                                         </button>
 
                                         <li><a href="{{route('client-quotation-requests')}}">{{$lang->cpt}}</a></li>
@@ -260,7 +260,7 @@
 
                                 <button
                                         style="background-color: white !important;color: black !important;position: relative;right: 5px;"
-                                        type="button" class="close dropdown-close" aria-hidden="true">Ã—
+                                        type="button" class="close dropdown-close" aria-hidden="true">×
                                 </button>
 
                                 <li><a href="{{route('front.index')}}">{{$lang->home}}</a></li>
@@ -409,7 +409,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button style="background-color: white !important;color: black !important;" type="button"
-                            class="close" data-dismiss="modal" aria-hidden="true">Ã—
+                            class="close" data-dismiss="modal" aria-hidden="true">×
                     </button>
                     <h3 id="myModalLabel">{{__('text.Ask for Quotation')}}</h3>
                 </div>
@@ -661,7 +661,7 @@
                             </div>
 
                             <div
-                                    style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
+                                style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
 
                         </div>
 

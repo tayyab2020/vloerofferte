@@ -22,16 +22,15 @@ class UserLoginController extends Controller
     public function login(Request $request)
     {
 
-
       // Validate the form data
 
-		$this->validate($request,[
+		  $this->validate($request,[
 		    'email' => 'required|email',
 		    'password' => 'required',
-		]);
+		  ]);
 
       // Attempt to log the user in
-      if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'allowed' => 1])) {
+      if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'allowed' => 1, 'role_id' => 3])) {
 
         if( Auth::guard('user')->user()->role_id == 2)
         {
