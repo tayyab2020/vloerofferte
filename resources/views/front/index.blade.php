@@ -60,7 +60,6 @@
 
             @include('includes.form-error')
 
-
         <div class="container" style="width: 100%;">
 
             <div style="margin: 0;display: flex;justify-content: center;" class="row video-box">
@@ -1138,8 +1137,6 @@
 
                 autocomplete.addListener('place_changed', function() {
 
-                    var flag = 0;
-
                     var place = autocomplete.getPlace();
 
 
@@ -1149,20 +1146,6 @@
                         // pressed the Enter key, or the Place Details request failed.
                         window.alert("{{__('text.No details available for input: ')}}" + place.name);
                         return;
-                    }
-                    else
-                    {
-                        var string = $('#quote-zipcode').val().substring(0, $('#quote-zipcode').val().indexOf(',')); //first string before comma
-
-                        if(string)
-                        {
-                            var is_number = $('#quote-zipcode').val().match(/\d+/);
-
-                            if(is_number === null)
-                            {
-                                flag = 1;
-                            }
-                        }
                     }
 
                     var city = '';
@@ -1201,22 +1184,9 @@
                         flag = 1;
                     }*/
 
-                    if(!flag)
-                    {
-                        $('#check_address').val(1);
-                        $("#address-error").remove();
-                        $('#postcode').val(postal_code);
-                        $("#city").val(city);
-                    }
-                    else
-                    {
-                        $('#quote-zipcode').val('');
-                        $('#postcode').val('');
-                        $("#city").val('');
-
-                        $("#address-error").remove();
-                        $('#quote-zipcode').parent().append('<small id="address-error" style="color: red;display: block;margin-top: 10px;padding-left: 5px;">{{__('text.Kindly write your full address with house/building number so system can detect postal code and city from it!')}}</small>');
-                    }
+                    $('#check_address').val(1);
+                    $('#postcode').val(postal_code);
+                    $("#city").val(city);
 
                 });
             }

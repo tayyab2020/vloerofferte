@@ -437,27 +437,7 @@
                                             <div class="container pb-5">
                                                 <div class="row justify-content-center pb-5">
 
-                                                    <div class="col-12 pt-5">
-                                                        <h4 style="color: black;text-align: center;" class="mb-4 pb-2">{{__('text.Do you want to change your delivery address?')}}</h4>
-                                                    </div>
-
-
-                                                    <div class="col-12 pb-5" style="display: flex;justify-content: space-around;margin-top: 20px;">
-
-                                                        <input class="checkbox-tools change-delivery" type="radio" name="change_address" id="tool-1" value="0" checked>
-                                                        <label class="for-checkbox-tools" for="tool-1">
-                                                            {{__('text.No')}}
-                                                        </label>
-
-                                                        <input class="checkbox-tools change-delivery" type="radio" name="change_address" id="tool-4" value="1">
-                                                        <label class="for-checkbox-tools" for="tool-4">
-                                                            {{__('text.Yes')}}
-                                                        </label>
-
-                                                    </div>
-
-
-                                                    <div style="display: none;margin-top: 30px;" id="delivery_box">
+                                                    <div id="delivery_box">
 
                                                         <div class="col-12 pt-5">
                                                             <h4 style="color: black;text-align: center;" class="mb-4 pb-2">{{__('text.Do you want this address to be updated in your profile?')}}</h4>
@@ -1780,7 +1760,6 @@
             $('.submit-btn').click(function(){
                 var date = $('#delivery_date_picker').val();
                 var delivery_address = $('#delivery_address').val();
-                var change_delivery = $('.change-delivery:checked').val();
                 var flag = 0;
 
                 if(!date)
@@ -1793,17 +1772,10 @@
                     $('#delivery_date_picker').css('border','');
                 }
 
-                if(change_delivery == 1)
+                if(!delivery_address)
                 {
-                    if(!delivery_address)
-                    {
-                        $('#delivery_address').css('border','1px solid red');
-                        flag = 1;
-                    }
-                    else
-                    {
-                        $('#delivery_address').css('border','');
-                    }
+                    $('#delivery_address').css('border','1px solid red');
+                    flag = 1;
                 }
                 else
                 {
@@ -1830,21 +1802,6 @@
                     $('#postcode').val('');
                     $("#city").val('');
                 }
-            });
-
-            $(".change-delivery").change(function() {
-
-                var value = $(this).val();
-
-                if(value == 1)
-                {
-                    $('#delivery_box').show();
-                }
-                else
-                {
-                    $('#delivery_box').hide();
-                }
-
             });
 
             var todayDate = new Date().getDate();
@@ -1878,7 +1835,6 @@
             var delivery_date = $(e).data('date');
 
             $('#invoice_id').val(invoice_id);
-            $('#delivery_box').hide();
 
             $("#delivery_date_picker").val(delivery_date);
             $("#tool-1").prop("checked", true);

@@ -208,8 +208,7 @@
                         @else
                             <li class="border-line"><a href="{{route('user-login')}}">{{$lang->signin}}</a></li>
                             {{--<li class="border-line"><a href="{{route('user-register')}}">{{$lang->signup}}</a></li>--}}
-                            <li class="border-line"><a
-                                        href="{{route('handyman-register')}}">{{$lang->signup_handyman}}</a></li>
+                            <!-- <li class="border-line"><a href="{{route('handyman-register')}}">{{$lang->signup_handyman}}</a></li> -->
                         @endif
 
 
@@ -644,7 +643,7 @@
 
                             </section>
 
-{{--                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>--}}
+                            {{--                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>--}}
 
                         </div>
 
@@ -661,7 +660,7 @@
                             </div>
 
                             <div
-                                style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
+                                    style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
 
                         </div>
 

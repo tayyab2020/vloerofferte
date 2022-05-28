@@ -100,7 +100,7 @@ class AppServiceProvider extends ServiceProvider
                     $query->where('categories.cat_name','LIKE', '%Floors%')->orWhere('categories.cat_name','LIKE', '%Vloeren%');
                 })->with('colors')->with('models')->select('products.id','products.user_id','products.sub_category_id as cat_id','products.brand_id','products.model_id','products.title','categories.cat_name')->get();
                 
-                $quote_services = Service::all();
+                $quote_services = Service::where('show_vloerofferte',1)->get();
                 $quote_data = terms_conditions::where("role",2)->first();
 
                 $settings->with('quote_cats', $quote_cats);
