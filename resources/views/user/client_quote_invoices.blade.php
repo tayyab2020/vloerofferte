@@ -433,13 +433,13 @@
                                 <div class="col-md-12">
                                     <div class="section over-hide z-bigger">
 
-                                        <div class="section over-hide z-bigger" style="margin-top: 20px;">
+                                        <div class="section over-hide z-bigger">
                                             <div class="container pb-5">
                                                 <div class="row justify-content-center pb-5">
 
                                                     <div id="delivery_box">
 
-                                                        <div class="col-12 pt-5">
+                                                        <!-- <div class="col-12 pt-5">
                                                             <h4 style="color: black;text-align: center;" class="mb-4 pb-2">{{__('text.Do you want this address to be updated in your profile?')}}</h4>
                                                         </div>
 
@@ -455,7 +455,7 @@
                                                                 {{__('text.Yes')}}
                                                             </label>
 
-                                                        </div>
+                                                        </div> -->
 
                                                         <div style="text-align: left;">
                                                             <label>{{__('text.Delivery Address')}} <span style="color: red;">*</span></label>
