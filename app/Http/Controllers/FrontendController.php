@@ -321,7 +321,6 @@ class FrontendController extends Controller
 
         }
 
-
     }
 
     public function ThankyouPage($id)
