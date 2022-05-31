@@ -790,7 +790,7 @@ class UserController extends Controller
 
         \Mail::send(array(), array(), function ($message) use ($creator_email, $creator_name, $invoice, $user) {
             $message->to($creator_email)
-                ->from('info@vloerofferte.nl')
+                ->from('noreply@vloerofferte.nl')
                 ->subject(__('text.Quotation Accepted!'))
                 ->setBody("Congratulations! Dear Mr/Mrs " . $creator_name . ",<br><br>Mr/Mrs " . $user->name . " has accepted your quotation QUO# " . $invoice->quotation_invoice_number . "<br><br>Kind regards,<br><br>Klantenservice<br><br> Pieppiep", 'text/html');
         });
