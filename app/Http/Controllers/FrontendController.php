@@ -1400,7 +1400,7 @@ class FrontendController extends Controller
                 try{
                     \Mail::send(array(), array(), function ($message) use ($msg, $user_email, $user_name, $link, $password) {
                         $message->to($user_email)
-                            ->from('info@vloerofferte.nl')
+                            ->from('noreply@vloerofferte.nl')
                             ->subject(__('text.Account Created!'))
                             ->setBody($msg, 'text/html');
                     });
@@ -1425,7 +1425,7 @@ class FrontendController extends Controller
                 try{
                     \Mail::send(array(), array(), function ($message) use ($msg, $user_email, $user_name, $link) {
                         $message->to($user_email)
-                            ->from('info@vloerofferte.nl')
+                            ->from('noreply@vloerofferte.nl')
                             ->subject(__('text.Quotation Request Submitted!'))
                             ->setBody($msg, 'text/html');
                     });

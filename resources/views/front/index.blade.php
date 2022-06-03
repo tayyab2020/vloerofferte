@@ -180,7 +180,7 @@
 
 {{--                            </div>--}}
 
-                            <div class="linked-boxes" style="width: 18%;">
+                            <div class="linked-boxes model-box" style="width: 18%;">
 
                                 <select class="js-data-example-ajax4 quote-model form-control" name="group" id="blood_grp">
 
@@ -985,7 +985,31 @@
 
         <script type="text/javascript">
 
+            function select_model(id,measure)
+            {
+                $('#measure_type').val(measure);
+
+                if(measure == 'M1' || measure == 'Custom Sized')
+                {
+                    $('.attributes_table').addClass('active');
+                }
+                else
+                {
+                    $('.attributes_table').removeClass('active');
+                }
+
+                $('.quote-model').val(id);
+                $(".quote-model").trigger('change.select2');
+                $('.quote_quantity').attr("placeholder", "Vul gewenste aantal "+measure+" in");
+
+                $('.navbar a[href="#step1"]').trigger('click');
+                $('.back').hide();
+                $('.floor').show();
+            }
+
             $(document).ready(function(){
+
+                
 
                 $('.p-btns').click(function(){
 
@@ -1445,7 +1469,14 @@
                                                         url: "<?php echo url('/products-models-colors-by-category-brand-type')?>",
                                                         success: function (data) {
 
+                                                            var first = '';
+
                                                             $.each(data[0], function(index, value) {
+
+                                                                if(index == 0)
+                                                                {
+                                                                    first = value.id;
+                                                                }
 
                                                                 var opt = '<option data-measure="'+value.measure+'" value="'+value.id+'" >'+value.model+'</option>';
                                                                 options = options + opt;
@@ -1469,11 +1500,49 @@
                                                                 .end()
                                                                 .append('<option value="">Select Color</option>' + options1);
 
-                                                            var model_id = $('.quote-model option').filter(function () { return $(this).html() == model_text; }).val();
+                                                                var flag_model = 0;
+
+                                                                
+                                                            if(data[0].length <= 1)
+                                                            {
+                                                                if($('.quote-category').find('option:selected').text() == 'Tapijt' || $('.quote-category').find('option:selected').text() == 'Vloerkleden')
+                                                                {
+                                                                    $('.model-box').show();
+                                                                }
+                                                                else
+                                                                {
+                                                                    $('.model-box').hide();
+                                                                }
+
+                                                                flag_model = 1;
+                                                                
+                                                            }
+                                                            else
+                                                            {
+                                                                $('.model-box').show();
+                                                            }
+
+                                                            if(model_text)
+                                                            {
+                                                                var model_id = $('.quote-model option').filter(function () { return $(this).html() == model_text; }).val();
+                                                                $('.quote-model').val(model_id);
+                                                                $(".quote-model").trigger('change.select2');
+                                                                var measure = $('.quote-model').eq(0).find(':selected').data('measure');
+                                                                select_model(model_id,measure);
+                                                            }
+                                                            else
+                                                            {
+                                                                if(flag_model)
+                                                                {
+                                                                    $('.quote-model').val(first);
+                                                                    $(".quote-model").trigger('change.select2');
+                                                                    var measure = $('.quote-model').eq(0).find(':selected').data('measure');
+                                                                    select_model(first,measure);
+                                                                }
+                                                            }
+
+                                                            
                                                             var color_id = $('.quote-color option').filter(function () { return $(this).html() == color_text; }).val();
-                                                            $('.quote-model').val(model_id);
-                                                            $(".quote-model").trigger('change.select2');
-                                                            $(".quote-model").trigger('change');
                                                             $('.quote-color').val(color_id);
                                                             $(".quote-color").trigger('change.select2');
                                                             $(".quote-color").trigger('change');
