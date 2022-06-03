@@ -208,7 +208,7 @@
                         @else
                             <li class="border-line"><a href="{{route('user-login')}}">{{$lang->signin}}</a></li>
                             {{--<li class="border-line"><a href="{{route('user-register')}}">{{$lang->signup}}</a></li>--}}
-                            <!-- <li class="border-line"><a href="{{route('handyman-register')}}">{{$lang->signup_handyman}}</a></li> -->
+                        <!-- <li class="border-line"><a href="{{route('handyman-register')}}">{{$lang->signup_handyman}}</a></li> -->
                         @endif
 
 
@@ -517,7 +517,7 @@
 
                                 </div>--}}
 
-                                <div class="linked-boxes" style="margin-bottom: 40px;">
+                                <div class="linked-boxes model-box" style="margin-bottom: 40px;">
 
                                     <select class="js-data-example-ajax6 form-control quote-model quote_validation"
                                             style="height: 40px;" name="quote_model" id="blood_grp" required>
@@ -713,15 +713,13 @@
 
                                 <br>
 
-                                <small
-                                        style="text-align: center;display: block;width: 80%;margin: auto;margin-bottom: 10px;">{{__('text.By pressing Get Quotes you agree to the')}}
+                                <small style="text-align: center;display: block;width: 80%;margin: auto;margin-bottom: 10px;">{{__('text.By pressing Get Quotes you agree to the')}}
                                     <a target="_blank"
                                        href="{{isset($quote_data) ? asset('assets/'.$quote_data->file) : null}}">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}
                                 </small>
 
                             </div>
-                            <div
-                                    style="width: 100%;position: relative;height: 2rem;bottom: 1rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
+                            <div style="width: 100%;position: relative;height: 2rem;bottom: 1rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>
 
                         </div>
 
@@ -1623,24 +1621,7 @@
             var id = $(this).val();
             var measure = $(this).find(':selected').data('measure');
 
-            $('#measure_type').val(measure);
-
-            if(measure == 'M1' || measure == 'Custom Sized')
-            {
-                $('.attributes_table').addClass('active');
-            }
-            else
-            {
-                $('.attributes_table').removeClass('active');
-            }
-
-            $('.quote-model').val(id);
-            $(".quote-model").trigger('change.select2');
-            $('.quote_quantity').attr("placeholder", "Vul gewenste aantal "+measure+" in");
-
-            $('.navbar a[href="#step1"]').trigger('click');
-            $('.back').hide();
-            $('.floor').show();
+            select_model(id,measure);
 
         });
 
@@ -1734,7 +1715,14 @@
                 url: "<?php echo url('/products-models-colors-by-category-brand-type')?>",
                 success: function (data) {
 
+                    var first = '';
+
                     $.each(data[0], function(index, value) {
+
+                        if(index == 0)
+                        {
+                            first = value.id;
+                        }
 
                         var opt = '<option data-measure="'+value.measure+'" value="'+value.id+'" >'+value.model+'</option>';
                         options = options + opt;
@@ -1757,6 +1745,27 @@
                         .remove()
                         .end()
                         .append('<option value="">Select Color</option>' + options1);
+
+                        if(data[0].length <= 1)
+                        {
+                            if($('.quote-category').find('option:selected').text() == 'Tapijt' || $('.quote-category').find('option:selected').text() == 'Vloerkleden')
+                            {
+                                $('.model-box').show();
+                            }
+                            else
+                            {
+                                $('.model-box').hide();
+                            }
+
+                            $('.quote-model').val(first);
+                            $(".quote-model").trigger('change.select2');
+                            var measure = $('.quote-model').eq(0).find(':selected').data('measure');
+                            select_model(first,measure);
+                        }
+                        else
+                        {
+                            $('.model-box').show();
+                        }
 
                 }
             });
@@ -1920,6 +1929,7 @@
 
                         }
                     });
+
                 }
                 else
                 {
@@ -1967,6 +1977,7 @@
 
                         }
                     });
+
                 }
 
                 $.ajax({
@@ -2127,7 +2138,6 @@
                     if(data.length == 0)
                     {
                         $('#step2').children('.well').addClass('hide');
-
                     }
                     else
                     {
