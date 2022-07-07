@@ -336,6 +336,23 @@ class UserController extends Controller
         return redirect('aanbieder/quotation-requests');
     }
 
+    public function DownloadQuoteRequestFile($id)
+    {
+        $user = Auth::guard('user')->user();
+        $user_id = $user->id;
+        $role = $user->role_id;
+
+        $quote = quotes::where('id', $id)->where('user_id', $user_id)->first();
+
+        if (!$quote) {
+            return redirect()->back();
+        }
+
+        $filename = $quote->quote_file1;
+
+        return response()->download(public_path("assets/quotes_user_files/{$filename}"));
+    }
+
     public function DownloadQuoteInvoice($id)
     {
         $user = Auth::guard('user')->user();
