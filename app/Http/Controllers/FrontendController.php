@@ -1465,16 +1465,16 @@ class FrontendController extends Controller
 
         $filters = Category::where('id',$category)->first();
 
-        $all_products = Products::leftjoin('estimated_prices','estimated_prices.product_id','=','products.id')->leftjoin('models','models.id','=','products.model_id');
+        $all_products = Products::leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->leftjoin('colors','colors.product_id','=','products.id');
 
         if($category)
         {
-            $all_products = $all_products->where('products.category_id',$category);
+            $all_products = $all_products->where('products.sub_category_id',$category);
 
             if(!$range_s && !$range_e)
             {
-                $range_s = $all_products->min('estimated_prices.price');
-                $range_e = $all_products->max('estimated_prices.price');
+                $range_s = $all_products->min('estimated_price');
+                $range_e = $all_products->max('estimated_price');
 
                 if($range_s == NULL && $range_e == NULL)
                 {
@@ -1509,7 +1509,7 @@ class FrontendController extends Controller
 
         if($color)
         {
-            $all_products = $all_products->whereRaw("find_in_set('".$color."',products.color)");
+            $all_products = $all_products->where('colors.id',$color);
         }
 
         if(is_numeric($range_s) && is_numeric($range_e))
@@ -1518,7 +1518,7 @@ class FrontendController extends Controller
             $e = floatval($range_e);
 
             $all_products = $all_products->where(function($query) use($s, $e) {
-                $query->where('estimated_prices.price','>=',$s)->where('estimated_prices.price','<=',$e)->orWhere('estimated_prices.price','=',NULL);
+                $query->where('estimated_price','>=',$s)->where('estimated_price','<=',$e)->orWhere('estimated_price','=',NULL);
             });
 
             $lowest = $request->org_range_start;
@@ -1526,8 +1526,8 @@ class FrontendController extends Controller
         }
         else
         {
-            $highest = estimated_prices::max('price');
-            $lowest = estimated_prices::min('price');
+            $highest = Products::max('estimated_price');
+            $lowest = Products::min('estimated_price');
 
             if(!$lowest)
             {
@@ -1543,13 +1543,16 @@ class FrontendController extends Controller
             $e = $highest;
         }
 
-        $all_products = $all_products->select('products.*','models.cat_name as model','estimated_prices.price')->groupBy('products.id')->paginate(12);
+        // $all_products = $all_products->select('products.*','brands.cat_name as brand','models.cat_name as type','colors.title as color')->groupBy('products.id')->paginate(12);
+        $all_products = $all_products->select('products.*','brands.cat_name as brand','models.cat_name as type','colors.title as color')->paginate(12);
 
         $filter_brands = Brand::all();
         $filter_models = Model1::all();
-        $sizes = Products::where('category_id','=',$request->category)->where('size','!=',NULL)->get();
+        $sizes = Products::where('sub_category_id','=',$request->category)->where('size','!=',NULL)->get();
         $sizes = $sizes->unique('size');
-        $colors = Products::where('category_id','=',$request->category)->where('color','!=',NULL)->get();
+        // $colors = Products::where('sub_category_id','=',$request->category)->where('color','!=',NULL)->get();
+        // $colors = $colors->unique('color');
+        $colors = colors::leftjoin('products','products.id','=','colors.product_id')->where('products.sub_category_id','=',$request->category)->get();
         $colors = $colors->unique('color');
 
         return view('front.products',compact('filters','highest','lowest','sizes','colors','all_products','filter_brands','filter_models','s','e','range_s','range_e','category','brand','model','size','color'));

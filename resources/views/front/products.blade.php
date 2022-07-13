@@ -280,13 +280,13 @@
                                     </a>
 
                                     <div style="display: inline-block;width: 100%;text-align: center;min-height: 70px;">
-                                        <p style="font-size: 18px;font-weight: bold;color: black;text-overflow: ellipsis;display: -webkit-box;width: 100%;visibility: visible;-webkit-line-clamp: 1;-webkit-box-orient: vertical;overflow: hidden;line-height: 2;padding: 0 10px;">{{$key->title}}</p>
-                                        <small>{{$key->model .' '. $key->model_number}}</small>
+                                        <p style="font-size: 18px;font-weight: bold;color: black;text-overflow: ellipsis;display: -webkit-box;width: 100%;visibility: visible;-webkit-line-clamp: 1;-webkit-box-orient: vertical;overflow: hidden;line-height: 2;padding: 0 10px;">{{$key->brand . ' ' . $key->type . ' ' . $key->color}}</p>
+                                        <!-- <small>{{$key->model .' '. $key->model_number}}</small> -->
                                     </div>
 
 
                                     <div style="display: flex;justify-content: center;width: 100%;text-align: center;margin-bottom: 10px;">
-                                        <button data-id="{{$key->id}}" href="#aanvragen" role="button" data-toggle="modal" style="height: 35px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;display: flex;align-items: center;" class="btn btn-primary start-btn">{{__('text.Start')}}</button>
+                                        <button data-id="{{$key->id}}" href="#aanvragen" role="button" data-toggle="modal" style="height: 35px;float: right;border: 0;outline: none;font-size: 18px;display: flex;align-items: center;" class="btn btn-primary start-btn">{{__('text.Start')}}</button>
                                     </div>
 
 
@@ -616,7 +616,7 @@
                     url: "<?php echo url('/products-by-id')?>",
                     success: function (data) {
 
-                        $('.quote-category').val(data.category_id);
+                        $('.quote-category').val(data.sub_category_id);
                         $(".quote-category").trigger('change.select2');
 
                         if($('#step1').find('.floor-description').length == 0)
@@ -624,10 +624,17 @@
                             $('.quote-service').removeClass('quote_validation');
                             $('.quote-category').addClass('quote_validation');
                             $('.quote-brand').addClass('quote_validation');
+                            $('.quote-type').addClass('quote_validation');
                             $('.quote-model').addClass('quote_validation');
+                            $('.quote-color').addClass('quote_validation');
 
                             $('.unlinked-boxes').hide();
                             $('.linked-boxes').show();
+                        }
+                        else
+                        {
+                            $('#quote-box').find('.unlinked-boxes').hide();
+                            $('#quote-box').find('.linked-boxes').show();
                         }
 
                         $('.navbar a[href="#step1"]').trigger('click');
@@ -639,13 +646,10 @@
 
                         $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
 
-                        var category_id = data.category_id;
+                        var category_id = data.sub_category_id;
                         var brand_id = data.brand_id;
-                        var model_id = data.model_id;
-                        var model_number = data.model_number;
+                        var type_id = data.model_id;
                         var options = '';
-
-                        $('.quote-model-number').val(model_number);
 
                         $.ajax({
                             type: "GET",
@@ -700,8 +704,14 @@
 
                                 $('#step2').children('.well').append('<input type="hidden" name="index_count" value="' + index_count + '">');
 
-                                /*$('#step2').children('div').children('h3').
-                                console.log(data);*/
+                                if(data.length == 0)
+                                {
+                                    $('#step2').children('.well').addClass('hide');                            
+                                }
+                                else
+                                {
+                                    $('#step2').children('.well').removeClass('hide');
+                                }
                             }
                         });
 
@@ -724,6 +734,16 @@
                                     .end()
                                     .append('<option value="">Select Model</option>');
 
+                                $('.quote-color').find('option')
+                                    .remove()
+                                    .end()
+                                    .append('<option value="">Select Color</option>');
+
+                                $('.quote-type').find('option')
+                                    .remove()
+                                    .end()
+                                    .append('<option value="">Select Type</option>');
+
                                 $('.quote-brand').find('option')
                                     .remove()
                                     .end()
@@ -731,7 +751,7 @@
 
                                 $('.quote-brand').val(brand_id);
                                 $(".quote-brand").trigger('change.select2');
-
+                                $(".quote-brand").trigger('change');
 
                                 var options = '';
 

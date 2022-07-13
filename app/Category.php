@@ -14,7 +14,7 @@ class Category extends Model
 
     public function newQuery($excludeDeleted = true) {
         return parent::newQuery($excludeDeleted)
-            ->where('parent_id','!=', 0)->where('cat_name','!=', 'Accessories');
+            ->where('parent_id','!=', 0)->where('cat_name','!=', 'Accessoires');
     }
 
     // public function suppliers()
