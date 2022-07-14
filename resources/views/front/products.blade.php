@@ -49,10 +49,17 @@
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
                         <select class="filter brands" name="brand" id="brand">
+                            
                             <option value="">{{__('text.Select Brand')}}</option>
-                            @foreach($filter_brands as $key)
-                                <option {{$brand == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->cat_name}}</option>
-                            @endforeach
+                                
+                            @if($filter_brands)
+                            
+                                @foreach($filter_brands as $key)
+                                    <option {{$brand == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->cat_name}}</option>
+                                @endforeach
+
+                            @endif
+
                         </select>
                     </div> <!-- cd-select -->
                 </div> <!-- cd-filter-content -->
@@ -64,10 +71,17 @@
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
                         <select class="filter models" name="model" id="model">
+                            
                             <option value="">{{__('text.Select Model')}}</option>
-                            @foreach($filter_models as $key)
-                                <option {{$model == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->cat_name}}</option>
-                            @endforeach
+
+                            @if($filter_models)
+
+                                @foreach($filter_models as $key)
+                                    <option {{$model == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->cat_name}}</option>
+                                @endforeach
+
+                            @endif
+                            
                         </select>
                     </div> <!-- cd-select -->
                 </div> <!-- cd-filter-content -->
@@ -115,7 +129,6 @@
                         max: [{{$highest}}]
                     }
                 });
-
 
                 slider.noUiSlider.on('set', function (values, handle) {
 
@@ -169,7 +182,6 @@
                     outline: none;
                 }
 
-
                 @media only screen and (max-width: 991px) {
 
                     .hero-area h1, .hero-area h1.donors-header {
@@ -181,7 +193,6 @@
 
                         margin-left: 0px;
                     }
-
 
                 }
 
@@ -213,7 +224,6 @@
 
         <a href="#0" class="cd-close" style="background-color: #febb22;"><i class="icon ent-close" style="background-color: #febb22;"></i> {{$lang->fct}}</a>
 
-
         <!-- <a href="#0" class="cd-close"><i class="icon ent-close"></i> close </a> -->
     </div> <!-- cd-filter -->
 
@@ -223,15 +233,15 @@
 
     <div class="cd-main-content is-fixed" style="/*height: 915px;*/height: auto;overflow-y: hidden;min-height: auto;/*min-height: 915px;*/">
 
-
         <div class="section-padding all-donors-wrap team_section team_style2 wow fadeInUp"
              style="visibility: visible; animation-name: fadeInUp;float: right;width: 100%;">
             <div class="container">
 
-                <div class="row">
+                <div style="display: flex;flex-wrap: wrap;" class="row">
 
                     @foreach($all_products as $key)
-                        <div class="col-lg-4 col-md-4 col-sm-4" style="z-index: 0;">
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="z-index: 0;">
                             <div class="team_common">
 
                                 <div style="width: 100%;background-color: white;">
@@ -242,37 +252,37 @@
                                             @if($key->photo)
 
                                                 <img
-                                                    src="{{asset('assets/images/'.$key->photo)}}"
-                                                    alt="member image"
-                                                    style="width: 100%;height: 100%;">
+                                                        src="{{asset('assets/images/'.$key->photo)}}"
+                                                        alt="member image"
+                                                        style="width: 100%;height: 100%;">
 
                                             @elseif(file_exists('assets/images/'.$key->article_code.'.jpeg'))
 
                                                 <img
-                                                    src="{{asset('assets/images/'.$key->article_code.'.jpeg')}}"
-                                                    alt="member image"
-                                                    style="width: 100%;height: 100%;">
+                                                        src="{{asset('assets/images/'.$key->article_code.'.jpeg')}}"
+                                                        alt="member image"
+                                                        style="width: 100%;height: 100%;">
 
                                             @elseif(file_exists('assets/images/'.$key->article_code.'.jpg'))
 
                                                 <img
-                                                    src="{{asset('assets/images/'.$key->article_code.'.jpg')}}"
-                                                    alt="member image"
-                                                    style="width: 100%;height: 100%;">
+                                                        src="{{asset('assets/images/'.$key->article_code.'.jpg')}}"
+                                                        alt="member image"
+                                                        style="width: 100%;height: 100%;">
 
                                             @elseif(file_exists('assets/images/'.$key->article_code.'.png'))
 
                                                 <img
-                                                    src="{{asset('assets/images/'.$key->article_code.'.png')}}"
-                                                    alt="member image"
-                                                    style="width: 100%;height: 100%;">
+                                                        src="{{asset('assets/images/'.$key->article_code.'.png')}}"
+                                                        alt="member image"
+                                                        style="width: 100%;height: 100%;">
 
                                             @else
 
                                                 <img
-                                                    src="{{asset('assets/images/'.$gs->logo)}}"
-                                                    alt="member image"
-                                                    style="width: 100%;height: 50%;">
+                                                        src="{{asset('assets/images/'.$gs->logo)}}"
+                                                        alt="member image"
+                                                        style="width: 100%;height: 50%;">
 
                                             @endif
 
@@ -280,13 +290,13 @@
                                     </a>
 
                                     <div style="display: inline-block;width: 100%;text-align: center;min-height: 70px;">
-                                        <p style="font-size: 18px;font-weight: bold;color: black;text-overflow: ellipsis;display: -webkit-box;width: 100%;visibility: visible;-webkit-line-clamp: 1;-webkit-box-orient: vertical;overflow: hidden;line-height: 2;padding: 0 10px;">{{$key->brand . ' ' . $key->type . ' ' . $key->color}}</p>
-                                        <!-- <small>{{$key->model .' '. $key->model_number}}</small> -->
+                                        <p style="font-size: 18px;font-weight: bold;color: black;width: 100%;/*text-overflow: ellipsis;display: -webkit-box;*//*visibility: visible;-webkit-line-clamp: 1;-webkit-box-orient: vertical;overflow: hidden;line-height: 2;*/padding: 0 10px;">{!! $key->brand . ' ' . $key->type . '<br>' . $key->model . ' ' . $key->color !!}</p>
+                                    <!-- <small>{{$key->model .' '. $key->model_number}}</small> -->
                                     </div>
 
 
                                     <div style="display: flex;justify-content: center;width: 100%;text-align: center;margin-bottom: 10px;">
-                                        <button data-id="{{$key->id}}" href="#aanvragen" role="button" data-toggle="modal" style="height: 35px;float: right;border: 0;outline: none;font-size: 18px;display: flex;align-items: center;" class="btn btn-primary start-btn">{{__('text.Start')}}</button>
+                                        <button data-id="{{$key->id}}" data-cat-id="{{$key->sub_category_id}}" data-brand-id="{{$key->brand_id}}" data-type-id="{{$key->model_id}}" data-model="{{$key->model}}" data-color="{{$key->color}}" href="#aanvragen" role="button" data-toggle="modal" style="height: 35px;float: right;border: 0;outline: none;font-size: 18px;display: flex;align-items: center;" class="btn btn-primary start-btn">{{__('text.Start')}}</button>
                                     </div>
 
 
@@ -605,187 +615,15 @@
         $(document).ready(function() {
 
             $('.start-btn').click(function(){
-
-                $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
+                
                 var product_id = $(this).data('id');
-                var options = '';
+                var category_id = $(this).data('cat-id');
+                var brand_id = $(this).data('brand-id');
+                var type_id = $(this).data('type-id');
+                var model_text = $(this).data('model');
+                var color_text = $(this).data('color');
 
-                $.ajax({
-                    type: "GET",
-                    data: "id=" + product_id,
-                    url: "<?php echo url('/products-by-id')?>",
-                    success: function (data) {
-
-                        $('.quote-category').val(data.sub_category_id);
-                        $(".quote-category").trigger('change.select2');
-
-                        if($('#step1').find('.floor-description').length == 0)
-                        {
-                            $('.quote-service').removeClass('quote_validation');
-                            $('.quote-category').addClass('quote_validation');
-                            $('.quote-brand').addClass('quote_validation');
-                            $('.quote-type').addClass('quote_validation');
-                            $('.quote-model').addClass('quote_validation');
-                            $('.quote-color').addClass('quote_validation');
-
-                            $('.unlinked-boxes').hide();
-                            $('.linked-boxes').show();
-                        }
-                        else
-                        {
-                            $('#quote-box').find('.unlinked-boxes').hide();
-                            $('#quote-box').find('.linked-boxes').show();
-                        }
-
-                        $('.navbar a[href="#step1"]').trigger('click');
-
-                        $('.back').hide();
-                        $('.next-submit').hide();
-                        $('.next').show();
-                        $('.floor').show();
-
-                        $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
-
-                        var category_id = data.sub_category_id;
-                        var brand_id = data.brand_id;
-                        var type_id = data.model_id;
-                        var options = '';
-
-                        $.ajax({
-                            type: "GET",
-                            data: "id=" + category_id,
-                            url: "<?php echo url('get-questions')?>",
-
-                            success: function (data) {
-
-                                $('#step2').children('.well').empty();
-
-                                var index_count = 0;
-
-                                $.each(data, function (index, val) {
-
-                                    if (data.length == index + 1) {
-                                        $('#step2').children('.well').append('<div style="margin-bottom: 20px;"></div>');
-                                    } else {
-                                        $('#step2').children('.well').append('<div style="margin-bottom: 40px;"></div>');
-                                    }
-
-                                    var last = $('#step2').children('.well').children().last('div');
-
-                                    last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">' + val.title + '</h3><input type="hidden" name="questions[]" value="' + val.title + '">');
-
-                                    if (val.predefined == 1) {
-
-                                        last.append('<div class="checkbox_validation"><input name="predefined' + index + '" type="hidden" value="1"></div>');
-
-                                        $.each(val.answers, function (index1, val1) {
-
-                                            last.children('div').append('<hr>\n' +
-                                                '                                        <label class="container-checkbox">' + val1.title + '\n' +
-                                                '                                        <input name="answers' + index + '[]" type="checkbox" value="' + val1.title + '">\n' +
-                                                '                                        <span class="checkmark-checkbox"></span>\n' +
-                                                '                                        </label>');
-
-                                        });
-                                    } else {
-                                        if (val.placeholder) {
-                                            var placeholder = val.placeholder;
-                                        } else {
-                                            var placeholder = '';
-                                        }
-
-                                        last.append('<input name="predefined' + index + '" type="hidden" value="0">\n' +
-                                            '<textarea name="answers' + index + '" style="resize: vertical;" rows="1" class="form-control quote_validation" placeholder="' + placeholder + '"></textarea>');
-                                    }
-
-                                    index_count = index;
-
-                                });
-
-                                $('#step2').children('.well').append('<input type="hidden" name="index_count" value="' + index_count + '">');
-
-                                if(data.length == 0)
-                                {
-                                    $('#step2').children('.well').addClass('hide');                            
-                                }
-                                else
-                                {
-                                    $('#step2').children('.well').removeClass('hide');
-                                }
-                            }
-                        });
-
-                        $.ajax({
-                            type: "GET",
-                            data: "id=" + category_id,
-                            url: "<?php echo url('/products-brands-by-category')?>",
-                            success: function (data) {
-
-                                $.each(data, function (index, value) {
-
-                                    var opt = '<option value="' + value.id + '" >' + value.cat_name + '</option>';
-
-                                    options = options + opt;
-
-                                });
-
-                                $('.quote-model').find('option')
-                                    .remove()
-                                    .end()
-                                    .append('<option value="">Select Model</option>');
-
-                                $('.quote-color').find('option')
-                                    .remove()
-                                    .end()
-                                    .append('<option value="">Select Color</option>');
-
-                                $('.quote-type').find('option')
-                                    .remove()
-                                    .end()
-                                    .append('<option value="">Select Type</option>');
-
-                                $('.quote-brand').find('option')
-                                    .remove()
-                                    .end()
-                                    .append('<option value="">Select Brand</option>' + options);
-
-                                $('.quote-brand').val(brand_id);
-                                $(".quote-brand").trigger('change.select2');
-                                $(".quote-brand").trigger('change');
-
-                                var options = '';
-
-                                $.ajax({
-                                    type: "GET",
-                                    data: "id=" + brand_id,
-                                    url: "<?php echo url('/products-models-by-brands')?>",
-                                    success: function (data) {
-
-                                        $.each(data, function (index, value) {
-
-                                            var opt = '<option value="' + value.id + '" >' + value.cat_name + '</option>';
-
-                                            options = options + opt;
-
-                                        });
-
-                                        $('.quote-model').find('option')
-                                            .remove()
-                                            .end()
-                                            .append('<option value="">Select Model</option>' + options);
-
-                                        $('.quote-model').val(model_id);
-                                        $(".quote-model").trigger('change.select2');
-
-                                    }
-                                });
-
-                            }
-                        });
-
-                    }
-
-                });
+                select_product(product_id,category_id,brand_id,type_id,model_text,color_text);
 
             });
 

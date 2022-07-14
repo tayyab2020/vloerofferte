@@ -349,7 +349,6 @@ class FrontendController extends Controller
         return $data;
     }
 
-
     public function index()
     {
 
@@ -360,7 +359,6 @@ class FrontendController extends Controller
         return view('front.index', compact('blogs', 'language','brands'));
 
     }
-
 
     public function productsById(Request $request)
     {
@@ -1465,7 +1463,7 @@ class FrontendController extends Controller
 
         $filters = Category::where('id',$category)->first();
 
-        $all_products = Products::leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->leftjoin('colors','colors.product_id','=','products.id');
+        $all_products = Products::leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->leftjoin('colors','colors.product_id','=','products.id')->leftjoin('product_models','product_models.product_id','=','products.id');
 
         if($category)
         {
@@ -1473,8 +1471,8 @@ class FrontendController extends Controller
 
             if(!$range_s && !$range_e)
             {
-                $range_s = $all_products->min('estimated_price');
-                $range_e = $all_products->max('estimated_price');
+                $range_s = $all_products->min('products.estimated_price');
+                $range_e = $all_products->max('products.estimated_price');
 
                 if($range_s == NULL && $range_e == NULL)
                 {
@@ -1507,10 +1505,22 @@ class FrontendController extends Controller
             $all_products = $all_products->whereRaw("find_in_set('".$size."',products.size)");
         }
 
-        if($color)
-        {
-            $all_products = $all_products->where('colors.id',$color);
-        }
+        // if($color)
+        // {
+        //     $all_products = $all_products->with(['colors' => function($query) use($sub_id)
+        //         {
+        //             $query->where('id',$color);
+
+        //         }])->whereHas('colors', function($query) use($sub_id)
+        //         {
+        //             $query->where('id',$color);
+
+        //         }, '>', 0);
+        // }
+        // else
+        // {
+        //     $all_products = $all_products->with('colors');
+        // }
 
         if(is_numeric($range_s) && is_numeric($range_e))
         {
@@ -1518,7 +1528,7 @@ class FrontendController extends Controller
             $e = floatval($range_e);
 
             $all_products = $all_products->where(function($query) use($s, $e) {
-                $query->where('estimated_price','>=',$s)->where('estimated_price','<=',$e)->orWhere('estimated_price','=',NULL);
+                $query->where('products.estimated_price','>=',$s)->where('products.estimated_price','<=',$e)->orWhere('products.estimated_price','=',NULL);
             });
 
             $lowest = $request->org_range_start;
@@ -1543,11 +1553,44 @@ class FrontendController extends Controller
             $e = $highest;
         }
 
-        // $all_products = $all_products->select('products.*','brands.cat_name as brand','models.cat_name as type','colors.title as color')->groupBy('products.id')->paginate(12);
-        $all_products = $all_products->select('products.*','brands.cat_name as brand','models.cat_name as type','colors.title as color')->paginate(12);
+        // $all_products = $all_products->select('products.*','brands.cat_name as brand','models.cat_name as type')->groupBy('products.id')->paginate(12);
+        $all_products = $all_products->orderBy('products.id','Desc')->select('products.*','brands.cat_name as brand','models.cat_name as type','product_models.model','colors.title as color')->paginate(12);
 
-        $filter_brands = Brand::all();
-        $filter_models = Model1::all();
+        if($category)
+        {
+            $filter_brands = Products::leftjoin('brands','brands.id','=','products.brand_id')->where('products.sub_category_id','=',$category)->with('types')->select('brands.*','products.user_id','products.brand_id')->get();
+            $brand_ids = array();
+
+            foreach($filter_brands as $key)
+            {
+                $type_ids = $key->types->pluck('id')->toArray();
+                $check = Products::whereIn('model_id',$type_ids)->first();
+
+                if($check)
+                {
+                    $brand_ids[] = $key->id;
+                }
+            }
+
+            $filter_brands = Products::leftjoin('brands','brands.id','=','products.brand_id')->where('products.sub_category_id','=',$category)->whereIn('brands.id',$brand_ids)->select('brands.*','products.user_id','products.brand_id')->get();
+            $filter_brands = $filter_brands->unique();
+
+            if($brand)
+            {
+                $filter_models = Model1::leftjoin('products','products.model_id','=','models.id')->where('products.sub_category_id',$category)->where('products.brand_id','=',$brand)->select('models.*')->get();
+                $filter_models = $filter_models->unique();
+            }
+            else
+            {
+                $filter_models = '';
+            }
+        }
+        else
+        {
+            $filter_brands = '';
+            $filter_models = '';
+        }
+        
         $sizes = Products::where('sub_category_id','=',$request->category)->where('size','!=',NULL)->get();
         $sizes = $sizes->unique('size');
         // $colors = Products::where('sub_category_id','=',$request->category)->where('color','!=',NULL)->get();
