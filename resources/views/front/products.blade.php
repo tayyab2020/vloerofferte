@@ -168,7 +168,7 @@
                         <select class="filter colors" name="color" id="color">
                             <option value="">{{__('text.Select Color')}}</option>
                             @foreach($colors as $key)
-                                <option {{$color == $key->color ? 'selected' : null}} value="{{$key->color}}">{{$key->color}}</option>
+                                <option {{$color == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->title}}</option>
                             @endforeach
                         </select>
                     </div> <!-- cd-select -->
@@ -681,6 +681,37 @@
                             .remove()
                             .end()
                             .append('<option value="">{{__("text.Select Color")}}</option>');
+
+                    }
+                });
+
+            });
+
+            $('.models').change(function() {
+
+                var category_id = $('.categories').val();
+                var brand_id = $('.brands').val();
+                var type_id = $(this).val();
+
+                var options = '';
+
+                $.ajax({
+                    type: "GET",
+                    data: "category_id=" + category_id + "&brand_id=" + brand_id + "&type_id=" + type_id,
+                    url: "<?php echo url('/products-models-colors-by-category-brand-type')?>",
+                    success: function (data) {
+
+                        $.each(data[1], function(index, value) {
+
+                            var opt = '<option value="'+value.id+'" >'+value.title+'</option>';
+                            options = options + opt;
+
+                        });
+
+                        $('.colors').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">{{__("text.Select Color")}}</option>' + options);
 
                     }
                 });

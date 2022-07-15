@@ -222,7 +222,7 @@
 
                                         <button
                                                 style="background-color: white !important;color: black !important;position: relative;right: 5px;"
-                                                type="button" class="close dropdown-close" aria-hidden="true">×
+                                                type="button" class="close dropdown-close" aria-hidden="true">&times;
                                         </button>
 
                                         <li><a href="{{route('user-dashboard')}}">{{$lang->hpt}}</a></li>
@@ -239,7 +239,7 @@
 
                                         <button
                                                 style="background-color: white !important;color: black !important;position: relative;right: 5px;"
-                                                type="button" class="close dropdown-close" aria-hidden="true">×
+                                                type="button" class="close dropdown-close" aria-hidden="true">&times;
                                         </button>
 
                                         <li><a href="{{route('client-quotation-requests')}}">{{$lang->cpt}}</a></li>
@@ -259,7 +259,7 @@
 
                                 <button
                                         style="background-color: white !important;color: black !important;position: relative;right: 5px;"
-                                        type="button" class="close dropdown-close" aria-hidden="true">×
+                                        type="button" class="close dropdown-close" aria-hidden="true">&times;
                                 </button>
 
                                 <li><a href="{{route('front.index')}}">{{$lang->home}}</a></li>
@@ -408,7 +408,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button style="background-color: white !important;color: black !important;" type="button"
-                            class="close" data-dismiss="modal" aria-hidden="true">×
+                            class="close" data-dismiss="modal" aria-hidden="true">&times;
                     </button>
                     <h3 id="myModalLabel">{{__('text.Ask for Quotation')}}</h3>
                 </div>
@@ -1566,6 +1566,289 @@
         }
     });
 
+    function select_model(id,measure)
+    {
+        $('#measure_type').val(measure);
+
+        if(measure == 'M1' || measure == 'Custom Sized')
+        {
+            $('.attributes_table').addClass('active');
+        }
+        else
+        {
+            $('.attributes_table').removeClass('active');
+        }
+
+        $('.quote-model').val(id);
+        $(".quote-model").trigger('change.select2');
+        $('.quote_quantity').attr("placeholder", "Vul gewenste aantal "+measure+" in");
+
+        $('.navbar a[href="#step1"]').trigger('click');
+        $('.back').hide();
+        $('.floor').show();
+    }
+
+    function select_product(product_id,category_id,brand_id,type_id,model_text,color_text)
+    {
+        if($('#step1').find('.floor-description').length == 0)
+        {
+            $('.quote-service').removeClass('quote_validation');
+            $('.quote-category').addClass('quote_validation');
+            $('.quote-brand').addClass('quote_validation');
+            $('.quote-type').addClass('quote_validation');
+            $('.quote-model').addClass('quote_validation');
+            $('.quote-color').addClass('quote_validation');
+
+            $('.unlinked-boxes').hide();
+            $('.linked-boxes').show();
+        }
+        else
+        {
+            $('#quote-box').find('.unlinked-boxes').hide();
+            $('#quote-box').find('.linked-boxes').show();
+        }
+
+        // $('#step1').children('.well').css('height','300px');
+        $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
+
+        $('.quote-category').val(category_id);
+        $(".quote-category").trigger('change.select2');
+
+        $.ajax({
+            type: "GET",
+            data: "id=" + category_id,
+            url: "<?php echo url('get-questions')?>",
+
+            success: function (data) {
+
+                $('#step2').children('.well').empty();
+
+                var index_count = 0;
+
+                $.each(data, function (index, val) {
+
+                    if (data.length == index + 1) {
+                        $('#step2').children('.well').append('<div style="margin-bottom: 20px;"></div>');
+                    } else {
+                        $('#step2').children('.well').append('<div style="margin-bottom: 40px;"></div>');
+                    }
+
+                    var last = $('#step2').children('.well').children().last('div');
+
+                    last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">' + val.title + '</h3><input type="hidden" name="questions[]" value="' + val.title + '">');
+
+                    if (val.predefined == 1) {
+
+                        last.append('<div class="checkbox_validation"><input name="predefined' + index + '" type="hidden" value="1"></div>');
+
+                        $.each(val.answers, function (index1, val1) {
+
+                            last.children('div').append('<hr>\n' +
+                                '                                        <label class="container-checkbox">' + val1.title + '\n' +
+                                '                                        <input name="answers' + index + '[]" type="checkbox" value="' + val1.title + '">\n' +
+                                '                                        <span class="checkmark-checkbox"></span>\n' +
+                                '                                        </label>');
+
+                        });
+                    } else {
+                        if (val.placeholder) {
+                            var placeholder = val.placeholder;
+                        } else {
+                            var placeholder = '';
+                        }
+
+                        last.append('<input name="predefined' + index + '" type="hidden" value="0">\n' +
+                            '<textarea name="answers' + index + '" style="resize: vertical;" rows="1" class="form-control quote_validation" placeholder="' + placeholder + '"></textarea>');
+                    }
+
+                    index_count = index;
+
+                });
+
+                $('#step2').children('.well').append('<input type="hidden" name="index_count" value="' + index_count + '">');
+
+                if(data.length == 0)
+                {
+                    $('#step2').children('.well').addClass('hide');
+                }
+                else
+                {
+                    $('#step2').children('.well').removeClass('hide');
+                }
+
+                /*$('#step2').children('div').children('h3').
+                console.log(data);*/
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            data: "id=" + category_id,
+            url: "<?php echo url('/products-brands-by-category')?>",
+            success: function (data) {
+
+                var options = '';
+
+                $.each(data, function (index, value) {
+
+                    var opt = '<option value="' + value.id + '" >'+value.cat_name+'</option>';
+
+                    options = options + opt;
+
+                });
+
+                $('.quote-model').find('option')
+                    .remove()
+                    .end()
+                    .append('<option value="">Select Model</option>');
+
+                $('.quote-color').find('option')
+                    .remove()
+                    .end()
+                    .append('<option value="">Select Color</option>');
+
+                $('.quote-type').find('option')
+                    .remove()
+                    .end()
+                    .append('<option value="">Select Type</option>');
+
+                $('.quote-brand').find('option')
+                    .remove()
+                    .end()
+                    .append('<option value="">Select Brand</option>' + options);
+
+                $('.quote-brand').val(brand_id);
+                $(".quote-brand").trigger('change.select2');
+                $(".quote-brand").trigger('change');
+
+                $.ajax({
+                    type: "GET",
+                    data: "category_id=" + category_id + "&brand_id=" + brand_id,
+                    url: "<?php echo url('/products-types-by-category-brand')?>",
+                    success: function (data) {
+
+                        var options = '';
+
+                        $.each(data, function(index, value) {
+
+                            var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
+                            options = options + opt;
+
+                        });
+
+                        $('.quote-type').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Select Type</option>' + options);
+
+                        $('.quote-type').val(type_id);
+                        $(".quote-type").trigger('change.select2');
+                        $(".quote-type").trigger('change');
+
+                        var options = '';
+                        var options1 = '';
+
+                        $.ajax({
+                            type: "GET",
+                            data: "category_id=" + category_id + "&brand_id=" + brand_id + "&type_id=" + type_id,
+                            url: "<?php echo url('/products-models-colors-by-category-brand-type')?>",
+                            success: function (data) {
+
+                                var first = '';
+
+                                $.each(data[0], function(index, value) {
+
+                                    if(index == 0)
+                                    {
+                                        first = value.id;
+                                    }
+
+                                    var opt = '<option data-measure="'+value.measure+'" value="'+value.id+'" >'+value.model+'</option>';
+                                    options = options + opt;
+
+                                });
+
+                                $.each(data[1], function(index, value) {
+
+                                    var opt1 = '<option value="'+value.id+'" >'+value.title+'</option>';
+                                    options1 = options1 + opt1;
+
+                                });
+
+                                $('.quote-model').find('option')
+                                    .remove()
+                                    .end()
+                                    .append('<option value="">Select Model</option>' + options);
+
+                                $('.quote-color').find('option')
+                                    .remove()
+                                    .end()
+                                    .append('<option value="">Select Color</option>' + options1);
+
+                                var flag_model = 0;
+
+
+                                if(data[0].length <= 1)
+                                {
+                                    if($('.quote-category').find('option:selected').text() == 'Tapijt' || $('.quote-category').find('option:selected').text() == 'Vloerkleden')
+                                    {
+                                        $('.model-box').show();
+                                    }
+                                    else
+                                    {
+                                        $('.model-box').hide();
+                                    }
+
+                                    flag_model = 1;
+
+                                }
+                                else
+                                {
+                                    $('.model-box').show();
+                                }
+
+                                if(model_text)
+                                {
+                                    var model_id = $('.quote-model option').filter(function () { return $(this).html() == model_text; }).val();
+                                    $('.quote-model').val(model_id);
+                                    $(".quote-model").trigger('change.select2');
+                                    var measure = $('.quote-model').eq(0).find(':selected').data('measure');
+                                    select_model(model_id,measure);
+                                }
+                                else
+                                {
+                                    if(flag_model)
+                                    {
+                                        $('.quote-model').val(first);
+                                        $(".quote-model").trigger('change.select2');
+                                        var measure = $('.quote-model').eq(0).find(':selected').data('measure');
+                                        select_model(first,measure);
+                                    }
+                                }
+
+
+                                var color_id = $('.quote-color option').filter(function () { return $(this).html() == color_text; }).val();
+                                $('.quote-color').val(color_id);
+                                $(".quote-color").trigger('change.select2');
+                                $(".quote-color").trigger('change');
+
+                            }
+                        });
+
+                    }
+                });
+
+            }
+        });
+
+        $('.navbar a[href="#step1"]').trigger('click');
+
+        $('.floor').show();
+        $('.next').show();
+        $('.next-submit').hide();
+        $('.back').hide();
+    }
+
     function fetch_products(category_id,brand_id,product_id = null)
     {
         var options = '';
@@ -1653,7 +1936,6 @@
 
             var category_id = $('.quote-category').val();
             var brand_id = $(this).val();
-
             var options = '';
 
             $.ajax({
@@ -1672,17 +1954,17 @@
                     $('.quote-type').find('option')
                         .remove()
                         .end()
-                        .append('<option value="">Select Type</option>' + options);
+                        .append('<option value="">{{__("text.Select Type")}}</option>' + options);
 
                     $('.quote-model').find('option')
                         .remove()
                         .end()
-                        .append('<option value="">Select Model</option>');
+                        .append('<option value="">{{__("text.Select Model")}}</option>');
 
                     $('.quote-color').find('option')
                         .remove()
                         .end()
-                        .append('<option value="">Select Color</option>');
+                        .append('<option value="">{{__("text.Select Color")}}</option>');
 
                 }
             });
@@ -1739,33 +2021,33 @@
                     $('.quote-model').find('option')
                         .remove()
                         .end()
-                        .append('<option value="">Select Model</option>' + options);
+                        .append('<option value="">{{__("text.Select Model")}}</option>' + options);
 
                     $('.quote-color').find('option')
                         .remove()
                         .end()
-                        .append('<option value="">Select Color</option>' + options1);
+                        .append('<option value="">{{__("text.Select Color")}}</option>' + options1);
 
-                        if(data[0].length <= 1)
-                        {
-                            if($('.quote-category').find('option:selected').text() == 'Tapijt' || $('.quote-category').find('option:selected').text() == 'Vloerkleden')
-                            {
-                                $('.model-box').show();
-                            }
-                            else
-                            {
-                                $('.model-box').hide();
-                            }
-
-                            $('.quote-model').val(first);
-                            $(".quote-model").trigger('change.select2');
-                            var measure = $('.quote-model').eq(0).find(':selected').data('measure');
-                            select_model(first,measure);
-                        }
-                        else
+                    if(data[0].length <= 1)
+                    {
+                        if($('.quote-category').find('option:selected').text() == 'Tapijt' || $('.quote-category').find('option:selected').text() == 'Vloerkleden')
                         {
                             $('.model-box').show();
                         }
+                        else
+                        {
+                            $('.model-box').hide();
+                        }
+
+                        $('.quote-model').val(first);
+                        $(".quote-model").trigger('change.select2');
+                        var measure = $('.quote-model').eq(0).find(':selected').data('measure');
+                        select_model(first,measure);
+                    }
+                    else
+                    {
+                        $('.model-box').show();
+                    }
 
                 }
             });
@@ -1818,12 +2100,12 @@
                     $('.quote-model').find('option')
                         .remove()
                         .end()
-                        .append('<option value="">Select Model</option>' + options);
+                        .append('<option value="">{{__("text.Select Model")}}</option>' + options);
 
                     $('.quote-color').find('option')
                         .remove()
                         .end()
-                        .append('<option value="">Select Color</option>' + options1);
+                        .append('<option value="">{{__("text.Select Color")}}</option>' + options1);
 
                 }
             });
@@ -1902,30 +2184,25 @@
 
                             });
 
-                            $('.quote-type').find('option')
-                                .remove()
-                                .end()
-                                .append('<option value="">Select Type</option>');
-
                             $('.quote-model').find('option')
                                 .remove()
                                 .end()
-                                .append('<option value="">Select Model</option>');
+                                .append('<option value="">{{__("text.Select Model")}}</option>');
 
                             $('.quote-color').find('option')
                                 .remove()
                                 .end()
-                                .append('<option value="">Select Color</option>');
+                                .append('<option value="">{{__("text.Select Color")}}</option>');
 
                             $('.quote-type').find('option')
                                 .remove()
                                 .end()
-                                .append('<option value="">Select Type</option>');
+                                .append('<option value="">{{__("text.Select Type")}}</option>');
 
                             $('.quote-brand').find('option')
                                 .remove()
                                 .end()
-                                .append('<option value="">Select Brand</option>'+options);
+                                .append('<option value="">{{__("text.Select Brand")}}</option>'+options);
 
                         }
                     });
@@ -1953,17 +2230,17 @@
                             $('.quote-type').find('option')
                                 .remove()
                                 .end()
-                                .append('<option value="">Select Type</option>');
+                                .append('<option value="">{{__("text.Select Type")}}</option>');
 
                             $('.quote-model').find('option')
                                 .remove()
                                 .end()
-                                .append('<option value="">Select Model</option>');
+                                .append('<option value="">{{__("text.Select Model")}}</option>');
 
                             $('.quote-color').find('option')
                                 .remove()
                                 .end()
-                                .append('<option value="">Select Color</option>');
+                                .append('<option value="">{{__("text.Select Color")}}</option>');
 
                             // $('.products-dropdown').find('option')
                             //     .remove()
@@ -1973,7 +2250,7 @@
                             $('.quote-brand').find('option')
                                 .remove()
                                 .end()
-                                .append('<option value="">Select Brand</option>'+options);
+                                .append('<option value="">{{__("text.Select Brand")}}</option>'+options);
 
                         }
                     });
@@ -2472,6 +2749,35 @@
 
         $('#lang-form').submit();
     }
+
+    $(".js-data-example-ajax8").select2({
+        width: '100%',
+        height: '200px',
+        placeholder: "{{__('text.Select Color')}}",
+        allowClear: true,
+        dropdownParent: $('#aanvragen'),
+        "language": {
+            "noResults": function(){
+                return '{{__('text.No results found')}}';
+            }
+        },
+
+    });
+
+    $(".js-data-example-ajax13").select2({
+        width: '100%',
+        height: '200px',
+        placeholder: "Select Type",
+        allowClear: true,
+        dropdownParent: $('#aanvragen'),
+        "language": {
+            "noResults": function(){
+                return '{{__('text.No results found')}}';
+            }
+        },
+
+    });
+
 </script>
 
 <!-- Ending of Header area -->
