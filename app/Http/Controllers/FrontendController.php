@@ -1471,8 +1471,8 @@ class FrontendController extends Controller
 
             if(!$range_s && !$range_e)
             {
-                $range_s = $all_products->min('products.estimated_price');
-                $range_e = $all_products->max('products.estimated_price');
+                $range_s = $all_products->min('product_models.estimated_price');
+                $range_e = $all_products->max('product_models.estimated_price');
 
                 if($range_s == NULL && $range_e == NULL)
                 {
@@ -1516,7 +1516,7 @@ class FrontendController extends Controller
             $e = floatval($range_e);
 
             $all_products = $all_products->where(function($query) use($s, $e) {
-                $query->where('products.estimated_price','>=',$s)->where('products.estimated_price','<=',$e)->orWhere('products.estimated_price','=',NULL);
+                $query->where('product_models.estimated_price','>=',$s)->where('product_models.estimated_price','<=',$e)->orWhere('product_models.estimated_price','=',NULL);
             });
 
             $lowest = $request->org_range_start;
@@ -1524,8 +1524,8 @@ class FrontendController extends Controller
         }
         else
         {
-            $highest = Products::max('estimated_price');
-            $lowest = Products::min('estimated_price');
+            $highest = product_models::max('estimated_price');
+            $lowest = product_models::min('estimated_price');
 
             if(!$lowest)
             {
