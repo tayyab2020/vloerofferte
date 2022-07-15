@@ -66,13 +66,13 @@
             </div> <!-- cd-filter-block -->
 
             <div class="cd-filter-block">
-                <h4>{{__('text.Model')}}</h4>
+                <h4>{{__('text.Type')}}</h4>
 
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
                         <select class="filter models" name="model" id="model">
                             
-                            <option value="">{{__('text.Select Model')}}</option>
+                            <option value="">{{__('text.Select Type')}}</option>
 
                             @if($filter_models)
 
@@ -613,6 +613,79 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
+
+            $('.categories').change(function(){
+
+                var category_id = $(this).val();
+                var options = '';
+
+                $.ajax({
+                    type:"GET",
+                    data: "id=" + category_id ,
+                    url: "<?php echo url('/products-brands-by-category')?>",
+                    success: function(data) {
+
+                        $.each(data, function(index, value) {
+
+                            var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
+
+                            options = options + opt;
+
+                        });
+
+                        $('.models').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">{{__("text.Select Type")}}</option>');
+
+                        $('.colors').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">{{__("text.Select Color")}}</option>');
+
+                        $('.brands').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">{{__("text.Select Brand")}}</option>'+options);
+
+                    }
+                });
+
+            });
+
+            $('.brands').change(function() {
+
+                var category_id = $('.categories').val();
+                var brand_id = $(this).val();
+                var options = '';
+
+                $.ajax({
+                    type: "GET",
+                    data: "category_id=" + category_id + "&brand_id=" + brand_id,
+                    url: "<?php echo url('/products-types-by-category-brand')?>",
+                    success: function (data) {
+
+                        $.each(data, function(index, value) {
+
+                            var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
+                            options = options + opt;
+
+                        });
+
+                        $('.models').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">{{__("text.Select Type")}}</option>' + options);
+
+                        $('.colors').find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">{{__("text.Select Color")}}</option>');
+
+                    }
+                });
+
+            });
 
             $('.start-btn').click(function(){
                 
@@ -1374,7 +1447,7 @@
         $(".models").select2({
             width: '100%',
             height: '200px',
-            placeholder: "{{__('text.Select Model')}}",
+            placeholder: "{{__('text.Select Type')}}",
             allowClear: true,
             "language": {
                 "noResults": function(){

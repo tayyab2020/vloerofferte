@@ -276,4 +276,6 @@ return [
     'Provide description of floors' => 'Vul hier het merk en modelnummer waar je naar opzoek bent',
     'Upload your file (Max 2)' => 'Upload your file (Max 2)',
     'Please upload max 2 files' => 'Please upload max 2 files',
+    'Type' => 'Type',
+    'Select Type' => 'Select Type',
 ];

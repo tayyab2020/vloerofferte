@@ -276,4 +276,6 @@ return [
     'Provide description of floors' => 'Provide description of floors',
     'Upload your file (Max 2)' => 'Upload your file (Max 2)',
     'Please upload max 2 files' => 'Please upload max 2 files',
+    'Type' => 'Type',
+    'Select Type' => 'Select Type',
 ];
