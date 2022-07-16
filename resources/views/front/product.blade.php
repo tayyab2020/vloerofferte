@@ -13,7 +13,7 @@
 
             <!-- Product Description -->
             <div style="border: 0;width: 90%;margin: auto;" class="product-description">
-                <h1>{{$product->brand_name}} {{$product->model_name}} {{$product->model_number}}</h1>
+                <h1>{{$product->brand_name}} {{$product->type_name}} {{$product->color}}</h1>
 
             </div>
 
@@ -58,9 +58,9 @@
 
                     <div id="menu1" class="tab-pane fade in active">
 
-                    <?php if($product->color){ $colors = explode(',',$product->color); }else{ $colors = []; } ?>
+<!--                    --><?php //if($product->color){ $colors = explode(',',$product->color); }else{ $colors = []; } ?>
 
-                    @if($colors)
+                    {{--@if($colors)
 
                         <!-- Product Color -->
                             <div class="product-color">
@@ -71,20 +71,20 @@
 
                                     {{$product->color}}
 
-                                    {{--@foreach($colors as $color)
+                                    <!--@foreach($colors as $color)
 
                                         <div>
                                             <input data-image="{{$color}}" type="radio" id="{{$color}}" name="color" value="{{$color}}" checked>
                                             <label for="{{$color}}"><span></span></label>
                                         </div>
 
-                                    @endforeach--}}
+                                    @endforeach-->
 
                                 </div>
 
                             </div>
 
-                    @endif
+                    @endif--}}
 
                     <!-- Cable Configuration -->
                         <div class="product-description">
@@ -105,9 +105,25 @@
 
                         <div class="product-description">
 
+                            <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Type')}}</span>
+
+                            <p class="col-lg-7" style="color: black;">{{$product->type_name}}</p>
+
+                        </div>
+
+                        <div class="product-description">
+
                             <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Model')}}</span>
 
                             <p class="col-lg-7" style="color: black;">{{$product->model_name}}</p>
+
+                        </div>
+
+                        <div class="product-description">
+
+                            <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Color')}}</span>
+
+                            <p class="col-lg-7" style="color: black;">{{$product->color}}</p>
 
                         </div>
 
@@ -119,19 +135,6 @@
                                 <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Article Code')}}</span>
 
                                 <p class="col-lg-7" style="color: black;">{{$product->article_code}}</p>
-
-                            </div>
-
-                        @endif
-
-
-                        @if($product->model_number)
-
-                            <div class="product-description">
-
-                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Model Number')}}</span>
-
-                                <p class="col-lg-7" style="color: black;">{{$product->model_number}}</p>
 
                             </div>
 
@@ -190,17 +193,17 @@
                         @endif
 
 
-                        <?php $estimated_prices = explode(',',$product->estimated_price); ?>
+<!--                        --><?php //$estimated_prices = explode(',',$product->estimated_price); ?>
 
 
-                        @if($product->estimated_price)
+                        {{--@if($product->estimated_price)
 
 
-                            @if(strtolower($product->additional_info) == 'per piece' || strtolower($product->additional_info) == 'per stuk')
+                            @if(strtolower($product->additional_info) == 'per piece' || strtolower($product->additional_info) == 'per stuk')--}}
 
-                                <?php $sizes = explode(',',$product->size); ?>
+                    <!--                                --><?php //$sizes = explode(',',$product->size); ?>
 
-                                <div class="product-description">
+                                {{--<div class="product-description">
 
                                     <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Estimated Price')}}</span>
 
@@ -208,11 +211,11 @@
 
                                 </div>
 
-                            @else
+                            @else--}}
 
-                                <?php $additional_info = explode(',',$product->additional_info); ?>
+<!--                                --><?php //$additional_info = explode(',',$product->additional_info); ?>
 
-                                <div class="product-description">
+                                {{--<div class="product-description">
 
                                     <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Estimated Price')}}</span>
 
@@ -222,6 +225,32 @@
 
                             @endif
 
+
+                        @endif--}}
+
+                        @if(strtolower($product->additional_info) == 'per piece' || strtolower($product->additional_info) == 'per stuk')
+
+                            <?php $sizes = explode(',',$product->size); ?>
+
+                            <div class="product-description">
+
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Estimated Price')}}</span>
+
+                                <p class="col-lg-7" style="color: black;">@foreach($sizes as $i => $size) {{$size}}{{$product->measure}} &nbsp;&nbsp; € {{$product->estimated_price}}, &nbsp;&nbsp; -{{strtolower($product->additional_info)}} <br> @endforeach</p>
+
+                            </div>
+
+                        @else
+
+                            <?php $additional_info = explode(',',$product->additional_info); ?>
+
+                            <div class="product-description">
+
+                                <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Estimated Price')}}</span>
+
+                                <p class="col-lg-7" style="color: black;">@foreach($additional_info as $i => $key) {{$key}} &nbsp;&nbsp; € {{$product->estimated_price}} {{$product->measure ? ' / '.$product->measure : null}} <br> @endforeach</p>
+
+                            </div>
 
                         @endif
 
@@ -260,7 +289,7 @@
                         </div>
 
                         <div style="margin-top: 20px;text-align: center;">
-                            <button data-id="{{$product->id}}" href="#aanvragen" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;border: 0;outline: none;font-size: 18px;width: 100%;background-color: #5cb85c !important;border-color: #4cae4c !important;" class="btn btn-success start-btn">{{__('text.Start')}}</button>
+                            <button data-id="{{$product->id}}" data-cat-id="{{$product->sub_category_id}}" data-brand-id="{{$product->brand_id}}" data-type-id="{{$product->model_id}}" data-model="{{$product->model_name}}" data-color="{{$product->color}}" href="#aanvragen" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;border: 0;outline: none;font-size: 18px;width: 100%;background-color: #5cb85c !important;border-color: #4cae4c !important;" class="btn btn-success start-btn">{{__('text.Start')}}</button>
                         </div>
 
                     </div>
@@ -727,166 +756,14 @@
 
             $('.start-btn').click(function(){
 
-                $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
                 var product_id = $(this).data('id');
-                var options = '';
+                var category_id = $(this).data('cat-id');
+                var brand_id = $(this).data('brand-id');
+                var type_id = $(this).data('type-id');
+                var model_text = $(this).data('model');
+                var color_text = $(this).data('color');
 
-                $.ajax({
-                    type: "GET",
-                    data: "id=" + product_id,
-                    url: "<?php echo url('/products-by-id')?>",
-                    success: function (data) {
-
-                        $('.quote-category').val(data.category_id);
-                        $(".quote-category").trigger('change.select2');
-
-                        if($('#step1').find('.floor-description').length == 0)
-                        {
-                            $('.quote-service').removeClass('quote_validation');
-                            $('.quote-category').addClass('quote_validation');
-                            $('.quote-brand').addClass('quote_validation');
-                            $('.quote-model').addClass('quote_validation');
-
-                            $('.unlinked-boxes').hide();
-                            $('.linked-boxes').show();
-                        }
-
-                        $('.navbar a[href="#step1"]').trigger('click');
-
-                        $('.back').hide();
-                        $('.next-submit').hide();
-                        $('.next').show();
-                        $('.floor').show();
-
-                        $('.quote_delivery').attr("placeholder", "{{__('text.Select Delivery Date')}}");
-
-                        var category_id = data.category_id;
-                        var brand_id = data.brand_id;
-                        var model_id = data.model_id;
-                        var model_number = data.model_number;
-                        var options = '';
-
-                        $('.quote-model-number').val(model_number);
-
-                        $.ajax({
-                            type: "GET",
-                            data: "id=" + category_id,
-                            url: "<?php echo url('get-questions')?>",
-
-                            success: function (data) {
-
-                                $('#step2').children('.well').empty();
-
-                                var index_count = 0;
-
-                                $.each(data, function (index, val) {
-
-                                    if (data.length == index + 1) {
-                                        $('#step2').children('.well').append('<div style="margin-bottom: 20px;"></div>');
-                                    } else {
-                                        $('#step2').children('.well').append('<div style="margin-bottom: 40px;"></div>');
-                                    }
-
-                                    var last = $('#step2').children('.well').children().last('div');
-
-                                    last.append('<h3 style="text-align: center;color: #4b4b4b;margin-bottom: 20px;">' + val.title + '</h3><input type="hidden" name="questions[]" value="' + val.title + '">');
-
-                                    if (val.predefined == 1) {
-
-                                        last.append('<div class="checkbox_validation"><input name="predefined' + index + '" type="hidden" value="1"></div>');
-
-                                        $.each(val.answers, function (index1, val1) {
-
-                                            last.children('div').append('<hr>\n' +
-                                                '                                        <label class="container-checkbox">' + val1.title + '\n' +
-                                                '                                        <input name="answers' + index + '[]" type="checkbox" value="' + val1.title + '">\n' +
-                                                '                                        <span class="checkmark-checkbox"></span>\n' +
-                                                '                                        </label>');
-
-                                        });
-                                    } else {
-                                        if (val.placeholder) {
-                                            var placeholder = val.placeholder;
-                                        } else {
-                                            var placeholder = '';
-                                        }
-
-                                        last.append('<input name="predefined' + index + '" type="hidden" value="0">\n' +
-                                            '<textarea name="answers' + index + '" style="resize: vertical;" rows="1" class="form-control quote_validation" placeholder="' + placeholder + '"></textarea>');
-                                    }
-
-                                    index_count = index;
-
-                                });
-
-                                $('#step2').children('.well').append('<input type="hidden" name="index_count" value="' + index_count + '">');
-
-                                /*$('#step2').children('div').children('h3').
-                                console.log(data);*/
-                            }
-                        });
-
-                        $.ajax({
-                            type: "GET",
-                            data: "id=" + category_id,
-                            url: "<?php echo url('/products-brands-by-category')?>",
-                            success: function (data) {
-
-                                $.each(data, function (index, value) {
-
-                                    var opt = '<option value="' + value.id + '" >' + value.cat_name + '</option>';
-
-                                    options = options + opt;
-
-                                });
-
-                                $('.quote-model').find('option')
-                                    .remove()
-                                    .end()
-                                    .append('<option value="">Select Model</option>');
-
-                                $('.quote-brand').find('option')
-                                    .remove()
-                                    .end()
-                                    .append('<option value="">Select Brand</option>' + options);
-
-                                $('.quote-brand').val(brand_id);
-                                $(".quote-brand").trigger('change.select2');
-
-
-                                var options = '';
-
-                                $.ajax({
-                                    type: "GET",
-                                    data: "id=" + brand_id,
-                                    url: "<?php echo url('/products-models-by-brands')?>",
-                                    success: function (data) {
-
-                                        $.each(data, function (index, value) {
-
-                                            var opt = '<option value="' + value.id + '" >' + value.cat_name + '</option>';
-
-                                            options = options + opt;
-
-                                        });
-
-                                        $('.quote-model').find('option')
-                                            .remove()
-                                            .end()
-                                            .append('<option value="">Select Model</option>' + options);
-
-                                        $('.quote-model').val(model_id);
-                                        $(".quote-model").trigger('change.select2');
-
-                                    }
-                                });
-
-                            }
-                        });
-
-                    }
-
-                });
+                select_product(product_id,category_id,brand_id,type_id,model_text,color_text);
 
             });
 

@@ -245,9 +245,8 @@
                             <div class="team_common">
 
                                 <div style="width: 100%;background-color: white;">
-                                    <a href="{{url('product/'.$key->id)}}">
-                                        <div class="member_img"
-                                             style="width: 100%;border: 0;display: flex;align-items: center;margin-bottom: 10px;height: 210px;border-bottom: 1px solid #e3e3e36b !important;">
+                                    <a href="{{url('product/'.$key->id.'/'.$key->org_model_id.'/'.$key->org_color_id)}}">
+                                        <div class="member_img" style="width: 100%;border: 0;display: flex;align-items: center;margin-bottom: 10px;height: 210px;border-bottom: 1px solid #e3e3e36b !important;">
 
                                             @if($key->photo)
 

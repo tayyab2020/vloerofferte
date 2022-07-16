@@ -1542,7 +1542,7 @@ class FrontendController extends Controller
         }
 
         // $all_products = $all_products->select('products.*','brands.cat_name as brand','models.cat_name as type')->groupBy('products.id')->paginate(12);
-        $all_products = $all_products->orderBy('products.id','Desc')->select('products.*','brands.cat_name as brand','models.cat_name as type','product_models.model','colors.title as color')->paginate(12);
+        $all_products = $all_products->orderBy('products.id','Desc')->select('products.*','brands.cat_name as brand','models.cat_name as type','product_models.id as org_model_id','product_models.model','colors.id as org_color_id','colors.title as color')->paginate(12);
         
         $filter_brands = Products::leftjoin('brands','brands.id','=','products.brand_id')->where('products.sub_category_id','=',$category)->with('types')->select('brands.*','products.user_id','products.brand_id')->get();
         $brand_ids = array();
@@ -1577,9 +1577,9 @@ class FrontendController extends Controller
         return view('front.services',compact('our_services'));
     }
 
-    public function product($id)
+    public function product($id,$id1,$id2)
     {
-        $product = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where('products.id',$id)->select('products.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as model_name')->first();
+        $product = Products::leftjoin('categories','categories.id','=','products.sub_category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->leftjoin('product_models','product_models.product_id','=','products.id')->leftjoin('colors','colors.product_id','=','products.id')->where('products.id',$id)->where('product_models.id',$id1)->where('colors.id',$id2)->select('products.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as type_name','product_models.model as model_name','product_models.estimated_price','product_models.measure','colors.title as color')->first();
 
         return view('front.product',compact('product'));
     }
