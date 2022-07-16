@@ -619,7 +619,7 @@
                 var options = '';
                 var options1 = '';
 
-                if(id != '')
+                if(category_id != '')
                 {
                     $.ajax({
                         type:"GET",
