@@ -473,8 +473,8 @@ class FrontendController extends Controller
 
         $sizes = $sizes->unique('size');
 
-        $highest = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('estimated_prices','estimated_prices.product_id','=','products.id')->where('categories.id',$request->id)->max('price');
-        $lowest = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('estimated_prices','estimated_prices.product_id','=','products.id')->where('categories.id',$request->id)->min('price');
+        $highest = Products::leftjoin('categories','categories.id','=','products.sub_category_id')->leftjoin('product_models','product_models.product_id','=','products.id')->where('categories.id',$request->id)->max('estimated_price');
+        $lowest = Products::leftjoin('categories','categories.id','=','products.sub_category_id')->leftjoin('product_models','product_models.product_id','=','products.id')->where('categories.id',$request->id)->min('estimated_price');
 
         $category = Category::where('id',$request->id)->first();
 

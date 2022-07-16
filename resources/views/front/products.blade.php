@@ -655,7 +655,7 @@
 
                     $.ajax({
                         type:"GET",
-                        data: "id=" + id ,
+                        data: "id=" + category_id,
                         url: "<?php echo url('/products-data-by-category')?>",
                         success: function(data) {
 
