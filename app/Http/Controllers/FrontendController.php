@@ -1519,8 +1519,16 @@ class FrontendController extends Controller
         }
         else
         {
-            $highest = product_models::max('estimated_price');
-            $lowest = product_models::min('estimated_price');
+            if($category)
+            {
+                $highest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category_id)->max('product_models.estimated_price');
+                $lowest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category_id)->min('product_models.estimated_price');
+            }
+            else
+            {
+                $highest = product_models::max('estimated_price');
+                $lowest = product_models::min('estimated_price');
+            }
 
             if(!$lowest)
             {
@@ -1539,27 +1547,37 @@ class FrontendController extends Controller
         // $all_products = $all_products->select('products.*','brands.cat_name as brand','models.cat_name as type')->groupBy('products.id')->paginate(12);
         $all_products = $all_products->orderBy('products.id','Desc')->select('products.*','brands.cat_name as brand','models.cat_name as type','product_models.id as org_model_id','product_models.model','colors.id as org_color_id','colors.title as color')->paginate(12);
         
-        $filter_brands = Products::leftjoin('brands','brands.id','=','products.brand_id')->where('products.sub_category_id','=',$category)->with('types')->select('brands.*','products.user_id','products.brand_id')->get();
-        $brand_ids = array();
-
-        foreach($filter_brands as $key)
+        if($category)
         {
-            $type_ids = $key->types->pluck('id')->toArray();
-            $check = Products::whereIn('model_id',$type_ids)->first();
-            
-            if($check)
-            {
-                $brand_ids[] = $key->id;
-            }
-        }
+            $filter_brands = Products::leftjoin('brands','brands.id','=','products.brand_id')->where('products.sub_category_id','=',$category)->with('types')->select('brands.*','products.user_id','products.brand_id')->get();
+            $brand_ids = array();
 
-        $filter_brands = Products::leftjoin('brands','brands.id','=','products.brand_id')->where('products.sub_category_id','=',$category)->whereIn('brands.id',$brand_ids)->select('brands.*','products.user_id','products.brand_id')->get();
-        $filter_brands = $filter_brands->unique();
-        $filter_models = Model1::leftjoin('products','products.model_id','=','models.id')->where('products.sub_category_id',$category)->where('products.brand_id','=',$brand)->select('models.*')->get();
-        $filter_models = $filter_models->unique();
-        $sizes = Products::where('sub_category_id','=',$request->category)->where('size','!=',NULL)->get();
-        $sizes = $sizes->unique('size');
-        $colors = colors::leftjoin('products','products.id','=','colors.product_id')->where('products.sub_category_id',$category)->where('products.brand_id','=',$brand)->where('products.model_id',$model)->groupBy('colors.title')->select('colors.*')->get();
+            foreach($filter_brands as $key)
+            {
+                $type_ids = $key->types->pluck('id')->toArray();
+                $check = Products::whereIn('model_id',$type_ids)->first();
+            
+                if($check)
+                {
+                    $brand_ids[] = $key->id;
+                }
+            }
+
+            $filter_brands = Products::leftjoin('brands','brands.id','=','products.brand_id')->where('products.sub_category_id','=',$category)->whereIn('brands.id',$brand_ids)->select('brands.*','products.user_id','products.brand_id')->get();
+            $filter_brands = $filter_brands->unique();
+            $sizes = Products::where('sub_category_id','=',$request->category)->where('size','!=',NULL)->get();
+            $sizes = $sizes->unique('size');
+            $filter_models = Model1::leftjoin('products','products.model_id','=','models.id')->where('products.sub_category_id',$category)->where('products.brand_id','=',$brand)->select('models.*')->get();
+            $filter_models = $filter_models->unique();
+            $colors = colors::leftjoin('products','products.id','=','colors.product_id')->where('products.sub_category_id',$category)->where('products.brand_id','=',$brand)->where('products.model_id',$model)->groupBy('colors.title')->select('colors.*')->get();
+        }
+        else
+        {
+            $filter_brands = '';
+            $filter_models = '';
+            $colors = '';
+            $sizes = '';
+        }
 
         return view('front.products',compact('filters','highest','lowest','sizes','colors','all_products','filter_brands','filter_models','s','e','range_s','range_e','category','brand','model','size','color'));
     }

@@ -144,17 +144,24 @@
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
                         <select class="filter sizes" name="size" id="size">
+                            
                             <option value="">{{__('text.Select Size')}}</option>
-                            @foreach($sizes as $key)
-                                <?php $cat_size = explode(',', $key->size); ?>
+                            
+                            @if($sizes)
+                            
+                                @foreach($sizes as $key)
+                                    <?php $cat_size = explode(',', $key->size); ?>
 
                                     @foreach($cat_size as $key1)
 
-                                        <option {{$size == $key1 ? 'selected' : null}} value="{{$key1}}">{{$key1 .' '. $key->measure}}</option>
+                                        <option {{$size == $key1 ? 'selected' : null}} value="{{$key1}}">{{$key1}}</option>
 
                                     @endforeach
 
-                            @endforeach
+                                @endforeach
+
+                            @endif
+                            
                         </select>
                     </div> <!-- cd-select -->
                 </div> <!-- cd-filter-content -->
