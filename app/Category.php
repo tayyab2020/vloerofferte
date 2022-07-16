@@ -8,13 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
 	use SoftDeletes;
-    protected $fillable = ['cat_name','cat_slug','photo','description','parent_id','price_filter','size_filter','color_filter'];
+    protected $fillable = ['cat_name','cat_slug','photo','description','parent_id','enabled','price_filter','size_filter','color_filter'];
     public $timestamps = false;
     protected $dates = ['deleted_at'];
 
     public function newQuery($excludeDeleted = true) {
-        return parent::newQuery($excludeDeleted)
-            ->where('parent_id','!=', 0)->where('cat_name','!=', 'Accessoires');
+        return parent::newQuery($excludeDeleted)->where('parent_id','!=', 0)->where('enabled',1);
     }
 
     // public function suppliers()

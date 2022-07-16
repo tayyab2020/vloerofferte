@@ -36,19 +36,19 @@
 
                                             <input type="hidden" name="cat_id" value="{{isset($cats) ? $cats->id : null}}" />
 
-                                          <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_display_name">Title* <span>(In Any Language)</span></label>
-                                            <div class="col-sm-6">
-                                              <input value="{{isset($cats) ? $cats->cat_name : null}}" class="form-control" name="cat_name" id="blood_group_display_name" placeholder="Enter Category title" required="" type="text">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_display_name">Title* <span>(In Any Language)</span></label>
+                                                <div class="col-sm-6">
+                                                    <input value="{{isset($cats) ? $cats->cat_name : null}}" class="form-control" name="cat_name" id="blood_group_display_name" placeholder="Enter Category title" required="" type="text">
+                                                </div>
                                             </div>
-                                          </div>
-                                          <div class="form-group">
-                                            <label class="control-label col-sm-4" for="blood_group_slug">Slug* <span>(In English)</span></label>
-                                            <div class="col-sm-6">
-                                              <input value="{{isset($cats) ? $cats->cat_slug : null}}" class="form-control" name="cat_slug" id="blood_group_slug" placeholder="Enter Category Slug" required="" type="text">
-                                            </div>
-                                          </div>
 
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="blood_group_slug">Slug* <span>(In English)</span></label>
+                                                <div class="col-sm-6">
+                                                    <input value="{{isset($cats) ? $cats->cat_slug : null}}" class="form-control" name="cat_slug" id="blood_group_slug" placeholder="Enter Category Slug" required="" type="text">
+                                                </div>
+                                            </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4" for="service_description">Category Description*</label>
@@ -57,24 +57,31 @@
                                                 </div>
                                             </div>
 
-
-                                          <div class="form-group">
-                                            <label class="control-label col-sm-4" for="current_photo">Current Photo*</label>
-                                            <div class="col-sm-6">
-                                             <img width="130px" height="90px" id="adminimg" src="{{isset($cats->photo) ? asset('assets/images/'.$cats->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}" alt="">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="current_photo">Current Photo*</label>
+                                                <div class="col-sm-6">
+                                                    <img width="130px" height="90px" id="adminimg" src="{{isset($cats->photo) ? asset('assets/images/'.$cats->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}" alt="">
+                                                </div>
                                             </div>
-                                          </div>
 
-
-                                          <div class="form-group">
-                                            <label class="control-label col-sm-4" for="profile_photo">Add Photo</label>
-                                            <div class="col-sm-6">
-                                                <input type="file" id="uploadFile" class="hidden" name="photo" value="">
-                                              <button type="button" id="uploadTrigger" onclick="uploadclick()" class="form-control"><i class="fa fa-download"></i> Add Category Photo</button>
-                                              <p>Preferred Size: (600x600) or Square Sized Image</p>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="profile_photo">Add Photo</label>
+                                                <div class="col-sm-6">
+                                                    <input type="file" id="uploadFile" class="hidden" name="photo" value="">
+                                                    <button type="button" id="uploadTrigger" onclick="uploadclick()" class="form-control"><i class="fa fa-download"></i> Add Category Photo</button>
+                                                    <p>Preferred Size: (600x600) or Square Sized Image</p>
+                                                </div>
                                             </div>
-                                          </div>
 
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Enabled</label>
+                                                <div class="col-sm-3">
+                                                    <label class="switch">
+                                                        <input {{isset($cats) ? ($cats->enabled ? 'checked' : null) : 'checked'}} type="checkbox" name="enabled" id="enabled">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4" for="">Price Filter</label>
@@ -136,22 +143,21 @@
 
 <script type="text/javascript">
 
-  function uploadclick(){
-    $("#uploadFile").click();
-    $("#uploadFile").change(function(event) {
-          readURL(this);
-        $("#uploadTrigger").html($("#uploadFile").val());
-    });
+    function uploadclick(){
+        $("#uploadFile").click();
+        $("#uploadFile").change(function(event) {
+            readURL(this);
+            $("#uploadTrigger").html($("#uploadFile").val());
+        });
 
-}
-
+    }
 
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#adminimg').attr('src', e.target.result);
-            }
+            };
             reader.readAsDataURL(input.files[0]);
         }
     }

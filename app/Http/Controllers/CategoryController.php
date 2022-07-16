@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\vats;
 use Illuminate\Http\Request;
 use App\Category;
+use App\all_categories;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\StoreValidationRequest;
 use App\Http\Requests\UpdateValidationRequest;
@@ -48,7 +49,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $cats = Category::orderBy('id','desc')->get();
+        $cats = all_categories::where('parent_id','!=', 0)->orderBy('id','desc')->get();
 
         return view('admin.category.index',compact('cats'));
     }
@@ -60,9 +61,15 @@ class CategoryController extends Controller
 
     public function store(StoreValidationRequest $request)
     {
+        $enabled = 0;
         $price_filter = 0;
         $size_filter = 0;
         $color_filter = 0;
+
+        if($request->enabled)
+        {
+            $enabled = 1;
+        }
 
         if($request->price_filter)
         {
@@ -93,12 +100,12 @@ class CategoryController extends Controller
         }
 
         $input = $request->all();
+        $input['enabled'] = $enabled;
         $input['price_filter'] = $price_filter;
         $input['size_filter'] = $size_filter;
         $input['color_filter'] = $color_filter;
 
-
-        if ($file = $request->file('photo'))
+        if($file = $request->file('photo'))
         {
             if($cat->photo != null)
             {
