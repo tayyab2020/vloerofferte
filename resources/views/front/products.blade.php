@@ -304,7 +304,7 @@
                                     </a>
 
                                     <div style="display: inline-block;width: 100%;text-align: center;min-height: 70px;">
-                                        <p style="font-size: 18px;font-weight: bold;color: black;width: 100%;/*text-overflow: ellipsis;display: -webkit-box;*//*visibility: visible;-webkit-line-clamp: 1;-webkit-box-orient: vertical;overflow: hidden;line-height: 2;*/padding: 0 10px;">{!! $key->brand . ' ' . $key->type . '<br>' . $key->model . ' ' . $key->color !!}</p>
+                                        <p style="font-size: 18px;font-weight: bold;color: black;width: 100%;/*text-overflow: ellipsis;display: -webkit-box;*//*visibility: visible;-webkit-line-clamp: 1;-webkit-box-orient: vertical;overflow: hidden;line-height: 2;*/padding: 0 10px;">{!! $key->brand . ' ' . $key->type . '<br>' . ($key->models_count > 1 ? $key->model . ' ' . $key->color : ' ' . $key->color) !!}</p>
                                     <!-- <small>{{$key->model .' '. $key->model_number}}</small> -->
                                     </div>
 

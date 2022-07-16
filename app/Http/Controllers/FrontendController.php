@@ -1521,8 +1521,8 @@ class FrontendController extends Controller
         {
             if($category)
             {
-                $highest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category_id)->max('product_models.estimated_price');
-                $lowest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category_id)->min('product_models.estimated_price');
+                $highest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category)->max('product_models.estimated_price');
+                $lowest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category)->min('product_models.estimated_price');
             }
             else
             {
@@ -1545,7 +1545,7 @@ class FrontendController extends Controller
         }
 
         // $all_products = $all_products->select('products.*','brands.cat_name as brand','models.cat_name as type')->groupBy('products.id')->paginate(12);
-        $all_products = $all_products->orderBy('products.id','Desc')->select('products.*','brands.cat_name as brand','models.cat_name as type','product_models.id as org_model_id','product_models.model','colors.id as org_color_id','colors.title as color')->paginate(12);
+        $all_products = $all_products->orderBy('products.id','Desc')->select('products.*','brands.cat_name as brand','models.cat_name as type','product_models.id as org_model_id','product_models.model','colors.id as org_color_id','colors.title as color')->withCount('models')->paginate(12);
         
         if($category)
         {
