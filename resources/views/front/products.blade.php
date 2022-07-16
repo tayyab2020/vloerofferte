@@ -1315,151 +1315,151 @@
         });
 
 
-        $('.categories').change(function() {
+        {{--$('.categories').change(function() {--}}
 
-            var id = $(this).val();
-            var options = '';
-            var options1 = '';
+        {{--    var id = $(this).val();--}}
+        {{--    var options = '';--}}
+        {{--    var options1 = '';--}}
 
-            if(id != '')
-            {
-                $.ajax({
-                    type:"GET",
-                    data: "id=" + id ,
-                    url: "<?php echo url('/products-data-by-category')?>",
-                    success: function(data) {
+        {{--    if(id != '')--}}
+        {{--    {--}}
+        {{--        $.ajax({--}}
+        {{--            type:"GET",--}}
+        {{--            data: "id=" + id ,--}}
+        {{--            url: "<?php echo url('/products-data-by-category')?>",--}}
+        {{--            success: function(data) {--}}
 
-                        var price_filter = data[4]['price_filter'];
-                        var size_filter = data[4]['size_filter'];
-                        var color_filter = data[4]['color_filter'];
-                        var highest = data[2];
-                        var lowest = data[3];
-
-
-                        if(highest != lowest)
-                        {
-                            slider.noUiSlider.updateOptions({
-                                range: {
-                                    'min': lowest,
-                                    'max': highest
-                                },
-                                start: [lowest,highest],
-                            });
-
-                            $("#slider-lowest").text('€ '+ lowest);
-                            $("#slider-highest").text('€ '+ highest);
-
-                            $('#org_range-start').val(lowest);
-                            $('#org_range-end').val(highest);
-                        }
-                        else
-                        {
-                            highest = highest + 0.1;
-
-                            slider.noUiSlider.updateOptions({
-                                range: {
-                                    'min': lowest,
-                                    'max': highest
-                                },
-                                start: [lowest,highest],
-                            });
-
-                            $("#slider-lowest").text('€ '+ lowest);
-                            $("#slider-highest").text('€ '+ highest);
-
-                            $('#org_range-start').val(lowest);
-                            $('#org_range-end').val(highest);
-                        }
-
-                        $.each(data[0], function(index, value) {
-
-                            var measure = value.measure;
-
-                            var size_count = 0;
-                            var sizes = value.size;
-                            sizes = sizes.split(',');
-
-                            if(value.size != '')
-                            {
-                                size_count = sizes.length;
-                            }
-
-                            if(size_count > 0)
-                            {
-                                for(var i=0;i<size_count;i++)
-                                {
-                                    var opt = '<option value="'+sizes[i]+'" >'+sizes[i] +' '+measure+'</option>';
-                                    options = options + opt;
-                                }
-                            }
-
-                        });
-
-                        $.each(data[1], function(index, value) {
-
-                            var color_count = 0;
-                            var colors = value.color;
-                            colors = colors.split(',');
-
-                            if(value.color != '')
-                            {
-                                color_count = colors.length;
-                            }
-
-                            if(color_count > 0)
-                            {
-                                for(var i=0;i<color_count;i++)
-                                {
-                                    var opt1 = '<option value="'+colors[i]+'" >'+colors[i]+'</option>';
-                                    options1 = options1 + opt1;
-                                }
-                            }
-
-                        });
-
-                        $('.sizes').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">{{__('text.Select Size')}}</option>'+options);
-
-                        $('.colors').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">{{__('text.Select Color')}}</option>'+options1);
+        {{--                var price_filter = data[4]['price_filter'];--}}
+        {{--                var size_filter = data[4]['size_filter'];--}}
+        {{--                var color_filter = data[4]['color_filter'];--}}
+        {{--                var highest = data[2];--}}
+        {{--                var lowest = data[3];--}}
 
 
-                        if(price_filter == 1)
-                        {
-                            $('.price_filter').show();
-                        }
-                        else
-                        {
-                            $('.price_filter').hide();
-                        }
+        {{--                if(highest != lowest)--}}
+        {{--                {--}}
+        {{--                    slider.noUiSlider.updateOptions({--}}
+        {{--                        range: {--}}
+        {{--                            'min': lowest,--}}
+        {{--                            'max': highest--}}
+        {{--                        },--}}
+        {{--                        start: [lowest,highest],--}}
+        {{--                    });--}}
 
-                        if(size_filter == 1)
-                        {
-                            $('.size_filter').show();
-                        }
-                        else
-                        {
-                            $('.size_filter').hide();
-                        }
+        {{--                    $("#slider-lowest").text('€ '+ lowest);--}}
+        {{--                    $("#slider-highest").text('€ '+ highest);--}}
 
-                        if(color_filter == 1)
-                        {
-                            $('.color_filter').show();
-                        }
-                        else
-                        {
-                            $('.color_filter').hide();
-                        }
+        {{--                    $('#org_range-start').val(lowest);--}}
+        {{--                    $('#org_range-end').val(highest);--}}
+        {{--                }--}}
+        {{--                else--}}
+        {{--                {--}}
+        {{--                    highest = highest + 0.1;--}}
 
-                    }
-                });
-            }
+        {{--                    slider.noUiSlider.updateOptions({--}}
+        {{--                        range: {--}}
+        {{--                            'min': lowest,--}}
+        {{--                            'max': highest--}}
+        {{--                        },--}}
+        {{--                        start: [lowest,highest],--}}
+        {{--                    });--}}
 
-        });
+        {{--                    $("#slider-lowest").text('€ '+ lowest);--}}
+        {{--                    $("#slider-highest").text('€ '+ highest);--}}
+
+        {{--                    $('#org_range-start').val(lowest);--}}
+        {{--                    $('#org_range-end').val(highest);--}}
+        {{--                }--}}
+
+        {{--                $.each(data[0], function(index, value) {--}}
+
+        {{--                    var measure = value.measure;--}}
+
+        {{--                    var size_count = 0;--}}
+        {{--                    var sizes = value.size;--}}
+        {{--                    sizes = sizes.split(',');--}}
+
+        {{--                    if(value.size != '')--}}
+        {{--                    {--}}
+        {{--                        size_count = sizes.length;--}}
+        {{--                    }--}}
+
+        {{--                    if(size_count > 0)--}}
+        {{--                    {--}}
+        {{--                        for(var i=0;i<size_count;i++)--}}
+        {{--                        {--}}
+        {{--                            var opt = '<option value="'+sizes[i]+'" >'+sizes[i] +' '+measure+'</option>';--}}
+        {{--                            options = options + opt;--}}
+        {{--                        }--}}
+        {{--                    }--}}
+
+        {{--                });--}}
+
+        {{--                $.each(data[1], function(index, value) {--}}
+
+        {{--                    var color_count = 0;--}}
+        {{--                    var colors = value.color;--}}
+        {{--                    colors = colors.split(',');--}}
+
+        {{--                    if(value.color != '')--}}
+        {{--                    {--}}
+        {{--                        color_count = colors.length;--}}
+        {{--                    }--}}
+
+        {{--                    if(color_count > 0)--}}
+        {{--                    {--}}
+        {{--                        for(var i=0;i<color_count;i++)--}}
+        {{--                        {--}}
+        {{--                            var opt1 = '<option value="'+colors[i]+'" >'+colors[i]+'</option>';--}}
+        {{--                            options1 = options1 + opt1;--}}
+        {{--                        }--}}
+        {{--                    }--}}
+
+        {{--                });--}}
+
+        {{--                $('.sizes').find('option')--}}
+        {{--                    .remove()--}}
+        {{--                    .end()--}}
+        {{--                    .append('<option value="">{{__('text.Select Size')}}</option>'+options);--}}
+
+        {{--                $('.colors').find('option')--}}
+        {{--                    .remove()--}}
+        {{--                    .end()--}}
+        {{--                    .append('<option value="">{{__('text.Select Color')}}</option>'+options1);--}}
+
+
+        {{--                if(price_filter == 1)--}}
+        {{--                {--}}
+        {{--                    $('.price_filter').show();--}}
+        {{--                }--}}
+        {{--                else--}}
+        {{--                {--}}
+        {{--                    $('.price_filter').hide();--}}
+        {{--                }--}}
+
+        {{--                if(size_filter == 1)--}}
+        {{--                {--}}
+        {{--                    $('.size_filter').show();--}}
+        {{--                }--}}
+        {{--                else--}}
+        {{--                {--}}
+        {{--                    $('.size_filter').hide();--}}
+        {{--                }--}}
+
+        {{--                if(color_filter == 1)--}}
+        {{--                {--}}
+        {{--                    $('.color_filter').show();--}}
+        {{--                }--}}
+        {{--                else--}}
+        {{--                {--}}
+        {{--                    $('.color_filter').hide();--}}
+        {{--                }--}}
+
+        {{--            }--}}
+        {{--        });--}}
+        {{--    }--}}
+
+        {{--});--}}
 
 
         $(".brands").select2({
