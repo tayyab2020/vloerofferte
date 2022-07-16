@@ -150,6 +150,7 @@
                             @if($sizes)
                             
                                 @foreach($sizes as $key)
+                                
                                     <?php $cat_size = explode(',', $key->size); ?>
 
                                     @foreach($cat_size as $key1)
@@ -173,10 +174,17 @@
                 <div class="cd-filter-content">
                     <div class="cd-select cd-filters">
                         <select class="filter colors" name="color" id="color">
+
                             <option value="">{{__('text.Select Color')}}</option>
-                            @foreach($colors as $key)
-                                <option {{$color == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->title}}</option>
-                            @endforeach
+                            
+                            @if($colors)
+
+                                @foreach($colors as $key)
+                                    <option {{$color == $key->id ? 'selected' : null}} value="{{$key->id}}">{{$key->title}}</option>
+                                @endforeach
+
+                            @endif
+                            
                         </select>
                     </div> <!-- cd-select -->
                 </div> <!-- cd-filter-content -->
