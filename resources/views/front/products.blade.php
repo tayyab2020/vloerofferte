@@ -617,38 +617,170 @@
 
                 var category_id = $(this).val();
                 var options = '';
+                var options1 = '';
 
-                $.ajax({
-                    type:"GET",
-                    data: "id=" + category_id ,
-                    url: "<?php echo url('/products-brands-by-category')?>",
-                    success: function(data) {
+                if(id != '')
+                {
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + category_id ,
+                        url: "<?php echo url('/products-brands-by-category')?>",
+                        success: function(data) {
 
-                        $.each(data, function(index, value) {
+                            $.each(data, function(index, value) {
 
-                            var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
+                                var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
 
-                            options = options + opt;
+                                options = options + opt;
 
-                        });
+                            });
 
-                        $('.models').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">{{__("text.Select Type")}}</option>');
+                            $('.models').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">{{__("text.Select Type")}}</option>');
 
-                        $('.colors').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">{{__("text.Select Color")}}</option>');
+                            $('.colors').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">{{__("text.Select Color")}}</option>');
 
-                        $('.brands').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">{{__("text.Select Brand")}}</option>'+options);
+                            $('.brands').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">{{__("text.Select Brand")}}</option>'+options);
 
-                    }
-                });
+                        }
+                    });
+
+                    $.ajax({
+                        type:"GET",
+                        data: "id=" + id ,
+                        url: "<?php echo url('/products-data-by-category')?>",
+                        success: function(data) {
+
+                            var price_filter = data[3]['price_filter'];
+                            var size_filter = data[3]['size_filter'];
+                            var color_filter = data[3]['color_filter'];
+                            var highest = data[1];
+                            var lowest = data[2];
+
+
+                            if(highest != lowest)
+                            {
+                                slider.noUiSlider.updateOptions({
+                                    range: {
+                                        'min': lowest,
+                                        'max': highest
+                                    },
+                                    start: [lowest,highest],
+                                });
+
+                                $("#slider-lowest").text('€ '+ lowest);
+                                $("#slider-highest").text('€ '+ highest);
+
+                                $('#org_range-start').val(lowest);
+                                $('#org_range-end').val(highest);
+                            }
+                            else
+                            {
+                                highest = highest + 0.1;
+
+                                slider.noUiSlider.updateOptions({
+                                    range: {
+                                        'min': lowest,
+                                        'max': highest
+                                    },
+                                    start: [lowest,highest],
+                                });
+
+                                $("#slider-lowest").text('€ '+ lowest);
+                                $("#slider-highest").text('€ '+ highest);
+
+                                $('#org_range-start').val(lowest);
+                                $('#org_range-end').val(highest);
+                            }
+
+                            $.each(data[0], function(index, value) {
+
+                                var size_count = 0;
+                                var sizes = value.size;
+                                sizes = sizes.split(',');
+
+                                if(value.size != '')
+                                {
+                                    size_count = sizes.length;
+                                }
+
+                                if(size_count > 0)
+                                {
+                                    for(var i=0;i<size_count;i++)
+                                    {
+                                        var opt1 = '<option value="'+sizes[i]+'" >'+sizes[i]+'</option>';
+                                        options1 = options1 + opt1;
+                                    }
+                                }
+
+                            });
+
+                            $('.sizes').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">{{__('text.Select Size')}}</option>'+options1);
+
+
+                            if(price_filter == 1)
+                            {
+                                $('.price_filter').show();
+                            }
+                            else
+                            {
+                                $('.price_filter').hide();
+                            }
+
+                            if(size_filter == 1)
+                            {
+                                $('.size_filter').show();
+                            }
+                            else
+                            {
+                                $('.size_filter').hide();
+                            }
+
+                            if(color_filter == 1)
+                            {
+                                $('.color_filter').show();
+                            }
+                            else
+                            {
+                                $('.color_filter').hide();
+                            }
+
+                        }
+                    });
+                }
+                else
+                {
+                    $('.models').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">{{__("text.Select Type")}}</option>');
+
+                    $('.colors').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">{{__("text.Select Color")}}</option>');
+
+                    $('.brands').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">{{__("text.Select Brand")}}</option>');
+
+                    $('.sizes').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">{{__('text.Select Size')}}</option>');
+                }
 
             });
 
@@ -658,31 +790,46 @@
                 var brand_id = $(this).val();
                 var options = '';
 
-                $.ajax({
-                    type: "GET",
-                    data: "category_id=" + category_id + "&brand_id=" + brand_id,
-                    url: "<?php echo url('/products-types-by-category-brand')?>",
-                    success: function (data) {
+                if(brand_id != '')
+                {
+                    $.ajax({
+                        type: "GET",
+                        data: "category_id=" + category_id + "&brand_id=" + brand_id,
+                        url: "<?php echo url('/products-types-by-category-brand')?>",
+                        success: function (data) {
 
-                        $.each(data, function(index, value) {
+                            $.each(data, function(index, value) {
 
-                            var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
-                            options = options + opt;
+                                var opt = '<option value="'+value.id+'" >'+value.cat_name+'</option>';
+                                options = options + opt;
 
-                        });
+                            });
 
-                        $('.models').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">{{__("text.Select Type")}}</option>' + options);
+                            $('.models').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">{{__("text.Select Type")}}</option>' + options);
 
-                        $('.colors').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">{{__("text.Select Color")}}</option>');
+                            $('.colors').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">{{__("text.Select Color")}}</option>');
 
-                    }
-                });
+                        }
+                    });
+                }
+                else
+                {
+                    $('.models').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">{{__("text.Select Type")}}</option>');
+
+                    $('.colors').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">{{__("text.Select Color")}}</option>');
+                }
 
             });
 
@@ -694,26 +841,36 @@
 
                 var options = '';
 
-                $.ajax({
-                    type: "GET",
-                    data: "category_id=" + category_id + "&brand_id=" + brand_id + "&type_id=" + type_id,
-                    url: "<?php echo url('/products-models-colors-by-category-brand-type')?>",
-                    success: function (data) {
+                if(type_id != '')
+                {
+                    $.ajax({
+                        type: "GET",
+                        data: "category_id=" + category_id + "&brand_id=" + brand_id + "&type_id=" + type_id,
+                        url: "<?php echo url('/products-models-colors-by-category-brand-type')?>",
+                        success: function (data) {
 
-                        $.each(data[1], function(index, value) {
+                            $.each(data[1], function(index, value) {
 
-                            var opt = '<option value="'+value.id+'" >'+value.title+'</option>';
-                            options = options + opt;
+                                var opt = '<option value="'+value.id+'" >'+value.title+'</option>';
+                                options = options + opt;
 
-                        });
+                            });
 
-                        $('.colors').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">{{__("text.Select Color")}}</option>' + options);
+                            $('.colors').find('option')
+                                .remove()
+                                .end()
+                                .append('<option value="">{{__("text.Select Color")}}</option>' + options);
 
-                    }
-                });
+                        }
+                    });
+                }
+                else
+                {
+                    $('.colors').find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="">{{__("text.Select Color")}}</option>');
+                }
 
             });
 

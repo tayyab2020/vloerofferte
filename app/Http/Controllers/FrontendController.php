@@ -469,13 +469,9 @@ class FrontendController extends Controller
 
     public function productsDataByCategory(Request $request)
     {
-        $sizes = Products::where('category_id','=',$request->id)->where('size','!=',NULL)->get();
+        $sizes = Products::where('sub_category_id','=',$request->id)->where('size','!=',NULL)->get();
 
         $sizes = $sizes->unique('size');
-
-        $colors = Products::where('category_id','=',$request->id)->where('color','!=',NULL)->get();
-
-        $colors = $colors->unique('color');
 
         $highest = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('estimated_prices','estimated_prices.product_id','=','products.id')->where('categories.id',$request->id)->max('price');
         $lowest = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('estimated_prices','estimated_prices.product_id','=','products.id')->where('categories.id',$request->id)->min('price');
@@ -483,10 +479,9 @@ class FrontendController extends Controller
         $category = Category::where('id',$request->id)->first();
 
         $data[0] = $sizes;
-        $data[1] = $colors;
-        $data[2] = floatval($highest);
-        $data[3] = floatval($lowest);
-        $data[4] = $category;
+        $data[1] = floatval($highest);
+        $data[2] = floatval($lowest);
+        $data[3] = $category;
 
         return $data;
     }
