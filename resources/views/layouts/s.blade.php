@@ -500,7 +500,7 @@
                                     <select class="js-data-example-ajax13 form-control quote-type quote_validation"
                                             style="height: 40px;" name="type_id" id="blood_grp" required>
 
-                                        <option value="">Select Type</option>
+                                        <option value="">{{__('text.Select Type')}}</option>
 
                                     </select>
 
@@ -580,17 +580,15 @@
 
                         <div style="max-height: 300px;overflow-y: auto;" class="tab-pane fade" id="step2">
 
-                            <div class="well"></div>
-
                             <section class="attributes_table" style="width: 100%;padding: 19px;">
 
                                 <input type="hidden" name="measure_type" id="measure_type">
-                                <h3 style="border-bottom: 1px solid #b9b9b9;margin-bottom: 30px;padding-bottom: 10px;text-align: center;">Dimensions</h3>
+                                <h3 style="border-bottom: 1px solid #b9b9b9;margin-bottom: 30px;padding-bottom: 10px;text-align: center;">{{__('text.Dimensions')}}</h3>
 
                                 <div class="header-div">
-                                    <div class="headings" style="width: 42%;">Description</div>
-                                    <div class="headings" style="width: 20%;">Width</div>
-                                    <div class="headings" style="width: 20%;">Height</div>
+                                    <div class="headings" style="width: 42%;">{{__('text.Description')}}</div>
+                                    <div class="headings" style="width: 20%;">{{__('text.Width')}}</div>
+                                    <div class="headings" style="width: 20%;">{{__('text.Height')}}</div>
                                     <div class="headings" style="width: 18%;"></div>
                                 </div>
 
@@ -642,6 +640,8 @@
 
 
                             </section>
+
+                            <div class="well"></div>
 
                             {{--                            <div style="width: 100%;position: relative;height: 2rem;bottom: 2rem;background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 25%, rgb(255, 255, 255) 100%);"></div>--}}
 
@@ -1700,22 +1700,22 @@
                 $('.quote-model').find('option')
                     .remove()
                     .end()
-                    .append('<option value="">Select Model</option>');
+                    .append('<option value="">{{__("text.Select Model")}}</option>');
 
                 $('.quote-color').find('option')
                     .remove()
                     .end()
-                    .append('<option value="">Select Color</option>');
+                    .append('<option value="">{{__("text.Select Color")}}</option>');
 
                 $('.quote-type').find('option')
                     .remove()
                     .end()
-                    .append('<option value="">Select Type</option>');
+                    .append('<option value="">{{__("text.Select Type")}}</option>');
 
                 $('.quote-brand').find('option')
                     .remove()
                     .end()
-                    .append('<option value="">Select Brand</option>' + options);
+                    .append('<option value="">{{__("text.Select Brand")}}</option>' + options);
 
                 $('.quote-brand').val(brand_id);
                 $(".quote-brand").trigger('change.select2');
@@ -1739,7 +1739,7 @@
                         $('.quote-type').find('option')
                             .remove()
                             .end()
-                            .append('<option value="">Select Type</option>' + options);
+                            .append('<option value="">{{__("text.Select Type")}}</option>' + options);
 
                         $('.quote-type').val(type_id);
                         $(".quote-type").trigger('change.select2');
@@ -2767,7 +2767,7 @@
     $(".js-data-example-ajax13").select2({
         width: '100%',
         height: '200px',
-        placeholder: "Select Type",
+        placeholder: "{{__('text.Select Type')}}",
         allowClear: true,
         dropdownParent: $('#aanvragen'),
         "language": {
