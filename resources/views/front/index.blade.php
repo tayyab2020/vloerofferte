@@ -164,7 +164,7 @@
 
                                 <select class="js-data-example-ajax12 form-control quote-type" name="group" id="blood_grp">
 
-                                    <option value="">Select Type</option>
+                                    <option value="">{{__('text.Select Type')}}</option>
 
                                 </select>
 
@@ -2122,7 +2122,7 @@
         $(".js-data-example-ajax12").select2({
             width: '100%',
             height: '200px',
-            placeholder: "Select Type",
+            placeholder: "{{__('text.Select Type')}}",
             allowClear: true,
             "language": {
                 "noResults": function(){
