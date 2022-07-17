@@ -278,4 +278,7 @@ return [
     'Please upload max 2 files' => 'Please upload max 2 files',
     'Type' => 'Type',
     'Select Type' => 'Select Type',
+    'Dimensions' => 'Dimensions',
+    'Width' => 'Width',
+    'Height' => 'Height',
 ];
