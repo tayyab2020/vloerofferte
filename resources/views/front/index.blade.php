@@ -21,12 +21,78 @@
             }
         }
 
+        .elementor-row
+        {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .elementor-col-50
+        {
+            width: 50%;
+        }
+
+        .elementor-widget-wrap
+        {
+            padding: 90px 60px 90px 0;
+            display: flex;
+            align-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .elementor-column-wrap
+        {
+            max-width: 630px;
+            float: right;
+        }
+
+        .elementor-widget-container1
+        {
+            margin: 20px 0 30px 0;
+            padding: 0;
+        }
+
+        .elementor-icon-list-item
+        {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .elementor-icon-list-icon
+        {
+            text-align: left;
+            display: flex;
+        }
+
+        .elementor-icon-list-icon i
+        {
+            color: white;
+            width: 1.25em;
+            font-size: 9px;
+        }
+
+        .elementor-icon-list-text
+        {
+            padding-left: 5px;
+            color: white;
+            font-size: 18px;
+            font-weight: 400;
+            font-family: sans-serif;
+        }
+
+        .elementor-element
+        {
+            width: 100%;
+        }
+
     </style>
 @endsection
 @section('content')
 
-
-    <div class="hero-area overlay" style="background-image: url({{asset('assets/images/'.$gs->bgimg)}});z-index: auto;color: black;padding-top: 20px;padding-bottom: 45px;background-color: #ebebeb;">
+    <div class="hero-area overlay" style="background-image: url({{asset('assets/images/'.$gs->bgimg)}});z-index: auto;color: black;padding-top: 0;padding-bottom: 45px;background-color: #ebebeb;">
 
         @if(Session::has('unsuccess'))
 
@@ -60,19 +126,110 @@
 
             @include('includes.form-error')
 
-        <div class="container" style="width: 100%;">
+        <div class="container" style="width: 100%;padding: 0;">
 
-            <div style="margin: 0;display: flex;justify-content: center;" class="row video-box">
+            <div class="elementor-row">
+                <div style="background-color: #5c8e85;padding: 0;" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="elementor-column-wrap elementor-element-populated">
+                        <div class="elementor-widget-wrap">
 
-                <video style="width: 60%;" controls="">
+                            <div class="elementor-element">
+                                <div class="elementor-widget-container">
+                                    <h1 style="font-family: sans-serif;font-size: 40px;font-weight: 600;" class="elementor-heading-title elementor-size-default">Vind de huishoudelijke hulp die bij jou past</h1>
+                                </div>
+                            </div>
 
-                    <source type="video/mp4" src="{{asset('assets/vloerofferte.nl.mp4')}}">
+                            <div class="elementor-element">
+                                <div class="elementor-widget-container1">
+                                    <ul style="list-style-type: none;padding: 0;" class="elementor-icon-list-items">
+                                        <li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-circle"></i></span>
+                                            <span class="elementor-icon-list-text">Vind jouw match voor slechts €34,90 bemiddelingskosten</span>
+                                        </li>
+                                        <li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-circle"></i></span>
+                                            <span class="elementor-icon-list-text">Vergelijk profielen op basis van beoordelingen</span>
+                                        </li>
+                                        <li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-circle"></i></span>
+                                            <span class="elementor-icon-list-text">Snel en eenvoudig geregeld</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
 
-                </video>
+                            <div class="elementor-element">
+                                <div class="elementor-widget-container">
+                                    <div class="main-form p-box" style="border-radius: 10px;/*box-shadow: 0px 0px 4px 0px #dbdbdb;*/margin-top: 10px;background-color: transparent !important;border: none !important;">
 
+                                        <div id="quote-box" style="display: flex;justify-content: space-between;width: 100%;padding: 0">
+
+                                            <div style="width: 48%;">
+
+                                                <div class="autocomplete" style="width:100%;">
+                                                    <input id="productInput" autocomplete="off" class="form-control quote-product" type="text" name="product" placeholder="{{__('text.Select Product')}}">
+                                                </div>
+
+                                                <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
+
+                                                    @foreach($quote_products as $key)
+
+                                                        @foreach($key->models as $key1)
+
+                                                            @foreach($key->colors as $key2)
+
+                                                                <option data-cat="{{$key->cat_id}}" data-brand-id="{{$key->brand_id}}" data-type-id="{{$key->model_id}}" data-model="{{$key1->model}}" data-model-id="{{$key1->id}}" data-color="{{$key2->title}}" data-color-id="{{$key2->id}}" value="{{$key->id}}">{{$key->title.', '.$key1->model.', '.$key2->title.', ('.$key->supplier->company_name.')'}}</option>
+
+                                                            @endforeach
+
+                                                        @endforeach
+
+                                                    @endforeach
+
+                                                </select>
+
+                                                <input type="hidden" id="type_id">
+                                                <input type="hidden" id="category_id">
+                                                <input type="hidden" id="brand_id">
+                                                <input type="hidden" id="model_id">
+                                                <input type="hidden" id="color_id">
+
+                                            </div>
+
+                                            <button href="#aanvragen" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;width: 48%;background-color: #2A5450 !important;border: none !important;" class="btn btn-primary">{{__('text.Start')}}</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div style="padding: 0;" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div style="margin: 0;display: flex;justify-content: center;height: 100%;" class="row video-box">
+
+                        <video style="width: 100% !important;object-fit: fill;" controls="">
+
+                            <source type="video/mp4" src="{{asset('assets/vloerofferte.nl.mp4')}}">
+
+                        </video>
+
+                    </div>
+                </div>
             </div>
 
-            <div class="row" style="display: flex;justify-content: center;">
+{{--            <div style="margin: 0;display: flex;justify-content: center;" class="row video-box">--}}
+
+{{--                <video style="width: 60%;" controls="">--}}
+
+{{--                    <source type="video/mp4" src="{{asset('assets/vloerofferte.nl.mp4')}}">--}}
+
+{{--                </video>--}}
+
+{{--            </div>--}}
+
+            <div class="row" style="display: flex;justify-content: center;margin: 0;">
 
                 <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12" id="quote-con">
 

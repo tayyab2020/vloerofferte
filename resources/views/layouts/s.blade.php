@@ -1568,6 +1568,17 @@
 
     function select_model(id,measure)
     {
+        if(measure == 'M1')
+        {
+            $('.quote_quantity').val(1);
+            $('.quote_quantity').hide();
+        }
+        else
+        {
+            $('.quote_quantity').val('');
+            $('.quote_quantity').show();
+        }
+
         $('#measure_type').val(measure);
 
         if(measure == 'M1' || measure == 'Custom Sized')
@@ -1581,7 +1592,15 @@
 
         $('.quote-model').val(id);
         $(".quote-model").trigger('change.select2');
-        $('.quote_quantity').attr("placeholder", "Vul gewenste aantal "+measure+" in");
+
+        if(measure == 'Per Piece')
+        {
+            $('.quote_quantity').attr("placeholder", "Vul gewenste aantal");
+        }
+        else
+        {
+            $('.quote_quantity').attr("placeholder", "Vul gewenste aantal "+measure+" in");
+        }
 
         $('.navbar a[href="#step1"]').trigger('click');
         $('.back').hide();
@@ -2489,13 +2508,13 @@
 
         $('.next-submit').click(function(){
 
-            var validation = $('.tab-content').find('.active').find('.quote_validation');
+            var validation = $('.tab-content').find('.tab-pane.active').find('.quote_validation');
 
             var flag = 0;
 
-            if($('.tab-content').find('.active').find('.permission_validation').length > 0)
+            if($('.tab-content').find('.tab-pane.active').find('.permission_validation').length > 0)
             {
-                if($('.tab-content').find('.active').find('.permission_validation:checked').length < 1)
+                if($('.tab-content').find('.tab-pane.active').find('.permission_validation:checked').length < 1)
                 {
                     $('.permission-checkbox').css('border','1px solid red');
                     flag = 1;
@@ -2568,8 +2587,8 @@
 
             var files_length = $('.files-upload').get(0).files.length;
 
-            var validation = $('.tab-content').find('.active').find('.quote_validation');
-            var checkbox_validation = $('.tab-content').find('.active').find('.checkbox_validation');
+            var validation = $('.tab-content').find('.tab-pane.active').find('.quote_validation');
+            var checkbox_validation = $('.tab-content').find('.tab-pane.active').find('.checkbox_validation');
 
             var flag = 0;
             var flag1 = 0;
@@ -2630,10 +2649,9 @@
 
             if(flag == 0 && flag1 == 0)
             {
-
                 if($('.files-upload').hasClass('quote_validation'))
                 {
-                    var nextId = $('.tab-content').find('.active').next().attr("id");
+                    var nextId = $('.tab-content').find('.tab-pane.active').next().attr("id");
 
                     if(nextId == 'step2')
                     {
@@ -2642,7 +2660,7 @@
                 }
                 else
                 {
-                    var nextId = $('.tab-content').find('.active').next().attr("id");
+                    var nextId = $('.tab-content').find('.tab-pane.active').next().attr("id");
                 }
 
                 $('.nav-pills a[href="#' + nextId + '"]').tab('show');
@@ -2669,7 +2687,7 @@
 
             if($('.files-upload').hasClass('quote_validation'))
             {
-                var backId = $('.tab-content').find('.active').prev().attr("id");
+                var backId = $('.tab-content').find('.tab-pane.active').prev().attr("id");
 
                 if(backId == 'step2')
                 {
@@ -2678,7 +2696,7 @@
             }
             else
             {
-                var backId = $('.tab-content').find('.active').prev().attr("id");
+                var backId = $('.tab-content').find('.tab-pane.active').prev().attr("id");
             }
 
             $('.nav-pills a[href="#' + backId + '"]').tab('show');
