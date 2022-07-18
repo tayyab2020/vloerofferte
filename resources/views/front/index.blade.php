@@ -88,6 +88,28 @@
             width: 100%;
         }
 
+        @media only screen and (max-width: 992px)
+        {
+            .elementor-column-wrap
+            {
+                float: none;
+                margin: auto;
+            }
+
+            .elementor-widget-wrap
+            {
+                padding: 90px 0;
+            }
+        }
+
+        @media only screen and (max-width: 767px)
+        {
+            .elementor-widget-wrap
+            {
+                padding: 90px 20px;
+            }
+        }
+
     </style>
 @endsection
 @section('content')
@@ -135,7 +157,7 @@
 
                             <div class="elementor-element">
                                 <div class="elementor-widget-container">
-                                    <h1 style="font-family: sans-serif;font-size: 40px;font-weight: 600;" class="elementor-heading-title elementor-size-default">Vind de huishoudelijke hulp die bij jou past</h1>
+                                    <h1 style="font-family: sans-serif;font-size: 40px;font-weight: 600;margin: 0;" class="elementor-heading-title elementor-size-default">Vind de huishoudelijke hulp die bij jou past</h1>
                                 </div>
                             </div>
 
@@ -715,13 +737,13 @@
                             #quote-box div
                             {
                                 width: 100% !important;
-                                margin: 5px;
-                                height: 45px;
+                                /*margin: 5px;*/
+                                /*height: 45px;*/
                             }
 
                             #quote-box button
                             {
-                                width: 100%;
+                                width: 100% !important;
                                 margin-top: 20px;
                             }
                         }
