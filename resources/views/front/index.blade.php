@@ -1270,7 +1270,7 @@
 
         .mb-12
         {
-            margin-bottom: 3rem;
+            margin-bottom: 5rem;
         }
 
         @media (min-width: 640px)
@@ -2612,7 +2612,7 @@
                 </div>
 
             </div>
-            
+
         @endif
 
     </div>
