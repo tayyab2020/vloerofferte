@@ -2568,48 +2568,53 @@
 
         </style>
 
-        <div class="container">
+        @if(count($lblogs) > 0)
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title pb_50 text-center">
-                        <h2>{{$lang->lns}}</h2>
-                        <div class="section-borders">
-                            <span></span>
-                            <span class="black-border"></span>
-                            <span></span>
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title pb_50 text-center">
+                            <h2>{{$lang->lns}}</h2>
+                            <div class="section-borders">
+                                <span></span>
+                                <span class="black-border"></span>
+                                <span></span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="owl-carousel blog-area-slider">
-                        @foreach($lblogs as $lblog)
-                            <a href="{{route('front.blogshow',$lblog->title)}}" class="single-blog-box">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="owl-carousel blog-area-slider">
+                            @foreach($lblogs as $lblog)
+                                <a href="{{route('front.blogshow',$lblog->title)}}" class="single-blog-box">
 
-                                <div class="blog-thumb-wrapper">
-                                    @if($lblog->photo)
-                                        <img src="{{asset('assets/images/'.$lblog->photo)}}" alt="Blog Image">
-                                    @else
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG" alt="Blog Image">
-                                    @endif
-                                </div>
+                                    <div class="blog-thumb-wrapper">
+                                        @if($lblog->photo)
+                                            <img src="{{asset('assets/images/'.$lblog->photo)}}" alt="Blog Image">
+                                        @else
+                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG" alt="Blog Image">
+                                        @endif
+                                    </div>
 
-                                <div class="blog-text">
+                                    <div class="blog-text">
 
-                                    <h4 style="height: auto;margin-bottom: 10px;">{{$lblog->title}}</h4>
-                                    <p style="height: 120px;text-overflow: ellipsis;display: -webkit-box;width: 100%;visibility: visible;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;line-height: 2;font-size: 15px;">{{substr(strip_tags($lblog->details),0,250)}}</p>
-                                    <span class="boxed-btn blog">{{$lang->vd}}</span>
-                                </div>
-                            </a>
-                        @endforeach
+                                        <h4 style="height: auto;margin-bottom: 10px;">{{$lblog->title}}</h4>
+                                        <p style="height: 120px;text-overflow: ellipsis;display: -webkit-box;width: 100%;visibility: visible;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;line-height: 2;font-size: 15px;">{{substr(strip_tags($lblog->details),0,250)}}</p>
+                                        <span class="boxed-btn blog">{{$lang->vd}}</span>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
+            
+        @endif
+
     </div>
     <!-- Ending of blog area -->
 
