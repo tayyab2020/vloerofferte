@@ -151,13 +151,13 @@
         <div class="container" style="width: 100%;padding: 0;">
 
             <div class="elementor-row">
-                <div style="background-color: #5c8e85;padding: 0;" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div style="background-color: #62a8e5;padding: 0;" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="elementor-column-wrap elementor-element-populated">
                         <div class="elementor-widget-wrap">
 
                             <div class="elementor-element">
                                 <div class="elementor-widget-container">
-                                    <h1 style="font-family: sans-serif;font-size: 40px;font-weight: 600;margin: 0;" class="elementor-heading-title elementor-size-default">Vind de huishoudelijke hulp die bij jou past</h1>
+                                    <h1 style="font-family: sans-serif;font-size: 40px;font-weight: 600;margin: 0;" class="elementor-heading-title elementor-size-default">Vind de laagste prijs voor jouw vloer</h1>
                                 </div>
                             </div>
 
@@ -165,15 +165,15 @@
                                 <div class="elementor-widget-container1">
                                     <ul style="list-style-type: none;padding: 0;" class="elementor-icon-list-items">
                                         <li class="elementor-icon-list-item">
-											<span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-circle"></i></span>
-                                            <span class="elementor-icon-list-text">Vind jouw match voor slechts €34,90 bemiddelingskosten</span>
+                                            <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-circle"></i></span>
+                                            <span class="elementor-icon-list-text">Vergelijk gratis vloer offertes van verschillende winkels</span>
                                         </li>
                                         <li class="elementor-icon-list-item">
-											<span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-circle"></i></span>
-                                            <span class="elementor-icon-list-text">Vergelijk profielen op basis van beoordelingen</span>
+                                            <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-circle"></i></span>
+                                            <span class="elementor-icon-list-text">Vloerofferte.nl geeft jou in no time de alleberste deals</span>
                                         </li>
                                         <li class="elementor-icon-list-item">
-											<span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-circle"></i></span>
+                                            <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-circle"></i></span>
                                             <span class="elementor-icon-list-text">Snel en eenvoudig geregeld</span>
                                         </li>
                                     </ul>
@@ -218,7 +218,7 @@
 
                                             </div>
 
-                                            <button href="#aanvragen" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;width: 48%;background-color: #2A5450 !important;border: none !important;" class="btn btn-primary">{{__('text.Start')}}</button>
+                                            <button href="#aanvragen" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;width: 48%;background-color: #cce9f9; !important;border: none !important;" class="btn btn-primary">{{__('text.Start')}}</button>
 
                                         </div>
                                     </div>
@@ -460,7 +460,7 @@
 
                                 <input type="hidden" id="type_id">
                                 <input type="hidden" id="category_id">
-								<input type="hidden" id="brand_id">
+                                <input type="hidden" id="brand_id">
                                 <input type="hidden" id="model_id">
                                 <input type="hidden" id="color_id">
 
@@ -893,6 +893,508 @@
         </div>
     </div>
     <!-- Ending of All - sectors area -->
+
+    <div class="py-12">
+        <div class="text-center text-honing  text-support font-bold pb-4 text-lg">Hoe het werkt</div>
+        <div class="text-nacht text-center sm:text-t3 text-t2-2-sm font-bold-important pb-6 px-4 leading-none">Vrijblijvende offertes aanvragen en vergelijken</div>
+        <div class="container mx-auto mt-0 md:mt-12">
+
+            <div class="flex justify-between relative">
+                <div class="back-line"></div>
+                <div class="w-1/4 relative text-center step-hover-1">
+                    <lottie-player data-aos="fade-up" id="lottie-player-step-1" class="flex-shrink-0 mx-auto w-16 h-16 sm:h-32 sm:w-56 mb-8 sm:mb-0" src="{{asset('assets/front/js/Envelop.json')}}" background="transparent" speed="3" loop></lottie-player>
+                    <div data-aos="fade-up" data-aos-delay="300" class="sm:block font-bold text-body-3 mb-12">Wat heb je nodig? <br> Vul je wensen in</div>
+                    <div id="steps-step-1" class="step-dots completed-dot active-dot"></div>
+                </div>
+                <div class="w-1/4 relative text-center step-hover-2">
+                    <lottie-player data-aos="fade-up" id="lottie-player-step-2" class="flex-shrink-0 mx-auto w-16 h-16 sm:h-32 sm:w-56 mb-8 sm:mb-0" src="{{asset('assets/front/js/Stamp.json')}}" background="transparent" speed="3" loop></lottie-player>
+                    <div data-aos="fade-up" data-aos-delay="300" class="sm:block font-bold text-body-3 mb-12">Wij checken en<br> matchen je</div>
+                    <div id="steps-step-2" class="step-dots"></div>
+                </div>
+                <div class="w-1/4 relative text-center step-hover-3">
+                    <lottie-player data-aos="fade-up" id="lottie-player-step-3" class="flex-shrink-0 mx-auto w-16 h-16 sm:h-32 sm:w-56 mb-8 sm:mb-0" src="{{asset('assets/front/js/Stars.json')}}" background="transparent" speed="3" loop></lottie-player>
+                    <div data-aos="fade-up" data-aos-delay="300" class="sm:block font-bold text-body-3 mb-12">Kom in contact<br> en ontvang offertes</div>
+                    <div id="steps-step-3" class="step-dots"></div>
+                </div>
+                <div class="w-1/4 relative text-center step-hover-4">
+                    <lottie-player data-aos="fade-up" id="lottie-player-step-4" class="flex-shrink-0 mx-auto w-16 h-16 sm:h-32 sm:w-56 mb-8 sm:mb-0" src="{{asset('assets/front/js/Hands.json')}}" background="transparent" speed="3" loop></lottie-player>
+                    <div data-aos="fade-up" data-aos-delay="300" class="sm:block font-bold text-body-3 mb-12">Akkoord met<br> de offerte</div>
+                    <div id="steps-step-4" class="step-dots"></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 10px;" class="flex justify-between px-2 sm:px-12 lg:px-24">
+                <div class="text-step-1 w-full md:w-5/12 3xl:w-1/3">
+                    <div class="px-4 sm:px-8 pt-6 pb-8 bg-aqua rounded mt-8 text-center transition-5 flex flex-wrap justify-center height-responsive-info-desktop">
+                        <div class="font-bold-important sm:text-body-1 text-t2-sm mb-2 w-full">Wat heb je nodig?</div>
+                        <div class="font-medium sm:text-body-3 text-body-2-sm">Vul je aanvraag verder aan met je persoonlijke wensen.</div>
+                    </div>
+                </div>
+                <div class="text-step-2 w-full md:w-5/12 3xl:w-1/3" style="display: none;">
+                    <div class="px-4 sm:px-8 pt-6 pb-8 bg-aqua rounded mt-8 text-center transition-5 flex flex-wrap justify-center height-responsive-info-desktop">
+                        <div class="font-bold-important sm:text-body-1 text-t2-sm mb-2 w-full">Wij checken en matchen je</div>
+                        <div class="font-medium sm:text-body-3 text-body-2-sm">Je aanvraag komt binnen bij ons.. Wij checken of alles in orde is en selecteren de beste partners.</div>
+                    </div>
+                </div>
+                <div class="text-step-3 w-full md:w-1/2 3xl:w-1/3" style="display: none;">
+                    <div class="px-4 sm:px-8 pt-6 pb-8 bg-aqua rounded mt-8 text-center transition-5 flex flex-wrap justify-center height-responsive-info-desktop">
+                        <div class="font-bold-important sm:text-body-1 text-t2-sm mb-2 w-full">Kom in contact en ontvang offertes</div>
+                        <div class="font-medium sm:text-body-3 text-body-2-sm">Onze gekwalificeerde partners geven ieder hun offerte en werkwijze. Maak een keuze die bij je past</div>
+                    </div>
+                </div>
+                <div class="text-step-4 w-full md:w-2/4 3xl:w-1/3" style="display: none;">
+                    <div class="px-4 sm:px-8 pt-6 pb-8 bg-aqua rounded mt-8 text-center transition-5 flex flex-wrap justify-center height-responsive-info-desktop">
+                        <div class="font-bold-important sm:text-body-1 text-t2-sm mb-2 w-full">Akkoord met de offerte</div>
+                        <div class="font-medium sm:text-body-3 text-body-2-sm">Onze partner neemt het werk voor je uit handen. Laat ons weten hoe je ervaring was en deel het met anderen.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <style>
+
+        .py-12
+        {
+            padding-bottom: 3rem;
+            padding-top: 3rem;
+        }
+
+        .text-support
+        {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 23px;
+        }
+
+        .text-honing
+        {
+            --tw-text-opacity: 1;
+            color: rgb(255 184 56);
+        }
+
+        .text-center
+        {
+            text-align: center;
+        }
+
+        .pb-4
+        {
+            padding-bottom: 1rem;
+        }
+
+        .text-nacht
+        {
+            color: rgb(40 54 123);
+        }
+
+        .px-4
+        {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .font-bold-important
+        {
+            font-weight: 700 !important;
+        }
+
+        .text-t2-2-sm
+        {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 21px;
+        }
+
+        .mx-auto
+        {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mt-0
+        {
+            margin-top: 0;
+        }
+
+        .relative
+        {
+            position: relative;
+        }
+
+        .flex
+        {
+            display: flex;
+        }
+
+        .justify-between
+        {
+            justify-content: space-between !important;
+        }
+
+        .back-line
+        {
+            background-color: #1f8320;
+            bottom: 10px;
+            content: "";
+            height: 0.3em;
+            left: 0;
+            margin: auto;
+            position: absolute;
+            right: 0;
+            width: 76%;
+            z-index: 0;
+        }
+
+        .back-step-2:before, .back-step-3:after
+        {
+            background-color: rgb(186 220 237);
+            bottom: 0;
+            content: "";
+            height: 0.3em;
+            left: 0;
+            position: absolute;
+            right: 0;
+            z-index: -2;
+        }
+
+        .back-step-2:before
+        {
+            width: 34%;
+        }
+
+        .back-step-3:after
+        {
+            width: 67%;
+        }
+
+        .w-1\/4
+        {
+            width: 25%;
+        }
+
+        [data-aos=fade-up]
+        {
+            transform: translate3d(0,100px,0);
+        }
+
+        .mb-8
+        {
+            margin-bottom: 2rem;
+        }
+
+        .h-16
+        {
+            height: 4rem;
+        }
+
+        .w-16
+        {
+            width: 4rem;
+        }
+
+        .flex-shrink-0
+        {
+            flex-shrink: 0;
+        }
+
+        [data-aos^=fade][data-aos^=fade]
+        {
+            opacity: 0;
+            transition-property: opacity,transform;
+        }
+
+        [data-aos][data-aos][data-aos-duration="400"], body[data-aos-duration="400"] [data-aos]
+        {
+            transition-duration: .4s;
+        }
+
+        [data-aos][data-aos][data-aos-easing=ease], body[data-aos-easing=ease] [data-aos]
+        {
+            transition-timing-function: ease;
+        }
+
+        [data-aos][data-aos][data-aos-delay="300"].aos-animate, body[data-aos-delay="300"] [data-aos].aos-animate
+        {
+            transition-delay: .3s;
+        }
+
+        [data-aos^=fade][data-aos^=fade].aos-animate
+        {
+            opacity: 1;
+            transform: translateZ(0);
+        }
+
+        .text-body-3
+        {
+            line-height: 20px;
+        }
+
+        .text-body-2, .text-body-3
+        {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        [data-aos=fade-up]
+        {
+            transform: translate3d(0,100px,0);
+        }
+
+        .step-dots
+        {
+            background-color: #fff;
+            border-color: rgb(40 54 123);
+            border-radius: 9999px;
+            border-width: 3px;
+            bottom: 0;
+            box-shadow: 0 0 0 3px #28367b;
+            flex-shrink: 0;
+            height: 26px;
+            left: 0;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 3rem;
+            position: absolute;
+            right: 0;
+            transition: border .5s ease,background-color .5s ease;
+            width: 26px;
+            z-index: 20;
+        }
+
+        .step-dots.completed-dot
+        {
+            background: #badced url(https://offerte.nl/img/website/cpc/check-white.svg) no-repeat center center;
+            background-size: 70%;
+            border-color: rgb(186 220 237);
+            box-shadow: 0 0 0 1px #badced;
+        }
+
+        .px-2
+        {
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+
+        .w-full
+        {
+            width: 100%;
+        }
+
+        .height-responsive-info-desktop
+        {
+            min-height: 117px;
+        }
+
+        .transition-5
+        {
+            transition: all .5s ease;
+        }
+
+        .mt-8
+        {
+            margin-top: 2rem;
+        }
+
+        .flex-wrap
+        {
+            flex-wrap: wrap;
+        }
+
+        .justify-center
+        {
+            justify-content: center;
+        }
+
+        .rounded
+        {
+            border-radius: .5rem;
+        }
+
+        .bg-aqua
+        {
+            background-color: rgb(186 220 237);
+        }
+
+        .pb-8
+        {
+            padding-bottom: 2rem;
+        }
+
+        .pt-6
+        {
+            padding-top: 1.5rem;
+        }
+
+        .mb-2
+        {
+            margin-bottom: 0.5rem;
+        }
+
+        .text-t2-sm
+        {
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 16px;
+        }
+
+        .font-medium
+        {
+            font-weight: 500;
+        }
+
+        .text-body-2-sm
+        {
+            font-size: 10px;
+            font-weight: 500;
+            line-height: 18px;
+        }
+
+        .step-dots.active-dot:after
+        {
+            background-color: rgb(186 220 237);
+            border-radius: 0.5rem;
+            bottom: -5.5rem;
+            content: " ";
+            height: 4rem;
+            left: -0.7rem;
+            transform: rotate(45deg);
+            width: 4rem;
+        }
+
+        .step-dots-wit, .step-dots.active-dot:after
+        {
+            position: absolute;
+        }
+
+        .mb-12
+        {
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 640px)
+        {
+            .sm\:text-t3
+            {
+                font-size: 22px;
+                font-weight: 700;
+                line-height: 30px;
+            }
+
+            .sm\:mb-0
+            {
+                margin-bottom: 0;
+            }
+
+            .sm\:h-32
+            {
+                height: 14rem;
+            }
+
+            .sm\:w-56
+            {
+                width: 14rem;
+            }
+
+            .sm\:block
+            {
+                display: block;
+            }
+
+            .sm\:px-12
+            {
+                padding-left: 3rem;
+                padding-right: 3rem;
+            }
+
+            .height-responsive-info-desktop
+            {
+                min-height: 176px;
+            }
+
+            .sm\:px-8
+            {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+
+            .sm\:text-body-1
+            {
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 40px;
+            }
+
+            .sm\:text-body-3
+            {
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 20px;
+            }
+        }
+
+        @media (min-width: 768px)
+        {
+            .md\:mt-12
+            {
+                margin-top: 3rem;
+            }
+
+            .md\:w-5\/12
+            {
+                width: 41.666667%;
+            }
+
+            .height-responsive-info-desktop
+            {
+                min-height: 245px;
+            }
+
+            .text-step-2
+            {
+                margin-left: 19%;
+            }
+
+            .text-step-3
+            {
+                margin-left: 48%;
+            }
+
+            .text-step-4
+            {
+                margin-left: 57%;
+            }
+        }
+
+        @media (min-width: 1024px)
+        {
+            .lg\:px-24
+            {
+                padding-left: 6rem;
+                padding-right: 6rem;
+            }
+
+            .height-responsive-info-desktop
+            {
+                min-height: 184px;
+            }
+        }
+
+        @media (min-width: 1600px)
+        {
+            .\33xl\:w-1\/3
+            {
+                width: 33.333333%;
+            }
+
+            .text-step-4
+            {
+                margin-left: 67%;
+            }
+        }
+
+    </style>
 
     <section id="steps" class="steps steps--en">
         <div class="row row1" style="max-width: 80%;margin-left: auto;margin-right: auto;display: flex;flex-flow: row wrap;">
@@ -2312,5 +2814,16 @@
         });
 
     </script>
+
+    <script src="{{asset('assets/front/js/aos.js')}}"></script>
+    <script>
+        AOS.init({
+            disable: 'mobile',
+            once: true
+        });
+    </script>
+
+    <script src="{{asset('assets/front/js/how-it-works.js')}}"></script>
+    <script src="{{asset('assets/front/js/lottie-player.js')}}"></script>
 
 @endsection
