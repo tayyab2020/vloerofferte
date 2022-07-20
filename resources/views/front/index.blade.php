@@ -1145,11 +1145,11 @@
         .step-dots
         {
             background-color: #fff;
-            border-color: rgb(40 54 123);
+            border-color: #1f8320;
             border-radius: 9999px;
             border-width: 3px;
             bottom: 0;
-            box-shadow: 0 0 0 3px #28367b;
+            box-shadow: 0 0 0 3px #1f8320;
             flex-shrink: 0;
             height: 26px;
             left: 0;
