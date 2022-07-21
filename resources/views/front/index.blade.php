@@ -755,25 +755,25 @@
     <!-- Ending of All - sectors area -->
 
     <div class="py-12">
-        <div class="text-center text-honing  text-support font-bold pb-4 text-lg">Hoe het werkt</div>
-        <div class="text-nacht text-center sm:text-t3 text-t2-2-sm font-bold-important pb-6 px-4 leading-none">Vrijblijvende offertes aanvragen en vergelijken</div>
+        <div class="text-center text-honing  text-support font-bold pb-4 text-lg"></div>
+        <div class="text-nacht text-center sm:text-t3 text-t2-2-sm font-bold-important pb-6 px-4 leading-none">Vrijblijvende vloer offertes aanvragen en vergelijken</div>
         <div style="font-family: sans-serif;" class="container mx-auto mt-0 md:mt-12">
 
             <div class="flex justify-between relative">
                 <div class="back-line"></div>
                 <div class="w-1/4 relative text-center step-hover-1">
                     <lottie-player data-aos="fade-up" id="lottie-player-step-1" class="flex-shrink-0 mx-auto w-16 h-16 sm:h-32 sm:w-56 mb-8 sm:mb-0" src="{{asset('assets/front/js/Envelop.json')}}" background="transparent" speed="3" loop></lottie-player>
-                    <div data-aos="fade-up" data-aos-delay="300" class="sm:block font-bold text-body-3 mb-12">Wat heb je nodig? <br> Vul je wensen in</div>
+                    <div data-aos="fade-up" data-aos-delay="300" class="sm:block font-bold text-body-3 mb-12">Zoek je product of dienst <br> Vul je wensen in</div>
                     <div id="steps-step-1" class="step-dots completed-dot active-dot"></div>
                 </div>
                 <div class="w-1/4 relative text-center step-hover-2">
                     <lottie-player data-aos="fade-up" id="lottie-player-step-2" class="flex-shrink-0 mx-auto w-16 h-16 sm:h-32 sm:w-56 mb-8 sm:mb-0" src="{{asset('assets/front/js/Stamp.json')}}" background="transparent" speed="3" loop></lottie-player>
-                    <div data-aos="fade-up" data-aos-delay="300" class="sm:block font-bold text-body-3 mb-12">Wij checken en<br> matchen je</div>
+                    <div data-aos="fade-up" data-aos-delay="300" class="sm:block font-bold text-body-3 mb-12">Wij checken en<br> verbinden je</div>
                     <div id="steps-step-2" class="step-dots"></div>
                 </div>
                 <div class="w-1/4 relative text-center step-hover-3">
                     <lottie-player data-aos="fade-up" id="lottie-player-step-3" class="flex-shrink-0 mx-auto w-16 h-16 sm:h-32 sm:w-56 mb-8 sm:mb-0" src="{{asset('assets/front/js/Stars.json')}}" background="transparent" speed="3" loop></lottie-player>
-                    <div data-aos="fade-up" data-aos-delay="300" class="sm:block font-bold text-body-3 mb-12">Kom in contact<br> en ontvang offertes</div>
+                    <div data-aos="fade-up" data-aos-delay="300" class="sm:block font-bold text-body-3 mb-12">Kom in contact met vloeren<br>winkels en ontvang offertes</div>
                     <div id="steps-step-3" class="step-dots"></div>
                 </div>
                 <div class="w-1/4 relative text-center step-hover-4">
@@ -787,25 +787,25 @@
                 <div class="text-step-1 w-full md:w-5/12 3xl:w-1/3">
                     <div class="px-4 sm:px-8 pt-6 pb-8 bg-aqua rounded mt-8 text-center transition-5 flex flex-wrap justify-center height-responsive-info-desktop">
                         <div class="font-bold-important sm:text-body-1 text-t2-sm mb-2 w-full">Wat heb je nodig?</div>
-                        <div class="font-medium sm:text-body-3 text-body-2-sm">Vul je aanvraag verder aan met je persoonlijke wensen.</div>
+                        <div class="font-medium sm:text-body-3 text-body-2-sm">Selecteer de vloer of dienst. Vul je aanvraag verder aan met je persoonlijke wensen.</div>
                     </div>
                 </div>
                 <div class="text-step-2 w-full md:w-5/12 3xl:w-1/3" style="display: none;">
                     <div class="px-4 sm:px-8 pt-6 pb-8 bg-aqua rounded mt-8 text-center transition-5 flex flex-wrap justify-center height-responsive-info-desktop">
-                        <div class="font-bold-important sm:text-body-1 text-t2-sm mb-2 w-full">Wij checken en matchen je</div>
-                        <div class="font-medium sm:text-body-3 text-body-2-sm">Je aanvraag komt binnen bij ons.. Wij checken of alles in orde is en selecteren de beste partners.</div>
+                        <div class="font-bold-important sm:text-body-1 text-t2-sm mb-2 w-full">Wij checken en verbinden je</div>
+                        <div class="font-medium sm:text-body-3 text-body-2-sm">Je aanvraag komt binnen bij ons. Wij checken of alles in orde is en sturen deze door naar erkende vloerenwinkels.</div>
                     </div>
                 </div>
                 <div class="text-step-3 w-full md:w-1/2 3xl:w-1/3" style="display: none;">
                     <div class="px-4 sm:px-8 pt-6 pb-8 bg-aqua rounded mt-8 text-center transition-5 flex flex-wrap justify-center height-responsive-info-desktop">
-                        <div class="font-bold-important sm:text-body-1 text-t2-sm mb-2 w-full">Kom in contact en ontvang offertes</div>
-                        <div class="font-medium sm:text-body-3 text-body-2-sm">Onze gekwalificeerde partners geven ieder hun offerte en werkwijze. Maak een keuze die bij je past</div>
+                        <div class="font-bold-important sm:text-body-1 text-t2-sm mb-2 w-full">Vergelijk de offertes</div>
+                        <div class="font-medium sm:text-body-3 text-body-2-sm">Je ontvangt meerdere offertes van erkende vloerenwinkels in je dashboard & mail.</div>
                     </div>
                 </div>
                 <div class="text-step-4 w-full md:w-2/4 3xl:w-1/3" style="display: none;">
                     <div class="px-4 sm:px-8 pt-6 pb-8 bg-aqua rounded mt-8 text-center transition-5 flex flex-wrap justify-center height-responsive-info-desktop">
-                        <div class="font-bold-important sm:text-body-1 text-t2-sm mb-2 w-full">Akkoord met de offerte</div>
-                        <div class="font-medium sm:text-body-3 text-body-2-sm">Onze partner neemt het werk voor je uit handen. Laat ons weten hoe je ervaring was en deel het met anderen.</div>
+                        <div class="font-bold-important sm:text-body-1 text-t2-sm mb-2 w-full">Gelijk oversteken service</div>
+                        <div class="font-medium sm:text-body-3 text-body-2-sm">Betaal veilig via Ideal. Je betaling blijft op onze rekening totdat je de goederen en/of dienst hebt onvangen. Laat ons weten dat je de goederen en/of dienst hebt ontvangen en wij maken het geld vrij.</div>
                     </div>
                 </div>
             </div>
