@@ -1077,7 +1077,7 @@
             background-color: rgb(186 220 237);
             color: #5b5b5b;
             position: relative;
-            z-index: 1000;
+            z-index: 100;
         }
 
         .pb-8
