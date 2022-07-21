@@ -86,7 +86,7 @@ class UserRegisterController extends Controller
     {
         $terms = terms_conditions::where('role',1)->first();
 
-      return view('user.handyman_register',compact('terms'));
+        return view('user.handyman_register',compact('terms'));
     }
 
     public function register(Request $request)

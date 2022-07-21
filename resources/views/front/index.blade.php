@@ -88,6 +88,14 @@
             width: 100%;
         }
 
+        @media screen and (max-width: 1200px)
+        {
+            .ex-row
+            {
+                width: 100% !important;
+            }
+        }
+
         @media only screen and (max-width: 992px)
         {
             .elementor-column-wrap
@@ -110,11 +118,345 @@
             }
         }
 
+        @media screen and (max-width: 991px)
+        {
+            .third-head
+            {
+                font-size: 17px !important;
+                line-height: 1.6 !important;
+                padding: 20px;
+            }
+
+            .ex-row
+            {
+                width: 90% !important;
+                display: block !important;
+            }
+
+            .ex-box
+            {
+                margin-bottom: 20px;
+                float: left !important;
+            }
+        }
+
+        @media (min-width: 1200px)
+        {
+            .col-lg1-4
+            {
+                width: 33.33333333%;
+            }
+        }
+
+        .main-form
+        {
+            background-color: {{($gs->form_bg == null) ? (($gs->colors == null) ? '#f3bd02 !important;' : $gs->colors.' !important;') : $gs->form_bg. ' !important;' }};
+            color: {{($gs->form_col != null) ? $gs->form_col. ' !important;' : 'black !important;' }};
+            border: 1px solid {{($gs->form_ic == null) ? (($gs->colors == null) ? '#f3bd02 !important;' : $gs->colors.' !important;') : $gs->form_ic. ' !important;' }};
+        }
+
+        @media (max-width: 767px)
+        {
+            .btn-box
+            {
+                display: block !important;
+            }
+
+            .btn-box div
+            {
+                margin: 20px 0;
+            }
+        }
+
+        .p-btns
+        {
+            padding: 20px 15px;
+            text-align: center;
+            font-size: 14px;
+            -webkit-transition: opacity .45s cubic-bezier(0.25,1,0.33,1);
+            transition: opacity .45s cubic-bezier(0.25,1,0.33,1);
+            color: white;
+            font-weight: 600;
+            display: inline-block;
+            width: 80%;
+            border: 0;
+            border-radius: 6px;
+            background-color: {{($gs->form_bg == null) ? (($gs->colors == null) ? '#f3bd02 !important;' : $gs->colors.' !important;') : $gs->form_bg. ' !important;' }}
+                        }
+
+        .p-btns span
+        {
+            left: 0;
+            display: inline-block;
+            transform: translateX(0);
+            -webkit-transform: translateX(0);
+            transition: opacity .45s cubic-bezier(0.25,1,0.33,1),transform .45s cubic-bezier(0.25,1,0.33,1);
+            -webkit-transition: opacity .45s cubic-bezier(0.25,1,0.33,1),transform .45s cubic-bezier(0.25,1,0.33,1);
+            position: relative;
+        }
+
+        .p-btns:hover span
+        {
+            transform: translateX(-18px);
+            -webkit-transform: translateX(-18px);
+        }
+
+        .p-btns i
+        {
+            text-decoration: none;
+            background-color: transparent!important;
+            top: 53% !important;
+            right: 20% !important;
+            font-size: 18px;
+            line-height: 18px;
+            width: 18px;
+            position: absolute;
+            margin-top: -9px;
+            opacity: 0;
+            transition: all .45s cubic-bezier(0.25,1,0.33,1);
+            -webkit-transition: all .45s cubic-bezier(0.25,1,0.33,1);
+            display: inline-block;
+            word-spacing: 1px;
+            text-align: center;
+            vertical-align: middle;
+            max-width: 100%;
+        }
+
+        .p-btns:hover i
+        {
+            opacity: 1;
+        }
+
+        .autocomplete ::-webkit-input-placeholder {
+            text-align: center;
+        }
+
+        .autocomplete :-moz-placeholder { /* Firefox 18- */
+            text-align: center;
+        }
+
+        .autocomplete ::-moz-placeholder {  /* Firefox 19+ */
+            text-align: center;
+        }
+
+        .autocomplete :-ms-input-placeholder {
+            text-align: center;
+        }
+
+        .autocomplete {
+            position: relative;
+            display: inline-block;
+        }
+
+        .quote-product {
+            /*border: 1px solid transparent;*/
+            background-color: #f1f1f1;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .quote-product {
+            background-color: #f1f1f1;
+            width: 100%;
+            height: 45px;
+        }
+
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            /* border-bottom: none;
+            border-top: none; */
+            z-index: 99;
+            /*position the autocomplete items to be the same width as the container:*/
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 230px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+        }
+
+        .autocomplete-items div:last-child
+        {
+            border-bottom: 0;
+        }
+
+        /*when hovering an item:*/
+        .autocomplete-items div:hover {
+            background-color: #e9e9e9;
+        }
+
+        /*when navigating through the items using the arrow keys:*/
+        .autocomplete-active {
+            background-color: DodgerBlue !important;
+            color: #ffffff;
+        }
+
+        .terms .checkmark-checkbox:after
+        {
+            left: 4px !important;
+            top: 1.5px !important;
+        }
+
+        .container-checkbox {
+            display: flex;
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 22px;
+            font-weight: 300;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            align-items: center;
+            font-family: sans-serif;
+            color: #353535;
+        }
+
+        /* Hide the browser's default radio button */
+        .container-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        /* Create a custom radio button */
+        .checkmark-checkbox {
+            position: absolute;
+            /*top: 6.5px;*/
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: transparent;
+            border: 1px solid #e5e5e5;
+            border-radius: 2px;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .container-checkbox:hover input ~ .checkmark-checkbox {
+            background-color: #ccc;
+        }
+
+        /* When the radio button is checked, add a blue background */
+        .container-checkbox input:checked ~ .checkmark-checkbox {
+            background-color: #2196F3;
+        }
+
+        /* Create the indicator (the dot/circle - hidden when not checked) */
+        .checkmark-checkbox:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the indicator (dot/circle) when checked */
+        .container-checkbox input:checked ~ .checkmark-checkbox:after {
+            display: block;
+        }
+
+        /* Style the indicator (dot/circle) */
+        .container-checkbox .checkmark-checkbox:after {
+            left: 7px;
+            top: 3.5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .pac-container
+        {
+            z-index: 1000000;
+        }
+
+        #quote-box .select2
+        {
+            /*width: 70% !important;
+            float: left;*/
+            border: 1px solid lightgrey;
+        }
+
+        @media (max-width: 1020px)
+        {
+            .t-h
+            {
+                display: none !important;
+            }
+
+            .c-h
+            {
+                border: 0 !important;
+            }
+        }
+
+        @media (max-width: 500px)
+        {
+
+            .box-heading
+            {
+                font-size: 20px;
+            }
+
+            #quote-box
+            {
+                flex-wrap: wrap;
+            }
+
+            #quote-box div
+            {
+                width: 100% !important;
+                /*margin: 5px;*/
+                /*height: 45px;*/
+            }
+
+            #quote-box button
+            {
+                width: 100% !important;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 767px)
+        {
+            #quote-con
+            {
+                margin-bottom: 30px;
+            }
+        }
+
+        .well
+        {
+            box-shadow: none;
+            margin-bottom: 0;
+            background-color: #ffffff;
+            border: 0;
+            overflow-y: auto;
+        }
+
+        .well .select2
+        {
+            border: 1px solid #e1e1e1;
+        }
+
     </style>
 @endsection
 @section('content')
 
-    <div class="hero-area overlay" style="background-image: url({{asset('assets/images/'.$gs->bgimg)}});z-index: auto;color: black;padding-top: 0;padding-bottom: 45px;background-color: #ebebeb;">
+    <div class="hero-area overlay" style="background-image: url({{asset('assets/images/'.$gs->bgimg)}});z-index: auto;color: black;padding-top: 0;padding-bottom: 0;background-color: #ebebeb;">
 
         @if(Session::has('unsuccess'))
 
@@ -200,7 +542,7 @@
 
                                                             @foreach($key->colors as $key2)
 
-                                                                <option data-cat="{{$key->cat_id}}" data-brand-id="{{$key->brand_id}}" data-type-id="{{$key->model_id}}" data-model="{{$key1->model}}" data-model-id="{{$key1->id}}" data-color="{{$key2->title}}" data-color-id="{{$key2->id}}" value="{{$key->id}}">{{$key->title.', '.$key1->model.', '.$key2->title.', ('.$key->supplier->company_name.')'}}</option>
+                                                                <option data-cat="{{$key->cat_id}}" data-brand-id="{{$key->brand_id}}" data-type-id="{{$key->model_id}}" data-model="{{$key1->model}}" data-model-id="{{$key1->id}}" data-color="{{$key2->title}}" data-color-id="{{$key2->id}}" value="{{$key->id}}">{{$key->title.', '.$key1->model.', '.$key2->title}}</option>
 
                                                             @endforeach
 
@@ -218,7 +560,7 @@
 
                                             </div>
 
-                                            <button href="#aanvragen" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;width: 48%;background-color: #cce9f9; !important;border: none !important;" class="btn btn-primary">{{__('text.Start')}}</button>
+                                            <button data-id="1" class="btn btn-success p-btns" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;width: 48%;background-color: #0090e3 !important;border: none !important;padding: 6px 12px;font-weight: 400;" class="btn btn-primary">{{__('text.Start')}}</button>
 
                                         </div>
                                     </div>
@@ -241,540 +583,58 @@
                 </div>
             </div>
 
-{{--            <div style="margin: 0;display: flex;justify-content: center;" class="row video-box">--}}
+            <div class="row" style="margin: 20px 0 0 0;">
 
-{{--                <video style="width: 60%;" controls="">--}}
+                <h1 class="third-head" style="line-height: 74px;font-weight: 600;background: #C7E2E5;display: inline-block;width: 100%;text-transform: none;position:relative;text-align: center;margin: 40px 0;color: rgb(71 71 71);font-size: 20px;">Alle vloerenwinkels onder één dak. 100% veilig met onze gelijk oversteken service!</h1>
 
-{{--                    <source type="video/mp4" src="{{asset('assets/vloerofferte.nl.mp4')}}">--}}
+                <div style="width: 70%;margin: auto;padding: 0;display: flex;" class="ex-row row">
 
-{{--                </video>--}}
+                    <div style="float: none;" class="ex-box col-lg1-4 col-md-4 col-sm-12 col-xs-12">
 
-{{--            </div>--}}
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid gray;display: flex;justify-content: space-between;flex-direction: column;align-items: center;padding: 20px;height: 100%;">
 
-            <div class="row" style="display: flex;justify-content: center;margin: 0;">
+                            <h4 style="text-transform: uppercase;">VLOER OFFERTE</h4>
 
-                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12" id="quote-con">
+                            <p data-id="1" class="show-read-more" style="text-align: center;">Heeft u een vloer gevonden die u aanspreekt en bent u benieuwd naar de laagste prijs? <br> Zoek hier uw vloer op en vraag gratis een offerte aan.</p>
 
-                    <h3 class="box-heading" style="text-align: center;padding-top: 25px;color: black;/*text-shadow: 1px 2px 5px #4f4f4f;*/font-weight: 500;">{{__('text.Fill information for Quotation')}}</h3>
-
-                    {{--<h1 style="color: black;">{{$gs->bg_title}}</h1>
-                    <p>{!!$gs->bg_text!!}</p>--}}
-
-                    <style>
-                        .main-form
-                        {
-                            background-color: {{($gs->form_bg == null) ? (($gs->colors == null) ? '#f3bd02 !important;' : $gs->colors.' !important;') : $gs->form_bg. ' !important;' }};
-                            color: {{($gs->form_col != null) ? $gs->form_col. ' !important;' : 'black !important;' }};
-                            border: 1px solid {{($gs->form_ic == null) ? (($gs->colors == null) ? '#f3bd02 !important;' : $gs->colors.' !important;') : $gs->form_ic. ' !important;' }};
-                        }
-                    </style>
-
-                    <div class="row o-box" style="margin: 35px 0 30px 0;display: flex;justify-content: center;">
-
-                        <div class="btn-box col-lg-11 col-md-11 col-sm-11 col-xs-12" style="display: flex;justify-content: center;">
-
-                            <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-
-                                <button data-id="1" class="btn btn-success p-btns">
-                                    <span>Product</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
-                                </button>
-
-                            </div>
-
-                            {{--<div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-
-                                <button data-id="2" class="btn btn-success p-btns">
-                                    <span>Product + Dienst</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
-                                </button>
-
-                            </div>--}}
-
-                            <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-
-                                <button data-id="3" class="btn btn-success p-btns">
-                                    <span>Dienst</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
-                                </button>
-
-                            </div>
-
-                            <div style="text-align: center;" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-
-                                <button data-id="4" class="btn btn-success p-btns">
-                                    <span>Offerte vergelijken</span> <i class="fas fa-arrow-right" style="text-decoration: none;"></i>
-                                </button>
-
-                            </div>
+                            <a data-id="1" class="btn btn-success p-btns" style="text-transform: uppercase;background: #C7E2E5;border: 0;padding: 10px 20px;border-radius: 20px;font-weight: bold;text-decoration: none;cursor: pointer;color: white;width: auto;">AANVRAGEN</a>
 
                         </div>
 
                     </div>
 
-                    <div class="main-form cbm-box" style="display: none;border-radius: 10px;box-shadow: 0px 0px 4px 0px #dbdbdb;">
+                    <div style="float: none;" class="ex-box col-lg1-4 col-md-4 col-sm-12 col-xs-12">
 
-                        <div id="quote-box" style="display: flex;justify-content: space-between;width: 100%;padding: 20px;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid gray;display: flex;justify-content: space-between;flex-direction: column;align-items: center;padding: 20px;height: 100%;">
 
-                            <div style="width: 18%;">
+                            <h4 style="text-transform: uppercase;">DIENSTEN</h4>
 
-                                <select class="js-data-example-ajax1 form-control quote-category" name="group" id="blood_grp">
+                            <p data-id="3" class="show-read-more" style="text-align: center;">Heeft u een vloer gekocht maar bent u nog op zoek naar een vloerinstallateur? <br> Vraag hier een gratis offerte aan van erkende installateurs bij u in de buurt.</p>
 
-                                    <option value="">{{__('text.Select Category')}}</option>
-
-                                    @foreach($quote_cats as $cat)
-                                        <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
-                                    @endforeach
-
-                                    <option value="Diensten">Diensten</option>
-
-                                </select>
-
-                            </div>
-
-                            <div class="linked-boxes" style="width: 18%;">
-
-                                <select class="js-data-example-ajax3 form-control quote-brand" name="group" id="blood_grp">
-
-                                    <option value="">{{__('text.Select Brand')}}</option>
-
-                                </select>
-
-                            </div>
-
-                            <div class="linked-boxes" style="width: 18%;">
-
-                                <select class="js-data-example-ajax12 form-control quote-type" name="group" id="blood_grp">
-
-                                    <option value="">{{__('text.Select Type')}}</option>
-
-                                </select>
-
-                            </div>
-
-{{--                            <div style="width: 18%;">--}}
-
-{{--                                <select class="js-data-example-ajax9 form-control products-dropdown" name="group" id="blood_grp">--}}
-
-{{--                                    <option value="">{{__('text.Select Product')}}</option>--}}
-
-{{--                                </select>--}}
-
-{{--                            </div>--}}
-
-                            <div class="linked-boxes model-box" style="width: 18%;">
-
-                                <select class="js-data-example-ajax4 quote-model form-control" name="group" id="blood_grp">
-
-                                    <option value="">{{__('text.Select Model')}}</option>
-
-                                </select>
-
-                            </div>
-
-                            <div class="linked-boxes" style="width: 18%;">
-
-                                <select class="js-data-example-ajax7 quote-color form-control" name="group" id="blood_grp">
-
-                                    <option value="">{{__('text.Select Color')}}</option>
-
-                                </select>
-
-                            </div>
-
-                            <div class="unlinked-boxes" style="width: 72%;display: none;">
-
-                                <select class="js-data-example-ajax0 form-control quote-service" name="group" id="blood_grp">
-
-                                    <option value="">{{__('text.Select Service')}}</option>
-
-                                    @if(isset($quote_services))
-
-                                        @foreach($quote_services as $service)
-                                            <option value="{{$service->id}}">{{$service->title}}</option>
-                                        @endforeach
-
-                                    @endif
-
-                                </select>
-
-                            </div>
-
-                            <button href="#aanvragen" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;" class="btn btn-primary">{{__('text.Search')}}</button>
+                            <a data-id="3" class="btn btn-success p-btns" style="text-transform: uppercase;background: #C7E2E5;border: 0;padding: 10px 20px;border-radius: 20px;font-weight: bold;text-decoration: none;cursor: pointer;color: white;width: auto;">AANVRAGEN</a>
 
                         </div>
+
                     </div>
 
-                    <div class="header-top-area" style="border-radius: 10px;margin-top: 10px;">
-                        <div class="container" style="width: 100%;">
+                    <div style="float: none;" class="col-lg1-4 col-md-4 col-sm-12 col-xs-12">
 
-                            <div class="row" style="display: flex;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid gray;display: flex;justify-content: space-between;flex-direction: column;align-items: center;padding: 20px;height: 100%;">
 
-                                <div style="width: 100%;">
-                                    <div>
-                                        <ul style="display: flex;justify-content: center;">
-                                            <li class="t-h" style="display: flex;align-items: center;">
-                                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
-                                                <span style="vertical-align: inherit;">{!! __('text.Your reliable partner') !!}</span>
-                                            </li>
-                                            <li class="c-h" style="display: flex;align-items: center;">
-                                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
-                                                <span style="vertical-align: inherit;">{!! __('text.We match supply and demand transparently') !!}</span>
-                                            </li>
-                                            <li class="t-h" style="display: flex;align-items: center;">
-                                                <img style="width: 20px;height: 20px;margin-right: 5px;" src="{{asset('assets/images/deal.png')}}">
-                                                <span style="vertical-align: inherit;">{!! __('text.We are involved in the growth of your company') !!}</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                            <h4 style="text-transform: uppercase;">UPLOAD UW OFFERTE</h4>
 
-                            </div>
-                        </div>
-                    </div>
+                            <p data-id="4" class="show-read-more" style="text-align: center;">Heeft u een offerte ontvangen en bent u benieuwd of dit een goede deal is? <br> Upload hier uw offerte en ontvang gratis vloeroffertes van uw gewilde vloer.</p>
 
-                    <div class="main-form p-box" style="display: none;border-radius: 10px;box-shadow: 0px 0px 4px 0px #dbdbdb;margin-top: 10px;">
-
-                        <div id="quote-box" style="display: flex;justify-content: space-between;width: 100%;padding: 20px;">
-
-                            <div style="width: 90%;">
-
-                                <div class="autocomplete" style="width:100%;">
-                                    <input id="productInput" autocomplete="off" class="form-control quote-product" type="text" name="product" placeholder="{{__('text.Select Product')}}">
-                                </div>
-
-                                <select style="display: none;" class="form-control all-products" name="group" id="blood_grp">
-
-                                    @foreach($quote_products as $key)
-
-                                        @foreach($key->models as $key1)
-
-                                            @foreach($key->colors as $key2)
-
-                                                <option data-cat="{{$key->cat_id}}" data-brand-id="{{$key->brand_id}}" data-type-id="{{$key->model_id}}" data-model="{{$key1->model}}" data-model-id="{{$key1->id}}" data-color="{{$key2->title}}" data-color-id="{{$key2->id}}" value="{{$key->id}}">{{$key->title.', '.$key1->model.', '.$key2->title.', ('.$key->supplier->company_name.')'}}</option>
-
-                                            @endforeach
-
-                                        @endforeach
-
-                                    @endforeach
-
-                                </select>
-
-                                <input type="hidden" id="type_id">
-                                <input type="hidden" id="category_id">
-                                <input type="hidden" id="brand_id">
-                                <input type="hidden" id="model_id">
-                                <input type="hidden" id="color_id">
-
-                            </div>
-
-                            <button href="#aanvragen" role="button" data-toggle="modal" style="height: 45px;min-width: 100px;float: right;border: 0;outline: none;font-size: 18px;" class="btn btn-primary">{{__('text.Start')}}</button>
+                            <a data-id="4" class="btn btn-success p-btns" style="text-transform: uppercase;background: #C7E2E5;border: 0;padding: 10px 20px;border-radius: 20px;font-weight: bold;text-decoration: none;cursor: pointer;color: white;width: auto">UPLOADEN</a>
 
                         </div>
+
                     </div>
-
-                    <style>
-
-                        @media (max-width: 767px)
-                        {
-                            .btn-box
-                            {
-                                display: block !important;
-                            }
-
-                            .btn-box div
-                            {
-                                margin: 20px 0;
-                            }
-                        }
-
-                        .p-btns
-                        {
-                            padding: 20px 15px;
-                            text-align: center;
-                            font-size: 14px;
-                            -webkit-transition: opacity .45s cubic-bezier(0.25,1,0.33,1);
-                            transition: opacity .45s cubic-bezier(0.25,1,0.33,1);
-                            color: white;
-                            font-weight: 600;
-                            display: inline-block;
-                            width: 80%;
-                            border: 0;
-                            border-radius: 6px;
-                            background-color: {{($gs->form_bg == null) ? (($gs->colors == null) ? '#f3bd02 !important;' : $gs->colors.' !important;') : $gs->form_bg. ' !important;' }}
-                        }
-
-                        .p-btns span
-                        {
-                            left: 0;
-                            display: inline-block;
-                            transform: translateX(0);
-                            -webkit-transform: translateX(0);
-                            transition: opacity .45s cubic-bezier(0.25,1,0.33,1),transform .45s cubic-bezier(0.25,1,0.33,1);
-                            -webkit-transition: opacity .45s cubic-bezier(0.25,1,0.33,1),transform .45s cubic-bezier(0.25,1,0.33,1);
-                            position: relative;
-                        }
-
-                        .p-btns:hover span
-                        {
-                            transform: translateX(-18px);
-                            -webkit-transform: translateX(-18px);
-                        }
-
-                        .p-btns i
-                        {
-                            text-decoration: none;
-                            background-color: transparent!important;
-                            top: 53% !important;
-                            right: 20% !important;
-                            font-size: 18px;
-                            line-height: 18px;
-                            width: 18px;
-                            position: absolute;
-                            margin-top: -9px;
-                            opacity: 0;
-                            transition: all .45s cubic-bezier(0.25,1,0.33,1);
-                            -webkit-transition: all .45s cubic-bezier(0.25,1,0.33,1);
-                            display: inline-block;
-                            word-spacing: 1px;
-                            text-align: center;
-                            vertical-align: middle;
-                            max-width: 100%;
-                        }
-
-                        .p-btns:hover i
-                        {
-                            opacity: 1;
-                        }
-
-                        .autocomplete ::-webkit-input-placeholder {
-                            text-align: center;
-                        }
-
-                        .autocomplete :-moz-placeholder { /* Firefox 18- */
-                            text-align: center;
-                        }
-
-                        .autocomplete ::-moz-placeholder {  /* Firefox 19+ */
-                            text-align: center;
-                        }
-
-                        .autocomplete :-ms-input-placeholder {
-                            text-align: center;
-                        }
-
-                        .autocomplete {
-                            position: relative;
-                            display: inline-block;
-                        }
-
-                        .quote-product {
-                            /*border: 1px solid transparent;*/
-                            background-color: #f1f1f1;
-                            padding: 10px;
-                            font-size: 16px;
-                        }
-
-                        .quote-product {
-                            background-color: #f1f1f1;
-                            width: 100%;
-                            height: 45px;
-                        }
-
-                        .autocomplete-items {
-                            position: absolute;
-                            border: 1px solid #d4d4d4;
-                            /* border-bottom: none;
-                            border-top: none; */
-                            z-index: 99;
-                            /*position the autocomplete items to be the same width as the container:*/
-                            top: 100%;
-                            left: 0;
-                            right: 0;
-                            max-height: 230px;
-                            overflow-x: hidden;
-                            overflow-y: auto;
-                        }
-
-                        .autocomplete-items div {
-                            padding: 10px;
-                            cursor: pointer;
-                            background-color: #fff;
-                            border-bottom: 1px solid #d4d4d4;
-                        }
-
-                        .autocomplete-items div:last-child
-                        {
-                            border-bottom: 0;
-                        }
-
-                        /*when hovering an item:*/
-                        .autocomplete-items div:hover {
-                            background-color: #e9e9e9;
-                        }
-
-                        /*when navigating through the items using the arrow keys:*/
-                        .autocomplete-active {
-                            background-color: DodgerBlue !important;
-                            color: #ffffff;
-                        }
-
-                        .terms .checkmark-checkbox:after
-                        {
-                            left: 4px !important;
-                            top: 1.5px !important;
-                        }
-
-                        .container-checkbox {
-                            display: flex;
-                            position: relative;
-                            padding-left: 30px;
-                            margin-bottom: 12px;
-                            cursor: pointer;
-                            font-size: 22px;
-                            font-weight: 300;
-                            -webkit-user-select: none;
-                            -moz-user-select: none;
-                            -ms-user-select: none;
-                            user-select: none;
-                            align-items: center;
-                            font-family: sans-serif;
-                            color: #353535;
-                        }
-
-                        /* Hide the browser's default radio button */
-                        .container-checkbox input {
-                            position: absolute;
-                            opacity: 0;
-                            cursor: pointer;
-                            height: 0;
-                            width: 0;
-                        }
-
-                        /* Create a custom radio button */
-                        .checkmark-checkbox {
-                            position: absolute;
-                            /*top: 6.5px;*/
-                            left: 0;
-                            height: 20px;
-                            width: 20px;
-                            background-color: transparent;
-                            border: 1px solid #e5e5e5;
-                            border-radius: 2px;
-                        }
-
-                        /* On mouse-over, add a grey background color */
-                        .container-checkbox:hover input ~ .checkmark-checkbox {
-                            background-color: #ccc;
-                        }
-
-                        /* When the radio button is checked, add a blue background */
-                        .container-checkbox input:checked ~ .checkmark-checkbox {
-                            background-color: #2196F3;
-                        }
-
-                        /* Create the indicator (the dot/circle - hidden when not checked) */
-                        .checkmark-checkbox:after {
-                            content: "";
-                            position: absolute;
-                            display: none;
-                        }
-
-                        /* Show the indicator (dot/circle) when checked */
-                        .container-checkbox input:checked ~ .checkmark-checkbox:after {
-                            display: block;
-                        }
-
-                        /* Style the indicator (dot/circle) */
-                        .container-checkbox .checkmark-checkbox:after {
-                            left: 7px;
-                            top: 3.5px;
-                            width: 5px;
-                            height: 10px;
-                            border: solid white;
-                            border-width: 0 3px 3px 0;
-                            -webkit-transform: rotate(45deg);
-                            -ms-transform: rotate(45deg);
-                            transform: rotate(45deg);
-                        }
-
-                        .pac-container
-                        {
-                            z-index: 1000000;
-                        }
-
-                        #quote-box .select2
-                        {
-                            /*width: 70% !important;
-                            float: left;*/
-                            border: 1px solid lightgrey;
-                        }
-
-                        @media (max-width: 1020px)
-                        {
-                            .t-h
-                            {
-                                display: none !important;
-                            }
-
-                            .c-h
-                            {
-                                border: 0 !important;
-                            }
-                        }
-
-                        @media (max-width: 500px)
-                        {
-
-                            .box-heading
-                            {
-                                font-size: 20px;
-                            }
-
-                            #quote-box
-                            {
-                                flex-wrap: wrap;
-                            }
-
-                            #quote-box div
-                            {
-                                width: 100% !important;
-                                /*margin: 5px;*/
-                                /*height: 45px;*/
-                            }
-
-                            #quote-box button
-                            {
-                                width: 100% !important;
-                                margin-top: 20px;
-                            }
-                        }
-
-                        @media (max-width: 767px)
-                        {
-                            #quote-con
-                            {
-                                margin-bottom: 30px;
-                            }
-                        }
-
-                        .well
-                        {
-                            box-shadow: none;
-                            margin-bottom: 0;
-                            background-color: #ffffff;
-                            border: 0;
-                            overflow-y: auto;
-                        }
-
-                        .well .select2
-                        {
-                            border: 1px solid #e1e1e1;
-                        }
-
-                    </style>
 
                 </div>
 
             </div>
+
         </div>
     </div>
     <!-- Ending of Hero area -->
@@ -897,7 +757,7 @@
     <div class="py-12">
         <div class="text-center text-honing  text-support font-bold pb-4 text-lg">Hoe het werkt</div>
         <div class="text-nacht text-center sm:text-t3 text-t2-2-sm font-bold-important pb-6 px-4 leading-none">Vrijblijvende offertes aanvragen en vergelijken</div>
-        <div class="container mx-auto mt-0 md:mt-12">
+        <div style="font-family: sans-serif;" class="container mx-auto mt-0 md:mt-12">
 
             <div class="flex justify-between relative">
                 <div class="back-line"></div>
@@ -957,8 +817,8 @@
 
         .py-12
         {
-            padding-bottom: 3rem;
-            padding-top: 3rem;
+            padding-bottom: 2rem;
+            padding-top: 2rem;
         }
 
         .text-support
@@ -1171,11 +1031,11 @@
             box-shadow: 0 0 0 1px #badced;
         }
 
-        .px-2
+        /* .px-2
         {
             padding-left: 3rem;
             padding-right: 3rem;
-        }
+        } */
 
         .w-full
         {
@@ -1215,6 +1075,9 @@
         .bg-aqua
         {
             background-color: rgb(186 220 237);
+            color: #5b5b5b;
+            position: relative;
+            z-index: 1000;
         }
 
         .pb-8
@@ -1273,6 +1136,11 @@
             margin-bottom: 5rem;
         }
 
+        .md\:mt-12
+        {
+            margin-top: 3rem;
+        }
+
         @media (min-width: 640px)
         {
             .sm\:text-t3
@@ -1323,7 +1191,7 @@
             {
                 font-size: 18px;
                 font-weight: 500;
-                line-height: 40px;
+                line-height: 28px;
             }
 
             .sm\:text-body-3
@@ -1336,11 +1204,6 @@
 
         @media (min-width: 768px)
         {
-            .md\:mt-12
-            {
-                margin-top: 3rem;
-            }
-
             .md\:w-5\/12
             {
                 width: 41.666667%;
@@ -1395,86 +1258,6 @@
         }
 
     </style>
-
-{{--    <section id="steps" class="steps steps--en">--}}
-{{--        <div class="row row1" style="max-width: 80%;margin-left: auto;margin-right: auto;display: flex;flex-flow: row wrap;">--}}
-{{--            <div class="small-12 columns" style="padding-top: 20px;">--}}
-{{--                <h2 class="hiw">{{$lang->hiwh}}</h2>--}}
-
-{{--                --}}{{--@if($language == 'eng')--}}
-
-{{--                    <div id="languagePickerContainer">--}}
-{{--                        <a class="languageSelector" onclick="changeLanguage(1)" id="dutch" title="dutch">Nederlands</a>--}}
-{{--                        <div class="infographic__separator">·</div>--}}
-{{--                        <a class="languageSelector languageSelector-selected" title="english" id="english" onclick="changeLanguage(0)">English</a>--}}
-{{--                    </div>--}}
-
-
-{{--                @else--}}
-
-{{--                    <div id="languagePickerContainer">--}}
-{{--                        <a class="languageSelector languageSelector-selected" onclick="changeLanguage(1)" id="dutch" title="dutch">Nederlands</a>--}}
-{{--                        <div class="infographic__separator">·</div>--}}
-{{--                        <a class="languageSelector" title="english" id="english" onclick="changeLanguage(0)">English</a>--}}
-{{--                    </div>--}}
-
-
-{{--                @endif--}}
-
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="row steps__items row1" style="max-width: 80%;margin-left: auto;margin-right: auto;display: flex;flex-flow: row wrap;margin-top: 35px;">--}}
-{{--            <div class="small-12 medium-6 large-3 columns">--}}
-{{--                <div class="step"> <img src="{{asset('assets/images/Profile PNG.png')}}" class="ic-img">--}}
-{{--                    <div class="step__header step__header_en @if($language == 'du') hide @endif"> 1. {{$hiw->heading1}}</div>--}}
-{{--                    <div class="step__header step__header_de @if($language == 'eng') hide @endif"> 1. {{$hiw->dh1}}</div>--}}
-{{--                    <p class="step_description step__description_en ic-p @if($language == 'du') hide @endif"> {{$hiw->desc1}} </p>--}}
-{{--                    <p class="step_description step__description_de ic-p @if($language == 'eng') hide @endif"> {{$hiw->dd1}} </p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="small-12 medium-6 large-3 columns">--}}
-{{--                <div class="step"> <img src="{{asset('assets/images/Date PNG.png')}}" class="ic-img">--}}
-{{--                    <div class="step__header step__header_en @if($language == 'du') hide @endif"> 2. {{$hiw->heading2}}</div>--}}
-{{--                    <div class="step__header step__header_de @if($language == 'eng') hide @endif"> 2. {{$hiw->dh2}}</div>--}}
-{{--                    <p class="step_description step__description_en ic-p @if($language == 'du') hide @endif"> {{$hiw->desc2}} </p>--}}
-{{--                    <p class="step_description step__description_de ic-p @if($language == 'eng') hide @endif"> {{$hiw->dd2}} </p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="small-12 medium-6 large-3 columns">--}}
-{{--                <div class="step"> <img src="{{asset('assets/images/Send Reservation PNG.png')}}" class="ic-img">--}}
-{{--                    <div class="step__header step__header_en @if($language == 'du') hide @endif"> 3. {{$hiw->heading3}}</div>--}}
-{{--                    <div class="step__header step__header_de @if($language == 'eng') hide @endif"> 3. {{$hiw->dh3}}</div>--}}
-{{--                    <p class="step_description step__description_en ic-p @if($language == 'du') hide @endif"> {{$hiw->desc3}} </p>--}}
-{{--                    <p class="step_description step__description_de ic-p @if($language == 'eng') hide @endif"> {{$hiw->dd3}}  </p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="small-12 medium-6 large-3 columns">--}}
-{{--                <div class="step"> <img src="{{asset('assets/images/Warranty.png')}}" class="ic-img">--}}
-{{--                    <div class="step__header step__header_en @if($language == 'du') hide @endif"> 4. {{$hiw->heading4}}</div>--}}
-{{--                    <div class="step__header step__header_de @if($language == 'eng') hide @endif"> 4. {{$hiw->dh4}}</div>--}}
-{{--                    <p class="step_description step__description_en ic-p @if($language == 'du') hide @endif"> {{$hiw->desc4}} </p>--}}
-{{--                    <p class="step_description step__description_de ic-p @if($language == 'eng') hide @endif"> {{$hiw->dd4}}  </p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="small-12 medium-6 large-3 columns">--}}
-{{--                <div class="step"> <img src="{{asset('assets/images/Location PNG.png')}}" class="ic-img">--}}
-{{--                    <div class="step__header step__header_en @if($language == 'du') hide @endif"> 5. {{$hiw->heading5}}</div>--}}
-{{--                    <div class="step__header step__header_de @if($language == 'eng') hide @endif"> 5. {{$hiw->dh5}}</div>--}}
-{{--                    <p class="step_description step__description_en ic-p @if($language == 'du') hide @endif"> {{$hiw->desc5}} </p>--}}
-{{--                    <p class="step_description step__description_de ic-p @if($language == 'eng') hide @endif"> {{$hiw->dd5}}  </p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="small-12 medium-6 large-3 columns">--}}
-{{--                <div class="step"> <img src="{{asset('assets/images/Payment PNG.png')}}" class="ic-img">--}}
-{{--                    <div class="step__header step__header_en @if($language == 'du') hide @endif"> 6. {{$hiw->heading6}}</div>--}}
-{{--                    <div class="step__header step__header_de @if($language == 'eng') hide @endif"> 6. {{$hiw->dh6}}</div>--}}
-{{--                    <p class="step_description step__description_en ic-p @if($language == 'du') hide @endif"> {{$hiw->desc6}} </p>--}}
-{{--                    <p class="step_description step__description_de ic-p @if($language == 'eng') hide @endif"> {{$hiw->dd6}}  </p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-{{--    </section>--}}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
 
@@ -1682,8 +1465,12 @@
                     if(id == 1 || id == 2)
                     {
                         $('.floor').show();
-                        $('.quote-category').val('');
-                        $(".quote-category").trigger('change.select2');
+
+                        if($('.quote-category').val() == 'Diensten')
+                        {
+                            $('.quote-category').val('');
+                            $(".quote-category").trigger('change.select2');
+                        }
 
                         $('.files-upload').removeClass('quote_validation');
                         $('.quote-service').removeClass('quote_validation');
@@ -1712,6 +1499,18 @@
                     {
                         $('.quote-category').val('Diensten');
                         $(".quote-category").trigger('change.select2');
+
+                        $('.quote-brand').val('');
+                        $(".quote-brand").trigger('change.select2');
+
+                        $('.quote-type').val('');
+                        $(".quote-type").trigger('change.select2');
+
+                        $('.quote-model').val('');
+                        $(".quote-model").trigger('change.select2');
+
+                        $('.quote-color').val('');
+                        $(".quote-color").trigger('change.select2');
 
                         $('.files-box').hide();
                         $('.linked-boxes').hide();
@@ -1774,9 +1573,9 @@
                         $('.duo-boxes').hide();
                         $('.files-box').show();
                         $('.progress-bar').css('width',(100/3)+'%');
-
-                        $('#aanvragen').modal('toggle');
                     }
+
+                    $('#aanvragen').modal('toggle');
 
                 });
 
