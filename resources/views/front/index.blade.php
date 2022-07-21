@@ -35,7 +35,7 @@
 
         .elementor-widget-wrap
         {
-            padding: 90px 60px 90px 0;
+            padding: 90px 30px;
             display: flex;
             align-content: center;
             align-items: center;

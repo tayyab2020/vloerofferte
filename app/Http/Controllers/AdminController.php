@@ -96,14 +96,14 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-     public function HandymanTerms()
+     public function RetailerTerms()
     {
         $data = terms_conditions::where("role",1)->first();
 
         return view('admin.handyman_terms_conditions',compact('data'));
     }
 
-    public function HandymanTermsPost(StoreValidationRequest $request)
+    public function RetailerTermsPost(StoreValidationRequest $request)
     {
 
         $input = $request->all();
@@ -112,14 +112,14 @@ class AdminController extends Controller
         if($terms)
         {
 
-            if ($file = $request->file('file'))
+            if($file = $request->file('file'))
             {
                 $name = time().$file->getClientOriginalName();
-                $file->move('assets',$name);
+                $file->move(public_path(),$name);
 
                 if($terms->file != null)
                 {
-                    \File::delete(public_path().'/assets/'.$terms->file);
+                    \File::delete(public_path().'/'.$terms->file);
                 }
                 $input['file'] = $name;
             }
@@ -133,21 +133,19 @@ class AdminController extends Controller
             if ($file = $request->file('file'))
             {
                 $name = time().$file->getClientOriginalName();
-                $file->move('assets',$name);
+                $file->move(public_path(),$name);
                 $input['file'] = $name;
             }
-
 
             $terms = new terms_conditions;
             $terms->role = 1;
             $terms->file = $name;
             $terms->save();
 
-
         }
 
         Session::flash('success', 'Successfully updated the terms and conditions file for handyman');
-        return redirect()->route('admin-handyman-terms');
+        return redirect()->route('admin-retailer-terms');
     }
 
 
@@ -170,11 +168,11 @@ class AdminController extends Controller
             if ($file = $request->file('file'))
             {
                 $name = time().$file->getClientOriginalName();
-                $file->move('assets',$name);
+                $file->move(public_path(),$name);
 
                 if($terms->file != null)
                 {
-                    \File::delete(public_path().'/assets/'.$terms->file);
+                    \File::delete(public_path().'/'.$terms->file);
                 }
                 $input['file'] = $name;
             }
@@ -188,10 +186,9 @@ class AdminController extends Controller
             if ($file = $request->file('file'))
             {
                 $name = time().$file->getClientOriginalName();
-                $file->move('assets',$name);
+                $file->move(public_path(),$name);
                 $input['file'] = $name;
             }
-
 
             $terms = new terms_conditions;
             $terms->role = 2;
@@ -206,8 +203,6 @@ class AdminController extends Controller
 
     public function ReasonsToBook()
     {
-
-
         $data = reasons_to_book::findOrFail(1);
 
         return view('admin.reasons_to_book',compact('data'));

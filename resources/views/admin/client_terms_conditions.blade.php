@@ -22,8 +22,7 @@
                                             <label class="control-label col-sm-4" for="">Current PDF File </label>
                                             <div class="col-sm-7">
 
-                                                <embed src="{{ $data->file ? asset('assets/'.$data->file) : asset('assets/terms-and-conditions-template.pdf')  }}" width="100%" height="800px" />
-
+                                                <embed src="{{ $data->file ? asset('/'.$data->file) : asset('terms-and-conditions-template.pdf')  }}" width="100%" height="800px" />
 
                                             </div>
                                           </div>

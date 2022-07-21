@@ -562,7 +562,7 @@
 
                                     <input maskedFormat="9,1" autocomplete="off" max="100" min="1"
                                            style="height: 40px;border: 1px solid #e1e1e1;" type="text"
-                                           name="quote_quantity" placeholder="Quantity"
+                                           name="quote_quantity" placeholder="{{__('text.Quantity')}}"
                                            class="form-control quote_quantity quote_validation">
 
                                 </div>
@@ -714,8 +714,7 @@
                                 <br>
 
                                 <small style="text-align: center;display: block;width: 80%;margin: auto;margin-bottom: 10px;">{{__('text.By pressing Get Quotes you agree to the')}}
-                                    <a target="_blank"
-                                       href="{{isset($quote_data) ? asset('assets/'.$quote_data->file) : null}}">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}
+                                    <a target="_blank" href="{{isset($quote_data) ? asset('/'.$quote_data->file) : null}}">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}
                                 </small>
 
                             </div>
@@ -2964,6 +2963,14 @@
         }
     }
 
+    @media only screen and (max-width: 768px)
+    {
+        .last-footer
+        {
+            justify-content: center !important;
+            text-align: center;
+        }
+    }
 
     .pulse .p1[data-count]:after {
         position: absolute;
@@ -3006,37 +3013,37 @@
 @yield('content')
 
 <!-- starting of subscribe newsletter area -->
-<div class="subscribe-newsletter-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="subscribe-newsletter-area">
-                    <div class="row">
-                        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
-                            <h4>{{$lang->ston}}</h4>
-                        </div>
-                        <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
-                            <form action="{{route('front.subscribe.submit')}}" method="POST">
-                                {{csrf_field()}}
-                                <input type="email" name="email" placeholder="{{$lang->supl}}" required>
-                                <button type="submit" class="btn"
-                                        style="margin-left: 10px;margin-top: 2px;width: 25%;padding: 0;">{{$lang->s}}</button>
-                            </form>
-                            <p>
-                                @if(Session::has('subscribe'))
-                                    {{ Session::get('subscribe') }}
-                                @endif
-                                @foreach($errors->all() as $error)
-                                    {{$error}}
-                                @endforeach
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{{--<div class="subscribe-newsletter-wrapper">--}}
+{{--    <div class="container">--}}
+{{--        <div class="row">--}}
+{{--            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">--}}
+{{--                <div class="subscribe-newsletter-area">--}}
+{{--                    <div class="row">--}}
+{{--                        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">--}}
+{{--                            <h4>{{$lang->ston}}</h4>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">--}}
+{{--                            <form action="{{route('front.subscribe.submit')}}" method="POST">--}}
+{{--                                {{csrf_field()}}--}}
+{{--                                <input type="email" name="email" placeholder="{{$lang->supl}}" required>--}}
+{{--                                <button type="submit" class="btn"--}}
+{{--                                        style="margin-left: 10px;margin-top: 2px;width: 25%;padding: 0;">{{$lang->s}}</button>--}}
+{{--                            </form>--}}
+{{--                            <p>--}}
+{{--                                @if(Session::has('subscribe'))--}}
+{{--                                    {{ Session::get('subscribe') }}--}}
+{{--                                @endif--}}
+{{--                                @foreach($errors->all() as $error)--}}
+{{--                                    {{$error}}--}}
+{{--                                @endforeach--}}
+{{--                            </p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 <!-- Ending of subscribe newsletter area -->
 <!-- starting of footer area -->
 <footer class="section-padding footer-area-wrapper wow fadeInUp">
@@ -3127,38 +3134,46 @@
     <hr/>
     <div class="footer-copyright-area">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
+            <div style="display: flex;flex-wrap: wrap;" class="row">
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 last-footer">
                     <p class="copy-right-side">
                         {!!$gs->footer!!}
                     </p>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="footer-social-links">
-                        <ul>
-                            @if($sl->f_status == 1)
-                                <li><a class="facebook" href="{{$sl->facebook}}">
-                                        <i class="fa fa-facebook"></i>
-                                    </a></li>
-                            @endif
-                            @if($sl->g_status == 1)
-                                <li><a class="google" href="{{$sl->gplus}}">
-                                        <i class="fa fa-google"></i>
-                                    </a></li>
-                            @endif
-                            @if($sl->t_status == 1)
-                                <li><a class="twitter" href="{{$sl->twitter}}">
-                                        <i class="fa fa-twitter"></i>
-                                    </a></li>
-                            @endif
-                            @if($sl->l_status == 1)
-                                <li><a class="tumblr" href="{{$sl->linkedin}}">
-                                        <i class="fa fa-linkedin"></i>
-                                    </a></li>
-                            @endif
-                        </ul>
-                    </div>
+
+                <div style="display: flex;justify-content: flex-end;align-items: center;" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 last-footer">
+
+                    <a style="color: white;text-decoration: underline;" target="_blank" href="{{isset($quote_data) ? asset('/'.$quote_data->file) : null}}">{{__('text.Terms and conditions')}}</a>
+                    <a style="color: white;text-decoration: underline;margin-left: 10px;" target="_blank" href="{{asset('/Privacyverklaring Vloerofferte.docx')}}">{{__('text.Privacy policy')}}</a>
+
+{{--                    <div class="footer-social-links">--}}
+{{--                        <ul>--}}
+{{--                            @if($sl->f_status == 1)--}}
+{{--                                <li><a class="facebook" href="{{$sl->facebook}}">--}}
+{{--                                        <i class="fa fa-facebook"></i>--}}
+{{--                                    </a></li>--}}
+{{--                            @endif--}}
+{{--                            @if($sl->g_status == 1)--}}
+{{--                                <li><a class="google" href="{{$sl->gplus}}">--}}
+{{--                                        <i class="fa fa-google"></i>--}}
+{{--                                    </a></li>--}}
+{{--                            @endif--}}
+{{--                            @if($sl->t_status == 1)--}}
+{{--                                <li><a class="twitter" href="{{$sl->twitter}}">--}}
+{{--                                        <i class="fa fa-twitter"></i>--}}
+{{--                                    </a></li>--}}
+{{--                            @endif--}}
+{{--                            @if($sl->l_status == 1)--}}
+{{--                                <li><a class="tumblr" href="{{$sl->linkedin}}">--}}
+{{--                                        <i class="fa fa-linkedin"></i>--}}
+{{--                                    </a></li>--}}
+{{--                            @endif--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
+
                 </div>
+
             </div>
         </div>
     </div>

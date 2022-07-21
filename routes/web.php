@@ -237,9 +237,9 @@
   Route::post('/login', 'Auth\AdminLoginController@login')->name('admin-login-submit');
   Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin-logout');
   Route::post('/admin-status-update', 'AdminController@AdminStatusUpdate')->name('admin-status-update');
-  Route::get('/handyman-terms', 'AdminController@HandymanTerms')->name('admin-handyman-terms');
+  Route::get('/retailer-terms', 'AdminController@RetailerTerms')->name('admin-retailer-terms');
   Route::get('/client-terms', 'AdminController@ClientTerms')->name('admin-client-terms');
-  Route::post('/handyman-terms-post', 'AdminController@HandymanTermsPost')->name('admin-handyman-terms-post');
+  Route::post('/retailer-terms-post', 'AdminController@RetailerTermsPost')->name('admin-retailer-terms-post');
   Route::post('/client-terms-post', 'AdminController@ClientTermsPost')->name('admin-client-terms-post');
   Route::get('/instruction-manual', 'AdminController@InstructionManual')->name('admin-instruction-manual');
   Route::post('/instruction-manual-post', 'AdminController@InstructionManualPost')->name('admin-instruction-manual-post');
