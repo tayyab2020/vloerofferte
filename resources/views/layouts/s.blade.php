@@ -191,7 +191,7 @@
 <div class="header-area-wrapper">
     <div class="container" style="width: 90%;">
         <div class="row">
-            <div class="col-sm-4 col-md-4 col-lg-4 mid-break-4" id="logo-div">
+            <div class="col-sm-6 col-md-6 col-lg-6 mid-break-4" id="logo-div">
                 <div class="logo" style="margin-bottom: 20px;z-index: 1000;">
                     <a href="{{route('front.index')}}">
                         <img src="{{asset('assets/images/'.$gs->logo)}}" alt="" style="height: 75px;padding-top: 15px;">
@@ -199,7 +199,7 @@
                 </div>
                 <div id="mobile-menu-wrap"></div>
             </div>
-            <div class="col-sm-8 col-md-8 col-lg-8 mid-break-8" style="margin-top: 20px;">
+            <div class="col-sm-6 col-md-6 col-lg-6 mid-break-8" style="margin-top: 20px;">
                 <div class="mainmenu">
 
                     <ul id="menuResponsive">
@@ -208,7 +208,7 @@
                         @else
                             <li class="border-line"><a href="{{route('user-login')}}">{{$lang->signin}}</a></li>
                             {{--<li class="border-line"><a href="{{route('user-register')}}">{{$lang->signup}}</a></li>--}}
-                        <!-- <li class="border-line"><a href="{{route('handyman-register')}}">{{$lang->signup_handyman}}</a></li> -->
+                            <!-- <li class="border-line"><a href="{{route('handyman-register')}}">{{$lang->signup_handyman}}</a></li> -->
                         @endif
 
 
@@ -714,7 +714,7 @@
                                 <br>
 
                                 <small style="text-align: center;display: block;width: 80%;margin: auto;margin-bottom: 10px;">{{__('text.By pressing Get Quotes you agree to the')}}
-                                    <a target="_blank" href="{{isset($quote_data) ? asset('/'.$quote_data->file) : null}}">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}
+                                    <a target="_blank" href="{{url('algemene-voorwaarden')}}">{{__('text.terms and conditions')}}</a> {{__('text.of our website.')}}
                                 </small>
 
                             </div>
@@ -2801,6 +2801,12 @@
 
 <style type="text/css">
 
+    .logo
+    {
+        float: right;
+        min-width: 630px;
+    }
+
     .slicknav_btn {
         width: 35px;
         display: flex;
@@ -2849,22 +2855,19 @@
         }
 
         .mainmenu {
-
             display: none;
-
-
         }
 
         .new_cart {
             display: inline-block !important;
         }
 
-
         .logo {
             position: absolute;
             color: #fff;
             top: -20px;
             right: 17px;
+            min-width: auto;
         }
 
         .logo img {
@@ -3144,8 +3147,8 @@
 
                 <div style="display: flex;justify-content: flex-end;align-items: center;" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 last-footer">
 
-                    <a style="color: white;text-decoration: underline;" target="_blank" href="{{isset($quote_data) ? asset('/'.$quote_data->file) : null}}">{{__('text.Terms and conditions')}}</a>
-                    <a style="color: white;text-decoration: underline;margin-left: 10px;" target="_blank" href="{{asset('/Privacyverklaring Vloerofferte.docx')}}">{{__('text.Privacy policy')}}</a>
+                    <a style="color: white;text-decoration: underline;" target="_blank" href="{{url('algemene-voorwaarden')}}">{{__('text.Terms and conditions')}}</a>
+                    <a style="color: white;text-decoration: underline;margin-left: 10px;" target="_blank" href="{{asset('/Privacyverklaring Vloerofferte.pdf')}}">{{__('text.Privacy policy')}}</a>
 
 {{--                    <div class="footer-social-links">--}}
 {{--                        <ul>--}}
