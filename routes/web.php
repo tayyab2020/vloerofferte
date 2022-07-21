@@ -12,6 +12,7 @@
 */
 
   Route::get('/','FrontendController@index')->name('front.index');
+  Route::get('algemene-voorwaarden','FrontendController@termsAndConditions');
   Route::get('/products','FrontendController@products')->name('front.products');
   Route::get('/product/{id}/{id1}/{id2}','FrontendController@product')->name('front.product');
   Route::get('/diensten','FrontendController@services')->name('front.services');

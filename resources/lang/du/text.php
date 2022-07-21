@@ -281,6 +281,6 @@ return [
     'Dimensions' => 'Dimensions',
     'Width' => 'Width',
     'Height' => 'Height',
-    'Terms and conditions' => 'Terms and conditions',
-    'Privacy policy' => 'Privacy policy',
+    'Terms and conditions' => 'Algemene voorwaarden',
+    'Privacy policy' => 'Privacy',
 ];

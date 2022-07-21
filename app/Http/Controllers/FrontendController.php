@@ -360,6 +360,18 @@ class FrontendController extends Controller
 
     }
 
+    public function termsAndConditions()
+    {
+        $terms = terms_conditions::where("role",2)->first();
+
+        $filePath = public_path($terms->file);
+
+        return \Response::make(file_get_contents($filePath), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$terms->file.'"'
+        ]);
+    }
+
     public function productsById(Request $request)
     {
         $data = Products::where('id','=',$request->id)->first();
