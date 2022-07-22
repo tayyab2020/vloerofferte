@@ -90,9 +90,9 @@ class AppServiceProvider extends ServiceProvider
             {
                 $floor_category = all_categories::where('cat_name','LIKE', '%Floors%')->orWhere('cat_name','LIKE', '%Vloeren%')->pluck('id')->first();
                 $quote_cats = Category::where('parent_id',$floor_category)->get();
-                $quote_products = Products::leftjoin('categories','categories.id','=','products.category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where(function($query) {
-                    $query->where('categories.cat_name','LIKE', '%Floors%')->orWhere('categories.cat_name','LIKE', '%Vloeren%');
-                })->with('colors')->with('models')->select('products.id','products.user_id','products.sub_category_id as cat_id','products.brand_id','products.model_id','products.title','categories.cat_name','brands.cat_name as brand','models.cat_name as type')->get();
+                $quote_products = Products::leftjoin('categories as t1','t1.id','=','products.category_id')->leftjoin('categories as t2','t2.id','=','products.sub_category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->where(function($query) {
+                    $query->where('t1.cat_name','LIKE', '%Floors%')->orWhere('t1.cat_name','LIKE', '%Vloeren%');
+                })->with('colors')->with('models')->select('products.id','products.user_id','products.sub_category_id as cat_id','products.brand_id','products.model_id','products.title','t1.cat_name','t2.cat_name as category','brands.cat_name as brand','models.cat_name as type')->get();
                 
                 $quote_services = Service::where('show_vloerofferte',1)->get();
 

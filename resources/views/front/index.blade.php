@@ -542,7 +542,7 @@
 
                                                             @foreach($key->colors as $key2)
 
-                                                                <option data-cat="{{$key->cat_id}}" data-brand-id="{{$key->brand_id}}" data-type-id="{{$key->model_id}}" data-model="{{$key1->model}}" data-model-id="{{$key1->id}}" data-color="{{$key2->title}}" data-color-id="{{$key2->id}}" value="{{$key->id}}">{{$key->brand . ', ' . $key->type . ', ' . $key->cat_name . ', ' . (count($key->models) > 1 ? $key1->model . ', ' . $key2->title : ', ' . $key2->title)}}</option>
+                                                                <option data-cat="{{$key->cat_id}}" data-brand-id="{{$key->brand_id}}" data-type-id="{{$key->model_id}}" data-model="{{$key1->model}}" data-model-id="{{$key1->id}}" data-color="{{$key2->title}}" data-color-id="{{$key2->id}}" value="{{$key->id}}">{{$key->brand . ', ' . $key->type . ', ' . $key->category . ', ' . (count($key->models) > 1 ? $key1->model . ', ' . $key2->title : ', ' . $key2->title)}}</option>
 
                                                             @endforeach
 
