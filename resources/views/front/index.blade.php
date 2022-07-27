@@ -1733,7 +1733,7 @@
                         for (i = 0; i < arr.length; i++) {
 
                             var string = arr[i];
-                            string = string.toLowerCase();
+                            string = string.toLowerCase().replace(/,/g, '');
                             val = val.toLowerCase();
                             var res = string.includes(val);
 
