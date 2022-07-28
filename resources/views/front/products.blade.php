@@ -293,7 +293,7 @@
                                             @if($color_image)
 
                                                 <img
-                                                        src="{{asset('assets/images/'.$color_image)}}"
+                                                        src="{{$color_image}}"
                                                         alt="member image"
                                                         style="width: 100%;height: 100%;">
 
