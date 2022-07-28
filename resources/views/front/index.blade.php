@@ -1733,11 +1733,14 @@
                         for (i = 0; i < arr.length; i++) {
 
                             var string = arr[i];
+                            var string1 = arr[i];
                             string = string.toLowerCase().replace(/,/g, '');
+                            string1 = string1.toLowerCase();
                             val = val.toLowerCase();
                             var res = string.includes(val);
+                            var res1 = string1.includes(val);
 
-                            if (res) {
+                            if (res || res1) {
 
                                 found_flag = 1;
 
