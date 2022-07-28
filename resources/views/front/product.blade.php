@@ -17,9 +17,36 @@
 
             </div>
 
-            @if($product->photo)
+            <?php
+            
+                if(isset($_SERVER["REMOTE_ADDR"]))
+                {
+                    $whitelist = array(
+                        '127.0.0.1',
+                        '::1'
+                    );
 
-                <img src="{{asset('assets/images/'.$product->photo)}}" class="active">
+                    if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+                                                        
+                        $color_image = $product->photo ? $gs1->site.'assets/colorImages/'.$product->photo : '';
+
+                    }
+                    else
+                    {
+                        $color_image = '';
+                    }
+
+                }
+                else
+                {
+                    $color_image = '';
+                }
+
+            ?>
+
+            @if($color_image)
+
+                <img src="{{$color_image}}" class="active">
 
             @elseif(file_exists('assets/images/'.$product->article_code.'.jpeg'))
 

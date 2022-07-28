@@ -1604,7 +1604,7 @@ class FrontendController extends Controller
 
     public function product($id,$id1,$id2)
     {
-        $product = Products::leftjoin('categories','categories.id','=','products.sub_category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->leftjoin('product_models','product_models.product_id','=','products.id')->leftjoin('colors','colors.product_id','=','products.id')->where('products.id',$id)->where('product_models.id',$id1)->where('colors.id',$id2)->select('products.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as type_name','product_models.model as model_name','product_models.estimated_price','product_models.measure','colors.title as color')->first();
+        $product = Products::leftjoin('categories','categories.id','=','products.sub_category_id')->leftjoin('brands','brands.id','=','products.brand_id')->leftjoin('models','models.id','=','products.model_id')->leftjoin('product_models','product_models.product_id','=','products.id')->leftjoin('colors','colors.product_id','=','products.id')->leftjoin('color_images','color_images.color_id','=','colors.id')->where('products.id',$id)->where('product_models.id',$id1)->where('colors.id',$id2)->select('products.*','categories.cat_name','brands.cat_name as brand_name','models.cat_name as type_name','product_models.model as model_name','product_models.estimated_price','product_models.measure','colors.title as color','color_images.image as photo')->first();
 
         return view('front.product',compact('product'));
     }
