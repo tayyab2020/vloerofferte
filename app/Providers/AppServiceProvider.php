@@ -85,6 +85,7 @@ class AppServiceProvider extends ServiceProvider
             // }
 
             $settings->with('gs', Generalsetting::where('backend',0)->first());
+            $settings->with('gs1', Generalsetting::where('backend',1)->first());
 
             if(\Route::currentRouteName() == 'front.index' || \Route::currentRouteName() == 'front.products' || \Route::currentRouteName() == 'front.product' || \Route::currentRouteName() == 'front.services' || \Route::currentRouteName() == 'front.service')
             {
