@@ -263,10 +263,37 @@
                                     <a href="{{url('product/'.$key->id.'/'.$key->org_model_id.'/'.$key->org_color_id)}}">
                                         <div class="member_img" style="width: 100%;border: 0;display: flex;align-items: center;margin-bottom: 10px;height: 210px;border-bottom: 1px solid #e3e3e36b !important;">
 
-                                            @if($key->photo)
+                                        <?php
+
+                                            if(isset($_SERVER["REMOTE_ADDR"]))
+                                            {
+                                                $whitelist = array(
+                                                    '127.0.0.1',
+                                                    '::1'
+                                                );
+
+                                                if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+                                                        
+                                                    $color_image = \App\color_images::where('color_id',$key->org_color_id)->pluck('image')->first();
+                                                    $color_image = $color_image ? $gs1->site.'assets/images/'.$color_image : '';
+
+                                                }
+                                                else
+                                                {
+                                                    $color_image = '';
+                                                }
+                                            }
+                                            else
+                                            {
+                                                $color_image = '';
+                                            }
+
+                                        ?>
+
+                                            @if($color_image)
 
                                                 <img
-                                                        src="{{asset('assets/images/'.$key->photo)}}"
+                                                        src="{{asset('assets/images/'.$color_image)}}"
                                                         alt="member image"
                                                         style="width: 100%;height: 100%;">
 
