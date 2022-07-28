@@ -275,7 +275,7 @@
 
                                 <span style="padding: 0;display: flex;align-items: center;" class="col-lg-5">{{__('text.Estimated Price')}}</span>
 
-                                <p class="col-lg-7" style="color: black;">@foreach($additional_info as $i => $key) {{$key ? $key . '&nbsp;&nbsp;' : null}} € {{$product->estimated_price}} {{$product->measure ? ' / '.$product->measure : null}} <br> @endforeach</p>
+                                <p class="col-lg-7" style="color: black;">@foreach($additional_info as $i => $key) {!! $key ? $key . '&nbsp;&nbsp;' : null !!} € {{$product->estimated_price}} {{$product->measure ? ' / '.$product->measure : null}} <br> @endforeach</p>
 
                             </div>
 
