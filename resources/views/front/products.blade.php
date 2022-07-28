@@ -275,7 +275,7 @@
                                                 if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
                                                         
                                                     $color_image = \App\color_images::where('color_id',$key->org_color_id)->pluck('image')->first();
-                                                    $color_image = $color_image ? $gs1->site.'assets/images/'.$color_image : '';
+                                                    $color_image = $color_image ? $gs->site.'assets/images/'.$color_image : '';
 
                                                 }
                                                 else
