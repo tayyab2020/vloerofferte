@@ -1475,6 +1475,12 @@ class FrontendController extends Controller
         if($category)
         {
             $all_products = $all_products->where('products.sub_category_id',$category);
+            $highest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category)->max('product_models.estimated_price');
+                $lowest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category)->min('product_models.estimated_price');
+
+                var_dump($highest);
+                var_dump($lowest);
+                exit();
 
             if(!$range_s && !$range_e)
             {
