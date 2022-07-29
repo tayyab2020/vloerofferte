@@ -1495,6 +1495,10 @@ class FrontendController extends Controller
                 $request->org_range_start = $range_s;
                 $request->org_range_end = $range_e;
             }
+
+            var_dump($range_s);
+            var_dump($range_e);
+            exit();
         }
 
         if($brand)
