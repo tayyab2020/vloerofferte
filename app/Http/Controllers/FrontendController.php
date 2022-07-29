@@ -1481,10 +1481,6 @@ class FrontendController extends Controller
                 $range_s = $all_products->where('product_models.estimated_price','!=','')->select('product_models.estimated_price')->get()->min('estimated_price');
                 $range_e = $all_products->where('product_models.estimated_price','!=','')->select('product_models.estimated_price')->get()->max('estimated_price');
 
-                var_dump($range_s);
-                var_dump($range_e);
-                exit();
-
                 if($range_s == NULL && $range_e == NULL)
                 {
                     $range_e = 0;
@@ -1533,11 +1529,6 @@ class FrontendController extends Controller
 
             $lowest = $request->org_range_start;
             $highest = $request->org_range_end;
-
-            var_dump($all_products->get());
-            var_dump($lowest);
-            var_dump($highest);
-            exit();
         }
         else
         {
