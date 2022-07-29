@@ -1496,9 +1496,6 @@ class FrontendController extends Controller
                 $request->org_range_end = $range_e;
             }
 
-            var_dump($range_s);
-            var_dump($range_e);
-            exit();
         }
 
         if($brand)
@@ -1532,6 +1529,11 @@ class FrontendController extends Controller
 
             $lowest = $request->org_range_start;
             $highest = $request->org_range_end;
+
+            var_dump($all_products->get());
+            var_dump($lowest);
+            var_dump($highest);
+            exit();
         }
         else
         {
