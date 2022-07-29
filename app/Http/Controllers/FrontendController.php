@@ -1474,7 +1474,7 @@ class FrontendController extends Controller
 
         if($category)
         {
-            $all_products = $all_products->where('products.sub_category_id',$category);
+            // $all_products = $all_products->where('products.sub_category_id',$category);
 
             if(!$range_s && !$range_e)
             {
