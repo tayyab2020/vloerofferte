@@ -1475,8 +1475,9 @@ class FrontendController extends Controller
         if($category)
         {
             $all_products = $all_products->where('products.sub_category_id',$category);
-            $highest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category)->where('product_models.estimated_price','!=','')->select('product_models.estimated_price')->get()->max('estimated_price');
-                $lowest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category)->where('product_models.estimated_price','!=','')->select('product_models.estimated_price')->get()->min('estimated_price');
+
+            $highest = product_models::max('estimated_price');
+                $lowest = product_models::min('estimated_price');
 
                 var_dump($highest);
                 var_dump($lowest);
@@ -1540,8 +1541,8 @@ class FrontendController extends Controller
         {
             if($category)
             {
-                $highest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category)->max('product_models.estimated_price');
-                $lowest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category)->min('product_models.estimated_price');
+                $highest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category)->where('product_models.estimated_price','!=','')->select('product_models.estimated_price')->get()->max('estimated_price');
+                $lowest = product_models::leftjoin('products','products.id','=','product_models.product_id')->where('products.sub_category_id',$category)->where('product_models.estimated_price','!=','')->select('product_models.estimated_price')->get()->min('estimated_price');
             }
             else
             {
