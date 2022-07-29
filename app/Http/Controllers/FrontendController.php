@@ -1478,8 +1478,8 @@ class FrontendController extends Controller
 
             if(!$range_s && !$range_e)
             {
-                $range_s = $all_products->min('product_models.estimated_price');
-                $range_e = $all_products->max('product_models.estimated_price');
+                $range_s = $all_products->get()->min('product_models.estimated_price');
+                $range_e = $all_products->get()->max('product_models.estimated_price');
 
                 var_dump($range_s);
                 var_dump($range_e);
