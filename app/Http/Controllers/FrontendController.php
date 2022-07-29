@@ -1476,13 +1476,6 @@ class FrontendController extends Controller
         {
             $all_products = $all_products->where('products.sub_category_id',$category);
 
-            $highest = product_models::where('product_models.estimated_price','!=','')->max('estimated_price');
-                $lowest = product_models::where('product_models.estimated_price','!=','')->min('estimated_price');
-
-                var_dump($highest);
-                var_dump($lowest);
-                exit();
-
             if(!$range_s && !$range_e)
             {
                 $range_s = $all_products->where('product_models.estimated_price','!=','')->select('product_models.estimated_price')->get()->min('estimated_price');
@@ -1546,8 +1539,8 @@ class FrontendController extends Controller
             }
             else
             {
-                $highest = product_models::max('estimated_price');
-                $lowest = product_models::min('estimated_price');
+                $highest = product_models::where('product_models.estimated_price','!=','')->get()->max('estimated_price');
+                $lowest = product_models::where('product_models.estimated_price','!=','')->get()->min('estimated_price');
             }
 
             if(!$lowest)
