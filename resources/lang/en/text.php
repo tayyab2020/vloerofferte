@@ -283,4 +283,8 @@ return [
     'Height' => 'Height',
     'Terms and conditions' => 'Terms and conditions',
     'Privacy policy' => 'Privacy policy',
+    'Enter your message' => 'Enter your message',
+    'Message' => 'Message',
+    'Message for quotation' => 'Message for quotation',
+    'Message delivered successfully!' => 'Message delivered successfully!',
 ];

@@ -108,6 +108,7 @@
   Route::get('/download-service-fee-invoice/{id}', 'UserController@DownloadClientQuoteInvoice')->name('download-service-fee-invoice');
   Route::get('/download-client-custom-quotation/{id}', 'UserController@DownloadClientCustomQuoteInvoice');
   Route::post('/ask-customization', 'UserController@AskCustomization');
+  Route::post('/send-msg', 'UserController@SendMsg');
   Route::get('/accept-new-quotation/{id}', 'UserController@AcceptNewQuotation')->name('accept-new-quotation');
   Route::post('/accept-quotation', 'UserController@AcceptQuotation');
   Route::post('/pay-quotation', 'UserController@PayQuotation');
