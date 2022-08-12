@@ -29,9 +29,6 @@ class UserLoginController extends Controller
 		    'password' => 'required',
 		  ]);
 
-      var_dump(Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'allowed' => 1, 'role_id' => 3]));
-      exit();
-
       // Attempt to log the user in
       if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'allowed' => 1, 'role_id' => 3])) {
 
