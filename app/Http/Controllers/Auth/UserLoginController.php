@@ -29,6 +29,9 @@ class UserLoginController extends Controller
 		    'password' => 'required',
 		  ]);
 
+      var_dump(Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'allowed' => 1, 'role_id' => 3]));
+      exit();
+
       // Attempt to log the user in
       if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'allowed' => 1, 'role_id' => 3])) {
 
@@ -36,17 +39,16 @@ class UserLoginController extends Controller
         {
 
           // if successful, then redirect to their intended location
-        return redirect()->intended(route('user-dashboard'));
+          return redirect()->intended(route('user-dashboard'));
 
         }
         else
         {
 
           // if successful, then redirect to their intended location
-        return redirect()->intended(route('client-quotation-requests'));
+          return redirect()->intended(route('client-quotation-requests'));
 
         }
-
 
       }
 
