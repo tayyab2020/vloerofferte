@@ -1234,69 +1234,92 @@ class UserController extends Controller
 
         if($check)
         {
-            $invoice = new_quotations_data::leftjoin('new_quotations','new_quotations.id','=','new_quotations_data.quotation_id')->leftjoin('products','products.id','=','new_quotations_data.product_id')->where('new_quotations.id', $id)->select('new_quotations.*','new_quotations_data.item_id','new_quotations_data.service_id','new_quotations.delivery_date as retailer_delivery_date','new_quotations.installation_date as retailer_installation_date','new_quotations.id as invoice_id','new_quotations_data.box_quantity','new_quotations_data.measure','new_quotations_data.max_width','new_quotations_data.order_number','new_quotations_data.discount','new_quotations_data.labor_discount','new_quotations_data.total_discount','new_quotations_data.price_before_labor','new_quotations_data.labor_impact','new_quotations_data.model_impact_value','new_quotations_data.childsafe','new_quotations_data.childsafe_question','new_quotations_data.childsafe_answer','new_quotations_data.childsafe_x','new_quotations_data.childsafe_y','new_quotations_data.childsafe_diff','new_quotations_data.model_id','new_quotations_data.delivery_days','new_quotations_data.delivery_date','new_quotations_data.id','new_quotations_data.supplier_id','new_quotations_data.product_id','new_quotations_data.row_id','new_quotations_data.rate','new_quotations_data.basic_price','new_quotations_data.qty','new_quotations_data.amount','new_quotations_data.color','new_quotations_data.width','new_quotations_data.width_unit','new_quotations_data.height','new_quotations_data.height_unit','new_quotations_data.price_based_option','new_quotations_data.base_price','new_quotations_data.supplier_margin','new_quotations_data.retailer_margin','products.ladderband','products.ladderband_value','products.ladderband_price_impact','products.ladderband_impact_type')
-                ->with(['features' => function($query)
-                {
-                    $query->leftjoin('features','features.id','=','new_quotations_features.feature_id')
-                        /*->where('new_quotations_features.sub_feature',0)*/
-                        ->select('new_quotations_features.*','features.title','features.comment_box');
-                }])
-                ->with(['sub_features' => function($query)
-                {
-                    $query->leftjoin('product_features','product_features.id','=','new_quotations_features.feature_id')
-                        /*->where('new_quotations_features.sub_feature',1)*/
-                        ->select('new_quotations_features.*','product_features.title');
-                }])->with('calculations')->get();
+            $quotation_invoice_number = $check->quotation_invoice_number;
+            $filename = $quotation_invoice_number . '.pdf';
 
-            if (!$invoice) {
-                return redirect()->back();
+            $whitelist = array(
+                '127.0.0.1',
+                '::1'
+            );
+        
+            if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+            
+                $url = $this->gs1->site . 'public/assets/newQuotations/'.$filename;
+
             }
-
-            $supplier_products = array();
-            $product_titles = array();
-            $item_titles = array();
-            $service_titles = array();
-            $color_titles = array();
-            $model_titles = array();
-            $product_suppliers = array();
-            $sub_products = array();
-            $colors = array();
-            $models = array();
-            $features = array();
-            $sub_features = array();
-
-            $f = 0;
-            $s = 0;
-
-            foreach ($invoice as $i => $item)
+            else
             {
-                $product_titles[] = product::where('id',$item->product_id)->pluck('title')->first();
-                $item_titles[] = items::leftjoin('categories','categories.id','=','items.category_id')->where('items.id',$item->item_id)->select('items.cat_name','categories.cat_name as category')->first();
-                $service_titles[] = Service::where('id',$item->service_id)->pluck('title')->first();
-                $color_titles[] = colors::where('id',$item->color)->pluck('title')->first();
-                $model_titles[] = product_models::where('id',$item->model_id)->pluck('model')->first();
-                $product_suppliers[] = User::where('id',$item->supplier_id)->first();
-
-                foreach ($item->features as $feature)
-                {
-                    $features[$f] = product_features::leftjoin('model_features','model_features.product_feature_id','=','product_features.id')->where('product_features.product_id',$item->product_id)->where('product_features.heading_id',$feature->feature_id)->where('product_features.sub_feature',0)->where('model_features.model_id',$item->model_id)->where('model_features.linked',1)->select('product_features.*')->get();
-
-                    if($feature->ladderband)
-                    {
-                        $sub_products[$i] = new_quotations_sub_products::leftjoin('product_ladderbands','product_ladderbands.id','=','new_quotations_sub_products.sub_product_id')->where('new_quotations_sub_products.feature_row_id',$feature->id)->select('new_quotations_sub_products.*','product_ladderbands.title','product_ladderbands.code')->get();
-                    }
-
-                    $f = $f + 1;
-                }
-
-                foreach ($item->sub_features as $sub_feature)
-                {
-                    $sub_features[$s] = product_features::where('product_id',$item->product_id)->where('main_id',$sub_feature->feature_id)->get();
-                    $s = $s + 1;
-                }
+                $url = 'http://localhost/pieppiep/public/assets/newQuotations/'.$filename;
             }
 
-            return view('user.client_new_quotation', compact('product_titles','color_titles','model_titles','product_suppliers','features','sub_features','invoice','sub_products'));
+            // $tempFile = tempnam(sys_get_temp_dir(), $filename);
+            // copy($url, $tempFile);
+
+            // $invoice = new_quotations_data::leftjoin('new_quotations','new_quotations.id','=','new_quotations_data.quotation_id')->leftjoin('products','products.id','=','new_quotations_data.product_id')->where('new_quotations.id', $id)->select('new_quotations.*','new_quotations_data.item_id','new_quotations_data.service_id','new_quotations.delivery_date as retailer_delivery_date','new_quotations.installation_date as retailer_installation_date','new_quotations.id as invoice_id','new_quotations_data.box_quantity','new_quotations_data.measure','new_quotations_data.max_width','new_quotations_data.order_number','new_quotations_data.discount','new_quotations_data.labor_discount','new_quotations_data.total_discount','new_quotations_data.price_before_labor','new_quotations_data.labor_impact','new_quotations_data.model_impact_value','new_quotations_data.childsafe','new_quotations_data.childsafe_question','new_quotations_data.childsafe_answer','new_quotations_data.childsafe_x','new_quotations_data.childsafe_y','new_quotations_data.childsafe_diff','new_quotations_data.model_id','new_quotations_data.delivery_days','new_quotations_data.delivery_date','new_quotations_data.id','new_quotations_data.supplier_id','new_quotations_data.product_id','new_quotations_data.row_id','new_quotations_data.rate','new_quotations_data.basic_price','new_quotations_data.qty','new_quotations_data.amount','new_quotations_data.color','new_quotations_data.width','new_quotations_data.width_unit','new_quotations_data.height','new_quotations_data.height_unit','new_quotations_data.price_based_option','new_quotations_data.base_price','new_quotations_data.supplier_margin','new_quotations_data.retailer_margin','products.ladderband','products.ladderband_value','products.ladderband_price_impact','products.ladderband_impact_type')
+            //     ->with(['features' => function($query)
+            //     {
+            //         $query->leftjoin('features','features.id','=','new_quotations_features.feature_id')
+            //             /*->where('new_quotations_features.sub_feature',0)*/
+            //             ->select('new_quotations_features.*','features.title','features.comment_box');
+            //     }])
+            //     ->with(['sub_features' => function($query)
+            //     {
+            //         $query->leftjoin('product_features','product_features.id','=','new_quotations_features.feature_id')
+            //             /*->where('new_quotations_features.sub_feature',1)*/
+            //             ->select('new_quotations_features.*','product_features.title');
+            //     }])->with('calculations')->get();
+
+            // if (!$invoice) {
+            //     return redirect()->back();
+            // }
+
+            // $supplier_products = array();
+            // $product_titles = array();
+            // $item_titles = array();
+            // $service_titles = array();
+            // $color_titles = array();
+            // $model_titles = array();
+            // $product_suppliers = array();
+            // $sub_products = array();
+            // $colors = array();
+            // $models = array();
+            // $features = array();
+            // $sub_features = array();
+
+            // $f = 0;
+            // $s = 0;
+
+            // foreach ($invoice as $i => $item)
+            // {
+            //     $product_titles[] = product::where('id',$item->product_id)->pluck('title')->first();
+            //     $item_titles[] = items::leftjoin('categories','categories.id','=','items.category_id')->where('items.id',$item->item_id)->select('items.cat_name','categories.cat_name as category')->first();
+            //     $service_titles[] = Service::where('id',$item->service_id)->pluck('title')->first();
+            //     $color_titles[] = colors::where('id',$item->color)->pluck('title')->first();
+            //     $model_titles[] = product_models::where('id',$item->model_id)->pluck('model')->first();
+            //     $product_suppliers[] = User::where('id',$item->supplier_id)->first();
+
+            //     foreach ($item->features as $feature)
+            //     {
+            //         $features[$f] = product_features::leftjoin('model_features','model_features.product_feature_id','=','product_features.id')->where('product_features.product_id',$item->product_id)->where('product_features.heading_id',$feature->feature_id)->where('product_features.sub_feature',0)->where('model_features.model_id',$item->model_id)->where('model_features.linked',1)->select('product_features.*')->get();
+
+            //         if($feature->ladderband)
+            //         {
+            //             $sub_products[$i] = new_quotations_sub_products::leftjoin('product_ladderbands','product_ladderbands.id','=','new_quotations_sub_products.sub_product_id')->where('new_quotations_sub_products.feature_row_id',$feature->id)->select('new_quotations_sub_products.*','product_ladderbands.title','product_ladderbands.code')->get();
+            //         }
+
+            //         $f = $f + 1;
+            //     }
+
+            //     foreach ($item->sub_features as $sub_feature)
+            //     {
+            //         $sub_features[$s] = product_features::where('product_id',$item->product_id)->where('main_id',$sub_feature->feature_id)->get();
+            //         $s = $s + 1;
+            //     }
+            // }
+
+            // return view('user.client_new_quotation', compact('product_titles','color_titles','model_titles','product_suppliers','features','sub_features','invoice','sub_products'));
+
+            return view('user.client_new_quotation', compact('url'));
         }
         else
         {

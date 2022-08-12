@@ -287,4 +287,5 @@ return [
     'Message' => 'Message',
     'Message for quotation' => 'Message for quotation',
     'Message delivered successfully!' => 'Message delivered successfully!',
+    'Tax number' => 'Tax number',
 ];
