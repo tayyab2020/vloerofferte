@@ -22,7 +22,7 @@ use PDF;
 use App\how_it_works;
 use App\reasons_to_book;
 use App\cancelled_invoices;
-use App\terms_conditions;
+use App\documents;
 
 class AdminController extends Controller
 {
@@ -98,7 +98,7 @@ class AdminController extends Controller
 
      public function RetailerTerms()
     {
-        $data = terms_conditions::where("role",1)->first();
+        $data = documents::where("role",1)->where('document_type',1)->first();
 
         return view('admin.handyman_terms_conditions',compact('data'));
     }
@@ -107,7 +107,7 @@ class AdminController extends Controller
     {
 
         $input = $request->all();
-        $terms = terms_conditions::where("role",1)->first();
+        $terms = documents::where("role",1)->where('document_type',1)->first();
 
         if($terms)
         {
@@ -137,8 +137,9 @@ class AdminController extends Controller
                 $input['file'] = $name;
             }
 
-            $terms = new terms_conditions;
+            $terms = new documents;
             $terms->role = 1;
+            $terms->document_type = 1;
             $terms->file = $name;
             $terms->save();
 
@@ -151,7 +152,7 @@ class AdminController extends Controller
 
      public function ClientTerms()
     {
-        $data = terms_conditions::where("role",2)->first();
+        $data = documents::where("role",2)->where('document_type',1)->first();
 
         return view('admin.client_terms_conditions',compact('data'));
     }
@@ -161,7 +162,7 @@ class AdminController extends Controller
     {
 
         $input = $request->all();
-        $terms = terms_conditions::where("role",2)->first();
+        $terms = documents::where("role",2)->where('document_type',1)->first();
 
         if($terms)
         {
@@ -190,8 +191,9 @@ class AdminController extends Controller
                 $input['file'] = $name;
             }
 
-            $terms = new terms_conditions;
+            $terms = new documents;
             $terms->role = 2;
+            $terms->document_type = 1;
             $terms->file = $name;
             $terms->save();
 

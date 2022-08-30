@@ -7,7 +7,7 @@ use App\Brand;
 use App\Category;
 use App\Products;
 use App\Service;
-use App\terms_conditions;
+use App\documents;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Generalsetting;

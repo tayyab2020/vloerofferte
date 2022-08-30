@@ -46,7 +46,7 @@ use App\Sociallink;
 use App\booking_images;
 use App\Language;
 use App\handyman_unavailability_hours;
-use App\terms_conditions;
+use App\documents;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -362,7 +362,7 @@ class FrontendController extends Controller
 
     public function termsAndConditions()
     {
-        $terms = terms_conditions::where("role",2)->first();
+        $terms = documents::where("role",2)->where('document_type',1)->first();
 
         $filePath = public_path($terms->file);
 
@@ -561,8 +561,7 @@ class FrontendController extends Controller
         $vat_percentage = $settings->vat;
         $service_fee = $settings->service_fee;
 
-        $terms = terms_conditions::where('role', 2)->first();
-
+        $terms = documents::where('role', 2)->where('document_type',1)->first();
 
         return view('front.cart', compact('cart', 'cart_count', 'ip_address', 'vat_percentage', 'service_fee', 'terms'));
 
