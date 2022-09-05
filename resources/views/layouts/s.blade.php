@@ -136,7 +136,7 @@
 
 </head>
 <body>
-<div id="cover"></div>
+<!-- <div id="cover"></div> -->
 
 <!-- Starting of Header area -->
 {{--<div class="header-top-area">
@@ -560,7 +560,7 @@
 
                                 <div class="duo-boxes" style="margin-bottom: 40px;">
 
-                                    <input maskedFormat="9,1" autocomplete="off" max="100" min="1"
+                                    <input maskedFormat="9,1" autocomplete="off" min="1"
                                            style="height: 40px;border: 1px solid #e1e1e1;" type="text"
                                            name="quote_quantity" placeholder="{{__('text.Quantity')}}"
                                            class="form-control quote_quantity quote_validation">
@@ -2486,18 +2486,18 @@
 
         $(".quote_quantity").on('input',function(e) {
 
-            var max = parseInt($(this).attr('max'));
+            // var max = parseInt($(this).attr('max'));
             var min = parseInt($(this).attr('min'));
             var value = $(this).val();
             value = value.toString();
             value = value.replace(/\,/g, '.');
             value = parseFloat(value);
 
-            if (value > max)
-            {
-                $(this).val(max);
-            }
-            else if (value < min)
+            // if (value > max)
+            // {
+            //     $(this).val(max);
+            // }
+            if (value < min)
             {
                 $(this).val(min);
             }
